@@ -23,29 +23,17 @@
       <form class="form" action="/version1b/tag-list" method="post">
 
 <div class="govuk-grid-row" style="margin: 0; flex-wrap: nowrap;">
-  <div class="govuk-grid-column-one-half" style="padding: 0;">
     <div class="govuk-form-group">
-      <label class="govuk-label" for="weight" style="padding-left:55px">
-        Flock number
+      <label class="govuk-label" for="weight">
+        6-digit flock mark + 5-digit individual number 
       </label>
       <div class="govuk-input__wrapper">
         <div class="govuk-input__prefix" aria-hidden="true">UK 0</div>
-        <input class="govuk-input govuk-input--width-5" id="cost" name="cost" type="text" spellcheck="false">
+        <input class="govuk-input govuk-input--width-11" id="cost" name="cost" type="text" spellcheck="false">
       </div>
     </div>
-  </div>
+  
 
-  <div class="govuk-grid-column-one-half" style="padding: 0;">
-    <div class="govuk-form-group">
-      <label class="govuk-label" for="one-quarter">
-        Individual
-      </label>
-      <input class="govuk-input govuk-!-width-one-quarter" id="one-quarter" name="oneQuarter" type="text">
-    </div>
-  </div>
-</div>
-
-<div class="govuk-grid-column-two-thirds">
 <div class="govuk-form-group">
   <fieldset class="govuk-fieldset" aria-describedby="changedName-hint">
     <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
@@ -70,7 +58,6 @@
     </div>
   </fieldset>
 </div>
-
 
         {{ govukButton({
           text: "Continue"
