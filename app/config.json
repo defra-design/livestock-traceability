@@ -1,0 +1,8 @@
+{
+  "serviceName": "Livestock Information",
+  "plugins": {
+    "govuk-frontend": {
+      "rebrand": true
+    }
+  }
+}

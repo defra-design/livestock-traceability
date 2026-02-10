@@ -1,0 +1,117 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  Check your answers template – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds-from-desktop">
+<div class="govuk-notification-banner govuk-notification-banner--success" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
+  <div class="govuk-notification-banner__header">
+    <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+      Success
+    </h2>
+  </div>
+  <div class="govuk-notification-banner__content">
+    <h3 class="govuk-notification-banner__heading">
+      Your sheep’s official ear tag numbers have been collected
+    </h3>
+    
+  </div>
+</div>
+      <h1 class="govuk-heading-xl">
+        Official ear tag numbers
+      </h1>
+<table class="govuk-table">
+  <!---<caption class="govuk-table__caption govuk-table__caption--m">Months and rates</caption>--->
+  <thead class="govuk-table__head">
+    <tr class="govuk-table__row">
+      <th scope="col" class="govuk-table__header">Country</th>
+      <th scope="col" class="govuk-table__header govuk-table__header--numeric">EID</th>
+      <th scope="col" class="govuk-table__header govuk-table__header--numeric">Flock number</th>
+      <th scope="col" class="govuk-table__header govuk-table__header--numeric">Individual number</th>
+    </tr>
+  </thead>
+  <tbody class="govuk-table__body">
+    <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header">UK</th>
+      <td class="govuk-table__cell govuk-table__cell--numeric">0</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric">123456</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric">00001</td>
+    </tr>
+   <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header">UK</th>
+      <td class="govuk-table__cell govuk-table__cell--numeric">0</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric">123456</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric">00002</td>
+    </tr>
+     <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header">UK</th>
+      <td class="govuk-table__cell govuk-table__cell--numeric">0</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric">123456</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric">00003</td>
+    </tr>
+   <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header">UK</th>
+      <td class="govuk-table__cell govuk-table__cell--numeric">0</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric">123456</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric">00004</td>
+    </tr>
+     <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header">UK</th>
+      <td class="govuk-table__cell govuk-table__cell--numeric">0</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric">123456</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric">00005</td>
+    </tr>
+   <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header">UK</th>
+      <td class="govuk-table__cell govuk-table__cell--numeric">0</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric">123456</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric">00006</td>
+    </tr>
+     <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header">UK</th>
+      <td class="govuk-table__cell govuk-table__cell--numeric">0</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric">123456</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric">00007</td>
+    </tr>
+   <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header">UK</th>
+      <td class="govuk-table__cell govuk-table__cell--numeric">0</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric">123456</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric">00008</td>
+    </tr>
+      <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header">UK</th>
+      <td class="govuk-table__cell govuk-table__cell--numeric">0</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric">123456</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric">00009</td>
+    </tr>
+   <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header">UK</th>
+      <td class="govuk-table__cell govuk-table__cell--numeric">0</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric">123456</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric">00010</td>
+    </tr>
+  </tbody>
+</table>
+
+      <form action="/version1/check-your-answers" method="post" novalidate>
+
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+
+      </form>
+
+    </div>
+  </div>
+{% endblock %}

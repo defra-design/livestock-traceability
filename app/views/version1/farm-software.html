@@ -1,0 +1,97 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  Question page template – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+  text: "Back",
+  href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <h1 class="govuk-heading-l">
+        Connecting you farm software
+      </h1>
+ 
+           <div class="govuk-form-group">
+  <label class="govuk-label" for="event-name">
+    Which farming software do you use?
+  </label>
+  <input class="govuk-input" id="event-name" name="eventName" type="text">
+</div>
+
+<details class="govuk-details">
+  <summary class="govuk-details__summary">
+    <span class="govuk-details__summary-text">
+      Compatible farming software
+    </span>
+  </summary>
+  <div class="govuk-details__text">
+<div class="govspeak"><h2 id="company">Company</h2>
+
+<ul>
+  <li><a rel="external" href="https://my.agri-ignite.co.uk">5 Agri - Agri Ignite</a></li>
+  <li><a rel="external" href="https://agrantec.com">Agrantec</a></li>
+  <li><a rel="external" href="https://www.atlagri.com">Agricultural Technology Ltd (ATL)</a></li>
+  <li><a rel="external" href="http://www.agridata.co.uk/">Agridata</a></li>
+  <li><a rel="external" href="https://www.agriwebb.com/uk">Agriwebb</a></li>
+  <li><a rel="external" href="https://www.breedr.co">Breedr</a></li>
+  <li><a rel="external" href="http://www.bordersoftware.com">Border Software Ltd</a></li>
+  <li><a rel="external" href="https://bovisync.com">BoviSync</a></li>
+  <li><a rel="external" href="https://dairydata.co.uk">Dairy Data</a></li>
+  <li><a rel="external" href="http://www.ilivestock.co.uk/">Duradiamond</a></li>
+  <li><a rel="external" href="https://www.emydex.com/">Emydex</a></li>
+  <li><a rel="external" href="http://www.farm-software.co.uk/">Farm Matters</a></li>
+  <li><a rel="external" href="https://www.farmwizard.co.uk/">Farmwizard</a></li>
+  <li><a rel="external" href="https://www.farmdata.co.uk/">Farmdata</a></li>
+  <li><a rel="external" href="https://farming.co.uk/">Farming Online</a></li>
+  <li><a rel="external" href="https://www.figured.com/en-gb/">Figured</a></li>
+  <li><a rel="external" href="http://www.hellenic.co.uk">Hellenic Systems Ltd</a></li>
+  <li><a rel="external" href="https://herdwatch.co.uk/">Herdwatch</a></li>
+  <li><a rel="external" href="https://www.holstein-uk.org/">Holstein UK</a></li>
+  <li><a rel="external" href="https://iagri.com/">IAgri</a></li>
+  <li><a rel="external" href="https://proagri.com/en/">Interlock</a></li>
+  <li><a rel="external" href="https://www.kingshay.com/">Kingshay</a></li>
+  <li><a rel="external" href="https://kingswoodcomputing.com/">Kingswood Computing</a></li>
+  <li><a rel="external" href="https://www.lic.co.nz/">LIC</a></li>
+  <li><a rel="external" href="https://livestockex.com/">LiveStockEx</a></li>
+  <li><a rel="external" href="https://www.marteye.ie/">Marteye</a></li>
+  <li><a rel="external" href="https://www.milkingcloud.com/">Milking Cloud</a></li>
+  <li><a rel="external" href="http://newlineasp.com/">Newline ASP</a></li>
+  <li><a rel="external" href="https://lt.nlmd.co.uk">NLMD-LT</a></li>
+  <li><a rel="external" href="https://www.nmr.co.uk/">NMR</a></li>
+  <li><a rel="external" href="https://www.nouvem.com/">Nouvem</a></li>
+  <li><a rel="external" href="http://www.orchid-data.co.uk/">Orchid Data Systems Ltd</a></li>
+  <li><a rel="external" href="https://www.abri.com.au/herdmaster-home">Saltbush Agricultural Software</a></li>
+  <li><a rel="external" href="https://sellmylivestock.com/">SellMyLiveStock</a></li>
+  <li><a rel="external" href="https://www.shearwell.co.uk/">Shearwell Data</a></li>
+  <li><a rel="external" href="https://www.sum-itsoftware.co.uk/">Sum-It Computer Systems Ltd</a></li>
+  <li><a rel="external" href="https://mapof.ag/">SunstoneCTSWrapper</a></li>
+  <li><a rel="external" href="https://sifoodsoftware.com/">Systems Integration</a></li>
+  <li><a rel="external" href="https://www.uniform-agri.com/en/">UNIFORM-Agri</a></li>
+  <li><a rel="external" href="https://vas.com/">Valley Agricultural Software</a></li>
+</ul>
+</div>  </div>
+</details>
+
+      <form class="form" action="/path/of/next/page" method="post">
+
+   
+
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+
+      </form>
+
+    </div>
+  </div>
+
+{% endblock %}

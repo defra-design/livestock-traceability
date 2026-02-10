@@ -1,0 +1,239 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  Check your answers template – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds-from-desktop">
+
+      <h1 class="govuk-heading-xl">
+        Check your answers before sending your movement report
+      </h1>
+<h2 class="govuk-heading-m">Movement summary</h2>
+      {{ govukSummaryList({
+        rows: [
+          {
+            key: {
+              text: "Movement type"
+            },
+            value: {
+              text: "Off"
+            },
+            actions: {
+              items: [
+                {
+                  href: "#",
+                  text: "Change",
+                  visuallyHiddenText: "Question 1"
+                }
+              ]
+            }
+          }
+          ,
+          {
+            key: {
+              text: "From"
+            },
+            value: {
+              text: "Alex Smith's farm"
+            },
+            actions: {
+              items: [
+                {
+                  href: "#",
+                  text: "Change",
+                  visuallyHiddenText: "Question 2"
+                }
+              ]
+            }
+          }
+          ,
+          {
+            key: {
+              text: "Date"
+            },
+            value: {
+              text: "Today"
+            },
+            actions: {
+              items: [
+                {
+                  href: "#",
+                  text: "Change",
+                  visuallyHiddenText: "Question 3"
+                }
+              ]
+            }
+          }
+          ,
+          {
+            key: {
+              text: "To"
+            },
+            value: {
+              text: "The Market"
+            },
+            actions: {
+              items: [
+                {
+                  href: "#",
+                  text: "Change",
+                  visuallyHiddenText: "Question 3"
+                }
+              ]
+            }
+          }
+          ,
+          {
+            key: {
+              text: "Number of sheep"
+            },
+            value: {
+              text: "10"
+            },
+            actions: {
+              items: [
+                {
+                  href: "#",
+                  text: "Change",
+                  visuallyHiddenText: "Question 3"
+                }
+              ]
+            }
+          }
+          
+        ]
+      }) }}
+
+      <table class="govuk-table">
+  <caption class="govuk-table__caption govuk-table__caption--m">Official ear tag numbers</caption>
+  <thead class="govuk-table__head">
+    <tr class="govuk-table__row">
+      <th scope="col" class="govuk-table__header">Country</th>
+      <th scope="col" class="govuk-table__header govuk-table__header--numeric">EID</th>
+      <th scope="col" class="govuk-table__header govuk-table__header--numeric">Flock number</th>
+      <th scope="col" class="govuk-table__header govuk-table__header--numeric">Individual number</th>
+      <th scope="col" class="govuk-table__header"></th>
+    </tr>
+  </thead>
+  <tbody class="govuk-table__body">
+    <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header">UK</th>
+      <td class="govuk-table__cell govuk-table__cell--numeric">0</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric">123456</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric">00001</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric"><a href="#" class="govuk-link">Change</a></td>
+    </tr>
+   <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header">UK</th>
+      <td class="govuk-table__cell govuk-table__cell--numeric">0</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric">123456</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric">00002</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric"><a href="#" class="govuk-link">Change</a></td>
+    </tr>
+     <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header">UK</th>
+      <td class="govuk-table__cell govuk-table__cell--numeric">0</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric">123456</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric">00003</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric"><a href="#" class="govuk-link">Change</a></td>
+    </tr>
+   <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header">UK</th>
+      <td class="govuk-table__cell govuk-table__cell--numeric">0</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric">123456</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric">00004</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric"><a href="#" class="govuk-link">Change</a></td>
+    </tr>
+     <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header">UK</th>
+      <td class="govuk-table__cell govuk-table__cell--numeric">0</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric">123456</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric">00005</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric"><a href="#" class="govuk-link">Change</a></td>
+    </tr>
+   <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header">UK</th>
+      <td class="govuk-table__cell govuk-table__cell--numeric">0</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric">123456</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric">00006</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric"><a href="#" class="govuk-link">Change</a></td>
+    </tr>
+     <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header">UK</th>
+      <td class="govuk-table__cell govuk-table__cell--numeric">0</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric">123456</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric">00007</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric"><a href="#" class="govuk-link">Change</a></td>
+    </tr>
+   <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header">UK</th>
+      <td class="govuk-table__cell govuk-table__cell--numeric">0</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric">123456</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric">00008</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric"><a href="#" class="govuk-link">Change</a></td>
+    </tr>
+      <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header">UK</th>
+      <td class="govuk-table__cell govuk-table__cell--numeric">0</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric">123456</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric">00009</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric"><a href="#" class="govuk-link">Change</a></td>
+    </tr>
+   <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header">UK</th>
+      <td class="govuk-table__cell govuk-table__cell--numeric">0</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric">123456</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric">00010</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric"><a href="#" class="govuk-link">Change</a></td>
+    </tr>
+  </tbody>
+</table>
+
+      <table class="govuk-table">
+  <caption class="govuk-table__caption govuk-table__caption--m">Email confirmation</caption>
+  <thead class="govuk-table__head">
+    <tr class="govuk-table__row">
+            <th scope="col" class="govuk-table__header"></th>
+      <th scope="col" class="govuk-table__header"></th>
+      <th scope="col" class="govuk-table__header"></th>
+    </tr>
+  </thead>
+  <tbody class="govuk-table__body">
+    <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header">Email address</th>
+            <td class="govuk-table__cell">info@alexsmithsfarm.com</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric"><a href="#" class="govuk-link">Change</a></td>
+    </tr>
+
+  
+  </tbody>
+</table>
+      <h2 class="govuk-heading-m">
+        Now send your movement report
+      </h2>
+
+      <p>
+        By submitting this report you are confirming that, to the best of your knowledge, the details you are providing are correct.
+      </p>
+
+      <form action="/version1/confirmation" method="post" novalidate>
+
+        {{ govukButton({
+          text: "Accept and send"
+        }) }}
+
+      </form>
+
+    </div>
+  </div>
+{% endblock %}

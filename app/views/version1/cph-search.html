@@ -1,0 +1,45 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  Question page template – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+  text: "Back",
+  href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <h1 class="govuk-heading-l">
+        Find a holding by County Parish Holding (CPH) number
+      </h1>
+
+      <form class="form" action="/version1/check-address" method="post">
+
+ <div class="govuk-form-group">
+  
+  <label class="govuk-label" for="width-10">
+    This is a 9 digit number with forward slashes. For example, 12/345/6789
+  </label>
+  <input class="govuk-input govuk-input--width-10" id="width-10" name="width10" type="text">
+<button type="submit" class="govuk-button govuk-button--secondary" data-module="govuk-button">
+  Find CPH
+</button>
+</div>
+
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+
+      </form>
+
+    </div>
+  </div>
+
+{% endblock %}

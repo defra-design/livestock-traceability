@@ -1,0 +1,44 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  Question page template – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+  text: "Back",
+  href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <span class="govuk-caption-xl">Livestock Information Account</span>
+      <h1 class="govuk-heading-l">
+        Alex Smith
+      </h1>
+
+      <form class="form" action="/version1/select-animal" method="post">
+
+        <h2 class="govuk-heading-m">Personal details</h2>
+<p class="govuk-body">Alex Smith’s farm, Cattle & Sheep, Midlands</p>
+<p class="govuk-body"><a href="#" class="govuk-link">Change</a></p>
+
+<h3 class="govuk-heading-m">Farm software</h3>
+<p class="govuk-body">If you use farm business software already to report movement, you don’t need to use this service as the data can be shared automatically.</p>
+<p class="govuk-body"><a href="/version1/farm-software" class="govuk-link">Link my farm software</a></p>
+
+<h4 class="govuk-heading-m">Report a livestock movement</h4>
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+
+      </form>
+
+    </div>
+  </div>
+
+{% endblock %}

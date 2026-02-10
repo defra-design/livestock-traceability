@@ -1,0 +1,54 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  Task list template – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block beforeContent %}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <h1 class="govuk-heading-l">{{ serviceName }}</h1>
+
+      <h2 class="govuk-heading-m">Select your movement report you wish to check-in</h2>
+
+      {% set completedStatus = {
+        text: "Completed"
+      } %}
+
+      {% set incompleteStatus = {
+        tag: {
+          text: "Incomplete",
+          classes: "govuk-tag--blue"
+        }
+      } %}
+
+      {# To switch between the completed and incomplete statues, use some inline logic within the component below, like this: "status: (completedStatus if ... else incompleteStatus)" #}
+
+      {{ govukTaskList({
+        idPrefix: "first-section",
+        items: [
+          {
+            title: {
+              text: "HDJ2123F: 10 February 2026"
+            },
+            href: "/version1c/check-your-answers",
+            status: incompleteStatus
+          },
+          {
+            title: {
+              text: "GXP1244A: 3 February 2026"
+            },
+            href: "#",
+            status: completedStatus
+          }
+        ]
+      }) }}
+
+
+    </div>
+  </div>
+{% endblock %}

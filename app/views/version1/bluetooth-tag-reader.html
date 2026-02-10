@@ -1,0 +1,49 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  Question page template – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+  text: "Back",
+  href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <h1 class="govuk-heading-l">
+        Connect your tag reader using bluetooth
+      </h1>
+
+      <form class="form" action="/version1/bluetooth-connection" method="post">
+
+        <p>
+          Go to your phone settings, find the bluetooth section and connect your phone to your tag reader.</p>
+<p>
+Once the tag reader is connected, scan your sheep and come back here to continue.
+        </p>
+<details class="govuk-details">
+  <summary class="govuk-details__summary">
+    <span class="govuk-details__summary-text">
+      Help with bluetooth
+    </span>
+  </summary>
+  <div class="govuk-details__text">
+    We need to know your nationality so we can work out which elections you’re entitled to vote in. If you cannot provide your nationality, you’ll have to send copies of identity documents through the post.
+  </div>
+</details>
+        {{ govukButton({
+          text: "Connect to tag reader"
+        }) }}
+
+      </form>
+
+    </div>
+  </div>
+
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  Content page template – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <h1 class="govuk-heading-l">
+        Check in to the market
+      </h1>
+
+      <p>
+      Scan this QR code to bring up your livestock movement report so that you can check the details are still correct.</p>
+
+     <img src="/assets/images/qr-code.png" alt="QR code">
+
+
+    </div>
+  </div>
+
+{% endblock %}
