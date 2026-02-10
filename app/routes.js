@@ -41,3 +41,14 @@ router.post('/version1/bluetooth-tag-reader', function(request, response) {
 		response.redirect("/version1b/individual-tags")
 	}
 })
+
+router.post('/version1/check-your-answers', function(request, response) {
+
+	var transport = request.session.data['transport']
+	if (transport == "self"){
+		response.redirect("/version1/check-your-answers")
+	} 
+	else {
+		response.redirect("/version1/helper-choice")
+	}
+})
