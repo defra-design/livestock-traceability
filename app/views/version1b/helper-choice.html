@@ -17,10 +17,10 @@
     <div class="govuk-grid-column-two-thirds">
 
       <h1 class="govuk-heading-l">
-        Who is transporting the sheep?
+        Who is helping you to transport the sheep?
       </h1>
 
-     <form class="form" action="/version1/check-your-answers" method="post">
+     <form class="form" action="/version1/helper-details" method="post">
 
         <div class="govuk-form-group">
   <fieldset class="govuk-fieldset">
@@ -29,16 +29,19 @@
     </legend>
     <div class="govuk-radios" data-module="govuk-radios">
       <div class="govuk-radios__item">
-        <input class="govuk-radios__input" id="transport" name="transport" type="radio" value="self">
-        <label class="govuk-label govuk-radios__label" for="transport">
-          I will transport the sheep myself
+        <input class="govuk-radios__input" id="helper" name="helper" type="radio" value="haulier">
+        <label class="govuk-label govuk-radios__label" for="helper">
+          A haulier company
         </label>
       </div>
       <div class="govuk-radios__item">
-        <input class="govuk-radios__input" id="transport-2" name="transport" type="radio" value="helper">
-        <label class="govuk-label govuk-radios__label" for="transport-2">
+        <input class="govuk-radios__input" id="helper-2" name="helper" type="radio" value="someone">
+        <label class="govuk-label govuk-radios__label" for="helper-2">
           Someone else
         </label>
+        <div id="signIn-item-hint" class="govuk-hint govuk-radios__hint">
+          Such as a friend, family member or neighbour
+        </div>
       </div>
       
       
