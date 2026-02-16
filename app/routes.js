@@ -18,12 +18,16 @@ router.post('/version1/sign-in-account', function(request, response) {
 	}
 })
 
-router.post('/version1/cph-search', function(request, response) {
+router.post('/version1/recently-used', function(request, response) {
 
 	var destination = request.session.data['destination']
-	if (destination == "cph"){
+	if (destination == "recent"){
+		response.redirect("/version1/recently-used")
+	} 
+	else if (destination == "cph"){
 		response.redirect("/version1/cph-search")
-	} else {
+	}
+	else {
 		response.redirect("/version1b/manual-search")
 	}
 })
@@ -50,5 +54,16 @@ router.post('/version1/check-your-answers', function(request, response) {
 	} 
 	else {
 		response.redirect("/version1/helper-choice")
+	}
+})
+
+router.post('/version1b/self-move-details', function(request, response) {
+
+	var transportb = request.session.data['transportb']
+	if (transportb == "self"){
+		response.redirect("/version1b/self-move-details")
+	} 
+	else {
+		response.redirect("/version1b/helper-choice")
 	}
 })
