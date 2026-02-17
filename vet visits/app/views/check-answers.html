@@ -1,0 +1,320 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  Check your answers template – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block containerStart %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds-from-desktop">
+
+      <h1 class="govuk-heading-xl">
+        Check your answers before sending your application
+      </h1>
+
+      {{ govukSummaryList({
+        rows: [
+          {
+            key: {
+              text: "Are you a member of a farm assurance scheme?"
+            },
+            value: {
+              text: "Yes"
+            },
+            actions: {
+              items: [
+                {
+                  href: "#",
+                  text: "Change",
+                  visuallyHiddenText: "Are you a member of a farm assurance scheme?"
+                }
+              ]
+            }
+          }
+          ,
+          {
+            key: {
+              text: "When did the vet visit your farm?"
+            },
+            value: {
+              text: "13 February 2026"
+            },
+            actions: {
+              items: [
+                {
+                  href: "#",
+                  text: "Change", 
+                  visuallyHiddenText: "When did the vet visit your farm?"
+                }
+              ]
+            }
+          }
+          ,
+          {
+            key: {
+              text: "What types of farming do you do?"
+            },
+            value: {
+              text: "Beef"
+            },
+            actions: {
+              items: [
+                {
+                  href: "#",
+                  text: "Change",
+                  visuallyHiddenText: "What types of farming do you do?"
+                }
+              ]
+            }
+          },
+          {
+            key: {
+              text: "What types of beef farming do you have?"
+            },
+            value: {
+              text: "Beef sucklers"
+            },
+            actions: {
+              items: [
+                {
+                  href: "#",
+                  text: "Change",
+                  visuallyHiddenText: "What types of beef farming do you have?"
+                }
+              ]
+            }
+          },
+          {
+            key: {
+              text: "Where do you house your cattle?"
+            },
+            value: {
+              text: "Outdoors"
+            },
+            actions: {
+              items: [
+                {
+                  href: "#",
+                  text: "Change",
+                  visuallyHiddenText: "Where do you house your cattle?"
+                }
+              ]
+            }
+          },
+          {
+            key: {
+              text: "Over the last 12 months, how many unique cows in your herd have been treated for mastitis at least once?"
+            },
+            value: {
+              text: "12"
+            },
+            actions: {
+              items: [
+                {
+                  href: "#",
+                  text: "Change",
+                  visuallyHiddenText: "Over the last 12 months, how many unique cows in your herd have been treated for mastitis at least once?"
+                }
+              ]
+            }
+          },
+          {
+            key: {
+              text: "Over the last 12 months how many unique cows were severely lame?"
+            },
+            value: {
+              text: "3"
+            },
+            actions: {
+              items: [
+                {
+                  href: "#",
+                  text: "Change",
+                  visuallyHiddenText: "Over the last 12 months how many unique cows were severely lame?"
+                }
+              ]
+            }
+          },
+          {
+            key: {
+              text: "Over the last 12 months how many calves were born alive?"
+            },
+            value: {
+              text: "15"
+            },
+            actions: {
+              items: [
+                {
+                  href: "#",
+                  text: "Change",
+                  visuallyHiddenText: "Over the last 12 months how many calves were born alive?"
+                }
+              ]
+            }
+          },
+          {
+            key: {
+              text: "Are you an approved finishing unit?"
+            },
+            value: {
+              text: "No"
+            },
+            actions: {
+              items: [
+                {
+                  href: "#",
+                  text: "Change",
+                  visuallyHiddenText: "Are you an approved finishing unit?"
+                }
+              ]
+            }
+          },
+          {
+            key: {
+              text: "Were 99% of the animals on your holding born there?"
+            },
+            value: {
+              text: "Yes"
+            },
+            actions: {
+              items: [
+                {
+                  href: "#",
+                  text: "Change",
+                  visuallyHiddenText: "Were 99% of the animals on your holding born there?"
+                }
+              ]
+            }
+          },
+          {
+            key: {
+              text: "Have you used any BVD vaccine in your herd in the last 12 months?"
+            },
+            value: {
+              text: "No"
+            },
+            actions: {
+              items: [
+                {
+                  href: "#",
+                  text: "Change",
+                  visuallyHiddenText: "Have you used any BVD vaccine in your herd in the last 12 months?"
+                }
+              ]
+            }
+          },
+          {
+            key: {
+              text: "Has a biosecurity assessment been completed?"
+            },
+            value: {
+              text: "Yes"
+            },
+            actions: {
+              items: [
+                {
+                  href: "#",
+                  text: "Change",
+                  visuallyHiddenText: "Has a biosecurity assessment been completed?"
+                }
+              ]
+            }
+          },
+          {
+            key: {
+              text: "When was your biosecurity assessment completed?"
+            },
+            value: {
+              text: "27 March 2025"
+            },
+            actions: {
+              items: [
+                {
+                  href: "#",
+                  text: "Change",
+                  visuallyHiddenText: "When was your biosecurity assessment completed?"
+                }
+              ]
+            }
+          },
+          {
+            key: {
+              text: "What was your biosecurity assessment score?"
+            },
+            value: {
+              text: "85%"
+            },
+            actions: {
+              items: [
+                {
+                  href: "#",
+                  text: "Change",
+                  visuallyHiddenText: "What was your biosecurity assessment score?"
+                }
+              ]
+            }
+          },
+          {
+            key: {
+              text: "Antibiotics volume over last 12 months?"
+            },
+            value: {
+              text: "500g of powder, 2 litres of liquid and 3 tubes of intramammary antibiotic"
+            },
+            actions: {
+              items: [
+                {
+                  href: "#",
+                  text: "Change",
+                  visuallyHiddenText: "Antibiotics volume over last 12 months?"
+                }
+              ]
+            }
+          },
+          {
+            key: {
+              text: "Antibiotic type?"
+            },
+            value: {
+              text: "Penicillin-Streptomycin"
+            },
+            actions: {
+              items: [
+                {
+                  href: "#",
+                  text: "Change",
+                  visuallyHiddenText: "Antibiotic type?"
+                }
+              ]
+            }
+          }
+          
+        ]
+      }) }}
+
+      <h2 class="govuk-heading-m">
+        Now send your application
+      </h2>
+
+      <p>
+        By submitting this application you are confirming that, to the best of your knowledge, the details you are providing are correct.
+      </p>
+
+      <form action="/confirmation" method="post" novalidate>
+
+        {{ govukButton({
+          text: "Accept and send"
+        }) }}
+
+      </form>
+
+    </div>
+  </div>
+{% endblock %}

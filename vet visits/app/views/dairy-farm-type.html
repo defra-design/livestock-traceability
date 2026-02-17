@@ -1,0 +1,68 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  Dairy farm type – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block containerStart %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <form class="form" action="/dairy-housing" method="post">
+
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+{{ govukRadios({
+  name: "dairy-farm-type",
+  fieldset: {
+    legend: {
+      text: "What type of dairy farm do you have?",
+      isPageHeading: true,
+      classes: "govuk-fieldset__legend--l"
+    }
+  },
+  items: [
+    {
+      value: "",
+      text: "All year round calving"
+    },
+    {
+      value: "spring-calving",
+      text: "Block calving - spring"
+    },
+    {
+      value: "autumn-calving",
+      text: "Block calving - autumn"
+    },
+    {
+      value: "multiple-calving",
+      text: "Block calving - multiple block"
+    },
+    {
+      value: "specialist-heifer-rearers",
+      text: "Specialist dairy heifer rearers"
+    },
+    {
+      value: "dairy-non-commercial",
+      text: "Pets/non-commercial"
+    }
+  ]
+}) }}
+
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+
+      </form>
+
+    </div>
+  </div>
+
+{% endblock %}

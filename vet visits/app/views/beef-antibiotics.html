@@ -1,0 +1,83 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  Question page template – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block containerStart %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <h1 class="govuk-heading-l">Beef Cattle Antibiotics</h1>
+        <form class="form" action="/beef-farm-type-answer" method="post">
+
+{% from "govuk/components/input/macro.njk" import govukInput %}
+
+{{ govukInput({
+  label: {
+    text: "Volume of powder, liquid and intrammamary antibiotic prescribed for the farm over the last 12 months?",
+    classes: "govuk-label--s"
+  },
+  classes: "govuk-!-width-one-quarter",
+    hint: {
+    text: "Total mg/kg of active ingredient"
+  },
+  id: "antibiotic-volume",
+  name: "antibiotic-volume"
+}) }}
+
+{% from "govuk/components/select/macro.njk" import govukSelect %}
+
+{{ govukSelect({
+  id: "antibiotic-type",
+  name: "antibiotic-type",
+  label: {
+    text: "Antibiotic type",
+    classes: "govuk-label--s"
+  },
+  items: [
+    {
+      value: "Oxytetracycline",
+      text: "Oxytetracycline"
+    },
+    {
+      value: "Penicillin-Streptomycin",
+      text: "Penicillin-Streptomycin",
+      selected: true
+    },
+    {
+      value: "Tulathromycin",
+      text: "Tulathromycin"
+    },
+    {
+      value: "Amoxicillin",
+      text: "Amoxicillin"
+    }
+  ]
+}) }}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{{ govukButton({
+  text: "Add another antibiotic",
+  classes: "govuk-button--secondary"
+}) }}
+
+<br>
+
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+
+
+      </form>
+    </div>
+  </div>
+
+{% endblock %}

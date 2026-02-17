@@ -1,0 +1,41 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  Question page template – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block containerStart %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+
+{% from "govuk/components/input/macro.njk" import govukInput %}
+
+{{ govukInput({
+  label: {
+    text: "Over the last 12 months how many calves were born alive (including those not tagged)?",
+    classes: "govuk-label--m",
+    isPageHeading: true
+  },
+  id: "event-name",
+  name: "eventName"
+}) }}
+
+        {{ govukButton({
+          text: "Continue",
+          href: "/finishingunit"
+        }) }}
+
+
+    </div>
+  </div>
+
+{% endblock %}

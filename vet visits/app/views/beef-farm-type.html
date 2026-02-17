@@ -1,0 +1,68 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  Question page template – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block containerStart %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <form class="form" action="/beef-housing" method="post">
+
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+{{ govukRadios({
+  name: "beef-farm-type",
+  fieldset: {
+    legend: {
+      text: "What type of beef farm do you have?",
+      isPageHeading: true,
+      classes: "govuk-fieldset__legend--l"
+    }
+  },
+  items: [
+    {
+      value: "sucklers",
+      text: "Beef sucklers",
+      hint: {
+        text: "Calves sold at weaning."
+      }
+    },
+    {
+      value: "beefgrower",
+      text: "Beef grower and/or finishers",
+      hint: {
+        text: "Majority of cattle sold for slaughter under 16 months old."
+      }
+    },
+    {
+      value: "calfrearer",
+      text: "Calf rearer",
+      hint: {
+        text: "Calves sold at up to 6 months old."
+      }
+    },
+    {
+      value: "noncommercial",
+      text: "Pets/non-commercial"
+    }
+  ]
+}) }}
+
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+
+      </form>
+    </div>
+  </div>
+
+{% endblock %}

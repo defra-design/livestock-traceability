@@ -1,0 +1,8 @@
+{
+  "serviceName": "Animal Health and Welfare Review",
+  "plugins": {
+    "govuk-frontend": {
+      "rebrand": true
+    }
+  }
+}

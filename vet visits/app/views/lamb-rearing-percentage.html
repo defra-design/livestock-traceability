@@ -1,0 +1,70 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  Question page template – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block containerStart %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <h1 class="govuk-heading-l">
+        Lamb Rearing
+      </h1>
+
+      <form class="form" action="/anthelmintic-use" method="post">
+
+{{ govukInput({
+  label: {
+    text: "Number of ewes put to the ram in the last 12 months?"
+  },
+  classes: "govuk-!-width-one-quarter",
+  id: "ewes-put-to-ram",
+  name: "ewesPutToRam"
+}) }}
+
+{{ govukInput({
+  label: {
+    text: "Number of ewes which have become pregnant in the last 12 months?"
+  },
+  classes: "govuk-!-width-one-quarter",
+  id: "ewes-become-pregnant",
+  name: "ewesBecomePregnant"
+}) }}
+
+{{ govukInput({
+  label: {
+    text: "Number of live lambs born in the last 12 months?"
+  },
+  classes: "govuk-!-width-one-quarter",
+  id: "live-lambs-born",
+  name: "liveLambsBorn"
+}) }}
+
+{{ govukInput({
+  label: {
+    text: "Number of lambs weaned in the last 12 months?"
+  },
+  classes: "govuk-!-width-one-quarter",
+  id: "lambs-weaned",
+  name: "lambsWeaned"
+}) }}
+
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+
+      </form>
+
+    </div>
+  </div>
+
+{% endblock %}
