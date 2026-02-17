@@ -40,7 +40,7 @@ router.post('/beef-farm-type-answer', function(request, response) {
   } else if (farmtypes.includes("pigs")) {
     response.redirect("/pigs-farm-type")
   } else {
-    response.redirect("/check-answers")
+    response.redirect("/mastitis")
   }
 })
 
@@ -74,6 +74,19 @@ router.post('/sheep-farm-type-answer', function(request, response) {
 // End of chain
 router.post('/pigs-farm-type-answer', function(request, response) {
   response.redirect("/check-answers")
+})
+
+router.post('/next-step-in-journey', function (req, res) {
+  // Get the answer from session data
+  const isCorrect = req.session.data['isCorrectAccount']
+
+  if (isCorrect === 'no') {
+    // Send them back to the search page if it's wrong
+    res.redirect('/rcvs-number')
+  } else {
+    // Send them to the next step if it's right
+    res.redirect('/farm-assurance-scheme')
+  }
 })
 
 module.exports = router

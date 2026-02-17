@@ -15,6 +15,7 @@
 
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
+      <form class="form" action="/vaccinationstatus" method="post">
 
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
 
@@ -64,10 +65,9 @@
 }) }}
 
         {{ govukButton({
-          text: "Continue",
-          href: "/vaccinationstatus"
+          text: "Continue"
         }) }}
-
+      </form>
     </div>
   </div>
 

@@ -15,6 +15,7 @@
 
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
+      <form class="form" action="/biosecurity" method="post">
 
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
 
@@ -41,8 +42,7 @@
 }) }}
 
         {{ govukButton({
-          text: "Continue",
-          href: "/biosecurity"
+          text: "Continue"
         }) }}
 
       </form>
