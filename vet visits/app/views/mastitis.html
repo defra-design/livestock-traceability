@@ -25,7 +25,13 @@
     isPageHeading: true
   },
   id: "event-name",
-  name: "eventName"
+  classes: "govuk-input--width-10",
+  name: "eventName",
+  attributes: {
+    "maxlength": "7",
+    "inputmode": "numeric",
+    "pattern": "[0-9]*"
+  }
 }) }}
 
         {{ govukButton({

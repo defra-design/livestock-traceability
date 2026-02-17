@@ -13,12 +13,12 @@
     {{ govukSummaryList({
       rows: [
         {
-          key: { text: "Vet search" },
+          key: { text: "RCVS number" },
           value: { text: data['rcvs-number'] }
         },
         {
-          key: { text: "Account found" },
-          value: { text: "John Smith (Account Active)" } 
+          key: { text: "Vet" },
+          value: { text: "John Smith" } 
         }
       ]
     }) }}
@@ -29,7 +29,7 @@
         name: "isCorrectAccount",
         fieldset: {
           legend: {
-            text: "Is this the correct account?",
+            text: "Is this the correct vet?",
             classes: "govuk-fieldset__legend--m"
           }
         },
