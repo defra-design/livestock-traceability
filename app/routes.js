@@ -86,7 +86,7 @@ router.post('/farm-type-answer', function(request, response) {
   } else if (farmtypes.includes("pigs")) {
     response.redirect("/vetvisits/pigs-farm-type")
   } else {
-    response.redirect("/farm-structure") // Redirect back to the same page if no options are selected
+    response.redirect("/vetvisits/farm-structure") // Redirect back to the same page if no options are selected
   }
 })
 
