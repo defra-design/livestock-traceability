@@ -1,0 +1,27 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Home" %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    {% include "govuk-prototype-kit/includes/homepage-top.njk" %}
+
+    <h1 class="govuk-heading-xl">
+      {{ serviceName }}
+    </h1>
+
+    <p class="govuk-body">The Animal Health and Welfare Review (AHWR) is a mandatory annual requirement. You must arrange a visit with your vet to review the health and welfare of your livestock. Use this service to record the outcome of your visit and submit the required data to Defra.</p>
+
+<p>
+    <a href="/vetvisits/start">
+        Go to the start page
+    </a>
+</p>
+
+  </div>
+</div>
+
+{% endblock %}

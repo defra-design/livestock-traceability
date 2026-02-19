@@ -1,0 +1,192 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  Question page template – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block containerStart %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <h1 class="govuk-heading-l">
+        Anthelmintic Use
+      </h1>
+
+      <form class="form" action="/vetvisits/sheep-antibiotics" method="post">
+
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+{{ govukRadios({
+  classes: "govuk-radios--inline",
+  name: "anthelmintic-use",
+  fieldset: {
+    legend: {
+      text: "Have you used anthelmintics in your flock in the last 12 months?",
+      classes: "govuk-fieldset__legend--s"
+    }
+  },
+  items: [
+    {
+      value: "yes",
+      text: "Yes"
+    },
+    {
+      value: "no",
+      text: "No"
+    }
+  ]
+}) }}
+
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+
+{{ govukCheckboxes({
+  name: "anthelmintic-group",
+  fieldset: {
+    legend: {
+      text: "Which anthelmintic groups have you used?",
+      classes: "govuk-fieldset__legend--s"
+    }
+  },
+  hint: {
+    text: "Select all that apply"
+  },
+  items: [
+    {
+      value: "benzimidazoles",
+      text: "Benzimidazoles (white)"
+    },
+    {
+      value: "levamisole",
+      text: "Levamisole (yellow)"
+    },
+    {
+      value: "macrocyclic-lactones",
+      text: "Macrocyclic lactones (clear)"
+    },
+    {
+      value: "amino-acetyl-derivatives",
+      text: "Amino-acetyl derivatives (orange)"
+    },
+    {
+      value: "spiroindoles",
+      text: "Spiroindoles (purple)"
+    }
+  ]
+}) }}
+
+{{ govukRadios({
+  classes: "govuk-radios--inline",
+  name: "pre-worming-checks",
+  fieldset: {
+    legend: {
+      text: "Have you performed any pre-worming checks?",
+      classes: "govuk-fieldset__legend--s"
+    }
+  },
+  items: [
+    {
+      value: "yes",
+      text: "Yes"
+    },
+    {
+      value: "no",
+      text: "No"
+    }
+  ]
+}) }}
+
+{{ govukRadios({
+  classes: "govuk-radios--inline",
+  name: "post-worming-checks",
+  fieldset: {
+    legend: {
+      text: "Have you performed any post-worming checks?",
+      classes: "govuk-fieldset__legend--s"
+    }
+  },
+  items: [
+    {
+      value: "yes",
+      text: "Yes"
+    },
+    {
+      value: "no",
+      text: "No"
+    }
+  ]
+}) }}
+
+{{ govukRadios({
+  classes: "govuk-radios--inline",
+  name: "anthelmintic-resistance",
+  fieldset: {
+    legend: {
+      text: "Have you experienced any anthelmintic resistance in your flock in the last 12 months?",
+      classes: "govuk-fieldset__legend--s"
+    }
+  },
+  items: [
+    {
+      value: "yes",
+      text: "Yes"
+    },
+    {
+      value: "no",
+      text: "No"
+    }
+  ]
+}) }}
+
+{{ govukCheckboxes({
+  name: "anthelmintic-resistance-groups",
+  fieldset: {
+    legend: {
+      text: "If yes, to which anthelmintic groups?",
+      classes: "govuk-fieldset__legend--s"
+    }
+  },
+  hint: {
+    text: "Select all that apply"
+  },
+  items: [
+    {
+      value: "benzimidazoles",
+      text: "Benzimidazoles (white)"
+    },
+    {
+      value: "levamisole",
+      text: "Levamisole (yellow)"
+    },
+    {
+      value: "macrocyclic-lactones",
+      text: "Macrocyclic lactones (clear)"
+    },
+    {
+      value: "amino-acetyl-derivatives",
+      text: "Amino-acetyl derivatives (orange)"
+    },
+    {
+      value: "spiroindoles",
+      text: "Spiroindoles (purple)"
+    }
+  ]
+}) }}
+
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+
+      </form>
+
+    </div>
+  </div>
+
+{% endblock %}
