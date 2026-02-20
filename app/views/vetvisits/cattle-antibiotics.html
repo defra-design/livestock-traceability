@@ -27,7 +27,7 @@
   },
   classes: "govuk-!-width-one-quarter",
     hint: {
-    text: "Total mg/kg of active ingredient"
+    text: "Total mg/PCU of active ingredient"
   },
   id: "antibiotic-volume",
   name: "antibiotic-volume"
@@ -35,33 +35,36 @@
 
 {% from "govuk/components/select/macro.njk" import govukSelect %}
 
-{{ govukSelect({
-  id: "antibiotic-type",
-  name: "antibiotic-type",
-  label: {
-    text: "Antibiotic type",
-    classes: "govuk-label--s"
-  },
-  items: [
-    {
-      value: "Oxytetracycline",
-      text: "Oxytetracycline"
-    },
-    {
-      value: "Penicillin-Streptomycin",
-      text: "Penicillin-Streptomycin",
-      selected: true
-    },
-    {
-      value: "Tulathromycin",
-      text: "Tulathromycin"
-    },
-    {
-      value: "Amoxicillin",
-      text: "Amoxicillin"
-    }
-  ]
+{{ govukRadios({
+name: "antibiotic-type",
+fieldset: {
+legend: {
+text: "Antibiotic type",
+isPageHeading: false,
+classes: "govuk-fieldset__legend--s"
+}
+},
+items: [
+{
+value: "Oxytetracycline",
+text: "Oxytetracycline"
+},
+{
+value: "Penicillin-Streptomycin",
+text: "Penicillin-Streptomycin",
+checked: true
+},
+{
+value: "Tulathromycin",
+text: "Tulathromycin"
+},
+{
+value: "Amoxicillin",
+text: "Amoxicillin"
+}
+]
 }) }}
+
 {% from "govuk/components/button/macro.njk" import govukButton %}
 
 {{ govukButton({

@@ -13,6 +13,8 @@
 
 {% block content %}
 
+<h1 class="govuk-heading-l"> Eligibility</h1>
+
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
       <form class="form" action="/vetvisits/vaccinationstatus" method="post">
@@ -24,10 +26,13 @@
   name: "finishing-unit",
   fieldset: {
     legend: {
-      text: "Are you an approved or licenced finishing unit?",
+      text: "Is your holding an approved or licensed finishing unit?",
       isPageHeading: false,
       classes: "govuk-fieldset__legend--m"
     }
+  },
+  hint: {
+    text: "This is a unit licensed by APHA or your local authority to fatten animals for slaughter."
   },
   items: [
     {
@@ -46,12 +51,14 @@
   name: "born-on-holding",
   fieldset: {
     legend: {
-      text: "Were 99% of the animals on your holding born there?",
+      text: "Were nearly all the animals on your holding born somewhere else?",
       isPageHeading: false,
       classes: "govuk-fieldset__legend--m"
     }
   },
-
+  hint: {
+    text: "Select 'Yes' if 99% or more of your animals were brought in from other farms or markets."
+  },
   items: [
     {
       value: "yes",
