@@ -23,14 +23,11 @@
       <form class="form" action="/vetvisits/vet-confirmation" method="post">
 
 {{ govukInput({
-  label: {
-    text: "RCVS number"
-  },
   classes: "govuk-input--width-10",
   id: "rcvs-number",
   name: "rcvs-number",
   hint: {
-    text: "Your vet's RCVS number is a 7 digit number. For example, 1234567."
+    text: "7 digit number"
   },
   attributes: {
     "maxlength": "7",

@@ -13,6 +13,13 @@
 
 {% block content %}
 
+<h1 class="govuk-heading-l"> Biosecurity</h1>
+
+   <div class="govuk-grid-row">
+     <div class="govuk-grid-column-full">
+      <p class="govuk-body">A biosecurity assessment is a review of your farm's biosecurity practices to help prevent disease outbreaks.</p>
+    </div>
+  </div>
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
       <form class="form" action="/vetvisits/cattle-antibiotics" method="post">
@@ -65,8 +72,11 @@
     id: "biosecurity-assessment-score",
     name: "biosecurityAssessmentScore",
     classes: "govuk-input--width-10",
-    autocomplete: "address-line1"
-      }) }}
+    autocomplete: "address-line1",
+    hint: {
+            text: "Your biosecurity assessment score is a number between 0 and 100 that reflects the level of biosecurity on your farm. A higher score indicates better biosecurity practices."
+          }
+}) }}
 
           {{ govukButton({
           text: "Continue"
