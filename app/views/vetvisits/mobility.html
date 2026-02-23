@@ -1,7 +1,12 @@
 {% extends "layouts/main.html" %}
 
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
 {% block pageTitle %}
-Mobility - {{serviceName}} - GOV.UK Prototype Kit{% endblock %}
+Mobility - {{serviceName}} - GOV.UK Prototype Kit
+{% endblock %}
 
 {% block containerStart %}
   {{ govukBackLink({
@@ -11,23 +16,20 @@ Mobility - {{serviceName}} - GOV.UK Prototype Kit{% endblock %}
 {% endblock %}
 
 {% block content %}
-
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
-
       <form class="form" action="/vetvisits/neonatal-survival" method="post">
-{% from "govuk/components/input/macro.njk" import govukInput %}
 
-{{ govukInput({
-  label: {
-    text: "Over the last 12 months how many unique cows were severely lame (score 3)?",
-    classes: "govuk-label--l",
-    isPageHeading: true
-  },
-  id: "neonatal-survival",
-  classes: "govuk-input--width-10",
-  name: "neonatalSurvival"
-}) }}
+        {{ govukInput({
+          label: {
+            text: "Over the last 12 months how many unique cows were severely lame (score 3)?",
+            classes: "govuk-label--l",
+            isPageHeading: true
+          },
+          id: "severely-lame",
+          classes: "govuk-input--width-10",
+          name: "severely-lame"
+        }) }}
 
         {{ govukButton({
           text: "Continue"
@@ -37,5 +39,4 @@ Mobility - {{serviceName}} - GOV.UK Prototype Kit{% endblock %}
 
     </div>
   </div>
-
 {% endblock %}

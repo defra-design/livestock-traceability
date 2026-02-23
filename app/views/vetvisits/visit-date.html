@@ -17,6 +17,7 @@ Visit Date - {{serviceName}} - GOV.UK Prototype Kit{% endblock %}
       <form class="form" action="/vetvisits/rcvs-number" method="post">
 
 {% from "govuk/components/date-input/macro.njk" import govukDateInput %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
 
 {{ govukDateInput({
   id: "visit-date",
