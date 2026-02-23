@@ -1,7 +1,8 @@
 {% extends "layouts/main.html" %}
 
 {% block pageTitle %}
-  Anthelmintic Use - {{serviceName}} - GOV.UK Prototype Kit{% endblock %}
+  Anthelmintic Use - {{serviceName}} - GOV.UK Prototype Kit
+{% endblock %}
 
 {% block containerStart %}
   {{ govukBackLink({
@@ -11,11 +12,10 @@
 {% endblock %}
 
 {% block content %}
-
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
 
-{% if errors %}
+      {% if errors %}
         {{ govukErrorSummary({
           titleText: "There is a problem",
           errorList: errors
@@ -28,123 +28,100 @@
 
       <form class="form" action="/vetvisits/anthelmintic-use-answer" method="post">
 
-{% from "govuk/components/radios/macro.njk" import govukRadios %}
-{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+        {% from "govuk/components/radios/macro.njk" import govukRadios %}
+        {% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
 
-{{ govukRadios({
-  classes: "govuk-radios--inline",
-  name: "anthelmintic-use",
-  fieldset: {
-    legend: {
-      text: "Have you used anthelmintics in your flock in the last 12 months?",
-      classes: "govuk-fieldset__legend--s"
-    }
-  },
-  items: [
-    {
-      value: "yes",
-      text: "Yes"
-    },
-    {
-      value: "no",
-      text: "No"
-    }
-  ]
-}) }}
+        {% set groupError = false %}
+        {% for error in errors %}
+          {% if error.href == '#anthelmintic-group' %}
+            {% set groupError = { text: error.text } %}
+          {% endif %}
+        {% endfor %}
 
-{% set groupError = false %}
-{% for error in errors %}
-  {% if error.href == '#anthelmintic-group' %}
-    {% set groupError = { text: error.text } %}
-  {% endif %}
-{% endfor %}
+        {# 1. Define the conditionally revealed checkboxes here #}
+        {% set anthelminticGroupsHtml %}
+          {{ govukCheckboxes({
+            idPrefix: "anthelmintic-group", 
+            name: "anthelmintic-group",
+            fieldset: {
+              legend: {
+                text: "Which anthelmintic groups have you used?",
+                classes: "govuk-fieldset__legend--s"
+              }
+            },
+            hint: {
+              text: "Select all that apply"
+            },
+            errorMessage: groupError if groupError else null,
+            items: [
+              { value: "benzimidazoles", text: "Benzimidazoles (white)" },
+              { value: "levamisole", text: "Levamisole (yellow)" },
+              { value: "macrocyclic-lactones", text: "Macrocyclic lactones (clear)" },
+              { value: "amino-acetyl-derivatives", text: "Amino-acetyl derivatives (orange)" },
+              { value: "spiroindoles", text: "Spiroindoles (purple)" }
+            ]
+          }) }}
+        {% endset -%}
 
-{{ govukCheckboxes({
-  idPrefix: "anthelmintic-group", 
-  name: "anthelmintic-group",
-  fieldset: {
-    legend: {
-      text: "Which anthelmintic groups have you used?",
-      classes: "govuk-fieldset__legend--s"
-    }
-  },
-  hint: {
-    text: "Select all that apply"
-  },
-  errorMessage: groupError if groupError else null,
-  items: [
-    {
-      value: "benzimidazoles",
-      text: "Benzimidazoles (white)"
-    },
-    {
-      value: "levamisole",
-      text: "Levamisole (yellow)"
-    },
-    {
-      value: "macrocyclic-lactones",
-      text: "Macrocyclic lactones (clear)"
-    },
-    {
-      value: "amino-acetyl-derivatives",
-      text: "Amino-acetyl derivatives (orange)"
-    },
-    {
-      value: "spiroindoles",
-      text: "Spiroindoles (purple)"
-    }
-  ]
-}) }}
+        {# 2. Attach the HTML to the 'Yes' option (Inline class removed) #}
+        {{ govukRadios({
+          name: "anthelmintic-use",
+          fieldset: {
+            legend: {
+              text: "Have you used anthelmintics in your flock in the last 12 months?",
+              classes: "govuk-fieldset__legend--s"
+            }
+          },
+          items: [
+            {
+              value: "yes",
+              text: "Yes",
+              conditional: {
+                html: anthelminticGroupsHtml
+              }
+            },
+            {
+              value: "no",
+              text: "No"
+            }
+          ]
+        }) }}
 
-{{ govukRadios({
-  classes: "govuk-radios--inline",
-  name: "pre-worming-checks",
-  fieldset: {
-    legend: {
-      text: "Have you performed any pre-worming checks?",
-      classes: "govuk-fieldset__legend--s"
-    }
-  },
-  items: [
-    {
-      value: "yes",
-      text: "Yes"
-    },
-    {
-      value: "no",
-      text: "No"
-    }
-  ]
-}) }}
+        {{ govukRadios({
+          classes: "govuk-radios--inline",
+          name: "pre-worming-checks",
+          fieldset: {
+            legend: {
+              text: "Have you performed any pre-worming checks?",
+              classes: "govuk-fieldset__legend--s"
+            }
+          },
+          items: [
+            { value: "yes", text: "Yes" },
+            { value: "no", text: "No" }
+          ]
+        }) }}
 
-{{ govukRadios({
-  classes: "govuk-radios--inline",
-  name: "post-worming-checks",
-  fieldset: {
-    legend: {
-      text: "Have you performed any post-worming checks?",
-      classes: "govuk-fieldset__legend--s"
-    }
-  },
-  items: [
-    {
-      value: "yes",
-      text: "Yes"
-    },
-    {
-      value: "no",
-      text: "No"
-    }
-  ]
-}) }}
+        {{ govukRadios({
+          classes: "govuk-radios--inline",
+          name: "post-worming-checks",
+          fieldset: {
+            legend: {
+              text: "Have you performed any post-worming checks?",
+              classes: "govuk-fieldset__legend--s"
+            }
+          },
+          items: [
+            { value: "yes", text: "Yes" },
+            { value: "no", text: "No" }
+          ]
+        }) }}
 
         {{ govukButton({
           text: "Continue"
         }) }}
 
       </form>
-
     </div>
   </div>
-
 {% endblock %}

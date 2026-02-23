@@ -151,8 +151,7 @@ router.post('/next-step-in-journey', function (req, res) {
   }
 })
 
-// Validation logic for anthelmintic use question
-
+// Validation and sanitization logic for anthelmintic use question
 router.post('/vetvisits/anthelmintic-use-answer', function (req, res) {
 
   const usedAnthelmintics = req.session.data['anthelmintic-use']
@@ -161,27 +160,45 @@ router.post('/vetvisits/anthelmintic-use-answer', function (req, res) {
   // Create an empty array to hold our errors
   let errors = []
 
-  // Check the validation rule: If YES to using them, but NO groups selected
-  if (usedAnthelmintics === 'yes' && (!anthelminticGroups || anthelminticGroups.length === 0)) {
+  // 1. Validation: Check if they completely skipped the first question
+  if (!usedAnthelmintics) {
     errors.push({
-      text: "Select which anthelmintic groups you have used",
-      href: "#anthelmintic-group" // This links the error summary to the checkboxes
+      text: "Select whether you have used anthelmintics in your flock in the last 12 months",
+      href: "#anthelmintic-use" // Ensure your first radio has id="anthelmintic-use"
     })
   }
 
-  // If there are errors, reload the page and show them
+  // 2. Validation: If YES to using them, but NO groups selected
+  if (usedAnthelmintics === 'yes' && (!anthelminticGroups || anthelminticGroups.length === 0)) {
+    errors.push({
+      text: "Select if you have used anthelmintics",
+      href: "#anthelmintic-group" // Links the error summary to the checkboxes
+    })
+  }
+
+  // 3. Error Handling: If there are errors, reload the page and show them
   if (errors.length > 0) {
-    // Make sure 'vetvisits/anthelmintic-use' matches the exact folder/filename of your first page
-    res.render('vetvisits/anthelmintic-use', {
+    // Returning here stops the rest of the code from running
+    return res.render('vetvisits/anthelmintic-use', {
       errors: errors
     })
+  } 
+
+  // --- If we reach this point, the data is valid ---
+
+  // 4. Data Sanitization: The crucial cleanup step
+  // If they selected 'no', we delete the checkbox data from the session
+  // just in case they previously checked boxes and changed their mind.
+  if (usedAnthelmintics === 'no') {
+    delete req.session.data['anthelmintic-group']
+  }
+
+  // 5. Routing: Send the user to the correct next page
+  if (usedAnthelmintics === "no") {
+    res.redirect('/vetvisits/sheep-antibiotics')
   } else {
-    // If there are no errors, route them normally
-    if (usedAnthelmintics === "no" || !usedAnthelmintics) {
-      res.redirect('/vetvisits/sheep-antibiotics')
-    } else {
-      res.redirect('/vetvisits/anthelmintic-resistance')
-    }
+    // If it's not 'no' (and it's not empty because of our validation), it must be 'yes'
+    res.redirect('/vetvisits/anthelmintic-resistance')
   }
 
 })
