@@ -77,13 +77,13 @@ router.post('/farm-type-answer', function(request, response) {
   // Use '|| []' to handle the case where farmtypes is undefined (no boxes checked)
   var farmtypes = request.session.data['farmtypes'] || []
 
-  if (farmtypes.includes("beef")) {
+  if (farmtypes.includes("Beef")) {
     response.redirect("/vetvisits/beef-farm-type")
-  } else if (farmtypes.includes("dairy")) {
+  } else if (farmtypes.includes("Dairy")) {
     response.redirect("/vetvisits/dairy-farm-type")
-  } else if (farmtypes.includes("sheep")) {
+  } else if (farmtypes.includes("Sheep")) {
     response.redirect("/vetvisits/sheep-farm-type")
-  } else if (farmtypes.includes("pigs")) {
+  } else if (farmtypes.includes("Pigs")) {
     response.redirect("/vetvisits/pigs-farm-type")
   } else {
     response.redirect("/vetvisits/farm-structure") // Redirect back to the same page if no options are selected
@@ -95,11 +95,11 @@ router.post('/farm-type-answer', function(request, response) {
 router.post('/beef-farm-type-answer', function(request, response) {
   var farmtypes = request.session.data['farmtypes'] || []
 
-  if (farmtypes.includes("dairy")) {
+  if (farmtypes.includes("Dairy")) {
     response.redirect("/vetvisits/dairy-farm-type")
-  } else if (farmtypes.includes("sheep")) {
+  } else if (farmtypes.includes("Sheep")) {
     response.redirect("/vetvisits/sheep-farm-type")
-  } else if (farmtypes.includes("pigs")) {
+  } else if (farmtypes.includes("Pigs")) {
     response.redirect("/vetvisits/pigs-farm-type")
   } else {
     response.redirect("/vetvisits/mastitis")
@@ -111,9 +111,9 @@ router.post('/beef-farm-type-answer', function(request, response) {
 router.post('/dairy-farm-type-answer', function(request, response) {
   var farmtypes = request.session.data['farmtypes'] || []
 
-  if (farmtypes.includes("sheep")) {
+  if (farmtypes.includes("Sheep")) {
     response.redirect("/vetvisits/sheep-farm-type")
-  } else if (farmtypes.includes("pigs")) {
+  } else if (farmtypes.includes("Pigs")) {
     response.redirect("/vetvisits/pigs-farm-type")
   } else {
     response.redirect("/vetvisits/check-answers")
@@ -125,7 +125,7 @@ router.post('/dairy-farm-type-answer', function(request, response) {
 router.post('/sheep-farm-type-answer', function(request, response) {
   var farmtypes = request.session.data['farmtypes'] || []
 
-  if (farmtypes.includes("pigs")) {
+  if (farmtypes.includes("Pigs")) {
     response.redirect("/vetvisits/pigs-farm-type")
   } else {
     response.redirect("/vetvisits/check-answers")

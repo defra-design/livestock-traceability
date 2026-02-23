@@ -11,6 +11,9 @@
   }) }}
 {% endblock %}
 
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
 {% block content %}
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds-from-desktop">
@@ -22,52 +25,68 @@
       {{ govukSummaryList({
         rows: [
           {
-            key: {
-              text: "Are you a member of a farm assurance scheme?"
+            key: { 
+              text: "When was your Annual Health and Welfare Visit date?" 
             },
             value: {
-              text: "Yes"
+              text: (data['visit-date-day'] + " " + data['visit-date-month'] + " " + data['visit-date-year']) if data['visit-date-day'] else "Not answered"
             },
             actions: {
               items: [
                 {
-                  href: "#",
+                  href: "/vetvisits/visit-date",
                   text: "Change",
-                  visuallyHiddenText: "Are you a member of a farm assurance scheme?"
+                  visuallyHiddenText: "When was your Annual Health and Welfare Visit date?"
                 }
               ]
             }
-          }
-          ,
+          },
           {
-            key: {
-              text: "When did the vet visit your farm?"
+            key: { 
+              text: "What is your vet's RCVS number?" 
             },
             value: {
-              text: "13 February 2026"
+              text: data['rcvs-number'] or "Not answered"
             },
             actions: {
               items: [
                 {
-                  href: "#",
-                  text: "Change", 
-                  visuallyHiddenText: "When did the vet visit your farm?"
+                  href: "/vetvisits/rcvs-number",
+                  text: "Change",
+                  visuallyHiddenText: "What is your vet's RCVS number?"
                 }
               ]
             }
-          }
-          ,
+          },
+          
           {
-            key: {
-              text: "What types of farming do you do?"
+            key: { 
+              text: "Vet name" 
             },
             value: {
-              text: "Beef"
+              text: "John Smith"
             },
             actions: {
               items: [
                 {
-                  href: "#",
+                  href: "/vetvisits/rcvs-number",
+                  text: "Change",
+                  visuallyHiddenText: "Vet name"
+                }
+              ]
+            }
+          },
+          {
+            key: { 
+              text: "What types of farming do you do?" 
+            },
+            value: {
+              html: (data['farmtypes'] | join('<br>')) if data['farmtypes'] else "Not answered"
+            },
+            actions: {
+              items: [
+                {
+                  href: "/vetvisits/farm-structure",
                   text: "Change",
                   visuallyHiddenText: "What types of farming do you do?"
                 }
@@ -79,12 +98,12 @@
               text: "What types of beef farming do you have?"
             },
             value: {
-              text: "Beef sucklers"
+              text: data['beef-farm-type'] or "Not answered"
             },
             actions: {
               items: [
                 {
-                  href: "#",
+                  href: "beef-farm-type",
                   text: "Change",
                   visuallyHiddenText: "What types of beef farming do you have?"
                 }
@@ -96,12 +115,12 @@
               text: "Where do you house your cattle?"
             },
             value: {
-              text: "Outdoors"
+              text: data['beef-housing'] or "Not answered"
             },
             actions: {
               items: [
                 {
-                  href: "#",
+                  href: "beef-housing",
                   text: "Change",
                   visuallyHiddenText: "Where do you house your cattle?"
                 }
@@ -113,12 +132,12 @@
               text: "Over the last 12 months, how many unique cows in your herd have been treated for mastitis at least once?"
             },
             value: {
-              text: "12"
+              text: data['mastitis'] or "Not answered"
             },
             actions: {
               items: [
                 {
-                  href: "#",
+                  href: "mastitis",
                   text: "Change",
                   visuallyHiddenText: "Over the last 12 months, how many unique cows in your herd have been treated for mastitis at least once?"
                 }
@@ -130,12 +149,12 @@
               text: "Over the last 12 months how many unique cows were severely lame?"
             },
             value: {
-              text: "3"
+              text: data['severely-lame'] or "Not answered"
             },
             actions: {
               items: [
                 {
-                  href: "#",
+                  href: "severely-lame",
                   text: "Change",
                   visuallyHiddenText: "Over the last 12 months how many unique cows were severely lame?"
                 }
@@ -147,12 +166,12 @@
               text: "Over the last 12 months how many calves were born alive?"
             },
             value: {
-              text: "15"
+              text: data['neonatal-survival'] or "Not answered"
             },
             actions: {
               items: [
                 {
-                  href: "#",
+                  href: "neonatal-survival",
                   text: "Change",
                   visuallyHiddenText: "Over the last 12 months how many calves were born alive?"
                 }
@@ -164,12 +183,12 @@
               text: "Are you an approved finishing unit?"
             },
             value: {
-              text: "No"
+              text: data['finishing-unit'] or "Not answered"
             },
             actions: {
               items: [
                 {
-                  href: "#",
+                  href: "finishing-unit",
                   text: "Change",
                   visuallyHiddenText: "Are you an approved finishing unit?"
                 }
@@ -181,12 +200,12 @@
               text: "Were 99% of the animals on your holding born there?"
             },
             value: {
-              text: "Yes"
+              text: data['born-on-holding'] or "Not answered"
             },
             actions: {
               items: [
                 {
-                  href: "#",
+                  href: "born-on-holding",
                   text: "Change",
                   visuallyHiddenText: "Were 99% of the animals on your holding born there?"
                 }
@@ -198,12 +217,12 @@
               text: "Have you used any BVD vaccine in your herd in the last 12 months?"
             },
             value: {
-              text: "No"
+              text: data['vaccination-status'] or "Not answered"
             },
             actions: {
               items: [
                 {
-                  href: "#",
+                  href: "vaccination-status",
                   text: "Change",
                   visuallyHiddenText: "Have you used any BVD vaccine in your herd in the last 12 months?"
                 }
@@ -215,12 +234,12 @@
               text: "Has a biosecurity assessment been completed?"
             },
             value: {
-              text: "Yes"
+              text: data['biosecurity-assessment-completed'] or "Not answered"
             },
             actions: {
               items: [
                 {
-                  href: "#",
+                  href: "biosecurity-assessment",
                   text: "Change",
                   visuallyHiddenText: "Has a biosecurity assessment been completed?"
                 }
@@ -232,12 +251,12 @@
               text: "When was your biosecurity assessment completed?"
             },
             value: {
-              text: "27 March 2025"
+              text: data['biosecurity-assessment-date-day'] + " " + data['biosecurity-assessment-date-month'] + " " + data['biosecurity-assessment-date-year'] if data['biosecurity-assessment-date-day'] else "Not answered"
             },
             actions: {
               items: [
                 {
-                  href: "#",
+                  href: "biosecurity-assessment",
                   text: "Change",
                   visuallyHiddenText: "When was your biosecurity assessment completed?"
                 }
@@ -249,12 +268,12 @@
               text: "What was your biosecurity assessment score?"
             },
             value: {
-              text: "85%"
+              text: data['biosecurity-assessment-score'] or "Not answered"
             },
             actions: {
               items: [
                 {
-                  href: "#",
+                  href: "biosecurity-assessment",
                   text: "Change",
                   visuallyHiddenText: "What was your biosecurity assessment score?"
                 }
@@ -263,17 +282,17 @@
           },
           {
             key: {
-              text: "Antibiotics volume over last 12 months?"
+              text: "Cattle yearly antibiotic use?"
             },
             value: {
-              text: "500g of powder, 2 litres of liquid and 3 tubes of intramammary antibiotic"
+              text: data['antibiotics-volume'] + " mg/PCU" if data['antibiotics-volume'] else "Not answered"
             },
             actions: {
               items: [
                 {
-                  href: "#",
+                  href: "cattle-antibiotics",
                   text: "Change",
-                  visuallyHiddenText: "Antibiotics volume over last 12 months?"
+                  visuallyHiddenText: "Cattle yearly antibiotic use?"
                 }
               ]
             }
@@ -283,19 +302,18 @@
               text: "Antibiotic type?"
             },
             value: {
-              text: "Penicillin-Streptomycin"
+              text: data['antibiotic-type'] or "Not answered"
             },
             actions: {
               items: [
                 {
-                  href: "#",
+                  href: "cattle-antibiotics",
                   text: "Change",
                   visuallyHiddenText: "Antibiotic type?"
                 }
               ]
             }
           }
-          
         ]
       }) }}
 
