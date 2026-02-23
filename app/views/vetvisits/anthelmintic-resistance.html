@@ -1,0 +1,112 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  Anthelmintic Resistance - {{serviceName}} - GOV.UK Prototype Kit
+{% endblock %}
+
+{% block containerStart %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <form class="form" action="/vetvisits/sheep-antibiotics" method="post">
+
+<h1 class="govuk-heading-l">
+  Anthelmintic Resistance
+</h1>
+
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+{{ govukRadios({
+  classes: "govuk-radios--inline",
+  name: "anthelmintic-resistance",
+  fieldset: {
+    legend: {
+      text: "Have you experienced any anthelmintic resistance in your flock in the last 12 months?",
+      classes: "govuk-fieldset__legend--s"
+    }
+  },
+  items: [
+    {
+      value: "yes",
+      text: "Yes"
+    },
+    {
+      value: "no",
+      text: "No"
+    }
+  ]
+}) }}
+
+
+        <div class="govuk-form-group">
+          <fieldset class="govuk-fieldset" aria-describedby="resistance-hint">
+            
+            <p class="govuk-body">Select all anthelmintic groups that have suspected or confirmed resistance in your flock.</p>
+
+            <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+
+              {% if "benzimidazoles" in data['anthelmintic-group'] %}
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input" id="resistance-benzimidazoles" name="resistance-group" type="checkbox" value="benzimidazoles" {{ checked("resistance-group", "benzimidazoles") }}>
+                <label class="govuk-label govuk-checkboxes__label" for="resistance-benzimidazoles">
+                  Benzimidazoles (white)
+                </label>
+              </div>
+              {% endif %}
+
+              {% if "levamisole" in data['anthelmintic-group'] %}
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input" id="resistance-levamisole" name="resistance-group" type="checkbox" value="levamisole" {{ checked("resistance-group", "levamisole") }}>
+                <label class="govuk-label govuk-checkboxes__label" for="resistance-levamisole">
+                  Levamisole (yellow)
+                </label>
+              </div>
+              {% endif %}
+
+              {% if "macrocyclic-lactones" in data['anthelmintic-group'] %}
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input" id="resistance-macrocyclic" name="resistance-group" type="checkbox" value="macrocyclic-lactones" {{ checked("resistance-group", "macrocyclic-lactones") }}>
+                <label class="govuk-label govuk-checkboxes__label" for="resistance-macrocyclic">
+                  Macrocyclic lactones (clear)
+                </label>
+              </div>
+              {% endif %}
+
+              {% if "amino-acetyl-derivatives" in data['anthelmintic-group'] %}
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input" id="resistance-amino" name="resistance-group" type="checkbox" value="amino-acetyl-derivatives" {{ checked("resistance-group", "amino-acetyl-derivatives") }}>
+                <label class="govuk-label govuk-checkboxes__label" for="resistance-amino">
+                  Amino-acetyl derivatives (orange)
+                </label>
+              </div>
+              {% endif %}
+
+              {% if "spiroindoles" in data['anthelmintic-group'] %}
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input" id="resistance-spiroindoles" name="resistance-group" type="checkbox" value="spiroindoles" {{ checked("resistance-group", "spiroindoles") }}>
+                <label class="govuk-label govuk-checkboxes__label" for="resistance-spiroindoles">
+                  Spiroindoles (purple)
+                </label>
+              </div>
+              {% endif %}
+
+            </div>
+          </fieldset>
+        </div>
+
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+
+      </form>
+
+    </div>
+  </div>
+{% endblock %}

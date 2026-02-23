@@ -1,8 +1,7 @@
 {% extends "layouts/main.html" %}
 
 {% block pageTitle %}
-  Question page template – {{ serviceName }} – GOV.UK Prototype Kit
-{% endblock %}
+  Anthelmintic Use - {{serviceName}} - GOV.UK Prototype Kit{% endblock %}
 
 {% block containerStart %}
   {{ govukBackLink({
@@ -16,13 +15,21 @@
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
 
+{% if errors %}
+        {{ govukErrorSummary({
+          titleText: "There is a problem",
+          errorList: errors
+        }) }}
+      {% endif %}
+
       <h1 class="govuk-heading-l">
         Anthelmintic Use
       </h1>
 
-      <form class="form" action="/vetvisits/sheep-antibiotics" method="post">
+      <form class="form" action="/vetvisits/anthelmintic-use-answer" method="post">
 
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
 
 {{ govukRadios({
   classes: "govuk-radios--inline",
@@ -45,9 +52,15 @@
   ]
 }) }}
 
-{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% set groupError = false %}
+{% for error in errors %}
+  {% if error.href == '#anthelmintic-group' %}
+    {% set groupError = { text: error.text } %}
+  {% endif %}
+{% endfor %}
 
 {{ govukCheckboxes({
+  idPrefix: "anthelmintic-group", 
   name: "anthelmintic-group",
   fieldset: {
     legend: {
@@ -58,6 +71,7 @@
   hint: {
     text: "Select all that apply"
   },
+  errorMessage: groupError if groupError else null,
   items: [
     {
       value: "benzimidazoles",
@@ -120,62 +134,6 @@
     {
       value: "no",
       text: "No"
-    }
-  ]
-}) }}
-
-{{ govukRadios({
-  classes: "govuk-radios--inline",
-  name: "anthelmintic-resistance",
-  fieldset: {
-    legend: {
-      text: "Have you experienced any anthelmintic resistance in your flock in the last 12 months?",
-      classes: "govuk-fieldset__legend--s"
-    }
-  },
-  items: [
-    {
-      value: "yes",
-      text: "Yes"
-    },
-    {
-      value: "no",
-      text: "No"
-    }
-  ]
-}) }}
-
-{{ govukCheckboxes({
-  name: "anthelmintic-resistance-groups",
-  fieldset: {
-    legend: {
-      text: "If yes, to which anthelmintic groups?",
-      classes: "govuk-fieldset__legend--s"
-    }
-  },
-  hint: {
-    text: "Select all that apply"
-  },
-  items: [
-    {
-      value: "benzimidazoles",
-      text: "Benzimidazoles (white)"
-    },
-    {
-      value: "levamisole",
-      text: "Levamisole (yellow)"
-    },
-    {
-      value: "macrocyclic-lactones",
-      text: "Macrocyclic lactones (clear)"
-    },
-    {
-      value: "amino-acetyl-derivatives",
-      text: "Amino-acetyl derivatives (orange)"
-    },
-    {
-      value: "spiroindoles",
-      text: "Spiroindoles (purple)"
     }
   ]
 }) }}
