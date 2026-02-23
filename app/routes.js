@@ -151,4 +151,39 @@ router.post('/next-step-in-journey', function (req, res) {
   }
 })
 
+// Validation logic for anthelmintic use question
+
+router.post('/vetvisits/anthelmintic-use-answer', function (req, res) {
+
+  const usedAnthelmintics = req.session.data['anthelmintic-use']
+  const anthelminticGroups = req.session.data['anthelmintic-group']
+  
+  // Create an empty array to hold our errors
+  let errors = []
+
+  // Check the validation rule: If YES to using them, but NO groups selected
+  if (usedAnthelmintics === 'yes' && (!anthelminticGroups || anthelminticGroups.length === 0)) {
+    errors.push({
+      text: "Select which anthelmintic groups you have used",
+      href: "#anthelmintic-group" // This links the error summary to the checkboxes
+    })
+  }
+
+  // If there are errors, reload the page and show them
+  if (errors.length > 0) {
+    // Make sure 'vetvisits/anthelmintic-use' matches the exact folder/filename of your first page
+    res.render('vetvisits/anthelmintic-use', {
+      errors: errors
+    })
+  } else {
+    // If there are no errors, route them normally
+    if (usedAnthelmintics === "no" || !usedAnthelmintics) {
+      res.redirect('/vetvisits/sheep-antibiotics')
+    } else {
+      res.redirect('/vetvisits/anthelmintic-resistance')
+    }
+  }
+
+})
+
 module.exports = router
