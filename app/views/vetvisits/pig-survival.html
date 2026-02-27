@@ -1,0 +1,55 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  Vet Visits – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+  text: "Back",
+  href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<h1 class="govuk-heading-l">Piglet Survival</h1>
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <form class="form" action="/vetvisits/pig-mobility" method="post">
+
+{% from "govuk/components/input/macro.njk" import govukInput %}
+
+{{ govukInput({
+  label: {
+    text: "Over the last year, how many piglets were born alive (including untagged)?",
+    classes: "govuk-label--m",
+    isPageHeading: false
+  },
+  id: "pig-births",
+  classes: "govuk-input--width-10",
+  name: "pig-births"
+}) }}
+
+{{ govukInput({
+  label: {
+    text: "Over the last year, how many piglets were weaned successfully?",
+    classes: "govuk-label--m",
+    isPageHeading: false
+  },
+  id: "pig-weaning",
+  classes: "govuk-input--width-10",
+  name: "pig-weaning"
+}) }}
+      {{ govukButton({
+      text: "Continue"
+      }) }}
+
+      </form>
+
+    </div>
+  </div>
+
+{% endblock %}

@@ -1,7 +1,7 @@
 {% extends "layouts/main.html" %}
 
 {% block pageTitle %}
-  Start page template – {{ serviceName }} – GOV.UK Prototype Kit
+  Vet Visits – {{ serviceName }} – GOV.UK Prototype Kit
 {% endblock %}
 
 {% block header %}
@@ -49,7 +49,7 @@ Defra need to collect data from these reviews to monitor the health and welfare 
 <p class="govuk-body">You will need:</p>
 
 <ul class="govuk-list govuk-list--bullet">
-  <li>your vet’s Royal College of Veterinary Surgeons (RCVS) number</li>
+  <li>your vet’s email address</li>
   <li>annual antibiotic usage data (mg/PCU) for each species on your holding (dairy, beef, sheep, or pigs)</li>
 </ul>
 
@@ -67,6 +67,15 @@ Defra need to collect data from these reviews to monitor the health and welfare 
   <li>scanning results (number of ewes mated versus those confirmed pregnant)</li>
   <li>lambing and rearing data (number of lambs born alive versus those weaned)</li>
   <li>anthelmintic (wormer) usage data</li>
+</ul>
+
+<h3 class="govuk-heading-s">For pig keepers</h3>
+<ul class="govuk-list govuk-list--bullet">
+  <li>total number of piglets born alive</li>
+  <li>total number of piglets weaned</li>
+  <li>total number of pigs assessed for lameness</li>
+  <li>total number of lame pigs</li>
+  <li>the biosecurity score provided by your vet during the visit</li>
 </ul>
 
       {{ govukButton({

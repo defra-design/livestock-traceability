@@ -202,5 +202,31 @@ router.post('/vetvisits/anthelmintic-use-answer', function (req, res) {
   }
 
 })
+// Branching logic for pig survival rate question based on farm type being breeding or not
+
+router.post('/vetvisits/pig-farm-type-routing', function (req, res) {
+  // Get the submitted data from the session
+  let farmType = req.session.data['pig-farm-type'] || [];
+
+  // If the user only selected one checkbox, it saves as a string. 
+  // Convert it to an array so we can use .includes() safely.
+  if (typeof farmType === 'string') {
+    farmType = [farmType];
+  }
+
+  // Check if any of the breeding options are in the array
+  const breedsPigs = farmType.includes('breeder-only') ||
+                     farmType.includes('breeder-weaner') ||
+                     farmType.includes('breeder-finisher');
+
+  // Branch the journey based on the answer
+  if (breedsPigs) {
+    // Send them to the breeding branch
+    res.redirect('/vetvisits/pig-survival'); 
+  } else {
+    // Send them to the standard housing branch
+    res.redirect('/vetvisits/pig-mobility');
+  }
+})
 
 module.exports = router

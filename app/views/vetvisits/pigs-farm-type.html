@@ -1,3 +1,4 @@
+HTML
 {% extends "layouts/main.html" %}
 
 {% block pageTitle %}
@@ -15,58 +16,35 @@
 
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
+      
       <form class="form" action="/vetvisits/pigs-housing" method="post">
 
-{% from "govuk/components/radios/macro.njk" import govukRadios %}
+        {% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
 
-{{ govukRadios({
-  name: "pigs-farm-type",
-  fieldset: {
-    legend: {
-      text: "What type of pig farm do you have?",
-      isPageHeading: true,
-      classes: "govuk-fieldset__legend--l"
-    }
-  },
-  items: [
-    {
-      value: "breeder-only",
-      text: "Breeder only"
-    },
-    {
-      value: "breeder-weaner",
-      text: "Breeder to weaner"
-    },
-    {
-      value: "nursery",
-      text: "Nursery"
-    },
-    {
-      value: "breeder-finisher",
-      text: "Breeder to finisher"
-    },
-    {
-      value: "nursery-finisher",
-      text: "Nursery to finisher"
-    },
-    {
-      value: "finisher-only",
-      text: "Finisher only"
-    },
-    {
-      value: "",
-      text: "Boar stud"
-    },
-    {
-      value: "pet-pigs",
-      text: "Pet pigs"
-    },
-    {
-      value: "",
-      text: "Gilt unit only"
-    }
-  ]
-}) }}
+        {{ govukCheckboxes({
+          name: "pig-farm-type",
+          fieldset: {
+            legend: {
+              text: "What type of pig farm do you have?",
+              isPageHeading: true,
+              classes: "govuk-fieldset__legend--l"
+            }
+          },
+          hint: {
+            text: "Select all that apply"
+          },
+          items: [
+            { value: "breeder-only", text: "Breeder only" },
+            { value: "breeder-weaner", text: "Breeder to weaner" },
+            { value: "nursery", text: "Nursery" },
+            { value: "breeder-finisher", text: "Breeder to finisher" },
+            { value: "nursery-finisher", text: "Nursery to finisher" },
+            { value: "finisher-only", text: "Finisher only" },
+            { value: "boar-stud", text: "Boar stud" },
+            { value: "pet-pigs", text: "Pet pigs" },
+            { value: "gilt-unit-only", text: "Gilt unit only" }
+          ]
+        }) }}
 
         {{ govukButton({
           text: "Continue"

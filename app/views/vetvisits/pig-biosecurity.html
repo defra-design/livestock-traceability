@@ -1,0 +1,90 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  Vet Visits – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+  text: "Back",
+  href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<h1 class="govuk-heading-l">Pig Biosecurity</h1>
+
+   <div class="govuk-grid-row">
+     <div class="govuk-grid-column-full">
+      <p class="govuk-body">A biosecurity assessment is a review of your farm's biosecurity practices to help prevent disease outbreaks.</p>
+    </div>
+  </div>
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <form class="form" action="/vetvisits/pig-antibiotics" method="post">
+
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/date-input/macro.njk" import govukDateInput %}
+
+{{ govukRadios({
+  classes: "govuk-radios--inline",
+  name: "pig-biosecurity-assessment-completed",
+  fieldset: {
+    legend: {
+      text: "Has a biosecurity assessment been completed?",
+      isPageHeading: true,
+      classes: "govuk-fieldset__legend--m"
+    }
+  },
+  
+  items: [
+    {
+      value: "Yes",
+      text: "Yes"
+    },
+    {
+      value: "No",
+      text: "No"
+    }
+  ]
+}) }}  
+
+{{ govukDateInput({
+  id: "pig-biosecurity-assessment-date",
+  namePrefix: "pig-biosecurity-assessment-date",
+  fieldset: {
+    legend: {
+      text: "When was your biosecurity assessment completed?",
+      isPageHeading: true,
+      classes: "govuk-fieldset__legend--m"
+    }
+  },
+  hint: {
+    text: "For example, 27 3 2007"
+  }
+}) }}
+
+<h1 class="govuk-heading-m">What was your biosecurity assessment score?</h1>
+<p class="govuk-body">(Only if you have 51 or more sows or 601 or more growing pigs.)</p>
+{{ govukInput({
+    id: "pig-biosecurity-assessment-score",
+    name: "pig-biosecurity-assessment-score",
+    classes: "govuk-input--width-10",
+    autocomplete: "address-line1",
+    hint: {
+            text: "Your biosecurity assessment score is a number between 0 and 100 that reflects the level of biosecurity on your farm. A higher score indicates better biosecurity practices."
+          }
+}) }}
+
+          {{ govukButton({
+          text: "Continue"
+        }) }}
+
+      </form>
+
+    </div>
+  </div>
+
+{% endblock %}

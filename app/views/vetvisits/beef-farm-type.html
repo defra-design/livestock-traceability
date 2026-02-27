@@ -16,9 +16,9 @@
     <div class="govuk-grid-column-two-thirds">
       <form class="form" action="/vetvisits/beef-housing" method="post">
 
-{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
 
-{{ govukRadios({
+{{ govukCheckboxes({
   name: "beef-farm-type",
   fieldset: {
     legend: {
@@ -26,6 +26,9 @@
       isPageHeading: true,
       classes: "govuk-fieldset__legend--l"
     }
+  },
+    hint: {
+    text: "Select all that apply"
   },
   items: [
     {

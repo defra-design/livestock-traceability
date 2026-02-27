@@ -1,45 +1,47 @@
 {% extends "layouts/main.html" %}
 
 {% block pageTitle %}
-Finishing Unit - {{serviceName}} - GOV.UK Prototype Kit{% endblock %}
+  Vet visits – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
 
-{% block containerStart %}
+{% block beforeContent %}
   {{ govukBackLink({
-    text: "Back",
-    href: "javascript:window.history.back()"
-  }) }}
+  text: "Back",
+  href: "javascript:window.history.back()"
+}) }}
 {% endblock %}
 
 {% block content %}
 
-<h1 class="govuk-heading-l"> Eligibility</h1>
-
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
-      <form class="form" action="/vetvisits/cattle-vaccination-status" method="post">
+
+      <h1 class="govuk-heading-l">
+        PRRS Testing Eligibility
+      </h1>
+
+      <form class="form" action="/vetvisits/pig-vaccination-status" method="post">
 
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
 
 {{ govukRadios({
   classes: "govuk-radios--inline",
-  name: "finishing-unit",
+  name: "prrs-slaughter",
   fieldset: {
     legend: {
-      text: "Is your holding an approved or licensed finishing unit?",
+      text: "Do you only send animals to slaughter?",
       isPageHeading: false,
       classes: "govuk-fieldset__legend--m"
     }
   },
-  hint: {
-    text: "This is a unit licensed by APHA or your local authority to fatten animals for slaughter."
-  },
+
   items: [
     {
-      value: "Yes",
+      value: "yes",
       text: "Yes"
     },
     {
-      value: "No",
+      value: "no",
       text: "No"
     }
   ]
@@ -47,33 +49,33 @@ Finishing Unit - {{serviceName}} - GOV.UK Prototype Kit{% endblock %}
 
 {{ govukRadios({
   classes: "govuk-radios--inline",
-  name: "born-on-holding",
+  name: "prrs-shows",
   fieldset: {
     legend: {
-      text: "Were nearly all the animals on your holding born somewhere else?",
+      text: "Do you send animals to shows?",
       isPageHeading: false,
       classes: "govuk-fieldset__legend--m"
     }
   },
-  hint: {
-    text: "Select 'Yes' if 99% or more of your animals were brought in from other farms or markets."
-  },
   items: [
     {
-      value: "Yes",
+      value: "yes",
       text: "Yes"
     },
     {
-      value: "No",
+      value: "no",
       text: "No"
     }
   ]
 }) }}
 
+
         {{ govukButton({
           text: "Continue"
         }) }}
+
       </form>
+
     </div>
   </div>
 
