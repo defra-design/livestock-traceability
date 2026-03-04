@@ -1,10 +1,9 @@
 {% extends "layouts/main.html" %}
 
 {% block pageTitle %}
-Vet visits – {{ serviceName }} – GOV.UK Prototype Kit
-{% endblock %}
+Finishing Unit - {{serviceName}} - GOV.UK Prototype Kit{% endblock %}
 
-{% block beforeContent %}
+{% block containerStart %}
 {{ govukBackLink({
 text: "Back",
 href: "javascript:window.history.back()"
@@ -13,35 +12,39 @@ href: "javascript:window.history.back()"
 
 {% block content %}
 
+<span class="govuk-caption-l">Beef</span>
+<h1 class="govuk-heading-l">BVD Testing Eligibility</h1>
+
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <span class="govuk-caption-l">Pigs</span>
-    <h1 class="govuk-heading-l">
-      PRRS Testing Eligibility
-    </h1>
-
-    <form class="form" action="/vetvisits/pig-vaccination-status" method="post">
+    <form class="form" action="/vetvisits/beef-housing" method="post">
 
       {% from "govuk/components/radios/macro.njk" import govukRadios %}
 
+      <p class="govuk-body">
+        Finishing units have different require
+      </p>
+
       {{ govukRadios({
       classes: "govuk-radios--inline",
-      name: "prrs-slaughter",
+      name: "finishing-unit",
       fieldset: {
       legend: {
-      text: "Do you only send animals to slaughter?",
+      text: "Is your holding an approved or licensed finishing unit?",
       isPageHeading: false,
       classes: "govuk-fieldset__legend--m"
       }
       },
-
+      hint: {
+      text: "This is a unit licensed by APHA or your local authority to fatten animals for slaughter."
+      },
       items: [
       {
-      value: "yes",
+      value: "Yes",
       text: "Yes"
       },
       {
-      value: "no",
+      value: "No",
       text: "No"
       }
       ]
@@ -49,33 +52,33 @@ href: "javascript:window.history.back()"
 
       {{ govukRadios({
       classes: "govuk-radios--inline",
-      name: "prrs-shows",
+      name: "born-on-holding",
       fieldset: {
       legend: {
-      text: "Do you send animals to shows?",
+      text: "Were nearly all the animals on your holding born somewhere else?",
       isPageHeading: false,
       classes: "govuk-fieldset__legend--m"
       }
       },
+      hint: {
+      text: "Select 'Yes' if 99% or more of your animals were brought in from other farms or markets."
+      },
       items: [
       {
-      value: "yes",
+      value: "Yes",
       text: "Yes"
       },
       {
-      value: "no",
+      value: "No",
       text: "No"
       }
       ]
       }) }}
-
 
       {{ govukButton({
       text: "Continue"
       }) }}
-
     </form>
-
   </div>
 </div>
 

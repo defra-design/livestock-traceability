@@ -4,37 +4,38 @@
 Neonatal Survival - {{serviceName}} - GOV.UK Prototype Kit{% endblock %}
 
 {% block containerStart %}
-  {{ govukBackLink({
-    text: "Back",
-    href: "javascript:window.history.back()"
-  }) }}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
 {% endblock %}
 
 {% block content %}
 
-  <div class="govuk-grid-row">
-    <div class="govuk-grid-column-two-thirds">
-<form class="form" action="/vetvisits/finishing-unit" method="post">
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <form class="form" action="/vetvisits/cattle-vaccination-status" method="post">
 
-{% from "govuk/components/input/macro.njk" import govukInput %}
+      {% from "govuk/components/input/macro.njk" import govukInput %}
 
-{{ govukInput({
-  label: {
-    text: "Over the last year, how many calves were born alive (including untagged)?",
-    classes: "govuk-label--l",
-    isPageHeading: true
-  },
-  id: "neonatal-survival",
-  classes: "govuk-input--width-10",
-  name: "neonatal-survival"
-}) }}
+      {{ govukInput({
+      label: {
+      html: '<span class="govuk-caption-l">Cattle</span>
+      Over the last year, how many calves were born alive (including untagged)?',
+      classes: "govuk-label--l",
+      isPageHeading: true
+      },
+      id: "neonatal-survival",
+      classes: "govuk-input--width-10",
+      name: "neonatal-survival"
+      }) }}
 
-        {{ govukButton({
-          text: "Continue"
-        }) }}
+      {{ govukButton({
+      text: "Continue"
+      }) }}
 
-</form> 
-    </div>
+    </form>
   </div>
+</div>
 
 {% endblock %}

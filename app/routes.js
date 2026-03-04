@@ -8,72 +8,72 @@ const router = govukPrototypeKit.requests.setupRouter()
 
 // SGD routes
 
-router.post('/version1/sign-in-account', function(request, response) {
+router.post('/version1/sign-in-account', function (request, response) {
 
-	var signIn = request.session.data['signIn']
-	if (signIn == "login"){
-		response.redirect("/version1/sign-in-account")
-	} else {
-		response.redirect("/version1b/select-animal")
-	}
+  var signIn = request.session.data['signIn']
+  if (signIn == "login") {
+    response.redirect("/version1/sign-in-account")
+  } else {
+    response.redirect("/version1b/select-animal")
+  }
 })
 
-router.post('/version1/recently-used', function(request, response) {
+router.post('/version1/recently-used', function (request, response) {
 
-	var destination = request.session.data['destination']
-	if (destination == "recent"){
-		response.redirect("/version1/recently-used")
-	} 
-	else if (destination == "cph"){
-		response.redirect("/version1/cph-search")
-	}
-	else {
-		response.redirect("/version1b/manual-search")
-	}
+  var destination = request.session.data['destination']
+  if (destination == "recent") {
+    response.redirect("/version1/recently-used")
+  }
+  else if (destination == "cph") {
+    response.redirect("/version1/cph-search")
+  }
+  else {
+    response.redirect("/version1b/manual-search")
+  }
 })
 
-router.post('/version1/bluetooth-tag-reader', function(request, response) {
+router.post('/version1/bluetooth-tag-reader', function (request, response) {
 
-	var count = request.session.data['count']
-	if (count == "scan"){
-		response.redirect("/version1/bluetooth-tag-reader")
-	} 
-	else if (count == "batch"){
-		response.redirect("/version1b/batch")
-	}
-	else {
-		response.redirect("/version1b/individual-tags")
-	}
+  var count = request.session.data['count']
+  if (count == "scan") {
+    response.redirect("/version1/bluetooth-tag-reader")
+  }
+  else if (count == "batch") {
+    response.redirect("/version1b/batch")
+  }
+  else {
+    response.redirect("/version1b/individual-tags")
+  }
 })
 
-router.post('/version1/check-your-answers', function(request, response) {
+router.post('/version1/check-your-answers', function (request, response) {
 
-	var transport = request.session.data['transport']
-	if (transport == "self"){
-		response.redirect("/version1/check-your-answers")
-	} 
-	else {
-		response.redirect("/version1/helper-choice")
-	}
+  var transport = request.session.data['transport']
+  if (transport == "self") {
+    response.redirect("/version1/check-your-answers")
+  }
+  else {
+    response.redirect("/version1/helper-choice")
+  }
 })
 
-router.post('/version1b/self-move-details', function(request, response) {
+router.post('/version1b/self-move-details', function (request, response) {
 
-	var transportb = request.session.data['transportb']
-	if (transportb == "self"){
-		response.redirect("/version1b/self-move-details")
-	} 
-	else {
-		response.redirect("/version1b/helper-choice")
-	}
+  var transportb = request.session.data['transportb']
+  if (transportb == "self") {
+    response.redirect("/version1b/self-move-details")
+  }
+  else {
+    response.redirect("/version1b/helper-choice")
+  }
 })
 
 // Vet visits routes
 
 // 1. Initial Branching Logic
 // Check specific options in order: Beef -> Dairy -> Sheep -> Pigs
-router.post('/farm-type-answer', function(request, response) {
-  
+router.post('/farm-type-answer', function (request, response) {
+
   // Use '|| []' to handle the case where farmtypes is undefined (no boxes checked)
   var farmtypes = request.session.data['farmtypes'] || []
 
@@ -92,7 +92,7 @@ router.post('/farm-type-answer', function(request, response) {
 
 // 2. Logic after 'Beef' page is submitted
 // Check remaining options: Dairy -> Sheep -> Pigs
-router.post('/beef-farm-type-answer', function(request, response) {
+router.post('/beef-farm-type-answer', function (request, response) {
   var farmtypes = request.session.data['farmtypes'] || []
 
   if (farmtypes.includes("Dairy")) {
@@ -108,7 +108,7 @@ router.post('/beef-farm-type-answer', function(request, response) {
 
 // 3. Logic after 'Dairy' page is submitted
 // Check remaining options: Sheep -> Pigs
-router.post('/dairy-farm-type-answer', function(request, response) {
+router.post('/dairy-farm-type-answer', function (request, response) {
   var farmtypes = request.session.data['farmtypes'] || []
 
   if (farmtypes.includes("Sheep")) {
@@ -122,7 +122,7 @@ router.post('/dairy-farm-type-answer', function(request, response) {
 
 // 4. Logic after 'Sheep' page is submitted
 // Check remaining options: Pigs
-router.post('/sheep-farm-type-answer', function(request, response) {
+router.all('/sheep-farm-type-answer', function (request, response) {
   var farmtypes = request.session.data['farmtypes'] || []
 
   if (farmtypes.includes("Pigs")) {
@@ -134,7 +134,7 @@ router.post('/sheep-farm-type-answer', function(request, response) {
 
 // 5. Logic after 'Pigs' page is submitted
 // End of chain
-router.post('/pigs-farm-type-answer', function(request, response) {
+router.post('/pigs-farm-type-answer', function (request, response) {
   response.redirect("/vetvisits/check-answers")
 })
 
@@ -144,7 +144,7 @@ router.post('/next-step-in-journey', function (req, res) {
 
   if (isCorrect === 'no') {
     // Send them back to the search page if it's wrong
-    res.redirect('/vetvisits/rcvs-number')
+    res.redirect('/vetvisits/vet-email')
   } else {
     // Send them to the next step if it's right
     res.redirect('/vetvisits/farm-assurance-scheme')
@@ -156,7 +156,7 @@ router.post('/vetvisits/anthelmintic-use-answer', function (req, res) {
 
   const usedAnthelmintics = req.session.data['anthelmintic-use']
   const anthelminticGroups = req.session.data['anthelmintic-group']
-  
+
   // Create an empty array to hold our errors
   let errors = []
 
@@ -182,7 +182,7 @@ router.post('/vetvisits/anthelmintic-use-answer', function (req, res) {
     return res.render('vetvisits/anthelmintic-use', {
       errors: errors
     })
-  } 
+  }
 
   // --- If we reach this point, the data is valid ---
 
@@ -195,7 +195,7 @@ router.post('/vetvisits/anthelmintic-use-answer', function (req, res) {
 
   // 5. Routing: Send the user to the correct next page
   if (usedAnthelmintics === "no") {
-    res.redirect('/vetvisits/sheep-antibiotics')
+    res.redirect('/sheep-farm-type-answer')
   } else {
     // If it's not 'no' (and it's not empty because of our validation), it must be 'yes'
     res.redirect('/vetvisits/anthelmintic-resistance')
@@ -216,17 +216,37 @@ router.post('/vetvisits/pig-farm-type-routing', function (req, res) {
 
   // Check if any of the breeding options are in the array
   const breedsPigs = farmType.includes('breeder-only') ||
-                     farmType.includes('breeder-weaner') ||
-                     farmType.includes('breeder-finisher');
+    farmType.includes('breeder-weaner') ||
+    farmType.includes('breeder-finisher');
 
   // Branch the journey based on the answer
   if (breedsPigs) {
     // Send them to the breeding branch
-    res.redirect('/vetvisits/pig-survival'); 
+    res.redirect('/vetvisits/pig-survival');
   } else {
     // Send them to the standard housing branch
     res.redirect('/vetvisits/pig-mobility');
   }
 })
+// Branching logic for bvd eligibility question based on beef farm type being grower/finisher or not
 
-module.exports = router
+router.post('/finisher-answer', function (req, res) {
+  // Get the answer from the session data
+  const farmType = req.session.data['beef-farm-type']
+
+  // 1. If nothing is selected, default to beef housing
+  if (!farmType) {
+    res.redirect('/vetvisits/beef-housing')
+    return
+  }
+
+  // Checkboxes can return a string (if one selected) or an array (if multiple)
+  // We prioritize the Finisher (Beef grower) selection
+  if (farmType.includes('Beef grower')) {
+    // If "Beef grower" is selected (alone or with others), go to BVD first
+    res.redirect('/vetvisits/bvd-eligibility')
+  } else {
+    // If "Beef grower" was NOT selected, go to beef housing
+    res.redirect('/vetvisits/beef-housing')
+  }
+})

@@ -1,71 +1,72 @@
 {% extends "layouts/main.html" %}
 
 {% block pageTitle %}
-  Dairy farm type – {{ serviceName }} – GOV.UK Prototype Kit
+Dairy farm type – {{ serviceName }} – GOV.UK Prototype Kit
 {% endblock %}
 
 {% block containerStart %}
-  {{ govukBackLink({
-    text: "Back",
-    href: "javascript:window.history.back()"
-  }) }}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
 {% endblock %}
 
 {% block content %}
 
-  <div class="govuk-grid-row">
-    <div class="govuk-grid-column-two-thirds">
-      <form class="form" action="/vetvisits/dairy-housing" method="post">
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <form class="form" action="/vetvisits/dairy-housing" method="post">
 
-{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+      {% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
 
-{{ govukCheckboxes({
-  name: "dairy-farm-type",
-  fieldset: {
-    legend: {
-      text: "What type of dairy farm do you have?",
+      {{ govukCheckboxes({
+      name: "dairy-farm-type",
+      fieldset: {
+      legend: {
+      html: '<span class="govuk-caption-l">Dairy</span>
+      What type of dairy farm do you have?',
       isPageHeading: true,
       classes: "govuk-fieldset__legend--l"
-    }
-  },
-    hint: {
-    text: "Select all that apply"
-  },
-  items: [
-    {
+      }
+      },
+      hint: {
+      text: "Select all that apply"
+      },
+      items: [
+      {
       value: "",
       text: "All year round calving"
-    },
-    {
+      },
+      {
       value: "spring-calving",
       text: "Block calving - spring"
-    },
-    {
+      },
+      {
       value: "autumn-calving",
       text: "Block calving - autumn"
-    },
-    {
+      },
+      {
       value: "multiple-calving",
       text: "Block calving - multiple block"
-    },
-    {
+      },
+      {
       value: "specialist-heifer-rearers",
       text: "Specialist dairy heifer rearers"
-    },
-    {
+      },
+      {
       value: "dairy-non-commercial",
       text: "Pets/non-commercial"
-    }
-  ]
-}) }}
+      }
+      ]
+      }) }}
 
-        {{ govukButton({
-          text: "Continue"
-        }) }}
+      {{ govukButton({
+      text: "Continue"
+      }) }}
 
-      </form>
+    </form>
 
-    </div>
   </div>
+</div>
 
 {% endblock %}
