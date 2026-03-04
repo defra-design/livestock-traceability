@@ -4,40 +4,41 @@
 Mastitis - {{serviceName}} - GOV.UK Prototype Kit{% endblock %}
 
 {% block containerStart %}
-  {{ govukBackLink({
-    text: "Back",
-    href: "javascript:window.history.back()"
-  }) }}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
 {% endblock %}
 
 {% block content %}
 
-  <div class="govuk-grid-row">
-    <div class="govuk-grid-column-two-thirds">
-      <form class="form" action="/vetvisits/mobility" method="post">
-{% from "govuk/components/input/macro.njk" import govukInput %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <form class="form" action="/vetvisits/mobility" method="post">
+      {% from "govuk/components/input/macro.njk" import govukInput %}
 
-{{ govukInput({
-  label: {
-    text: "Over the last year, how many cows have been treated for mastitis?",
-    classes: "govuk-label--l",
-    isPageHeading: true
-  },
-  id: "event-name",
-  classes: "govuk-input--width-10",
-  name: "eventName",
-  attributes: {
-    "maxlength": "7",
-    "inputmode": "numeric",
-    "pattern": "[0-9]*"
-  }
-}) }}
+      {{ govukInput({
+      label: {
+      html: '<span class="govuk-caption-l">Cattle</span>
+      Over the last year, how many cows have been treated for mastitis?',
+      classes: "govuk-label--l",
+      isPageHeading: true
+      },
+      id: "event-name",
+      classes: "govuk-input--width-10",
+      name: "eventName",
+      attributes: {
+      "maxlength": "7",
+      "inputmode": "numeric",
+      "pattern": "[0-9]*"
+      }
+      }) }}
 
-        {{ govukButton({
-          text: "Continue"
-        }) }}
-      </form>
-    </div>
+      {{ govukButton({
+      text: "Continue"
+      }) }}
+    </form>
   </div>
+</div>
 
 {% endblock %}

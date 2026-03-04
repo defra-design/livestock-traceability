@@ -9,34 +9,35 @@ Mobility - {{serviceName}} - GOV.UK Prototype Kit
 {% endblock %}
 
 {% block containerStart %}
-  {{ govukBackLink({
-    text: "Back",
-    href: "javascript:window.history.back()"
-  }) }}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
 {% endblock %}
 
 {% block content %}
-  <div class="govuk-grid-row">
-    <div class="govuk-grid-column-two-thirds">
-      <form class="form" action="/vetvisits/neonatal-survival" method="post">
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <form class="form" action="/vetvisits/neonatal-survival" method="post">
 
-        {{ govukInput({
-          label: {
-            text: "Over the last year, how many cows were severely lame?",
-            classes: "govuk-label--l",
-            isPageHeading: true
-          },
-          id: "severely-lame",
-          classes: "govuk-input--width-10",
-          name: "severely-lame"
-        }) }}
+      {{ govukInput({
+      label: {
+      html: '<span class="govuk-caption-l">Cattle</span>
+      Over the last year, how many cows were severely lame?',
+      classes: "govuk-label--l",
+      isPageHeading: true
+      },
+      id: "severely-lame",
+      classes: "govuk-input--width-10",
+      name: "severely-lame"
+      }) }}
 
-        {{ govukButton({
-          text: "Continue"
-        }) }}
+      {{ govukButton({
+      text: "Continue"
+      }) }}
 
-      </form>
+    </form>
 
-    </div>
   </div>
+</div>
 {% endblock %}

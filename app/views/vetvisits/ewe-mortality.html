@@ -4,47 +4,47 @@
 Ewe Mortality Rate - {{serviceName}} - GOV.UK Prototype Kit{% endblock %}
 
 {% block containerStart %}
-  {{ govukBackLink({
-    text: "Back",
-    href: "javascript:window.history.back()"
-  }) }}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
 {% endblock %}
 
 {% block content %}
 
-  <div class="govuk-grid-row">
-    <div class="govuk-grid-column-two-thirds">
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <span class="govuk-caption-l">Sheep</span>
+    <h1 class="govuk-heading-l">
+      Ewe Mortality Rate
+    </h1>
 
-      <h1 class="govuk-heading-l">
-        Ewe Mortality Rate
-      </h1>
+    <form class="form" action="/vetvisits/lamb-rearing-percentage" method="post">
 
-      <form class="form" action="/vetvisits/lamb-rearing-percentage" method="post">
+      {{ govukInput({
+      label: {
+      text: "Number of ewes which have died on the holding in the last 12 months?"
+      },
+      classes: "govuk-!-width-one-quarter",
+      id: "ewe-mortality-holding",
+      name: "eweMortalityHolding"
+      }) }}
+      {{ govukInput({
+      label: {
+      text: "Number of ewes which have been sent for slaughter in the last 12 months?"
+      },
+      classes: "govuk-!-width-one-quarter",
+      id: "ewe-mortality-slaughter",
+      name: "eweMortalitySlaughter"
+      }) }}
 
-{{ govukInput({
-  label: {
-    text: "Number of ewes which have died on the holding in the last 12 months?"
-  },
-  classes: "govuk-!-width-one-quarter",
-  id: "ewe-mortality-holding",
-  name: "eweMortalityHolding"
-}) }}
-{{ govukInput({
-  label: {
-    text: "Number of ewes which have been sent for slaughter in the last 12 months?"
-  },
-  classes: "govuk-!-width-one-quarter",
-  id: "ewe-mortality-slaughter",
-  name: "eweMortalitySlaughter"
-}) }}
+      {{ govukButton({
+      text: "Continue"
+      }) }}
 
-        {{ govukButton({
-          text: "Continue"
-        }) }}
+    </form>
 
-      </form>
-
-    </div>
   </div>
+</div>
 
 {% endblock %}

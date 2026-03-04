@@ -1,62 +1,62 @@
 {% extends "layouts/main.html" %}
 
 {% block pageTitle %}
-  Vet Visits – {{ serviceName }} – GOV.UK Prototype Kit
+Vet Visits – {{ serviceName }} – GOV.UK Prototype Kit
 {% endblock %}
 
 {% block beforeContent %}
-  {{ govukBackLink({
-  text: "Back",
-  href: "javascript:window.history.back()"
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
 }) }}
 {% endblock %}
 
 {% block content %}
 
-  <div class="govuk-grid-row">
-    <div class="govuk-grid-column-two-thirds">
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <span class="govuk-caption-l">Pigs</span>
+    <h1 class="govuk-heading-l">
+      Pig Mobility
+    </h1>
 
-      <h1 class="govuk-heading-l">
-        Pig Mobility
-      </h1>
+    <form class="form" action="/vetvisits/prrs-eligibility" method="post">
 
-      <form class="form" action="/vetvisits/prrs-eligibility" method="post">
+      <p class="govuk-body">Over the last year, how many pigs were assessed for lameness by your vet?</p>
 
-<p class="govuk-body">Over the last year, how many pigs were assessed for lameness by your vet?</p>
+      {% from "govuk/components/input/macro.njk" import govukInput %}
 
-{% from "govuk/components/input/macro.njk" import govukInput %}
+      {{ govukInput({
+      label: {
+      text: "Total number of pigs assessed?",
+      classes: "govuk-label--m",
+      isPageHeading: false
+      },
+      id: "pigs-lameness-assessed",
+      classes: "govuk-input--width-10",
+      name: "pigs-lameness-assessed"
+      }) }}
+      {% from "govuk/components/input/macro.njk" import govukInput %}
 
-{{ govukInput({
-  label: {
-    text: "Total number of pigs assessed?",
-    classes: "govuk-label--m",
-    isPageHeading: false
-  },
-  id: "pigs-lameness-assessed",
-  classes: "govuk-input--width-10",
-  name: "pigs-lameness-assessed"
-}) }}
-{% from "govuk/components/input/macro.njk" import govukInput %}
-
-{{ govukInput({
-  label: {
-    text: "Number of lame pigs?",
-    classes: "govuk-label--m",
-    isPageHeading: false
-  },
-  id: "pigs-lame",
-  classes: "govuk-input--width-10",
-  name: "pigs-lame"
-}) }}
+      {{ govukInput({
+      label: {
+      text: "Number of lame pigs?",
+      classes: "govuk-label--m",
+      isPageHeading: false
+      },
+      id: "pigs-lame",
+      classes: "govuk-input--width-10",
+      name: "pigs-lame"
+      }) }}
 
 
-        {{ govukButton({
-          text: "Continue"
-        }) }}
+      {{ govukButton({
+      text: "Continue"
+      }) }}
 
-      </form>
+    </form>
 
-    </div>
   </div>
+</div>
 
 {% endblock %}
