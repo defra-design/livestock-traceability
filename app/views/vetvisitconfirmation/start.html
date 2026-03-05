@@ -1,0 +1,92 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+Vet Visit Confirmation – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block header %}
+<header>
+  {{govukHeader()}}
+</header>
+{% endblock %}
+
+{% block containerStart %}
+{{ govukBreadcrumbs({
+items: [
+{
+text: "Home",
+href: "#"
+},
+{
+text: "Section",
+href: "#"
+},
+{
+text: "Subsection"
+}
+]
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <h1 class="govuk-heading-xl">
+      Annual Health and Welfare Review Confirmation
+    </h1>
+
+    <p>The Animal Health and Welfare Review (AHWR) is a mandatory annual requirement. Vets must confirm the data that
+      was input by keepers and add extra medical information.</p>
+    <p> First you need to login to your Royal College of Veterinary Surgeons account. This will forward you to the
+      confirmation pages.</p>
+
+    {{ govukButton({
+    text: "Start now",
+    href: "/vetvisitconfirmation/rcvs",
+    isStartButton: true
+    }) }}
+
+    <h2 class="govuk-heading-m">
+      Before you start
+    </h2>
+
+    <p>
+      You will need:
+    <ul class="govuk-list govuk-list--bullet">
+      <li>Your RCVS login details</li>
+      <li>Antibiotic usage data for the holding</li>
+      </p>
+
+  </div>
+
+  <div class="govuk-grid-column-one-third">
+
+    <aside class="govuk-prototype-kit-common-templates-related-items" role="complementary">
+      <nav role="navigation" aria-labelledby="subsection-title">
+        <h2 class="govuk-heading-m" id="subsection-title">
+          More information
+        </h2>
+        <nav role="navigation" aria-labelledby="subsection-title">
+          <ul class="govuk-list govuk-!-font-size-16">
+            <li>
+              <a
+                href="https://www.gov.uk/government/publications/animal-health-and-welfare-pathway/animal-health-and-welfare-pathway">
+                Animal Health and Welfare Pathway
+              </a>
+            </li>
+            <li>
+              <a href="https://www.gov.uk/government/organisations/defra">
+                Defra
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </nav>
+    </aside>
+
+  </div>
+</div>
+
+{% endblock %}

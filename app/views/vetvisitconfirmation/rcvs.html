@@ -1,0 +1,18 @@
+{% extends "govuk-prototype-kit/layouts/unbranded.html" %}
+
+{% block pageTitle %}
+RCVS Login – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block content %}
+
+<img src="/public/images/rcvs.png" alt="screenshot of RCVS login page" class="govuk-!-margin-bottom-6">
+
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{{ govukButton({
+text: "Continue",
+href:"cph"
+}) }}
+
+{% endblock %}
