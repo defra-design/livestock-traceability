@@ -1,0 +1,90 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+Check your answers template – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block containerStart %}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds-from-desktop">
+
+    <h1 class="govuk-heading-xl">
+      Check the antibiotics prescribed for the holding
+    </h1>
+
+    {{ govukSummaryList({
+    rows: [
+    {
+    key: {
+    text: "Cattle"
+    },
+    value: {
+    text: "100 mg/PCU of Oxytetracycline"
+    },
+    actions: {
+    items: [
+    {
+    href: "/vetvisitconfirmation/cattle-antibiotics",
+    text: "Change",
+    visuallyHiddenText: "Question 1"
+    }
+    ]
+    }
+    }
+    ,
+    {
+    key: {
+    text: "Cattle"
+    },
+    value: {
+    text: "90 mg/PCU of Penicillin-Streptomycin"
+    },
+    actions: {
+    items: [
+    {
+    href: "/vetvisitconfirmation/cattle-antibiotics",
+    text: "Change",
+    visuallyHiddenText: "Question 2"
+    }
+    ]
+    }
+    }
+    ,
+    {
+    key: {
+    text: "Cattle"
+    },
+    value: {
+    text: "200 mg/PCU of Amoxicillin"
+    },
+    actions: {
+    items: [
+    {
+    href: "/vetvisitconfirmation/cattle-antibiotics",
+    text: "Change",
+    visuallyHiddenText: "Question 3"
+    }
+    ]
+    }
+    }
+    ]
+    }) }}
+
+    <form action="/vetvisitconfirmation/confirmation" method="post" novalidate>
+
+      {{ govukButton({
+      text: "Accept and send"
+      }) }}
+
+    </form>
+
+  </div>
+</div>
+{% endblock %}

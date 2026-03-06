@@ -1,0 +1,268 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+Check your answers – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block containerStart %}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds-from-desktop">
+
+    <h1 class="govuk-heading-xl">
+      Check the keeper's answers
+    </h1>
+
+    {{ govukSummaryList({
+    rows: [
+    {
+    key: {
+    text: "When was your Annual Health and Welfare Visit date?"
+    },
+    value: {
+    text: "12 January 2026"
+    },
+    actions: {
+    items: [
+    {
+    href: "/vetvisits/visit-date",
+    text: "Change",
+    visuallyHiddenText: "When was your Annual Health and Welfare Visit date?"
+    }
+    ]
+    }
+    },
+    {
+    key: {
+    text: "What is your vet's RCVS number?"
+    },
+    value: {
+    text: "1234567"
+    },
+    actions: {
+    items: [
+    {
+    href: "/vetvisits/rcvs-number",
+    text: "Change",
+    visuallyHiddenText: "What is your vet's RCVS number?"
+    }
+    ]
+    }
+    },
+
+    {
+    key: {
+    text: "Vet name"
+    },
+    value: {
+    text: "John Smith"
+    },
+    actions: {
+    items: [
+    {
+    href: "/vetvisits/rcvs-number",
+    text: "Change",
+    visuallyHiddenText: "Vet name"
+    }
+    ]
+    }
+    },
+    {
+    key: {
+    text: "What types of farming do you do?"
+    },
+    value: {
+    html: "Beef"
+    },
+    actions: {
+    items: [
+    {
+    href: "/vetvisits/farm-structure",
+    text: "Change",
+    visuallyHiddenText: "What types of farming do you do?"
+    }
+    ]
+    }
+    },
+    {
+    key: {
+    text: "What types of beef farming do you have?"
+    },
+    value: {
+    text: "Beef sucklers"
+    },
+    actions: {
+    items: [
+    {
+    href: "beef-farm-type",
+    text: "Change",
+    visuallyHiddenText: "What types of beef farming do you have?"
+    }
+    ]
+    }
+    },
+    {
+    key: {
+    text: "Where do you house your cattle?"
+    },
+    value: {
+    text: "Indoors"
+    },
+    actions: {
+    items: [
+    {
+    href: "beef-housing",
+    text: "Change",
+    visuallyHiddenText: "Where do you house your cattle?"
+    }
+    ]
+    }
+    },
+    {
+    key: {
+    text: "Over the last 12 months, how many unique cows in your herd have been treated for mastitis at least once?"
+    },
+    value: {
+    text: "2"
+    },
+    actions: {
+    items: [
+    {
+    href: "mastitis",
+    text: "Change",
+    visuallyHiddenText: "Over the last 12 months, how many unique cows in your herd have been treated for mastitis at
+    least once?"
+    }
+    ]
+    }
+    },
+    {
+    key: {
+    text: "Over the last 12 months how many unique cows were severely lame?"
+    },
+    value: {
+    text: "1"
+    },
+    actions: {
+    items: [
+    {
+    href: "severely-lame",
+    text: "Change",
+    visuallyHiddenText: "Over the last 12 months how many unique cows were severely lame?"
+    }
+    ]
+    }
+    },
+    {
+    key: {
+    text: "Over the last 12 months how many calves were born alive?"
+    },
+    value: {
+    text: "45"
+    },
+    actions: {
+    items: [
+    {
+    href: "neonatal-survival",
+    text: "Change",
+    visuallyHiddenText: "Over the last 12 months how many calves were born alive?"
+    }
+    ]
+    }
+    },
+    {
+    key: {
+    text: "Have you used any BVD vaccine in your herd in the last 12 months?"
+    },
+    value: {
+    text: "Yes"
+    },
+    actions: {
+    items: [
+    {
+    href: "vaccination-status",
+    text: "Change",
+    visuallyHiddenText: "Have you used any BVD vaccine in your herd in the last 12 months?"
+    }
+    ]
+    }
+    },
+    {
+    key: {
+    text: "Has a biosecurity assessment been completed?"
+    },
+    value: {
+    text: "Yes"
+    },
+    actions: {
+    items: [
+    {
+    href: "biosecurity-assessment",
+    text: "Change",
+    visuallyHiddenText: "Has a biosecurity assessment been completed?"
+    }
+    ]
+    }
+    },
+    {
+    key: {
+    text: "When was your biosecurity assessment completed?"
+    },
+    value: {
+    text: "10 January 2026"
+    },
+    actions: {
+    items: [
+    {
+    href: "biosecurity-assessment",
+    text: "Change",
+    visuallyHiddenText: "When was your biosecurity assessment completed?"
+    }
+    ]
+    }
+    },
+    {
+    key: {
+    text: "What was your biosecurity assessment score?"
+    },
+    value: {
+    text: "80"
+    },
+    actions: {
+    items: [
+    {
+    href: "biosecurity-assessment",
+    text: "Change",
+    visuallyHiddenText: "What was your biosecurity assessment score?"
+    }
+    ]
+    }
+    }
+    ]
+    }) }}
+
+    {% from "govuk/components/button/macro.njk" import govukButton %}
+
+    {{ govukButton({
+    text: "Save and continue",
+    href: "/vetvisitconfirmation/cattle-antibiotics"
+    }) }}
+
+    {{ govukButton({
+    text: "Reject AHWR details",
+    classes: "govuk-button--warning",
+    href: "/vetvisitconfirmation/rejection-reason"
+    }) }}
+
+  </div>
+</div>
+{% endblock %}

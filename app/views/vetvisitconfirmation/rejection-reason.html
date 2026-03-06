@@ -1,0 +1,45 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+Rejection reason – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block containerStart %}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <form class="form" action="/vetvisitconfirmation/rejection" method="post">
+
+      {% from "govuk/components/textarea/macro.njk" import govukTextarea %}
+
+      {{ govukTextarea({
+      name: "rejection-reason",
+      id: "rejection-reason",
+      label: {
+      text: "Give your reasons for why you are rejecting the details of the AHWR.",
+      classes: "govuk-label--l",
+      isPageHeading: true
+      },
+      hint: {
+      text: "This will be emailed to the keeper. They will be asked to amend their answers, which been saved for them."
+      }
+      }) }}
+
+      {{ govukButton({
+      text: "Continue"
+      }) }}
+
+    </form>
+
+  </div>
+</div>
+
+{% endblock %}
