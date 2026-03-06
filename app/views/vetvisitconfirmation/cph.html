@@ -1,40 +1,62 @@
 {% extends "layouts/main.html" %}
 
 {% block pageTitle %}
-  Question page template – {{ serviceName }} – GOV.UK Prototype Kit
+Holdings – {{ serviceName }} – GOV.UK Prototype Kit
 {% endblock %}
 
 {% block containerStart %}
-  {{ govukBackLink({
-    text: "Back",
-    href: "javascript:window.history.back()"
-  }) }}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
 {% endblock %}
 
 {% block content %}
 
-  <div class="govuk-grid-row">
-    <div class="govuk-grid-column-two-thirds">
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
 
-      <h1 class="govuk-heading-l">
-        Heading or question goes here
-      </h1>
+    <h1 class="govuk-heading-l">
+      Holdings waiting for confirmation of vet visit details
+    </h1>
 
-      <form class="form" action="/path/of/next/page" method="post">
+    <form class="form" action="check-answers" method="post">
 
-        <p>
-          [Insert question content here - see the
-          <a href="https://design-system.service.gov.uk">GOV.UK Design System</a>
-          for examples]
-        </p>
+      {{ govukTable({
+      caption: "Select a holding",
+      captionClasses: "govuk-visually-hidden",
+      firstCellIsHeader: false,
+      head: [
+      { text: "CPH" },
+      { text: "Trading name" },
+      { text: "Postcode" },
+      { text: "Visit date" }
+      ],
+      rows: [
+      [
+      { html: '<a href="check-answers" class="govuk-link">12/345/6789</a>' },
+      { text: "Beech Tree Farm" },
+      { text: "AB1 2CD" },
+      { text: "12 Jan 2026" }
+      ],
+      [
+      { html: '<a href="check-answers" class="govuk-link">98/765/4321</a>' },
+      { text: "Oakwood Livestock" },
+      { text: "EF3 4GH" },
+      { text: "15 Jan 2026" }
+      ],
+      [
+      { html: '<a href="check-answers" class="govuk-link">55/444/3333</a>' },
+      { text: "Hillside Partners" },
+      { text: "IJ5 6KL" },
+      { text: "20 Jan 2026" }
+      ]
+      ]
+      }) }}
 
-        {{ govukButton({
-          text: "Continue"
-        }) }}
+    </form>
 
-      </form>
-
-    </div>
   </div>
+</div>
 
 {% endblock %}

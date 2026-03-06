@@ -1,0 +1,74 @@
+{% extends "layouts/main.html" %}
+<style>
+  /* Custom CSS for the Rejection Panel - normally goes in application.scss */
+  .app-panel--error {
+    background-color: #d4351c;
+  }
+
+  .app-panel--error:focus {
+    outline: 3px solid #ffdd00;
+    outline-offset: 0;
+  }
+</style>
+</head>
+
+{% block pageTitle %}
+Rejection – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block containerStart %}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<!-- The Custom Red Rejection Panel -->
+<div class="govuk-panel govuk-panel--confirmation app-panel--error">
+  <h1 class="govuk-panel__title">
+    Questionnaire rejected
+  </h1>
+  <div class="govuk-panel__body">
+    Submission reference<br><strong>AHV-992-K3P</strong><br>
+    <span class="govuk-!-font-size-24 govuk-!-margin-top-4 govuk-!-display-inline-block">Beech Tree Farm</span>
+  </div>
+</div>
+
+<p class="govuk-body">
+  You have rejected the annual health and welfare review questionnaire for <strong>Beech Tree Farm</strong>.
+</p>
+
+<p class="govuk-body">
+  We have sent an email to the farmer to let them know. It includes your reason for rejection:
+</p>
+
+<div class="govuk-inset-text">
+  "The farm is marked as being a beef suckler farm, but you are a finishing unit. This matters for your BVD
+  vaccination eligibility."
+</div>
+
+<h2 class="govuk-heading-m">What happens next</h2>
+
+<p class="govuk-body">
+  The keeper must amend their answers with the correct information. They may contact your practice to clarify the
+  details of the visit before resubmitting.
+</p>
+
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{{ govukButton({
+text: "Save and continue",
+href: "/vetvisitconfirmation/cph"
+}) }}
+
+</div>
+</div>
+</main>
+</div>
+
+</div>
+</div>
+
+{% endblock %}
