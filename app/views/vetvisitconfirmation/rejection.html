@@ -1,16 +1,4 @@
 {% extends "layouts/main.html" %}
-<style>
-  /* Custom CSS for the Rejection Panel - normally goes in application.scss */
-  .app-panel--error {
-    background-color: #d4351c;
-  }
-
-  .app-panel--error:focus {
-    outline: 3px solid #ffdd00;
-    outline-offset: 0;
-  }
-</style>
-</head>
 
 {% block pageTitle %}
 Rejection – {{ serviceName }} – GOV.UK Prototype Kit
@@ -25,8 +13,7 @@ href: "javascript:window.history.back()"
 
 {% block content %}
 
-<!-- The Custom Red Rejection Panel -->
-<div class="govuk-panel govuk-panel--confirmation app-panel--error">
+<div class="govuk-panel govuk-panel--confirmation">
   <h1 class="govuk-panel__title">
     AHWR details rejected
   </h1>
@@ -62,13 +49,5 @@ href: "javascript:window.history.back()"
 text: "Save and continue",
 href: "/vetvisitconfirmation/cph"
 }) }}
-
-</div>
-</div>
-</main>
-</div>
-
-</div>
-</div>
 
 {% endblock %}
