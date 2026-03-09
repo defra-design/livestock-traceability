@@ -1,0 +1,75 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  Question page template – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+  text: "Back",
+  href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <h1 class="govuk-heading-l">
+       Where are the sheep moving from?
+      </h1>
+
+    <form class="form" action="/version1/livestock-count" method="post">
+
+<div class="govuk-form-group">
+  <fieldset class="govuk-fieldset" aria-describedby="nationality-hint">
+    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+     
+    </legend>
+    <div id="nationality-hint" class="govuk-hint">
+      Select all that apply.
+    </div>
+    <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+      <div class="govuk-checkboxes__item">
+        <input class="govuk-checkboxes__input" id="nationality" name="nationality" type="checkbox" value="british" aria-describedby="nationality-item-hint">
+        <label class="govuk-label govuk-checkboxes__label" for="nationality">
+          County Parish Holding number: 12-345-6789
+        </label>
+        <div id="nationality-item-hint" class="govuk-hint govuk-checkboxes__hint">
+          A specific land parcel of Alex Smith's farm
+        </div>
+      </div>
+      <div class="govuk-checkboxes__item">
+        <input class="govuk-checkboxes__input" id="nationality" name="nationality" type="checkbox" value="british" aria-describedby="nationality-item-hint">
+        <label class="govuk-label govuk-checkboxes__label" for="nationality">
+          County Parish Holding number: 12-345-6790
+        </label>
+        <div id="nationality-item-hint" class="govuk-hint govuk-checkboxes__hint">
+          A specific land parcel of Alex Smith's farm
+        </div>
+      </div>
+      <div class="govuk-checkboxes__item">
+        <input class="govuk-checkboxes__input" id="nationality" name="nationality" type="checkbox" value="british" aria-describedby="nationality-item-hint">
+        <label class="govuk-label govuk-checkboxes__label" for="nationality">
+          County Parish Holding number: 12-345-6791
+        </label>
+        <div id="nationality-item-hint" class="govuk-hint govuk-checkboxes__hint">
+          A specific land parcel of Alex Smith's farm
+        </div>
+      </div>
+      
+    </div>
+  </fieldset>
+</div>
+
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+
+      </form>
+
+    </div>
+  </div>
+
+{% endblock %}

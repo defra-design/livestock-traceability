@@ -1,0 +1,63 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  Question page template – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+  text: "Back",
+  href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <h1 class="govuk-heading-l">
+        How do you want to count the animals?
+      </h1>
+
+     <form class="form" action="/version1/bluetooth-tag-reader" method="post">
+
+        <div class="govuk-form-group">
+  <fieldset class="govuk-fieldset">
+    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+      
+    </legend>
+    <div class="govuk-radios" data-module="govuk-radios">
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="count" name="count" type="radio" value="batch">
+        <label class="govuk-label govuk-radios__label" for="count">
+          Add animals as a batch
+        </label>
+      </div>
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="count-2" name="count" type="radio" value="individual">
+        <label class="govuk-label govuk-radios__label" for="count-2">
+          Add animals individually
+        </label>
+      </div>
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="count-3" name="count" type="radio" value="scan">
+        <label class="govuk-label govuk-radios__label" for="count-3">
+          Scan using a tag reader
+        </label>
+      </div>
+      
+    </div>
+  </fieldset>
+</div>
+
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+
+      </form>
+
+    </div>
+  </div>
+
+{% endblock %}

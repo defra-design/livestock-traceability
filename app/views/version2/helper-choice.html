@@ -1,0 +1,61 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  Question page template – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+  text: "Back",
+  href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <h1 class="govuk-heading-l">
+        Who is helping you to transport the sheep?
+      </h1>
+
+     <form class="form" action="/version1/helper-details" method="post">
+
+        <div class="govuk-form-group">
+  <fieldset class="govuk-fieldset">
+    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+      
+    </legend>
+    <div class="govuk-radios" data-module="govuk-radios">
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="helper" name="helper" type="radio" value="haulier">
+        <label class="govuk-label govuk-radios__label" for="helper">
+          A haulier company
+        </label>
+      </div>
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="helper-2" name="helper" type="radio" value="someone">
+        <label class="govuk-label govuk-radios__label" for="helper-2">
+          Someone else
+        </label>
+        <div id="signIn-item-hint" class="govuk-hint govuk-radios__hint">
+          Such as a friend, family member or neighbour
+        </div>
+      </div>
+      
+      
+    </div>
+  </fieldset>
+</div>
+
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+
+      </form>
+
+    </div>
+  </div>
+
+{% endblock %}

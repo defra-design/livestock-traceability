@@ -1,0 +1,41 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  Question page template – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+  text: "Back",
+  href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <h1 class="govuk-heading-l">
+        Connecting to your tag reader
+      </h1>
+
+      <form class="form" action="/version1/tag-import-list" method="post">
+
+        <div class="hods-loading-spinner" role="status">
+  <div class="hods-loading-spinner__spinner"></div>
+  <div class="hods-loading-spinner__content">
+    <h1 class="govuk-heading-m">Loading...</h1>
+  </div>
+</div>
+
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+
+      </form>
+
+    </div>
+  </div>
+
+{% endblock %}

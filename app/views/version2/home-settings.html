@@ -1,0 +1,69 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  Question page template – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+  text: "Back",
+  href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <span class="govuk-caption-xl">Livestock Information Account</span>
+      <h1 class="govuk-heading-l">
+        Alex Smith
+      </h1>
+<div class="govuk-service-navigation"
+  data-module="govuk-service-navigation">
+  <div class="govuk-width-container">
+    <div class="govuk-service-navigation__container">
+      <nav aria-label="Menu" class="govuk-service-navigation__wrapper">
+        <button type="button" class="govuk-service-navigation__toggle govuk-js-service-navigation-toggle" aria-controls="navigation" hidden aria-hidden="true">
+          Menu
+        </button>
+        <ul class="govuk-service-navigation__list" id="navigation">
+          
+          <li class="govuk-service-navigation__item">
+            <a class="govuk-service-navigation__link" href="/version2/home-livestock-list">
+              Livestock list
+            </a>
+          </li>
+          <li class="govuk-service-navigation__item">
+            <a class="govuk-service-navigation__link" href="/version2/home-movement">
+              Movements
+            </a>
+          </li>
+          <li class="govuk-service-navigation__item govuk-service-navigation__item--active">
+            <a class="govuk-service-navigation__link" href="/version2/home-settings" aria-current="true">
+              <strong class="govuk-service-navigation__active-fallback"></strong>Account settings</strong>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+<br>
+      <form class="form" action="/version1/select-animal" method="post">
+
+        <h2 class="govuk-heading-m">Personal details</h2>
+<p class="govuk-body">Alex Smith’s farm, Cattle & Sheep, Midlands</p>
+<p class="govuk-body"><a href="#" class="govuk-link">Change</a></p>
+
+<h3 class="govuk-heading-m">Farm software</h3>
+<p class="govuk-body">If you use farm business software already to report movement, you don’t need to use this service as the data can be shared automatically.</p>
+<p class="govuk-body"><a href="/version1/farm-software" class="govuk-link">Link my farm software</a></p>
+
+      </form>
+
+    </div>
+  </div>
+
+{% endblock %}

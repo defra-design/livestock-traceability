@@ -1,0 +1,168 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  Question page template – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+  text: "Back",
+  href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+
+      <span class="govuk-caption-xl">Livestock Information Account</span>
+      <h1 class="govuk-heading-l">
+        Alex Smith
+      </h1>
+<div class="govuk-service-navigation"
+  data-module="govuk-service-navigation">
+  <div class="govuk-width-container">
+    <div class="govuk-service-navigation__container">
+      <nav aria-label="Menu" class="govuk-service-navigation__wrapper">
+        <button type="button" class="govuk-service-navigation__toggle govuk-js-service-navigation-toggle" aria-controls="navigation" hidden aria-hidden="true">
+          Menu
+        </button>
+        <ul class="govuk-service-navigation__list" id="navigation">
+          
+          <li class="govuk-service-navigation__item govuk-service-navigation__item--active">
+            <a class="govuk-service-navigation__link" href="/version2/home-livestock-list" aria-current="true">
+              <strong class="govuk-service-navigation__active-fallback"></strong>Livestock list</strong>
+            </a>
+          </li>
+          <li class="govuk-service-navigation__item">
+            <a class="govuk-service-navigation__link" href="/version2/home-movement">
+              Movements
+            </a>
+          </li>
+          <li class="govuk-service-navigation__item">
+            <a class="govuk-service-navigation__link" href="/version2/home-settings">
+              Account settings
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+<br>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-half">
+ <p class="govuk-body govuk-!-font-size-80">350</p>
+  <p class="govuk-body govuk-!-font-size-24" style="margin-top:-20px">Total sheep</p>
+   </div>
+   <div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-half">
+ <p class="govuk-body govuk-!-font-size-80">47</p>
+  <p class="govuk-body govuk-!-font-size-24" style="margin-top:-20px">Total cattle</p>
+   </div>
+  </div>
+  <br>
+<div class="govuk-grid-column-two-thirds">
+<table class="govuk-table">
+  <caption class="govuk-table__caption govuk-table__caption--m">Adult sheep (10)</caption>
+  <thead class="govuk-table__head">
+    <tr class="govuk-table__row">
+      <th scope="col" class="govuk-table__header">Breed</th>
+      <th scope="col" class="govuk-table__header">Gender</th>
+      <th scope="col" class="govuk-table__header govuk-table__header--numeric">Age</th>
+      <th scope="col" class="govuk-table__header govuk-table__header--numeric">Tag number</th>
+    </tr>
+  </thead>
+  <tbody class="govuk-table__body">
+    <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header">Texel</th>
+      <td class="govuk-table__cell">Male</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric">1 Jan 2025</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric">UK 0 123456</td>
+    </tr>
+    <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header">Suffolk</th>
+      <td class="govuk-table__cell">Female</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric">15 Feb 2024</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric">UK 0 123457</td>
+    </tr>
+    <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header">Merino</th>
+      <td class="govuk-table__cell">Male</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric">3 Mar 2023</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric">UK 0 123458</td>
+    </tr>
+    <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header">Charollais</th>
+      <td class="govuk-table__cell">Female</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric">22 Apr 2022</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric">UK 0 123459</td>
+    </tr>
+    <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header">Hampshire</th>
+      <td class="govuk-table__cell">Male</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric">10 May 2021</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric">UK 0 123460</td>
+    </tr>
+    <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header">Lincoln</th>
+      <td class="govuk-table__cell">Female</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric">7 Jun 2020</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric">UK 0 123461</td>
+    </tr>
+    <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header">Romney</th>
+      <td class="govuk-table__cell">Male</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric">14 Jul 2019</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric">UK 0 123462</td>
+    </tr>
+    <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header">Cheviot</th>
+      <td class="govuk-table__cell">Female</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric">28 Aug 2018</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric">UK 0 123463</td>
+    </tr>
+    <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header">Dorset</th>
+      <td class="govuk-table__cell">Male</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric">5 Sep 2017</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric">UK 0 123464</td>
+    </tr>
+    <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header">Jacob</th>
+      <td class="govuk-table__cell">Female</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric">12 Oct 2016</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric">UK 0 123465</td>
+    </tr>
+</table>
+</div>
+<br>
+<div class="govuk-grid-column-two-thirds">
+<table class="govuk-table">
+  <caption class="govuk-table__caption govuk-table__caption--m">Lambs (340)</caption>
+  <thead class="govuk-table__head">
+    <tr class="govuk-table__row">
+      <th scope="col" class="govuk-table__header">Breed</th>
+      <th scope="col" class="govuk-table__header">Gender</th>
+      <th scope="col" class="govuk-table__header govuk-table__header--numeric">Age</th>
+      <th scope="col" class="govuk-table__header govuk-table__header--numeric">Tag number</th>
+    </tr>
+  </thead>
+  <tbody class="govuk-table__body">
+    {% set breeds = ['Texel', 'Suffolk', 'Merino', 'Charollais', 'Hampshire', 'Lincoln', 'Romney', 'Cheviot', 'Dorset', 'Jacob'] %}
+    {% for i in range(0, 340) %}
+    <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header">{{ breeds[i % 10] }}</th>
+      <td class="govuk-table__cell">{{ 'Male' if i % 2 == 0 else 'Female' }}</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric">01 Jan 2026</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric"></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</div>
+    </div>
+  </div>
+
+{% endblock %}

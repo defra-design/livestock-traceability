@@ -1,0 +1,49 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  Question page template – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block containerStart %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <h1 class="govuk-heading-l">
+        Movement report check
+      </h1>
+      <div class="govuk-notification-banner" role="region" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
+  <div class="govuk-notification-banner__header">
+    <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+      Important
+    </h2>
+  </div>
+  <div class="govuk-notification-banner__content">
+    <p class="govuk-notification-banner__heading">
+      We have already had a report sent relating to sheep from your holding.
+      <a class="govuk-notification-banner__link" href="#">View movement report</a>.
+    </p>
+  </div>
+</div>
+
+      <form class="form" action="/path/of/next/page" method="post">
+
+      <div class="govuk-inset-text">
+          Sometimes the recipient of your sheep may submit the movement report before you do, this means we can avoid duplication and ask you to check their report instead.
+      </div>
+<p class="govuk-body">
+  <a href="/version2/movement-date" class="govuk-link" rel="noreferrer noopener" target="_blank">I'd like to continue sending my report anyway</a>
+</p>
+      </form>
+
+    </div>
+  </div>
+
+{% endblock %}
