@@ -1,0 +1,56 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+Holdings – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block containerStart %}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <h1 class="govuk-heading-l">
+      Holdings waiting for confirmation of vet visit details
+    </h1>
+
+    <form class="form" action="check-answers" method="post">
+
+      {{ govukTable({
+      caption: "Select a holding",
+      captionClasses: "govuk-visually-hidden",
+      firstCellIsHeader: false,
+      head: [
+      { text: "CPH" },
+      { text: "Trading name" },
+      { text: "Postcode" },
+      { text: "Visit date" }
+      ],
+      rows: [
+      [
+      { html: '<a href="check-answers" class="govuk-link">98/765/4321</a>' },
+      { text: "Oakwood Livestock" },
+      { text: "EF3 4GH" },
+      { text: "15 Jan 2026" }
+      ],
+      [
+      { html: '<a href="check-answers" class="govuk-link">55/444/3333</a>' },
+      { text: "Hillside Partners" },
+      { text: "IJ5 6KL" },
+      { text: "20 Jan 2026" }
+      ]
+      ]
+      }) }}
+
+    </form>
+
+  </div>
+</div>
+
+{% endblock %}
