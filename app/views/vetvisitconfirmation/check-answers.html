@@ -250,19 +250,18 @@ href: "javascript:window.history.back()"
     ]
     }) }}
 
-    {% from "govuk/components/button/macro.njk" import govukButton %}
+    <div class="govuk-button-group">
+      {{ govukButton({
+      text: "Accept",
+      href: "/vetvisitconfirmation/cattle-antibiotics"
+      }) }}
 
-    {{ govukButton({
-    text: "Save and continue",
-    href: "/vetvisitconfirmation/cattle-antibiotics"
-    }) }}
-
-    {{ govukButton({
-    text: "Reject AHWR details",
-    classes: "govuk-button--warning",
-    href: "/vetvisitconfirmation/rejection-reason"
-    }) }}
-
+      {{ govukButton({
+      text: "Reject",
+      classes: "govuk-button--secondary",
+      href: "/vetvisitconfirmation/rejection-reason"
+      }) }}
+    </div>
   </div>
 </div>
 {% endblock %}
