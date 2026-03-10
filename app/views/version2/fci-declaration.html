@@ -1,0 +1,75 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  Question page template – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+  text: "Back",
+  href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <h1 class="govuk-heading-l">
+        Food Chain Information declaration
+      </h1>
+
+     <form class="form" action="/version2/who-transports" method="post">
+
+  <div class="govuk-form-group">
+  <fieldset class="govuk-fieldset" aria-describedby="signIn-hint">
+    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+    
+    </legend>
+    <div id="signIn-hint" class="govuk-hint">
+      Select one box
+    </div>
+    <div class="govuk-radios" data-module="govuk-radios">
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="signIn" name="signIn" type="radio" value="government-gateway" aria-describedby="signIn-item-hint">
+        <label class="govuk-label govuk-radios__label" for="signIn">
+          I declare that all animals in this consignment satisfy the conditions that allow them to enter the food chain
+        </label>
+        <div id="nationality-item-hint" class="govuk-hint govuk-checkboxes__hint">
+    <details class="govuk-details">
+  <summary class="govuk-details__summary">
+    <span class="govuk-details__summary-text">
+      What are the FCI conditions?
+    </span>
+  </summary>
+  <div class="govuk-details__text">
+<ul class="govuk-list govuk-list--bullet">
+  <li>Sheep on the holding are not under movement restrictions for animal disease or public health reasons (excluding any 6 day standstill)</li>
+  <li>Withdrawal periods have been observed for all veterinary medicines and other treatments administered to the animals while on this holding and previous holdings</li>
+  <li>To the best of my knowledge the animals are not showing signs of any disease or condition that may affect the safety of meat derived from them</li>
+  <li>No analysis of samples taken from animals on the holding or other samples has shown that the animals in this consignment may have been exposed to any disease or condition that may affect the safety of meat or to substances likely to result in residues in meat</li>
+</ul>  </div>
+</details></div>
+      </div>
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="signIn-2" name="signIn" type="radio" value="govuk-one-login" aria-describedby="signIn-2-item-hint">
+        <label class="govuk-label govuk-radios__label" for="signIn-2">
+          The animals are not safe to enter the food chain
+        </label>
+        
+      </div>
+    </div>
+  </fieldset>
+</div>
+
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+
+      </form>
+
+    </div>
+  </div>
+
+{% endblock %}

@@ -63,7 +63,7 @@
    </div>
   </div>
   <br>
-<div class="govuk-grid-column-two-thirds">
+<div class="govuk-grid-column-full">
 <table class="govuk-table">
   <caption class="govuk-table__caption govuk-table__caption--m">Adult sheep (10)</caption>
   <thead class="govuk-table__head">
@@ -72,6 +72,7 @@
       <th scope="col" class="govuk-table__header">Gender</th>
       <th scope="col" class="govuk-table__header govuk-table__header--numeric">Age</th>
       <th scope="col" class="govuk-table__header govuk-table__header--numeric">Tag number</th>
+      <th scope="col" class="govuk-table__header govuk-table__header--numeric">Status</th>
     </tr>
   </thead>
   <tbody class="govuk-table__body">
@@ -80,60 +81,72 @@
       <td class="govuk-table__cell">Male</td>
       <td class="govuk-table__cell govuk-table__cell--numeric">1 Jan 2025</td>
       <td class="govuk-table__cell govuk-table__cell--numeric">UK 0 123456</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric"><strong class="govuk-tag">
+  On
+</strong></td>
     </tr>
     <tr class="govuk-table__row">
       <th scope="row" class="govuk-table__header">Suffolk</th>
       <td class="govuk-table__cell">Female</td>
       <td class="govuk-table__cell govuk-table__cell--numeric">15 Feb 2024</td>
       <td class="govuk-table__cell govuk-table__cell--numeric">UK 0 123457</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric"><strong class="govuk-tag">On</strong></td>
     </tr>
     <tr class="govuk-table__row">
       <th scope="row" class="govuk-table__header">Merino</th>
       <td class="govuk-table__cell">Male</td>
       <td class="govuk-table__cell govuk-table__cell--numeric">3 Mar 2023</td>
       <td class="govuk-table__cell govuk-table__cell--numeric">UK 0 123458</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric"><strong class="govuk-tag">On</strong></td>
     </tr>
     <tr class="govuk-table__row">
       <th scope="row" class="govuk-table__header">Charollais</th>
       <td class="govuk-table__cell">Female</td>
       <td class="govuk-table__cell govuk-table__cell--numeric">22 Apr 2022</td>
       <td class="govuk-table__cell govuk-table__cell--numeric">UK 0 123459</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric"><strong class="govuk-tag">On</strong></td>
     </tr>
     <tr class="govuk-table__row">
       <th scope="row" class="govuk-table__header">Hampshire</th>
       <td class="govuk-table__cell">Male</td>
       <td class="govuk-table__cell govuk-table__cell--numeric">10 May 2021</td>
       <td class="govuk-table__cell govuk-table__cell--numeric">UK 0 123460</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric"><strong class="govuk-tag">On</strong></td>
     </tr>
     <tr class="govuk-table__row">
       <th scope="row" class="govuk-table__header">Lincoln</th>
       <td class="govuk-table__cell">Female</td>
       <td class="govuk-table__cell govuk-table__cell--numeric">7 Jun 2020</td>
       <td class="govuk-table__cell govuk-table__cell--numeric">UK 0 123461</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric"><strong class="govuk-tag">On</strong></td>
     </tr>
     <tr class="govuk-table__row">
       <th scope="row" class="govuk-table__header">Romney</th>
       <td class="govuk-table__cell">Male</td>
       <td class="govuk-table__cell govuk-table__cell--numeric">14 Jul 2019</td>
       <td class="govuk-table__cell govuk-table__cell--numeric">UK 0 123462</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric"><strong class="govuk-tag">On</strong></td>
     </tr>
     <tr class="govuk-table__row">
       <th scope="row" class="govuk-table__header">Cheviot</th>
       <td class="govuk-table__cell">Female</td>
       <td class="govuk-table__cell govuk-table__cell--numeric">28 Aug 2018</td>
       <td class="govuk-table__cell govuk-table__cell--numeric">UK 0 123463</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric"><strong class="govuk-tag">On</strong></td>
     </tr>
     <tr class="govuk-table__row">
       <th scope="row" class="govuk-table__header">Dorset</th>
       <td class="govuk-table__cell">Male</td>
       <td class="govuk-table__cell govuk-table__cell--numeric">5 Sep 2017</td>
       <td class="govuk-table__cell govuk-table__cell--numeric">UK 0 123464</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric"><strong class="govuk-tag">On</strong></td>
     </tr>
     <tr class="govuk-table__row">
       <th scope="row" class="govuk-table__header">Jacob</th>
       <td class="govuk-table__cell">Female</td>
       <td class="govuk-table__cell govuk-table__cell--numeric">12 Oct 2016</td>
       <td class="govuk-table__cell govuk-table__cell--numeric">UK 0 123465</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric"><strong class="govuk-tag">On</strong></td>
     </tr>
 </table>
 </div>
@@ -147,6 +160,7 @@
       <th scope="col" class="govuk-table__header">Gender</th>
       <th scope="col" class="govuk-table__header govuk-table__header--numeric">Age</th>
       <th scope="col" class="govuk-table__header govuk-table__header--numeric">Tag number</th>
+      <th scope="col" class="govuk-table__header govuk-table__header--numeric">Status</th>
     </tr>
   </thead>
   <tbody class="govuk-table__body">
@@ -157,6 +171,7 @@
       <td class="govuk-table__cell">{{ 'Male' if i % 2 == 0 else 'Female' }}</td>
       <td class="govuk-table__cell govuk-table__cell--numeric">01 Jan 2026</td>
       <td class="govuk-table__cell govuk-table__cell--numeric"></td>
+      <td class="govuk-table__cell govuk-table__cell--numeric"><strong class="govuk-tag">On</strong></td>
     </tr>
     {% endfor %}
   </tbody>

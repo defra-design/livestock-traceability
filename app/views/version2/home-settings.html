@@ -14,7 +14,7 @@
 {% block content %}
 
   <div class="govuk-grid-row">
-    <div class="govuk-grid-column-two-thirds">
+    <div class="govuk-grid-column-full">
 
       <span class="govuk-caption-xl">Livestock Information Account</span>
       <h1 class="govuk-heading-l">
@@ -51,34 +51,49 @@
   </div>
 </div>
 <br>
-      <form class="form" action="/version1/select-animal" method="post">
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-half">
+    <form class="form" action="/version1/select-animal" method="post">
 
-        <h2 class="govuk-heading-m">Personal details</h2>
-<p class="govuk-body">Alex Smith’s farm, Cattle & Sheep, Midlands</p>
-<p class="govuk-body"><a href="#" class="govuk-link">Change</a></p>
+      <h2 class="govuk-heading-m">Personal details</h2>
+      <p class="govuk-body">Name: Alex Smith</p>
+      <p class="govuk-body">Email: info@alexsmithfarm.com</p>
+      <p class="govuk-body">Phone: 01234 567890</p>
+      <p class="govuk-body"><a href="#" class="govuk-link">Change</a></p>
 
-        <h2 class="govuk-heading-m">My holdings</h2>
-<ul class="govuk-list govuk-list--bullet">
-  <li>County Parish Holding number: 12-345-6789</li>
-  <li>County Parish Holding number: 12-345-6790</li>
-  <li>County Parish Holding number: 12-345-6791</li>
-</ul>
-<p class="govuk-body"><a href="#" class="govuk-link">Change</a></p>
+      <h2 class="govuk-heading-m">Vet Attestation Number (VAN)</h2>
+      <strong class="govuk-tag govuk-tag--grey">
+        Incomplete
+      </strong>
+      <p class="govuk-body" style="margin-top:20px"><a href="#" class="govuk-link">Add</a></p>
 
-        <h2 class="govuk-heading-m">My vehicles</h2>
-<ul class="govuk-list govuk-list--bullet">
-  <li>AS34 ABC - Trailer with 3.5 tonne capacity</li>
-  <li>XT56 XYZ - Lorry with 7.5 tonne capacity</li>
-  <li>GH78 DEF - Lorry with 12 tonne capacity</li>
-</ul>
-<p class="govuk-body"><a href="#" class="govuk-link">Change</a></p>
+      <h2 class="govuk-heading-m">My holdings</h2>
+      <ul class="govuk-list govuk-list--bullet">
+        <li>Alex Smith's Farm, Holding CPH number: 12-345-6789</li>
+        <li>Alex Smith's Farm, Holding CPH number: 12-345-6790</li>
+        <li>Alex Smith's Farm, Holding CPH number: 12-345-6791</li>
+      </ul>
+      <p class="govuk-body"><a href="#" class="govuk-link">Change</a></p>
 
-<h3 class="govuk-heading-m">Farm software</h3>
-<p class="govuk-body">If you use farm business software already for movements, you can share this livestock data automatically.</p>
-<p class="govuk-body"><a href="/version1/farm-software" class="govuk-link">Link my farm software</a></p>
+    </form>
+  </div>
 
-      </form>
+  <div class="govuk-grid-column-one-half">
 
+    <h2 class="govuk-heading-m">My vehicles</h2>
+    <ul class="govuk-list govuk-list--bullet">
+      <li>AS34 ABC - Trailer with 3.5 tonne capacity</li>
+      <li>XT56 XYZ - Lorry with 7.5 tonne capacity</li>
+      <li>GH78 DEF - Lorry with 12 tonne capacity</li>
+    </ul>
+    <p class="govuk-body"><a href="#" class="govuk-link">Change</a></p>
+
+    <h3 class="govuk-heading-m">Farm software</h3>
+    <p class="govuk-body">If you use farm business software already for movements, you can share this livestock data automatically.</p>
+    <p class="govuk-body"><a href="/version1/farm-software" class="govuk-link">Link my farm software</a></p>
+
+  </div>
+</div>
     </div>
   </div>
 
