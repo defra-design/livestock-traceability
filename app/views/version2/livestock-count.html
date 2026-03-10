@@ -17,10 +17,10 @@
     <div class="govuk-grid-column-two-thirds">
 
       <h1 class="govuk-heading-l">
-        How do you want to count the animals?
+        How do you want to count the sheep?
       </h1>
 
-     <form class="form" action="/version1/bluetooth-tag-reader" method="post">
+     <form class="form" action="/version2/batch" method="post">
 
         <div class="govuk-form-group">
   <fieldset class="govuk-fieldset">
@@ -31,21 +31,19 @@
       <div class="govuk-radios__item">
         <input class="govuk-radios__input" id="count" name="count" type="radio" value="batch">
         <label class="govuk-label govuk-radios__label" for="count">
-          Add animals as a batch
+          Count the lambs as a batch
         </label>
+        <div id="signIn-item-hint" class="govuk-hint govuk-radios__hint">
+          Their tags can be scanned on arrival at the market. You must add tags before departure.
+        </div>
       </div>
       <div class="govuk-radios__item">
         <input class="govuk-radios__input" id="count-2" name="count" type="radio" value="individual">
         <label class="govuk-label govuk-radios__label" for="count-2">
-          Add animals individually
+          Select from my livestock list
         </label>
       </div>
-      <div class="govuk-radios__item">
-        <input class="govuk-radios__input" id="count-3" name="count" type="radio" value="scan">
-        <label class="govuk-label govuk-radios__label" for="count-3">
-          Scan using a tag reader
-        </label>
-      </div>
+
       
     </div>
   </fieldset>
