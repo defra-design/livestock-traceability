@@ -52,20 +52,18 @@
 </div>
 <br>
 <div class="govuk-grid-row">
-  <div class="govuk-grid-column-one-half">
- <p class="govuk-body govuk-!-font-size-80">350</p>
-  <p class="govuk-body govuk-!-font-size-24" style="margin-top:-20px">Total sheep</p>
-   </div>
-   <div class="govuk-grid-row">
-  <div class="govuk-grid-column-one-half">
- <p class="govuk-body govuk-!-font-size-80">47</p>
-  <p class="govuk-body govuk-!-font-size-24" style="margin-top:-20px">Total cattle</p>
-   </div>
-  </div>
-  <br>
 <div class="govuk-grid-column-full">
+  <div class="govuk-accordion" data-module="govuk-accordion" id="accordion-default">
+  <div class="govuk-accordion__section">
+    <div class="govuk-accordion__section-header">
+      <h2 class="govuk-accordion__section-heading">
+        <span class="govuk-accordion__section-button" id="accordion-default-heading-1">
+          Adult sheep (10)
+        </span>
+      </h2>
+    </div>
+    <div id="accordion-default-content-1" class="govuk-accordion__section-content">
 <table class="govuk-table">
-  <caption class="govuk-table__caption govuk-table__caption--m">Adult sheep (10)</caption>
   <thead class="govuk-table__head">
     <tr class="govuk-table__row">
       <th scope="col" class="govuk-table__header">Breed</th>
@@ -149,13 +147,18 @@
       <td class="govuk-table__cell govuk-table__cell--numeric"><strong class="govuk-tag">On</strong></td>
     </tr>
 </tbody>
-</table>
-</div>
-<br>
-
-<br>
+</table>    </div>
+  </div>
+  <div class="govuk-accordion__section">
+    <div class="govuk-accordion__section-header">
+      <h2 class="govuk-accordion__section-heading">
+        <span class="govuk-accordion__section-button" id="accordion-default-heading-2">
+          Lambs (340)
+        </span>
+      </h2>
+    </div>
+    <div id="accordion-default-content-2" class="govuk-accordion__section-content">
 <table class="govuk-table">
-  <caption class="govuk-table__caption govuk-table__caption--m">Lambs (340)</caption>
   <thead class="govuk-table__head">
     <tr class="govuk-table__row">
       <th scope="col" class="govuk-table__header">Breed</th>
@@ -177,10 +180,18 @@
     </tr>
     {% endfor %}
   </tbody>
-</table>
-
+</table>    </div>
+  </div>
+  <div class="govuk-accordion__section">
+    <div class="govuk-accordion__section-header">
+      <h2 class="govuk-accordion__section-heading">
+        <span class="govuk-accordion__section-button" id="accordion-default-heading-3">
+          Cattle (47)
+        </span>
+      </h2>
+    </div>
+    <div id="accordion-default-content-3" class="govuk-accordion__section-content">
 <table class="govuk-table">
-  <caption class="govuk-table__caption govuk-table__caption--m">Cattle (47)</caption>
   <thead class="govuk-table__head">
     <tr class="govuk-table__row">
       <th scope="col" class="govuk-table__header">Breed</th>
@@ -202,7 +213,19 @@
     </tr>
     {% endfor %}
   </tbody>
-</table>
+</table>    </div>
+  </div>
+  
+  </div>
+</div>
+
+</div>
+<br>
+
+<br>
+
+
+
 
 
 

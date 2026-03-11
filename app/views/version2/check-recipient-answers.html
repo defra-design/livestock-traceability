@@ -15,9 +15,18 @@
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds-from-desktop">
 
-      <h1 class="govuk-heading-xl">
-        Check your answers before sending your movement report
-      </h1>
+      <div class="govuk-notification-banner" role="region" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
+  <div class="govuk-notification-banner__header">
+    <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+      Important
+    </h2>
+  </div>
+  <div class="govuk-notification-banner__content">
+    <p class="govuk-notification-banner__heading">
+      This is a movement report previously sent by The Market which you can check and amend if necessary.
+    </p>
+  </div>
+</div>
 <h2 class="govuk-heading-m">Movement summary</h2>
       {{ govukSummaryList({
         rows: [
@@ -114,7 +123,7 @@
         ]
       }) }}
 
-      <table class="govuk-table">
+            <table class="govuk-table">
   <caption class="govuk-table__caption govuk-table__caption--m">Sheep identification details</caption>
   <thead class="govuk-table__head">
     <tr class="govuk-table__row">
@@ -125,8 +134,9 @@
   </thead>
   <tbody class="govuk-table__body">
     <tr class="govuk-table__row">
-      <th scope="row" class="govuk-table__header">Lamb flock number</th>
-            <td class="govuk-table__cell">123456</td>
+      <th scope="row" class="govuk-table__header">Lamb tag numbers<br><strong class="govuk-tag" style="margin-top:10px">
+  Scanned</strong></th>
+            <td class="govuk-table__cell">UK 0 123456 23410<br>UK 0 123456 23411<br>UK 0 123456 23412<br>UK 0 123456 23413<br>UK 0 123456 23414<br>UK 0 123456 23415<br>UK 0 123456 23416<br>UK 0 123456 23417<br>UK 0 123456 23418<br>UK 0 123456 23419</td>
       <td class="govuk-table__cell govuk-table__cell--numeric"><a href="#" class="govuk-link">Change</a></td>
     </tr>
 <tr class="govuk-table__row">
