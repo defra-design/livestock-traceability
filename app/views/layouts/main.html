@@ -12,7 +12,13 @@ https://prototype-kit.service.gov.uk/docs/how-to-use-layouts
         homepageUrl: '/index.html'
     }) }}
     {{ govukServiceNavigation({
-        serviceName: serviceName
+        serviceName: serviceName,
+        navigationSecondary: [
+            {
+                text: "Sign out",
+                href: "#"
+            }
+        ]
     })}}
 
 {% endblock %}
