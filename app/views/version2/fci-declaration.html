@@ -16,7 +16,7 @@
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
 
-      <h1 class="govuk-heading-l">
+      <span class="govuk-caption-xl">Sheep</span><h1 class="govuk-heading-l">
         Food Chain Information declaration
       </h1>
 
@@ -40,7 +40,7 @@
     <details class="govuk-details">
   <summary class="govuk-details__summary">
     <span class="govuk-details__summary-text">
-      What are the FCI conditions?
+      What are the Food Chain Information (FCI) conditions?
     </span>
   </summary>
   <div class="govuk-details__text">
@@ -52,14 +52,24 @@
 </ul>  </div>
 </details></div>
       </div>
+
+<div class="govuk-radios__divider">or</div>
       <div class="govuk-radios__item">
-        <input class="govuk-radios__input" id="signIn-2" name="signIn" type="radio" value="govuk-one-login" aria-describedby="signIn-2-item-hint">
+        <input class="govuk-radios__input" id="signIn-2" name="signIn" type="radio" value="unsafe" data-aria-controls="search-conditional">
         <label class="govuk-label govuk-radios__label" for="signIn-2">
           The animals are not safe to enter the food chain
         </label>
         
       </div>
-    </div>
+</div>
+
+<div class="govuk-radios__conditional govuk-radios__conditional--hidden govuk-!-margin-top-6" id="search-conditional">
+    <div class="govuk-form-group">
+<p>You will need to provide some additional information.</p>
+</div>
+  </div>
+
+
   </fieldset>
 </div>
 
