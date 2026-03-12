@@ -17,37 +17,37 @@ href: "javascript:window.history.back()"
   <div class="govuk-grid-column-two-thirds">
     <h1 class="govuk-heading-xl">AHWR details rejected</h1>
     <p class="govuk-body">Submission reference: <strong>AHV-992-K3P</strong></p>
+
+    <p class="govuk-body">
+      You have rejected the annual health and welfare review details for <strong>Beech Tree Farm</strong>.
+    </p>
+
+    <h2 class="govuk-heading-m">Reason for rejection</h2>
+
+    <p class="govuk-body">
+      We have sent an email to the farmer to let them know. It includes your reason for rejection:
+    </p>
+
+    <div class="govuk-inset-text">
+      "{{ data['rejection-reason'] | default('The farm is marked as being a beef suckler farm, but you are a finishing
+      unit. This matters for your BVD vaccination eligibility.') }}"
+    </div>
+
+    <h2 class="govuk-heading-m">What happens next</h2>
+
+    <p class="govuk-body">
+      The keeper must amend their answers with the correct information. They may contact your practice to clarify the
+      details of the visit before resubmitting.
+    </p>
+
+    {% from "govuk/components/button/macro.njk" import govukButton %}
+
+    {{ govukButton({
+    text: "Save and continue",
+    href: "/vetvisitconfirmation/cph-less-one"
+    }) }}
+
   </div>
 </div>
-
-<p class="govuk-body">
-  You have rejected the annual health and welfare review details for <strong>Beech Tree Farm</strong>.
-</p>
-
-<h2 class="govuk-heading-m">Reason for rejection</h2>
-
-
-<p class="govuk-body">
-  We have sent an email to the farmer to let them know. It includes your reason for rejection:
-</p>
-
-<div class="govuk-inset-text">
-  "The farm is marked as being a beef suckler farm, but you are a finishing unit. This matters for your BVD
-  vaccination eligibility."
-</div>
-
-<h2 class="govuk-heading-m">What happens next</h2>
-
-<p class="govuk-body">
-  The keeper must amend their answers with the correct information. They may contact your practice to clarify the
-  details of the visit before resubmitting.
-</p>
-
-{% from "govuk/components/button/macro.njk" import govukButton %}
-
-{{ govukButton({
-text: "Save and continue",
-href: "/vetvisitconfirmation/cph-less-one"
-}) }}
 
 {% endblock %}

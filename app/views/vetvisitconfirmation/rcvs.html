@@ -6,304 +6,297 @@ RCVS Login – {{ serviceName }} – GOV.UK Prototype Kit
 
 {% block content %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - RCVS MyAccount</title>
-    <style>
-        /* Base styling matching typical ASP.NET portal layouts */
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: Tahoma, Arial, Helvetica, sans-serif;
-            font-size: 12px;
-            color: #333333;
-            background-color: #ffffff;
-        }
+<style>
+    /* Base styling matching typical ASP.NET portal layouts */
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: Tahoma, Arial, Helvetica, sans-serif;
+        font-size: 12px;
+        color: #333333;
+        background-color: #ffffff;
+    }
 
-        a {
-            color: #017DB0;
-            text-decoration: none;
-        }
+    a {
+        color: #017DB0;
+        text-decoration: none;
+    }
 
-        a:hover {
-            text-decoration: underline;
-        }
+    a:hover {
+        text-decoration: underline;
+    }
 
-        /* Layout wrappers */
-        .page-wrapper {
-            width: 100%;
-            min-width: 980px;
-        }
+    /* Layout wrappers */
+    .page-wrapper {
+        width: 100%;
+        min-width: 980px;
+    }
 
-        .container {
-            width: 960px;
-            margin: 0 auto;
-            position: relative;
-        }
+    .container {
+        width: 960px;
+        margin: 0 auto;
+        position: relative;
+    }
 
-        /* Header Area */
-        .header-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-            padding: 15px 0 10px 0;
-        }
+    /* Header Area */
+    .header-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        padding: 15px 0 10px 0;
+    }
 
-        .logo-area {
-            display: flex;
-            align-items: center;
-        }
+    .logo-area {
+        display: flex;
+        align-items: center;
+    }
 
-        .logo-area img {
-            max-height: 85px;
-            /* Adjust this if the actual image is a different height */
-            width: auto;
-            display: block;
-        }
+    .logo-area img {
+        max-height: 85px;
+        /* Adjust this if the actual image is a different height */
+        width: auto;
+        display: block;
+    }
 
-        .header-welcome {
-            font-size: 16px;
-            color: #017DB0;
-            font-weight: bold;
-            margin-bottom: 5px;
-            margin-left: 15px;
-        }
+    .header-welcome {
+        font-size: 16px;
+        color: #017DB0;
+        font-weight: bold;
+        margin-bottom: 5px;
+        margin-left: 15px;
+    }
 
-        .utility-links {
-            text-align: right;
-            font-size: 11px;
-            color: #666;
-            margin-bottom: 5px;
-        }
+    .utility-links {
+        text-align: right;
+        font-size: 11px;
+        color: #666;
+        margin-bottom: 5px;
+    }
 
-        .utility-links a {
-            color: #666;
-            margin-left: 10px;
-        }
+    .utility-links a {
+        color: #666;
+        margin-left: 10px;
+    }
 
-        /* Main Navigation */
-        .main-nav {
-            background-color: #017DB0;
-            height: 35px;
-            line-height: 35px;
-            width: 100%;
-        }
+    /* Main Navigation */
+    .main-nav {
+        background-color: #017DB0;
+        height: 35px;
+        line-height: 35px;
+        width: 100%;
+    }
 
-        .main-nav ul {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            display: flex;
-        }
+    .main-nav ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+    }
 
-        .main-nav li a {
-            color: #ffffff;
-            font-weight: bold;
-            font-size: 12px;
-            padding: 0 15px;
-            display: block;
-            text-decoration: none;
-            border-right: 1px solid #015b80;
-        }
+    .main-nav li a {
+        color: #ffffff;
+        font-weight: bold;
+        font-size: 12px;
+        padding: 0 15px;
+        display: block;
+        text-decoration: none;
+        border-right: 1px solid #015b80;
+    }
 
-        .main-nav li a:hover {
-            background-color: #015b80;
-            text-decoration: none;
-        }
+    .main-nav li a:hover {
+        background-color: #015b80;
+        text-decoration: none;
+    }
 
-        /* Breadcrumbs */
-        .breadcrumbs {
-            padding: 10px 0;
-            font-size: 11px;
-            color: #666;
-            border-bottom: 1px solid #e5e5e5;
-            margin-bottom: 20px;
-        }
+    /* Breadcrumbs */
+    .breadcrumbs {
+        padding: 10px 0;
+        font-size: 11px;
+        color: #666;
+        border-bottom: 1px solid #e5e5e5;
+        margin-bottom: 20px;
+    }
 
-        .breadcrumbs a {
-            color: #666;
-        }
+    .breadcrumbs a {
+        color: #666;
+    }
 
-        /* Main Content */
-        .content-area {
-            min-height: 400px;
-            padding-top: 15px;
-        }
+    /* Main Content */
+    .content-area {
+        min-height: 400px;
+        padding-top: 15px;
+    }
 
-        h1 {
-            color: #017DB0;
-            font-size: 20px;
-            font-weight: normal;
-            margin-top: 0;
-            margin-bottom: 15px;
-            padding-bottom: 8px;
-            border-bottom: 1px dotted #cccccc;
-        }
+    h1 {
+        color: #017DB0;
+        font-size: 20px;
+        font-weight: normal;
+        margin-top: 0;
+        margin-bottom: 15px;
+        padding-bottom: 8px;
+        border-bottom: 1px dotted #cccccc;
+    }
 
-        p {
-            line-height: 1.5;
-            margin-top: 0;
-            margin-bottom: 15px;
-        }
+    p {
+        line-height: 1.5;
+        margin-top: 0;
+        margin-bottom: 15px;
+    }
 
-        /* Login Box Form */
-        .login-container {
-            margin-top: 30px;
-            width: 100%;
-            max-width: 500px;
-        }
+    /* Login Box Form */
+    .login-container {
+        margin-top: 30px;
+        width: 100%;
+        max-width: 500px;
+    }
 
-        .form-row {
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-        }
+    .form-row {
+        margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+    }
 
-        .form-row label {
-            width: 120px;
-            font-weight: bold;
-            color: #333;
-        }
+    .form-row label {
+        width: 120px;
+        font-weight: bold;
+        color: #333;
+    }
 
-        .form-row input[type="text"],
-        .form-row input[type="password"] {
-            width: 200px;
-            padding: 3px 4px;
-            border: 1px solid #7f9db9;
-            font-family: Tahoma, Arial, sans-serif;
-            font-size: 12px;
-        }
+    .form-row input[type="text"],
+    .form-row input[type="password"] {
+        width: 200px;
+        padding: 3px 4px;
+        border: 1px solid #7f9db9;
+        font-family: Tahoma, Arial, sans-serif;
+        font-size: 12px;
+    }
 
-        .form-actions {
-            margin-left: 120px;
-            margin-top: 15px;
-        }
+    .form-actions {
+        margin-left: 120px;
+        margin-top: 15px;
+    }
 
-        .btn-submit {
-            background-color: #f5f5f5;
-            border: 1px solid #dedede;
-            border-top: 1px solid #eee;
-            border-left: 1px solid #eee;
-            color: #565656;
-            padding: 4px 15px;
-            font-family: Tahoma, Arial, sans-serif;
-            font-size: 11px;
-            font-weight: bold;
-            cursor: pointer;
-        }
+    .btn-submit {
+        background-color: #f5f5f5;
+        border: 1px solid #dedede;
+        border-top: 1px solid #eee;
+        border-left: 1px solid #eee;
+        color: #565656;
+        padding: 4px 15px;
+        font-family: Tahoma, Arial, sans-serif;
+        font-size: 11px;
+        font-weight: bold;
+        cursor: pointer;
+    }
 
-        .btn-submit:hover {
-            background-color: #e4e4e4;
-            border: 1px solid #c2c2c2;
-            color: #333;
-        }
+    .btn-submit:hover {
+        background-color: #e4e4e4;
+        border: 1px solid #c2c2c2;
+        color: #333;
+    }
 
-        .forgot-links {
-            margin-top: 25px;
-            font-size: 11px;
-            margin-left: 120px;
-        }
+    .forgot-links {
+        margin-top: 25px;
+        font-size: 11px;
+        margin-left: 120px;
+    }
 
-        .forgot-links a {
-            color: #017DB0;
-        }
+    .forgot-links a {
+        color: #017DB0;
+    }
 
-        .divider {
-            color: #999;
-            margin: 0 5px;
-        }
+    .divider {
+        color: #999;
+        margin: 0 5px;
+    }
 
-        /* Footer */
-        .site-footer {
-            margin-top: 50px;
-            border-top: 1px solid #ccc;
-            padding: 15px 0;
-            font-size: 11px;
-            color: #666;
-            text-align: left;
-        }
-    </style>
-</head>
+    /* Footer */
+    .site-footer {
+        margin-top: 50px;
+        border-top: 1px solid #ccc;
+        padding: 15px 0;
+        font-size: 11px;
+        color: #666;
+        text-align: left;
+    }
+</style>
 
-<body>
+<div class="page-wrapper">
 
-    <div class="page-wrapper">
+    <!-- Header -->
+    <div class="container">
+        <div class="header-top">
+            <div class="logo-area">
+                <!-- RCVS Header Image Placeholder -->
+                <!-- Update the src below to point to the image once saved in your GOV.UK assets (e.g., '/public/images/rcvs-header.png') -->
+                <img src='/public/images/rcvsHeaderLogo2026.png' alt="RCVS Logo">
+                <div class="header-welcome">
+                    Welcome to the Royal College of Veterinary Surgeons
+                </div>
+            </div>
 
-        <!-- Header -->
+            <div class="utility-links">
+                <a href="#" title="Printable version of this page">Print page</a>
+                <a href="#" title="Email this page to a friend">Email page</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <div class="main-nav">
         <div class="container">
-            <div class="header-top">
-                <div class="logo-area">
-                    <!-- RCVS Header Image Placeholder -->
-                    <!-- Update the src below to point to the image once saved in your GOV.UK assets (e.g., '/public/images/rcvs-header.png') -->
-                    <img src='/public/images/rcvsHeaderLogo2026.png' alt="RCVS Logo" alt="RCVS Logo">
-                    <div class="header-welcome">
-                        Welcome to the Royal College of Veterinary Surgeons
-                    </div>
-                </div>
+            <ul>
+                <li><a href="#">Home</a></li>
+            </ul>
+        </div>
+    </div>
 
-                <div class="utility-links">
-                    <a href="#" title="Printable version of this page">Print page</a>
-                    <a href="#" title="Email this page to a friend">Email page</a>
-                </div>
-            </div>
+    <!-- Content -->
+    <div class="container content-area">
+
+        <div class="breadcrumbs">
+            <a href="#">Home</a> &gt; Login
         </div>
 
-        <!-- Navigation -->
-        <div class="main-nav">
-            <div class="container">
-                <ul>
-                    <li><a href="#">Home</a></li>
-                </ul>
-            </div>
-        </div>
+        <h1>Please verify your RCVS registration status</h1>
 
-        <!-- Content -->
-        <div class="container content-area">
+        <p>
+            In order to provide a veterinary attestation for the Livestock Information Service, you must first
+            verify your RCVS registration status as a UK-practising veterinary surgeon.
+        </p>
+        <p>
+            To do this, please log in below, using your RCVS MyAccount details.
+        </p>
+        <p>&nbsp;</p> <!-- Mimicking the spacing found on the original site -->
 
-            <div class="breadcrumbs">
-                <a href="#">Home</a> &gt; Login
-            </div>
+        <div class="login-container">
+            <form action="cph" method="post" id="loginForm">
 
-            <h1>Please verify your RCVS registration status</h1>
+                <div class="form-row">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" autocomplete="one-time-code">
+                </div>
 
-            <p>
-                In order to provide a veterinary attestation for the Livestock Information Service, you must first
-                verify your RCVS registration status as a UK-practising veterinary surgeon.
-            </p>
-            <p>
-                To do this, please log in below, using your RCVS MyAccount details.
-            </p>
-            <p>&nbsp;</p> <!-- Mimicking the spacing found on the original site -->
+                <div class="form-row">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" autocomplete="new-password">
+                </div>
 
-            <div class="login-container">
-                <form action="cph" method="post" id="loginForm">
+                <div class="form-actions">
+                    <button type="submit" class="btn-submit">Log In</button>
+                </div>
 
-                    <div class="form-row">
-                        <label for="username">Username</label>
-                        <input type="text" id="username" name="username" autocomplete="one-time-code">
-                    </div>
+                <div class="forgot-links">
+                    <a href="#">Forgot username?</a>
+                    <span class="divider">|</span>
+                    <a href="#">Create/Re-set password</a>
+                </div>
 
-                    <div class="form-row">
-                        <label for="password">Password</label>
-                        <input type="password" id="password" name="password" autocomplete="new-password">
-                    </div>
-
-                    <div class="form-actions">
-                        <button type="submit" class="btn-submit">Log In</button>
-                    </div>
-
-                    <div class="forgot-links">
-                        <a href="#">Forgot username?</a>
-                        <span class="divider">|</span>
-                        <a href="#">Create/Re-set password</a>
-                    </div>
-
-                </form>
-            </div>
-
+            </form>
         </div>
 
     </div>
 
-    {% endblock %}
+</div>
+
+{% endblock %}
