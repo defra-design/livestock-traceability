@@ -250,3 +250,41 @@ router.post('/finisher-answer', function (req, res) {
     res.redirect('/vetvisits/beef-housing')
   }
 })
+
+// vet accepts ahwr date
+router.post('/ahwr-date-answer', function (req, res) {
+
+  let ahwrdateanswer = req.body['ahwr-date-answer']
+
+  if (ahwrdateanswer === 'yes') {
+    // Redirect to the acceptance flow
+    res.redirect('/vetvisitconfirmation/biosecurity-accept')
+  } else if (ahwrdateanswer === 'no') {
+    // Redirect to the rejection flow
+    res.redirect('/vetvisitconfirmation/rejection-reason')
+  } else {
+    // If they clicked continue without picking (and you haven't added validation)
+    // stay on the same page or redirect back
+    res.redirect('/vetvisitconfirmation/ahwr-date-accept')
+  }
+
+})
+
+// vet accepts biosecurity assessement date
+router.post('/biosecurity-answer', function (req, res) {
+
+  let biosecurityanswer = req.body['biosecurity-answer']
+
+  if (biosecurityanswer === 'yes') {
+    // Redirect to the acceptance flow
+    res.redirect('/vetvisitconfirmation/cattle-antibiotics')
+  } else if (biosecurityanswer === 'no') {
+    // Redirect to the rejection flow
+    res.redirect('/vetvisitconfirmation/rejection-reason')
+  } else {
+    // If they clicked continue without picking (and you haven't added validation)
+    // stay on the same page or redirect back
+    res.redirect('/vetvisitconfirmation/biosecurity-accept')
+  }
+
+})
