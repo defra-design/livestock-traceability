@@ -1,52 +1,43 @@
 {% extends "layouts/main.html" %}
 
+{% set mainClasses = "govuk-main-wrapper--l" %}
+
 {% block pageTitle %}
 Rejection – {{ serviceName }} – GOV.UK Prototype Kit
 {% endblock %}
 
-{% block containerStart %}
-{{ govukBackLink({
-text: "Back",
-href: "javascript:window.history.back()"
-}) }}
-{% endblock %}
-
 {% block content %}
+
+{% from "govuk/components/panel/macro.njk" import govukPanel %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <h1 class="govuk-heading-xl">AHWR details rejected</h1>
-    <p class="govuk-body">Submission reference: <strong>AHV-992-K3P</strong></p>
+    {{ govukPanel({
+    titleText: "AHWR not confirmed",
+    html: "Your reference number<br><strong>HDJ2123F</strong>"
+    }) }}
 
-    <p class="govuk-body">
-      You have rejected the annual health and welfare review details for <strong>Beech Tree Farm</strong>.
+    <p class="govuk-body">Thank you for confirming that you did not attend a AHWR or assess for biosecurity on the dates
+      stated.</p>
+
+    <p>
+      We have sent you and the keeper a confirmation email.
     </p>
-
-    <h2 class="govuk-heading-m">Reason for rejection</h2>
-
-    <p class="govuk-body">
-      We have sent an email to the farmer to let them know. It includes your reason for rejection:
-    </p>
-
-    <div class="govuk-inset-text">
-      "{{ data['rejection-reason'] | default('The farm is marked as being a beef suckler farm, but you are a finishing
-      unit. This matters for your BVD vaccination eligibility.') }}"
-    </div>
 
     <h2 class="govuk-heading-m">What happens next</h2>
 
     <p class="govuk-body">
-      The keeper must amend their answers with the correct information. They may contact your practice to clarify the
-      details of the visit before resubmitting.
+      The keeper will either have to provide the correct dates or arrange an AHWR or biosecurity assessment.
+    </p>
+    <p class="govuk-body">
+      <a href="#" class="govuk-link">What did you think of this service?</a> (takes 30 seconds)
     </p>
 
-    {% from "govuk/components/button/macro.njk" import govukButton %}
-
     {{ govukButton({
-    text: "Save and continue",
+    text: "Continue",
     href: "/vetvisitconfirmation/cph-less-one"
     }) }}
-
   </div>
 </div>
 

@@ -261,7 +261,7 @@ router.post('/ahwr-date-answer', function (req, res) {
     res.redirect('/vetvisitconfirmation/biosecurity-accept')
   } else if (ahwrdateanswer === 'no') {
     // Redirect to the rejection flow
-    res.redirect('/vetvisitconfirmation/rejection-reason')
+    res.redirect('/vetvisitconfirmation/rejection')
   } else {
     // If they clicked continue without picking (and you haven't added validation)
     // stay on the same page or redirect back
@@ -280,7 +280,7 @@ router.post('/biosecurity-answer', function (req, res) {
     res.redirect('/vetvisitconfirmation/cattle-antibiotics')
   } else if (biosecurityanswer === 'no') {
     // Redirect to the rejection flow
-    res.redirect('/vetvisitconfirmation/rejection-reason')
+    res.redirect('/vetvisitconfirmation/rejection')
   } else {
     // If they clicked continue without picking (and you haven't added validation)
     // stay on the same page or redirect back
