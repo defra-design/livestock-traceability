@@ -288,3 +288,32 @@ router.post('/biosecurity-answer', function (req, res) {
   }
 
 })
+
+//request reason if vet changes the suggested BVD status
+
+router.post('/status-answer', function (req, res) {
+  // Get the answer from the session data
+  const bvdStatus = req.session.data['bvdStatus']
+
+  if (!bvdStatus) {
+    // If no option is selected, create an error object
+    const error = {
+      text: 'Select a BVD status',
+      href: '#bvdStatus' // This links the error to the radio button group
+    }
+
+    // Re-render the page, passing the error information
+    return res.render('bvdvetconfirmation/status', {
+      // Used by the GOV.UK error summary component
+      errorList: [error],
+      // Used by the GOV.UK radios component
+      bvdStatusError: error
+    })
+  } else if (bvdStatus === 'positive') {
+    // If positive, go to confirmation
+    res.redirect('/bvdvetconfirmation/confirmation')
+  } else {
+    // For any other option, go to change-reason
+    res.redirect('/bvdvetconfirmation/change-reason')
+  }
+})
