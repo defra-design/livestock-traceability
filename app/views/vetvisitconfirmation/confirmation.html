@@ -24,13 +24,13 @@ Confirmation page template – {{ serviceName }} – GOV.UK Prototype Kit
       </a> (takes 30 seconds)
     </p>
 
+    {% from "govuk/components/button/macro.njk" import govukButton %}
 
+    {{ govukButton({
+    text: "Continue",
+    href: "/vetvisitconfirmation/cph-less-one"
+    }) }}
   </div>
 </div>
-{% from "govuk/components/button/macro.njk" import govukButton %}
 
-{{ govukButton({
-text: "Continue",
-href: "/vetvisitconfirmation/cph-less-one"
-}) }}
 {% endblock %}
