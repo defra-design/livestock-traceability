@@ -1,0 +1,69 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+Confirm BVD Status – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block containerStart %}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <h1 class="govuk-heading-l">
+      Herds waiting for BVD status confirmation
+    </h1>
+
+    {{ govukTable({
+    caption: "Select a holding",
+    captionClasses: "govuk-visually-hidden",
+    firstCellIsHeader: false,
+    head: [
+    { text: "CPH" },
+    { text: "Trading name" },
+    { text: "Postcode" },
+    { text: "Herd" },
+    { text: "BVD status" }
+    ],
+    rows: [
+    [
+    { html: '<a href="results" class="govuk-link">12/345/6789</a>' },
+    { text: "Beech Tree Farm" },
+    { text: "AB1 2CD" },
+    { text: "UK123457" },
+    { text: "Positive" }
+    ],
+    [
+    { html: '<a href="results" class="govuk-link">12/345/6789</a>' },
+    { text: "Beech Tree Farm" },
+    { text: "AB1 2CD" },
+    { text: "UK123460" },
+    { text: "Positive" }
+    ],
+    [
+    { html: '<a href="results" class="govuk-link">98/765/4321</a>' },
+    { text: "Oakwood Livestock" },
+    { text: "EF3 4GH" },
+    { text: "UK123458" },
+    { text: "Positive" }
+    ],
+    [
+    { html: '<a href="results" class="govuk-link">55/444/3333</a>' },
+    { text: "Hillside Partners" },
+    { text: "IJ5 6KL" },
+    { text: "UK123459" },
+    { text: "Positive" }
+    ]
+    ]
+    }) }}
+
+  </div>
+</div>
+
+{% endblock %}
