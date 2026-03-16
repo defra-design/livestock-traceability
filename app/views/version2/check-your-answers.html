@@ -18,7 +18,7 @@
       <h1 class="govuk-heading-xl">
         Check your answers before sending your movement report
       </h1>
-<h2 class="govuk-heading-m">Movement summary</h2>
+<h2 class="govuk-heading-m">Movement overview</h2>
       {{ govukSummaryList({
         rows: [
           {
@@ -92,24 +92,7 @@
               ]
             }
           }
-          ,
-          {
-            key: {
-              text: "Number of sheep"
-            },
-            value: {
-              text: "12"
-            },
-            actions: {
-              items: [
-                {
-                  href: "#",
-                  text: "Change",
-                  visuallyHiddenText: "Question 3"
-                }
-              ]
-            }
-          }
+          
           
         ]
       }) }}
@@ -125,11 +108,21 @@
   </thead>
   <tbody class="govuk-table__body">
     <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header">Lamb quantity</th>
+            <td class="govuk-table__cell">10</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric"><a href="#" class="govuk-link">Change</a></td>
+    </tr>
+    <tr class="govuk-table__row">
       <th scope="row" class="govuk-table__header">Lamb flock number</th>
             <td class="govuk-table__cell">123456</td>
       <td class="govuk-table__cell govuk-table__cell--numeric"><a href="#" class="govuk-link">Change</a></td>
     </tr>
 <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header">Adult sheep quantity</th>
+            <td class="govuk-table__cell">2</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric"><a href="#" class="govuk-link">Change</a></td>
+    </tr>
+    <tr class="govuk-table__row">
       <th scope="row" class="govuk-table__header">Adult sheep tag numbers</th>
             <td class="govuk-table__cell">UK 0 123456 10001<br>UK 0 123456 10002</td>
       <td class="govuk-table__cell govuk-table__cell--numeric"><a href="#" class="govuk-link">Change</a></td>
