@@ -28,13 +28,13 @@
         <ul class="govuk-service-navigation__list" id="navigation">
           
           <li class="govuk-service-navigation__item govuk-service-navigation__item--active">
-            <a class="govuk-service-navigation__link" href="/version2/home-livestock-list" aria-current="true">
+            <a class="govuk-service-navigation__link" href="/version2/home-livestock-accordian" aria-current="true">
               <strong class="govuk-service-navigation__active-fallback"></strong>Livestock list</strong>
             </a>
           </li>
           <li class="govuk-service-navigation__item">
             <a class="govuk-service-navigation__link" href="/version2/home-movement">
-              Movements
+              Report a movement
             </a>
           </li>
           <li class="govuk-service-navigation__item">
@@ -49,18 +49,19 @@
 </div>
 <br>
     <h2 class="govuk-heading-l">Total livestock</h2>
-
-<div class="govuk-grid-row">
-  <div class="govuk-grid-column-one-half">
- <p class="govuk-body govuk-!-font-size-80">350</p>
-  <p class="govuk-body govuk-!-font-size-24" style="margin-top:-20px">Sheep</p>
-   </div>
    
   <div class="govuk-grid-column-one-half">
- <p class="govuk-body govuk-!-font-size-80">47</p>
+ <p class="govuk-body govuk-!-font-size-80">30</p>
   <p class="govuk-body govuk-!-font-size-24" style="margin-top:-20px">Cattle</p>
    </div>
-  </div>
+
+  <div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-half">
+ <p class="govuk-body govuk-!-font-size-80">100</p>
+  <p class="govuk-body govuk-!-font-size-24" style="margin-top:-20px">Sheep</p>
+   </div>
+     </div>
+
 
 <div class="govuk-grid-row">
 <div class="govuk-grid-column-full">
@@ -69,7 +70,7 @@
     <div class="govuk-accordion__section-header">
       <h2 class="govuk-accordion__section-heading">
         <span class="govuk-accordion__section-button" id="accordion-default-heading-1">
-          Adult sheep (10)
+          Cattle (30)
         </span>
       </h2>
     </div>
@@ -85,164 +86,128 @@
     </tr>
   </thead>
   <tbody class="govuk-table__body">
+    {% set cattle_breeds = ['Angus', 'Hereford', 'Holstein', 'Jersey', 'Charolais', 'Limousin', 'Simmental', 'Brangus', 'Brahman', 'Guernsey', 'Brown Swiss', 'Blonde d\'Aquitaine'] %}
+    {% for i in range(0, 30) %}
     <tr class="govuk-table__row">
-      <th scope="row" class="govuk-table__header">Texel</th>
-      <td class="govuk-table__cell">Male</td>
-      <td class="govuk-table__cell govuk-table__cell--numeric">1 Jan 2025</td>
-      <td class="govuk-table__cell govuk-table__cell--numeric">UK 0 123456 10001</td>
-      <td class="govuk-table__cell govuk-table__cell--numeric"><strong class="govuk-tag">
-  On
-</strong></td>
-    </tr>
-    <tr class="govuk-table__row">
-      <th scope="row" class="govuk-table__header">Suffolk</th>
-      <td class="govuk-table__cell">Female</td>
-      <td class="govuk-table__cell govuk-table__cell--numeric">15 Feb 2024</td>
-      <td class="govuk-table__cell govuk-table__cell--numeric">UK 0 123456 10002</td>
+      <th scope="row" class="govuk-table__header">{{ cattle_breeds[i % cattle_breeds|length] }}</th>
+      <td class="govuk-table__cell">{{ 'Male' if i % 2 == 0 else 'Female' }}</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric">01 January 2025</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric">UK 123456 {{ 20001 + i }}</td>
       <td class="govuk-table__cell govuk-table__cell--numeric"><strong class="govuk-tag">On</strong></td>
     </tr>
-    <tr class="govuk-table__row">
-      <th scope="row" class="govuk-table__header">Merino</th>
-      <td class="govuk-table__cell">Male</td>
-      <td class="govuk-table__cell govuk-table__cell--numeric">3 Mar 2023</td>
-      <td class="govuk-table__cell govuk-table__cell--numeric">UK 0 123456 10003</td>
-      <td class="govuk-table__cell govuk-table__cell--numeric"><strong class="govuk-tag">On</strong></td>
-    </tr>
-    <tr class="govuk-table__row">
-      <th scope="row" class="govuk-table__header">Charollais</th>
-      <td class="govuk-table__cell">Female</td>
-      <td class="govuk-table__cell govuk-table__cell--numeric">22 Apr 2022</td>
-      <td class="govuk-table__cell govuk-table__cell--numeric">UK 0 123456 10004</td>
-      <td class="govuk-table__cell govuk-table__cell--numeric"><strong class="govuk-tag">On</strong></td>
-    </tr>
-    <tr class="govuk-table__row">
-      <th scope="row" class="govuk-table__header">Hampshire</th>
-      <td class="govuk-table__cell">Male</td>
-      <td class="govuk-table__cell govuk-table__cell--numeric">10 May 2021</td>
-      <td class="govuk-table__cell govuk-table__cell--numeric">UK 0 123456 10005</td>
-      <td class="govuk-table__cell govuk-table__cell--numeric"><strong class="govuk-tag">On</strong></td>
-    </tr>
-    <tr class="govuk-table__row">
-      <th scope="row" class="govuk-table__header">Lincoln</th>
-      <td class="govuk-table__cell">Female</td>
-      <td class="govuk-table__cell govuk-table__cell--numeric">7 Jun 2020</td>
-      <td class="govuk-table__cell govuk-table__cell--numeric">UK 0 123456 10006</td>
-      <td class="govuk-table__cell govuk-table__cell--numeric"><strong class="govuk-tag">On</strong></td>
-    </tr>
-    <tr class="govuk-table__row">
-      <th scope="row" class="govuk-table__header">Romney</th>
-      <td class="govuk-table__cell">Male</td>
-      <td class="govuk-table__cell govuk-table__cell--numeric">14 Jul 2019</td>
-      <td class="govuk-table__cell govuk-table__cell--numeric">UK 0 123456 10007</td>
-      <td class="govuk-table__cell govuk-table__cell--numeric"><strong class="govuk-tag">On</strong></td>
-    </tr>
-    <tr class="govuk-table__row">
-      <th scope="row" class="govuk-table__header">Cheviot</th>
-      <td class="govuk-table__cell">Female</td>
-      <td class="govuk-table__cell govuk-table__cell--numeric">28 Aug 2018</td>
-      <td class="govuk-table__cell govuk-table__cell--numeric">UK 0 123456 10008</td>
-      <td class="govuk-table__cell govuk-table__cell--numeric"><strong class="govuk-tag">On</strong></td>
-    </tr>
-    <tr class="govuk-table__row">
-      <th scope="row" class="govuk-table__header">Dorset</th>
-      <td class="govuk-table__cell">Male</td>
-      <td class="govuk-table__cell govuk-table__cell--numeric">5 Sep 2017</td>
-      <td class="govuk-table__cell govuk-table__cell--numeric">UK 0 123456 10009</td>
-      <td class="govuk-table__cell govuk-table__cell--numeric"><strong class="govuk-tag">On</strong></td>
-    </tr>
-    <tr class="govuk-table__row">
-      <th scope="row" class="govuk-table__header">Jacob</th>
-      <td class="govuk-table__cell">Female</td>
-      <td class="govuk-table__cell govuk-table__cell--numeric">12 Oct 2016</td>
-      <td class="govuk-table__cell govuk-table__cell--numeric">UK 0 123456 10010</td>
-      <td class="govuk-table__cell govuk-table__cell--numeric"><strong class="govuk-tag">On</strong></td>
-    </tr>
-</tbody>
+    {% endfor %}
+  </tbody>
 </table>    </div>
   </div>
   <div class="govuk-accordion__section">
     <div class="govuk-accordion__section-header">
       <h2 class="govuk-accordion__section-heading">
         <span class="govuk-accordion__section-button" id="accordion-default-heading-2">
-          Lambs (340)
+          Adult sheep (10)
         </span>
       </h2>
     </div>
     <div id="accordion-default-content-2" class="govuk-accordion__section-content">
+    <div class="govuk-grid-column-one-half">
 <table class="govuk-table">
   <thead class="govuk-table__head">
     <tr class="govuk-table__row">
-      <th scope="col" class="govuk-table__header">Breed</th>
-      <th scope="col" class="govuk-table__header">Sex</th>
-      <th scope="col" class="govuk-table__header govuk-table__header--numeric">Date of birth</th>
-      <th scope="col" class="govuk-table__header govuk-table__header--numeric">Flock number</th>
+      
+      <th scope="col" class="govuk-table__header">Tag number</th>
       <th scope="col" class="govuk-table__header govuk-table__header--numeric">Status</th>
     </tr>
   </thead>
   <tbody class="govuk-table__body">
-    {% set breeds = ['Texel', 'Suffolk', 'Merino', 'Charollais', 'Hampshire', 'Lincoln', 'Romney', 'Cheviot', 'Dorset', 'Jacob'] %}
-    {% for i in range(0, 340) %}
     <tr class="govuk-table__row">
-      <th scope="row" class="govuk-table__header">{{ breeds[i % 10] }}</th>
-      <td class="govuk-table__cell">{{ 'Male' if i % 2 == 0 else 'Female' }}</td>
-      <td class="govuk-table__cell govuk-table__cell--numeric">01 Jan 2026</td>
-      <td class="govuk-table__cell govuk-table__cell--numeric">123456</td>
+      
+      <td class="govuk-table__cell">UK 123456 10001</td>
       <td class="govuk-table__cell govuk-table__cell--numeric"><strong class="govuk-tag">On</strong></td>
     </tr>
-    {% endfor %}
-  </tbody>
-</table>    </div>
-  </div>
+    <tr class="govuk-table__row">
+      
+      <td class="govuk-table__cell">UK 123456 10002</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric"><strong class="govuk-tag">On</strong></td>
+    </tr>
+    <tr class="govuk-table__row">
+      
+      <td class="govuk-table__cell">UK 123456 10003</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric"><strong class="govuk-tag">On</strong></td>
+    </tr>
+    <tr class="govuk-table__row">
+      
+      <td class="govuk-table__cell">UK 123456 10004</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric"><strong class="govuk-tag">On</strong></td>
+    </tr>
+    <tr class="govuk-table__row">
+      
+      <td class="govuk-table__cell">UK 123456 10005</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric"><strong class="govuk-tag">On</strong></td>
+    </tr>
+    <tr class="govuk-table__row">
+      
+      <td class="govuk-table__cell">UK 123456 10006</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric"><strong class="govuk-tag">On</strong></td>
+    </tr>
+    <tr class="govuk-table__row">
+      
+      <td class="govuk-table__cell">UK 123456 10007</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric"><strong class="govuk-tag">On</strong></td>
+    </tr>
+    <tr class="govuk-table__row">
+      
+      <td class="govuk-table__cell">UK 123456 10008</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric"><strong class="govuk-tag">On</strong></td>
+    </tr>
+    <tr class="govuk-table__row">
+      
+      <td class="govuk-table__cell">UK 123456 10009</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric"><strong class="govuk-tag">On</strong></td>
+    </tr>
+    <tr class="govuk-table__row">
+      
+      <td class="govuk-table__cell">UK 0 123456 10010</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric"><strong class="govuk-tag">On</strong></td>
+    </tr>
+</tbody>
+</table>    
+</div>
+    </div>
   <div class="govuk-accordion__section">
     <div class="govuk-accordion__section-header">
       <h2 class="govuk-accordion__section-heading">
         <span class="govuk-accordion__section-button" id="accordion-default-heading-3">
-          Cattle (47)
+          Lambs (90)
         </span>
       </h2>
     </div>
     <div id="accordion-default-content-3" class="govuk-accordion__section-content">
-<table class="govuk-table">
+          <div class="govuk-grid-row">
+<div class="govuk-grid-column-one-half">
+
+   <table class="govuk-table">
   <thead class="govuk-table__head">
     <tr class="govuk-table__row">
-      <th scope="col" class="govuk-table__header">Breed</th>
-      <th scope="col" class="govuk-table__header">Sex</th>
-      <th scope="col" class="govuk-table__header govuk-table__header--numeric">Date of birth</th>
-      <th scope="col" class="govuk-table__header govuk-table__header--numeric">Tag number</th>
+      <th scope="col" class="govuk-table__header">Quantity</th>
+      <th scope="col" class="govuk-table__header">Flock number</th>
       <th scope="col" class="govuk-table__header govuk-table__header--numeric">Status</th>
     </tr>
   </thead>
   <tbody class="govuk-table__body">
-    {% set cattle_breeds = ['Angus', 'Hereford', 'Holstein', 'Jersey', 'Charolais', 'Limousin', 'Simmental', 'Brangus', 'Brahman', 'Guernsey', 'Brown Swiss', 'Blonde d\'Aquitaine'] %}
-    {% for i in range(0, 47) %}
     <tr class="govuk-table__row">
-      <th scope="row" class="govuk-table__header">{{ cattle_breeds[i % cattle_breeds|length] }}</th>
-      <td class="govuk-table__cell">{{ 'Male' if i % 2 == 0 else 'Female' }}</td>
-      <td class="govuk-table__cell govuk-table__cell--numeric">01 Jan 2025</td>
-      <td class="govuk-table__cell govuk-table__cell--numeric">UK 0 123456 {{ 20001 + i }}</td>
+      
+      <td class="govuk-table__cell">90</td>
+      <td class="govuk-table__cell">123456</td>
       <td class="govuk-table__cell govuk-table__cell--numeric"><strong class="govuk-tag">On</strong></td>
     </tr>
-    {% endfor %}
-  </tbody>
-</table>    </div>
-  </div>
-  
-  </div>
+    </tbody>
+</table> 
 </div>
-
-</div>
-<br>
-
-<br>
-
-
-
-
-
-
-
-
     </div>
   </div>
+
+  </div>
+
+
+
 
 {% endblock %}

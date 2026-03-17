@@ -68,6 +68,19 @@ router.post('/version1b/self-move-details', function (request, response) {
   }
 })
 
+router.post('/version2/check-recipient-move', function (request, response) {
+
+  var submitted = request.session.data['submitted']
+  if (submitted == "submitted") {
+    response.redirect("/version2/check-recipient-move")
+  }
+  else {
+    response.redirect("/version2/movement-date")
+  }
+})
+
+
+
 // Vet visits routes
 
 // 1. Initial Branching Logic
