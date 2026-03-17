@@ -20,7 +20,17 @@ href: "javascript:window.history.back()"
       Review test results
     </h1>
 
-    <p class="govuk-body">Test results indicate that the herd should have a <b>positive</b> BVD status.</p>
+    {% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
+
+    {% set html %}
+    <p class="govuk-notification-banner__heading">
+      Test results indicate that the herd should have a positive BVD status.
+    </p>
+    {% endset %}
+
+    {{ govukNotificationBanner({
+    html: html
+    }) }}
 
     {% from "govuk/components/table/macro.njk" import govukTable %}
 
@@ -45,10 +55,10 @@ href: "javascript:window.history.back()"
     text: "UK123456400011"
     },
     {
-    text: "Milk antibody"
+    text: "Virus"
     },
     {
-    text: "Not negative"
+    text: "Negative"
     }
     ],
     [
@@ -56,7 +66,7 @@ href: "javascript:window.history.back()"
     text: "UK123456400012"
     },
     {
-    text: "Blood antibody"
+    text: "Virus"
     },
     {
     text: "Negative"
@@ -78,7 +88,7 @@ href: "javascript:window.history.back()"
     text: "UK123456400014"
     },
     {
-    text: "Milk antibody"
+    text: "Virus"
     },
     {
     text: "Negative"
@@ -89,7 +99,7 @@ href: "javascript:window.history.back()"
     text: "UK123456400015"
     },
     {
-    text: "Blood antibody"
+    text: "Virus"
     },
     {
     text: "Negative"
@@ -111,7 +121,7 @@ href: "javascript:window.history.back()"
     text: "UK123456400017"
     },
     {
-    text: "Milk antibody"
+    text: "Virus"
     },
     {
     text: "Positive"
@@ -122,7 +132,7 @@ href: "javascript:window.history.back()"
     text: "UK123456400018"
     },
     {
-    text: "Blood antibody"
+    text: "Virus"
     },
     {
     text: "Positive"
@@ -144,10 +154,10 @@ href: "javascript:window.history.back()"
     text: "UK123456400020"
     },
     {
-    text: "Milk antibody"
+    text: "Virus"
     },
     {
-    text: "Not negative"
+    text: "Negative"
     }
     ],
     [
@@ -155,10 +165,10 @@ href: "javascript:window.history.back()"
     text: "UK123456400021"
     },
     {
-    text: "Blood antibody"
+    text: "Virus"
     },
     {
-    text: "Not negative"
+    text: "Negative"
     }
     ],
     [
@@ -169,7 +179,7 @@ href: "javascript:window.history.back()"
     text: "Virus"
     },
     {
-    text: "Not negative"
+    text: "Negative"
     }
     ],
     [
@@ -177,7 +187,7 @@ href: "javascript:window.history.back()"
     text: "UK123456400023"
     },
     {
-    text: "Milk antibody"
+    text: "Virus"
     },
     {
     text: "Negative"
