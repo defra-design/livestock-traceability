@@ -139,6 +139,32 @@
       </div>
 
       <br>
+<div class="govuk-form-group">
+  <fieldset class="govuk-fieldset" aria-describedby="changedName-hint">
+    <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+      <h2 class="govuk-fieldset__heading">
+        Do you need to add any new sheep?
+      </h2>
+    </legend>
+    <div id="changedName-hint" class="govuk-hint">
+      If they are not in your holding list, you will need to add them before you can move them.
+    </div>
+    <div class="govuk-radios govuk-radios--inline" data-module="govuk-radios">
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="changedName" name="changedName" type="radio" value="yes">
+        <label class="govuk-label govuk-radios__label" for="changedName">
+          Yes
+        </label>
+      </div>
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="changedName-2" name="changedName" type="radio" value="no">
+        <label class="govuk-label govuk-radios__label" for="changedName-2">
+          No
+        </label>
+      </div>
+    </div>
+  </fieldset>
+</div>
       <br>
 
         {{ govukButton({
