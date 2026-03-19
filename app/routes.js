@@ -86,7 +86,7 @@ router.post('/version3/check-recipient-move', function (request, response) {
     response.redirect("/version3/check-recipient-move")
   }
   else {
-    response.redirect("/version3/cattle-filter-list")
+    response.redirect("/version3/movement-from")
   }
 })
 
