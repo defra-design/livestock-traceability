@@ -79,6 +79,38 @@ router.post('/version2/check-recipient-move', function (request, response) {
   }
 })
 
+router.post('/version3/check-recipient-move', function (request, response) {
+
+  var submitted = request.session.data['submitted']
+  if (submitted == "submitted") {
+    response.redirect("/version3/check-recipient-move")
+  }
+  else {
+    response.redirect("/version3/cattle-filter-list")
+  }
+})
+
+router.post('/version3/select-vehicle', function (request, response) {
+
+  var submitted = request.session.data['transport']
+  if (submitted == "self") {
+    response.redirect("/version3/select-vehicle")
+  }
+  else {
+    response.redirect("/version3/haulier-detail-choice")
+  }
+})
+
+router.post('/version3/helper-details', function (request, response) {
+
+  var submitted = request.session.data['transportKnown']
+  if (submitted == "yes") {
+    response.redirect("/version3/helper-details")
+  }
+  else {
+    response.redirect("/version3/check-your-answers-minus-haulier")
+  }
+})
 
 
 // Vet visits routes

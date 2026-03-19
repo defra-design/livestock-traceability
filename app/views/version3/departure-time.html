@@ -1,0 +1,57 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  Question page template – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+  text: "Back",
+  href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <h1 class="govuk-heading-l">
+        What time did you leave?
+      </h1>
+
+      <form class="form" action="/version3/journey-time" method="post">
+
+        <div class="govuk-form-group">
+  <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint">
+    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+      
+    </legend>
+    <div id="passport-issued-hint" class="govuk-hint">
+      Use the 12 hour clock. For example, 10:05
+    </div>
+    <div class="govuk-date-input" id="hour">
+      <div class="govuk-date-input__item">
+        <div class="govuk-form-group" style="display: flex; gap: 15px; align-items: flex-end;">
+          
+          <input class="govuk-input govuk-date-input__input govuk-input--width-5" id="time" name="time" type="text" inputmode="numeric">
+          <select class="govuk-select" id="sort" name="sort" style="width: auto; min-width: 6ch;">
+            <option value="published">PM</option>
+            <option value="updated" selected>AM</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </fieldset>
+</div>
+
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+
+      </form>
+
+    </div>
+  </div>
+
+{% endblock %}
