@@ -61,15 +61,28 @@
 </div>
 
 <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="search-conditional">
-  <div class="govuk-form-group">
-    <label class="govuk-label" for="search-destination">
-      Start typing an address
-    </label>
-    <input class="govuk-input" id="search-destination" name="search-destination" type="text" autocomplete="off">
-  </div>
+  <h2 class="govuk-heading-m">Find an address</h2>
+
+<div class="govuk-form-group">
+  <label class="govuk-label" for="postcode">
+    Postcode
+  </label>
+  <input class="govuk-input govuk-input--width-10" id="postcode" name="postcode" type="text" autocomplete="postal-code">
 </div>
-      
-    </div>
+
+<div class="govuk-form-group">
+  <label class="govuk-label" for="property">
+    Property name or number (optional)
+  </label>
+  <div id="property-hint" class="govuk-hint">
+    For example, The Mill, 116 or Flat 37a.
+  </div>
+  <input class="govuk-input" id="property" name="property" type="text" aria-describedby="property-hint">
+</div>
+
+<p class="govuk-body"><a class="govuk-link" href="#">Enter the address manually</a></p>
+
+
   </fieldset>
 </div>
 
