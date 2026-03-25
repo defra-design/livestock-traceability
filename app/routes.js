@@ -103,7 +103,7 @@ router.post('/version3/select-vehicle', function (request, response) {
 
 router.post('/version3/helper-details', function (request, response) {
 
-  var submitted = request.session.data['transportKnown']
+  var submitted = request.session.data['haulier']
   if (submitted == "yes") {
     response.redirect("/version3/helper-details")
   }
