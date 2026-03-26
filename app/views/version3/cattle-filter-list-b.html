@@ -1,0 +1,203 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  Question page template – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block containerStart %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <h1 class="govuk-heading-l">Choose your cattle</h1>
+</div></div>
+  <div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-third">
+   <div class="govuk-form-group">
+  <label class="govuk-label" for="three-quarters">
+    <h2 class="govuk-heading-m">Search for keywords</h2>
+  </label>
+  <input class="govuk-input govuk-!-width-three-quarters" id="three-quarters" name="three-quarters" type="text">
+</div>
+  
+<div class="govuk-accordion" data-module="govuk-accordion" id="accordion-default">
+  <div class="govuk-accordion__section">
+    <div class="govuk-accordion__section-header">
+      <h2 class="govuk-accordion__section-heading">
+        <span class="govuk-accordion__section-button" id="accordion-default-heading-1">
+          Sex
+        </span>
+      </h2>
+    </div>
+    <div id="accordion-default-content-1" class="govuk-accordion__section-content">
+<div class="govuk-form-group">
+  <fieldset class="govuk-fieldset">
+    
+    <div class="govuk-checkboxes govuk-checkboxes--small" data-module="govuk-checkboxes">
+      <div class="govuk-checkboxes__item">
+        <input class="govuk-checkboxes__input" id="organisation" name="organisation" type="checkbox" value="hmrc">
+        <label class="govuk-label govuk-checkboxes__label" for="organisation">
+          Male
+        </label>
+      </div>
+      <div class="govuk-checkboxes__item">
+        <input class="govuk-checkboxes__input" id="organisation-2" name="organisation" type="checkbox" value="employment-tribunal">
+        <label class="govuk-label govuk-checkboxes__label" for="organisation-2">
+          Female
+        </label>
+      </div>
+      
+    </div>
+  </fieldset>
+</div>    </div>
+  </div>
+  <div class="govuk-accordion__section">
+    <div class="govuk-accordion__section-header">
+      <h2 class="govuk-accordion__section-heading">
+        <span class="govuk-accordion__section-button" id="accordion-default-heading-1">
+          Breed
+        </span>
+      </h2>
+    </div>
+    <div id="accordion-default-content-1" class="govuk-accordion__section-content">
+<div class="govuk-form-group">
+  <fieldset class="govuk-fieldset">
+    
+    <div class="govuk-checkboxes govuk-checkboxes--small" data-module="govuk-checkboxes">
+      <div class="govuk-checkboxes__item">
+        <input class="govuk-checkboxes__input" id="organisation" name="organisation" type="checkbox" value="hmrc">
+        <label class="govuk-label govuk-checkboxes__label" for="organisation">
+          Angus
+        </label>
+      </div>
+      <div class="govuk-checkboxes__item">
+        <input class="govuk-checkboxes__input" id="organisation-2" name="organisation" type="checkbox" value="employment-tribunal">
+        <label class="govuk-label govuk-checkboxes__label" for="organisation-2">
+          Brahman
+        </label>
+      </div>
+      <div class="govuk-checkboxes__item">
+        <input class="govuk-checkboxes__input" id="organisation" name="organisation" type="checkbox" value="hmrc">
+        <label class="govuk-label govuk-checkboxes__label" for="organisation">
+          Brangus
+        </label>
+      </div>
+      <div class="govuk-checkboxes__item">
+        <input class="govuk-checkboxes__input" id="organisation-2" name="organisation" type="checkbox" value="employment-tribunal">
+        <label class="govuk-label govuk-checkboxes__label" for="organisation-2">
+          Blonde d'Aquitaine
+        </label>
+      </div>
+      <div class="govuk-checkboxes__item">
+        <input class="govuk-checkboxes__input" id="organisation" name="organisation" type="checkbox" value="hmrc">
+        <label class="govuk-label govuk-checkboxes__label" for="organisation">
+          Brown Swiss
+        </label>
+      </div>
+      <div class="govuk-checkboxes__item">
+        <input class="govuk-checkboxes__input" id="organisation-2" name="organisation" type="checkbox" value="employment-tribunal">
+        <label class="govuk-label govuk-checkboxes__label" for="organisation-2">
+          Charolais
+        </label>
+      </div>
+      <div class="govuk-checkboxes__item">
+        <input class="govuk-checkboxes__input" id="organisation" name="organisation" type="checkbox" value="hmrc">
+        <label class="govuk-label govuk-checkboxes__label" for="organisation">
+          Guernsey
+        </label>
+      </div>
+      <div class="govuk-checkboxes__item">
+        <input class="govuk-checkboxes__input" id="organisation-2" name="organisation" type="checkbox" value="employment-tribunal">
+        <label class="govuk-label govuk-checkboxes__label" for="organisation-2">
+          Hereford
+        </label>
+      </div>
+      <div class="govuk-checkboxes__item">
+        <input class="govuk-checkboxes__input" id="organisation" name="organisation" type="checkbox" value="hmrc">
+        <label class="govuk-label govuk-checkboxes__label" for="organisation">
+          Holstein
+        </label>
+      </div>
+      <div class="govuk-checkboxes__item">
+        <input class="govuk-checkboxes__input" id="organisation-2" name="organisation" type="checkbox" value="employment-tribunal">
+        <label class="govuk-label govuk-checkboxes__label" for="organisation-2">
+          Jersey
+        </label>
+      </div>
+      <div class="govuk-checkboxes__item">
+        <input class="govuk-checkboxes__input" id="organisation" name="organisation" type="checkbox" value="hmrc">
+        <label class="govuk-label govuk-checkboxes__label" for="organisation">
+          Limousin
+        </label>
+      </div>
+      <div class="govuk-checkboxes__item">
+        <input class="govuk-checkboxes__input" id="organisation-2" name="organisation" type="checkbox" value="employment-tribunal">
+        <label class="govuk-label govuk-checkboxes__label" for="organisation-2">
+          Simmental
+        </label>
+      </div>
+      
+    </div>
+  </fieldset>
+</div>
+</div>
+</div>
+  
+  
+  
+</div>
+    
+
+
+
+</div>
+  <div class="govuk-grid-column-two-thirds">
+
+      <form class="form" action="/version3/cattle-review" method="post">
+
+        <table class="govuk-table" data-module="moj-multi-select" data-id-prefix="mountains-">
+  <thead class="govuk-table__head">
+    <tr class="govuk-table__row">
+  <th scope="col" class="govuk-table__header" id="mountains-select-all"><p class="govuk-body"><a href class="govuk-link">Select all</a></p></th>
+<th scope="col" class="govuk-table__header">Tag number</th>
+      <th scope="col" class="govuk-table__header">Sex</th>
+      <th scope="col" class="govuk-table__header">Breed</th>
+      <th scope="col" class="govuk-table__header">Date of birth</th>
+    </tr>
+  </thead>
+  <tbody class="govuk-table__body">
+    {% set cattle_breeds = ['Angus', 'Hereford', 'Holstein', 'Jersey', 'Charolais', 'Limousin', 'Simmental', 'Brangus', 'Brahman', 'Guernsey', 'Brown Swiss', 'Blonde d\'Aquitaine'] %}
+    {% for i in range(0, 30) %}
+    <tr class="govuk-table__row govuk-table__row--selected">
+    <td class="govuk-table__cell"><div class="govuk-checkboxes__item govuk-checkboxes--small moj-multi-select__checkbox">
+          <input type="checkbox" class="govuk-checkboxes__input" id="mountain-aconcagua">
+          <label class="govuk-label govuk-checkboxes__label" for="mountain-aconcagua">
+            <span class="govuk-visually-hidden">Select Aconcagua</span>
+          </label>
+        </div></td>
+<td class="govuk-table__cell">UK 123456 {{ 20001 + i }}</td>
+      <td class="govuk-table__cell">{{ 'Male' if i % 2 == 0 else 'Female' }}</td>
+      <td class="govuk-table__cell">{{ cattle_breeds[i % cattle_breeds|length] }}</td>
+      <td class="govuk-table__cell">01 January 2025</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table> 
+
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+
+      </form>
+
+    </div>
+  </div>
+
+{% endblock %}
