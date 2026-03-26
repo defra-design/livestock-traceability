@@ -1,0 +1,37 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  Question page template – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+  text: "Back",
+  href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <h1 class="govuk-heading-l">
+        Check the destination address
+      </h1>
+
+    <form class="form" action="/version2/sheep-lambs" method="post">
+
+<p>Rugby Farmer's Mart<br>The Charolais Pavilion<br>Avenue M, Stoneleigh Park<br>Kenilworth<br>Warwickshire<br>CV8 2RG</p>
+<p><a href="#" class="govuk-link">Change the destination address</a></p>
+
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+
+      </form>
+
+    </div>
+  </div>
+
+{% endblock %}

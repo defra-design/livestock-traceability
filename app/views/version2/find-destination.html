@@ -67,37 +67,26 @@
       What is your address?
     </h3>
   </legend>
-  <div class="govuk-form-group">
-    <label class="govuk-label" for="address-line-1">
-      Address line 1
-    </label>
-    <input class="govuk-input" id="address-line-1" name="addressLine1" type="text" autocomplete="address-line1">
+<div class="govuk-form-group">
+  <label class="govuk-label" for="postcode">
+    Postcode
+  </label>
+  <input class="govuk-input govuk-input--width-10" id="postcode" name="postcode" type="text" autocomplete="postal-code">
+</div>
+
+<div class="govuk-form-group">
+  <label class="govuk-label" for="property">
+    Property name or number (optional)
+  </label>
+  <div id="property-hint" class="govuk-hint">
+    For example, The Mill, 116 or Flat 37a.
   </div>
-  <div class="govuk-form-group">
-    <label class="govuk-label" for="address-line-2">
-      Address line 2 (optional)
-    </label>
-    <input class="govuk-input" id="address-line-2" name="addressLine2" type="text" autocomplete="address-line2">
-  </div>
-  <div class="govuk-form-group">
-    <label class="govuk-label" for="address-town">
-      Town or city
-    </label>
-    <input class="govuk-input govuk-!-width-two-thirds" id="address-town" name="addressTown" type="text" autocomplete="address-level2">
-  </div>
-  <div class="govuk-form-group">
-    <label class="govuk-label" for="address-county">
-      County (optional)
-    </label>
-    <input class="govuk-input govuk-!-width-two-thirds" id="address-county" name="addressCounty" type="text">
-  </div>
-  <div class="govuk-form-group">
-    <label class="govuk-label" for="address-postcode">
-      Postcode
-    </label>
-    <input class="govuk-input govuk-input--width-10" id="address-postcode" name="addressPostcode" type="text" autocomplete="postal-code">
-  </div>
-</fieldset>
+  <input class="govuk-input" id="property" name="property" type="text" aria-describedby="property-hint">
+</div>
+
+<p class="govuk-body"><a class="govuk-link" href="/version2/manual-address">Enter the address manually</a></p>
+
+
   </fieldset>
 </div>
 
