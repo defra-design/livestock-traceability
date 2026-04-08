@@ -1,115 +1,118 @@
 {% extends "layouts/main.html" %}
 
 {% block pageTitle %}
-  Vet Visits – {{ serviceName }} – GOV.UK Prototype Kit
+Vet Visits – {{ serviceName }} – GOV.UK Prototype Kit
 {% endblock %}
 
 {% block header %}
-  <header>
-    {{govukHeader()}}
-  </header>
+<header>
+  {{govukHeader()}}
+</header>
 {% endblock %}
 
 {% block containerStart %}
-  {{ govukBreadcrumbs({
-    items: [
-      {
-        text: "Home",
-        href: "#"
-      },
-      {
-        text: "Section",
-        href: "#"
-      },
-      {
-        text: "Subsection"
-      }
-    ]
-  }) }}
+{{ govukBreadcrumbs({
+items: [
+{
+text: "Home",
+href: "#"
+},
+{
+text: "Section",
+href: "#"
+},
+{
+text: "Subsection"
+}
+]
+}) }}
 {% endblock %}
 
 {% block content %}
 
-  <div class="govuk-grid-row">
-    <div class="govuk-grid-column-two-thirds">
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
 
-      <h1 class="govuk-heading-xl">
-        {{ serviceName }}
-      </h1>
+    <h1 class="govuk-heading-xl">
+      Tell Defra you have had an animal health and welfare review
+    </h1>
 
-<p class="govuk-body">
-  The Animal Health and Welfare Review (AHWR) is a mandatory annual requirement. You must arrange for a vet to visit your holding to review the health and welfare of your livestock.
-</p>
+    <p class="govuk-body">
+      You must arrange for a vet to visit your holding to carry out an animal health and welfare review (AHWR) of your
+      livestock.
+    </p>
 
-<p class="govuk-body">
-Defra need to collect data from these reviews to monitor the health and welfare of livestock across England, and to help inform future policy decisions.
-</p>
+    <p class="govuk-body">
+      Defra needs to collect data from these reviews to monitor the health and welfare of livestock across England, and
+      to help inform future policy decisions.
+    </p>
 
-<h2 class="govuk-heading-m">Before you start</h2>
-<p class="govuk-body">You will need:</p>
+    <h2 class="govuk-heading-m">Before you start</h2>
+    <p class="govuk-body">You will need:</p>
 
-<ul class="govuk-list govuk-list--bullet">
-  <li>your vet’s email address</li>
-  <li>annual antibiotic usage data (mg/kg) for each species on your holding (dairy, beef, sheep, or pigs)</li>
-</ul>
+    <ul class="govuk-list govuk-list--bullet">
+      <li>your vet’s email address</li>
+      <li>annual antibiotic usage data (mg/kg) for each species on your holding (dairy, beef, sheep, or pigs)</li>
+    </ul>
 
-<h3 class="govuk-heading-s">For cattle keepers</h3>
-<ul class="govuk-list govuk-list--bullet">
-  <li>total cases of clinical mastitis treated</li>
-  <li>total number of new lameness cases</li>
-  <li>total number of calves born alive</li>
-  <li>the biosecurity score provided by your vet during the visit</li>
-</ul>
+    <h3 class="govuk-heading-s">For cattle keepers</h3>
+    <ul class="govuk-list govuk-list--bullet">
+      <li>total cases of clinical mastitis treated</li>
+      <li>total number of new lameness cases</li>
+      <li>total number of calves born alive</li>
+      <li>the biosecurity score provided by your vet during the visit</li>
+    </ul>
 
-<h3 class="govuk-heading-s">For sheep keepers</h3>
-<ul class="govuk-list govuk-list--bullet">
-  <li>ewe wastage data (number of ewes died or culled)</li>
-  <li>scanning results (number of ewes mated versus those confirmed pregnant)</li>
-  <li>lambing and rearing data (number of lambs born alive versus those weaned)</li>
-  <li>anthelmintic (wormer) usage data</li>
-</ul>
+    <h3 class="govuk-heading-s">For pig keepers</h3>
+    <ul class="govuk-list govuk-list--bullet">
+      <li>total number of piglets born alive</li>
+      <li>total number of piglets weaned</li>
+      <li>total number of pigs assessed for lameness</li>
+      <li>total number of lame pigs</li>
+      <li>the biosecurity score provided by your vet during the visit</li>
+    </ul>
 
-<h3 class="govuk-heading-s">For pig keepers</h3>
-<ul class="govuk-list govuk-list--bullet">
-  <li>total number of piglets born alive</li>
-  <li>total number of piglets weaned</li>
-  <li>total number of pigs assessed for lameness</li>
-  <li>total number of lame pigs</li>
-  <li>the biosecurity score provided by your vet during the visit</li>
-</ul>
+    <h3 class="govuk-heading-s">For sheep keepers</h3>
+    <ul class="govuk-list govuk-list--bullet">
+      <li>ewe wastage data (number of ewes died or culled)</li>
+      <li>scanning results (number of ewes mated versus those confirmed pregnant)</li>
+      <li>lambing and rearing data (number of lambs born alive versus those weaned)</li>
+      <li>anthelmintic (wormer) usage data</li>
+    </ul>
 
-      {{ govukButton({
-        text: "Start now",
-        href: "/vetvisits/visit-date",
-        isStartButton: true
-      }) }}
+    {{ govukButton({
+    text: "Start now",
+    href: "/vetvisits/visit-date",
+    isStartButton: true
+    }) }}
 
- 
-    </div>
 
-    <div class="govuk-grid-column-one-third">
-
-      <aside class="govuk-prototype-kit-common-templates-related-items" role="complementary">
-        <h2 class="govuk-heading-m" id="subsection-title">
-          More information
-        </h2>
-        <nav role="navigation" aria-labelledby="subsection-title">
-          <ul class="govuk-list govuk-!-font-size-16">
-            <li>
-              <a href="https://www.gov.uk/government/publications/animal-health-and-welfare-pathway/animal-health-and-welfare-pathway">
-                Animal Health and Welfare Pathway
-              </a>
-            </li>
-            <li>
-              <a href="https://www.gov.uk/government/organisations/defra">
-                Defra
-              </a>
-            </li>
-          </ul>
-        </nav>
-      </aside>
-
-    </div>
   </div>
+
+  <div class="govuk-grid-column-one-third">
+
+    <aside class="govuk-prototype-kit-common-templates-related-items" role="complementary">
+      <h2 class="govuk-heading-m" id="subsection-title">
+        More information
+      </h2>
+      <nav role="navigation" aria-labelledby="subsection-title">
+        <ul class="govuk-list govuk-!-font-size-16">
+          <li>
+            <a
+              href="https://www.gov.uk/government/publications/animal-health-and-welfare-pathway/animal-health-and-welfare-pathway">
+              Animal Health and Welfare Pathway
+            </a>
+          </li>
+          <li>
+            <a href="https://www.gov.uk/government/organisations/defra">
+              Defra
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </aside>
+
+  </div>
+</div>
 
 {% endblock %}
