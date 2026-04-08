@@ -4,43 +4,43 @@
 Visit Date - {{serviceName}} - GOV.UK Prototype Kit{% endblock %}
 
 {% block containerStart %}
-  {{ govukBackLink({
-    text: "Back",
-    href: "javascript:window.history.back()"
-  }) }}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
 {% endblock %}
 
 {% block content %}
 
-  <div class="govuk-grid-row">
-    <div class="govuk-grid-column-two-thirds">
-      <form class="form" action="/vetvisits/vet-email" method="post">
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <form class="form" action="/vetvisits/vet-email" method="post">
 
-{% from "govuk/components/date-input/macro.njk" import govukDateInput %}
-{% from "govuk/components/button/macro.njk" import govukButton %}
+      {% from "govuk/components/date-input/macro.njk" import govukDateInput %}
+      {% from "govuk/components/button/macro.njk" import govukButton %}
 
-{{ govukDateInput({
-  id: "visit-date",
-  namePrefix: "visit-date",
-  fieldset: {
-    legend: {
-      text: "When was your Annual Health and Welfare Visit date?",
+      {{ govukDateInput({
+      id: "visit-date",
+      namePrefix: "visit-date",
+      fieldset: {
+      legend: {
+      text: "When was your animal health and welfare review date?",
       isPageHeading: true,
       classes: "govuk-fieldset__legend--l"
-    }
-  },
-  hint: {
-    text: "For example, 27 3 2026"
-  }
-}) }}
+      }
+      },
+      hint: {
+      text: "For example, 27 3 2026"
+      }
+      }) }}
 
-        {{ govukButton({
-          text: "Continue"
-        }) }}
+      {{ govukButton({
+      text: "Continue"
+      }) }}
 
-      </form>
+    </form>
 
-    </div>
   </div>
+</div>
 
 {% endblock %}

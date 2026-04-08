@@ -1,49 +1,50 @@
 {% extends "layouts/main.html" %}
 
 {% block pageTitle %}
-  Vet Visits – {{ serviceName }} – GOV.UK Prototype Kit
+Vet Visits – {{ serviceName }} – GOV.UK Prototype Kit
 {% endblock %}
 
 {% block beforeContent %}
-  {{ govukBackLink({
-  text: "Back",
-  href: "javascript:window.history.back()"
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
 }) }}
 {% endblock %}
 
 {% block content %}
 
-  <div class="govuk-grid-row">
-    <div class="govuk-grid-column-two-thirds">
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
 
-      <h1 class="govuk-heading-l">
-        What is the email address of your vet?
-      </h1>
+    <h1 class="govuk-heading-l">
+      What is the email address of your vet?
+    </h1>
 
-      <form class="form" action="/vetvisits/farm-assurance-scheme" method="post">
+    <form class="form" action="/vetvisits/farm-assurance-scheme" method="post">
 
-{% from "govuk/components/input/macro.njk" import govukInput %}
+      {% from "govuk/components/input/macro.njk" import govukInput %}
 
-{{ govukInput({
-  label: {
-    text: ""
-  },
-  hint: {
-    text: "The vet must be registered with the RCVS (Royal College of Veterinary Surgeons) and must confirm the visit details after you input them."
-  },
-  id: "vet-email",
-  name: "vet-email",
-  type: "email",
-  spellcheck: false
-}) }}
+      {{ govukInput({
+      label: {
+      text: ""
+      },
+      hint: {
+      text: "The vet must be registered with the Royal College of Veterinary Surgeons (RCVS).
+      We'll use this email address to confirm the details of your review with your vet."
+      },
+      id: "vet-email",
+      name: "vet-email",
+      type: "email",
+      spellcheck: false
+      }) }}
 
-        {{ govukButton({
-          text: "Continue"
-        }) }}
+      {{ govukButton({
+      text: "Continue"
+      }) }}
 
-      </form>
+    </form>
 
-    </div>
   </div>
+</div>
 
 {% endblock %}
