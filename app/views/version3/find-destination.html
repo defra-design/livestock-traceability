@@ -1,0 +1,98 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  Question page template – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+  text: "Back",
+  href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <h1 class="govuk-heading-l">
+        Where are the cattle moving to?
+      </h1>
+
+      <form class="form" action="/version3/destination-review" method="post">
+
+        <div class="govuk-form-group">
+  <fieldset class="govuk-fieldset">
+    <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+      <h1 class="govuk-fieldset__heading">
+        Recently used destinations
+      </h1>
+    </legend>
+    <div class="govuk-radios" data-module="govuk-radios">
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="whereDoYouLive" name="whereDoYouLive" type="radio" value="market">
+        <label class="govuk-label govuk-radios__label" for="whereDoYouLive">
+          The Market, Market Street, MK1 1AA
+        </label>
+      </div>
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="whereDoYouLive-2" name="whereDoYouLive" type="radio" value="abattoir">
+        <label class="govuk-label govuk-radios__label" for="whereDoYouLive-2">
+          The Abattoir, Abattoir Street, AB1 1AB
+        </label>
+      </div>
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="whereDoYouLive-3" name="whereDoYouLive" type="radio" value="collection">
+        <label class="govuk-label govuk-radios__label" for="whereDoYouLive-3">
+          The Collection Centre, Collection Street, CL1 1CL
+        </label>
+      </div>
+      
+      <div class="govuk-radios__divider">or</div>
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="whereDoYouLive-6" name="whereDoYouLive" type="radio" value="search" data-aria-controls="search-conditional">
+        <label class="govuk-label govuk-radios__label" for="whereDoYouLive-6">
+          Search for a new destination
+        </label>
+      </div>
+    </div>
+  </fieldset>
+</div>
+
+<div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="search-conditional">
+  <h2 class="govuk-heading-m">Find an address</h2>
+
+<div class="govuk-form-group">
+  <label class="govuk-label" for="postcode">
+    Postcode
+  </label>
+  <input class="govuk-input govuk-input--width-10" id="postcode" name="postcode" type="text" autocomplete="postal-code">
+</div>
+
+<div class="govuk-form-group">
+  <label class="govuk-label" for="property">
+    Property name or number (optional)
+  </label>
+  <div id="property-hint" class="govuk-hint">
+    For example, The Mill, 116 or Flat 37a.
+  </div>
+  <input class="govuk-input" id="property" name="property" type="text" aria-describedby="property-hint">
+</div>
+
+<p class="govuk-body"><a class="govuk-link" href="/version3/manual-address">Enter the address manually</a></p>
+
+
+  </fieldset>
+</div>
+
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+
+      </form>
+
+    </div>
+  </div>
+
+{% endblock %}

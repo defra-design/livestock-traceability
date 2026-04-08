@@ -16,8 +16,8 @@
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
 
-      <span class="govuk-caption-xl">Sheep</span><h1 class="govuk-heading-l">
-        Where are they moving to?
+      <h1 class="govuk-heading-l">
+        Where are the sheep moving to?
       </h1>
 
       <form class="form" action="/version2/sheep-lambs" method="post">
@@ -25,9 +25,9 @@
         <div class="govuk-form-group">
   <fieldset class="govuk-fieldset">
     <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
-      <h1 class="govuk-fieldset__heading">
+      <h2 class="govuk-fieldset__heading">
         Recently used destinations
-      </h1>
+      </h2>
     </legend>
     <div class="govuk-radios" data-module="govuk-radios">
       <div class="govuk-radios__item">
@@ -61,15 +61,32 @@
 </div>
 
 <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="search-conditional">
-  <div class="govuk-form-group">
-    <label class="govuk-label" for="search-destination">
-      Start typing an address
-    </label>
-    <input class="govuk-input" id="search-destination" name="search-destination" type="text" autocomplete="off">
-  </div>
+  <fieldset class="govuk-fieldset">
+  <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+    <h3 class="govuk-heading-m">
+      What is your address?
+    </h3>
+  </legend>
+<div class="govuk-form-group">
+  <label class="govuk-label" for="postcode">
+    Postcode
+  </label>
+  <input class="govuk-input govuk-input--width-10" id="postcode" name="postcode" type="text" autocomplete="postal-code">
 </div>
-      
-    </div>
+
+<div class="govuk-form-group">
+  <label class="govuk-label" for="property">
+    Property name or number (optional)
+  </label>
+  <div id="property-hint" class="govuk-hint">
+    For example, The Mill, 116 or Flat 37a.
+  </div>
+  <input class="govuk-input" id="property" name="property" type="text" aria-describedby="property-hint">
+</div>
+
+<p class="govuk-body"><a class="govuk-link" href="/version2/manual-address">Enter the address manually</a></p>
+
+
   </fieldset>
 </div>
 

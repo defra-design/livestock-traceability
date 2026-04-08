@@ -1,0 +1,37 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  Confirmation page template – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      {{ govukPanel({
+        titleText: "Movement report sent to Defra's Livestock Information team",
+        html: "Your reference number<br><strong>HDJ2123F</strong>"
+      }) }}
+
+      <p>
+        We have sent you a confirmation email.
+      </p>
+
+      <h2 class="govuk-heading-m">
+        What happens next
+      </h2>
+
+      <p>Your movement report is used to help control disease traceability in livestock.
+</p>
+
+      <p>
+        You can still make changes after submission if you need to.
+      </p>
+      
+
+
+    </div>
+  </div>
+
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  Question page template – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+  text: "Back",
+  href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <h1 class="govuk-heading-l">
+      Transporter's details</h1>
+
+       <form class="form" action="/version3/haulier-departure-time" method="post">
+
+      <div class="govuk-form-group">
+  <label class="govuk-label" for="full-name">
+    Full name
+  </label>
+  <input class="govuk-input" id="full-name" name="fullName" type="text" spellcheck="false" autocomplete="name">
+</div>
+
+<div class="govuk-form-group">
+    <label class="govuk-label" for="search-destination">
+      Vehicle registration number
+    </label>
+    <input class="govuk-input govuk-input--width-10" id="search-destination" name="search-destination" type="text" autocomplete="off">
+  </div>
+
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+
+      </form>
+
+    </div>
+  </div>
+
+{% endblock %}

@@ -16,8 +16,8 @@
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
 
-      <span class="govuk-caption-xl">Sheep</span><h1 class="govuk-heading-l">
-        What time did you depart?
+      <h1 class="govuk-heading-l">
+        What time did you leave?
       </h1>
 
       <form class="form" action="/version2/journey-time" method="post">
@@ -28,14 +28,14 @@
       
     </legend>
     <div id="passport-issued-hint" class="govuk-hint">
-      Use the 12 hour clock. For example, 10:05
+      Use the 12 hour clock. For example, 10:05AM
     </div>
     <div class="govuk-date-input" id="hour">
       <div class="govuk-date-input__item">
         <div class="govuk-form-group" style="display: flex; gap: 15px; align-items: flex-end;">
           
           <input class="govuk-input govuk-date-input__input govuk-input--width-5" id="time" name="time" type="text" inputmode="numeric">
-          <select class="govuk-select" id="sort" name="sort">
+          <select class="govuk-select" id="sort" name="sort" style="width: auto; min-width: 6ch;">
             <option value="published">PM</option>
             <option value="updated" selected>AM</option>
           </select>
