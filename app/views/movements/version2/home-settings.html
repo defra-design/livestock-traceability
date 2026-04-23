@@ -1,0 +1,100 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  Question page template – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block beforeContent %}
+
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+
+      <span class="govuk-caption-xl">Livestock Information Account</span>
+      <h1 class="govuk-heading-l">
+        Alex Smith
+      </h1>
+<div class="govuk-service-navigation"
+  data-module="govuk-service-navigation">
+  <div class="govuk-width-container">
+    <div class="govuk-service-navigation__container">
+      <nav aria-label="Menu" class="govuk-service-navigation__wrapper">
+        <button type="button" class="govuk-service-navigation__toggle govuk-js-service-navigation-toggle" aria-controls="navigation" hidden aria-hidden="true">
+          Menu
+        </button>
+        <ul class="govuk-service-navigation__list" id="navigation">
+          
+          <li class="govuk-service-navigation__item">
+            <a class="govuk-service-navigation__link" href="/movements/version2/home-livestock-accordian">
+              Livestock list
+            </a>
+          </li>
+          <li class="govuk-service-navigation__item">
+            <a class="govuk-service-navigation__link" href="/movements/version2/home-movement">
+              Report a movement
+            </a>
+          </li>
+          <li class="govuk-service-navigation__item govuk-service-navigation__item--active">
+            <a class="govuk-service-navigation__link" href="/movements/version2/home-settings" aria-current="true">
+              <strong class="govuk-service-navigation__active-fallback"></strong>Account details</strong>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+<br>
+    <h2 class="govuk-heading-l">Account details</h2>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-half">
+    <form class="form" action="/movements/version2/select-animal" method="post">
+
+      <h2 class="govuk-heading-m">Personal details</h2>
+      <p class="govuk-body">Name: Alex Smith</p>
+      <p class="govuk-body">Email: info@alexsmithfarm.com</p>
+      <p class="govuk-body">Phone: 01234 567890</p>
+      <p class="govuk-body"><a href="#" class="govuk-link">Change</a></p>
+
+      <h2 class="govuk-heading-m">Vet Attestation Number (VAN)</h2>
+      <strong class="govuk-tag govuk-tag--grey">
+        Incomplete
+      </strong>
+      <p class="govuk-body" style="margin-top:20px"><a href="#" class="govuk-link">Add</a></p>
+
+      <h2 class="govuk-heading-m">My holdings</h2>
+      <h3 class="govuk-heading-s">Alex Smith's farm</h3>
+      <ul class="govuk-list govuk-list--bullet">
+        <li>Holding CPH number: 12-345-6789</li>
+        <li>Holding CPH number: 12-345-6790</li>
+        <li>Holding CPH number: 12-345-6791</li>
+      </ul>
+      <p class="govuk-body"><a href="#" class="govuk-link">Change</a></p>
+
+    </form>
+  </div>
+
+  <div class="govuk-grid-column-one-half">
+
+    <h2 class="govuk-heading-m">My vehicles</h2>
+    <ul class="govuk-list govuk-list--bullet">
+      <li>AS34 ABC - Trailer with 3.5 tonne capacity</li>
+      <li>XT56 XYZ - Lorry with 7.5 tonne capacity</li>
+      <li>GH78 DEF - Lorry with 12 tonne capacity</li>
+    </ul>
+    <p class="govuk-body"><a href="#" class="govuk-link">Change</a></p>
+
+    <h3 class="govuk-heading-m">Farm software</h3>
+    <p class="govuk-body">If you use farm business software already for movements, you can share this livestock data automatically.</p>
+    <p class="govuk-body"><a href="/movements/version2/farm-software" class="govuk-link">Link my farm software</a></p>
+
+  </div>
+</div>
+    </div>
+  </div>
+
+{% endblock %}

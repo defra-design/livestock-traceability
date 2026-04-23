@@ -1,0 +1,146 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  Question page template – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+  text: "Back",
+  href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <h1 class="govuk-heading-xl">
+        Calf date of birth
+      </h1>
+      <form class="form" action="/cattle-birth/breed" method="post">
+
+<fieldset class="govuk-fieldset">
+  <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+   
+  </legend>
+  <div class="govuk-form-group">
+<span class="govuk-caption-l">Daisy</span>
+<h2 class="govuk-heading-l">
+        UK 123456 100000
+      </h2>
+        
+  <div class="govuk-form-group">
+  <fieldset class="govuk-fieldset">
+    <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+      <h1 class="govuk-fieldset__heading">
+        What is the sex of the calf?
+      </h1>
+    </legend>
+    <div class="govuk-radios" data-module="govuk-radios">
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="calf1sex" name="calf1sex" type="radio" value="england">
+        <label class="govuk-label govuk-radios__label" for="calf1sex">
+          Male  
+        </label>
+      </div>
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="calf1sex-2" name="calf1sex" type="radio" value="scotland">
+        <label class="govuk-label govuk-radios__label" for="calf1sex-2">
+          Female
+        </label>
+      </div>
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="calf1sex-3" name="calf1sex" type="radio" value="wales">
+        <label class="govuk-label govuk-radios__label" for="calf1sex-3">
+          Unknown
+        </label>
+      </div>
+      
+    </div>
+  </fieldset>
+</div>
+
+<hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+
+ <div class="govuk-form-group">
+<span class="govuk-caption-l">Bertie</span>
+<h2 class="govuk-heading-l">
+        UK 123456 100001
+      </h2>
+        
+<div class="govuk-form-group">
+  <fieldset class="govuk-fieldset">
+    <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+      <h1 class="govuk-fieldset__heading">
+        What is the sex of the calf?
+      </h1>
+    </legend>
+    <div class="govuk-radios" data-module="govuk-radios">
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="calf2sex" name="calf2sex" type="radio" value="england">
+        <label class="govuk-label govuk-radios__label" for="calf2sex">
+          Male  
+        </label>
+      </div>
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="calf2sex-2" name="calf2sex" type="radio" value="scotland">
+        <label class="govuk-label govuk-radios__label" for="calf2sex-2">
+          Female
+        </label>
+      </div>
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="calf2sex-3" name="calf2sex" type="radio" value="wales">
+        <label class="govuk-label govuk-radios__label" for="calf2sex-3">
+          Unknown
+        </label>
+      </div>
+
+<hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+
+ <div class="govuk-form-group">
+<span class="govuk-caption-l">Jenny</span>
+<h2 class="govuk-heading-l">
+        UK 123456 100002
+      </h2>
+        
+  <div class="govuk-form-group">
+  <fieldset class="govuk-fieldset">
+    <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+      <h1 class="govuk-fieldset__heading">
+        What is the sex of the calf?
+      </h1>
+    </legend>
+    <div class="govuk-radios" data-module="govuk-radios">
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="whereDoYouLive" name="whereDoYouLive" type="radio" value="england">
+        <label class="govuk-label govuk-radios__label" for="whereDoYouLive">
+          Male  
+        </label>
+      </div>
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="whereDoYouLive-2" name="whereDoYouLive" type="radio" value="scotland">
+        <label class="govuk-label govuk-radios__label" for="whereDoYouLive-2">
+          Female
+        </label>
+      </div>
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="whereDoYouLive-3" name="whereDoYouLive" type="radio" value="wales">
+        <label class="govuk-label govuk-radios__label" for="whereDoYouLive-3">
+          Unknown
+        </label>
+      </div>
+
+<hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+</fieldset>
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+
+      </form>
+
+    </div>
+  </div>
+
+{% endblock %}

@@ -1,0 +1,66 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  Question page template – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block containerStart %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+            <h1 class="govuk-heading-l">
+        Do you know the details of the person transporting the cattle?
+      </h1>
+
+
+      <form class="form" action="/movements/version3/helper-details" method="post">
+
+<div class="govuk-form-group">
+  <fieldset class="govuk-fieldset" aria-describedby="changedName-hint">
+    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+      
+    </legend>
+    
+    <div class="govuk-form-group">
+  <fieldset class="govuk-fieldset" aria-describedby="contact-hint">
+    
+    <div id="contact-hint" class="govuk-hint">
+      Select one option
+    </div>
+    <div class="govuk-radios" data-module="govuk-radios">
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="haulier-yes" name="haulier" type="radio" value="yes">
+        <label class="govuk-label govuk-radios__label" for="haulier-yes">
+          Yes
+        </label>
+      </div>
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="haulier-no" name="haulier" type="radio" value="no" data-aria-controls="conditional-contact-3">
+        <label class="govuk-label govuk-radios__label" for="haulier-no">
+          No
+        </label>
+      </div>
+      <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-contact-3">
+        <div class="govuk-form-group">
+          <p>The market receiving the cattle can complete the details of the person transporting.</p>
+      </div>
+    </div>
+  </fieldset>
+</div><br>
+      {{ govukButton({
+          text: "Continue"
+        }) }}
+      </form>
+
+    </div>
+  </div>
+
+{% endblock %}

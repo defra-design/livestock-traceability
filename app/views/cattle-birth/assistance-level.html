@@ -1,0 +1,187 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  Question page template – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+  text: "Back",
+  href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <h1 class="govuk-heading-xl">
+        Calf birth assistance level
+      </h1>
+      <form class="form" action="/cattle-birth/embryo-transfer" method="post">
+
+<fieldset class="govuk-fieldset">
+  <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+   
+  </legend>
+  <div class="govuk-form-group">
+<span class="govuk-caption-l">Daisy</span>
+<h2 class="govuk-heading-l">
+        UK 123456 100000
+      </h2>
+        
+ <div class="govuk-form-group">
+  <fieldset class="govuk-fieldset">
+    <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+      <h1 class="govuk-fieldset__heading">
+        What level of assistance was required for the calf to be born?
+      </h1>
+    </legend>
+    <div class="govuk-radios" data-module="govuk-radios">
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="calf1assistance" name="calf1assistance" type="radio" value="england">
+        <label class="govuk-label govuk-radios__label" for="calf1assistance">
+          Normal delivery - no assistance required
+        </label>
+      </div>
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="calf1assistance-2" name="calf1assistance" type="radio" value="scotland">
+        <label class="govuk-label govuk-radios__label" for="calf1assistance-2">
+          Assisted delivery
+        </label>
+      </div>
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="calf1assistance-3" name="calf1assistance" type="radio" value="wales">
+        <label class="govuk-label govuk-radios__label" for="calf1assistance-3">
+          Jack assisted delivery - significant assistance required
+        </label>
+      </div>
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="calf1assistance-4" name="calf1assistance" type="radio" value="northern-ireland">
+        <label class="govuk-label govuk-radios__label" for="calf1assistance-4">
+          Veterinary assistance required
+        </label>
+      </div>
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="calf1assistance-5" name="calf1assistance" type="radio" value="northern-ireland">
+        <label class="govuk-label govuk-radios__label" for="calf1assistance-5">
+          Caesarean section
+        </label>
+      </div>
+    </div>
+  </fieldset>
+</div>
+
+<hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+
+ <div class="govuk-form-group">
+<span class="govuk-caption-l">Bertie</span>
+<h2 class="govuk-heading-l">
+        UK 123456 100001
+      </h2>
+        
+<div class="govuk-form-group">
+  <fieldset class="govuk-fieldset">
+    <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+      <h1 class="govuk-fieldset__heading">
+        What level of assistance was required for the calf to be born?
+      </h1>
+    </legend>
+    <div class="govuk-radios" data-module="govuk-radios">
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="calf2assistance" name="calf2assistance" type="radio" value="england">
+        <label class="govuk-label govuk-radios__label" for="calf2assistance">
+          Normal delivery - no assistance required
+        </label>
+      </div>
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="calf2assistance-2" name="calf2assistance" type="radio" value="scotland">
+        <label class="govuk-label govuk-radios__label" for="calf2assistance-2">
+          Assisted delivery
+        </label>
+      </div>
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="calf2assistance-3" name="calf2assistance" type="radio" value="wales">
+        <label class="govuk-label govuk-radios__label" for="calf2assistance-3">
+          Jack assisted delivery - significant assistance required
+        </label>
+      </div>
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="calf2assistance-4" name="calf2assistance" type="radio" value="northern-ireland">
+        <label class="govuk-label govuk-radios__label" for="calf2assistance-4">
+          Veterinary assistance required
+        </label>
+      </div>
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="calf2assistance-5" name="calf2assistance" type="radio" value="northern-ireland">
+        <label class="govuk-label govuk-radios__label" for="calf2assistance-5">
+          Caesarean section
+        </label>
+      </div>
+    </div>
+  </fieldset>
+</div>
+
+<hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+
+ <div class="govuk-form-group">
+<span class="govuk-caption-l">Jenny</span>
+<h2 class="govuk-heading-l">
+        UK 123456 100002
+      </h2>
+        
+<div class="govuk-form-group">
+  <fieldset class="govuk-fieldset">
+    <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+      <h1 class="govuk-fieldset__heading">
+        What level of assistance was required for the calf to be born?
+      </h1>
+    </legend>
+    <div class="govuk-radios" data-module="govuk-radios">
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="calf3assistance" name="calf3assistance" type="radio" value="england">
+        <label class="govuk-label govuk-radios__label" for="calf3assistance">
+          Normal delivery - no assistance required
+        </label>
+      </div>
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="calf3assistance-2" name="calf3assistance" type="radio" value="scotland">
+        <label class="govuk-label govuk-radios__label" for="calf3assistance-2">
+          Assisted delivery
+        </label>
+      </div>
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="calf3assistance-3" name="calf3assistance" type="radio" value="wales">
+        <label class="govuk-label govuk-radios__label" for="calf3assistance-3">
+          Jack assisted delivery - significant assistance required
+        </label>
+      </div>
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="calf3assistance-4" name="calf3assistance" type="radio" value="northern-ireland">
+        <label class="govuk-label govuk-radios__label" for="calf3assistance-4">
+          Veterinary assistance required
+        </label>
+      </div>
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="calf3assistance-5" name="calf3assistance" type="radio" value="northern-ireland">
+        <label class="govuk-label govuk-radios__label" for="calf3assistance-5">
+          Caesarean section
+        </label>
+      </div>
+    </div>
+  </fieldset>
+</div>
+
+<hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+</fieldset>
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+
+      </form>
+
+    </div>
+  </div>
+
+{% endblock %}

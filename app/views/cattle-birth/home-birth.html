@@ -1,0 +1,108 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  Question page template – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block beforeContent %}
+
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+
+      <h1 class="govuk-heading-l">
+        Alex Smith Farm
+      </h1>
+<div class="govuk-service-navigation"
+  data-module="govuk-service-navigation">
+  <div class="govuk-width-container">
+    <div class="govuk-service-navigation__container">
+      <nav aria-label="Menu" class="govuk-service-navigation__wrapper">
+        <button type="button" class="govuk-service-navigation__toggle govuk-js-service-navigation-toggle" aria-controls="navigation" hidden aria-hidden="true">
+          Menu
+        </button>
+        <ul class="govuk-service-navigation__list" id="navigation">
+          
+          <li class="govuk-service-navigation__item govuk-service-navigation__item--active">
+            <a class="govuk-service-navigation__link" href="/version3/home-movement" aria-current="true">
+              <strong class="govuk-service-navigation__active-fallback"></strong>Report a movement</strong>
+            </a>
+          </li>
+          <li class="govuk-service-navigation__item">
+            <a class="govuk-service-navigation__link" href="/version3/home-settings" aria-current="true">
+              Account details
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+<br>
+    <h1 class="govuk-heading-l">
+        What type of livestock are you moving?
+      </h1>
+
+      <form class="form" action="/version3/check-for-move" method="post">
+
+        <div class="govuk-form-group">
+  <fieldset class="govuk-fieldset">
+    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+      
+    </legend>
+    <div class="govuk-radios" data-module="govuk-radios">
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="species-cattle" name="species" type="radio" value="cattle">
+        <label class="govuk-label govuk-radios__label" for="species-cattle">
+          Cattle
+        </label>
+      </div>
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="species-deer" name="species" type="radio" value="deer">
+        <label class="govuk-label govuk-radios__label" for="species-deer">
+          Deer
+        </label>
+      </div>
+         <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="species-goats" name="species" type="radio" value="goats">
+        <label class="govuk-label govuk-radios__label" for="species-goats">
+          Goats
+        </label>
+      </div>
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="species-horses" name="species" type="radio" value="horses">
+        <label class="govuk-label govuk-radios__label" for="species-horses">
+          Horses
+        </label>
+      </div>
+       <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="species-pigs" name="species" type="radio" value="pigs">
+        <label class="govuk-label govuk-radios__label" for="species-pigs">
+          Pigs
+        </label>
+      </div>
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="species-sheep" name="species" type="radio" value="sheep">
+        <label class="govuk-label govuk-radios__label" for="species-sheep">
+          Sheep
+        </label>
+      </div>
+      </div>
+      
+  </fieldset>
+</div>
+
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+
+      </form>
+
+
+    </div>
+  </div>
+
+{% endblock %}

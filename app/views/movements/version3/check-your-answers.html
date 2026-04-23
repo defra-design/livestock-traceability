@@ -1,0 +1,193 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  Check your answers template – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds-from-desktop">
+      <h1 class="govuk-heading-l">
+        Check your details before sending the cattle movement report
+      </h1>
+<h2 class="govuk-heading-m">Movement overview</h2>
+      {{ govukSummaryList({
+        rows: [
+          {
+            key: {
+              text: "Movement type"
+            },
+            value: {
+              text: "Off"
+            },
+            actions: {
+              items: [
+                {
+                  href: "#",
+                  text: "Change",
+                  visuallyHiddenText: "Question 1"
+                }
+              ]
+            }
+          }
+          ,
+          {
+            key: {
+              text: "From"
+            },
+            value: {
+              text: "Alex Smith's farm: Holding CPH number: 12-345-6790"
+            },
+            actions: {
+              items: [
+                {
+                  href: "#",
+                  text: "Change",
+                  visuallyHiddenText: "Question 2"
+                }
+              ]
+            }
+          }
+          ,
+          {
+            key: {
+              text: "Date"
+            },
+            value: {
+              text: "Today"
+            },
+            actions: {
+              items: [
+                {
+                  href: "#",
+                  text: "Change",
+                  visuallyHiddenText: "Question 3"
+                }
+              ]
+            }
+          }
+          ,
+          {
+            key: {
+              text: "To"
+            },
+            value: {
+              text: "Rugby Farmer's Mart"
+            },
+            actions: {
+              items: [
+                {
+                  href: "#",
+                  text: "Change",
+                  visuallyHiddenText: "Question 3"
+                }
+              ]
+            }
+          }
+          
+          
+        ]
+      }) }}
+
+      <table class="govuk-table">
+  <caption class="govuk-table__caption govuk-table__caption--m">Cattle identification details</caption>
+  <thead class="govuk-table__head">
+    <tr class="govuk-table__row">
+            <th scope="col" class="govuk-table__header"></th>
+      <th scope="col" class="govuk-table__header"></th>
+      <th scope="col" class="govuk-table__header"></th>
+    </tr>
+  </thead>
+  <tbody class="govuk-table__body">
+    
+<tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header">Cattle quantity</th>
+            <td class="govuk-table__cell">2</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric"><a href="#" class="govuk-link">Change</a></td>
+    </tr>
+    <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header">Cattle identification</th>
+            <td class="govuk-table__cell"><p>UK 123456 20001, Angus, Male, 01 January 2025</p><p>UK 123456 20025, Angus, Male, 01 January 2025</p></td>
+      <td class="govuk-table__cell govuk-table__cell--numeric"><a href="#" class="govuk-link">Change</a></td>
+    </tr>
+  
+  </tbody>
+</table>
+
+         <table class="govuk-table">
+  <caption class="govuk-table__caption govuk-table__caption--m">Food Chain Information</caption>
+  <thead class="govuk-table__head">
+    <tr class="govuk-table__row">
+            <th scope="col" class="govuk-table__header"></th>
+      <th scope="col" class="govuk-table__header"></th>
+      <th scope="col" class="govuk-table__header"></th>
+    </tr>
+  </thead>
+  <tbody class="govuk-table__body">
+    <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header">Declaration</th>
+            <td class="govuk-table__cell">I declare that all animals in this consignment satisfy the conditions that allow them to enter the food chain</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric"><a href="#" class="govuk-link">Change</a></td>
+    </tr>
+  
+</tbody>
+</table>
+
+<table class="govuk-table">
+  <caption class="govuk-table__caption govuk-table__caption--m">Transporting details</caption>
+  <thead class="govuk-table__head">
+    <tr class="govuk-table__row">
+            <th scope="col" class="govuk-table__header"></th>
+      <th scope="col" class="govuk-table__header"></th>
+      <th scope="col" class="govuk-table__header"></th>
+    </tr>
+  </thead>
+  <tbody class="govuk-table__body">
+    <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header">Who is transporting the cattle</th>
+            <td class="govuk-table__cell">Gary Jones Hauliers</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric"><a href="#" class="govuk-link">Change</a></td>
+    </tr>
+    <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header">Vehicle registration</th>
+            <td class="govuk-table__cell">LIV STOK</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric"><a href="#" class="govuk-link">Change</a></td>
+    </tr>
+    <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header">Departure time</th>
+            <td class="govuk-table__cell">10:30 AM</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric"><a href="#" class="govuk-link">Change</a></td>
+    </tr>
+    <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header">Journey time</th>
+            <td class="govuk-table__cell">30 minutes</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric"><a href="#" class="govuk-link">Change</a></td>
+    </tr>
+</tbody>
+</table>
+      <h2 class="govuk-heading-m">
+        Submit your movement report
+      </h2>
+
+      <p>
+        By submitting this report you are confirming that, to the best of your knowledge, the details you are providing are correct.
+      </p>
+
+      <form action="/movements/version3/confirmation" method="post" novalidate>
+
+        {{ govukButton({
+          text: "Accept and send"
+        }) }}
+
+      </form>
+
+    </div>
+  </div>
+{% endblock %}

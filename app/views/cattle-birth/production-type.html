@@ -1,0 +1,138 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  Question page template – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+  text: "Back",
+  href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <h1 class="govuk-heading-xl">
+        Calf production type
+      </h1>
+      <form class="form" action="/cattle-birth/genetic-dam" method="post">
+
+<fieldset class="govuk-fieldset">
+  <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+   
+  </legend>
+  <div class="govuk-form-group">
+<span class="govuk-caption-l">Daisy</span>
+<h2 class="govuk-heading-l">
+        UK 123456 100000
+      </h2>
+        
+<div class="govuk-form-group">
+  <fieldset class="govuk-fieldset" aria-describedby="changedName-hint">
+    <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+      <h1 class="govuk-fieldset__heading">
+        What type of production is the calf being born into?
+      </h1>
+    </legend>
+    
+    <div class="govuk-radios govuk-radios--inline" data-module="govuk-radios">
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="calf1prod" name="calf1prod" type="radio" value="yes">
+        <label class="govuk-label govuk-radios__label" for="calf1prod">
+          Dairy
+        </label>
+      </div>
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="calf1prod-2" name="calf1prod" type="radio" value="no">
+        <label class="govuk-label govuk-radios__label" for="calf1prod-2">
+          Beef
+        </label>
+      </div>
+    </div>
+  </fieldset>
+</div>
+ 
+
+<hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+
+ <div class="govuk-form-group">
+<span class="govuk-caption-l">Bertie</span>
+<h2 class="govuk-heading-l">
+        UK 123456 100001
+      </h2>
+        
+<div class="govuk-form-group">
+  <fieldset class="govuk-fieldset" aria-describedby="changedName-hint">
+    <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+      <h1 class="govuk-fieldset__heading">
+        What type of production is the calf being born into?
+      </h1>
+    </legend>
+    
+    <div class="govuk-radios govuk-radios--inline" data-module="govuk-radios">
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="calf2prod" name="calf2prod" type="radio" value="yes">
+        <label class="govuk-label govuk-radios__label" for="calf2prod">
+          Dairy
+        </label>
+      </div>
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="calf2prod-2" name="calf2prod" type="radio" value="no">
+        <label class="govuk-label govuk-radios__label" for="calf2prod-2">
+          Beef
+        </label>
+      </div>
+    </div>
+  </fieldset>
+</div>
+
+<hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+
+ <div class="govuk-form-group">
+<span class="govuk-caption-l">Jenny</span>
+<h2 class="govuk-heading-l">
+        UK 123456 100002
+      </h2>
+        
+ <div class="govuk-form-group">
+  <fieldset class="govuk-fieldset" aria-describedby="changedName-hint">
+    <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+      <h1 class="govuk-fieldset__heading">
+        What type of production is the calf being born into?
+      </h1>
+    </legend>
+    
+    <div class="govuk-radios govuk-radios--inline" data-module="govuk-radios">
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="calf3prod" name="calf3prod" type="radio" value="yes">
+        <label class="govuk-label govuk-radios__label" for="calf3prod">
+          Dairy
+        </label>
+      </div>
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="calf3prod-2" name="calf3prod" type="radio" value="no">
+        <label class="govuk-label govuk-radios__label" for="calf3prod-2">
+          Beef
+        </label>
+      </div>
+    </div>
+  </fieldset>
+</div>
+
+
+<hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+</fieldset>
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+
+      </form>
+
+    </div>
+  </div>
+
+{% endblock %}

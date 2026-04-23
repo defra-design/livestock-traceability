@@ -1,0 +1,178 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  Question page template – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+  text: "Back",
+  href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <h1 class="govuk-heading-xl">
+        Calf embryo transfer information
+      </h1>
+      <form class="form" action="/cattle-birth/cya" method="post">
+
+<fieldset class="govuk-fieldset">
+  <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+   
+  </legend>
+  <div class="govuk-form-group">
+<span class="govuk-caption-l">Daisy</span>
+<h2 class="govuk-heading-l">
+        UK 123456 100000
+      </h2>
+          
+<div class="govuk-form-group">
+  <fieldset class="govuk-fieldset" aria-describedby="changedName-hint">
+    <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+      <h1 class="govuk-fieldset__heading">
+        Was the calf born as a result of an embryo transfer?
+      </h1>
+    </legend>
+    
+    <div class="govuk-radios govuk-radios--inline" data-module="govuk-radios">
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="calf1embryo" name="calf1embryo" type="radio" value="yes" data-aria-controls="search-conditional">
+        <label class="govuk-label govuk-radios__label" for="calf1embryo">
+          Yes
+        </label>
+      </div>
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="calf1embryo-2" name="calf1embryo" type="radio" value="no">
+        <label class="govuk-label govuk-radios__label" for="calf1embryo-2">
+          No
+        </label>
+      </div>
+    </div>
+
+    <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="search-conditional">
+  <h3 class="govuk-heading-m">Link to genetic dam</h3>
+
+<div class="govuk-form-group">
+      <label class="govuk-label" for="weight">
+        Add the individual tag number
+      </label>
+      <div class="govuk-input__wrapper">
+        <div class="govuk-input__prefix" aria-hidden="true">UK 123456</div>
+        <input class="govuk-input govuk-input--width-11" id="cost" name="cost" type="text" spellcheck="false">
+      </div>
+    </div>
+    </div>
+
+<hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+
+ <div class="govuk-form-group">
+<span class="govuk-caption-l">Bertie</span>
+<h2 class="govuk-heading-l">
+        UK 123456 100001
+      </h2>
+        
+<div class="govuk-form-group">
+<div class="govuk-form-group">
+  <fieldset class="govuk-fieldset" aria-describedby="changedName-hint">
+    <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+      <h1 class="govuk-fieldset__heading">
+        Was the calf born as a result of an embryo transfer?
+      </h1>
+    </legend>
+    
+    <div class="govuk-radios govuk-radios--inline" data-module="govuk-radios">
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="calf2embryo" name="calf2embryo" type="radio" value="yes" data-aria-controls="search-conditional2">
+        <label class="govuk-label govuk-radios__label" for="calf2embryo">
+          Yes
+        </label>
+      </div>
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="calf2embryo-2" name="calf2embryo" type="radio" value="no">
+        <label class="govuk-label govuk-radios__label" for="calf2embryo-2">
+          No
+        </label>
+      </div>
+    </div>
+  </fieldset>
+</div>
+
+    <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="search-conditional2">
+  <h3 class="govuk-heading-m">Link to genetic dam</h3>
+
+<div class="govuk-form-group">
+      <label class="govuk-label" for="weight">
+        Add the individual tag number
+      </label>
+      <div class="govuk-input__wrapper">
+        <div class="govuk-input__prefix" aria-hidden="true">UK 123456</div>
+        <input class="govuk-input govuk-input--width-11" id="cost" name="cost" type="text" spellcheck="false">
+      </div>
+    </div>
+    </div>
+
+<hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+
+ <div class="govuk-form-group">
+<span class="govuk-caption-l">Jenny</span>
+<h2 class="govuk-heading-l">
+        UK 123456 100002
+      </h2>
+        
+<div class="govuk-form-group">
+  <fieldset class="govuk-fieldset" aria-describedby="changedName-hint">
+    <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+      <h1 class="govuk-fieldset__heading">
+        Was the calf born as a result of an embryo transfer?
+      </h1>
+    </legend>
+    
+    <div class="govuk-radios govuk-radios--inline" data-module="govuk-radios">
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="calf3embryo" name="calf3embryo" type="radio" value="yes" data-aria-controls="search-conditional3">
+        <label class="govuk-label govuk-radios__label" for="calf3embryo">
+          Yes
+        </label>
+      </div>
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="calf3embryo-2" name="calf3embryo" type="radio" value="no">
+        <label class="govuk-label govuk-radios__label" for="calf3embryo-2">
+          No
+        </label>
+      </div>
+    </div>
+  </fieldset>
+</div>
+
+    <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="search-conditional3">
+  <h3 class="govuk-heading-m">Link to genetic dam</h3>
+
+<div class="govuk-form-group">
+      <label class="govuk-label" for="weight">
+        Add the individual tag number
+      </label>
+      <div class="govuk-input__wrapper">
+        <div class="govuk-input__prefix" aria-hidden="true">UK 123456</div>
+        <input class="govuk-input govuk-input--width-11" id="cost" name="cost" type="text" spellcheck="false">
+      </div>
+    </div>
+    </div>
+
+
+<hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+</fieldset>
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+
+      </form>
+
+    </div>
+  </div>
+
+{% endblock %}
