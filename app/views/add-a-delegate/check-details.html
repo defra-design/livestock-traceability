@@ -1,0 +1,107 @@
+{% extends "layouts/main.html" %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% set pageName="Add a new delegate" %}
+
+{% block containerStart %}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds-from-desktop">
+
+    <h1 class="govuk-heading-l">Check details before sending your invitation</h1>
+    <h2 class="govuk-heading-m">Delegate details</h2>
+
+    {# Normalise checkbox values: always treat as an array #}
+    {% set holdings = data['manage-access'] or [] %}
+    {% if holdings is string %}{% set holdings = [holdings] %}{% endif %}
+
+    {% set species = data['manage-species'] or [] %}
+    {% if species is string %}{% set species = [species] %}{% endif %}
+
+    {{ govukSummaryList({
+    classes: "govuk-!-margin-bottom-9",
+    rows: [
+    {
+    key: {
+    text: "Full Name"
+    },
+    value: {
+    text: data['full-name']
+    },
+    actions: {
+    items: [
+    {
+    href: "/add-a-delegate/full-name",
+    text: "Change",
+    visuallyHiddenText: "full name"
+    }
+    ]
+    }
+    },
+    {
+    key: {
+    text: "Email address"
+    },
+    value: {
+    text: data['email-address']
+    },
+    actions: {
+    items: [
+    {
+    href: "/add-a-delegate/email-address",
+    text: "Change",
+    visuallyHiddenText: "email address"
+    }
+    ]
+    }
+    },
+    {
+    key: {
+    text: "Delegated holdings"
+    },
+    value: {
+    html: holdings | join('<br>')
+    },
+    actions: {
+    items: [
+    {
+    href: "/add-a-delegate/manage-access",
+    text: "Change",
+    visuallyHiddenText: "delegated holdings"
+    }
+    ]
+    }
+    },
+    {
+    key: {
+    text: "Delegated species"
+    },
+    value: {
+    html: species | join('<br>')
+    },
+    actions: {
+    items: [
+    {
+    href: "/add-a-delegate/manage-species",
+    text: "Change",
+    visuallyHiddenText: "designated species"
+    }
+    ]
+    }
+    }
+    ]
+    }) }}
+
+    <a href="/add-a-delegate/confirmation" class="govuk-button" data-module="govuk-button">
+      Continue
+    </a>
+
+  </div>
+</div>
+{% endblock %}

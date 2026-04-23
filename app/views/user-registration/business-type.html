@@ -1,0 +1,52 @@
+{% extends "layouts/main.html" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% set pageName="What kind of business or organisation are you?" %}
+
+{% block containerStart %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <form action="/user-registration/business-type" method="post" novalidate>
+
+        <span class="govuk-caption-xl">Register Defra account</span>
+
+        {{ govukRadios({
+          name: "business-type",
+          fieldset: {
+            legend: {
+              text: "What kind of business or organisation are you?",
+              isPageHeading: true,
+              classes: "govuk-fieldset__legend--xl"
+            }
+          },
+          items: [
+            {
+              value: "charity",
+              text: "Charity",
+              checked: data['business-type'] == "charity"
+            },
+            {
+              value: "sole-trader",
+              text: "Sole trader",
+              checked: data['business-type'] == "sole-trader"
+            }
+          ]
+        }) }}
+
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+
+      </form>
+    </div>
+  </div>
+
+{% endblock %}

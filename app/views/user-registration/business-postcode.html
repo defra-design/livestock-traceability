@@ -1,0 +1,49 @@
+{% extends "layouts/main.html" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% set pageName="What's the postcode for your business?" %}
+
+{% block containerStart %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <form action="/user-registration/business-postcode" method="post" novalidate>
+
+        <span class="govuk-caption-xl">Register Defra account</span>
+
+        {{ govukInput({
+          label: {
+            text: "What's the postcode for your business?",
+            classes: "govuk-label--xl",
+            isPageHeading: true
+          },
+          hint: {
+            text: "This might be your home postcode if you do not have commercial premises."
+          },
+          id: "business-postcode",
+          name: "business-postcode",
+          classes: "govuk-input--width-10",
+          autocomplete: "postal-code",
+          value: data['business-postcode']
+        }) }}
+
+        <div class="govuk-button-group">
+          {{ govukButton({
+            text: "Find address"
+          }) }}
+
+          <a href="/user-registration/business-address-manual" class="govuk-link">Enter your address manually</a>
+        </div>
+
+      </form>
+    </div>
+  </div>
+
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends "layouts/main.html" %}
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% set pageName="Select the holdings your delegate will manage" %}
+
+{% block containerStart %}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <form action="/add-a-delegate/manage-species" method="post" novalidate>
+      <div class="govuk-form-group">
+
+        {{ govukCheckboxes({
+        name: "manage-access",
+        fieldset: {
+        legend: {
+        text: "Select the holdings your delegate will manage",
+        isPageHeading: true,
+        classes: "govuk-fieldset__legend--l"
+        }
+        },
+        hint: {
+        text: "Select all that apply"
+        },
+        items: [
+        {
+        value: "12/345/6789",
+        text: "County Parish Holding Number 12/345/6789",
+        checked: checked("manage-access", "12/345/6789")
+        },
+        {
+        value: "34/345/6789",
+        text: "County Parish Holding Number 34/345/6789",
+        checked: checked("manage-access", "34/345/6789")
+        },
+        {
+        value: "56/345/6789",
+        text: "County Parish Holding Number 56/345/6789",
+        checked: checked("manage-access", "56/345/6789")
+        }
+        ]
+        }) }}
+
+      </div>
+      <button type="submit" class="govuk-button" data-module="govuk-button">
+        Continue
+      </button>
+    </form>
+  </div>
+</div>
+
+{% endblock %}

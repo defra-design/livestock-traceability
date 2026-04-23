@@ -1,0 +1,57 @@
+{% extends "layouts/main.html" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% set pageName="What's your business's telephone number and email address?" %}
+
+{% block containerStart %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <form action="/user-registration/business-contact-details" method="post" novalidate>
+
+        <span class="govuk-caption-xl">Register Defra account</span>
+        <h1 class="govuk-heading-xl">What's your business's telephone number and email address?</h1>
+
+        {{ govukInput({
+          label: {
+            text: "UK telephone number"
+          },
+          id: "business-telephone",
+          name: "business-telephone",
+          type: "tel",
+          autocomplete: "tel",
+          classes: "govuk-input--width-20",
+          value: data['business-telephone']
+        }) }}
+
+        {{ govukInput({
+          label: {
+            text: "Email address"
+          },
+          hint: {
+            text: "For example, name@example.com"
+          },
+          id: "business-email",
+          name: "business-email",
+          type: "email",
+          autocomplete: "email",
+          spellcheck: false,
+          value: data['business-email']
+        }) }}
+
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+
+      </form>
+    </div>
+  </div>
+
+{% endblock %}

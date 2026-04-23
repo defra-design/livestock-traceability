@@ -1,0 +1,56 @@
+{% extends "layouts/main.html" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% set pageName="Do you have a company registration number?" %}
+
+{% block containerStart %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <form action="/user-registration/company-registration-number" method="post" novalidate>
+
+        <span class="govuk-caption-xl">Register Defra account</span>
+
+        {{ govukRadios({
+          name: "has-company-registration-number",
+          classes: "govuk-radios--inline",
+          fieldset: {
+            legend: {
+              text: "Do you have a company registration number?",
+              isPageHeading: true,
+              classes: "govuk-fieldset__legend--xl"
+            }
+          },
+          hint: {
+            text: "Companies House may have sent this to you if you registered as a limited company."
+          },
+          items: [
+            {
+              value: "yes",
+              text: "Yes",
+              checked: data['has-company-registration-number'] == "yes"
+            },
+            {
+              value: "no",
+              text: "No",
+              checked: data['has-company-registration-number'] == "no"
+            }
+          ]
+        }) }}
+
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+
+      </form>
+    </div>
+  </div>
+
+{% endblock %}

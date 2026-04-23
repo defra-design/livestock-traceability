@@ -1,0 +1,54 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Change who can act for you" %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+
+        <h1 class="govuk-heading-l">
+            Manage who can act for you
+        </h1>
+        <p>
+            Add or remove delegates who can manage your holding. If you remove a delegate they will no longer be able to access your details in the Livestock Information Service.
+        </p>
+
+        <table class="govuk-table govuk-table--small-text-until-tablet">
+            <caption class="govuk-table__caption govuk-table__caption--m govuk-visually-hidden">
+                View all delegates
+            </caption>
+            <thead class="govuk-table__head">
+            <tr class="govuk-table__row">
+                <th scope="col" class="govuk-table__header">Name</th>
+                <th scope="col" class="govuk-table__header">Email address</th>
+                <th scope="col" class="govuk-table__header">Actions</th>
+            </tr>
+            </thead>
+            <tbody class="govuk-table__body">
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">Joe Bloggs</th>
+                <td class="govuk-table__cell">j********@gmail.com</td>
+                <td class="govuk-table__cell"><a href="/add-a-delegate/remove-delegate" class="govuk-link">Remove</a></td>
+            </tr>
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">A Nother</th>
+                <td class="govuk-table__cell">a******@farminc.com</td>
+                <td class="govuk-table__cell"><a href="#" class="govuk-link">Remove</a></td>
+            </tr>
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">Joanna Smith</th>
+                <td class="govuk-table__cell">j*****@smithfarms.co.uk</td>
+                <td class="govuk-table__cell"><a href="/add-a-delegate/cancel-invite" class="govuk-link">Cancel Invite</a></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <a href="/add-a-delegate/full-name" class="govuk-button" data-module="govuk-button">
+            Add a delegate
+        </a>
+
+    </div>
+</div>
+
+{% endblock %}

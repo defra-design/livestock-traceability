@@ -1,0 +1,63 @@
+{% extends "layouts/main.html" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% set pageName="Check your email" %}
+
+{% block containerStart %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <form action="/user-registration/check-your-email" method="post" novalidate>
+
+        <h1 class="govuk-heading-xl">Check your email</h1>
+
+        <div class="govuk-inset-text">
+          We have sent an email to <strong>{{ data['email-address'] }}</strong>.
+        </div>
+
+        <p class="govuk-body">The email contains a 6 digit security code.</p>
+
+        <p class="govuk-body">Your email may take a few minutes to arrive. If you do not get an email, check your spam folder.</p>
+
+        <p class="govuk-body">The code will expire after one hour.</p>
+
+        {{ govukInput({
+          label: {
+            text: "Enter the 6 digit code"
+          },
+          id: "security-code",
+          name: "security-code",
+          inputmode: "numeric",
+          autocomplete: "one-time-code",
+          classes: "govuk-input--width-10",
+          spellcheck: false
+        }) }}
+
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+
+      </form>
+
+      <details class="govuk-details">
+        <summary class="govuk-details__summary">
+          <span class="govuk-details__summary-text">
+            Problems with the code
+          </span>
+        </summary>
+        <div class="govuk-details__text">
+          Content TBC.
+        </div>
+      </details>
+
+    </div>
+  </div>
+
+{% endblock %}

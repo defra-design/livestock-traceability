@@ -1,0 +1,78 @@
+{% extends "layouts/main.html" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/password-input/macro.njk" import govukPasswordInput %}
+{% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
+{% set pageName="Sign in using Government Gateway" %}
+
+{% block containerStart %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      {{ govukNotificationBanner({
+        titleText: "Keeping your information secure",
+        html: "<p class=\"govuk-body\">Do not share your Government Gateway user ID and password with anyone else.</p>"
+      }) }}
+
+      <form action="/user-registration/gateway-login" method="post" novalidate>
+
+        <h1 class="govuk-heading-xl">Sign in using Government Gateway</h1>
+
+        {{ govukInput({
+          label: {
+            text: "Government Gateway user ID",
+            classes: "govuk-label--m"
+          },
+          hint: {
+            text: "This could be up to 12 characters."
+          },
+          id: "gateway-user-id",
+          name: "gateway-user-id",
+          classes: "govuk-input--width-20",
+          spellcheck: false,
+          autocomplete: "username"
+        }) }}
+
+        {{ govukPasswordInput({
+          label: {
+            text: "Password",
+            classes: "govuk-label--m"
+          },
+          id: "gateway-password",
+          name: "gateway-password",
+          autocomplete: "current-password"
+        }) }}
+
+        {{ govukButton({
+          text: "Sign in"
+        }) }}
+
+      </form>
+
+      <h2 class="govuk-heading-m">New users of Government Gateway</h2>
+      <p class="govuk-body">
+        <a href="#" class="govuk-link">Create sign in details</a>
+      </p>
+
+      <h2 class="govuk-heading-m">Problems signing in</h2>
+
+      <ul class="govuk-list">
+        <li><a href="#" class="govuk-link">I have forgotten my password</a></li>
+        <li><a href="#" class="govuk-link">I have forgotten my Government Gateway user ID</a></li>
+        <li><a href="#" class="govuk-link">I have forgotten my Government Gateway user ID and password</a></li>
+      </ul>
+
+      <p class="govuk-body"><a href="#" class="govuk-link">Get help with this page</a></p>
+
+    </div>
+  </div>
+
+{% endblock %}
