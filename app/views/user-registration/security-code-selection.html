@@ -1,0 +1,66 @@
+{% extends "layouts/main.html" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% set pageName="Choose how to get security codes" %}
+
+{% block containerStart %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <form action="/user-registration/security-code-selection" method="post" novalidate>
+
+        {{ govukRadios({
+          name: "security-code-method",
+          fieldset: {
+            legend: {
+              text: "Choose how to get security codes",
+              isPageHeading: true,
+              classes: "govuk-fieldset__legend--l"
+            }
+          },
+          hint: {
+            text: "You'll need to enter a security code when you sign in to GOV.UK One Login."
+          },
+          items: [
+            {
+              value: "text-message",
+              text: "Text message to a UK mobile phone number"
+            },
+            {
+              value: "authenticator-app",
+              text: "Authenticator app",
+              hint: {
+                text: "You can use any authenticator app to create security codes when you sign in"
+              }
+            }
+          ]
+        }) }}
+
+        <details class="govuk-details">
+          <summary class="govuk-details__summary">
+            <span class="govuk-details__summary-text">
+              What is an authenticator app?
+            </span>
+          </summary>
+          <div class="govuk-details__text">
+            Content TBC.
+          </div>
+        </details>
+
+        {{ govukButton({
+          text: "Continue",
+          href: "/user-registration/authenticator-app-setup"
+        }) }}
+
+      </form>
+    </div>
+  </div>
+
+{% endblock %}

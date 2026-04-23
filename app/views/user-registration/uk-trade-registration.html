@@ -1,0 +1,53 @@
+{% extends "layouts/main.html" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% set pageName="Is the business registered to trade in the UK?" %}
+
+{% block containerStart %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <form action="/user-registration/uk-trade-registration" method="post" novalidate>
+
+        <span class="govuk-caption-xl">Register Defra account</span>
+
+        {{ govukRadios({
+          name: "uk-trade-registration",
+          classes: "govuk-radios--inline",
+          fieldset: {
+            legend: {
+              text: "Is the business registered to trade in the UK?",
+              isPageHeading: true,
+              classes: "govuk-fieldset__legend--xl"
+            }
+          },
+          items: [
+            {
+              value: "yes",
+              text: "Yes",
+              checked: data['uk-trade-registration'] == "yes"
+            },
+            {
+              value: "no",
+              text: "No",
+              checked: data['uk-trade-registration'] == "no"
+            }
+          ]
+        }) }}
+
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+
+      </form>
+    </div>
+  </div>
+
+{% endblock %}

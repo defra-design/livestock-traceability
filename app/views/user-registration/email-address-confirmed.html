@@ -1,0 +1,31 @@
+{% extends "layouts/main.html" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% set pageName="Email address confirmed" %}
+
+{% block containerStart %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <h1 class="govuk-heading-xl">Email address confirmed</h1>
+
+      <p class="govuk-body">This will enable us to help you get the most from this service.</p>
+
+      {{ govukButton({
+        text: "Continue",
+        href: "/user-registration/gateway-full-name"
+      }) }}
+
+      <p class="govuk-body"><a href="#" class="govuk-link">Get help with this page</a></p>
+
+    </div>
+  </div>
+
+{% endblock %}

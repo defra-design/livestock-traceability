@@ -1,0 +1,24 @@
+{% extends "layouts/main.html" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% set pageName="You've created your GOV.UK One Login" %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <div class="govuk-panel govuk-panel--confirmation">
+        <h1 class="govuk-panel__title">You've created your GOV.UK One Login</h1>
+      </div>
+
+      <p class="govuk-body govuk-!-margin-top-6">Now continue to use the service.</p>
+
+      {{ govukButton({
+        text: "Continue",
+        href: "/user-registration/defra-registration"
+      }) }}
+
+    </div>
+  </div>
+
+{% endblock %}

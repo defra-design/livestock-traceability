@@ -1,0 +1,74 @@
+{% extends "layouts/main.html" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/character-count/macro.njk" import govukCharacterCount %}
+{% set pageName="Create a memorable word" %}
+
+{% block containerStart %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <form action="/user-registration/memorable-word" method="post" novalidate>
+
+        <span class="govuk-caption-xl">Register Defra account</span>
+        <h1 class="govuk-heading-xl">Create a memorable word</h1>
+
+        <p class="govuk-body">For security purposes, you are required to create a memorable word. This helps us to verify your identity if you need to contact us.</p>
+
+        <div class="govuk-inset-text">
+          <p class="govuk-body">This word must:</p>
+          <ul class="govuk-list govuk-list--bullet">
+            <li>be between 8 and 32 characters long and is not case sensitive</li>
+            <li>only contain a combination of letters (A-Z a-z) and numbers (0-9)</li>
+          </ul>
+
+          <p class="govuk-body">This word must not contain:</p>
+          <ul class="govuk-list govuk-list--bullet">
+            <li>spaces</li>
+            <li>special characters ('at' symbol (@), hyphen (-))</li>
+            <li>more than 2 repeating characters such as 111 or AAA</li>
+          </ul>
+        </div>
+
+        {{ govukInput({
+          label: {
+            text: "Memorable word",
+            classes: "govuk-label--m"
+          },
+          id: "memorable-word",
+          name: "memorable-word",
+          spellcheck: false,
+          value: data['memorable-word']
+        }) }}
+
+        {{ govukCharacterCount({
+          label: {
+            text: "Hint question",
+            classes: "govuk-label--m"
+          },
+          hint: {
+            text: "Write a question that will help you remember your memorable word. For example, 'What is the name of my first school?'."
+          },
+          id: "hint-question",
+          name: "hint-question",
+          maxlength: 100,
+          rows: 3,
+          value: data['hint-question']
+        }) }}
+
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+
+      </form>
+    </div>
+  </div>
+
+{% endblock %}

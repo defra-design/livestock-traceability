@@ -1,0 +1,47 @@
+{% extends "layouts/main.html" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% set pageName="Enter your email address" %}
+
+{% block containerStart %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <form action="/user-registration/email-address" method="post" novalidate>
+
+        {{ govukInput({
+          label: {
+            text: "Enter your email address",
+            classes: "govuk-label--xl",
+            isPageHeading: true
+          },
+          hint: {
+            text: "We'll send a confirmation code to this address"
+          },
+          id: "email-address",
+          name: "email-address",
+          type: "email",
+          autocomplete: "email",
+          spellcheck: false
+        }) }}
+
+        <h2 class="govuk-heading-m">Agree to the GOV.UK One Login terms and conditions</h2>
+        <p class="govuk-body">By continuing, you confirm that you agree to our <a href="#" class="govuk-link">terms and conditions (opens in a new tab)</a>.</p>
+        <p class="govuk-body">To find out how we use your personal information, see our <a href="#" class="govuk-link">privacy notice (opens in a new tab)</a>.</p>
+
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+
+      </form>
+    </div>
+  </div>
+
+{% endblock %}

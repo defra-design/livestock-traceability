@@ -1,0 +1,86 @@
+{% extends "layouts/main.html" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% set pageName="Set up an authenticator app" %}
+
+{% block containerStart %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <form action="/user-registration/authenticator-app-setup" method="post" novalidate>
+
+        <h1 class="govuk-heading-xl">Set up an authenticator app</h1>
+
+        <ol class="govuk-list govuk-list--number">
+
+          <li>
+            <p class="govuk-body">Open your authenticator app on your smartphone, tablet or computer.</p>
+            <details class="govuk-details">
+              <summary class="govuk-details__summary">
+                <span class="govuk-details__summary-text">
+                  I don't have an authenticator app
+                </span>
+              </summary>
+              <div class="govuk-details__text">
+                Content TBC.
+              </div>
+            </details>
+          </li>
+
+          <li>
+            <p class="govuk-body">Use your authenticator app to scan the QR code.</p>
+            <img src="/public/images/dummy-qr-code.png" alt="QR code" class="govuk-!-margin-bottom-4" style="width: 150px; height: 150px; display: block;">
+            <details class="govuk-details">
+              <summary class="govuk-details__summary">
+                <span class="govuk-details__summary-text">
+                  I cannot scan the QR code
+                </span>
+              </summary>
+              <div class="govuk-details__text">
+                Content TBC.
+              </div>
+            </details>
+          </li>
+
+          <li>
+            <p class="govuk-body">The authenticator app will show a security code.</p>
+          </li>
+
+          <li>
+            {{ govukInput({
+              label: {
+                text: "Enter the code"
+              },
+              hint: {
+                text: "This is the 6-digit number shown in your authenticator app"
+              },
+              id: "authenticator-code",
+              name: "authenticator-code",
+              inputmode: "numeric",
+              autocomplete: "one-time-code",
+              classes: "govuk-input--width-10",
+              spellcheck: false
+            }) }}
+          </li>
+
+        </ol>
+
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+
+      </form>
+
+      <p class="govuk-body"><a href="/user-registration/security-code-selection" class="govuk-link">Choose another way to get security codes</a></p>
+
+    </div>
+  </div>
+
+{% endblock %}

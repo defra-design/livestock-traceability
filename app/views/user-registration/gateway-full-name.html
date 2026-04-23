@@ -1,0 +1,41 @@
+{% extends "layouts/main.html" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% set pageName="What is your full name?" %}
+
+{% block containerStart %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <form action="/user-registration/gateway-full-name" method="post" novalidate>
+
+        {{ govukInput({
+          label: {
+            text: "What is your full name?",
+            classes: "govuk-label--xl",
+            isPageHeading: true
+          },
+          id: "gateway-full-name",
+          name: "gateway-full-name",
+          autocomplete: "name"
+        }) }}
+
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+
+      </form>
+
+      <p class="govuk-body"><a href="#" class="govuk-link">Get help with this page</a></p>
+
+    </div>
+  </div>
+
+{% endblock %}

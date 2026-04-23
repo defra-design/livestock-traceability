@@ -1,0 +1,68 @@
+{% extends "layouts/main.html" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+{% set pageName="Enter code to confirm your email address" %}
+
+{% block containerStart %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <form action="/user-registration/gateway-email-confirmation-code" method="post" novalidate>
+
+        <h1 class="govuk-heading-xl">Enter code to confirm your email address</h1>
+
+        <p class="govuk-body">We have sent a code to <strong>{{ data['gateway-email-address'] }}</strong>.</p>
+
+        <p class="govuk-body">The code will expire in 30 minutes.</p>
+
+        {{ govukWarningText({
+          text: "If you use a browser to access your email, you may need to open a new window or tab to see the code.",
+          iconFallbackText: "Warning"
+        }) }}
+
+        {{ govukInput({
+          label: {
+            text: "Confirmation code",
+            classes: "govuk-label--m"
+          },
+          hint: {
+            text: "For example, DNCLRK"
+          },
+          id: "gateway-confirmation-code",
+          name: "gateway-confirmation-code",
+          classes: "govuk-input--width-10",
+          spellcheck: false,
+          autocomplete: "one-time-code"
+        }) }}
+
+        <details class="govuk-details">
+          <summary class="govuk-details__summary">
+            <span class="govuk-details__summary-text">
+              I have not received the email
+            </span>
+          </summary>
+          <div class="govuk-details__text">
+            Content TBC.
+          </div>
+        </details>
+
+        {{ govukButton({
+          text: "Confirm"
+        }) }}
+
+      </form>
+
+      <p class="govuk-body"><a href="#" class="govuk-link">Get help with this page</a></p>
+
+    </div>
+  </div>
+
+{% endblock %}

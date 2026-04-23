@@ -1,0 +1,33 @@
+{% extends "layouts/main.html" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% set pageName="Your Government Gateway user ID" %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <div class="govuk-panel govuk-panel--confirmation">
+        <h1 class="govuk-panel__title">Your Government Gateway user ID is:</h1>
+        <div class="govuk-panel__body">
+          97 44 99 00 40 03
+        </div>
+      </div>
+
+      <p class="govuk-body govuk-!-margin-top-6">We have sent it to <strong>{{ data['gateway-email-address'] }}</strong>.</p>
+
+      <p class="govuk-body">You will need your user ID and your password each time you sign in to Government Gateway.</p>
+
+      <p class="govuk-body"><strong>Never share your Government Gateway user ID or password with anyone else.</strong></p>
+
+      {{ govukButton({
+        text: "Continue",
+        href: "/user-registration/defra-registration"
+      }) }}
+
+      <p class="govuk-body"><a href="#" class="govuk-link">Get help with this page</a></p>
+
+    </div>
+  </div>
+
+{% endblock %}

@@ -1,0 +1,96 @@
+{% extends "layouts/main.html" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% set pageName="Check your answers" %}
+
+{% block containerStart %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <span class="govuk-caption-xl">Register Defra account</span>
+      <h1 class="govuk-heading-xl">Check your answers</h1>
+
+      <h2 class="govuk-heading-m">Defra account</h2>
+
+      {{ govukSummaryList({
+        rows: [
+          {
+            key: { text: "Account type" },
+            value: { text: "Business or organisation" if data['business-or-individual'] == "business" else "Individual" },
+            actions: { items: [{ href: "/user-registration/business-selection", text: "Change", visuallyHiddenText: "account type" }] }
+          }
+        ]
+      }) }}
+
+      <h2 class="govuk-heading-m">Business details</h2>
+
+      {{ govukSummaryList({
+        rows: [
+          {
+            key: { text: "Type" },
+            value: { text: data['business-type'] | capitalize },
+            actions: { items: [{ href: "/user-registration/business-type", text: "Change", visuallyHiddenText: "business type" }] }
+          },
+          {
+            key: { text: "Trading name" },
+            value: { text: data['business-name'] },
+            actions: { items: [{ href: "/user-registration/business-name", text: "Change", visuallyHiddenText: "trading name" }] }
+          },
+          {
+            key: { text: "Trading address" },
+            value: { text: data['business-postcode'] },
+            actions: { items: [{ href: "/user-registration/business-postcode", text: "Change", visuallyHiddenText: "trading address" }] }
+          },
+          {
+            key: { text: "Telephone" },
+            value: { text: data['business-telephone'] },
+            actions: { items: [{ href: "/user-registration/business-contact-details", text: "Change", visuallyHiddenText: "business telephone" }] }
+          },
+          {
+            key: { text: "Email" },
+            value: { text: data['business-email'] },
+            actions: { items: [{ href: "/user-registration/business-contact-details", text: "Change", visuallyHiddenText: "business email" }] }
+          }
+        ]
+      }) }}
+
+      <h2 class="govuk-heading-m">Your details</h2>
+
+      {{ govukSummaryList({
+        rows: [
+          {
+            key: { text: "Name" },
+            value: { text: data['first-name'] + " " + data['last-name'] },
+            actions: { items: [{ href: "/user-registration/name", text: "Change", visuallyHiddenText: "name" }] }
+          },
+          {
+            key: { text: "Telephone number" },
+            value: { text: data['business-telephone'] },
+            actions: { items: [{ href: "/user-registration/business-contact-details", text: "Change", visuallyHiddenText: "telephone number" }] }
+          },
+          {
+            key: { text: "Memorable word" },
+            value: { text: "••••••••" },
+            actions: { items: [{ href: "/user-registration/memorable-word", text: "Change", visuallyHiddenText: "memorable word" }] }
+          }
+        ]
+      }) }}
+
+      <form action="/user-registration/check-your-answers" method="post" novalidate>
+        {{ govukButton({
+          text: "Confirm and continue"
+        }) }}
+      </form>
+
+    </div>
+  </div>
+
+{% endblock %}

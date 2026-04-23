@@ -1,0 +1,27 @@
+{% extends "layouts/main.html" %}
+{% set pageName="Registration complete" %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <div class="govuk-panel govuk-panel--confirmation">
+        <h1 class="govuk-panel__title">Registration complete</h1>
+        <div class="govuk-panel__body">
+          Your Defra account has been created
+        </div>
+      </div>
+
+      <p class="govuk-body govuk-!-margin-top-6">We have sent a confirmation email to <strong>{{ data['email-address'] }}</strong>.</p>
+
+      <h2 class="govuk-heading-m">What happens next</h2>
+
+      <p class="govuk-body">You can now use your Defra account to access Defra services.</p>
+
+      <p class="govuk-body"><a href="#" class="govuk-link">Go to your Defra account</a></p>
+
+    </div>
+  </div>
+
+{% endblock %}
