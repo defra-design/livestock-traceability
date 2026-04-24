@@ -1,0 +1,37 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  Confirmation page template – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      {{ govukPanel({
+        titleText: "1 cattle birth added to your cattle livestock list",
+        html: "Your total cattle number<br><strong>31</strong>"
+      }) }}
+
+      <p>
+        We have sent you a confirmation email.
+      </p>
+
+      <h2 class="govuk-heading-m">
+        What happens next
+      </h2>
+
+      <p>Your birth details are now updated in your <a href="#" class="govuk-link">cattle livestock list</a>.</p>
+</p>
+
+      <p>
+        You can still make changes after submission if you need to.
+      </p>
+      
+
+
+    </div>
+  </div>
+
+{% endblock %}

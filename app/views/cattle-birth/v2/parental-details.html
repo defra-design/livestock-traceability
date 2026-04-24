@@ -1,0 +1,129 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  Question page template – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+  text: "Back",
+  href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <span class="govuk-caption-xl">Calf 1</span>
+      <h1 class="govuk-heading-xl">
+        Parental details
+      </h1>
+      <form class="form" action="/cattle-birth/v2/cya" method="post">
+      
+<div class="govuk-grid-row" style="margin: 0; flex-wrap: nowrap;">
+    <h2 class="govuk-heading-l">
+        Link to a parent
+      </h2>
+      <div class="govuk-form-group">
+      <label class="govuk-label" for="weight">
+        Add the individual tag number
+      </label>
+      <div class="govuk-input__wrapper">
+        <div class="govuk-input__prefix" aria-hidden="true">UK 123456</div>
+        <input class="govuk-input govuk-input--width-11" id="cost" name="cost" type="text" spellcheck="false">
+      </div>
+    </div>
+</div>
+<div class="govuk-form-group">
+  <fieldset class="govuk-fieldset">
+    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+      <h3 class="govuk-fieldset__heading" style="margin-top:30px">
+        What level of assistance was required for the calf to be born?
+      </h3>
+    </legend>
+    <div class="govuk-radios" data-module="govuk-radios">
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="calf3assistance" name="calf3assistance" type="radio" value="england">
+        <label class="govuk-label govuk-radios__label" for="calf3assistance">
+          Normal delivery - no assistance required
+        </label>
+      </div>
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="calf3assistance-2" name="calf3assistance" type="radio" value="scotland">
+        <label class="govuk-label govuk-radios__label" for="calf3assistance-2">
+          Assisted delivery
+        </label>
+      </div>
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="calf3assistance-3" name="calf3assistance" type="radio" value="wales">
+        <label class="govuk-label govuk-radios__label" for="calf3assistance-3">
+          Jack assisted delivery - significant assistance required
+        </label>
+      </div>
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="calf3assistance-4" name="calf3assistance" type="radio" value="northern-ireland">
+        <label class="govuk-label govuk-radios__label" for="calf3assistance-4">
+          Veterinary assistance required
+        </label>
+      </div>
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="calf3assistance-5" name="calf3assistance" type="radio" value="northern-ireland">
+        <label class="govuk-label govuk-radios__label" for="calf3assistance-5">
+          Caesarean section
+        </label>
+      </div>
+    </div>
+  </fieldset>
+</div>
+
+<div class="govuk-form-group">
+  <fieldset class="govuk-fieldset" aria-describedby="changedName-hint">
+    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+      <h4 class="govuk-fieldset__heading" style="margin-top:30px">
+        Was the calf born as a result of an embryo transfer?
+      </h4>
+    </legend>
+    
+    <div class="govuk-radios govuk-radios--inline" data-module="govuk-radios">
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="calf1embryo" name="calf1embryo" type="radio" value="yes" data-aria-controls="search-conditional">
+        <label class="govuk-label govuk-radios__label" for="calf1embryo">
+          Yes
+        </label>
+      </div>
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="calf1embryo-2" name="calf1embryo" type="radio" value="no">
+        <label class="govuk-label govuk-radios__label" for="calf1embryo-2">
+          No
+        </label>
+      </div>
+    </div>
+
+    <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="search-conditional">
+  <h3 class="govuk-heading-m">Link to genetic dam</h3>
+
+<div class="govuk-form-group">
+      <label class="govuk-label" for="weight">
+        Add the individual tag number
+      </label>
+      <div class="govuk-input__wrapper">
+        <div class="govuk-input__prefix" aria-hidden="true">UK 123456</div>
+        <input class="govuk-input govuk-input--width-11" id="cost" name="cost" type="text" spellcheck="false">
+      </div>
+    </div>
+    </div>
+  </div>
+</fieldset>
+
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+
+      </form>
+
+    </div>
+  </div>
+
+{% endblock %}
