@@ -17,24 +17,28 @@
     <div class="govuk-grid-column-two-thirds">
 
       <h1 class="govuk-heading-l">
-        How many calf births do you want to report?
+        Do you want to register a single calf birth or more than one?
       </h1>
       <form class="form" action="/cattle-birth/v2/calf-details" method="post">
 
-<fieldset class="govuk-fieldset">
-  <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-   
-  </legend>
-  <div class="govuk-form-group">
-
 <div class="govuk-form-group">
-  <div id="account-number-hint" class="govuk-hint">
-    We could suggest a maximum to report in one session to avoid user fatigue?
-  </div>
-  <input class="govuk-input govuk-input--width-4" id="width-4" name="width4" type="text">
-</div>
 
-</fieldset>
+    <div class="govuk-radios govuk-radios--inline" data-module="govuk-radios">
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="quantity-1" name="quantity" type="radio" value="yes">
+        <label class="govuk-label govuk-radios__label" for="quantity-1">
+          Single
+        </label>
+      </div>
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="quantity-2" name="quantity" type="radio" value="no">
+        <label class="govuk-label govuk-radios__label" for="quantity-2">
+          More than one
+        </label>
+      </div>
+    </div>
+    </div>
+    </fieldset>
 
         {{ govukButton({
           text: "Continue"

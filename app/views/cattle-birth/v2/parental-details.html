@@ -20,11 +20,50 @@
       <h1 class="govuk-heading-xl">
         Parental details
       </h1>
-      <form class="form" action="/cattle-birth/v2/cya" method="post">
+      <form class="form" action="/cattle-birth/v2/breed-details" method="post">
       
+<div class="govuk-form-group">
+  <fieldset class="govuk-fieldset" aria-describedby="changedName-hint">
+    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+      <h4 class="govuk-fieldset__heading" style="margin-top:30px">
+        Was the calf born as a result of an embryo transfer?
+      </h4>
+    </legend>
+    
+    <div class="govuk-radios govuk-radios--inline" data-module="govuk-radios">
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="calf1embryo" name="calf1embryo" type="radio" value="yes" data-aria-controls="search-conditional">
+        <label class="govuk-label govuk-radios__label" for="calf1embryo">
+          Yes
+        </label>
+      </div>
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="calf1embryo-2" name="calf1embryo" type="radio" value="no">
+        <label class="govuk-label govuk-radios__label" for="calf1embryo-2">
+          No
+        </label>
+      </div>
+    </div>
+
+    <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="search-conditional">
+  <h3 class="govuk-heading-m">Link to surrogate dam</h3>
+
+<div class="govuk-form-group">
+      <label class="govuk-label" for="weight">
+        Add the individual tag number
+      </label>
+      <div class="govuk-input__wrapper">
+        <div class="govuk-input__prefix" aria-hidden="true">UK 123456</div>
+        <input class="govuk-input govuk-input--width-11" id="cost" name="cost" type="text" spellcheck="false">
+      </div>
+    </div>
+    </div>
+  </div>
+</fieldset>
+
 <div class="govuk-grid-row" style="margin: 0; flex-wrap: nowrap;">
     <h2 class="govuk-heading-l">
-        Link to a parent
+        Link to the genetic dam
       </h2>
       <div class="govuk-form-group">
       <label class="govuk-label" for="weight">
@@ -78,44 +117,7 @@
   </fieldset>
 </div>
 
-<div class="govuk-form-group">
-  <fieldset class="govuk-fieldset" aria-describedby="changedName-hint">
-    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-      <h4 class="govuk-fieldset__heading" style="margin-top:30px">
-        Was the calf born as a result of an embryo transfer?
-      </h4>
-    </legend>
-    
-    <div class="govuk-radios govuk-radios--inline" data-module="govuk-radios">
-      <div class="govuk-radios__item">
-        <input class="govuk-radios__input" id="calf1embryo" name="calf1embryo" type="radio" value="yes" data-aria-controls="search-conditional">
-        <label class="govuk-label govuk-radios__label" for="calf1embryo">
-          Yes
-        </label>
-      </div>
-      <div class="govuk-radios__item">
-        <input class="govuk-radios__input" id="calf1embryo-2" name="calf1embryo" type="radio" value="no">
-        <label class="govuk-label govuk-radios__label" for="calf1embryo-2">
-          No
-        </label>
-      </div>
-    </div>
 
-    <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="search-conditional">
-  <h3 class="govuk-heading-m">Link to genetic dam</h3>
-
-<div class="govuk-form-group">
-      <label class="govuk-label" for="weight">
-        Add the individual tag number
-      </label>
-      <div class="govuk-input__wrapper">
-        <div class="govuk-input__prefix" aria-hidden="true">UK 123456</div>
-        <input class="govuk-input govuk-input--width-11" id="cost" name="cost" type="text" spellcheck="false">
-      </div>
-    </div>
-    </div>
-  </div>
-</fieldset>
 
         {{ govukButton({
           text: "Continue"
