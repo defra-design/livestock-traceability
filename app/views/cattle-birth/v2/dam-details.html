@@ -18,14 +18,14 @@
 
       <span class="govuk-caption-xl">Calf 1</span>
       <h1 class="govuk-heading-xl">
-        Parental details
+        Dam details
       </h1>
-      <form class="form" action="/cattle-birth/v2/breed-details" method="post">
+      <form class="form" action="/cattle-birth/v2/sire-details" method="post">
       
 <div class="govuk-form-group">
   <fieldset class="govuk-fieldset" aria-describedby="changedName-hint">
     <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-      <h4 class="govuk-fieldset__heading" style="margin-top:30px">
+      <h4 class="govuk-fieldset__heading">
         Was the calf born as a result of an embryo transfer?
       </h4>
     </legend>
@@ -82,6 +82,9 @@
         What level of assistance was required for the calf to be born?
       </h3>
     </legend>
+    <div id="contact-hint" class="govuk-hint">
+      Select one option
+    </div>
     <div class="govuk-radios" data-module="govuk-radios">
       <div class="govuk-radios__item">
         <input class="govuk-radios__input" id="calf3assistance" name="calf3assistance" type="radio" value="england">
