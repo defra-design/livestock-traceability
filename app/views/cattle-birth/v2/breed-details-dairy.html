@@ -1,0 +1,106 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  Question page template – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+  text: "Back",
+  href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <span class="govuk-caption-xl">Calf 1</span>
+      <h1 class="govuk-heading-xl">
+        Breed details
+      </h1>
+      <form class="form" action="/cattle-birth/v2/add-another" method="post">
+
+ <div class="govuk-form-group">
+  <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
+    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+<h2 class="govuk-fieldset__heading">
+        What breed is the calf?
+      </h2>
+    </legend>
+    <div id="waste-hint" class="govuk-hint">
+      Select all that apply
+    </div>
+    
+      <div class="govuk-checkboxes__item">
+        <input class="govuk-checkboxes__input" id="breeds-2" name="breeds" type="checkbox" value="Ayrshire">
+        <label class="govuk-label govuk-checkboxes__label" for="breeds-2">
+          Ayrshire
+        </label>
+      </div>
+      
+      <div class="govuk-checkboxes__item">
+        <input class="govuk-checkboxes__input" id="breeds-5" name="breeds" type="checkbox" value="Dairy Shorthorn">
+        <label class="govuk-label govuk-checkboxes__label" for="breeds-5">
+          Dairy Shorthorn
+        </label>
+      </div>
+      
+      <div class="govuk-checkboxes__item">
+        <input class="govuk-checkboxes__input" id="breeds-8" name="breeds" type="checkbox" value="Glamorgan">
+        <label class="govuk-label govuk-checkboxes__label" for="breeds-8">
+          Glamorgan
+        </label>
+      </div>
+      <div class="govuk-checkboxes__item">
+        <input class="govuk-checkboxes__input" id="breeds-9" name="breeds" type="checkbox" value="Gloucester">
+        <label class="govuk-label govuk-checkboxes__label" for="breeds-9">
+          Gloucester
+        </label>
+      </div>
+      
+      <div class="govuk-checkboxes__item">
+        <input class="govuk-checkboxes__input" id="breeds-13" name="breeds" type="checkbox" value="Guernsey">
+        <label class="govuk-label govuk-checkboxes__label" for="breeds-13">
+          Guernsey
+        </label>
+      </div>
+      <div class="govuk-checkboxes__item">
+        <input class="govuk-checkboxes__input" id="breeds-12" name="breeds" type="checkbox" value="Jersey">
+        <label class="govuk-label govuk-checkboxes__label" for="breeds-12">
+          Jersey
+        </label>
+      </div>
+      
+      <div class="govuk-checkboxes__item">
+        <input class="govuk-checkboxes__input" id="breeds-17" name="breeds" type="checkbox" value="Red Poll">
+        <label class="govuk-label govuk-checkboxes__label" for="breeds-17">
+          Red Poll
+        </label>
+      </div>
+      
+      <div class="govuk-checkboxes__item">
+        <input class="govuk-checkboxes__input" id="breeds-18" name="breeds" type="checkbox" value="Shetland">
+        <label class="govuk-label govuk-checkboxes__label" for="breeds-18">
+          Shetland
+        </label>
+      </div>
+      
+      
+    </div>
+  </div>
+  </fieldset>
+</div>
+
+</fieldset>
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+
+      </form>
+
+    </div>
+  </div>
+
+{% endblock %}

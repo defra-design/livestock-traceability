@@ -1,0 +1,62 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  Question page template – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+  text: "Back",
+  href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <span class="govuk-caption-xl">Calf 1</span>
+      <h1 class="govuk-heading-xl">
+        Production type
+      </h1>
+      <form class="form" action="/cattle-birth/v2/breed-details-beef" method="post">
+
+<div class="govuk-form-group">
+  <fieldset class="govuk-fieldset" aria-describedby="changedName-hint">
+    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+      <h2 class="govuk-fieldset__heading">
+        What type of production is the calf intended for?
+      </h2>
+    </legend>
+    
+    <div class="govuk-radios govuk-radios--inline" data-module="govuk-radios">
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="calf1prod" name="calf1prod" type="radio" value="dairy">
+        <label class="govuk-label govuk-radios__label" for="calf1prod">
+          Dairy
+        </label>
+      </div>
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="calf1prod-2" name="calf1prod" type="radio" value="beef">
+        <label class="govuk-label govuk-radios__label" for="calf1prod-2">
+          Beef
+        </label>
+      </div>
+    </div>
+
+ 
+  
+</div>
+
+</fieldset>
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+
+      </form>
+
+    </div>
+  </div>
+
+{% endblock %}

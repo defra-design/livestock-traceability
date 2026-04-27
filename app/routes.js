@@ -112,6 +112,19 @@ router.post('/version3/helper-details', function (request, response) {
   }
 })
 
+// Cattle birth routes
+
+router.post('/cattle-birth/v2/breed-details-beef', function (request, response) {
+
+  var submitted = request.session.data['calf1prod']
+  if (submitted == "beef") {
+    response.redirect("/cattle-birth/v2/breed-details-beef")
+  }
+  else {
+    response.redirect("/cattle-birth/v2/breed-details-dairy")
+  }
+})
+
 
 // Vet visits routes
 
