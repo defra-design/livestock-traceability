@@ -1,0 +1,35 @@
+{#
+For guidance on how to use layouts see:
+https://prototype-kit.service.gov.uk/docs/how-to-use-layouts
+#}
+
+{% extends "govuk-prototype-kit/layouts/govuk-branded.njk" %}
+{% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
+
+{% block header %}
+
+    {{ govukHeader({
+        homepageUrl: '/index.html'
+    }) }}
+
+    {% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
+
+{{ govukServiceNavigation({
+  serviceName: "Livestock Traceability",
+  serviceUrl: "/cattle-birth/home",
+  navigation: [
+    
+    {
+      href: "/cattle-birth/activity-history",
+      text: "Activity history"
+    },
+    {
+      href: "/cattle-birth/profile-settings",
+      text: "Profile and settings"
+    }
+  ]
+}) }}
+
+{% endblock %}
+
+{% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
