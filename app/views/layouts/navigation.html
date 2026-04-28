@@ -12,11 +12,25 @@ https://prototype-kit.service.gov.uk/docs/how-to-use-layouts
         homepageUrl: '/index.html'
     }) }}
 
+    {% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
+
 {{ govukServiceNavigation({
   serviceName: "Livestock Traceability",
   serviceUrl: "#",
   navigation: [
-
+    {
+      href: "#",
+      text: "Report a birth"
+    },
+    {
+      href: "#",
+      text: "Report a movement"
+    },
+    {
+      href: "/cattle-birth/activity-history.html",
+      text: "Activity history",
+      active: true
+    }
   ]
 }) }}
 

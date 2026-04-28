@@ -1,0 +1,58 @@
+{% extends "layouts/navigation.html" %}
+
+{% block pageTitle %}
+  Content page template – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <h1 class="govuk-heading-xl">
+        Activity history
+      </h1>
+<div class="moj-search">
+  <form action="#" method="post">
+    <div class="govuk-form-group">
+      <label class="govuk-label moj-search__label govuk-!-font-weight-bold" for="search">
+        Search for an activity
+      </label>
+      <div id="search-hint" class="govuk-hint moj-search__hint ">
+        You can search by date, activity type or animal type
+      </div>
+      <input class="govuk-input moj-search__input " id="search" name="search" type="search" aria-describedby="search-hint">
+    </div>
+    <button type="submit" class="govuk-button moj-search__button " data-module="govuk-button">
+      Search
+    </button>
+  </form>
+</div>
+<hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+
+<h2 class="govuk-heading-l">
+  <span class="govuk-caption-l">Today</span>
+  28 April 2026
+</h2>
+<p class="govuk-body">No activity</p>
+<hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+<h2 class="govuk-heading-l">
+  <span class="govuk-caption-l">Yesterday</span>
+  27 April 2026
+</h2>
+<p class="govuk-body">Moved 5 cattle to abattoir</p>
+<hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+<h2 class="govuk-heading-l">
+  26 April 2026
+</h2>
+<ul class="govuk-list govuk-list--bullet">
+  <li>Moved 40 sheep to common ground</li>
+  <li>Moved 10 cattle to abattoir</li>
+  <li>5 new sheep were registered</li>
+</ul>
+<hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+
+    </div>
+  </div>
+
+{% endblock %}
