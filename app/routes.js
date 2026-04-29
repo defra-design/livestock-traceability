@@ -125,6 +125,17 @@ router.post('/cattle-birth/v2/breed-details-beef', function (request, response) 
   }
 })
 
+router.post('/cattle-birth/v2/calf-details', function (request, response) {
+
+  var submitted = request.session.data['quantity']
+  if (submitted == "multiple") {
+    response.redirect("/cattle-birth/v2/add-multi-tags")
+  }
+  else {
+    response.redirect("/cattle-birth/v2/calf-details")
+  }
+})
+
 
 // Vet visits routes
 
