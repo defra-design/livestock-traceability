@@ -1,0 +1,71 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  Sire details – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+  text: "Back",
+  href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <span class="govuk-caption-xl">Calf 1</span>
+      <h1 class="govuk-heading-xl">
+        Breed details
+      </h1>
+      <form class="form" action="/cattle-birth/v2/cya" method="post">
+
+<h2 class="govuk-heading-m">Parental breed details</h2>
+<dl class="govuk-summary-list">
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Genetic Dam breed
+    </dt>
+    <dd class="govuk-summary-list__value">
+      Welsh Black
+    </dd>
+    <dd class="govuk-summary-list__actions">
+      <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> dam breed</span></a>
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Sire breed
+    </dt>
+    <dd class="govuk-summary-list__value">
+      Unknown
+    </dd>
+    <dd class="govuk-summary-list__actions">
+      <ul class="govuk-summary-list__actions-list">
+        <li class="govuk-summary-list__actions-list-item">
+          <a class="govuk-link" href="/cattle-birth/v2/breed-list">Add<span class="govuk-visually-hidden"> contact details</span></a>
+        </li>
+        <li class="govuk-summary-list__actions-list-item">
+          <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> contact details</span></a>
+        </li>
+      </ul>
+    </dd>
+  </div>
+</dl>
+
+
+  <div class="govuk-button-group">
+  <button type="submit" class="govuk-button" data-module="govuk-button">
+    Continue
+  </button>
+  <!--<a class="govuk-link" href="/cattle-birth/v2/production-type">Skip this question</a>-->
+</div>
+
+      </form>
+
+    </div>
+  </div>
+
+{% endblock %}
