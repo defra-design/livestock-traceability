@@ -1,0 +1,50 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="What is your delegate's email address" %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% block containerStart %}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+        {% if errors and errors.length %}
+          {{ govukErrorSummary({ titleText: "There is a problem", errorList: errors }) }}
+        {% endif %}
+
+        <form action="/add-a-delegate-v2/add-delegate" method="post" novalidate>
+            {{ govukInput({
+            label: {
+            text: "What is your delegate’s email address?",
+            isPageHeading: true,
+            classes: "govuk-label--l"
+            },
+            hint: {
+            text: "We’ll send an email invitation to this address"
+            },
+            errorMessage: errors and errors.length and { text: errors[0].text },
+            id: "email-address",
+            name: "email-address",
+            value: data[‘email-address’],
+            autocomplete: "name",
+            spellcheck: false
+            }) }}
+
+            <p class="govuk-body">Your delegate will receive an email invitation from the Livestock Information Service at the end of this process.</p>
+            <p class="govuk-body">If the user does not have a GOV.UK One Login credential then they will be asked to set this up before they are able to accept the invitation.</p>
+
+            {{ govukButton({
+            text: "Continue"
+            }) }}
+        </form>
+    </div>
+</div>
+{% endblock %}

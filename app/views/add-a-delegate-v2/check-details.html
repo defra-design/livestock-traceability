@@ -1,0 +1,72 @@
+{% extends "layouts/main.html" %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% set pageName="Add a new delegate" %}
+
+{% block containerStart %}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds-from-desktop">
+
+    <h1 class="govuk-heading-l">Confirm delegate details</h1>
+    <p class="govuk-body">
+      Confirm the delegate details below and we will send an invite to your new delegate.
+    </p>
+
+    {# Normalise checkbox values: always treat as an array #}
+    {% set holdings = data['manage-access'] or [] %}
+    {% if holdings is string %}{% set holdings = [holdings] %}{% endif %}
+
+    {% if data['cph-type'] === 'single' %}
+      {% set holdingsActions = { items: [] } %}
+    {% else %}
+      {% set holdingsActions = { items: [{ href: "/add-a-delegate-v2/manage-access", text: "Change", visuallyHiddenText: "delegated holdings" }] } %}
+    {% endif %}
+
+    {{ govukSummaryList({
+    classes: "govuk-!-margin-bottom-9",
+    rows: [
+    {
+    key: {
+    text: "Email address"
+    },
+    value: {
+    text: data['email-address']
+    },
+    actions: {
+    items: [
+    {
+    href: "/add-a-delegate-v2/add-delegate",
+    text: "Change",
+    visuallyHiddenText: "add delegate"
+    }
+    ]
+    }
+    },
+    {
+    key: {
+    text: "Delegated holdings"
+    },
+    value: {
+    html: holdings | join('<br>')
+    },
+    actions: holdingsActions
+    }
+    ]
+    }) }}
+
+    <form action="/add-a-delegate-v2/check-details" method="post" novalidate>
+      <button type="submit" class="govuk-button" data-module="govuk-button">
+        Continue
+      </button>
+    </form>
+
+  </div>
+</div>
+{% endblock %}

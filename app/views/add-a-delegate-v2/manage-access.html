@@ -1,0 +1,69 @@
+{% extends "layouts/main.html" %}
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% set pageName="Select the holdings your delegate will manage" %}
+
+{% block containerStart %}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    {% if errors and errors.length %}
+      {{ govukErrorSummary({ titleText: "There is a problem", errorList: errors }) }}
+    {% endif %}
+
+    <form action="/add-a-delegate-v2/manage-access" method="post" novalidate>
+      <div class="govuk-form-group">
+
+        {{ govukCheckboxes({
+        name: "manage-access",
+        fieldset: {
+        legend: {
+        text: "Manage access to your County Parish Holdings",
+        isPageHeading: true,
+        classes: "govuk-fieldset__legend--l"
+        }
+        },
+        hint: {
+        text: "Select all that apply"
+        },
+        errorMessage: errors and errors.length and { text: errors[0].text },
+        items: [
+        {
+        value: "44/081/0001",
+        text: "County Parish Holding Number 44/081/0001",
+        checked: checked("manage-access", "44/081/0001")
+        },
+        {
+        value: "44/081/0002",
+        text: "County Parish Holding Number 44/081/0002",
+        checked: checked("manage-access", "44/081/0002")
+        },
+        {
+        value: "44/081/0003",
+        text: "County Parish Holding Number 44/081/0003",
+        checked: checked("manage-access", "44/081/0003")
+        },
+        {
+        value: "44/081/0004",
+        text: "County Parish Holding Number 44/081/0004",
+        checked: checked("manage-access", "44/081/0004")
+        }
+        ]
+        }) }}
+
+      </div>
+      <button type="submit" class="govuk-button" data-module="govuk-button">
+        Continue
+      </button>
+    </form>
+  </div>
+</div>
+
+{% endblock %}

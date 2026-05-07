@@ -1,0 +1,47 @@
+{% extends "layouts/main.html" %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% set pageName="Set up delegate access" %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    {% if errors and errors.length %}
+      {{ govukErrorSummary({ titleText: "There is a problem", errorList: errors }) }}
+    {% endif %}
+
+    <form action="/add-a-delegate-v2/setup" method="post" novalidate>
+
+      {{ govukRadios({
+        name: "cph-type",
+        errorMessage: errors and errors.length and { text: errors[0].text },
+        fieldset: {
+          legend: {
+            text: "Testing configuration",
+            isPageHeading: true,
+            classes: "govuk-fieldset__legend--l"
+          }
+        },
+        items: [
+          {
+            value: "single",
+            text: "Single CPH",
+            checked: checked("cph-type", "single")
+          },
+          {
+            value: "multiple",
+            text: "Multiple CPHs",
+            checked: checked("cph-type", "multiple")
+          }
+        ]
+      }) }}
+
+      <button type="submit" class="govuk-button" data-module="govuk-button">
+        Continue
+      </button>
+    </form>
+  </div>
+</div>
+
+{% endblock %}

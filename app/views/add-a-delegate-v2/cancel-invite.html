@@ -1,0 +1,40 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Cancel invitation" %}
+
+{% block containerStart %}
+  {{ govukBackLink({
+  text: "Back",
+  href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+        <form action="/add-a-delegate/start" method="post" novalidate>
+          <div class="govuk-form-group">
+          <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+              <h1 class="govuk-fieldset__heading">
+                Are you sure you want to cancel this invite?
+              </h1>
+            </legend>
+
+            <h2 class="govuk-heading-m">
+              Joanna Smith
+            </h2>
+            <p class="govuk-body">
+              j*****@smithfarms.co.uk
+            </p>
+          </fieldset>
+        </div>
+          <button type="submit" class="govuk-button" data-module="govuk-button">
+            Continue
+          </button>
+        </form>
+      </div>
+    </div>
+
+{% endblock %}

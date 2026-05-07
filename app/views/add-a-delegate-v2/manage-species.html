@@ -1,0 +1,58 @@
+{% extends "layouts/main.html" %}
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% set pageName="Select the species your delegate will manage" %}
+
+{% block containerStart %}
+  {{ govukBackLink({
+  text: "Back",
+  href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+        <form action="/add-a-delegate/check-details" method="post" novalidate>
+          <div class="govuk-form-group">
+
+            {{ govukCheckboxes({
+            name: "manage-species",
+            fieldset: {
+            legend: {
+            text: "Select the species your delegate will manage",
+            isPageHeading: true,
+            classes: "govuk-fieldset__legend--l"
+            }
+            },
+            hint: {
+            text: "Select all that apply"
+            },
+            items: [
+            {
+            value: "Sheep",
+            text: "Sheep",
+            checked: checked("manage-species", "Sheep")
+            },
+            {
+            value: "Cattle",
+            text: "Cattle",
+            checked: checked("manage-species", "Cattle")
+            },
+            {
+            value: "Pigs",
+            text: "Pigs",
+            checked: checked("manage-species", "Pigs")
+            }
+            ]
+            }) }}
+
+        </div>
+          <button type="submit" class="govuk-button" data-module="govuk-button">
+            Continue
+          </button>
+        </form>
+      </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="What is your delegate's full name" %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% block containerStart %}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <form action="/add-a-delegate/email-address" method="post" novalidate>
+            {{ govukInput({
+            label: {
+            text: "What is your delegate's full name?",
+            isPageHeading: true,
+            classes: "govuk-label--l"
+            },
+            id: "fullName",
+            name: "full-name",
+            value: data['full-name'],
+            autocomplete: "name",
+            spellcheck: false
+            }) }}
+
+            {{ govukButton({
+            text: "Continue"
+            }) }}
+        </form>
+    </div>
+</div>
+{% endblock %}
