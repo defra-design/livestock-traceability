@@ -408,7 +408,7 @@ router.post('/add-a-delegate-v2/manage-access', (req, res) => {
       errors: [{ text: 'Select at least one County Parish Holding Number', href: '#manage-access' }]
     })
   }
-  res.redirect('/add-a-delegate-v2/check-details')
+  res.redirect('/add-a-delegate-v2/delegate-account-info')
 })
 
 router.post('/add-a-delegate-v2/add-delegate', (req, res) => {
@@ -421,10 +421,14 @@ router.post('/add-a-delegate-v2/add-delegate', (req, res) => {
   const cphType = req.session.data['cph-type']
   if (cphType === 'single') {
     req.session.data['manage-access'] = req.session.data.singleCph
-    res.redirect('/add-a-delegate-v2/check-details')
+    res.redirect('/add-a-delegate-v2/delegate-account-info')
   } else {
     res.redirect('/add-a-delegate-v2/manage-access')
   }
+})
+
+router.post('/add-a-delegate-v2/delegate-account-info', (req, res) => {
+  res.redirect('/add-a-delegate-v2/check-details')
 })
 
 router.get('/add-a-delegate-v2/manage-delegate', (req, res) => {

@@ -8,19 +8,16 @@
     <div class="govuk-grid-column-full">
 
         <h1 class="govuk-heading-l">
-            Manage people who can act for you
+            Manage who can act for you
         </h1>
         <p>
-            Add new or remove existing delegates who can manage the digital service on your behalf.</p>
-        <p>
-            Once removed, a user will retain their government login credentials, but will not be able to access the service they had been delegated to.
-        </p>
+            Add new or remove existing delegates who can manage your holding. If you remove a delegate, they will no longer be able to access your holding details.</p>
 
         <table class="govuk-table govuk-table--small-text-until-tablet">
             <thead class="govuk-table__head">
             <tr class="govuk-table__row">
                 <th scope="col" class="govuk-table__header">Email address</th>
-                <th scope="col" class="govuk-table__header">Actions</th>
+                <th scope="col" class="govuk-table__header"><span class="govuk-visually-hidden">Actions</span></th>
             </tr>
             </thead>
             <tbody class="govuk-table__body">
@@ -28,7 +25,7 @@
                 {% for delegate in data.delegates %}
                 <tr class="govuk-table__row">
                     <td class="govuk-table__cell">{{ delegate.email }}</td>
-                    <td class="govuk-table__cell"><a href="/add-a-delegate-v2/manage-delegate?index={{ loop.index0 }}" class="govuk-link">Manage</a></td>
+                    <td class="govuk-table__cell govuk-!-text-align-right"><a href="/add-a-delegate-v2/manage-delegate?index={{ loop.index0 }}" class="govuk-link">Manage</a></td>
                 </tr>
                 {% endfor %}
             {% else %}
