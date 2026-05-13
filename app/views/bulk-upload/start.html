@@ -1,0 +1,774 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Manage who can act for you" %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+
+        <h1 class="govuk-heading-xl">
+            Bulk upload sandbox
+        </h1>
+
+        <hr style="margin: 50px 0">
+
+        <h4 class="govuk-heading-s">Step 1</h4>
+
+        <h1 class="govuk-heading-l">
+            How many calves are you registering?
+        </h1>
+
+        <div class="govuk-inset-text">
+            If you are submitting more than 100 calves, you must use the file upload service.
+        </div>
+
+        <div class="govuk-form-group">
+            <fieldset class="govuk-fieldset">
+                <div class="govuk-radios" data-module="govuk-radios">
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="whereDoYouLive" name="whereDoYouLive" type="radio" value="england">
+                        <label class="govuk-label govuk-radios__label" for="whereDoYouLive">
+                            Less than 100
+                        </label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="whereDoYouLive-2" name="whereDoYouLive" type="radio" value="scotland">
+                        <label class="govuk-label govuk-radios__label" for="whereDoYouLive-2">
+                            More than 100
+                        </label>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+
+        <button type="submit" class="govuk-button" data-module="govuk-button">
+            Continue
+        </button>
+
+        <hr style="margin: 50px 0">
+
+
+        <h4 class="govuk-heading-s">Step 2A</h4>
+
+        <h1 class="govuk-heading-l">
+            Upload cattle information
+        </h1>
+
+        <p class="govuk-body">
+            Files must be in CSV or XLS format. Maximum file size is 2 megabytes.
+        </p>
+
+        <div class="govuk-form-group">
+            <label class="govuk-label" for="file-upload-1">
+                Upload a file
+            </label>
+            <div class="govuk-drop-zone"
+                 data-module="govuk-file-upload">
+                <input class="govuk-file-upload" id="file-upload-1" name="fileUpload1" type="file">
+            </div>
+        </div>
+
+        <details class="govuk-details">
+            <summary class="govuk-details__summary">
+                <span class="govuk-details__summary-text">
+                  Help with file uploads
+                </span>
+            </summary>
+            <div class="govuk-details__text">
+                Suspendisse ac erat sodales, bibendum urna a, venenatis lacus. Aenean dictum libero id malesuada maximus. Maecenas a pulvinar mauris. Quisque ultricies pulvinar urna, luctus rutrum risus elementum sed. Praesent at lobortis magna.
+            </div>
+        </details>
+
+
+        <hr style="margin: 50px 0">
+
+        <!--- tag number textarea -->
+
+        <h4 class="govuk-heading-s">Step 2B</h4>
+        <div class="govuk-form-group">
+            <h1 class="govuk-label-wrapper">
+                <label class="govuk-label govuk-label--l">
+                    Enter the tag numbers you wish to use
+                </label>
+            </h1>
+            <div id="more-detail-hint" class="govuk-hint">
+                Ensure each tag number is placed on a new line. You can add a maximum of 100 tag numbers using this service.
+            </div>
+            <textarea class="govuk-textarea" id="more-detail" name="moreDetail" rows="10" aria-describedby="more-detail-hint">
+UK 12 34 56 30 15 50
+UK 12 34 56 30 15 51
+UK 12 34 56 30 15 52
+UK 12 34 56 30 15 53
+UK 12 34 56 30 15 54
+            </textarea>
+
+            <button type="submit" class="govuk-button" data-module="govuk-button">
+                Continue
+            </button>
+
+        </div>
+
+        <hr style="margin: 50px 0">
+
+        <!--- same registration date -->
+
+        <h4 class="govuk-heading-s">Step 3</h4>
+        <form method="post" novalidate action="">
+            <div class="govuk-form-group">
+                <fieldset class="govuk-fieldset" aria-describedby="add-another-hint">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend govuk-fieldset__legend--l">
+                        Do all calves share the same registration date?
+                    </legend>
+                    <div class="govuk-radios govuk-radios--inline" data-module="govuk-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="add-another" name="add-another" type="radio" value="Yes">
+                            <label class="govuk-label govuk-radios__label" for="add-another">
+                                Yes
+                            </label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="add-another-2" name="add-another" type="radio" value="No">
+                            <label class="govuk-label govuk-radios__label" for="add-another-2">
+                                No
+                            </label>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+
+            <button type="submit" class="govuk-button" data-module="govuk-button">
+                Continue
+            </button>
+        </form>
+
+        <hr style="margin: 50px 0">
+
+        <!--- registration date input -->
+
+        <h4 class="govuk-heading-s">Step 3B</h4>
+
+        <div class="govuk-form-group">
+            <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint">
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                    <h1 class="govuk-fieldset__heading">
+                        What is the registration date?
+                    </h1>
+                </legend>
+                <div id="passport-issued-hint" class="govuk-hint">
+                    For example, 27 3 2026
+                </div>
+                <div class="govuk-date-input" id="passport-issued">
+                    <div class="govuk-date-input__item">
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="passport-issued-day">
+                                Day
+                            </label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="passport-issued-day" name="passport-issued-day" type="text" inputmode="numeric">
+                        </div>
+                    </div>
+                    <div class="govuk-date-input__item">
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="passport-issued-month">
+                                Month
+                            </label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="passport-issued-month" name="passport-issued-month" type="text" inputmode="numeric">
+                        </div>
+                    </div>
+                    <div class="govuk-date-input__item">
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
+                                Year
+                            </label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-4" id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric">
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+
+        {{ govukButton({
+        text: "Continue"
+        }) }}
+
+        <hr style="margin: 50px 0">
+
+        <!--- same breed -->
+
+        <h4 class="govuk-heading-s">Step 4</h4>
+        <form method="post" novalidate action="">
+            <div class="govuk-form-group">
+                <fieldset class="govuk-fieldset" aria-describedby="add-another-hint">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend govuk-fieldset__legend--l">
+                        Do all calves share the same sire breed?
+                    </legend>
+                    <div class="govuk-radios govuk-radios--inline" data-module="govuk-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="add-another" name="add-another" type="radio" value="Yes">
+                            <label class="govuk-label govuk-radios__label" for="add-another">
+                                Yes
+                            </label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="add-another-2" name="add-another" type="radio" value="No">
+                            <label class="govuk-label govuk-radios__label" for="add-another-2">
+                                No
+                            </label>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+
+            <button type="submit" class="govuk-button" data-module="govuk-button">
+                Continue
+            </button>
+        </form>
+
+        <hr style="margin: 50px 0">
+
+        <h4 class="govuk-heading-s">Step 4B</h4>
+
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-two-thirds">
+
+                <h1 class="govuk-heading-l">
+                    What breed is the sire?
+                </h1>
+                <form class="form" action="/cattle-birth/v2/cya" method="post">
+
+                    <div class="govuk-form-group">
+                        <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
+
+                            <div id="waste-hint" class="govuk-hint">
+                                Select all that apply
+                            </div>
+
+                            <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+                                <div class="govuk-checkboxes__item">
+                                    <input class="govuk-checkboxes__input" id="breeds-1" name="breeds" type="checkbox" value="Aberdeen Angus">
+                                    <label class="govuk-label govuk-checkboxes__label" for="breeds-1">
+                                        Aberdeen Angus
+                                    </label>
+                                </div>
+                                <div class="govuk-checkboxes__item">
+                                    <input class="govuk-checkboxes__input" id="breeds-24" name="breeds" type="checkbox" value="Alderney">
+                                    <label class="govuk-label govuk-checkboxes__label" for="breeds-24">
+                                        Alderney
+                                    </label>
+                                </div>
+                                <div class="govuk-checkboxes__item">
+                                    <input class="govuk-checkboxes__input" id="breeds-2" name="breeds" type="checkbox" value="Ayrshire">
+                                    <label class="govuk-label govuk-checkboxes__label" for="breeds-2">
+                                        Ayrshire
+                                    </label>
+                                </div>
+                                <div class="govuk-checkboxes__item">
+                                    <input class="govuk-checkboxes__input" id="breeds-3" name="breeds" type="checkbox" value="Belted Galloway">
+                                    <label class="govuk-label govuk-checkboxes__label" for="breeds-3">
+                                        Belted Galloway
+                                    </label>
+                                </div>
+                                <div class="govuk-checkboxes__item">
+                                    <input class="govuk-checkboxes__input" id="breeds-4" name="breeds" type="checkbox" value="British White">
+                                    <label class="govuk-label govuk-checkboxes__label" for="breeds-4">
+                                        British White
+                                    </label>
+                                </div>
+                                <div class="govuk-checkboxes__item">
+                                    <input class="govuk-checkboxes__input" id="breeds-5" name="breeds" type="checkbox" value="Dairy Shorthorn">
+                                    <label class="govuk-label govuk-checkboxes__label" for="breeds-5">
+                                        Dairy Shorthorn
+                                    </label>
+                                </div>
+                                <div class="govuk-checkboxes__item">
+                                    <input class="govuk-checkboxes__input" id="breeds-6" name="breeds" type="checkbox" value="Devon">
+                                    <label class="govuk-label govuk-checkboxes__label" for="breeds-6">
+                                        Devon
+                                    </label>
+                                </div>
+                                <div class="govuk-checkboxes__item">
+                                    <input class="govuk-checkboxes__input" id="breeds-7" name="breeds" type="checkbox" value="Galloway">
+                                    <label class="govuk-label govuk-checkboxes__label" for="breeds-7">
+                                        Galloway
+                                    </label>
+                                </div>
+                                <div class="govuk-checkboxes__item">
+                                    <input class="govuk-checkboxes__input" id="breeds-8" name="breeds" type="checkbox" value="Glamorgan">
+                                    <label class="govuk-label govuk-checkboxes__label" for="breeds-8">
+                                        Glamorgan
+                                    </label>
+                                </div>
+                                <div class="govuk-checkboxes__item">
+                                    <input class="govuk-checkboxes__input" id="breeds-9" name="breeds" type="checkbox" value="Gloucester">
+                                    <label class="govuk-label govuk-checkboxes__label" for="breeds-9">
+                                        Gloucester
+                                    </label>
+                                </div>
+
+                                <div class="govuk-checkboxes__item">
+                                    <input class="govuk-checkboxes__input" id="breeds-13" name="breeds" type="checkbox" value="Guernsey">
+                                    <label class="govuk-label govuk-checkboxes__label" for="breeds-13">
+                                        Guernsey
+                                    </label>
+                                </div>
+                                <div class="govuk-checkboxes__item">
+                                    <input class="govuk-checkboxes__input" id="breeds-10" name="breeds" type="checkbox" value="Hereford">
+                                    <label class="govuk-label govuk-checkboxes__label" for="breeds-10">
+                                        Hereford
+                                    </label>
+                                </div>
+                                <div class="govuk-checkboxes__item">
+                                    <input class="govuk-checkboxes__input" id="breeds-11" name="breeds" type="checkbox" value="Highland">
+                                    <label class="govuk-label govuk-checkboxes__label" for="breeds-11">
+                                        Highland
+                                    </label>
+                                </div>
+                                <div class="govuk-checkboxes__item">
+                                    <input class="govuk-checkboxes__input" id="breeds-14" name="breeds" type="checkbox" value="Holstein-Friesian">
+                                    <label class="govuk-label govuk-checkboxes__label" for="breeds-14">
+                                        Holstein-Friesian
+                                    </label>
+                                </div>
+                                <div class="govuk-checkboxes__item">
+                                    <input class="govuk-checkboxes__input" id="breeds-12" name="breeds" type="checkbox" value="Jersey">
+                                    <label class="govuk-label govuk-checkboxes__label" for="breeds-12">
+                                        Jersey
+                                    </label>
+                                </div>
+                                <div class="govuk-checkboxes__item">
+                                    <input class="govuk-checkboxes__input" id="breeds-14" name="breeds" type="checkbox" value="Lincoln Red">
+                                    <label class="govuk-label govuk-checkboxes__label" for="breeds-14">
+                                        Lincoln Red
+                                    </label>
+                                </div>
+                                <div class="govuk-checkboxes__item">
+                                    <input class="govuk-checkboxes__input" id="breeds-15" name="breeds" type="checkbox" value="Luing">
+                                    <label class="govuk-label govuk-checkboxes__label" for="breeds-15">
+                                        Luing
+                                    </label>
+                                </div>
+                                <div class="govuk-checkboxes__item">
+                                    <input class="govuk-checkboxes__input" id="breeds-17" name="breeds" type="checkbox" value="Red Poll">
+                                    <label class="govuk-label govuk-checkboxes__label" for="breeds-17">
+                                        Red Poll
+                                    </label>
+                                </div>
+
+                                <div class="govuk-checkboxes__item">
+                                    <input class="govuk-checkboxes__input" id="breeds-18" name="breeds" type="checkbox" value="Shetland">
+                                    <label class="govuk-label govuk-checkboxes__label" for="breeds-18">
+                                        Shetland
+                                    </label>
+                                </div>
+                                <div class="govuk-checkboxes__item">
+                                    <input class="govuk-checkboxes__input" id="breeds-19" name="breeds" type="checkbox" value="South Devon">
+                                    <label class="govuk-label govuk-checkboxes__label" for="breeds-19">
+                                        South Devon
+                                    </label>
+                                </div>
+                                <div class="govuk-checkboxes__item">
+                                    <input class="govuk-checkboxes__input" id="breeds-20" name="breeds" type="checkbox" value="Sussex">
+                                    <label class="govuk-label govuk-checkboxes__label" for="breeds-20">
+                                        Sussex
+                                    </label>
+                                </div>
+                                <div class="govuk-checkboxes__item">
+                                    <input class="govuk-checkboxes__input" id="breeds-21" name="breeds" type="checkbox" value="Welsh Black">
+                                    <label class="govuk-label govuk-checkboxes__label" for="breeds-21">
+                                        Welsh Black
+                                    </label>
+                                </div>
+                                <div class="govuk-checkboxes__item">
+                                    <input class="govuk-checkboxes__input" id="breeds-22" name="breeds" type="checkbox" value="White Galloway">
+                                    <label class="govuk-label govuk-checkboxes__label" for="breeds-22">
+                                        White Galloway
+                                    </label>
+                                </div>
+                                <div class="govuk-checkboxes__item">
+                                    <input class="govuk-checkboxes__input" id="breeds-23" name="breeds" type="checkbox" value="White Park">
+                                    <label class="govuk-label govuk-checkboxes__label" for="breeds-23">
+                                        White Park
+                                    </label>
+                                </div>
+                                <div class="govuk-checkboxes__item">
+                                    <input class="govuk-checkboxes__input" id="breeds-24" name="breeds" type="checkbox" value="Whitebred Shorthorn">
+                                    <label class="govuk-label govuk-checkboxes__label" for="breeds-24">
+                                        Whitebred Shorthorn
+                                    </label>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+
+                    {{ govukButton({
+                        text: "Continue"
+                    }) }}
+
+                </form>
+            </div>
+        </div>
+
+        <hr style="margin: 50px 0">
+
+        <h4 class="govuk-heading-s">Step 5</h4>
+        <h1 class="govuk-heading-l">You have added 5 calves for registration</h1>
+
+        <table class="govuk-table">
+            <thead class="govuk-table__head">
+                <tr class="govuk-table__row">
+                    <th scope="col" class="govuk-table__header">Tag number</th>
+                    <th scope="col" class="govuk-table__header govuk-table__header--numeric">Status</th>
+                </tr>
+            </thead>
+            <tbody class="govuk-table__body">
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell"><a class="govuk-link" href="#">UK 12 34 56 30 15 50</a></td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric"><strong class="govuk-tag govuk-tag--blue">Incomplete</strong></td>
+                </tr>
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell"><a class="govuk-link" href="#">UK 12 34 56 30 15 51</a></td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric"><strong class="govuk-tag govuk-tag--blue">Incomplete</strong></td>
+                </tr>
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell"><a class="govuk-link" href="#">UK 12 34 56 30 15 52</a></td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric"><strong class="govuk-tag govuk-tag--blue">Incomplete</strong></td>
+                </tr>
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell"><a class="govuk-link" href="#">UK 12 34 56 30 15 53</a></td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric"><strong class="govuk-tag govuk-tag--blue">Incomplete</strong></td>
+                </tr>
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell"><a class="govuk-link" href="#">UK 12 34 56 30 15 54</a></td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric"><strong class="govuk-tag govuk-tag--blue">Incomplete</strong></td>
+                </tr>
+            </tbody>
+        </table>
+        <form method="post" novalidate action="">
+            <div class="govuk-form-group">
+                <fieldset class="govuk-fieldset" aria-describedby="add-another-hint">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend govuk-fieldset__legend--m">
+                        Do you need to add additional tags?
+                    </legend>
+                    <div class="govuk-radios govuk-radios--inline" data-module="govuk-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="add-another" name="add-another" type="radio" value="Yes">
+                            <label class="govuk-label govuk-radios__label" for="add-another">
+                                Yes
+                            </label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="add-another-2" name="add-another" type="radio" value="No">
+                            <label class="govuk-label govuk-radios__label" for="add-another-2">
+                                No
+                            </label>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+
+            <button type="submit" class="govuk-button" data-module="govuk-button">
+                Continue
+            </button>
+        </form>
+
+        <hr style="margin: 50px 0">
+
+        <!--- manage details --->
+
+        <h4 class="govuk-heading-s">Step 6</h4>
+
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-two-thirds-from-desktop">
+            <h1 class="govuk-heading-l">Manage calf details</h1>
+            <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+                <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">
+                        Unique tag number
+                    </dt>
+                    <dd class="govuk-summary-list__value">
+                        UK 12 34 56 30 15 52
+                    </dd>
+                    <dd class="govuk-summary-list__actions">
+                        <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> tag number</span></a>
+                    </dd>
+                </div>
+                <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">
+                        Name
+                    </dt>
+                    <dd class="govuk-summary-list__value">
+                        Daisy
+                    </dd>
+                    <dd class="govuk-summary-list__actions">
+                        <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> name</span></a>
+                    </dd>
+                </div>
+                <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">
+                        Date of birth
+                    </dt>
+                    <dd class="govuk-summary-list__value">
+                        10 March 2026
+                    </dd>
+                    <dd class="govuk-summary-list__actions">
+                        <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> date of birth</span></a>
+                    </dd>
+                </div>
+                <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">
+                        Sex
+                    </dt>
+                    <dd class="govuk-summary-list__value">
+                        Male
+                    </dd>
+                    <dd class="govuk-summary-list__actions">
+                        <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> sex</span></a>
+                    </dd>
+                </div>
+                <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">
+                        Breed
+                    </dt>
+                    <dd class="govuk-summary-list__value">
+                        Highland
+                    </dd>
+                    <dd class="govuk-summary-list__actions">
+                        <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> breed</span></a>
+                    </dd>
+                </div>
+                <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">
+                        Production type
+                    </dt>
+                    <dd class="govuk-summary-list__value">
+                        Dairy
+                    </dd>
+                    <dd class="govuk-summary-list__actions">
+                        <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> production type</span></a>
+                    </dd>
+                </div>
+                <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">
+                        Genetic dam tag number
+                    </dt>
+                    <dd class="govuk-summary-list__value">
+                        UK 12 34 53 56 45
+                    </dd>
+                    <dd class="govuk-summary-list__actions">
+                        <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> genetic dam tag number</span></a>
+                    </dd>
+                </div>
+                <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">
+                        Calf birth assistance
+                    </dt>
+                    <dd class="govuk-summary-list__value">
+                        Jack assisted delivery
+                    </dd>
+                    <dd class="govuk-summary-list__actions">
+                        <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> calf birth assistance</span></a>
+                    </dd>
+                </div>
+                <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">
+                        Embryo transfer
+                    </dt>
+                    <dd class="govuk-summary-list__value">
+                        No
+                    </dd>
+                    <dd class="govuk-summary-list__actions">
+                        <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> embryo transfer</span></a>
+                    </dd>
+                </div>
+            </dl>
+            <div>
+                <button type="submit" class="govuk-button" data-module="govuk-button">
+                    Continue
+                </button>
+            </div>
+            <div>
+                <button type="submit" class="govuk-button govuk-button--secondary" data-module="govuk-button">
+                    Remove
+                </button>
+            </div>
+            </div>
+        </div>
+
+        <hr style="margin: 50px 0">
+
+        <h4 class="govuk-heading-s">Step 7</h4>
+        <h1 class="govuk-heading-l">You have added 5 calves for registration</h1>
+
+        <table class="govuk-table">
+            <thead class="govuk-table__head">
+                <tr class="govuk-table__row">
+                    <th scope="col" class="govuk-table__header">Tag number</th>
+                    <th scope="col" class="govuk-table__header govuk-table__header--numeric">Status</th>
+                </tr>
+            </thead>
+            <tbody class="govuk-table__body">
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell"><a class="govuk-link" href="#">UK 12 34 56 30 15 50</a></td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric"><strong class="govuk-tag govuk-tag--blue">Incomplete</strong></td>
+                </tr>
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell"><a class="govuk-link" href="#">UK 12 34 56 30 15 51</a></td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric"><strong class="govuk-tag govuk-tag--blue">Incomplete</strong></td>
+                </tr>
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell"><a class="govuk-link" href="#">UK 12 34 56 30 15 52</a></td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric"><strong class="govuk-tag govuk-tag--green">Complete</strong></td>
+                </tr>
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell"><a class="govuk-link" href="#">UK 12 34 56 30 15 53</a></td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric"><strong class="govuk-tag govuk-tag--blue">Incomplete</strong></td>
+                </tr>
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell"><a class="govuk-link" href="#">UK 12 34 56 30 15 54</a></td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric"><strong class="govuk-tag govuk-tag--blue">Incomplete</strong></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <form method="post" novalidate action="">
+            <div class="govuk-form-group">
+                <fieldset class="govuk-fieldset" aria-describedby="add-another-step5-hint">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+                        Do you need to add additional tags?
+                    </legend>
+                    <div class="govuk-radios govuk-radios--inline" data-module="govuk-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="add-another-step5" name="add-another-step5" type="radio" value="Yes">
+                            <label class="govuk-label govuk-radios__label" for="add-another-step5">
+                                Yes
+                            </label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="add-another-step5-2" name="add-another-step5" type="radio" value="No">
+                            <label class="govuk-label govuk-radios__label" for="add-another-step5-2">
+                                No
+                            </label>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+
+            <button type="submit" class="govuk-button" data-module="govuk-button">
+                Continue
+            </button>
+        </form>
+
+        <hr style="margin: 50px 0">
+
+        <h4 class="govuk-heading-s">Step 7B</h4>
+        <h1 class="govuk-heading-l">You have added 5 calves for registration</h1>
+
+        <div class="govuk-error-summary" data-module="govuk-error-summary">
+            <div role="alert">
+                <h2 class="govuk-error-summary__title">
+                    There is a problem
+                </h2>
+                <div class="govuk-error-summary__body">
+                    <ul class="govuk-list govuk-error-summary__list">
+                        <li>
+                            <a href="#">You must enter details for all tags before you can continue</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <table class="govuk-table">
+            <thead class="govuk-table__head">
+                <tr class="govuk-table__row">
+                    <th scope="col" class="govuk-table__header">Tag number</th>
+                    <th scope="col" class="govuk-table__header govuk-table__header--numeric">Status</th>
+                </tr>
+            </thead>
+            <tbody class="govuk-table__body">
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell"><a class="govuk-link" href="#">UK 12 34 56 30 15 50</a></td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric"><strong class="govuk-tag govuk-tag--blue">Incomplete</strong></td>
+                </tr>
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell"><a class="govuk-link" href="#">UK 12 34 56 30 15 51</a></td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric"><strong class="govuk-tag govuk-tag--blue">Incomplete</strong></td>
+                </tr>
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell"><a class="govuk-link" href="#">UK 12 34 56 30 15 52</a></td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric"><strong class="govuk-tag govuk-tag--green">Complete</strong></td>
+                </tr>
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell"><a class="govuk-link" href="#">UK 12 34 56 30 15 53</a></td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric"><strong class="govuk-tag govuk-tag--blue">Incomplete</strong></td>
+                </tr>
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell"><a class="govuk-link" href="#">UK 12 34 56 30 15 54</a></td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric"><strong class="govuk-tag govuk-tag--blue">Incomplete</strong></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <form method="post" novalidate action="">
+            <div class="govuk-form-group">
+                <fieldset class="govuk-fieldset" aria-describedby="add-another-step5b-hint">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+                        Do you need to add additional tags?
+                    </legend>
+                    <div class="govuk-radios govuk-radios--inline" data-module="govuk-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="add-another-step5b" name="add-another-step5b" type="radio" value="Yes">
+                            <label class="govuk-label govuk-radios__label" for="add-another-step5b">
+                                Yes
+                            </label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="add-another-step5b-2" name="add-another-step5b" type="radio" value="No">
+                            <label class="govuk-label govuk-radios__label" for="add-another-step5b-2">
+                                No
+                            </label>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+
+            <button type="submit" class="govuk-button" data-module="govuk-button">
+                Continue
+            </button>
+        </form>
+
+        <hr style="margin: 50px 0">
+
+        <h4 class="govuk-heading-s">Step 8</h4>
+        <h1 class="govuk-heading-l">Now submit your cattle birth report</h1>
+
+        <p class="govuk-body">By submitting this cattle birth report you are confirming that, to the best of your knowledge, the details you are providing are correct.</p>
+
+        <form method="post" novalidate action="">
+            <button type="submit" class="govuk-button" data-module="govuk-button">
+                Accept and send
+            </button>
+        </form>
+
+        <hr style="margin: 50px 0">
+
+        <h4 class="govuk-heading-s">Step 9</h4>
+
+        <div class="govuk-panel govuk-panel--confirmation">
+            <h1 class="govuk-panel__title">
+                5 cattle births added to your cattle livestock list
+            </h1>
+        </div>
+
+        <p class="govuk-body">We have sent you a confirmation email.</p>
+
+        <h2 class="govuk-heading-m">What happens next</h2>
+
+        <p class="govuk-body">Your birth details are now updated in your cattle livestock list.</p>
+
+        <p class="govuk-body">You can still make changes after submission if you need to.</p>
+
+    </div>
+</div>
+
+{% endblock %}

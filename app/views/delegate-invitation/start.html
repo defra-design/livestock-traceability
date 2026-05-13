@@ -1,0 +1,46 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Change who can act for you" %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+
+        <h1 class="govuk-heading-l">
+            Manage your delegate invitations
+        </h1>
+        <p>
+            Add new or remove existing delegates who can manage your holding. If you remove a delegate, they will no longer be able to access your holding details.</p>
+
+        <table class="govuk-table govuk-table--small-text-until-tablet">
+            <thead class="govuk-table__head">
+            <tr class="govuk-table__row">
+                <th scope="col" class="govuk-table__header">Email address</th>
+                <th scope="col" class="govuk-table__header"><span class="govuk-visually-hidden">Actions</span></th>
+            </tr>
+            </thead>
+            <tbody class="govuk-table__body">
+            {% if data.delegates and data.delegates.length %}
+                {% for delegate in data.delegates %}
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell">{{ delegate.email }}</td>
+                    <td class="govuk-table__cell govuk-!-text-align-right"><a href="/add-a-delegate-v2/manage-delegate?index={{ loop.index0 }}" class="govuk-link">Manage</a></td>
+                </tr>
+                {% endfor %}
+            {% else %}
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell" colspan="2">You have no delegates.</td>
+                </tr>
+            {% endif %}
+            </tbody>
+        </table>
+
+        <a href="/add-a-delegate-v2/add-delegate" class="govuk-button" data-module="govuk-button">
+            Add a new delegate
+        </a>
+
+    </div>
+</div>
+
+{% endblock %}
