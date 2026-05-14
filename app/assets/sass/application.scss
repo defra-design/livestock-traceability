@@ -92,4 +92,25 @@
       }
     }
     
+    // Custom details styling with plus symbol
+    .govuk-details__summary {
+      list-style: none;
+      position: relative;
+      padding-left: 25px;
+    }
+    
+    .govuk-details__summary::before {
+      content: '+';
+      position: absolute;
+      left: 0;
+      color: #003078;
+      font-size: 24px;
+      font-weight: bold;
+      line-height: 1;
+    }
+    
+    .govuk-details[open] .govuk-details__summary::before {
+      content: '−';
+    }
+    
     
