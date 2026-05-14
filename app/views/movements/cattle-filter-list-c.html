@@ -21,136 +21,140 @@
   </div>
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">
-
-  
-   <details class="govuk-details">
-  <summary class="govuk-details__summary">
-    <span class="govuk-details__summary-text">
-      <h2 class="govuk-heading-m">Filter the list options</h2>
-    </span>
-  </summary>
-
-  <div class="govuk-details__text">
-    <div class="govuk-form-group">
-  <label class="govuk-label" for="three-quarters">
-    Search for a tag number
-  </label>
-  <input class="govuk-input govuk-!-width-three-quarters" id="three-quarters" name="three-quarters" type="text">
-</div>
-<div class="govuk-form-group">
-  <fieldset class="govuk-fieldset">
-    <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
-      <h3 class="govuk-fieldset__heading">
-        Sex
-      </h3>
-    </legend>
-    <div class="govuk-checkboxes govuk-checkboxes--small" data-module="govuk-checkboxes">
-      <div class="govuk-checkboxes__item">
-        <input class="govuk-checkboxes__input" id="organisation" name="organisation" type="checkbox" value="hmrc">
-        <label class="govuk-label govuk-checkboxes__label" for="organisation">
-          Male
-        </label>
+      <div class="moj-filter-layout__filter">
+        <button type="button" class="govuk-button govuk-button--secondary" aria-expanded="false" aria-controls="filter-panel">
+          Show filter options
+        </button>
+        
+        <form id="filter-panel" class="moj-filter" hidden>
+          <div class="moj-filter__header">
+            <h2 class="govuk-heading-m">Filter the list</h2>
+            <button type="button" class="moj-filter__close" aria-label="Close filter">✕</button>
+          </div>
+          
+          <fieldset class="moj-filter__fieldset">
+            <legend class="moj-filter__legend">
+              <h3 class="govuk-heading-s">Search</h3>
+            </legend>
+            <div class="govuk-form-group">
+              <label class="govuk-label" for="tag-search">
+                Search for a tag number
+              </label>
+              <input class="govuk-input" id="tag-search" name="tag-search" type="text">
+            </div>
+          </fieldset>
+          
+          <fieldset class="moj-filter__fieldset">
+            <legend class="moj-filter__legend">
+              <h3 class="govuk-heading-s">Sex</h3>
+            </legend>
+            <div class="govuk-checkboxes govuk-checkboxes--small" data-module="govuk-checkboxes">
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input" id="sex-male" name="sex" type="checkbox" value="male">
+                <label class="govuk-label govuk-checkboxes__label" for="sex-male">
+                  Male
+                </label>
+              </div>
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input" id="sex-female" name="sex" type="checkbox" value="female">
+                <label class="govuk-label govuk-checkboxes__label" for="sex-female">
+                  Female
+                </label>
+              </div>
+            </div>
+          </fieldset>
+          
+          <fieldset class="moj-filter__fieldset">
+            <legend class="moj-filter__legend">
+              <h3 class="govuk-heading-s">Breed</h3>
+            </legend>
+            <div class="govuk-checkboxes govuk-checkboxes--small" data-module="govuk-checkboxes">
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input" id="breed-angus" name="breed" type="checkbox" value="angus">
+                <label class="govuk-label govuk-checkboxes__label" for="breed-angus">
+                  Angus
+                </label>
+              </div>
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input" id="breed-brahman" name="breed" type="checkbox" value="brahman">
+                <label class="govuk-label govuk-checkboxes__label" for="breed-brahman">
+                  Brahman
+                </label>
+              </div>
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input" id="breed-brangus" name="breed" type="checkbox" value="brangus">
+                <label class="govuk-label govuk-checkboxes__label" for="breed-brangus">
+                  Brangus
+                </label>
+              </div>
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input" id="breed-blonde" name="breed" type="checkbox" value="blonde">
+                <label class="govuk-label govuk-checkboxes__label" for="breed-blonde">
+                  Blonde d'Aquitaine
+                </label>
+              </div>
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input" id="breed-brownswiss" name="breed" type="checkbox" value="brownswiss">
+                <label class="govuk-label govuk-checkboxes__label" for="breed-brownswiss">
+                  Brown Swiss
+                </label>
+              </div>
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input" id="breed-charolais" name="breed" type="checkbox" value="charolais">
+                <label class="govuk-label govuk-checkboxes__label" for="breed-charolais">
+                  Charolais
+                </label>
+              </div>
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input" id="breed-guernsey" name="breed" type="checkbox" value="guernsey">
+                <label class="govuk-label govuk-checkboxes__label" for="breed-guernsey">
+                  Guernsey
+                </label>
+              </div>
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input" id="breed-hereford" name="breed" type="checkbox" value="hereford">
+                <label class="govuk-label govuk-checkboxes__label" for="breed-hereford">
+                  Hereford
+                </label>
+              </div>
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input" id="breed-holstein" name="breed" type="checkbox" value="holstein">
+                <label class="govuk-label govuk-checkboxes__label" for="breed-holstein">
+                  Holstein
+                </label>
+              </div>
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input" id="breed-jersey" name="breed" type="checkbox" value="jersey">
+                <label class="govuk-label govuk-checkboxes__label" for="breed-jersey">
+                  Jersey
+                </label>
+              </div>
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input" id="breed-limousin" name="breed" type="checkbox" value="limousin">
+                <label class="govuk-label govuk-checkboxes__label" for="breed-limousin">
+                  Limousin
+                </label>
+              </div>
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input" id="breed-simmental" name="breed" type="checkbox" value="simmental">
+                <label class="govuk-label govuk-checkboxes__label" for="breed-simmental">
+                  Simmental
+                </label>
+              </div>
+            </div>
+          </fieldset>
+          
+          <div class="moj-filter__actions">
+            <button type="submit" class="govuk-button">Apply filters</button>
+          </div>
+        </form>
       </div>
-      <div class="govuk-checkboxes__item">
-        <input class="govuk-checkboxes__input" id="organisation-2" name="organisation" type="checkbox" value="employment-tribunal">
-        <label class="govuk-label govuk-checkboxes__label" for="organisation-2">
-          Female
-        </label>
-      </div>
-      
     </div>
-  </fieldset>
-</div>
-<div class="govuk-form-group">
-  <fieldset class="govuk-fieldset">
-    <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
-      <h3 class="govuk-fieldset__heading">
-        Breed
-      </h3>
-    </legend>
-    <div class="govuk-checkboxes govuk-checkboxes--small" data-module="govuk-checkboxes">
-      <div class="govuk-checkboxes__item">
-        <input class="govuk-checkboxes__input" id="organisation" name="organisation" type="checkbox" value="hmrc">
-        <label class="govuk-label govuk-checkboxes__label" for="organisation">
-          Angus
-        </label>
-      </div>
-      <div class="govuk-checkboxes__item">
-        <input class="govuk-checkboxes__input" id="organisation-2" name="organisation" type="checkbox" value="employment-tribunal">
-        <label class="govuk-label govuk-checkboxes__label" for="organisation-2">
-          Brahman
-        </label>
-      </div>
-      <div class="govuk-checkboxes__item">
-        <input class="govuk-checkboxes__input" id="organisation" name="organisation" type="checkbox" value="hmrc">
-        <label class="govuk-label govuk-checkboxes__label" for="organisation">
-          Brangus
-        </label>
-      </div>
-      <div class="govuk-checkboxes__item">
-        <input class="govuk-checkboxes__input" id="organisation-2" name="organisation" type="checkbox" value="employment-tribunal">
-        <label class="govuk-label govuk-checkboxes__label" for="organisation-2">
-          Blonde d'Aquitaine
-        </label>
-      </div>
-      <div class="govuk-checkboxes__item">
-        <input class="govuk-checkboxes__input" id="organisation" name="organisation" type="checkbox" value="hmrc">
-        <label class="govuk-label govuk-checkboxes__label" for="organisation">
-          Brown Swiss
-        </label>
-      </div>
-      <div class="govuk-checkboxes__item">
-        <input class="govuk-checkboxes__input" id="organisation-2" name="organisation" type="checkbox" value="employment-tribunal">
-        <label class="govuk-label govuk-checkboxes__label" for="organisation-2">
-          Charolais
-        </label>
-      </div>
-      <div class="govuk-checkboxes__item">
-        <input class="govuk-checkboxes__input" id="organisation" name="organisation" type="checkbox" value="hmrc">
-        <label class="govuk-label govuk-checkboxes__label" for="organisation">
-          Guernsey
-        </label>
-      </div>
-      <div class="govuk-checkboxes__item">
-        <input class="govuk-checkboxes__input" id="organisation-2" name="organisation" type="checkbox" value="employment-tribunal">
-        <label class="govuk-label govuk-checkboxes__label" for="organisation-2">
-          Hereford
-        </label>
-      </div>
-      <div class="govuk-checkboxes__item">
-        <input class="govuk-checkboxes__input" id="organisation" name="organisation" type="checkbox" value="hmrc">
-        <label class="govuk-label govuk-checkboxes__label" for="organisation">
-          Holstein
-        </label>
-      </div>
-      <div class="govuk-checkboxes__item">
-        <input class="govuk-checkboxes__input" id="organisation-2" name="organisation" type="checkbox" value="employment-tribunal">
-        <label class="govuk-label govuk-checkboxes__label" for="organisation-2">
-          Jersey
-        </label>
-      </div>
-      <div class="govuk-checkboxes__item">
-        <input class="govuk-checkboxes__input" id="organisation" name="organisation" type="checkbox" value="hmrc">
-        <label class="govuk-label govuk-checkboxes__label" for="organisation">
-          Limousin
-        </label>
-      </div>
-      <div class="govuk-checkboxes__item">
-        <input class="govuk-checkboxes__input" id="organisation-2" name="organisation" type="checkbox" value="employment-tribunal">
-        <label class="govuk-label govuk-checkboxes__label" for="organisation-2">
-          Simmental
-        </label>
-      </div>
-      
-    </div>
-  </fieldset>
-</div>
-</details> 
-
-  
-  
-  
-      <form class="form" action="/movements/version3/cattle-review" method="post">
+  </div>
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+      <div class="moj-filter-layout__content">
+        <form class="form" action="/movements/version3/cattle-review" method="post">
 
         <table class="govuk-table" data-module="moj-multi-select" data-id-prefix="mountains-">
   <thead class="govuk-table__head">
@@ -213,5 +217,6 @@
 
     </div>
   </div>
+</div>
 
 {% endblock %}
