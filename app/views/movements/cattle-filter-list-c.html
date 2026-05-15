@@ -1,7 +1,7 @@
 {% extends "layouts/main.html" %}
 
 {% block pageTitle %}
-  Cattle filter list b – {{ serviceName }} – GOV.UK Prototype Kit
+  Cattle filter list c – {{ serviceName }} – GOV.UK Prototype Kit
 {% endblock %}
 
 {% block containerStart %}
@@ -21,136 +21,34 @@
   </div>
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">
-      <div class="moj-filter-layout__filter">
-        <button type="button" class="govuk-button govuk-button--secondary" aria-expanded="false" aria-controls="filter-panel">
-          Show filter options
-        </button>
-        
-        <form id="filter-panel" class="moj-filter" hidden>
-          <div class="moj-filter__header">
-            <h2 class="govuk-heading-m">Filter the list</h2>
-            <button type="button" class="moj-filter__close" aria-label="Close filter">✕</button>
-          </div>
-          
-          <fieldset class="moj-filter__fieldset">
-            <legend class="moj-filter__legend">
-              <h3 class="govuk-heading-s">Search</h3>
-            </legend>
-            <div class="govuk-form-group">
-              <label class="govuk-label" for="tag-search">
-                Search for a tag number
-              </label>
-              <input class="govuk-input" id="tag-search" name="tag-search" type="text">
-            </div>
-          </fieldset>
-          
-          <fieldset class="moj-filter__fieldset">
-            <legend class="moj-filter__legend">
-              <h3 class="govuk-heading-s">Sex</h3>
-            </legend>
-            <div class="govuk-checkboxes govuk-checkboxes--small" data-module="govuk-checkboxes">
-              <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input" id="sex-male" name="sex" type="checkbox" value="male">
-                <label class="govuk-label govuk-checkboxes__label" for="sex-male">
-                  Male
-                </label>
-              </div>
-              <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input" id="sex-female" name="sex" type="checkbox" value="female">
-                <label class="govuk-label govuk-checkboxes__label" for="sex-female">
-                  Female
-                </label>
-              </div>
-            </div>
-          </fieldset>
-          
-          <fieldset class="moj-filter__fieldset">
-            <legend class="moj-filter__legend">
-              <h3 class="govuk-heading-s">Breed</h3>
-            </legend>
-            <div class="govuk-checkboxes govuk-checkboxes--small" data-module="govuk-checkboxes">
-              <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input" id="breed-angus" name="breed" type="checkbox" value="angus">
-                <label class="govuk-label govuk-checkboxes__label" for="breed-angus">
-                  Angus
-                </label>
-              </div>
-              <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input" id="breed-brahman" name="breed" type="checkbox" value="brahman">
-                <label class="govuk-label govuk-checkboxes__label" for="breed-brahman">
-                  Brahman
-                </label>
-              </div>
-              <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input" id="breed-brangus" name="breed" type="checkbox" value="brangus">
-                <label class="govuk-label govuk-checkboxes__label" for="breed-brangus">
-                  Brangus
-                </label>
-              </div>
-              <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input" id="breed-blonde" name="breed" type="checkbox" value="blonde">
-                <label class="govuk-label govuk-checkboxes__label" for="breed-blonde">
-                  Blonde d'Aquitaine
-                </label>
-              </div>
-              <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input" id="breed-brownswiss" name="breed" type="checkbox" value="brownswiss">
-                <label class="govuk-label govuk-checkboxes__label" for="breed-brownswiss">
-                  Brown Swiss
-                </label>
-              </div>
-              <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input" id="breed-charolais" name="breed" type="checkbox" value="charolais">
-                <label class="govuk-label govuk-checkboxes__label" for="breed-charolais">
-                  Charolais
-                </label>
-              </div>
-              <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input" id="breed-guernsey" name="breed" type="checkbox" value="guernsey">
-                <label class="govuk-label govuk-checkboxes__label" for="breed-guernsey">
-                  Guernsey
-                </label>
-              </div>
-              <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input" id="breed-hereford" name="breed" type="checkbox" value="hereford">
-                <label class="govuk-label govuk-checkboxes__label" for="breed-hereford">
-                  Hereford
-                </label>
-              </div>
-              <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input" id="breed-holstein" name="breed" type="checkbox" value="holstein">
-                <label class="govuk-label govuk-checkboxes__label" for="breed-holstein">
-                  Holstein
-                </label>
-              </div>
-              <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input" id="breed-jersey" name="breed" type="checkbox" value="jersey">
-                <label class="govuk-label govuk-checkboxes__label" for="breed-jersey">
-                  Jersey
-                </label>
-              </div>
-              <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input" id="breed-limousin" name="breed" type="checkbox" value="limousin">
-                <label class="govuk-label govuk-checkboxes__label" for="breed-limousin">
-                  Limousin
-                </label>
-              </div>
-              <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input" id="breed-simmental" name="breed" type="checkbox" value="simmental">
-                <label class="govuk-label govuk-checkboxes__label" for="breed-simmental">
-                  Simmental
-                </label>
-              </div>
-            </div>
-          </fieldset>
-          
-          <div class="moj-filter__actions">
-            <button type="submit" class="govuk-button">Apply filters</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
+    <div class="govuk-form-group">
+  <label class="govuk-label" for="one-third">
+    Search by tag number
+  </label>
+  <input class="govuk-input govuk-!-width-one-third" id="one-third" name="oneThird" type="text">
+</div>
+ <div class="govuk-form-group">
+  <label class="govuk-label" for="sort">
+    Sort by sex
+  </label>
+  <select class="govuk-select" id="sort" name="sort">
+    <option value="published">All</option>
+    <option value="updated" selected>Male</option>
+    <option value="views">Female</option>
+  </select>
+</div>
+   <div class="govuk-form-group">
+  <label class="govuk-label" for="sort">
+    Sort by breed
+  </label>
+  <select class="govuk-select" id="sort" name="sort">
+    <option value="published">All</option>
+    <option value="updated" selected>Angus</option>
+    <option value="views">Hereford</option>
+  </select>
+</div>
+<div class="govuk-!-padding-bottom-5"></div>
+
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">
       <div class="moj-filter-layout__content">
@@ -167,7 +65,7 @@
     </tr>
   </thead>
   <tbody class="govuk-table__body">
-    {% set cattle_breeds = ['Angus', 'Hereford', 'Holstein', 'Jersey', 'Charolais', 'Limousin', 'Simmental', 'Brangus', 'Brahman', 'Guernsey', 'Brown Swiss', 'Blonde d\'Aquitaine'] %}
+    {% set cattle_breeds = ['Angus', 'Hereford'] %}
     {% for i in range(0, 30) %}
     <tr class="govuk-table__row govuk-table__row--selected">
     <td class="govuk-table__cell"><div class="govuk-checkboxes__item govuk-checkboxes--small moj-multi-select__checkbox">
