@@ -1,0 +1,84 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Calf details" %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <h1 class="govuk-heading-xl">Calf details</h1>
+
+    <form action="/livestock-usability/v1/calf-details" method="post" novalidate>
+
+      <div class="govuk-form-group">
+        <p class="govuk-label govuk-label--m">Animal ear tag number</p>
+        <p class="govuk-body">UK 12 34 56 30 15 50</p>
+      </div>
+
+      <div class="govuk-form-group">
+        <fieldset class="govuk-fieldset" role="group" aria-describedby="dob-hint">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+            Date of birth
+          </legend>
+          <div id="dob-hint" class="govuk-hint">
+            For example, 31 3 2026
+          </div>
+          <div class="govuk-date-input" id="dob">
+            <div class="govuk-date-input__item">
+              <div class="govuk-form-group">
+                <label class="govuk-label govuk-date-input__label" for="dob-day">Day</label>
+                <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="dob-day" name="dob-day" type="text" inputmode="numeric" value="{{ data['dob-day'] }}">
+              </div>
+            </div>
+            <div class="govuk-date-input__item">
+              <div class="govuk-form-group">
+                <label class="govuk-label govuk-date-input__label" for="dob-month">Month</label>
+                <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="dob-month" name="dob-month" type="text" inputmode="numeric" value="{{ data['dob-month'] }}">
+              </div>
+            </div>
+            <div class="govuk-date-input__item">
+              <div class="govuk-form-group">
+                <label class="govuk-label govuk-date-input__label" for="dob-year">Year</label>
+                <input class="govuk-input govuk-date-input__input govuk-input--width-4" id="dob-year" name="dob-year" type="text" inputmode="numeric" value="{{ data['dob-year'] }}">
+              </div>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+
+      <div class="govuk-form-group">
+        <fieldset class="govuk-fieldset">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+            Sex of the calf
+          </legend>
+          <div class="govuk-radios govuk-radios--inline" data-module="govuk-radios">
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="sex" name="sex" type="radio" value="male" {% if data['sex'] == 'male' %}checked{% endif %}>
+              <label class="govuk-label govuk-radios__label" for="sex">Male</label>
+            </div>
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="sex-2" name="sex" type="radio" value="female" {% if data['sex'] == 'female' %}checked{% endif %}>
+              <label class="govuk-label govuk-radios__label" for="sex-2">Female</label>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+
+      <button type="submit" class="govuk-button" data-module="govuk-button">
+        Continue
+      </button>
+
+    </form>
+
+  </div>
+</div>
+
+{% endblock %}

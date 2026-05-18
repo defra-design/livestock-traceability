@@ -1,0 +1,44 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Enter tag numbers" %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <form class="form" action="/livestock-usability/v1/tag-entry" method="post">
+
+      <div class="govuk-form-group">
+        <h1 class="govuk-label-wrapper">
+          <label class="govuk-label govuk-label--xl" for="tag-numbers">
+            Enter the tag numbers you wish to use
+          </label>
+        </h1>
+        <div id="tag-numbers-hint" class="govuk-hint">
+          Ensure each tag number is placed on a new line. You can add a maximum of 100 tag numbers using this service.
+        </div>
+        <textarea class="govuk-textarea" id="tag-numbers" name="tag-numbers" rows="10" aria-describedby="tag-numbers-hint">UK 12 34 56 30 15 50
+UK 12 34 56 30 15 51
+UK 12 34 56 30 15 52
+UK 12 34 56 30 15 53
+UK 12 34 56 30 15 54</textarea>
+      </div>
+
+      {{ govukButton({
+        text: "Continue"
+      }) }}
+
+    </form>
+
+  </div>
+</div>
+
+{% endblock %}
