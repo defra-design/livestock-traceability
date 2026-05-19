@@ -24,4 +24,17 @@ window.GOVUKPrototypeKit.documentReady(() => {
       filterPanel.hidden = true
     })
   }
+
+  // Tag entry selected count
+  const tagTable = document.getElementById('tag-entry-table')
+  const selectedCountEl = document.getElementById('tag-selected-count')
+
+  if (tagTable && selectedCountEl) {
+    function updateSelectedCount () {
+      const checked = tagTable.querySelectorAll('input[type="checkbox"]:checked')
+      selectedCountEl.textContent = checked.length
+    }
+
+    tagTable.addEventListener('change', updateSelectedCount)
+  }
 })

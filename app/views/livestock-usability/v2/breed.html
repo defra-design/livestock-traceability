@@ -1,0 +1,143 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Breed" %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <form class="form" action="/livestock-usability/v2/breed" method="post">
+
+      <div class="govuk-form-group">
+        <fieldset class="govuk-fieldset">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl">
+            <h1 class="govuk-fieldset__heading">
+              Breed of the calf
+            </h1>
+          </legend>
+          <div id="breed-hint" class="govuk-hint">
+            Select all that apply
+          </div>
+          <div class="govuk-checkboxes" data-module="govuk-checkboxes" aria-describedby="breed-hint">
+            <div class="govuk-checkboxes__item">
+              <input class="govuk-checkboxes__input" id="breed-1" name="breed" type="checkbox" value="Aberdeen Angus" {% if data['breed'] == 'Aberdeen Angus' or (data['breed'] is not string and 'Aberdeen Angus' in data['breed']) %}checked{% endif %}>
+              <label class="govuk-label govuk-checkboxes__label" for="breed-1">Aberdeen Angus</label>
+            </div>
+            <div class="govuk-checkboxes__item">
+              <input class="govuk-checkboxes__input" id="breed-2" name="breed" type="checkbox" value="Alderney" {% if data['breed'] == 'Alderney' or (data['breed'] is not string and 'Alderney' in data['breed']) %}checked{% endif %}>
+              <label class="govuk-label govuk-checkboxes__label" for="breed-2">Alderney</label>
+            </div>
+            <div class="govuk-checkboxes__item">
+              <input class="govuk-checkboxes__input" id="breed-3" name="breed" type="checkbox" value="Ayrshire" {% if data['breed'] == 'Ayrshire' or (data['breed'] is not string and 'Ayrshire' in data['breed']) %}checked{% endif %}>
+              <label class="govuk-label govuk-checkboxes__label" for="breed-3">Ayrshire</label>
+            </div>
+            <div class="govuk-checkboxes__item">
+              <input class="govuk-checkboxes__input" id="breed-4" name="breed" type="checkbox" value="Belted Galloway" {% if data['breed'] == 'Belted Galloway' or (data['breed'] is not string and 'Belted Galloway' in data['breed']) %}checked{% endif %}>
+              <label class="govuk-label govuk-checkboxes__label" for="breed-4">Belted Galloway</label>
+            </div>
+            <div class="govuk-checkboxes__item">
+              <input class="govuk-checkboxes__input" id="breed-5" name="breed" type="checkbox" value="British White" {% if data['breed'] == 'British White' or (data['breed'] is not string and 'British White' in data['breed']) %}checked{% endif %}>
+              <label class="govuk-label govuk-checkboxes__label" for="breed-5">British White</label>
+            </div>
+            <div class="govuk-checkboxes__item">
+              <input class="govuk-checkboxes__input" id="breed-6" name="breed" type="checkbox" value="Dairy Shorthorn" {% if data['breed'] == 'Dairy Shorthorn' or (data['breed'] is not string and 'Dairy Shorthorn' in data['breed']) %}checked{% endif %}>
+              <label class="govuk-label govuk-checkboxes__label" for="breed-6">Dairy Shorthorn</label>
+            </div>
+            <div class="govuk-checkboxes__item">
+              <input class="govuk-checkboxes__input" id="breed-7" name="breed" type="checkbox" value="Devon" {% if data['breed'] == 'Devon' or (data['breed'] is not string and 'Devon' in data['breed']) %}checked{% endif %}>
+              <label class="govuk-label govuk-checkboxes__label" for="breed-7">Devon</label>
+            </div>
+            <div class="govuk-checkboxes__item">
+              <input class="govuk-checkboxes__input" id="breed-8" name="breed" type="checkbox" value="Galloway" {% if data['breed'] == 'Galloway' or (data['breed'] is not string and 'Galloway' in data['breed']) %}checked{% endif %}>
+              <label class="govuk-label govuk-checkboxes__label" for="breed-8">Galloway</label>
+            </div>
+            <div class="govuk-checkboxes__item">
+              <input class="govuk-checkboxes__input" id="breed-9" name="breed" type="checkbox" value="Glamorgan" {% if data['breed'] == 'Glamorgan' or (data['breed'] is not string and 'Glamorgan' in data['breed']) %}checked{% endif %}>
+              <label class="govuk-label govuk-checkboxes__label" for="breed-9">Glamorgan</label>
+            </div>
+            <div class="govuk-checkboxes__item">
+              <input class="govuk-checkboxes__input" id="breed-10" name="breed" type="checkbox" value="Gloucester" {% if data['breed'] == 'Gloucester' or (data['breed'] is not string and 'Gloucester' in data['breed']) %}checked{% endif %}>
+              <label class="govuk-label govuk-checkboxes__label" for="breed-10">Gloucester</label>
+            </div>
+            <div class="govuk-checkboxes__item">
+              <input class="govuk-checkboxes__input" id="breed-11" name="breed" type="checkbox" value="Guernsey" {% if data['breed'] == 'Guernsey' or (data['breed'] is not string and 'Guernsey' in data['breed']) %}checked{% endif %}>
+              <label class="govuk-label govuk-checkboxes__label" for="breed-11">Guernsey</label>
+            </div>
+            <div class="govuk-checkboxes__item">
+              <input class="govuk-checkboxes__input" id="breed-12" name="breed" type="checkbox" value="Hereford" {% if data['breed'] == 'Hereford' or (data['breed'] is not string and 'Hereford' in data['breed']) %}checked{% endif %}>
+              <label class="govuk-label govuk-checkboxes__label" for="breed-12">Hereford</label>
+            </div>
+            <div class="govuk-checkboxes__item">
+              <input class="govuk-checkboxes__input" id="breed-13" name="breed" type="checkbox" value="Highland" {% if data['breed'] == 'Highland' or (data['breed'] is not string and 'Highland' in data['breed']) %}checked{% endif %}>
+              <label class="govuk-label govuk-checkboxes__label" for="breed-13">Highland</label>
+            </div>
+            <div class="govuk-checkboxes__item">
+              <input class="govuk-checkboxes__input" id="breed-14" name="breed" type="checkbox" value="Holstein-Friesian" {% if data['breed'] == 'Holstein-Friesian' or (data['breed'] is not string and 'Holstein-Friesian' in data['breed']) %}checked{% endif %}>
+              <label class="govuk-label govuk-checkboxes__label" for="breed-14">Holstein-Friesian</label>
+            </div>
+            <div class="govuk-checkboxes__item">
+              <input class="govuk-checkboxes__input" id="breed-15" name="breed" type="checkbox" value="Jersey" {% if data['breed'] == 'Jersey' or (data['breed'] is not string and 'Jersey' in data['breed']) %}checked{% endif %}>
+              <label class="govuk-label govuk-checkboxes__label" for="breed-15">Jersey</label>
+            </div>
+            <div class="govuk-checkboxes__item">
+              <input class="govuk-checkboxes__input" id="breed-16" name="breed" type="checkbox" value="Lincoln Red" {% if data['breed'] == 'Lincoln Red' or (data['breed'] is not string and 'Lincoln Red' in data['breed']) %}checked{% endif %}>
+              <label class="govuk-label govuk-checkboxes__label" for="breed-16">Lincoln Red</label>
+            </div>
+            <div class="govuk-checkboxes__item">
+              <input class="govuk-checkboxes__input" id="breed-17" name="breed" type="checkbox" value="Luing" {% if data['breed'] == 'Luing' or (data['breed'] is not string and 'Luing' in data['breed']) %}checked{% endif %}>
+              <label class="govuk-label govuk-checkboxes__label" for="breed-17">Luing</label>
+            </div>
+            <div class="govuk-checkboxes__item">
+              <input class="govuk-checkboxes__input" id="breed-18" name="breed" type="checkbox" value="Red Poll" {% if data['breed'] == 'Red Poll' or (data['breed'] is not string and 'Red Poll' in data['breed']) %}checked{% endif %}>
+              <label class="govuk-label govuk-checkboxes__label" for="breed-18">Red Poll</label>
+            </div>
+            <div class="govuk-checkboxes__item">
+              <input class="govuk-checkboxes__input" id="breed-19" name="breed" type="checkbox" value="Shetland" {% if data['breed'] == 'Shetland' or (data['breed'] is not string and 'Shetland' in data['breed']) %}checked{% endif %}>
+              <label class="govuk-label govuk-checkboxes__label" for="breed-19">Shetland</label>
+            </div>
+            <div class="govuk-checkboxes__item">
+              <input class="govuk-checkboxes__input" id="breed-20" name="breed" type="checkbox" value="South Devon" {% if data['breed'] == 'South Devon' or (data['breed'] is not string and 'South Devon' in data['breed']) %}checked{% endif %}>
+              <label class="govuk-label govuk-checkboxes__label" for="breed-20">South Devon</label>
+            </div>
+            <div class="govuk-checkboxes__item">
+              <input class="govuk-checkboxes__input" id="breed-21" name="breed" type="checkbox" value="Sussex" {% if data['breed'] == 'Sussex' or (data['breed'] is not string and 'Sussex' in data['breed']) %}checked{% endif %}>
+              <label class="govuk-label govuk-checkboxes__label" for="breed-21">Sussex</label>
+            </div>
+            <div class="govuk-checkboxes__item">
+              <input class="govuk-checkboxes__input" id="breed-22" name="breed" type="checkbox" value="Welsh Black" {% if data['breed'] == 'Welsh Black' or (data['breed'] is not string and 'Welsh Black' in data['breed']) %}checked{% endif %}>
+              <label class="govuk-label govuk-checkboxes__label" for="breed-22">Welsh Black</label>
+            </div>
+            <div class="govuk-checkboxes__item">
+              <input class="govuk-checkboxes__input" id="breed-23" name="breed" type="checkbox" value="White Galloway" {% if data['breed'] == 'White Galloway' or (data['breed'] is not string and 'White Galloway' in data['breed']) %}checked{% endif %}>
+              <label class="govuk-label govuk-checkboxes__label" for="breed-23">White Galloway</label>
+            </div>
+            <div class="govuk-checkboxes__item">
+              <input class="govuk-checkboxes__input" id="breed-24" name="breed" type="checkbox" value="White Park" {% if data['breed'] == 'White Park' or (data['breed'] is not string and 'White Park' in data['breed']) %}checked{% endif %}>
+              <label class="govuk-label govuk-checkboxes__label" for="breed-24">White Park</label>
+            </div>
+            <div class="govuk-checkboxes__item">
+              <input class="govuk-checkboxes__input" id="breed-25" name="breed" type="checkbox" value="Whitebred Shorthorn" {% if data['breed'] == 'Whitebred Shorthorn' or (data['breed'] is not string and 'Whitebred Shorthorn' in data['breed']) %}checked{% endif %}>
+              <label class="govuk-label govuk-checkboxes__label" for="breed-25">Whitebred Shorthorn</label>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+
+      {{ govukButton({
+        text: "Continue"
+      }) }}
+
+    </form>
+
+  </div>
+</div>
+
+{% endblock %}

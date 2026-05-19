@@ -1,0 +1,122 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Check calf details" %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds-from-desktop">
+
+    <h1 class="govuk-heading-l">Check calf details</h1>
+
+    <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Unique tag number</dt>
+        <dd class="govuk-summary-list__value">UK 12 34 56 30 15 50</dd>
+        <dd class="govuk-summary-list__actions"></dd>
+      </div>
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Date of birth</dt>
+        <dd class="govuk-summary-list__value">{{ data['dob-day'] }}/{{ data['dob-month'] }}/{{ data['dob-year'] }}</dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="/livestock-usability/v2/calf-details">Change<span class="govuk-visually-hidden"> date of birth</span></a>
+        </dd>
+      </div>
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Sex</dt>
+        <dd class="govuk-summary-list__value">{{ data['sex'] | capitalize }}</dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="/livestock-usability/v2/calf-details">Change<span class="govuk-visually-hidden"> sex</span></a>
+        </dd>
+      </div>
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Multiple birth</dt>
+        <dd class="govuk-summary-list__value">{{ data['multiple-birth'] | capitalize }}</dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="/livestock-usability/v2/calf-details">Change<span class="govuk-visually-hidden"> multiple birth</span></a>
+        </dd>
+      </div>
+
+      {% if data['multiple-birth'] == 'yes' %}
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Related animal ear tag number</dt>
+        <dd class="govuk-summary-list__value">{{ data['multiple-birth-tag'] }}</dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="/livestock-usability/v2/calf-details">Change<span class="govuk-visually-hidden"> related animal ear tag number</span></a>
+        </dd>
+      </div>
+      {% endif %}
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Breed</dt>
+        <dd class="govuk-summary-list__value">
+          {% if data['breed'] %}
+            {% if data['breed'] is string %}
+              {{ data['breed'] }}
+            {% else %}
+              {{ data['breed'] | join(', ') }}
+            {% endif %}
+          {% endif %}
+        </dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="/livestock-usability/v2/breed">Change<span class="govuk-visually-hidden"> breed</span></a>
+        </dd>
+      </div>
+
+      {% if data['dam-type'] == 'surrogate' %}
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Surrogate dam ear tag number</dt>
+        <dd class="govuk-summary-list__value">{{ data['surrogate-dam-number'] }}</dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="/livestock-usability/v2/dam-details">Change<span class="govuk-visually-hidden"> surrogate dam ear tag number</span></a>
+        </dd>
+      </div>
+      {% else %}
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Genetic dam ear tag number</dt>
+        <dd class="govuk-summary-list__value">{{ data['dam-number'] }}</dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="/livestock-usability/v2/dam-details">Change<span class="govuk-visually-hidden"> genetic dam ear tag number</span></a>
+        </dd>
+      </div>
+      {% endif %}
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Sire ear tag number</dt>
+        <dd class="govuk-summary-list__value">{{ data['sire-number'] }}</dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="/livestock-usability/v2/sire-details">Change<span class="govuk-visually-hidden"> sire ear tag number</span></a>
+        </dd>
+      </div>
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Sire name</dt>
+        <dd class="govuk-summary-list__value">{{ data['sire-name'] }}</dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="/livestock-usability/v2/sire-details">Change<span class="govuk-visually-hidden"> sire name</span></a>
+        </dd>
+      </div>
+
+    </dl>
+
+    <form action="/livestock-usability/v2/check-calf-details" method="post" novalidate>
+      <button type="submit" class="govuk-button" data-module="govuk-button">
+        Continue
+      </button>
+    </form>
+
+  </div>
+</div>
+
+{% endblock %}
