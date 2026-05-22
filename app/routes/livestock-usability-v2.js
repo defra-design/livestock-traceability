@@ -1,6 +1,15 @@
 const govukPrototypeKit = require('govuk-prototype-kit')
 const router = govukPrototypeKit.requests.setupRouter()
 
+router.post('/livestock-usability/v2/registration-method', (req, res) => {
+  const method = req.session.data['registration-method']
+  if (method === 'file-upload') {
+    res.redirect('/livestock-usability/v2/file-upload')
+  } else {
+    res.redirect('/livestock-usability/v2/animal-select')
+  }
+})
+
 router.post('/livestock-usability/v2/animal-select', (req, res) => {
   res.redirect('/livestock-usability/v2/tag-entry')
 })

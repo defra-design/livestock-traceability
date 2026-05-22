@@ -45,15 +45,19 @@
 
       <div class="govuk-form-group">
         <fieldset class="govuk-fieldset">
-          <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl">
+
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
             <h1 class="govuk-fieldset__heading">
-              Select the ear tag numbers you wish to use
+              Select the animal ear tag numbers you are registering
             </h1>
           </legend>
+          <div id="waste-hint" class="govuk-hint">
+            Select all animal ear tag numbers you plan to register in this session.
+          </div>
 
-          <p class="govuk-body govuk-!-margin-bottom-2">
+        <!--  <p class="govuk-body govuk-!-margin-bottom-2">
             <span id="tag-selected-count">{{ selectedTags | length }}</span> of {{ tags | length }} ear tags selected
-          </p>
+          </p>-->
 
           <div class="govuk-checkboxes" data-module="govuk-checkboxes" id="tag-entry-table">
             {% for tag in tags %}

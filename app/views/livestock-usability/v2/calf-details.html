@@ -75,8 +75,11 @@
       <div class="govuk-form-group">
         <fieldset class="govuk-fieldset">
           <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
-            Is this calf part of a multiple birth?
+            Is the calf part of a multiple birth?
           </legend>
+          <div id="signIn-hint" class="govuk-hint">
+            Select the related ear tag numbers from the list if the calves you are registering are siblings from a multiple birth.
+          </div>
           <div class="govuk-radios" data-module="govuk-radios">
             <div class="govuk-radios__item">
               <input class="govuk-radios__input" id="multiple-birth" name="multiple-birth" type="radio" value="yes" data-aria-controls="conditional-multiple-birth" {% if data['multiple-birth'] == 'yes' %}checked{% endif %}>
