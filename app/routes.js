@@ -17,6 +17,7 @@ const journeys = [
   './routes/user-registration',
   './routes/livestock-usability-v1',
   './routes/livestock-usability-v2',
+  './routes/livestock-usability-v3',
 ]
 
 journeys.forEach(journey => {

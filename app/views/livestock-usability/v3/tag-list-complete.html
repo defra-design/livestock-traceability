@@ -1,0 +1,78 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Calves added for registration" %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <h1 class="govuk-heading-xl">You have added 5 animals for registration</h1>
+
+    <table class="govuk-table">
+      <thead class="govuk-table__head">
+        <tr class="govuk-table__row">
+          <th scope="col" class="govuk-table__header">Tag number</th>
+          <th scope="col" class="govuk-table__header govuk-table__header--numeric">Status</th>
+        </tr>
+      </thead>
+      <tbody class="govuk-table__body">
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell"><a class="govuk-link" href="/livestock-usability/v3/check-calf-details">UK 12 34 56 30 15 50</a></td>
+          <td class="govuk-table__cell govuk-table__cell--numeric"><strong class="govuk-tag govuk-tag--green">Complete</strong></td>
+        </tr>
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell"><a class="govuk-link" href="#">UK 12 34 56 30 15 51</a></td>
+          <td class="govuk-table__cell govuk-table__cell--numeric"><strong class="govuk-tag govuk-tag--blue">Incomplete</strong></td>
+        </tr>
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell"><a class="govuk-link" href="#">UK 12 34 56 30 15 52</a></td>
+          <td class="govuk-table__cell govuk-table__cell--numeric"><strong class="govuk-tag govuk-tag--blue">Incomplete</strong></td>
+        </tr>
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell"><a class="govuk-link" href="#">UK 12 34 56 30 15 53</a></td>
+          <td class="govuk-table__cell govuk-table__cell--numeric"><strong class="govuk-tag govuk-tag--blue">Incomplete</strong></td>
+        </tr>
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell"><a class="govuk-link" href="#">UK 12 34 56 30 15 54</a></td>
+          <td class="govuk-table__cell govuk-table__cell--numeric"><strong class="govuk-tag govuk-tag--blue">Incomplete</strong></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <form class="form" action="/livestock-usability/v3/tag-list-complete" method="post">
+      <div class="govuk-form-group">
+        <fieldset class="govuk-fieldset">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+            Do you need to add additional animals?
+          </legend>
+          <div class="govuk-radios govuk-radios--inline" data-module="govuk-radios">
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="add-another" name="add-another" type="radio" value="yes">
+              <label class="govuk-label govuk-radios__label" for="add-another">Yes</label>
+            </div>
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="add-another-2" name="add-another" type="radio" value="no">
+              <label class="govuk-label govuk-radios__label" for="add-another-2">No</label>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+
+      {{ govukButton({
+        text: "Continue"
+      }) }}
+
+    </form>
+
+  </div>
+</div>
+
+{% endblock %}

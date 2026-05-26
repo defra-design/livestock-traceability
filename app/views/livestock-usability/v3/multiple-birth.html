@@ -1,0 +1,64 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Select tag numbers" %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+{% set tags = [
+"UK 12 34 56 30 15 51",
+"UK 12 34 56 30 15 52",
+"UK 12 34 56 30 15 53",
+"UK 12 34 56 30 15 54"
+] %}
+
+{% set selectedTags = ["UK 12 34 56 30 15 53", "UK 12 34 56 30 15 54"] %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <form class="form" action="/livestock-usability/v3/multiple-birth" method="post">
+
+      <div class="govuk-form-group">
+        <fieldset class="govuk-fieldset">
+
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+            <span class="govuk-caption-l">UK123456301550</span>
+            <h1 class="govuk-fieldset__heading">
+              Select related ear tag numbers
+            </h1>
+          </legend>
+          <div id="related-hint" class="govuk-hint">
+            Select the related ear tag numbers from the list if the calves you are registering are siblings from a multiple birth.
+          </div>
+
+          <div class="govuk-checkboxes" data-module="govuk-checkboxes" id="tag-entry-table">
+            {% for tag in tags %}
+            <div class="govuk-checkboxes__item">
+              <input class="govuk-checkboxes__input" id="tag-{{ loop.index }}" name="related-tag-numbers" type="checkbox" value="{{ tag }}" {% if tag in selectedTags %}checked{% endif %}>
+              <label class="govuk-label govuk-checkboxes__label" for="tag-{{ loop.index }}">
+                {{ tag }}
+              </label>
+            </div>
+            {% endfor %}
+          </div>
+        </fieldset>
+
+      </div>
+
+      {{ govukButton({
+      text: "Continue"
+      }) }}
+
+    </form>
+
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Select an activity" %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <form class="form" action="/livestock-usability/v3/cattle-activity" method="post">
+
+      <div class="govuk-form-group">
+        <fieldset class="govuk-fieldset">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+            <h1 class="govuk-fieldset__heading">
+              Select a registration option
+            </h1>
+          </legend>
+          <div class="govuk-radios govuk-radios--vertical" data-module="govuk-radios">
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="cattle-activity" name="cattle-activity" type="radio" value="option-1">
+              <label class="govuk-label govuk-radios__label" for="cattle-activity">
+                Register a cattle birth
+              </label>
+            </div>
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="cattle-activity-2" name="cattle-activity" type="radio" value="option-2">
+              <label class="govuk-label govuk-radios__label" for="cattle-activity-2">
+                Register a cattle movement
+              </label>
+            </div>
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="cattle-activity-3" name="cattle-activity" type="radio" value="option-3">
+              <label class="govuk-label govuk-radios__label" for="cattle-activity-3">
+                Register a cattle death
+              </label>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+
+      {{ govukButton({
+        text: "Continue"
+      }) }}
+
+    </form>
+
+  </div>
+</div>
+
+{% endblock %}

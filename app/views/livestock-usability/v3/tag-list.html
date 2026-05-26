@@ -1,0 +1,79 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Calves added for registration" %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+{% set selectedTags = data['tag-numbers'] if data['tag-numbers'] is not string else [data['tag-numbers']] %}
+{% set selectedTags = selectedTags if selectedTags else [] %}
+{% set completedTags = data['completed-tags'] if data['completed-tags'] is not string else [data['completed-tags']] %}
+{% set completedTags = completedTags if completedTags else [] %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <h1 class="govuk-heading-l">You have added {{ selectedTags | length }} {{ "animal" if selectedTags | length == 1 else "animals" }} for registration</h1>
+
+    <p class="govuk-body">
+      Select the tag number from the list to enter calf, dam and sire details. You can use the status indicator to check which animals are ready to submit.
+    </p>
+
+    <table class="govuk-table">
+      <thead class="govuk-table__head">
+        <tr class="govuk-table__row">
+          <th scope="col" class="govuk-table__header">Tag number</th>
+          <th scope="col" class="govuk-table__header govuk-table__header--numeric">Status</th>
+        </tr>
+      </thead>
+      <tbody class="govuk-table__body">
+        {% for tag in selectedTags %}
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell"><a class="govuk-link" href="/livestock-usability/v3/calf-details?tag={{ tag | urlencode }}">{{ tag }}</a></td>
+          <td class="govuk-table__cell govuk-table__cell--numeric">
+            {% if tag in completedTags %}
+              <strong class="govuk-tag govuk-tag--green">Completed</strong>
+            {% else %}
+              <strong class="govuk-tag govuk-tag--blue">Incomplete</strong>
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <form class="form" action="/livestock-usability/v3/tag-list" method="post">
+      <div class="govuk-form-group">
+        <fieldset class="govuk-fieldset">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+            Do you need to add additional animals?
+          </legend>
+          <div class="govuk-radios govuk-radios--inline" data-module="govuk-radios">
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="add-another" name="add-another" type="radio" value="yes">
+              <label class="govuk-label govuk-radios__label" for="add-another">Yes</label>
+            </div>
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="add-another-2" name="add-another" type="radio" value="no">
+              <label class="govuk-label govuk-radios__label" for="add-another-2">No</label>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+
+      {{ govukButton({
+        text: "Continue"
+      }) }}
+
+    </form>
+
+  </div>
+</div>
+
+{% endblock %}

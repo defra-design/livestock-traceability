@@ -1,0 +1,140 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Submission details" %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+
+    <h1 class="govuk-heading-l">Submission details</h1>
+
+  </div>
+</div>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Submission date</dt>
+        <dd class="govuk-summary-list__value">14 May 2026</dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Type</dt>
+        <dd class="govuk-summary-list__value">Birth</dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Total animals</dt>
+        <dd class="govuk-summary-list__value">12</dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Status</dt>
+        <dd class="govuk-summary-list__value"><strong class="govuk-tag govuk-tag--green">Sent</strong></dd>
+      </div>
+    </dl>
+
+  </div>
+</div>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+
+    <h2 class="govuk-heading-m">Animals registered</h2>
+
+    <table class="govuk-table">
+      <thead class="govuk-table__head">
+        <tr class="govuk-table__row">
+          <th scope="col" class="govuk-table__header">Animal ear tag number</th>
+          <th scope="col" class="govuk-table__header">Date of birth</th>
+          <th scope="col" class="govuk-table__header">Sex</th>
+          <th scope="col" class="govuk-table__header">Breed</th>
+        </tr>
+      </thead>
+      <tbody class="govuk-table__body">
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell">UK 12 34 56 30 15 50</td>
+          <td class="govuk-table__cell">2 May 2026</td>
+          <td class="govuk-table__cell">Male</td>
+          <td class="govuk-table__cell">Hereford</td>
+        </tr>
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell">UK 12 34 56 30 15 51</td>
+          <td class="govuk-table__cell">2 May 2026</td>
+          <td class="govuk-table__cell">Female</td>
+          <td class="govuk-table__cell">Hereford</td>
+        </tr>
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell">UK 12 34 56 30 15 52</td>
+          <td class="govuk-table__cell">3 May 2026</td>
+          <td class="govuk-table__cell">Male</td>
+          <td class="govuk-table__cell">Hereford</td>
+        </tr>
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell">UK 12 34 56 30 15 53</td>
+          <td class="govuk-table__cell">3 May 2026</td>
+          <td class="govuk-table__cell">Female</td>
+          <td class="govuk-table__cell">Hereford</td>
+        </tr>
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell">UK 12 34 56 30 15 54</td>
+          <td class="govuk-table__cell">4 May 2026</td>
+          <td class="govuk-table__cell">Male</td>
+          <td class="govuk-table__cell">Hereford</td>
+        </tr>
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell">UK 12 34 56 30 15 55</td>
+          <td class="govuk-table__cell">4 May 2026</td>
+          <td class="govuk-table__cell">Female</td>
+          <td class="govuk-table__cell">Welsh Black</td>
+        </tr>
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell">UK 12 34 56 30 15 56</td>
+          <td class="govuk-table__cell">5 May 2026</td>
+          <td class="govuk-table__cell">Male</td>
+          <td class="govuk-table__cell">Welsh Black</td>
+        </tr>
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell">UK 12 34 56 30 15 57</td>
+          <td class="govuk-table__cell">5 May 2026</td>
+          <td class="govuk-table__cell">Female</td>
+          <td class="govuk-table__cell">Welsh Black</td>
+        </tr>
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell">UK 12 34 56 30 15 58</td>
+          <td class="govuk-table__cell">6 May 2026</td>
+          <td class="govuk-table__cell">Male</td>
+          <td class="govuk-table__cell">Welsh Black</td>
+        </tr>
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell">UK 12 34 56 30 15 59</td>
+          <td class="govuk-table__cell">6 May 2026</td>
+          <td class="govuk-table__cell">Female</td>
+          <td class="govuk-table__cell">Welsh Black</td>
+        </tr>
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell">UK 12 34 56 30 15 60</td>
+          <td class="govuk-table__cell">7 May 2026</td>
+          <td class="govuk-table__cell">Male</td>
+          <td class="govuk-table__cell">Hereford</td>
+        </tr>
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell">UK 12 34 56 30 15 61</td>
+          <td class="govuk-table__cell">7 May 2026</td>
+          <td class="govuk-table__cell">Female</td>
+          <td class="govuk-table__cell">Hereford</td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+</div>
+
+{% endblock %}

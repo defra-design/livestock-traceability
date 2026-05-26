@@ -1,0 +1,70 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Select animal type" %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <form class="form" action="/livestock-usability/v3/animal-select" method="post">
+
+      <div class="govuk-form-group">
+        <fieldset class="govuk-fieldset">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+            <h1 class="govuk-fieldset__heading">
+              Which species would you like to register?
+            </h1>
+          </legend>
+          <div class="govuk-radios" data-module="govuk-radios">
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="animal-type" name="animal-type" type="radio" value="cattle">
+              <label class="govuk-label govuk-radios__label" for="animal-type">
+                Cattle
+              </label>
+            </div>
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="animal-type-2" name="animal-type" type="radio" value="sheep">
+              <label class="govuk-label govuk-radios__label" for="animal-type-2">
+                Sheep
+              </label>
+            </div>
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="animal-type-3" name="animal-type" type="radio" value="goat">
+              <label class="govuk-label govuk-radios__label" for="animal-type-3">
+                Goat
+              </label>
+            </div>
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="animal-type-4" name="animal-type" type="radio" value="deer">
+              <label class="govuk-label govuk-radios__label" for="animal-type-4">
+                Deer
+              </label>
+            </div>
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="animal-type-5" name="animal-type" type="radio" value="camelids">
+              <label class="govuk-label govuk-radios__label" for="animal-type-5">
+                Camelids ( camel, llama, alpaca)
+              </label>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+
+      {{ govukButton({
+        text: "Continue"
+      }) }}
+
+    </form>
+
+  </div>
+</div>
+
+{% endblock %}
