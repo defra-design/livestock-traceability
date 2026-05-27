@@ -4,7 +4,7 @@ const router = govukPrototypeKit.requests.setupRouter()
 router.post('/livestock-usability/v3/cattle-activity', (req, res) => {
   const activity = req.session.data['cattle-activity']
   if (activity === 'option-1') {
-    res.redirect('/livestock-usability/v3/registration-method')
+    res.redirect('/livestock-usability/v3/tag-entry')
   } else {
     res.redirect('/livestock-usability/v3/cattle-activity')
   }

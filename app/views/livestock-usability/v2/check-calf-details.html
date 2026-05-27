@@ -42,18 +42,26 @@
 
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">Multiple birth</dt>
-        <dd class="govuk-summary-list__value">{{ data['multiple-birth'] | capitalize }}</dd>
+        <dd class="govuk-summary-list__value">{{ "Yes" if data['calf-details-radio'] == 'option-1' else "No" }}</dd>
         <dd class="govuk-summary-list__actions">
-          <a class="govuk-link" href="/livestock-usability/v2/calf-details">Change<span class="govuk-visually-hidden"> multiple birth</span></a>
+          <a class="govuk-link" href="/livestock-usability/v2/calf-details-radio">Change<span class="govuk-visually-hidden"> multiple birth</span></a>
         </dd>
       </div>
 
-      {% if data['multiple-birth'] == 'yes' %}
+      {% if data['calf-details-radio'] == 'option-1' %}
       <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">Related animal ear tag number</dt>
-        <dd class="govuk-summary-list__value">{{ data['multiple-birth-tag'] }}</dd>
+        <dt class="govuk-summary-list__key">Related ear tag numbers</dt>
+        <dd class="govuk-summary-list__value">
+          {% if data['related-tag-numbers'] is string %}
+            {{ data['related-tag-numbers'] }}
+          {% else %}
+            {% for tag in data['related-tag-numbers'] %}
+              {{ tag }}<br>
+            {% endfor %}
+          {% endif %}
+        </dd>
         <dd class="govuk-summary-list__actions">
-          <a class="govuk-link" href="/livestock-usability/v2/calf-details">Change<span class="govuk-visually-hidden"> related animal ear tag number</span></a>
+          <a class="govuk-link" href="/livestock-usability/v2/multiple-birth">Change<span class="govuk-visually-hidden"> related ear tag numbers</span></a>
         </dd>
       </div>
       {% endif %}

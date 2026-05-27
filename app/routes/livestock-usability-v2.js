@@ -40,6 +40,19 @@ router.get('/livestock-usability/v2/calf-details', (req, res) => {
 })
 
 router.post('/livestock-usability/v2/calf-details', (req, res) => {
+  res.redirect('/livestock-usability/v2/calf-details-radio')
+})
+
+router.post('/livestock-usability/v2/calf-details-radio', (req, res) => {
+  const answer = req.session.data['calf-details-radio']
+  if (answer === 'option-1') {
+    res.redirect('/livestock-usability/v2/multiple-birth')
+  } else {
+    res.redirect('/livestock-usability/v2/breed')
+  }
+})
+
+router.post('/livestock-usability/v2/multiple-birth', (req, res) => {
   res.redirect('/livestock-usability/v2/breed')
 })
 
@@ -114,7 +127,7 @@ router.post('/livestock-usability/v2/check-your-answers', (req, res) => {
 })
 
 router.post('/livestock-usability/v2/confirmation', (req, res) => {
-  res.redirect('/livestock-usability/v2/start')
+  res.redirect('/livestock-usability/v2/register-an-animal')
 })
 
 router.post('/livestock-usability/v2/register-an-animal-birth', (req, res) => {

@@ -14,14 +14,10 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
 
+    <span class="govuk-caption-l">UK123456301550</span>
     <h1 class="govuk-heading-l">Calf details</h1>
 
     <form action="/livestock-usability/v2/calf-details" method="post" novalidate>
-
-      <div class="govuk-form-group">
-        <p class="govuk-label govuk-label--m">Animal ear tag number</p>
-        <p class="govuk-body">UK 12 34 56 30 15 50</p>
-      </div>
 
       <div class="govuk-form-group">
         <fieldset class="govuk-fieldset" role="group" aria-describedby="dob-hint">
@@ -67,39 +63,6 @@
             <div class="govuk-radios__item">
               <input class="govuk-radios__input" id="sex-2" name="sex" type="radio" value="female" {% if data['sex'] == 'female' %}checked{% endif %}>
               <label class="govuk-label govuk-radios__label" for="sex-2">Female</label>
-            </div>
-          </div>
-        </fieldset>
-      </div>
-
-      <div class="govuk-form-group">
-        <fieldset class="govuk-fieldset">
-          <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
-            Is the calf part of a multiple birth?
-          </legend>
-          <div id="signIn-hint" class="govuk-hint">
-            Select the related ear tag numbers from the list if the calves you are registering are siblings from a multiple birth.
-          </div>
-          <div class="govuk-radios" data-module="govuk-radios">
-            <div class="govuk-radios__item">
-              <input class="govuk-radios__input" id="multiple-birth" name="multiple-birth" type="radio" value="yes" data-aria-controls="conditional-multiple-birth" {% if data['multiple-birth'] == 'yes' %}checked{% endif %}>
-              <label class="govuk-label govuk-radios__label" for="multiple-birth">
-                Yes
-              </label>
-            </div>
-            <div class="govuk-radios__conditional {% if data['multiple-birth'] != 'yes' %}govuk-radios__conditional--hidden{% endif %}" id="conditional-multiple-birth">
-              <div class="govuk-form-group">
-                <label class="govuk-label" for="multiple-birth-tag">
-                  Related animal ear tag number
-                </label>
-                <input class="govuk-input govuk-!-width-two-thirds" id="multiple-birth-tag" name="multiple-birth-tag" type="text" spellcheck="false" value="{{ data['multiple-birth-tag'] if data['multiple-birth-tag'] else 'UK 12 34 56 30 15 53' }}">
-              </div>
-            </div>
-            <div class="govuk-radios__item">
-              <input class="govuk-radios__input" id="multiple-birth-2" name="multiple-birth" type="radio" value="no" {% if data['multiple-birth'] == 'no' %}checked{% endif %}>
-              <label class="govuk-label govuk-radios__label" for="multiple-birth-2">
-                No
-              </label>
             </div>
           </div>
         </fieldset>
