@@ -1,0 +1,165 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Calf details" %}
+
+{% block head %}
+  {{ super() }}
+  <link href="https://unpkg.com/accessible-autocomplete/dist/accessible-autocomplete.min.css" rel="stylesheet" media="all" />
+  <style>
+    .autocomplete__wrapper {
+      flex: 1;
+      min-width: 0;
+    }
+    .autocomplete__hint,
+    .autocomplete__input,
+    .autocomplete__option {
+      font-family: arial, sans-serif;
+      font-size: 1.1875rem;
+    }
+    .govuk-form-group--error .autocomplete__input {
+      border-color: #d4351c;
+    }
+  </style>
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <h1 class="govuk-heading-l">Calf details</h1>
+
+    {% if errors %}
+    <div class="govuk-error-summary" data-module="govuk-error-summary">
+      <div role="alert">
+        <h2 class="govuk-error-summary__title">There is a problem</h2>
+        <div class="govuk-error-summary__body">
+          <ul class="govuk-list govuk-error-summary__list">
+            {% if errors['ear-tag-number'] %}
+            <li><a href="#ear-tag-number">{{ errors['ear-tag-number'] }}</a></li>
+            {% endif %}
+            {% if errors['dob'] %}
+            <li><a href="#dob-day">{{ errors['dob'] }}</a></li>
+            {% endif %}
+            {% if errors['sex'] %}
+            <li><a href="#sex">{{ errors['sex'] }}</a></li>
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
+    <form action="/livestock-usability/v4/calf-details" method="post" novalidate>
+
+      <div class="govuk-form-group {% if errors['ear-tag-number'] %}govuk-form-group--error{% endif %}">
+        <label class="govuk-label govuk-label--m" for="ear-tag-number">
+          Animal ear tag number
+        </label>
+        <div id="ear-tag-hint" class="govuk-hint">
+          Start typing the last digits of the ear tag number and select from the list.
+        </div>
+        {% if errors['ear-tag-number'] %}
+        <p id="ear-tag-number-error" class="govuk-error-message">
+          <span class="govuk-visually-hidden">Error:</span> {{ errors['ear-tag-number'] }}
+        </p>
+        {% endif %}
+        <div class="govuk-input__wrapper">
+          <div class="govuk-input__prefix" aria-hidden="true">UK 12 34 56</div>
+          <select id="ear-tag-number" name="ear-tag-number" aria-describedby="ear-tag-hint{% if errors['ear-tag-number'] %} ear-tag-number-error{% endif %}">
+            <option value=""></option>
+            <option value="301550" {% if data['ear-tag-number'] == '301550' %}selected{% endif %}>301550</option>
+            <option value="301551" {% if data['ear-tag-number'] == '301551' %}selected{% endif %}>301551</option>
+            <option value="301552" {% if data['ear-tag-number'] == '301552' %}selected{% endif %}>301552</option>
+            <option value="301553" {% if data['ear-tag-number'] == '301553' %}selected{% endif %}>301553</option>
+            <option value="301554" {% if data['ear-tag-number'] == '301554' %}selected{% endif %}>301554</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="govuk-form-group {% if errors['dob'] %}govuk-form-group--error{% endif %}">
+        <fieldset class="govuk-fieldset" role="group" aria-describedby="dob-hint{% if errors['dob'] %} dob-error{% endif %}">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+            Date of birth
+          </legend>
+          <div id="dob-hint" class="govuk-hint">
+            For example, 31 3 2026
+          </div>
+          {% if errors['dob'] %}
+          <p id="dob-error" class="govuk-error-message">
+            <span class="govuk-visually-hidden">Error:</span> {{ errors['dob'] }}
+          </p>
+          {% endif %}
+          <div class="govuk-date-input" id="dob">
+            <div class="govuk-date-input__item">
+              <div class="govuk-form-group">
+                <label class="govuk-label govuk-date-input__label" for="dob-day">Day</label>
+                <input class="govuk-input govuk-date-input__input govuk-input--width-2 {% if errors['dob'] and not data['dob-day'] %}govuk-input--error{% endif %}" id="dob-day" name="dob-day" type="text" inputmode="numeric" value="{{ data['dob-day'] }}">
+              </div>
+            </div>
+            <div class="govuk-date-input__item">
+              <div class="govuk-form-group">
+                <label class="govuk-label govuk-date-input__label" for="dob-month">Month</label>
+                <input class="govuk-input govuk-date-input__input govuk-input--width-2 {% if errors['dob'] and not data['dob-month'] %}govuk-input--error{% endif %}" id="dob-month" name="dob-month" type="text" inputmode="numeric" value="{{ data['dob-month'] }}">
+              </div>
+            </div>
+            <div class="govuk-date-input__item">
+              <div class="govuk-form-group">
+                <label class="govuk-label govuk-date-input__label" for="dob-year">Year</label>
+                <input class="govuk-input govuk-date-input__input govuk-input--width-4 {% if errors['dob'] and not data['dob-year'] %}govuk-input--error{% endif %}" id="dob-year" name="dob-year" type="text" inputmode="numeric" value="{{ data['dob-year'] }}">
+              </div>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+
+      <div class="govuk-form-group {% if errors['sex'] %}govuk-form-group--error{% endif %}">
+        <fieldset class="govuk-fieldset" aria-describedby="{% if errors['sex'] %}sex-error{% endif %}">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+            Sex of the calf
+          </legend>
+          {% if errors['sex'] %}
+          <p id="sex-error" class="govuk-error-message">
+            <span class="govuk-visually-hidden">Error:</span> {{ errors['sex'] }}
+          </p>
+          {% endif %}
+          <div class="govuk-radios govuk-radios--inline" data-module="govuk-radios">
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="sex" name="sex" type="radio" value="male" {% if data['sex'] == 'male' %}checked{% endif %}>
+              <label class="govuk-label govuk-radios__label" for="sex">Male</label>
+            </div>
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="sex-2" name="sex" type="radio" value="female" {% if data['sex'] == 'female' %}checked{% endif %}>
+              <label class="govuk-label govuk-radios__label" for="sex-2">Female</label>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+
+      <button type="submit" class="govuk-button" data-module="govuk-button">
+        Continue
+      </button>
+
+    </form>
+
+  </div>
+</div>
+
+{% endblock %}
+
+{% block pageScripts %}
+  <script src="https://unpkg.com/accessible-autocomplete/dist/accessible-autocomplete.min.js"></script>
+  <script>
+    const $picker = document.querySelector('#ear-tag-number')
+    accessibleAutocomplete.enhanceSelectElement({
+      selectElement: $picker
+    })
+  </script>
+{% endblock %}

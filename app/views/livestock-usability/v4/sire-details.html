@@ -1,0 +1,45 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Sire details" %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <span class="govuk-caption-l">UK123456301550</span>
+    <h1 class="govuk-heading-l">Sire details</h1>
+
+    <form action="/livestock-usability/v4/sire-details" method="post" novalidate>
+
+      <div class="govuk-form-group">
+        <label class="govuk-label govuk-label--m" for="sire-number">
+          Sire ear tag number (optional)
+        </label>
+        <input class="govuk-input govuk-!-width-two-thirds" id="sire-number" name="sire-number" type="text" value="{{ data['sire-number'] }}">
+      </div>
+
+      <div class="govuk-form-group">
+        <label class="govuk-label govuk-label--m" for="sire-name">
+          Sire name (optional)
+        </label>
+        <input class="govuk-input govuk-!-width-two-thirds" id="sire-name" name="sire-name" type="text" value="{{ data['sire-name'] }}">
+      </div>
+
+      <button type="submit" class="govuk-button" data-module="govuk-button">
+        Continue
+      </button>
+
+    </form>
+
+  </div>
+</div>
+
+{% endblock %}
