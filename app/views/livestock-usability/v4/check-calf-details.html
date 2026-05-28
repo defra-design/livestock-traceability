@@ -62,15 +62,7 @@
 
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">Breed</dt>
-        <dd class="govuk-summary-list__value">
-          {% if data['breed'] %}
-            {% if data['breed'] is string %}
-              {{ data['breed'] }}
-            {% else %}
-              {{ data['breed'] | join(', ') }}
-            {% endif %}
-          {% endif %}
-        </dd>
+        <dd class="govuk-summary-list__value">{{ data['breed'] }}</dd>
         <dd class="govuk-summary-list__actions">
           <a class="govuk-link" href="/livestock-usability/v4/breed">Change<span class="govuk-visually-hidden"> breed</span></a>
         </dd>

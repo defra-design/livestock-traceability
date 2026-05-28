@@ -181,7 +181,7 @@ router.post('/livestock-usability/v4/sire-number', (req, res) => {
 router.post('/livestock-usability/v4/breed', (req, res) => {
   if (!req.session.data['breed']) {
     return res.render('livestock-usability/v4/breed', {
-      errors: { breed: 'Select at least one breed' }
+      errors: { breed: 'Select a breed' }
     })
   }
   res.redirect('/livestock-usability/v4/dam-details')

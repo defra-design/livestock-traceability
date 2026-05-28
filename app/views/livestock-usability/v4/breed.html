@@ -260,11 +260,11 @@
 
           <p class="govuk-body govuk-!-display-none" id="breed-no-results">No breeds found.</p>
 
-          <div class="govuk-checkboxes" data-module="govuk-checkboxes" aria-describedby="breed-hint" id="breed-list">
+          <div class="govuk-radios" data-module="govuk-radios" id="breed-list">
             {% for breed in breeds %}
-            <div class="govuk-checkboxes__item">
-              <input class="govuk-checkboxes__input" id="breed-{{ loop.index }}" name="breed" type="checkbox" value="{{ breed }}" {% if data['breed'] and (data['breed'] == breed or (data['breed'] is not string and breed in data['breed'])) %}checked{% endif %}>
-              <label class="govuk-label govuk-checkboxes__label" for="breed-{{ loop.index }}">{{ breed }}</label>
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="breed-{{ loop.index }}" name="breed" type="radio" value="{{ breed }}" {% if data['breed'] == breed %}checked{% endif %}>
+              <label class="govuk-label govuk-radios__label" for="breed-{{ loop.index }}">{{ breed }}</label>
             </div>
             {% endfor %}
           </div>
@@ -293,11 +293,11 @@
 
     searchInput.addEventListener('input', function () {
       const query = this.value.toLowerCase().trim()
-      const items = breedList.querySelectorAll('.govuk-checkboxes__item')
+      const items = breedList.querySelectorAll('.govuk-radios__item')
       let visibleCount = 0
 
       items.forEach(function (item) {
-        const label = item.querySelector('.govuk-checkboxes__label').textContent.toLowerCase()
+        const label = item.querySelector('.govuk-radios__label').textContent.toLowerCase()
         const match = !query || label.includes(query)
         item.style.display = match ? '' : 'none'
         if (match) visibleCount++
