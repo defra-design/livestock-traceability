@@ -1,0 +1,28 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Death reported" %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <div class="govuk-panel govuk-panel--confirmation">
+      <h1 class="govuk-panel__title">
+        2 cattle deaths reported
+      </h1>
+    </div>
+
+    <p class="govuk-body">We have received your report of death for this animal.</p>
+
+    <h2 class="govuk-heading-m">What happens next</h2>
+    <p class="govuk-body">The animal's records will be updated to show it has died.</p>
+
+    <p class="govuk-body">
+      <a href="/livestock-usability/v4/start" class="govuk-link">Return to the Livestock Information Service</a>
+    </p>
+
+  </div>
+</div>
+
+{% endblock %}

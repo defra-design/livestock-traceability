@@ -1,0 +1,81 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Date of birth" %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <span class="govuk-caption-l">Animal ear tag number: UK 123456 {{ data['death-ear-tag-number'] }}</span>
+
+    {% if errors %}
+    <div class="govuk-error-summary" data-module="govuk-error-summary">
+      <div role="alert">
+        <h2 class="govuk-error-summary__title">There is a problem</h2>
+        <div class="govuk-error-summary__body">
+          <ul class="govuk-list govuk-error-summary__list">
+            {% if errors['death-dob'] %}
+            <li><a href="#death-dob-day">{{ errors['death-dob'] }}</a></li>
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
+    <form action="/livestock-usability/v4/report-death/date-of-birth" method="post" novalidate>
+
+      <div class="govuk-form-group {% if errors['death-dob'] %}govuk-form-group--error{% endif %}">
+        <fieldset class="govuk-fieldset" role="group" aria-describedby="death-dob-hint{% if errors['death-dob'] %} death-dob-error{% endif %}">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+            <h1 class="govuk-fieldset__heading">
+              Date of birth
+            </h1>
+          </legend>
+          <div id="death-dob-hint" class="govuk-hint">
+            For example, 31 3 2026. Date of birth must be in the past.
+          </div>
+          {% if errors['death-dob'] %}
+          <p id="death-dob-error" class="govuk-error-message">
+            <span class="govuk-visually-hidden">Error:</span> {{ errors['death-dob'] }}
+          </p>
+          {% endif %}
+          <div class="govuk-date-input" id="death-dob">
+            <div class="govuk-date-input__item">
+              <div class="govuk-form-group">
+                <label class="govuk-label govuk-date-input__label" for="death-dob-day">Day</label>
+                <input class="govuk-input govuk-date-input__input govuk-input--width-2 {% if errors['death-dob'] and not data['death-dob-day'] %}govuk-input--error{% endif %}" id="death-dob-day" name="death-dob-day" type="text" inputmode="numeric" value="{{ data['death-dob-day'] }}">
+              </div>
+            </div>
+            <div class="govuk-date-input__item">
+              <div class="govuk-form-group">
+                <label class="govuk-label govuk-date-input__label" for="death-dob-month">Month</label>
+                <input class="govuk-input govuk-date-input__input govuk-input--width-2 {% if errors['death-dob'] and not data['death-dob-month'] %}govuk-input--error{% endif %}" id="death-dob-month" name="death-dob-month" type="text" inputmode="numeric" value="{{ data['death-dob-month'] }}">
+              </div>
+            </div>
+            <div class="govuk-date-input__item">
+              <div class="govuk-form-group">
+                <label class="govuk-label govuk-date-input__label" for="death-dob-year">Year</label>
+                <input class="govuk-input govuk-date-input__input govuk-input--width-4 {% if errors['death-dob'] and not data['death-dob-year'] %}govuk-input--error{% endif %}" id="death-dob-year" name="death-dob-year" type="text" inputmode="numeric" value="{{ data['death-dob-year'] }}">
+              </div>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+
+      {{ govukButton({ text: "Continue" }) }}
+
+    </form>
+
+  </div>
+</div>
+
+{% endblock %}

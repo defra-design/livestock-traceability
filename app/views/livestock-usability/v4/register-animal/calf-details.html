@@ -63,16 +63,13 @@
         <label class="govuk-label govuk-label--m" for="ear-tag-number">
           Animal ear tag number
         </label>
-        <div id="ear-tag-hint" class="govuk-hint">
-          Start typing the last digits of the ear tag number and select from the list.
-        </div>
         {% if errors['ear-tag-number'] %}
         <p id="ear-tag-number-error" class="govuk-error-message">
           <span class="govuk-visually-hidden">Error:</span> {{ errors['ear-tag-number'] }}
         </p>
         {% endif %}
         <div class="govuk-input__wrapper">
-          <div class="govuk-input__prefix" aria-hidden="true">UK 12 34 56</div>
+          <div class="govuk-input__prefix" aria-hidden="true">UK 123456</div>
           <select id="ear-tag-number" name="ear-tag-number" aria-describedby="ear-tag-hint{% if errors['ear-tag-number'] %} ear-tag-number-error{% endif %}">
             <option value=""></option>
             <option value="301550" {% if data['ear-tag-number'] == '301550' %}selected{% endif %}>301550</option>

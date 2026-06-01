@@ -1,0 +1,100 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Breed" %}
+
+{% set breeds = [
+  "Aberdeen Angus","Aberdeen Angus Cross","Abondance","Abondance Cross","Australian Lowline","Australian Lowline Cross","Angler Rotvieh","Angler Rotvieh Cross","Ankole","Ankole Cross","Armoricaine","Armoricaine Cross","Aubrac","Aubrac Cross","Ayrshire","Ayrshire Cross","Baltata Romaneasca","Bazadaise","Bazadaise Cross","Beefalo","Beef Shorthorn","Beef Shorthorn Cross","Belted Galloway","Belted Galloway Cross","Belted Welsh Black","Belted Welsh Black Cross","Bison","Blonde D'Aquitaine","Blonde D'Aquitaine Cross","Blue Albion","Blue Albion Cross","Blue Grey","Blue Grey Cross","Brahman","Brahman Cross","Bretonne Pie-Noire","Bretonne Pie-Noire Cross","British Blue","British Blue Cross","British Friesian","British Friesian Cross","British White","British White Cross","Brown Swiss","Brown Swiss Cross","Charolais","Charolais Cross","Chianina","Chianina Cross","Chillingham","Chillingham Cross","Cross Breed Beef","Cross Breed Dairy","Coloured Welsh","Coloured Welsh Cross","Danish Red","Danish Red Cross","Dairy Shorthorn","Dairy Shorthorn Cross","Devon","Devon Cross","Dexter","Dexter Cross","Dwarf Zebu","East Finnish Brown","East Finnish Brown Cross","Estonian Red","Estonian Red Cross","Flekvieh","Flekvieh Cross","Frisona Espagnola","Frisona Espagnola Cross","Gasconne","Gasconne Cross","Galloway","Galloway Cross","Gelbvieh","Gelbvieh Cross","Gloucester","Gloucester Cross","Groninger Blaarkop","Groninger Blaarkop Cross","Guernsey","Guernsey Cross","Heck","Heck Cross","Hereford","Hereford Cross","Highland","Highland Cross","Holstein","Holstein Cross","Holstein Friesian","Holstein Friesian Cross","Hungarian Steppe","Hungarian Steppe Cross","INRA95","INRA95 Cross","Irish Moiled","Irish Moiled Cross","Jersey","Jersey Cross","Kerry","Kerry Cross","Lakenvelder","Lakenvelder Cross","Limousin","Limousin Cross","Lincoln Red","Lincoln Red Cross","Longhorn","Longhorn Cross","Luing","Luing Cross","Maine Anjou","Maine Anjou Cross","Maraichine","Maraichine Cross","Marchigiana","Marchigiana Cross","Maremmana","Maremmana Cross","Meuse Rhine Issel","Meuse Rhine Issel Cross","Montbeliarde","Montbeliarde Cross","Murray Grey","Murray Grey Cross","Normande","Normande Cross","Northern Dairy Shorthorn","Northern Dairy Shorthorn Cross","Norwegian Red","Norwegian Red Cross","Other Dairy","Pajuna","Pajuna Cross","Parthenais","Parthenais Cross","Piemontese","Piemontese Cross","Pie Rouge","Pie Rouge Cross","Pinzgauer","Pinzgauer Cross","Red Poll","Red Poll Cross","Reggiana","Reggiana Cross","Riggit Galloway","Riggit Galloway Cross","Romagnola","Romagnola Cross","Rotebunde","Rotebunde Cross","Rouge Flamande","Rouge Flamande Cross","Rubia Gallega/Galician Blond","Rubia Gallega/Galician Blond Cross","Salers","Salers Cross","Shetland","Shetland Cross","Simmental","Simmental Cross","South Devon","South Devon Cross","Speckle Park","Speckle Park Cross","Stabiliser","Stabiliser Cross","Swedish Black and White","Swedish Black and White Cross","Swedish Red","Swedish Red Cross","Swedish Red Polled","Swedish Red and White","Swedish Red and White Cross","Swiss Braunvieh","Swiss Braunvieh Cross","Swiss Orig Braunvieh","Swiss Orig Braunvieh Cross","Swiss Grey","Swiss Grey Cross","Sussex","Sussex Cross","Tyrone Black","Tyrone Black Cross","Vaynol","Vaynol Cross","Wagyu","Wagyu Cross","Water Buffalo","Welsh Black","Welsh Black Cross","Welsh White","Welsh White Cross","White Galloway","White Galloway Cross","Whitebred Shorthorn","Whitebred Shorthorn Cross","White Park","White Park Cross","Yak","Yak Cross"
+] %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    {% if errors %}
+    <div class="govuk-error-summary" data-module="govuk-error-summary">
+      <div role="alert">
+        <h2 class="govuk-error-summary__title">There is a problem</h2>
+        <div class="govuk-error-summary__body">
+          <ul class="govuk-list govuk-error-summary__list">
+            <li><a href="#death-breed-list">{{ errors['death-breed'] }}</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
+    <form class="form" action="/livestock-usability/v4/report-death/breed" method="post">
+
+      <div class="govuk-form-group {% if errors['death-breed'] %}govuk-form-group--error{% endif %}">
+        <fieldset class="govuk-fieldset" aria-describedby="{% if errors['death-breed'] %}death-breed-error{% endif %}">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+            <span class="govuk-caption-l">Animal ear tag number: UK 123456 {{ data['death-ear-tag-number'] }}</span>
+            <h1 class="govuk-fieldset__heading">
+              Breed of the animal
+            </h1>
+          </legend>
+          {% if errors['death-breed'] %}
+          <p id="death-breed-error" class="govuk-error-message">
+            <span class="govuk-visually-hidden">Error:</span> {{ errors['death-breed'] }}
+          </p>
+          {% endif %}
+
+          <div class="govuk-form-group">
+            <label class="govuk-label" for="death-breed-search">
+              Search in the text box to filter the list
+            </label>
+            <input class="govuk-input" type="search" id="death-breed-search" name="death-breed-search" autocomplete="off" spellcheck="false">
+          </div>
+
+          <p class="govuk-body govuk-!-display-none" id="death-breed-no-results">No breeds found.</p>
+
+          <div class="govuk-radios" data-module="govuk-radios" id="death-breed-list">
+            {% for breed in breeds %}
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="death-breed-{{ loop.index }}" name="death-breed" type="radio" value="{{ breed }}" {% if data['death-breed'] == breed %}checked{% endif %}>
+              <label class="govuk-label govuk-radios__label" for="death-breed-{{ loop.index }}">{{ breed }}</label>
+            </div>
+            {% endfor %}
+          </div>
+        </fieldset>
+      </div>
+
+      {{ govukButton({ text: "Continue" }) }}
+
+    </form>
+
+  </div>
+</div>
+
+{% endblock %}
+
+{% block pageScripts %}
+<script>
+  window.GOVUKPrototypeKit.documentReady(() => {
+    const searchInput = document.getElementById('death-breed-search')
+    const breedList = document.getElementById('death-breed-list')
+    const noResults = document.getElementById('death-breed-no-results')
+    if (!searchInput || !breedList) return
+    searchInput.addEventListener('input', function () {
+      const query = this.value.toLowerCase().trim()
+      const items = breedList.querySelectorAll('.govuk-radios__item')
+      let visibleCount = 0
+      items.forEach(function (item) {
+        const label = item.querySelector('.govuk-radios__label').textContent.toLowerCase()
+        const match = !query || label.includes(query)
+        item.style.display = match ? '' : 'none'
+        if (match) visibleCount++
+      })
+      noResults.classList.toggle('govuk-!-display-none', visibleCount > 0)
+    })
+  })
+</script>
+{% endblock %}

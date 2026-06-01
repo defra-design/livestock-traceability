@@ -1,0 +1,114 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Dam details" %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <span class="govuk-caption-l">Animal ear tag number: UK 123456 {{ data['death-ear-tag-number'] }}</span>
+    <h1 class="govuk-heading-l">Dam details</h1>
+
+    {% if errors %}
+    <div class="govuk-error-summary" data-module="govuk-error-summary">
+      <div role="alert">
+        <h2 class="govuk-error-summary__title">There is a problem</h2>
+        <div class="govuk-error-summary__body">
+          <ul class="govuk-list govuk-error-summary__list">
+            {% if errors['death-dam-type'] %}
+            <li><a href="#death-dam-type">{{ errors['death-dam-type'] }}</a></li>
+            {% endif %}
+            {% if errors['death-dam-number'] %}
+            <li><a href="#death-dam-number">{{ errors['death-dam-number'] }}</a></li>
+            {% endif %}
+            {% if errors['death-surrogate-dam-number'] %}
+            <li><a href="#death-surrogate-dam-number">{{ errors['death-surrogate-dam-number'] }}</a></li>
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
+    <form action="/livestock-usability/v4/report-death/dam-details" method="post" novalidate>
+
+      <div class="govuk-form-group {% if errors['death-dam-type'] %}govuk-form-group--error{% endif %}">
+        <fieldset class="govuk-fieldset" aria-describedby="death-dam-type-hint{% if errors['death-dam-type'] %} death-dam-type-error{% endif %}">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+            Genetic or surrogate dam?
+          </legend>
+          <div id="death-dam-type-hint" class="govuk-hint">
+            Select one option
+          </div>
+          {% if errors['death-dam-type'] %}
+          <p id="death-dam-type-error" class="govuk-error-message">
+            <span class="govuk-visually-hidden">Error:</span> {{ errors['death-dam-type'] }}
+          </p>
+          {% endif %}
+          <div class="govuk-radios" data-module="govuk-radios">
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="death-dam-type" name="death-dam-type" type="radio" value="genetic" data-aria-controls="conditional-death-genetic" {% if data['death-dam-type'] == 'genetic' %}checked{% endif %}>
+              <label class="govuk-label govuk-radios__label" for="death-dam-type">Genetic</label>
+            </div>
+            <div class="govuk-radios__conditional {% if data['death-dam-type'] != 'genetic' %}govuk-radios__conditional--hidden{% endif %}" id="conditional-death-genetic">
+              <div class="govuk-form-group {% if errors['death-dam-number'] %}govuk-form-group--error{% endif %}">
+                <label class="govuk-label" for="death-dam-number">
+                  Genetic dam ear tag number
+                </label>
+                <div id="death-dam-number-hint" class="govuk-hint">
+                  Enter the last 6 digits of the animal ear tag number
+                </div>
+                {% if errors['death-dam-number'] %}
+                <p id="death-dam-number-error" class="govuk-error-message">
+                  <span class="govuk-visually-hidden">Error:</span> {{ errors['death-dam-number'] }}
+                </p>
+                {% endif %}
+                <div class="govuk-input__wrapper">
+                  <div class="govuk-input__prefix" aria-hidden="true">UK 123456</div>
+                  <input class="govuk-input govuk-input--width-10 {% if errors['death-dam-number'] %}govuk-input--error{% endif %}" id="death-dam-number" name="death-dam-number" type="text" inputmode="numeric" spellcheck="false" value="{{ data['death-dam-number'] }}" aria-describedby="death-dam-number-hint{% if errors['death-dam-number'] %} death-dam-number-error{% endif %}">
+                </div>
+              </div>
+            </div>
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="death-dam-type-2" name="death-dam-type" type="radio" value="surrogate" data-aria-controls="conditional-death-surrogate" {% if data['death-dam-type'] == 'surrogate' %}checked{% endif %}>
+              <label class="govuk-label govuk-radios__label" for="death-dam-type-2">Surrogate</label>
+            </div>
+            <div class="govuk-radios__conditional {% if data['death-dam-type'] != 'surrogate' %}govuk-radios__conditional--hidden{% endif %}" id="conditional-death-surrogate">
+              <div class="govuk-form-group {% if errors['death-surrogate-dam-number'] %}govuk-form-group--error{% endif %}">
+                <label class="govuk-label" for="death-surrogate-dam-number">
+                  Surrogate dam ear tag number
+                </label>
+                <div id="death-surrogate-dam-number-hint" class="govuk-hint">
+                  Enter the last 6 digits of the animal ear tag number
+                </div>
+                {% if errors['death-surrogate-dam-number'] %}
+                <p id="death-surrogate-dam-number-error" class="govuk-error-message">
+                  <span class="govuk-visually-hidden">Error:</span> {{ errors['death-surrogate-dam-number'] }}
+                </p>
+                {% endif %}
+                <div class="govuk-input__wrapper">
+                  <div class="govuk-input__prefix" aria-hidden="true">UK 123456</div>
+                  <input class="govuk-input govuk-input--width-10 {% if errors['death-surrogate-dam-number'] %}govuk-input--error{% endif %}" id="death-surrogate-dam-number" name="death-surrogate-dam-number" type="text" inputmode="numeric" spellcheck="false" value="{{ data['death-surrogate-dam-number'] }}" aria-describedby="death-surrogate-dam-number-hint{% if errors['death-surrogate-dam-number'] %} death-surrogate-dam-number-error{% endif %}">
+                </div>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+
+      {{ govukButton({ text: "Continue" }) }}
+
+    </form>
+
+  </div>
+</div>
+
+{% endblock %}

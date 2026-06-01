@@ -11,7 +11,7 @@
 
 {% block content %}
 
-{% set currentTag = 'UK123456' + data['ear-tag-number'] if data['ear-tag-number'] else '' %}
+{% set currentTag = 'UK 123456 ' + data['ear-tag-number'] if data['ear-tag-number'] else '' %}
 
 {% set damComplete = (data['dam-type'] == 'genetic' and data['dam-number']) or (data['dam-type'] == 'surrogate' and data['surrogate-dam-number']) %}
 
@@ -42,8 +42,6 @@
     </div>
     {% endif %}
 
-  <!--  <h1 class="govuk-heading-l">You have added {{ selectedTags | length }} {{ "animal" if selectedTags | length == 1 else "animals" }} for registration</h1>
--->
     <p class="govuk-body">
       Select the tag number from the list to update calf, dam and sire details. You can use the status indicator to check which animals are ready to submit.
     </p>
@@ -75,10 +73,13 @@
 
     <form class="form" action="/livestock-usability/v4/tag-list" method="post">
       <div class="govuk-form-group {% if errors['add-another'] %}govuk-form-group--error{% endif %}">
-        <fieldset class="govuk-fieldset" aria-describedby="{% if errors['add-another'] %}add-another-error{% endif %}">
+        <fieldset class="govuk-fieldset" aria-describedby="add-another-hint{% if errors['add-another'] %} add-another-error{% endif %}">
           <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
             Do you need to add additional animals?
           </legend>
+          <div id="add-another-hint" class="govuk-hint">
+            Additional animals can include calves from different dams, or siblings from a multiple birth.
+          </div>
           {% if errors['add-another'] %}
           <p id="add-another-error" class="govuk-error-message">
             <span class="govuk-visually-hidden">Error:</span> {{ errors['add-another'] }}

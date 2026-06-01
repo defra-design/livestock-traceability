@@ -2,6 +2,26 @@
 
 {% set pageName="Dam details" %}
 
+{% block head %}
+  {{ super() }}
+  <link href="https://unpkg.com/accessible-autocomplete/dist/accessible-autocomplete.min.css" rel="stylesheet" media="all" />
+  <style>
+    .autocomplete__wrapper {
+      flex: 1;
+      min-width: 0;
+    }
+    .autocomplete__hint,
+    .autocomplete__input,
+    .autocomplete__option {
+      font-family: arial, sans-serif;
+      font-size: 1.1875rem;
+    }
+    .govuk-form-group--error .autocomplete__input {
+      border-color: #d4351c;
+    }
+  </style>
+{% endblock %}
+
 {% block beforeContent %}
   {{ govukBackLink({
     text: "Back",
@@ -14,7 +34,7 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
 
-    <span class="govuk-caption-l">UK123456301550</span>
+    <span class="govuk-caption-l">Official animal ear tag number: UK 123456 {{ data['ear-tag-number'] }}</span>
     <h1 class="govuk-heading-l">Dam details</h1>
 
     {% if errors %}
@@ -70,7 +90,17 @@
                   <span class="govuk-visually-hidden">Error:</span> {{ errors['dam-number'] }}
                 </p>
                 {% endif %}
-                <input class="govuk-input govuk-!-width-two-thirds {% if errors['dam-number'] %}govuk-input--error{% endif %}" id="dam-number" name="dam-number" type="text" spellcheck="false" value="{{ data['dam-number'] }}" aria-describedby="{% if errors['dam-number'] %}dam-number-error{% endif %}">
+                <div class="govuk-input__wrapper">
+                  <div class="govuk-input__prefix" aria-hidden="true">UK 123456</div>
+                  <select id="dam-number" name="dam-number" aria-describedby="{% if errors['dam-number'] %}dam-number-error{% endif %}">
+                    <option value=""></option>
+                    <option value="501100" {% if data['dam-number'] == '501100' %}selected{% endif %}>501100</option>
+                    <option value="501101" {% if data['dam-number'] == '501101' %}selected{% endif %}>501101</option>
+                    <option value="501102" {% if data['dam-number'] == '501102' %}selected{% endif %}>501102</option>
+                    <option value="501103" {% if data['dam-number'] == '501103' %}selected{% endif %}>501103</option>
+                    <option value="501104" {% if data['dam-number'] == '501104' %}selected{% endif %}>501104</option>
+                  </select>
+                </div>
               </div>
             </div>
             <div class="govuk-radios__item">
@@ -89,7 +119,17 @@
                   <span class="govuk-visually-hidden">Error:</span> {{ errors['surrogate-dam-number'] }}
                 </p>
                 {% endif %}
-                <input class="govuk-input govuk-!-width-two-thirds {% if errors['surrogate-dam-number'] %}govuk-input--error{% endif %}" id="surrogate-dam-number" name="surrogate-dam-number" type="text" spellcheck="false" value="{{ data['surrogate-dam-number'] }}" aria-describedby="{% if errors['surrogate-dam-number'] %}surrogate-dam-number-error{% endif %}">
+                <div class="govuk-input__wrapper">
+                  <div class="govuk-input__prefix" aria-hidden="true">UK 123456</div>
+                  <select id="surrogate-dam-number" name="surrogate-dam-number" aria-describedby="{% if errors['surrogate-dam-number'] %}surrogate-dam-number-error{% endif %}">
+                    <option value=""></option>
+                    <option value="601200" {% if data['surrogate-dam-number'] == '601200' %}selected{% endif %}>601200</option>
+                    <option value="601201" {% if data['surrogate-dam-number'] == '601201' %}selected{% endif %}>601201</option>
+                    <option value="601202" {% if data['surrogate-dam-number'] == '601202' %}selected{% endif %}>601202</option>
+                    <option value="601203" {% if data['surrogate-dam-number'] == '601203' %}selected{% endif %}>601203</option>
+                    <option value="601204" {% if data['surrogate-dam-number'] == '601204' %}selected{% endif %}>601204</option>
+                  </select>
+                </div>
               </div>
             </div>
           </div>
@@ -105,4 +145,12 @@
   </div>
 </div>
 
+{% endblock %}
+
+{% block pageScripts %}
+  <script src="https://unpkg.com/accessible-autocomplete/dist/accessible-autocomplete.min.js"></script>
+  <script>
+    accessibleAutocomplete.enhanceSelectElement({ selectElement: document.querySelector('#dam-number') })
+    accessibleAutocomplete.enhanceSelectElement({ selectElement: document.querySelector('#surrogate-dam-number') })
+  </script>
 {% endblock %}

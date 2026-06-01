@@ -1,0 +1,66 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Animal ear tag number" %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    {% if errors %}
+    <div class="govuk-error-summary" data-module="govuk-error-summary">
+      <div role="alert">
+        <h2 class="govuk-error-summary__title">There is a problem</h2>
+        <div class="govuk-error-summary__body">
+          <ul class="govuk-list govuk-error-summary__list">
+            {% if errors['death-ear-tag-number'] %}
+            <li><a href="#death-ear-tag-number">{{ errors['death-ear-tag-number'] }}</a></li>
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
+    <form action="/livestock-usability/v4/report-death/ear-tag-number" method="post" novalidate>
+
+      <div class="govuk-form-group {% if errors['death-ear-tag-number'] %}govuk-form-group--error{% endif %}">
+        <label class="govuk-label govuk-label--l" for="death-ear-tag-number">
+          Animal ear tag number
+        </label>
+        <div id="death-ear-tag-number-hint" class="govuk-hint">
+          Enter the last 6 digits of the animal ear tag number you are registering
+        </div>
+        {% if errors['death-ear-tag-number'] %}
+        <p id="death-ear-tag-number-error" class="govuk-error-message">
+          <span class="govuk-visually-hidden">Error:</span> {{ errors['death-ear-tag-number'] }}
+        </p>
+        {% endif %}
+        <div class="govuk-input__wrapper">
+          <div class="govuk-input__prefix" aria-hidden="true">UK 123456</div>
+          <input class="govuk-input govuk-input--width-10 {% if errors['death-ear-tag-number'] %}govuk-input--error{% endif %}"
+            id="death-ear-tag-number"
+            name="death-ear-tag-number"
+            type="text"
+            inputmode="numeric"
+            spellcheck="false"
+            aria-describedby="death-ear-tag-number-hint{% if errors['death-ear-tag-number'] %} death-ear-tag-number-error{% endif %}"
+            value="{{ data['death-ear-tag-number'] }}">
+        </div>
+      </div>
+
+      {{ govukButton({ text: "Continue" }) }}
+
+    </form>
+
+  </div>
+</div>
+
+{% endblock %}

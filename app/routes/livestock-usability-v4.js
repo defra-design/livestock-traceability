@@ -1,6 +1,20 @@
 const govukPrototypeKit = require('govuk-prototype-kit')
 const router = govukPrototypeKit.requests.setupRouter()
 
+const registerAnimalPages = [
+  'animal-select', 'breed', 'calf-details-radio', 'check-calf-details',
+  'confirmation', 'dam-details', 'file-upload', 'genetic-details',
+  'multiple-birth', 'quantity', 'register-an-animal', 'registration-method',
+  'sire-details', 'submission-detail', 'submit', 'tag-entry',
+  'tag-list-complete', 'tag-list', 'upload'
+]
+
+registerAnimalPages.forEach(page => {
+  router.get(`/livestock-usability/v4/${page}`, (req, res) => {
+    res.render(`livestock-usability/v4/register-animal/${page}`)
+  })
+})
+
 router.post('/livestock-usability/v4/registration-method', (req, res) => {
   const method = req.session.data['registration-method']
   if (method === 'file-upload') {
@@ -28,7 +42,7 @@ router.post('/livestock-usability/v4/tag-list', (req, res) => {
   const errors = {}
 
   if (!addAnother) {
-    errors['add-another'] = 'Select yes or no'
+    errors['add-another'] = 'Select yes to add additional animals including siblings, or no to continue.'
   } else if (addAnother === 'no') {
     const damComplete = (data['dam-type'] === 'genetic' && data['dam-number']) ||
                         (data['dam-type'] === 'surrogate' && data['surrogate-dam-number'])
@@ -40,7 +54,7 @@ router.post('/livestock-usability/v4/tag-list', (req, res) => {
   }
 
   if (Object.keys(errors).length > 0) {
-    return res.render('livestock-usability/v4/tag-list', { errors })
+    return res.render('livestock-usability/v4/register-animal/tag-list', { errors })
   }
 
   if (addAnother === 'yes') {
@@ -54,7 +68,7 @@ router.get('/livestock-usability/v4/calf-details', (req, res) => {
   if (req.query.tag) {
     req.session.data['current-tag'] = req.query.tag
   }
-  res.render('livestock-usability/v4/calf-details')
+  res.render('livestock-usability/v4/register-animal/calf-details')
 })
 
 router.post('/livestock-usability/v4/calf-details', (req, res) => {
@@ -62,19 +76,19 @@ router.post('/livestock-usability/v4/calf-details', (req, res) => {
   const errors = {}
 
   if (!data['ear-tag-number']) {
-    errors['ear-tag-number'] = 'Select an ear tag number'
+    errors['ear-tag-number'] = 'Enter the last 6 digits of the animal ear tag number you are registering'
   }
 
   if (!data['dob-day'] || !data['dob-month'] || !data['dob-year']) {
-    errors['dob'] = 'Enter a date of birth'
+    errors['dob'] = 'Enter the date the animal was born'
   }
 
   if (!data['sex']) {
-    errors['sex'] = 'Select a sex'
+    errors['sex'] = 'Select if the animal is male or female'
   }
 
   if (Object.keys(errors).length > 0) {
-    return res.render('livestock-usability/v4/calf-details', { errors })
+    return res.render('livestock-usability/v4/register-animal/calf-details', { errors })
   }
 
   res.redirect('/livestock-usability/v4/breed')
@@ -98,15 +112,15 @@ router.post('/livestock-usability/v4/dam-details', (req, res) => {
   const errors = {}
 
   if (!data['dam-type']) {
-    errors['dam-type'] = 'Select genetic or surrogate'
+    errors['dam-type'] = 'Select if the calf was born to a genetic or surrogate dam'
   } else if (data['dam-type'] === 'genetic' && !data['dam-number']) {
-    errors['dam-number'] = 'Enter the genetic dam ear tag number'
+    errors['dam-number'] = 'Enter the last 6 digits of the animal ear tag number'
   } else if (data['dam-type'] === 'surrogate' && !data['surrogate-dam-number']) {
-    errors['surrogate-dam-number'] = 'Enter the surrogate dam ear tag number'
+    errors['surrogate-dam-number'] = 'Enter the last 6 digits of the animal ear tag number'
   }
 
   if (Object.keys(errors).length > 0) {
-    return res.render('livestock-usability/v4/dam-details', { errors })
+    return res.render('livestock-usability/v4/register-animal/dam-details', { errors })
   }
 
   res.redirect('/livestock-usability/v4/sire-details')
@@ -117,7 +131,7 @@ router.post('/livestock-usability/v4/sire-details', (req, res) => {
 })
 
 router.get('/livestock-usability/v4/remove-calf', (req, res) => {
-  res.render('livestock-usability/v4/remove-calf')
+  res.render('livestock-usability/v4/register-animal/remove-calf')
 })
 
 router.post('/livestock-usability/v4/remove-calf', (req, res) => {
@@ -180,7 +194,7 @@ router.post('/livestock-usability/v4/sire-number', (req, res) => {
 
 router.post('/livestock-usability/v4/breed', (req, res) => {
   if (!req.session.data['breed']) {
-    return res.render('livestock-usability/v4/breed', {
+    return res.render('livestock-usability/v4/register-animal/breed', {
       errors: { breed: 'Select a breed' }
     })
   }
@@ -209,6 +223,143 @@ router.post('/livestock-usability/v4/register-an-animal-birth', (req, res) => {
 
 router.post('/livestock-usability/v4/submission-detail', (req, res) => {
   res.redirect('/livestock-usability/v4/submit')
+})
+
+// ---- report-death flow ----
+
+router.post('/livestock-usability/v4/report-death/animal-select', (req, res) => {
+  const species = req.session.data['death-animal-type']
+  if (!species) {
+    return res.render('livestock-usability/v4/report-death/animal-select', {
+      errors: { 'death-animal-type': 'Select a species' }
+    })
+  }
+  res.redirect('/livestock-usability/v4/report-death/is-registered')
+})
+
+router.post('/livestock-usability/v4/report-death/is-registered', (req, res) => {
+  const answer = req.session.data['death-is-registered']
+  if (!answer) {
+    return res.render('livestock-usability/v4/report-death/is-registered', {
+      errors: { 'death-is-registered': 'Select yes if the animal is registered' }
+    })
+  }
+  res.redirect('/livestock-usability/v4/report-death/ear-tag-number')
+})
+
+router.post('/livestock-usability/v4/report-death/ear-tag-number', (req, res) => {
+  const data = req.session.data
+  if (!data['death-ear-tag-number']) {
+    return res.render('livestock-usability/v4/report-death/ear-tag-number', {
+      errors: { 'death-ear-tag-number': 'Enter the ear tag number of the animal' }
+    })
+  }
+  res.redirect('/livestock-usability/v4/report-death/date-of-death')
+})
+
+router.post('/livestock-usability/v4/report-death/date-of-death', (req, res) => {
+  const data = req.session.data
+  if (!data['death-date-day'] || !data['death-date-month'] || !data['death-date-year']) {
+    return res.render('livestock-usability/v4/report-death/date-of-death', {
+      errors: { 'death-date': 'Enter the date the animal died' }
+    })
+  }
+  if (data['death-is-registered'] === 'yes') {
+    return res.redirect('/livestock-usability/v4/report-death/check-death-details')
+  }
+  res.redirect('/livestock-usability/v4/report-death/date-of-birth')
+})
+
+router.post('/livestock-usability/v4/report-death/date-of-birth', (req, res) => {
+  const data = req.session.data
+  if (!data['death-dob-day'] || !data['death-dob-month'] || !data['death-dob-year']) {
+    return res.render('livestock-usability/v4/report-death/date-of-birth', {
+      errors: { 'death-dob': 'Enter the date the animal was born' }
+    })
+  }
+  res.redirect('/livestock-usability/v4/report-death/sex')
+})
+
+router.post('/livestock-usability/v4/report-death/sex', (req, res) => {
+  const data = req.session.data
+  if (!data['death-sex']) {
+    return res.render('livestock-usability/v4/report-death/sex', {
+      errors: { 'death-sex': 'Select if the animal is male or female' }
+    })
+  }
+  res.redirect('/livestock-usability/v4/report-death/breed')
+})
+
+router.post('/livestock-usability/v4/report-death/breed', (req, res) => {
+  const data = req.session.data
+  if (!data['death-breed']) {
+    return res.render('livestock-usability/v4/report-death/breed', {
+      errors: { 'death-breed': 'Select a breed' }
+    })
+  }
+  res.redirect('/livestock-usability/v4/report-death/dam-details')
+})
+
+router.post('/livestock-usability/v4/report-death/dam-details', (req, res) => {
+  const data = req.session.data
+  const errors = {}
+  if (!data['death-dam-type']) {
+    errors['death-dam-type'] = 'Select if the animal was born to a genetic or surrogate dam'
+  } else if (data['death-dam-type'] === 'genetic' && !data['death-dam-number']) {
+    errors['death-dam-number'] = 'Enter the last 6 digits of the animal ear tag number'
+  } else if (data['death-dam-type'] === 'surrogate' && !data['death-surrogate-dam-number']) {
+    errors['death-surrogate-dam-number'] = 'Enter the last 6 digits of the animal ear tag number'
+  }
+  if (Object.keys(errors).length > 0) {
+    return res.render('livestock-usability/v4/report-death/dam-details', { errors })
+  }
+  res.redirect('/livestock-usability/v4/report-death/sire-details')
+})
+
+router.post('/livestock-usability/v4/report-death/sire-details', (req, res) => {
+  res.redirect('/livestock-usability/v4/report-death/check-death-details')
+})
+
+router.post('/livestock-usability/v4/report-death/add-more-deaths', (req, res) => {
+  const answer = req.session.data['add-more-deaths']
+  if (!answer) {
+    return res.render('livestock-usability/v4/report-death/add-more-deaths', {
+      errors: { 'add-more-deaths': 'Select yes to report more deaths, or no to continue' }
+    })
+  }
+  if (answer === 'yes') {
+    const deathFields = [
+      'death-is-registered', 'death-ear-tag-number',
+      'death-date-day', 'death-date-month', 'death-date-year',
+      'death-dob-day', 'death-dob-month', 'death-dob-year',
+      'death-sex', 'death-breed', 'death-dam-type', 'death-dam-number',
+      'death-surrogate-dam-number', 'death-sire-number', 'death-sire-name',
+      'add-more-deaths'
+    ]
+    deathFields.forEach(f => delete req.session.data[f])
+    return res.redirect('/livestock-usability/v4/report-death/is-registered')
+  }
+  res.redirect('/livestock-usability/v4/report-death/submit')
+})
+
+router.post('/livestock-usability/v4/report-death/submit', (req, res) => {
+  res.redirect('/livestock-usability/v4/report-death/confirmation')
+})
+
+router.post('/livestock-usability/v4/report-death/check-death-details', (req, res) => {
+  const data = req.session.data
+  const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+  const monthIndex = parseInt(data['death-date-month']) - 1
+  const entry = {
+    tag: data['death-ear-tag-number'],
+    date: `${data['death-date-day']} ${months[monthIndex]} ${data['death-date-year']}`,
+    registered: data['death-is-registered']
+  }
+  let completed = data['completed-deaths'] || []
+  if (!Array.isArray(completed)) completed = [completed]
+  completed.push(entry)
+  req.session.data['completed-deaths'] = completed
+  res.redirect('/livestock-usability/v4/report-death/add-more-deaths')
 })
 
 module.exports = router

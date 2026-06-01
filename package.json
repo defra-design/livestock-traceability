@@ -9,5 +9,8 @@
     "@ministryofjustice/frontend": "^9.0.0",
     "govuk-frontend": "6.1.0",
     "govuk-prototype-kit": "13.20.0"
+  },
+  "devDependencies": {
+    "playwright": "^1.60.0"
   }
 }
