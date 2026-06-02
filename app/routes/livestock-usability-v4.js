@@ -254,6 +254,19 @@ router.post('/livestock-usability/v4/report-death/ear-tag-number', (req, res) =>
       errors: { 'death-ear-tag-number': 'Enter the ear tag number of the animal' }
     })
   }
+  if (data['death-is-registered'] === 'yes') {
+    return res.redirect('/livestock-usability/v4/report-death/date-of-death')
+  }
+  res.redirect('/livestock-usability/v4/report-death/date-of-birth')
+})
+
+router.post('/livestock-usability/v4/report-death/date-of-birth', (req, res) => {
+  const data = req.session.data
+  if (!data['death-dob-day'] || !data['death-dob-month'] || !data['death-dob-year']) {
+    return res.render('livestock-usability/v4/report-death/date-of-birth', {
+      errors: { 'death-dob': 'Enter the date the animal was born' }
+    })
+  }
   res.redirect('/livestock-usability/v4/report-death/date-of-death')
 })
 
@@ -267,14 +280,14 @@ router.post('/livestock-usability/v4/report-death/date-of-death', (req, res) => 
   if (data['death-is-registered'] === 'yes') {
     return res.redirect('/livestock-usability/v4/report-death/check-death-details')
   }
-  res.redirect('/livestock-usability/v4/report-death/date-of-birth')
+  res.redirect('/livestock-usability/v4/report-death/breed')
 })
 
-router.post('/livestock-usability/v4/report-death/date-of-birth', (req, res) => {
+router.post('/livestock-usability/v4/report-death/breed', (req, res) => {
   const data = req.session.data
-  if (!data['death-dob-day'] || !data['death-dob-month'] || !data['death-dob-year']) {
-    return res.render('livestock-usability/v4/report-death/date-of-birth', {
-      errors: { 'death-dob': 'Enter the date the animal was born' }
+  if (!data['death-breed']) {
+    return res.render('livestock-usability/v4/report-death/breed', {
+      errors: { 'death-breed': 'Select a breed' }
     })
   }
   res.redirect('/livestock-usability/v4/report-death/sex')
@@ -285,16 +298,6 @@ router.post('/livestock-usability/v4/report-death/sex', (req, res) => {
   if (!data['death-sex']) {
     return res.render('livestock-usability/v4/report-death/sex', {
       errors: { 'death-sex': 'Select if the animal is male or female' }
-    })
-  }
-  res.redirect('/livestock-usability/v4/report-death/breed')
-})
-
-router.post('/livestock-usability/v4/report-death/breed', (req, res) => {
-  const data = req.session.data
-  if (!data['death-breed']) {
-    return res.render('livestock-usability/v4/report-death/breed', {
-      errors: { 'death-breed': 'Select a breed' }
     })
   }
   res.redirect('/livestock-usability/v4/report-death/dam-details')
@@ -360,6 +363,56 @@ router.post('/livestock-usability/v4/report-death/check-death-details', (req, re
   completed.push(entry)
   req.session.data['completed-deaths'] = completed
   res.redirect('/livestock-usability/v4/report-death/add-more-deaths')
+})
+
+// ---- report-movement flow ----
+
+router.post('/livestock-usability/v4/report-movement/animal-select', (req, res) => {
+  const species = req.session.data['movement-animal-type']
+  if (!species) {
+    return res.render('livestock-usability/v4/report-movement/animal-select', {
+      errors: { 'movement-animal-type': 'Select a species' }
+    })
+  }
+  res.redirect('/livestock-usability/v4/report-movement/movement-type')
+})
+
+router.post('/livestock-usability/v4/report-movement/movement-type', (req, res) => {
+  const type = req.session.data['movement-type']
+  if (!type) {
+    return res.render('livestock-usability/v4/report-movement/movement-type', {
+      errors: { 'movement-type': 'Select if this is an on or off movement' }
+    })
+  }
+  res.redirect('/livestock-usability/v4/report-movement/movement-date')
+})
+
+router.post('/livestock-usability/v4/report-movement/movement-date', (req, res) => {
+  const data = req.session.data
+  if (!data['movement-date-day'] || !data['movement-date-month'] || !data['movement-date-year']) {
+    return res.render('livestock-usability/v4/report-movement/movement-date', {
+      errors: { 'movement-date': 'Enter the date of the movement' }
+    })
+  }
+  res.redirect('/livestock-usability/v4/report-movement/ear-tag-numbers')
+})
+
+router.post('/livestock-usability/v4/report-movement/ear-tag-numbers', (req, res) => {
+  const data = req.session.data
+  if (!data['movement-ear-tags'] || !data['movement-ear-tags'].trim()) {
+    return res.render('livestock-usability/v4/report-movement/ear-tag-numbers', {
+      errors: { 'movement-ear-tags': 'Enter at least one ear tag number' }
+    })
+  }
+  res.redirect('/livestock-usability/v4/report-movement/check-movement-details')
+})
+
+router.post('/livestock-usability/v4/report-movement/check-movement-details', (req, res) => {
+  res.redirect('/livestock-usability/v4/report-movement/submit')
+})
+
+router.post('/livestock-usability/v4/report-movement/submit', (req, res) => {
+  res.redirect('/livestock-usability/v4/report-movement/confirmation')
 })
 
 module.exports = router

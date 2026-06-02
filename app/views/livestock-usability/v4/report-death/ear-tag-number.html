@@ -2,6 +2,26 @@
 
 {% set pageName="Animal ear tag number" %}
 
+{% block head %}
+  {{ super() }}
+  <link href="https://unpkg.com/accessible-autocomplete/dist/accessible-autocomplete.min.css" rel="stylesheet" media="all" />
+  <style>
+    .autocomplete__wrapper {
+      flex: 1;
+      min-width: 0;
+    }
+    .autocomplete__hint,
+    .autocomplete__input,
+    .autocomplete__option {
+      font-family: arial, sans-serif;
+      font-size: 1.1875rem;
+    }
+    .govuk-form-group--error .autocomplete__input {
+      border-color: #d4351c;
+    }
+  </style>
+{% endblock %}
+
 {% block beforeContent %}
   {{ govukBackLink({
     text: "Back",
@@ -45,14 +65,14 @@
         {% endif %}
         <div class="govuk-input__wrapper">
           <div class="govuk-input__prefix" aria-hidden="true">UK 123456</div>
-          <input class="govuk-input govuk-input--width-10 {% if errors['death-ear-tag-number'] %}govuk-input--error{% endif %}"
-            id="death-ear-tag-number"
-            name="death-ear-tag-number"
-            type="text"
-            inputmode="numeric"
-            spellcheck="false"
-            aria-describedby="death-ear-tag-number-hint{% if errors['death-ear-tag-number'] %} death-ear-tag-number-error{% endif %}"
-            value="{{ data['death-ear-tag-number'] }}">
+          <select id="death-ear-tag-number" name="death-ear-tag-number" aria-describedby="death-ear-tag-number-hint{% if errors['death-ear-tag-number'] %} death-ear-tag-number-error{% endif %}">
+            <option value=""></option>
+            <option value="301550" {% if data['death-ear-tag-number'] == '301550' %}selected{% endif %}>301550</option>
+            <option value="301551" {% if data['death-ear-tag-number'] == '301551' %}selected{% endif %}>301551</option>
+            <option value="301552" {% if data['death-ear-tag-number'] == '301552' %}selected{% endif %}>301552</option>
+            <option value="301553" {% if data['death-ear-tag-number'] == '301553' %}selected{% endif %}>301553</option>
+            <option value="301554" {% if data['death-ear-tag-number'] == '301554' %}selected{% endif %}>301554</option>
+          </select>
         </div>
       </div>
 
@@ -63,4 +83,14 @@
   </div>
 </div>
 
+{% endblock %}
+
+{% block pageScripts %}
+  <script src="https://unpkg.com/accessible-autocomplete/dist/accessible-autocomplete.min.js"></script>
+  <script>
+    const $picker = document.querySelector('#death-ear-tag-number')
+    accessibleAutocomplete.enhanceSelectElement({
+      selectElement: $picker
+    })
+  </script>
 {% endblock %}

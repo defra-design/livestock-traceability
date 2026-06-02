@@ -1,0 +1,30 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Submit your movement report" %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <h1 class="govuk-heading-l">Now submit your movement report</h1>
+
+    <p class="govuk-body">By submitting this movement report you are confirming that, to the best of your knowledge, the details you are providing are correct.</p>
+
+    <form method="post" action="/livestock-usability/v4/report-movement/submit" novalidate>
+      <button type="submit" class="govuk-button" data-module="govuk-button">
+        Accept and send
+      </button>
+    </form>
+
+  </div>
+</div>
+
+{% endblock %}
