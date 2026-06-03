@@ -14,8 +14,6 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
 
-    <span class="govuk-caption-l">Animal ear tag number: UK 123456 {{ data['death-ear-tag-number'] }}</span>
-
     {% if errors %}
     <div class="govuk-error-summary" data-module="govuk-error-summary">
       <div role="alert">
@@ -36,12 +34,15 @@
       <div class="govuk-form-group {% if errors['death-dob'] %}govuk-form-group--error{% endif %}">
         <fieldset class="govuk-fieldset" role="group" aria-describedby="death-dob-hint{% if errors['death-dob'] %} death-dob-error{% endif %}">
           <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+
+            <span class="govuk-caption-l">Animal ear tag number: UK 123456 {{ data['death-ear-tag-number'] }}</span>
+
             <h1 class="govuk-fieldset__heading">
               Date of birth
             </h1>
           </legend>
           <div id="death-dob-hint" class="govuk-hint">
-            For example, 31 3 2026. Date of birth must be in the past.
+            For example, 31 3 2026.
           </div>
           {% if errors['death-dob'] %}
           <p id="death-dob-error" class="govuk-error-message">

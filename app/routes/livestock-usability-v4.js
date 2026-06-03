@@ -241,7 +241,7 @@ router.post('/livestock-usability/v4/report-death/is-registered', (req, res) => 
   const answer = req.session.data['death-is-registered']
   if (!answer) {
     return res.render('livestock-usability/v4/report-death/is-registered', {
-      errors: { 'death-is-registered': 'Select yes if the animal is registered' }
+      errors: { 'death-is-registered': 'Select if the animal is already registered to your holding' }
     })
   }
   res.redirect('/livestock-usability/v4/report-death/ear-tag-number')
@@ -267,6 +267,18 @@ router.post('/livestock-usability/v4/report-death/date-of-birth', (req, res) => 
       errors: { 'death-dob': 'Enter the date the animal was born' }
     })
   }
+  const entered = new Date(
+    parseInt(data['death-dob-year']),
+    parseInt(data['death-dob-month']) - 1,
+    parseInt(data['death-dob-day'])
+  )
+  const today = new Date()
+  today.setHours(0, 0, 0, 0)
+  if (entered > today) {
+    return res.render('livestock-usability/v4/report-death/date-of-birth', {
+      errors: { 'death-dob': 'Date of birth must be in the past.' }
+    })
+  }
   res.redirect('/livestock-usability/v4/report-death/date-of-death')
 })
 
@@ -275,6 +287,18 @@ router.post('/livestock-usability/v4/report-death/date-of-death', (req, res) => 
   if (!data['death-date-day'] || !data['death-date-month'] || !data['death-date-year']) {
     return res.render('livestock-usability/v4/report-death/date-of-death', {
       errors: { 'death-date': 'Enter the date the animal died' }
+    })
+  }
+  const entered = new Date(
+    parseInt(data['death-date-year']),
+    parseInt(data['death-date-month']) - 1,
+    parseInt(data['death-date-day'])
+  )
+  const today = new Date()
+  today.setHours(0, 0, 0, 0)
+  if (entered > today) {
+    return res.render('livestock-usability/v4/report-death/date-of-death', {
+      errors: { 'death-date': 'Date of death needs to be in the past' }
     })
   }
   if (data['death-is-registered'] === 'yes') {
