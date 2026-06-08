@@ -1,0 +1,78 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Sire and dam details" %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <h1 class="govuk-heading-xl">Sire and dam details</h1>
+
+    <form action="/livestock-usability/v5/genetic-details" method="post" novalidate>
+
+      <div class="govuk-form-group">
+        <fieldset class="govuk-fieldset" aria-describedby="dam-type-hint">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+            Genetic or surrogate dam?
+          </legend>
+          <div id="dam-type-hint" class="govuk-hint">
+            Select one option
+          </div>
+          <div class="govuk-radios" data-module="govuk-radios">
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="dam-type" name="dam-type" type="radio" value="genetic" data-aria-controls="conditional-genetic" {% if data['dam-type'] == 'genetic' %}checked{% endif %}>
+              <label class="govuk-label govuk-radios__label" for="dam-type">
+                Genetic
+              </label>
+            </div>
+            <div class="govuk-radios__conditional {% if data['dam-type'] != 'genetic' %}govuk-radios__conditional--hidden{% endif %}" id="conditional-genetic">
+              <div class="govuk-form-group">
+                <label class="govuk-label" for="dam-number">
+                  Genetic dam tag number
+                </label>
+                <input class="govuk-input govuk-!-width-two-thirds" id="dam-number" name="dam-number" type="text" spellcheck="false" value="{{ data['dam-number'] }}">
+              </div>
+            </div>
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="dam-type-2" name="dam-type" type="radio" value="surrogate" data-aria-controls="conditional-surrogate" {% if data['dam-type'] == 'surrogate' %}checked{% endif %}>
+              <label class="govuk-label govuk-radios__label" for="dam-type-2">
+                Surrogate
+              </label>
+            </div>
+            <div class="govuk-radios__conditional {% if data['dam-type'] != 'surrogate' %}govuk-radios__conditional--hidden{% endif %}" id="conditional-surrogate">
+              <div class="govuk-form-group">
+                <label class="govuk-label" for="surrogate-dam-number">
+                  Surrogate dam tag number
+                </label>
+                <input class="govuk-input govuk-!-width-two-thirds" id="surrogate-dam-number" name="surrogate-dam-number" type="text" spellcheck="false" value="{{ data['surrogate-dam-number'] }}">
+              </div>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+
+      <div class="govuk-form-group">
+        <label class="govuk-label govuk-label--m" for="sire-number">
+          Sire tag number
+        </label>
+        <input class="govuk-input govuk-!-width-two-thirds" id="sire-number" name="sire-number" type="text" value="{{ data['sire-number'] }}">
+      </div>
+
+      <button type="submit" class="govuk-button" data-module="govuk-button">
+        Continue
+      </button>
+
+    </form>
+
+  </div>
+</div>
+
+{% endblock %}

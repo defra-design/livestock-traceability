@@ -1,0 +1,110 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Calves added for registration" %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+{% set currentTag = data['ear-tag-number'] if data['ear-tag-number'] else '' %}
+
+{% set damComplete = (data['dam-type'] == 'genetic' and data['dam-number']) or (data['dam-type'] == 'surrogate' and data['surrogate-dam-number']) %}
+
+{% set isComplete = data['ear-tag-number'] and data['dob-day'] and data['dob-month'] and data['dob-year'] and data['sex'] and data['breed'] and damComplete %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <h1 class="govuk-heading-l">
+      Register new cattle births
+    </h1>
+
+    {% if errors %}
+    <div class="govuk-error-summary" data-module="govuk-error-summary">
+      <div role="alert">
+        <h2 class="govuk-error-summary__title">There is a problem</h2>
+        <div class="govuk-error-summary__body">
+          <ul class="govuk-list govuk-error-summary__list">
+            {% if errors['incomplete'] %}
+            <li><a href="/livestock-usability/v5/calf-details">{{ errors['incomplete'] }}</a></li>
+            {% endif %}
+            {% if errors['add-another'] %}
+            <li><a href="#add-another">{{ errors['add-another'] }}</a></li>
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
+    <p class="govuk-body">
+      Select the tag number from the list to update calf, dam and sire details. You can use the status indicator to check which animals are ready to submit.
+    </p>
+
+    {% if currentTag %}
+    <table class="govuk-table">
+      <thead class="govuk-table__head">
+        <tr class="govuk-table__row">
+          <th scope="col" class="govuk-table__header">Tag number</th>
+          <th scope="col" class="govuk-table__header govuk-table__header--numeric">Status</th>
+        </tr>
+      </thead>
+      <tbody class="govuk-table__body">
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell"><a class="govuk-link" href="/livestock-usability/v5/check-calf-details">{{ currentTag }}</a></td>
+          <td class="govuk-table__cell govuk-table__cell--numeric">
+            {% if isComplete %}
+              <strong class="govuk-tag govuk-tag--green">Ready to submit</strong>
+            {% else %}
+              <strong class="govuk-tag govuk-tag--blue">Incomplete</strong>
+            {% endif %}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    {% else %}
+    <p class="govuk-body">No calves have been added.</p>
+    {% endif %}
+
+    <form class="form" action="/livestock-usability/v5/tag-list" method="post">
+      <div class="govuk-form-group {% if errors['add-another'] %}govuk-form-group--error{% endif %}">
+        <fieldset class="govuk-fieldset" aria-describedby="add-another-hint{% if errors['add-another'] %} add-another-error{% endif %}">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+            Do you need to add additional animals?
+          </legend>
+          <div id="add-another-hint" class="govuk-hint">
+            Additional animals can include calves from different dams, or siblings from a multiple birth.
+          </div>
+          {% if errors['add-another'] %}
+          <p id="add-another-error" class="govuk-error-message">
+            <span class="govuk-visually-hidden">Error:</span> {{ errors['add-another'] }}
+          </p>
+          {% endif %}
+          <div class="govuk-radios govuk-radios--inline" data-module="govuk-radios">
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="add-another" name="add-another" type="radio" value="yes" {% if data['add-another'] == 'yes' %}checked{% endif %}>
+              <label class="govuk-label govuk-radios__label" for="add-another">Yes</label>
+            </div>
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="add-another-2" name="add-another" type="radio" value="no" {% if data['add-another'] == 'no' %}checked{% endif %}>
+              <label class="govuk-label govuk-radios__label" for="add-another-2">No</label>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+
+      {{ govukButton({
+        text: "Continue"
+      }) }}
+
+    </form>
+
+  </div>
+</div>
+
+{% endblock %}

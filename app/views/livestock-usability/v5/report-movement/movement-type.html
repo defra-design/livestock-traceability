@@ -1,0 +1,61 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Movement type" %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <form class="form" action="/livestock-usability/v5/report-movement/movement-type" method="post">
+
+      <div class="govuk-form-group {% if errors %}govuk-form-group--error{% endif %}">
+        <fieldset class="govuk-fieldset" aria-describedby="{% if errors %}movement-type-error{% endif %}">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+            <h1 class="govuk-fieldset__heading">
+              Is this an on or off movement?
+            </h1>
+          </legend>
+          {% if errors %}
+          <p id="movement-type-error" class="govuk-error-message">
+            <span class="govuk-visually-hidden">Error:</span> {{ errors['movement-type'] }}
+          </p>
+          {% endif %}
+          <div class="govuk-radios" data-module="govuk-radios">
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="movement-type" name="movement-type" type="radio" value="on" {% if data['movement-type'] == 'on' %}checked{% endif %}>
+              <label class="govuk-label govuk-radios__label" for="movement-type">
+                On movement
+              </label>
+              <div id="movement-type-on-hint" class="govuk-hint govuk-radios__hint">
+                The animal is moving onto your holding
+              </div>
+            </div>
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="movement-type-2" name="movement-type" type="radio" value="off" {% if data['movement-type'] == 'off' %}checked{% endif %}>
+              <label class="govuk-label govuk-radios__label" for="movement-type-2">
+                Off movement
+              </label>
+              <div id="movement-type-off-hint" class="govuk-hint govuk-radios__hint">
+                The animal is moving off your holding
+              </div>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+
+      {{ govukButton({ text: "Continue" }) }}
+
+    </form>
+
+  </div>
+</div>
+
+{% endblock %}
