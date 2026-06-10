@@ -228,9 +228,6 @@
     .govuk-form-group--error .autocomplete__input {
       border-color: #d4351c;
     }
-    .autocomplete__option strong {
-      font-weight: normal;
-    }
   </style>
 {% endblock %}
 
@@ -259,7 +256,7 @@
     </div>
     {% endif %}
 
-    <form class="form" action="/livestock-usability/v5/breed" method="post">
+    <form class="form" action="/livestock-usability/v6/breed" method="post">
 
       <div class="govuk-form-group {% if errors %}govuk-form-group--error{% endif %}">
         <label class="govuk-label govuk-label--l" for="breed">

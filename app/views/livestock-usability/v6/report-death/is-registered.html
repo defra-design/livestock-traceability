@@ -1,0 +1,66 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Report an animal death" %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    {% if errors %}
+    <div class="govuk-error-summary" data-module="govuk-error-summary">
+      <div role="alert">
+        <h2 class="govuk-error-summary__title">There is a problem</h2>
+        <div class="govuk-error-summary__body">
+          <ul class="govuk-list govuk-error-summary__list">
+            {% if errors['death-is-registered'] %}
+            <li><a href="#death-is-registered">{{ errors['death-is-registered'] }}</a></li>
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
+    <form action="/livestock-usability/v6/report-death/is-registered" method="post" novalidate>
+
+      <div class="govuk-form-group {% if errors['death-is-registered'] %}govuk-form-group--error{% endif %}">
+        <fieldset class="govuk-fieldset" aria-describedby="{% if errors['death-is-registered'] %}death-is-registered-error{% endif %}">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+            <h1 class="govuk-fieldset__heading">
+              Is the animal registered to your holding?
+            </h1>
+          </legend>
+          {% if errors['death-is-registered'] %}
+          <p id="death-is-registered-error" class="govuk-error-message">
+            <span class="govuk-visually-hidden">Error:</span> {{ errors['death-is-registered'] }}
+          </p>
+          {% endif %}
+          <div class="govuk-radios govuk-radios--inline" data-module="govuk-radios">
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="death-is-registered" name="death-is-registered" type="radio" value="yes" {% if data['death-is-registered'] == 'yes' %}checked{% endif %}>
+              <label class="govuk-label govuk-radios__label" for="death-is-registered">Yes</label>
+            </div>
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="death-is-registered-2" name="death-is-registered" type="radio" value="no" {% if data['death-is-registered'] == 'no' %}checked{% endif %}>
+              <label class="govuk-label govuk-radios__label" for="death-is-registered-2">No</label>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+
+      {{ govukButton({ text: "Continue" }) }}
+
+    </form>
+
+  </div>
+</div>
+
+{% endblock %}

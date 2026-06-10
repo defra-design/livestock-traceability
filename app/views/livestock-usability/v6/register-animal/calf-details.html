@@ -1,6 +1,6 @@
 {% extends "layouts/main.html" %}
 
-{% set pageName="Breed" %}
+{% set pageName="Calf details" %}
 
 {% set breeds = [
   { description: "Aberdeen Angus", code: "AA" },
@@ -228,9 +228,6 @@
     .govuk-form-group--error .autocomplete__input {
       border-color: #d4351c;
     }
-    .autocomplete__option strong {
-      font-weight: normal;
-    }
   </style>
 {% endblock %}
 
@@ -246,32 +243,104 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
 
+    <h1 class="govuk-heading-l">Calf details</h1>
+
     {% if errors %}
     <div class="govuk-error-summary" data-module="govuk-error-summary">
       <div role="alert">
         <h2 class="govuk-error-summary__title">There is a problem</h2>
         <div class="govuk-error-summary__body">
           <ul class="govuk-list govuk-error-summary__list">
-            <li><a href="#breed">{{ errors.breed }}</a></li>
+            {% if errors['ear-tag-number'] %}
+            <li><a href="#ear-tag-number">{{ errors['ear-tag-number'] }}</a></li>
+            {% endif %}
+            {% if errors['dob'] %}
+            <li><a href="#dob">{{ errors['dob'] }}</a></li>
+            {% endif %}
+            {% if errors['sex'] %}
+            <li><a href="#sex">{{ errors['sex'] }}</a></li>
+            {% endif %}
+            {% if errors['breed'] %}
+            <li><a href="#breed">{{ errors['breed'] }}</a></li>
+            {% endif %}
           </ul>
         </div>
       </div>
     </div>
     {% endif %}
 
-    <form class="form" action="/livestock-usability/v5/breed" method="post">
+    <form action="/livestock-usability/v6/calf-details" method="post" novalidate>
 
-      <div class="govuk-form-group {% if errors %}govuk-form-group--error{% endif %}">
-        <label class="govuk-label govuk-label--l" for="breed">
-          <span class="govuk-caption-l">Official animal ear tag number: UK 123456 301550</span>
-          Breed of the calf
+      <div class="govuk-form-group {% if errors['ear-tag-number'] %}govuk-form-group--error{% endif %}">
+        <label class="govuk-label govuk-label--m" for="ear-tag-number">
+          Animal ear tag number
         </label>
-        {% if errors %}
-        <p id="breed-error" class="govuk-error-message">
-          <span class="govuk-visually-hidden">Error:</span> {{ errors.breed }}
+        {% if errors['ear-tag-number'] %}
+        <p id="ear-tag-number-error" class="govuk-error-message">
+          <span class="govuk-visually-hidden">Error:</span> {{ errors['ear-tag-number'] }}
         </p>
         {% endif %}
-        <select id="breed" name="breed">
+        <div class="govuk-input__wrapper">
+          <select id="ear-tag-number" name="ear-tag-number" aria-describedby="ear-tag-hint{% if errors['ear-tag-number'] %} ear-tag-number-error{% endif %}">
+            <option value=""></option>
+            <option value="UK123456301550" {% if data['ear-tag-number'] == 'UK123456301550' %}selected{% endif %}>UK123456301550</option>
+            <option value="UK123456301551" {% if data['ear-tag-number'] == 'UK123456301551' %}selected{% endif %}>UK123456301551</option>
+            <option value="UK123456301552" {% if data['ear-tag-number'] == 'UK123456301552' %}selected{% endif %}>UK123456301552</option>
+            <option value="UK123456301553" {% if data['ear-tag-number'] == 'UK123456301553' %}selected{% endif %}>UK123456301553</option>
+            <option value="UK123456301554" {% if data['ear-tag-number'] == 'UK123456301554' %}selected{% endif %}>UK123456301554</option>
+          </select>
+        </div>
+      </div>
+
+      {%- from "moj/components/date-picker/macro.njk" import mojDatePicker -%}
+
+      {{ mojDatePicker({
+        id: "dob",
+        name: "dob",
+        label: {
+          text: "Date of birth",
+          classes: "govuk-label--m"
+        },
+        hint: {
+          text: "For example, 17/5/2024."
+        },
+        value: data['dob'],
+        errorMessage: errors['dob'] and { text: errors['dob'] }
+      }) }}
+
+      <div class="govuk-form-group {% if errors['sex'] %}govuk-form-group--error{% endif %}">
+        <fieldset class="govuk-fieldset" aria-describedby="{% if errors['sex'] %}sex-error{% endif %}">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+            Sex of the calf
+          </legend>
+          {% if errors['sex'] %}
+          <p id="sex-error" class="govuk-error-message">
+            <span class="govuk-visually-hidden">Error:</span> {{ errors['sex'] }}
+          </p>
+          {% endif %}
+          <div class="govuk-radios govuk-radios--inline" data-module="govuk-radios">
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="sex" name="sex" type="radio" value="male" {% if data['sex'] == 'male' %}checked{% endif %}>
+              <label class="govuk-label govuk-radios__label" for="sex">Male</label>
+            </div>
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="sex-2" name="sex" type="radio" value="female" {% if data['sex'] == 'female' %}checked{% endif %}>
+              <label class="govuk-label govuk-radios__label" for="sex-2">Female</label>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+
+      <div class="govuk-form-group {% if errors['breed'] %}govuk-form-group--error{% endif %}">
+        <label class="govuk-label govuk-label--m" for="breed">
+          Breed
+        </label>
+        {% if errors['breed'] %}
+        <p id="breed-error" class="govuk-error-message">
+          <span class="govuk-visually-hidden">Error:</span> {{ errors['breed'] }}
+        </p>
+        {% endif %}
+        <select id="breed" name="breed" aria-describedby="{% if errors['breed'] %}breed-error{% endif %}">
           <option value=""></option>
           {% for breed in breeds %}
           <option value="{{ breed.description }} ({{ breed.code }})" {% if data['breed'] == breed.description ~ ' (' ~ breed.code ~ ')' %}selected{% endif %}>{{ breed.description }} ({{ breed.code }})</option>
@@ -279,9 +348,9 @@
         </select>
       </div>
 
-      {{ govukButton({
-        text: "Continue"
-      }) }}
+      <button type="submit" class="govuk-button" data-module="govuk-button">
+        Continue
+      </button>
 
     </form>
 
@@ -293,9 +362,14 @@
 {% block pageScripts %}
   <script src="https://unpkg.com/accessible-autocomplete/dist/accessible-autocomplete.min.js"></script>
   <script>
-    const $picker = document.querySelector('#breed')
+    const $picker = document.querySelector('#ear-tag-number')
     accessibleAutocomplete.enhanceSelectElement({
       selectElement: $picker
+    })
+
+    const $breedPicker = document.querySelector('#breed')
+    accessibleAutocomplete.enhanceSelectElement({
+      selectElement: $breedPicker
     })
   </script>
 {% endblock %}

@@ -1,0 +1,39 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Calf registered" %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <div class="govuk-panel govuk-panel--confirmation">
+      <h1 class="govuk-panel__title">
+        5 cattle births added to your cattle livestock list
+      </h1>
+    </div>
+
+    <p class="govuk-body govuk-!-margin-top-6">
+      You will receive a confirmation email.
+    </p>
+
+    <h2 class="govuk-heading-m">What happens next</h2>
+
+    <p class="govuk-body">
+      The details are now recorded in your cattle livestock list.
+    </p>
+
+    <p class="govuk-body">
+      We will contact you if we require any further information.
+    </p>
+
+    <p class="govuk-body">
+      <a href="/livestock-usability/v6/start" type="submit" class="govuk-button">
+        Return to the homepage
+      </a>
+    </p>
+
+  </div>
+</div>
+
+{% endblock %}

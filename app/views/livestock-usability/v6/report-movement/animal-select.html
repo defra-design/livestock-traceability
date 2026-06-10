@@ -1,0 +1,67 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Select animal type" %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <form class="form" action="/livestock-usability/v6/report-movement/animal-select" method="post">
+
+      <div class="govuk-form-group {% if errors %}govuk-form-group--error{% endif %}">
+        <fieldset class="govuk-fieldset" aria-describedby="{% if errors %}movement-animal-type-error{% endif %}">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+            <h1 class="govuk-fieldset__heading">
+              Which species would you like to report a movement for?
+            </h1>
+          </legend>
+          {% if errors %}
+          <p id="movement-animal-type-error" class="govuk-error-message">
+            <span class="govuk-visually-hidden">Error:</span> {{ errors['movement-animal-type'] }}
+          </p>
+          {% endif %}
+          <div class="govuk-radios" data-module="govuk-radios">
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="movement-animal-type" name="movement-animal-type" type="radio" value="cattle" {% if data['movement-animal-type'] == 'cattle' %}checked{% endif %}>
+              <label class="govuk-label govuk-radios__label" for="movement-animal-type">
+                Cattle
+              </label>
+            </div>
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="movement-animal-type-2" name="movement-animal-type" type="radio" value="sheep" {% if data['movement-animal-type'] == 'sheep' %}checked{% endif %}>
+              <label class="govuk-label govuk-radios__label" for="movement-animal-type-2">
+                Sheep
+              </label>
+            </div>
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="movement-animal-type-3" name="movement-animal-type" type="radio" value="goats" {% if data['movement-animal-type'] == 'goats' %}checked{% endif %}>
+              <label class="govuk-label govuk-radios__label" for="movement-animal-type-3">
+                Goats
+              </label>
+            </div>
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="movement-animal-type-4" name="movement-animal-type" type="radio" value="camelids" {% if data['movement-animal-type'] == 'camelids' %}checked{% endif %}>
+              <label class="govuk-label govuk-radios__label" for="movement-animal-type-4">
+                Camelids
+              </label>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+
+      {{ govukButton({ text: "Continue" }) }}
+
+    </form>
+
+  </div>
+</div>
+
+{% endblock %}
