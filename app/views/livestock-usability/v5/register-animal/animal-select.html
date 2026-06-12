@@ -14,31 +14,43 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
 
+    {% if errors %}
+      {{ govukErrorSummary({
+        titleText: "There is a problem",
+        errorList: [
+          {
+            text: errors['animal-type'].text,
+            href: "#animal-type"
+          }
+        ]
+      }) }}
+    {% endif %}
+
     <form class="form" action="/livestock-usability/v5/animal-select" method="post">
 
-      <div class="govuk-form-group">
-        <fieldset class="govuk-fieldset">
-          <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-            <h1 class="govuk-fieldset__heading">
-              Which species would you like to register?
-            </h1>
-          </legend>
-          <div class="govuk-radios" data-module="govuk-radios">
-            <div class="govuk-radios__item">
-              <input class="govuk-radios__input" id="animal-type" name="animal-type" type="radio" value="cattle">
-              <label class="govuk-label govuk-radios__label" for="animal-type">
-                Cattle
-              </label>
-            </div>
-            <div class="govuk-radios__item">
-              <input class="govuk-radios__input" id="animal-type-5" name="animal-type" type="radio" value="camelids">
-              <label class="govuk-label govuk-radios__label" for="animal-type-5">
-                Camelids
-              </label>
-            </div>
-          </div>
-        </fieldset>
-      </div>
+      {{ govukRadios({
+        name: "animal-type",
+        fieldset: {
+          legend: {
+            text: "Which species would you like to register?",
+            isPageHeading: true,
+            classes: "govuk-fieldset__legend--l"
+          }
+        },
+        errorMessage: errors['animal-type'] if errors,
+        items: [
+          {
+            value: "cattle",
+            text: "Cattle",
+            checked: data['animal-type'] === "cattle"
+          },
+          {
+            value: "camelids",
+            text: "Camelids",
+            checked: data['animal-type'] === "camelids"
+          }
+        ]
+      }) }}
 
       {{ govukButton({
         text: "Continue"

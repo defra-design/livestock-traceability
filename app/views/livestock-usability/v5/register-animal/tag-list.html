@@ -13,7 +13,7 @@
 
 {% set currentTag = data['ear-tag-number'] if data['ear-tag-number'] else '' %}
 
-{% set damComplete = (data['dam-type'] == 'genetic' and data['dam-number']) or (data['dam-type'] == 'surrogate' and data['surrogate-dam-number']) %}
+{% set damComplete = data['genetic-dam-number'] or data['surrogate-dam-number'] %}
 
 {% set isComplete = data['ear-tag-number'] and data['dob-day'] and data['dob-month'] and data['dob-year'] and data['sex'] and data['breed'] and damComplete %}
 
@@ -59,7 +59,7 @@
           <td class="govuk-table__cell"><a class="govuk-link" href="/livestock-usability/v5/check-calf-details">{{ currentTag }}</a></td>
           <td class="govuk-table__cell govuk-table__cell--numeric">
             {% if isComplete %}
-              <strong class="govuk-tag govuk-tag--green">Ready to submit</strong>
+              <strong class="govuk-tag govuk-tag--green">Ready to send</strong>
             {% else %}
               <strong class="govuk-tag govuk-tag--blue">Incomplete</strong>
             {% endif %}

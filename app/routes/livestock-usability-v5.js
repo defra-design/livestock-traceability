@@ -33,6 +33,16 @@ router.post('/livestock-usability/v5/registration-method', (req, res) => {
 })
 
 router.post('/livestock-usability/v5/animal-select', (req, res) => {
+  const animalType = req.session.data['animal-type']
+
+  if (!animalType) {
+    return res.render('livestock-usability/v5/register-animal/animal-select', {
+      errors: {
+        'animal-type': { text: 'Select a species from the list' }
+      }
+    })
+  }
+
   res.redirect('/livestock-usability/v5/calf-details')
 })
 
@@ -50,10 +60,9 @@ router.post('/livestock-usability/v5/tag-list', (req, res) => {
   const errors = {}
 
   if (!addAnother) {
-    errors['add-another'] = 'Select yes to add additional animals including siblings, or no to continue.'
+    errors['add-another'] = 'Select yes to add additional animals or no to continue'
   } else if (addAnother === 'no') {
-    const damComplete = (data['dam-type'] === 'genetic' && data['dam-number']) ||
-                        (data['dam-type'] === 'surrogate' && data['surrogate-dam-number'])
+    const damComplete = data['genetic-dam-number'] || data['surrogate-dam-number']
     const isComplete = data['ear-tag-number'] && data['dob-day'] && data['dob-month'] &&
                        data['dob-year'] && data['sex'] && data['breed'] && damComplete
     if (!isComplete) {
@@ -96,7 +105,7 @@ router.post('/livestock-usability/v5/calf-details', (req, res) => {
   }
 
   if (!data['breed']) {
-    errors['breed'] = 'Select a breed'
+    errors['breed'] = 'Enter the animal breed or breed code into the text box and select the correct one from the suggested options'
   }
 
   if (Object.keys(errors).length > 0) {
@@ -146,7 +155,7 @@ router.get('/livestock-usability/v5/remove-calf', (req, res) => {
 router.post('/livestock-usability/v5/remove-calf', (req, res) => {
   const fields = [
     'ear-tag-number', 'dob-day', 'dob-month', 'dob-year', 'sex',
-    'breed', 'dam-type', 'dam-number', 'surrogate-dam-number',
+    'breed', 'dam-type', 'dam-number', 'genetic-dam-number', 'surrogate-dam-number',
     'sire-number', 'sire-name', 'calf-details-radio', 'related-tag-numbers',
     'completed-tags', 'current-tag'
   ]

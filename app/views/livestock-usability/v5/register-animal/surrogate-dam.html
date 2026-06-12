@@ -56,7 +56,7 @@
     {% endif %}
 
     <span class="govuk-caption-l">Official animal ear tag number: {{ data['ear-tag-number'] }}</span>
-    <h1 class="govuk-heading-l">Enter the animal ear tag numbers of the genetic dam and the surrogate dam</h1>
+    <h1 class="govuk-heading-l">Genetic and surrogate dam details</h1>
 
     <form action="/livestock-usability/v5/surrogate-dam" method="post" novalidate>
 
@@ -84,7 +84,7 @@
           Surrogate dam ear tag number
         </label>
         <div id="account-number-hint" class="govuk-hint">
-          Start typing to search and select an option from the list.
+          Start typing the last 6 digits of the ear tag number and select from the list
         </div>
         {% if errors['surrogate-dam-number'] %}
         <p id="surrogate-dam-number-error" class="govuk-error-message">
