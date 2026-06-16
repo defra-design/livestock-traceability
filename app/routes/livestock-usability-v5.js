@@ -421,10 +421,85 @@ router.post('/livestock-usability/v5/report-death/submit', (req, res) => {
 })
 
 router.post('/livestock-usability/v5/report-death/yes/animal-details', (req, res) => {
+  const data = req.session.data
+  const errors = {}
+
+  if (!data['death-ear-tag-number']) {
+    errors['death-ear-tag-number'] = 'Enter the last 6 digits of the animal ear tag number you are registering'
+  }
+
+  const dateComplete = data['death-date-day'] && data['death-date-month'] && data['death-date-year']
+  if (!dateComplete) {
+    errors['death-date'] = 'Enter the date the animal died'
+  } else {
+    const today = new Date()
+    today.setHours(0, 0, 0, 0)
+    const deathDate = new Date(parseInt(data['death-date-year']), parseInt(data['death-date-month']) - 1, parseInt(data['death-date-day']))
+    if (deathDate > today) {
+      errors['death-date'] = 'Date of death needs to be in the past'
+    }
+  }
+
+  if (Object.keys(errors).length > 0) {
+    return res.render('livestock-usability/v5/report-death/yes/animal-details', { errors })
+  }
+
   res.redirect('/livestock-usability/v5/report-death/check-animal-details')
 })
 
 router.post('/livestock-usability/v5/report-death/no/animal-details', (req, res) => {
+  const data = req.session.data
+  const errors = {}
+
+  if (!data['death-ear-tag-number']) {
+    errors['death-ear-tag-number'] = 'Enter the last 6 digits of the animal ear tag number you are registering'
+  }
+
+  const dobComplete = data['death-dob-day'] && data['death-dob-month'] && data['death-dob-year']
+  if (!dobComplete) {
+    errors['death-dob'] = 'Enter the date the animal was born'
+  }
+
+  const dateComplete = data['death-date-day'] && data['death-date-month'] && data['death-date-year']
+  if (!dateComplete) {
+    errors['death-date'] = 'Enter the date the animal died'
+  }
+
+  if (!data['death-sex']) {
+    errors['death-sex'] = 'Select if the animal is male or female'
+  }
+
+  if (!data['death-breed']) {
+    errors['death-breed'] = 'Enter the animal breed or breed code into the text box and select the correct one from the suggested options'
+  }
+
+  if (dobComplete && !errors['death-dob']) {
+    const today = new Date()
+    today.setHours(0, 0, 0, 0)
+    const dob = new Date(parseInt(data['death-dob-year']), parseInt(data['death-dob-month']) - 1, parseInt(data['death-dob-day']))
+    if (dob > today) {
+      errors['death-dob'] = 'Date of birth must be in the past'
+    }
+  }
+
+  if (dateComplete && !errors['death-date']) {
+    const today = new Date()
+    today.setHours(0, 0, 0, 0)
+    const deathDate = new Date(parseInt(data['death-date-year']), parseInt(data['death-date-month']) - 1, parseInt(data['death-date-day']))
+    if (deathDate > today) {
+      errors['death-date'] = 'Date of death needs to be in the past'
+    } else if (dobComplete && !errors['death-dob']) {
+      const dob = new Date(parseInt(data['death-dob-year']), parseInt(data['death-dob-month']) - 1, parseInt(data['death-dob-day']))
+      if (deathDate < dob) {
+        errors['death-date'] = 'Date of death cannot be before the date of birth'
+      }
+    }
+  }
+
+  if (Object.keys(errors).length > 0) {
+    return res.render('livestock-usability/v5/report-death/no/animal-details', { errors })
+  }
+
   res.redirect('/livestock-usability/v5/report-death/check-animal-details')
 })
 
