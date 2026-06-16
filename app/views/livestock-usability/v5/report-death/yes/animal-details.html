@@ -1,6 +1,29 @@
 {% extends "layouts/main.html" %}
 
-{% set pageName="Date of death" %}
+{% set pageName="Animal details" %}
+
+{% block head %}
+  {{ super() }}
+  <link href="https://unpkg.com/accessible-autocomplete/dist/accessible-autocomplete.min.css" rel="stylesheet" media="all" />
+  <style>
+    .autocomplete__wrapper {
+      max-width: 20.5em;
+    }
+    .autocomplete__hint,
+    .autocomplete__input,
+    .autocomplete__option {
+      font-family: "Transport", arial, sans-serif;
+      font-size: 1.1875rem;
+      font-weight: normal!important;
+    }
+    .govuk-form-group--error .autocomplete__input {
+      border-color: #d4351c;
+    }
+    .autocomplete__option strong {
+      font-weight: normal;
+    }
+  </style>
+{% endblock %}
 
 {% block beforeContent %}
   {{ govukBackLink({
@@ -20,6 +43,9 @@
         <h2 class="govuk-error-summary__title">There is a problem</h2>
         <div class="govuk-error-summary__body">
           <ul class="govuk-list govuk-error-summary__list">
+            {% if errors['death-ear-tag-number'] %}
+            <li><a href="#death-ear-tag-number">{{ errors['death-ear-tag-number'] }}</a></li>
+            {% endif %}
             {% if errors['death-date'] %}
             <li><a href="#death-date-day">{{ errors['death-date'] }}</a></li>
             {% endif %}
@@ -29,15 +55,38 @@
     </div>
     {% endif %}
 
-    <form action="/livestock-usability/v5/report-death/date-of-death" method="post" novalidate>
+    <h1 class="govuk-heading-l">Animal details</h1>
+
+    <form action="/livestock-usability/v5/report-death/yes/animal-details" method="post" novalidate>
+
+      <div class="govuk-form-group {% if errors['death-ear-tag-number'] %}govuk-form-group--error{% endif %}">
+        <label class="govuk-label govuk-label--m" for="death-ear-tag-number">
+          Animal ear tag number
+        </label>
+        <div id="death-ear-tag-number-hint" class="govuk-hint">
+          Start typing the last 6 digits of the ear tag number and select from the list
+        </div>
+        {% if errors['death-ear-tag-number'] %}
+        <p id="death-ear-tag-number-error" class="govuk-error-message">
+          <span class="govuk-visually-hidden">Error:</span> {{ errors['death-ear-tag-number'] }}
+        </p>
+        {% endif %}
+        <div class="govuk-input__wrapper">
+          <select id="death-ear-tag-number" name="death-ear-tag-number" aria-describedby="death-ear-tag-number-hint{% if errors['death-ear-tag-number'] %} death-ear-tag-number-error{% endif %}">
+            <option value=""></option>
+            <option value="UK123456301550" {% if data['death-ear-tag-number'] == 'UK123456301550' %}selected{% endif %}>UK123456301550</option>
+            <option value="UK123456301551" {% if data['death-ear-tag-number'] == 'UK123456301551' %}selected{% endif %}>UK123456301551</option>
+            <option value="UK123456301552" {% if data['death-ear-tag-number'] == 'UK123456301552' %}selected{% endif %}>UK123456301552</option>
+            <option value="UK123456301553" {% if data['death-ear-tag-number'] == 'UK123456301553' %}selected{% endif %}>UK123456301553</option>
+            <option value="UK123456301554" {% if data['death-ear-tag-number'] == 'UK123456301554' %}selected{% endif %}>UK123456301554</option>
+          </select>
+        </div>
+      </div>
 
       <div class="govuk-form-group {% if errors['death-date'] %}govuk-form-group--error{% endif %}">
         <fieldset class="govuk-fieldset" role="group" aria-describedby="death-date-hint{% if errors['death-date'] %} death-date-error{% endif %}">
-          <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-            <span class="govuk-caption-l">Official animal ear tag number: {{ data['death-ear-tag-number'] }}</span>
-            <h1 class="govuk-fieldset__heading">
-              Date of death
-            </h1>
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+            Date of death
           </legend>
           <div id="death-date-hint" class="govuk-hint">
             For example, 31 3 2026.
@@ -77,4 +126,14 @@
   </div>
 </div>
 
+{% endblock %}
+
+{% block pageScripts %}
+  <script src="https://unpkg.com/accessible-autocomplete/dist/accessible-autocomplete.min.js"></script>
+  <script>
+    const $picker = document.querySelector('#death-ear-tag-number')
+    accessibleAutocomplete.enhanceSelectElement({
+      selectElement: $picker
+    })
+  </script>
 {% endblock %}

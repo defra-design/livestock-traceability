@@ -35,9 +35,9 @@
     </div>
     {% endif %}
 
- <!--   <p class="govuk-body">
-      Select the tag number from the list to review animal details.
-    </p>-->
+    <p class="govuk-body">
+      Select the tag number from the list to update the details. You can use the status indicator to check which animals are ready to submit.
+    </p>
 
     {% if completedDeaths and completedDeaths.length > 0 %}
     <table class="govuk-table">
@@ -51,11 +51,11 @@
         {% for death in completedDeaths %}
         <tr class="govuk-table__row">
           <td class="govuk-table__cell">
-            <a class="govuk-link" href="/livestock-usability/v5/report-death/check-death-details">UK 123456 {{ death.tag }}</a>
+            <a class="govuk-link" href="/livestock-usability/v5/report-death/check-animal-details">{{ death.tag }}</a>
           </td>
           <td class="govuk-table__cell govuk-table__cell--numeric">
             {% if death.tag and death.date %}
-              <strong class="govuk-tag govuk-tag--green">Completed</strong>
+              <strong class="govuk-tag govuk-tag--green">Ready to send</strong>
             {% else %}
               <strong class="govuk-tag govuk-tag--blue">Incomplete</strong>
             {% endif %}

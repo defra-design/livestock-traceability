@@ -7,8 +7,7 @@
   <link href="https://unpkg.com/accessible-autocomplete/dist/accessible-autocomplete.min.css" rel="stylesheet" media="all" />
   <style>
     .autocomplete__wrapper {
-      flex: 1;
-      min-width: 0;
+      max-width: 20.5em;
     }
     .autocomplete__hint,
     .autocomplete__input,
@@ -60,7 +59,7 @@
           Animal ear tag number
         </label>
         <div id="death-ear-tag-number-hint" class="govuk-hint">
-          Enter the last 6 digits of the animal ear tag number you are registering
+          Start typing the last 6 digits of the ear tag number and select from the list
         </div>
         {% if errors['death-ear-tag-number'] %}
         <p id="death-ear-tag-number-error" class="govuk-error-message">
@@ -68,14 +67,13 @@
         </p>
         {% endif %}
         <div class="govuk-input__wrapper">
-          <div class="govuk-input__prefix" aria-hidden="true">UK 123456</div>
           <select id="death-ear-tag-number" name="death-ear-tag-number" aria-describedby="death-ear-tag-number-hint{% if errors['death-ear-tag-number'] %} death-ear-tag-number-error{% endif %}">
             <option value=""></option>
-            <option value="301550" {% if data['death-ear-tag-number'] == '301550' %}selected{% endif %}>301550</option>
-            <option value="301551" {% if data['death-ear-tag-number'] == '301551' %}selected{% endif %}>301551</option>
-            <option value="301552" {% if data['death-ear-tag-number'] == '301552' %}selected{% endif %}>301552</option>
-            <option value="301553" {% if data['death-ear-tag-number'] == '301553' %}selected{% endif %}>301553</option>
-            <option value="301554" {% if data['death-ear-tag-number'] == '301554' %}selected{% endif %}>301554</option>
+            <option value="UK123456301550" {% if data['death-ear-tag-number'] == 'UK123456301550' %}selected{% endif %}>UK123456301550</option>
+            <option value="UK123456301551" {% if data['death-ear-tag-number'] == 'UK123456301551' %}selected{% endif %}>UK123456301551</option>
+            <option value="UK123456301552" {% if data['death-ear-tag-number'] == 'UK123456301552' %}selected{% endif %}>UK123456301552</option>
+            <option value="UK123456301553" {% if data['death-ear-tag-number'] == 'UK123456301553' %}selected{% endif %}>UK123456301553</option>
+            <option value="UK123456301554" {% if data['death-ear-tag-number'] == 'UK123456301554' %}selected{% endif %}>UK123456301554</option>
           </select>
         </div>
       </div>

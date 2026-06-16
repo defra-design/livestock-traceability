@@ -277,13 +277,21 @@ router.post('/livestock-usability/v5/report-death/animal-select', (req, res) => 
 })
 
 router.post('/livestock-usability/v5/report-death/is-registered', (req, res) => {
-  const answer = req.session.data['death-is-registered']
+  const data = req.session.data
+  const answer = data['death-is-registered']
   if (!answer) {
     return res.render('livestock-usability/v5/report-death/is-registered', {
       errors: { 'death-is-registered': 'Select if the animal is already registered to your holding' }
     })
   }
-  res.redirect('/livestock-usability/v5/report-death/ear-tag-number')
+  if (data['change'] === 'true') {
+    delete data['change']
+    return res.redirect('/livestock-usability/v5/report-death/check-animal-details')
+  }
+  if (answer === 'yes') {
+    return res.redirect('/livestock-usability/v5/report-death/yes/animal-details')
+  }
+  res.redirect('/livestock-usability/v5/report-death/no/animal-details')
 })
 
 router.post('/livestock-usability/v5/report-death/ear-tag-number', (req, res) => {
@@ -341,7 +349,7 @@ router.post('/livestock-usability/v5/report-death/date-of-death', (req, res) => 
     })
   }
   if (data['death-is-registered'] === 'yes') {
-    return res.redirect('/livestock-usability/v5/report-death/check-death-details')
+    return res.redirect('/livestock-usability/v5/report-death/check-animal-details')
   }
   res.redirect('/livestock-usability/v5/report-death/breed')
 })
@@ -383,7 +391,7 @@ router.post('/livestock-usability/v5/report-death/dam-details', (req, res) => {
 })
 
 router.post('/livestock-usability/v5/report-death/sire-details', (req, res) => {
-  res.redirect('/livestock-usability/v5/report-death/check-death-details')
+  res.redirect('/livestock-usability/v5/report-death/check-animal-details')
 })
 
 router.post('/livestock-usability/v5/report-death/add-more-deaths', (req, res) => {
@@ -412,7 +420,15 @@ router.post('/livestock-usability/v5/report-death/submit', (req, res) => {
   res.redirect('/livestock-usability/v5/report-death/confirmation')
 })
 
-router.post('/livestock-usability/v5/report-death/check-death-details', (req, res) => {
+router.post('/livestock-usability/v5/report-death/yes/animal-details', (req, res) => {
+  res.redirect('/livestock-usability/v5/report-death/check-animal-details')
+})
+
+router.post('/livestock-usability/v5/report-death/no/animal-details', (req, res) => {
+  res.redirect('/livestock-usability/v5/report-death/check-animal-details')
+})
+
+router.post('/livestock-usability/v5/report-death/check-animal-details', (req, res) => {
   const data = req.session.data
   const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
   const monthIndex = parseInt(data['death-date-month']) - 1
