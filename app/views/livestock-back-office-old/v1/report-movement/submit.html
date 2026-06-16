@@ -1,6 +1,6 @@
 {% extends "layouts/main.html" %}
 
-{% set pageName="Submit your cattle birth report" %}
+{% set pageName="Submit your movement report" %}
 
 {% block beforeContent %}
   {{ govukBackLink({
@@ -14,11 +14,11 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
 
-    <h1 class="govuk-heading-l">Now submit your cattle registration</h1>
+    <h1 class="govuk-heading-l">Now submit your movement report</h1>
 
-    <p class="govuk-body">By submitting this cattle birth report you are confirming that, to the best of your knowledge, the details you are providing are correct.</p>
+    <p class="govuk-body">By submitting this movement report you are confirming that, to the best of your knowledge, the details you are providing are correct.</p>
 
-    <form method="post" action="/livestock-usability/v6/submit" novalidate>
+    <form method="post" action="/livestock-back-office-old/v1/report-movement/submit" novalidate>
       <button type="submit" class="govuk-button" data-module="govuk-button">
         Accept and send
       </button>

@@ -15,13 +15,9 @@
     .autocomplete__option {
       font-family: arial, sans-serif;
       font-size: 1.1875rem;
-      font-weight: normal!important;
     }
     .govuk-form-group--error .autocomplete__input {
       border-color: #d4351c;
-    }
-    .autocomplete__option strong {
-      font-weight: normal;
     }
   </style>
 {% endblock %}
@@ -62,7 +58,7 @@
     </div>
     {% endif %}
 
-    <form action="/livestock-usability/v6/report-death/dam-details" method="post" novalidate>
+    <form action="/livestock-back-office-old/v1/report-death/dam-details" method="post" novalidate>
 
       <div class="govuk-form-group {% if errors['death-dam-type'] %}govuk-form-group--error{% endif %}">
         <fieldset class="govuk-fieldset" aria-describedby="death-dam-type-hint{% if errors['death-dam-type'] %} death-dam-type-error{% endif %}">

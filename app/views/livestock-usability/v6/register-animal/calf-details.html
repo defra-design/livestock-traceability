@@ -228,6 +228,9 @@
     .govuk-form-group--error .autocomplete__input {
       border-color: #d4351c;
     }
+    .autocomplete__option strong {
+      font-weight: normal;
+    }
   </style>
 {% endblock %}
 
@@ -255,7 +258,7 @@
             <li><a href="#ear-tag-number">{{ errors['ear-tag-number'] }}</a></li>
             {% endif %}
             {% if errors['dob'] %}
-            <li><a href="#dob">{{ errors['dob'] }}</a></li>
+            <li><a href="#dob-day">{{ errors['dob'] }}</a></li>
             {% endif %}
             {% if errors['sex'] %}
             <li><a href="#sex">{{ errors['sex'] }}</a></li>
@@ -275,6 +278,9 @@
         <label class="govuk-label govuk-label--m" for="ear-tag-number">
           Animal ear tag number
         </label>
+        <div id="account-number-hint" class="govuk-hint">
+          Start typing the last 6 digits of the ear tag number and select from the list
+        </div>
         {% if errors['ear-tag-number'] %}
         <p id="ear-tag-number-error" class="govuk-error-message">
           <span class="govuk-visually-hidden">Error:</span> {{ errors['ear-tag-number'] }}
@@ -292,20 +298,36 @@
         </div>
       </div>
 
-      {%- from "moj/components/date-picker/macro.njk" import mojDatePicker -%}
-
-      {{ mojDatePicker({
+      {{ govukDateInput({
         id: "dob",
-        name: "dob",
-        label: {
-          text: "Date of birth",
-          classes: "govuk-label--m"
+        namePrefix: "dob",
+        fieldset: {
+          legend: {
+            text: "Date of birth",
+            classes: "govuk-fieldset__legend--m"
+          }
         },
         hint: {
-          text: "For example, 17/5/2024."
+          text: "For example, 27 3 2026."
         },
-        value: data['dob'],
-        errorMessage: errors['dob'] and { text: errors['dob'] }
+        errorMessage: errors['dob'] and { text: errors['dob'] },
+        items: [
+          {
+            name: "day",
+            classes: "govuk-input--width-2" + (" govuk-input--error" if errors['dob']),
+            value: data['dob-day']
+          },
+          {
+            name: "month",
+            classes: "govuk-input--width-2" + (" govuk-input--error" if errors['dob']),
+            value: data['dob-month']
+          },
+          {
+            name: "year",
+            classes: "govuk-input--width-4" + (" govuk-input--error" if errors['dob']),
+            value: data['dob-year']
+          }
+        ]
       }) }}
 
       <div class="govuk-form-group {% if errors['sex'] %}govuk-form-group--error{% endif %}">
@@ -335,6 +357,9 @@
         <label class="govuk-label govuk-label--m" for="breed">
           Breed
         </label>
+        <div id="account-number-hint" class="govuk-hint">
+          Start typing the breed or enter the breed code to select from the list
+        </div>
         {% if errors['breed'] %}
         <p id="breed-error" class="govuk-error-message">
           <span class="govuk-visually-hidden">Error:</span> {{ errors['breed'] }}

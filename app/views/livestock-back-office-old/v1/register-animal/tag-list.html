@@ -13,7 +13,7 @@
 
 {% set currentTag = data['ear-tag-number'] if data['ear-tag-number'] else '' %}
 
-{% set damComplete = data['genetic-dam-number'] or data['surrogate-dam-number'] %}
+{% set damComplete = (data['dam-type'] == 'genetic' and data['dam-number']) or (data['dam-type'] == 'surrogate' and data['surrogate-dam-number']) %}
 
 {% set isComplete = data['ear-tag-number'] and data['dob-day'] and data['dob-month'] and data['dob-year'] and data['sex'] and data['breed'] and damComplete %}
 
@@ -31,7 +31,7 @@
         <div class="govuk-error-summary__body">
           <ul class="govuk-list govuk-error-summary__list">
             {% if errors['incomplete'] %}
-            <li><a href="/livestock-usability/v6/calf-details">{{ errors['incomplete'] }}</a></li>
+            <li><a href="/livestock-back-office-old/v1/calf-details">{{ errors['incomplete'] }}</a></li>
             {% endif %}
             {% if errors['add-another'] %}
             <li><a href="#add-another">{{ errors['add-another'] }}</a></li>
@@ -56,10 +56,10 @@
       </thead>
       <tbody class="govuk-table__body">
         <tr class="govuk-table__row">
-          <td class="govuk-table__cell"><a class="govuk-link" href="/livestock-usability/v6/check-calf-details">{{ currentTag }}</a></td>
+          <td class="govuk-table__cell"><a class="govuk-link" href="/livestock-back-office-old/v1/check-calf-details">{{ currentTag }}</a></td>
           <td class="govuk-table__cell govuk-table__cell--numeric">
             {% if isComplete %}
-              <strong class="govuk-tag govuk-tag--green">Ready to send</strong>
+              <strong class="govuk-tag govuk-tag--green">Ready to submit</strong>
             {% else %}
               <strong class="govuk-tag govuk-tag--blue">Incomplete</strong>
             {% endif %}
@@ -71,7 +71,7 @@
     <p class="govuk-body">No calves have been added.</p>
     {% endif %}
 
-    <form class="form" action="/livestock-usability/v6/tag-list" method="post">
+    <form class="form" action="/livestock-back-office-old/v1/tag-list" method="post">
       <div class="govuk-form-group {% if errors['add-another'] %}govuk-form-group--error{% endif %}">
         <fieldset class="govuk-fieldset" aria-describedby="add-another-hint{% if errors['add-another'] %} add-another-error{% endif %}">
           <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">

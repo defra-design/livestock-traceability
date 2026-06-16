@@ -14,7 +14,7 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
 
-    <form action="/livestock-usability/v6/remove-calf" method="post" novalidate>
+    <form action="/livestock-back-office-old/v1/remove-calf" method="post" novalidate>
 
       <div class="govuk-form-group">
         <fieldset class="govuk-fieldset">
@@ -23,7 +23,7 @@
               Are you sure you want to cancel this registration?
             </h1>
           </legend>
-          <p class="govuk-body">{{ data['ear-tag-number'] }}</p>
+          <p class="govuk-body">UK 123456 {{ data['ear-tag-number'] }}</p>
         </fieldset>
       </div>
 
@@ -31,7 +31,7 @@
         <button type="submit" class="govuk-button" data-module="govuk-button">
           Continue
         </button>
-        <a class="govuk-link" href="/livestock-usability/v6/check-calf-details">Cancel</a>
+        <a class="govuk-link" href="/livestock-back-office-old/v1/check-calf-details">Cancel</a>
       </div>
 
     </form>

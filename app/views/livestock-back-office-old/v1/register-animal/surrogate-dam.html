@@ -19,9 +19,6 @@
     .govuk-form-group--error .autocomplete__input {
       border-color: #d4351c;
     }
-    .autocomplete__option strong {
-      font-weight: normal;
-    }
   </style>
 {% endblock %}
 
@@ -56,9 +53,9 @@
     {% endif %}
 
     <span class="govuk-caption-l">Official animal ear tag number: {{ data['ear-tag-number'] }}</span>
-    <h1 class="govuk-heading-l">Genetic and surrogate dam details</h1>
+    <h1 class="govuk-heading-l">Surrogate dam details</h1>
 
-    <form action="/livestock-usability/v6/surrogate-dam" method="post" novalidate>
+    <form action="/livestock-back-office-old/v1/surrogate-dam" method="post" novalidate>
 
       <div class="govuk-form-group {% if errors['genetic-dam-number'] %}govuk-form-group--error{% endif %}">
         <label class="govuk-label govuk-label--m" for="genetic-dam-number">
@@ -83,9 +80,6 @@
         <label class="govuk-label govuk-label--m" for="surrogate-dam-number">
           Surrogate dam ear tag number
         </label>
-        <div id="account-number-hint" class="govuk-hint">
-          Start typing the last 6 digits of the ear tag number and select from the list
-        </div>
         {% if errors['surrogate-dam-number'] %}
         <p id="surrogate-dam-number-error" class="govuk-error-message">
           <span class="govuk-visually-hidden">Error:</span> {{ errors['surrogate-dam-number'] }}
@@ -119,10 +113,7 @@
   <script src="https://unpkg.com/accessible-autocomplete/dist/accessible-autocomplete.min.js"></script>
   <script>
     accessibleAutocomplete.enhanceSelectElement({
-      selectElement: document.querySelector('#surrogate-dam-number'),
-      showAllValues: false,
-      autoselect: true,
-      displayMenu: 'overlay'
+      selectElement: document.querySelector('#surrogate-dam-number')
     })
   </script>
 {% endblock %}

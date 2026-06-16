@@ -19,9 +19,6 @@
     .govuk-form-group--error .autocomplete__input {
       border-color: #d4351c;
     }
-    .autocomplete__option strong {
-      font-weight: normal;
-    }
   </style>
 {% endblock %}
 
@@ -52,23 +49,13 @@
     </div>
     {% endif %}
 
-    <form action="/livestock-usability/v6/genetic-dam" method="post" novalidate>
+    <form action="/livestock-back-office-old/v1/genetic-dam" method="post" novalidate>
 
       <div class="govuk-form-group {% if errors['genetic-dam-number'] %}govuk-form-group--error{% endif %}">
-
-        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+        <label class="govuk-label govuk-label--l" for="genetic-dam-number">
           <span class="govuk-caption-l">Official animal ear tag number: {{ data['ear-tag-number'] }}</span>
-          <h1 class="govuk-fieldset__heading">
-            Genetic dam details
-          </h1>
-        </legend>
-
-        <label class="govuk-label govuk-label--m" for="genetic-dam-number">
-          Animal ear tag number
+          Genetic dam ear tag number
         </label>
-        <div id="account-number-hint" class="govuk-hint">
-          Start typing the last 6 digits of the ear tag number and select from the list
-        </div>
         {% if errors['genetic-dam-number'] %}
         <p id="genetic-dam-number-error" class="govuk-error-message">
           <span class="govuk-visually-hidden">Error:</span> {{ errors['genetic-dam-number'] }}

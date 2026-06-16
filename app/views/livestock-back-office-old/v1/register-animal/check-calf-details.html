@@ -19,18 +19,18 @@
     <dl class="govuk-summary-list govuk-!-margin-bottom-9">
 
       <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">Animal ear tag number</dt>
+        <dt class="govuk-summary-list__key">Unique tag number</dt>
         <dd class="govuk-summary-list__value">{{ data['ear-tag-number'] }}</dd>
           <dd class="govuk-summary-list__actions">
-              <a class="govuk-link" href="/livestock-usability/v6/calf-details?change=true">Change<span class="govuk-visually-hidden"> ear tag number</span></a>
+              <a class="govuk-link" href="/livestock-back-office-old/v1/calf-details?change=true">Change<span class="govuk-visually-hidden"> ear tag number</span></a>
           </dd>
       </div>
 
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">Date of birth</dt>
-        <dd class="govuk-summary-list__value">{{ data['dob-day'] }} {{ ['', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][data['dob-month'] | int] }} {{ data['dob-year'] }}</dd>
+        <dd class="govuk-summary-list__value">{{ data['dob'] }}</dd>
         <dd class="govuk-summary-list__actions">
-          <a class="govuk-link" href="/livestock-usability/v6/calf-details?change=true">Change<span class="govuk-visually-hidden"> date of birth</span></a>
+          <a class="govuk-link" href="/livestock-back-office-old/v1/calf-details?change=true">Change<span class="govuk-visually-hidden"> date of birth</span></a>
         </dd>
       </div>
 
@@ -38,7 +38,7 @@
         <dt class="govuk-summary-list__key">Sex</dt>
         <dd class="govuk-summary-list__value">{{ data['sex'] | capitalize }}</dd>
         <dd class="govuk-summary-list__actions">
-          <a class="govuk-link" href="/livestock-usability/v6/calf-details?change=true">Change<span class="govuk-visually-hidden"> sex</span></a>
+          <a class="govuk-link" href="/livestock-back-office-old/v1/calf-details?change=true">Change<span class="govuk-visually-hidden"> sex</span></a>
         </dd>
       </div>
 
@@ -55,7 +55,7 @@
           {% endif %}
         </dd>
         <dd class="govuk-summary-list__actions">
-          <a class="govuk-link" href="/livestock-usability/v6/multiple-birth">Change<span class="govuk-visually-hidden"> related ear tag numbers</span></a>
+          <a class="govuk-link" href="/livestock-back-office-old/v1/multiple-birth">Change<span class="govuk-visually-hidden"> related ear tag numbers</span></a>
         </dd>
       </div>
       {% endif %}
@@ -64,7 +64,7 @@
         <dt class="govuk-summary-list__key">Breed</dt>
         <dd class="govuk-summary-list__value">{{ data['breed'] }}</dd>
         <dd class="govuk-summary-list__actions">
-          <a class="govuk-link" href="/livestock-usability/v6/calf-details?change=true">Change<span class="govuk-visually-hidden"> breed</span></a>
+          <a class="govuk-link" href="/livestock-back-office-old/v1/calf-details?change=true">Change<span class="govuk-visually-hidden"> breed</span></a>
         </dd>
       </div>
 
@@ -72,7 +72,7 @@
         <dt class="govuk-summary-list__key">Dam type</dt>
         <dd class="govuk-summary-list__value">{{ data['dam-type'] | capitalize }}</dd>
         <dd class="govuk-summary-list__actions">
-          <a class="govuk-link" href="/livestock-usability/v6/dam-details?change=true">Change<span class="govuk-visually-hidden"> dam type</span></a>
+          <a class="govuk-link" href="/livestock-back-office-old/v1/dam-details?change=true">Change<span class="govuk-visually-hidden"> dam type</span></a>
         </dd>
       </div>
 
@@ -81,14 +81,14 @@
         <dt class="govuk-summary-list__key">Genetic dam ear tag number</dt>
         <dd class="govuk-summary-list__value">{{ data['genetic-dam-number'] }}</dd>
         <dd class="govuk-summary-list__actions">
-          <a class="govuk-link" href="/livestock-usability/v6/surrogate-dam?change=true">Change<span class="govuk-visually-hidden"> genetic dam ear tag number</span></a>
+          <a class="govuk-link" href="/livestock-back-office-old/v1/surrogate-dam?change=true">Change<span class="govuk-visually-hidden"> genetic dam ear tag number</span></a>
         </dd>
       </div>
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">Surrogate dam ear tag number</dt>
         <dd class="govuk-summary-list__value">{{ data['surrogate-dam-number'] }}</dd>
         <dd class="govuk-summary-list__actions">
-          <a class="govuk-link" href="/livestock-usability/v6/surrogate-dam?change=true">Change<span class="govuk-visually-hidden"> surrogate dam ear tag number</span></a>
+          <a class="govuk-link" href="/livestock-back-office-old/v1/surrogate-dam?change=true">Change<span class="govuk-visually-hidden"> surrogate dam ear tag number</span></a>
         </dd>
       </div>
       {% else %}
@@ -96,7 +96,7 @@
         <dt class="govuk-summary-list__key">Genetic dam ear tag number</dt>
         <dd class="govuk-summary-list__value">{{ data['genetic-dam-number'] }}</dd>
         <dd class="govuk-summary-list__actions">
-          <a class="govuk-link" href="/livestock-usability/v6/genetic-dam?change=true">Change<span class="govuk-visually-hidden"> genetic dam ear tag number</span></a>
+          <a class="govuk-link" href="/livestock-back-office-old/v1/genetic-dam?change=true">Change<span class="govuk-visually-hidden"> genetic dam ear tag number</span></a>
         </dd>
       </div>
       {% endif %}
@@ -105,7 +105,7 @@
         <dt class="govuk-summary-list__key">Sire ear tag number</dt>
         <dd class="govuk-summary-list__value">{{ data['sire-number'] if data['sire-number'] else 'Not provided' }}</dd>
         <dd class="govuk-summary-list__actions">
-          <a class="govuk-link" href="/livestock-usability/v6/sire-details?change=true">Change<span class="govuk-visually-hidden"> sire ear tag number</span></a>
+          <a class="govuk-link" href="/livestock-back-office-old/v1/sire-details?change=true">Change<span class="govuk-visually-hidden"> sire ear tag number</span></a>
         </dd>
       </div>
 
@@ -113,19 +113,19 @@
         <dt class="govuk-summary-list__key">Sire name</dt>
         <dd class="govuk-summary-list__value">{{ data['sire-name'] if data['sire-name'] else 'Not provided' }}</dd>
         <dd class="govuk-summary-list__actions">
-          <a class="govuk-link" href="/livestock-usability/v6/sire-details?change=true">Change<span class="govuk-visually-hidden"> sire name</span></a>
+          <a class="govuk-link" href="/livestock-back-office-old/v1/sire-details?change=true">Change<span class="govuk-visually-hidden"> sire name</span></a>
         </dd>
       </div>
 
     </dl>
 
     <div>
-      <form action="/livestock-usability/v6/check-calf-details" method="post" novalidate>
+      <form action="/livestock-back-office-old/v1/check-calf-details" method="post" novalidate>
         <button type="submit" class="govuk-button" data-module="govuk-button">
           Continue
         </button>
       </form>
-      <a href="/livestock-usability/v6/remove-calf" role="button" draggable="false" class="govuk-button govuk-button--secondary" data-module="govuk-button">
+      <a href="/livestock-back-office-old/v1/remove-calf" role="button" draggable="false" class="govuk-button govuk-button--secondary" data-module="govuk-button">
         Cancel birth registration
       </a>
     </div>
