@@ -27,7 +27,7 @@
     {% endif %}
 
     <form class="form" action="/livestock-usability/v6/animal-select" method="post">
-
+      <p>{{query['test']}}</p>
       {{ govukRadios({
         name: "animal-type",
         fieldset: {
