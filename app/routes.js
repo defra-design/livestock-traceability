@@ -57,27 +57,21 @@ function loadRouteFile(router, routePath, label) {
     }
 }
 
-function loadRoutesFromFolder(router, folderPath) {
+function loadRoutesFromFolder(router, folderPath, basePath = folderPath) {
     fs.readdirSync(folderPath)
         .sort()
         .forEach(item => {
             const itemPath = path.join(folderPath, item);
             const stats = fs.statSync(itemPath);
 
-            if (stats.isFile() && item.endsWith('.js') && item !== path.basename(__filename)) {
-                loadRouteFile(router, itemPath, item);
+            if (stats.isDirectory()) {
+                loadRoutesFromFolder(router, itemPath, basePath);
+                return;
             }
 
-            if (stats.isDirectory()) {
-                fs.readdirSync(itemPath)
-                    .filter(file => file.endsWith('.js'))
-                    .sort()
-                    .forEach(file => {
-                        const childRoutePath = path.join(itemPath, file);
-                        const label = `${item}/${file}`;
-
-                        loadRouteFile(router, childRoutePath, label);
-                    });
+            if (stats.isFile() && item.endsWith('.js')) {
+                const label = path.relative(basePath, itemPath);
+                loadRouteFile(router, itemPath, label);
             }
         });
 }

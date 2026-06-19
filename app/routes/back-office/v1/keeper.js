@@ -1,6 +1,7 @@
 const govukPrototypeKit = require('govuk-prototype-kit')
 const router = govukPrototypeKit.requests.setupRouter()
 
+// this is taken from v6 of the keeper journey
 
 const basePath = 'livestock-back-office/v1';
 
