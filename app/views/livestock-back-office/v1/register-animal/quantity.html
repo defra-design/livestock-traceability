@@ -1,0 +1,55 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="How many calves are you registering?" %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <form class="form" action="./quantity" method="post">
+
+      <div class="govuk-form-group">
+        <fieldset class="govuk-fieldset">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl">
+            <h1 class="govuk-fieldset__heading">
+              How would you like to add animals?
+            </h1>
+          </legend>
+          <div class="govuk-inset-text">
+            If you are submitting multiple animals, you can use the file upload service.
+          </div>
+          <div class="govuk-radios" data-module="govuk-radios">
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="quantity" name="quantity" type="radio" value="less-than-100">
+              <label class="govuk-label govuk-radios__label" for="quantity">
+                Manual addition
+              </label>
+            </div>
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="quantity-2" name="quantity" type="radio" value="more-than-100">
+              <label class="govuk-label govuk-radios__label" for="quantity-2">
+                File upload
+              </label>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+
+      {{ govukButton({
+        text: "Continue"
+      }) }}
+
+    </form>
+
+  </div>
+</div>
+
+{% endblock %}

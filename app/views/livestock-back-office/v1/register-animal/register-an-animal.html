@@ -1,0 +1,59 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Animal birth registrations" %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+
+    <h1 class="govuk-heading-l">
+      Register an animal
+    </h1>
+
+    <a href="./animal-select?cleardata=true" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+      Start new registration
+    </a>
+
+    <table class="govuk-table">
+      <thead class="govuk-table__head">
+        <tr class="govuk-table__row">
+          <th scope="col" class="govuk-table__header">Submission date</th>
+          <th scope="col" class="govuk-table__header">Species</th>
+          <th scope="col" class="govuk-table__header">Total animals</th>
+          <th scope="col" class="govuk-table__header">Status</th>
+        </tr>
+      </thead>
+      <tbody class="govuk-table__body">
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell"><a class="govuk-link" href="./submission-detail">14 May 2026</a></td>
+          <td class="govuk-table__cell">Cattle</td>
+          <td class="govuk-table__cell">12</td>
+          <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--green">Sent</strong></td>
+        </tr>
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell"><a class="govuk-link" href="#">28 April 2026</a></td>
+          <td class="govuk-table__cell">Cattle</td>
+          <td class="govuk-table__cell">8</td>
+          <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--blue">Draft</strong></td>
+        </tr>
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell"><a class="govuk-link" href="#">1 April 2026</a></td>
+          <td class="govuk-table__cell">Cattle</td>
+          <td class="govuk-table__cell">20</td>
+          <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--green">Sent</strong></td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+</div>
+
+{% endblock %}

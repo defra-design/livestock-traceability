@@ -1,0 +1,52 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Livestock Information Service" %}
+
+{% block content %}
+
+<div class="govuk-width-container">
+  <h1 class="govuk-heading-xl">
+    Livestock Information Service
+  </h1>
+
+  <ul class="govuk-grid-row card-group">
+    <li class="govuk-grid-column-one-third card-group__item">
+      <div class="card card--clickable" data-test="global-search">
+        <h2 class="govuk-heading-m card__heading">
+          <a class="govuk-link card__link govuk-link--no-visited-state" href="./register-an-animal">
+            Register an animal
+          </a>
+        </h2>
+        <p class="govuk-body card__description">
+          Register cattle births, or camelids on your holding.
+        </p>
+      </div>
+    </li>
+    <li class="govuk-grid-column-one-third card-group__item">
+      <div class="card card--clickable" data-test="manage-prisoner-whereabouts">
+        <h2 class="govuk-heading-m card__heading">
+          <a class="govuk-link card__link govuk-link--no-visited-state" href="#">
+            Report an animal movement
+          </a>
+        </h2>
+        <p class="govuk-body card__description">
+          Report movements on and off your holding.
+        </p>
+      </div>
+    </li>
+    <li class="govuk-grid-column-one-third card-group__item">
+      <div class="card card--clickable" data-test="use-of-force">
+        <h2 class="govuk-heading-m card__heading">
+          <a class="govuk-link card__link govuk-link--no-visited-state" href="./report-death/animal-select">
+            Report an animal death
+          </a>
+        </h2>
+        <p class="govuk-body card__description">
+          Report a death of registered and unregistered animals on your holding.
+        </p>
+      </div>
+    </li>
+  </ul>
+</div>
+
+{% endblock %}

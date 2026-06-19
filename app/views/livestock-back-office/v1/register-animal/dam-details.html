@@ -1,0 +1,67 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Dam details" %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    {% if errors %}
+    <div class="govuk-error-summary" data-module="govuk-error-summary">
+      <div role="alert">
+        <h2 class="govuk-error-summary__title">There is a problem</h2>
+        <div class="govuk-error-summary__body">
+          <ul class="govuk-list govuk-error-summary__list">
+            {% if errors['dam-type'] %}
+            <li><a href="#dam-type">{{ errors['dam-type'] }}</a></li>
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
+    <form action="./dam-details" method="post" novalidate>
+
+      <div class="govuk-form-group {% if errors['dam-type'] %}govuk-form-group--error{% endif %}">
+        <fieldset class="govuk-fieldset" aria-describedby="{% if errors['dam-type'] %}dam-type-error{% endif %}">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+            <span class="govuk-caption-l">Official animal ear tag number: {{ data['ear-tag-number'] }}</span>
+            <h1 class="govuk-fieldset__heading">
+              Dam details
+            </h1>
+          </legend>
+          {% if errors['dam-type'] %}
+          <p id="dam-type-error" class="govuk-error-message">
+            <span class="govuk-visually-hidden">Error:</span> {{ errors['dam-type'] }}
+          </p>
+          {% endif %}
+          <div class="govuk-radios" data-module="govuk-radios">
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="dam-type" name="dam-type" type="radio" value="genetic" {% if data['dam-type'] == 'genetic' %}checked{% endif %}>
+              <label class="govuk-label govuk-radios__label" for="dam-type">Genetic dam</label>
+            </div>
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="dam-type-2" name="dam-type" type="radio" value="surrogate" {% if data['dam-type'] == 'surrogate' %}checked{% endif %}>
+              <label class="govuk-label govuk-radios__label" for="dam-type-2">Surrogate dam</label>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+
+      {{ govukButton({ text: "Continue" }) }}
+
+    </form>
+
+  </div>
+</div>
+
+{% endblock %}

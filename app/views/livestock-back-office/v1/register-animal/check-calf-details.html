@@ -1,0 +1,136 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Check calf details" %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds-from-desktop">
+
+    <h1 class="govuk-heading-l">Check calf details</h1>
+
+    <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Animal ear tag number</dt>
+        <dd class="govuk-summary-list__value">{{ data['ear-tag-number'] }}</dd>
+          <dd class="govuk-summary-list__actions">
+              <a class="govuk-link" href="./calf-details?change=true">Change<span class="govuk-visually-hidden"> ear tag number</span></a>
+          </dd>
+      </div>
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Date of birth</dt>
+        <dd class="govuk-summary-list__value">{{ data['dob-day'] }} {{ ['', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][data['dob-month'] | int] }} {{ data['dob-year'] }}</dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="./calf-details?change=true">Change<span class="govuk-visually-hidden"> date of birth</span></a>
+        </dd>
+      </div>
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Sex</dt>
+        <dd class="govuk-summary-list__value">{{ data['sex'] | capitalize }}</dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="./calf-details?change=true">Change<span class="govuk-visually-hidden"> sex</span></a>
+        </dd>
+      </div>
+
+{% if data['calf-details-radio'] == 'option-1' %}
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Related ear tag numbers</dt>
+        <dd class="govuk-summary-list__value">
+          {% if data['related-tag-numbers'] is string %}
+            {{ data['related-tag-numbers'] }}
+          {% else %}
+            {% for tag in data['related-tag-numbers'] %}
+              {{ tag }}<br>
+            {% endfor %}
+          {% endif %}
+        </dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="./multiple-birth">Change<span class="govuk-visually-hidden"> related ear tag numbers</span></a>
+        </dd>
+      </div>
+      {% endif %}
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Breed</dt>
+        <dd class="govuk-summary-list__value">{{ data['breed'] }}</dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="./calf-details?change=true">Change<span class="govuk-visually-hidden"> breed</span></a>
+        </dd>
+      </div>
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Dam type</dt>
+        <dd class="govuk-summary-list__value">{{ data['dam-type'] | capitalize }}</dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="./dam-details?change=true">Change<span class="govuk-visually-hidden"> dam type</span></a>
+        </dd>
+      </div>
+
+      {% if data['dam-type'] == 'surrogate' %}
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Genetic dam ear tag number</dt>
+        <dd class="govuk-summary-list__value">{{ data['genetic-dam-number'] }}</dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="./surrogate-dam?change=true">Change<span class="govuk-visually-hidden"> genetic dam ear tag number</span></a>
+        </dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Surrogate dam ear tag number</dt>
+        <dd class="govuk-summary-list__value">{{ data['surrogate-dam-number'] }}</dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="./surrogate-dam?change=true">Change<span class="govuk-visually-hidden"> surrogate dam ear tag number</span></a>
+        </dd>
+      </div>
+      {% else %}
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Genetic dam ear tag number</dt>
+        <dd class="govuk-summary-list__value">{{ data['genetic-dam-number'] }}</dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="./genetic-dam?change=true">Change<span class="govuk-visually-hidden"> genetic dam ear tag number</span></a>
+        </dd>
+      </div>
+      {% endif %}
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Sire ear tag number</dt>
+        <dd class="govuk-summary-list__value">{{ data['sire-number'] if data['sire-number'] else 'Not provided' }}</dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="./sire-details?change=true">Change<span class="govuk-visually-hidden"> sire ear tag number</span></a>
+        </dd>
+      </div>
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Sire name</dt>
+        <dd class="govuk-summary-list__value">{{ data['sire-name'] if data['sire-name'] else 'Not provided' }}</dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="./sire-details?change=true">Change<span class="govuk-visually-hidden"> sire name</span></a>
+        </dd>
+      </div>
+
+    </dl>
+
+    <div>
+      <form action="./check-calf-details" method="post" novalidate>
+        <button type="submit" class="govuk-button" data-module="govuk-button">
+          Continue
+        </button>
+      </form>
+      <a href="./remove-calf" role="button" draggable="false" class="govuk-button govuk-button--secondary" data-module="govuk-button">
+        Cancel birth registration
+      </a>
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}

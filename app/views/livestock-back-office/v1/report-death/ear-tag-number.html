@@ -1,0 +1,100 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Animal ear tag number" %}
+
+{% block head %}
+  {{ super() }}
+  <link href="https://unpkg.com/accessible-autocomplete/dist/accessible-autocomplete.min.css" rel="stylesheet" media="all" />
+  <style>
+    .autocomplete__wrapper {
+      flex: 1;
+      min-width: 0;
+    }
+    .autocomplete__hint,
+    .autocomplete__input,
+    .autocomplete__option {
+      font-family: arial, sans-serif;
+      font-size: 1.1875rem;
+      font-weight: normal!important;
+    }
+    .govuk-form-group--error .autocomplete__input {
+      border-color: #d4351c;
+    }
+    .autocomplete__option strong {
+      font-weight: normal;
+    }
+  </style>
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    {% if errors %}
+    <div class="govuk-error-summary" data-module="govuk-error-summary">
+      <div role="alert">
+        <h2 class="govuk-error-summary__title">There is a problem</h2>
+        <div class="govuk-error-summary__body">
+          <ul class="govuk-list govuk-error-summary__list">
+            {% if errors['death-ear-tag-number'] %}
+            <li><a href="#death-ear-tag-number">{{ errors['death-ear-tag-number'] }}</a></li>
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
+    <form action="./report-death/ear-tag-number" method="post" novalidate>
+
+      <div class="govuk-form-group {% if errors['death-ear-tag-number'] %}govuk-form-group--error{% endif %}">
+        <label class="govuk-label govuk-label--l" for="death-ear-tag-number">
+          Animal ear tag number
+        </label>
+        <div id="death-ear-tag-number-hint" class="govuk-hint">
+          Enter the last 6 digits of the animal ear tag number you are registering
+        </div>
+        {% if errors['death-ear-tag-number'] %}
+        <p id="death-ear-tag-number-error" class="govuk-error-message">
+          <span class="govuk-visually-hidden">Error:</span> {{ errors['death-ear-tag-number'] }}
+        </p>
+        {% endif %}
+        <div class="govuk-input__wrapper">
+          <div class="govuk-input__prefix" aria-hidden="true">UK 123456</div>
+          <select id="death-ear-tag-number" name="death-ear-tag-number" aria-describedby="death-ear-tag-number-hint{% if errors['death-ear-tag-number'] %} death-ear-tag-number-error{% endif %}">
+            <option value=""></option>
+            <option value="301550" {% if data['death-ear-tag-number'] == '301550' %}selected{% endif %}>301550</option>
+            <option value="301551" {% if data['death-ear-tag-number'] == '301551' %}selected{% endif %}>301551</option>
+            <option value="301552" {% if data['death-ear-tag-number'] == '301552' %}selected{% endif %}>301552</option>
+            <option value="301553" {% if data['death-ear-tag-number'] == '301553' %}selected{% endif %}>301553</option>
+            <option value="301554" {% if data['death-ear-tag-number'] == '301554' %}selected{% endif %}>301554</option>
+          </select>
+        </div>
+      </div>
+
+      {{ govukButton({ text: "Continue" }) }}
+
+    </form>
+
+  </div>
+</div>
+
+{% endblock %}
+
+{% block pageScripts %}
+  <script src="https://unpkg.com/accessible-autocomplete/dist/accessible-autocomplete.min.js"></script>
+  <script>
+    const $picker = document.querySelector('#death-ear-tag-number')
+    accessibleAutocomplete.enhanceSelectElement({
+      selectElement: $picker
+    })
+  </script>
+{% endblock %}
