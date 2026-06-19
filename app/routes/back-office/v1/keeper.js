@@ -1,15 +1,10 @@
 const govukPrototypeKit = require('govuk-prototype-kit')
 const router = govukPrototypeKit.requests.setupRouter()
 
-// this is taken from v6 of the keeper journey
-
-const basePath = 'livestock-back-office/v1';
-
-
 function returnToCheck(req, res, normalPath) {
   if (req.session.data['change'] === 'true') {
     delete req.session.data['change']
-    return res.redirect('/livestock-usability/v6/check-calf-details')
+    return res.redirect('/livestock-back-office/v1/check-calf-details')
   }
   res.redirect(normalPath)
 }
@@ -23,43 +18,43 @@ const registerAnimalPages = [
 ]
 
 registerAnimalPages.forEach(page => {
-  router.get(`/livestock-usability/v6/${page}`, (req, res) => {
-    res.render(`livestock-usability/v6/register-animal/${page}`)
+  router.get(`/livestock-back-office/v1/${page}`, (req, res) => {
+    res.render(`livestock-back-office/v1/register-animal/${page}`)
   })
 })
 
-router.post('/${basePath}/registration-method', (req, res) => {
+router.post('/livestock-back-office/v1/registration-method', (req, res) => {
   const method = req.session.data['registration-method']
   if (method === 'file-upload') {
-    res.redirect('/${basePath}/v6/file-upload')
+    res.redirect('/livestock-back-office/v1/file-upload')
   } else {
-    res.redirect('/${basePath}/v6/animal-select')
+    res.redirect('/livestock-back-office/v1/animal-select')
   }
 })
 
-router.post('/${basePath}/animal-select', (req, res) => {
+router.post('/livestock-back-office/v1/animal-select', (req, res) => {
   const animalType = req.session.data['animal-type']
 
   if (!animalType) {
-    return res.render('${basePath}/register-animal/animal-select', {
+    return res.render('livestock-back-office/v1/register-animal/animal-select', {
       errors: {
         'animal-type': { text: 'Select a species from the list' }
       }
     })
   }
 
-  res.redirect('/${basePath}/calf-details')
+  res.redirect('/livestock-back-office/v1/calf-details')
 })
 
-router.post('/${basePath}/upload', (req, res) => {
-  res.redirect('/${basePath}/tag-list')
+router.post('/livestock-back-office/v1/upload', (req, res) => {
+  res.redirect('/livestock-back-office/v1/tag-list')
 })
 
-router.post('/${basePath}/tag-entry', (req, res) => {
-  res.redirect('/${basePath}/tag-list')
+router.post('/livestock-back-office/v1/tag-entry', (req, res) => {
+  res.redirect('/livestock-back-office/v1/tag-list')
 })
 
-router.post('/${basePath}/tag-list', (req, res) => {
+router.post('/livestock-back-office/v1/tag-list', (req, res) => {
   const data = req.session.data
   const addAnother = data['add-another']
   const errors = {}
@@ -76,24 +71,24 @@ router.post('/${basePath}/tag-list', (req, res) => {
   }
 
   if (Object.keys(errors).length > 0) {
-    return res.render('/${basePath}/register-animal/tag-list', { errors })
+    return res.render('livestock-back-office/v1/register-animal/tag-list', { errors })
   }
 
   if (addAnother === 'yes') {
-    return res.redirect('/${basePath}/calf-details')
+    return res.redirect('/livestock-back-office/v1/calf-details')
   }
 
-  res.redirect('/${basePath}/submit')
+  res.redirect('/livestock-back-office/v1/submit')
 })
 
-router.get('/${basePath}/calf-details', (req, res) => {
+router.get('/livestock-back-office/v1/calf-details', (req, res) => {
   if (req.query.tag) {
     req.session.data['current-tag'] = req.query.tag
   }
-  res.render('${basePath}/register-animal/calf-details')
+  res.render('livestock-back-office/v1/register-animal/calf-details')
 })
 
-router.post('/${basePath}/calf-details', (req, res) => {
+router.post('/livestock-back-office/v1/calf-details', (req, res) => {
   const data = req.session.data
   const errors = {}
 
@@ -114,50 +109,50 @@ router.post('/${basePath}/calf-details', (req, res) => {
   }
 
   if (Object.keys(errors).length > 0) {
-    return res.render('livestock-usability/v6/register-animal/calf-details', { errors })
+    return res.render('livestock-back-office/v1/register-animal/calf-details', { errors })
   }
 
-  returnToCheck(req, res, '/livestock-usability/v6/dam-details')
+  returnToCheck(req, res, '/livestock-back-office/v1/dam-details')
 })
 
-router.post('/${basePath}/calf-details-radio', (req, res) => {
+router.post('/livestock-back-office/v1/calf-details-radio', (req, res) => {
   const answer = req.session.data['calf-details-radio']
   if (answer === 'option-1') {
-    res.redirect('/livestock-usability/v6/multiple-birth')
+    res.redirect('/livestock-back-office/v1/multiple-birth')
   } else {
-    res.redirect('/livestock-usability/v6/breed')
+    res.redirect('/livestock-back-office/v1/breed')
   }
 })
 
-router.post('/${basePath}/multiple-birth', (req, res) => {
-  res.redirect('/livestock-usability/v6/breed')
+router.post('/livestock-back-office/v1/multiple-birth', (req, res) => {
+  res.redirect('/livestock-back-office/v1/breed')
 })
 
-router.post('/${basePath}/dam-details', (req, res) => {
+router.post('/livestock-back-office/v1/dam-details', (req, res) => {
   const data = req.session.data
 
   if (!data['dam-type']) {
-    return res.render('${basePath}/register-animal/dam-details', {
+    return res.render('livestock-back-office/v1/register-animal/dam-details', {
       errors: { 'dam-type': 'Select if the calf was born to a genetic or surrogate dam' }
     })
   }
 
   if (data['dam-type'] === 'surrogate') {
-    return res.redirect('/livestock-usability/v6/surrogate-dam')
+    return res.redirect('/livestock-back-office/v1/surrogate-dam')
   }
 
-  res.redirect('/livestock-usability/v6/genetic-dam')
+  res.redirect('/livestock-back-office/v1/genetic-dam')
 })
 
-router.post('/livestock-usability/v6/sire-details', (req, res) => {
-  returnToCheck(req, res, '/livestock-usability/v6/check-calf-details')
+router.post('/livestock-back-office/v1/sire-details', (req, res) => {
+  returnToCheck(req, res, '/livestock-back-office/v1/check-calf-details')
 })
 
-router.get('/livestock-usability/v6/remove-calf', (req, res) => {
-  res.render('livestock-usability/v6/register-animal/remove-calf')
+router.get('/livestock-back-office/v1/remove-calf', (req, res) => {
+  res.render('livestock-back-office/v1/register-animal/remove-calf')
 })
 
-router.post('/livestock-usability/v6/remove-calf', (req, res) => {
+router.post('/livestock-back-office/v1/remove-calf', (req, res) => {
   const fields = [
     'ear-tag-number', 'dob-day', 'dob-month', 'dob-year', 'sex',
     'breed', 'dam-type', 'dam-number', 'genetic-dam-number', 'surrogate-dam-number',
@@ -165,10 +160,10 @@ router.post('/livestock-usability/v6/remove-calf', (req, res) => {
     'completed-tags', 'current-tag'
   ]
   fields.forEach(f => delete req.session.data[f])
-  res.redirect('/livestock-usability/v6/tag-list')
+  res.redirect('/livestock-back-office/v1/tag-list')
 })
 
-router.post('/livestock-usability/v6/check-calf-details', (req, res) => {
+router.post('/livestock-back-office/v1/check-calf-details', (req, res) => {
   const earTagNumber = req.session.data['ear-tag-number']
   if (earTagNumber) {
     const fullTag = 'UK 12 34 56 ' + earTagNumber
@@ -177,33 +172,33 @@ router.post('/livestock-usability/v6/check-calf-details', (req, res) => {
     if (!completed.includes(fullTag)) completed.push(fullTag)
     req.session.data['completed-tags'] = completed
   }
-  res.redirect('/livestock-usability/v6/tag-list')
+  res.redirect('/livestock-back-office/v1/tag-list')
 })
 
-router.post('/livestock-usability/v6/tag-list-complete', (req, res) => {
+router.post('/livestock-back-office/v1/tag-list-complete', (req, res) => {
   const addAnother = req.session.data['add-another']
   if (addAnother === 'yes') {
     delete req.session.data['tag-numbers']
-    res.redirect('/livestock-usability/v6/tag-entry')
+    res.redirect('/livestock-back-office/v1/tag-entry')
   } else {
-    res.redirect('/livestock-usability/v6/submit')
+    res.redirect('/livestock-back-office/v1/submit')
   }
 })
 
-router.post('/livestock-usability/v6/submit', (req, res) => {
-  res.redirect('/livestock-usability/v6/confirmation')
+router.post('/livestock-back-office/v1/submit', (req, res) => {
+  res.redirect('/livestock-back-office/v1/confirmation')
 })
 
-router.post('/livestock-usability/v6/embryo-transfer', (req, res) => {
+router.post('/livestock-back-office/v1/embryo-transfer', (req, res) => {
   const embryoTransfer = req.session.data['embryo-transfer']
   if (embryoTransfer === 'yes') {
-    res.redirect('/livestock-usability/v6/surrogate-dam')
+    res.redirect('/livestock-back-office/v1/surrogate-dam')
   } else {
-    res.redirect('/livestock-usability/v6/genetic-dam')
+    res.redirect('/livestock-back-office/v1/genetic-dam')
   }
 })
 
-router.post('/livestock-usability/v6/surrogate-dam', (req, res) => {
+router.post('/livestock-back-office/v1/surrogate-dam', (req, res) => {
   const data = req.session.data
   const errors = {}
 
@@ -216,98 +211,98 @@ router.post('/livestock-usability/v6/surrogate-dam', (req, res) => {
   }
 
   if (Object.keys(errors).length > 0) {
-    return res.render('livestock-usability/v6/register-animal/surrogate-dam', { errors })
+    return res.render('livestock-back-office/v1/register-animal/surrogate-dam', { errors })
   }
 
-  returnToCheck(req, res, '/livestock-usability/v6/sire-details')
+  returnToCheck(req, res, '/livestock-back-office/v1/sire-details')
 })
 
-router.post('/livestock-usability/v6/genetic-dam', (req, res) => {
+router.post('/livestock-back-office/v1/genetic-dam', (req, res) => {
   const data = req.session.data
   if (!data['genetic-dam-number']) {
-    return res.render('livestock-usability/v6/register-animal/genetic-dam', {
+    return res.render('livestock-back-office/v1/register-animal/genetic-dam', {
       errors: { 'genetic-dam-number': 'Enter the ear tag number of the genetic dam' }
     })
   }
-  returnToCheck(req, res, '/livestock-usability/v6/sire-details')
+  returnToCheck(req, res, '/livestock-back-office/v1/sire-details')
 })
 
-router.post('/livestock-usability/v6/sire-number', (req, res) => {
-  res.redirect('/livestock-usability/v6/breed')
+router.post('/livestock-back-office/v1/sire-number', (req, res) => {
+  res.redirect('/livestock-back-office/v1/breed')
 })
 
-router.post('/livestock-usability/v6/breed', (req, res) => {
+router.post('/livestock-back-office/v1/breed', (req, res) => {
   if (!req.session.data['breed']) {
-    return res.render('livestock-usability/v6/register-animal/breed', {
+    return res.render('livestock-back-office/v1/register-animal/breed', {
       errors: { breed: 'Select a breed' }
     })
   }
-  res.redirect('/livestock-usability/v6/dam-details')
+  res.redirect('/livestock-back-office/v1/dam-details')
 })
 
-router.post('/livestock-usability/v6/animal-number', (req, res) => {
-  res.redirect('/livestock-usability/v6/sex')
+router.post('/livestock-back-office/v1/animal-number', (req, res) => {
+  res.redirect('/livestock-back-office/v1/sex')
 })
 
-router.post('/livestock-usability/v6/sex', (req, res) => {
-  res.redirect('/livestock-usability/v6/check-your-answers')
+router.post('/livestock-back-office/v1/sex', (req, res) => {
+  res.redirect('/livestock-back-office/v1/check-your-answers')
 })
 
-router.post('/livestock-usability/v6/check-your-answers', (req, res) => {
-  res.redirect('/livestock-usability/v6/confirmation')
+router.post('/livestock-back-office/v1/check-your-answers', (req, res) => {
+  res.redirect('/livestock-back-office/v1/confirmation')
 })
 
-router.post('/livestock-usability/v6/confirmation', (req, res) => {
-  res.redirect('/livestock-usability/v6/register-an-animal')
+router.post('/livestock-back-office/v1/confirmation', (req, res) => {
+  res.redirect('/livestock-back-office/v1/register-an-animal')
 })
 
-router.post('/livestock-usability/v6/register-an-animal-birth', (req, res) => {
-  res.redirect('/livestock-usability/v6/animal-select')
+router.post('/livestock-back-office/v1/register-an-animal-birth', (req, res) => {
+  res.redirect('/livestock-back-office/v1/animal-select')
 })
 
-router.post('/livestock-usability/v6/submission-detail', (req, res) => {
-  res.redirect('/livestock-usability/v6/submit')
+router.post('/livestock-back-office/v1/submission-detail', (req, res) => {
+  res.redirect('/livestock-back-office/v1/submit')
 })
 
 // ---- report-death flow ----
 
-router.post('/livestock-usability/v6/report-death/animal-select', (req, res) => {
+router.post('/livestock-back-office/v1/report-death/animal-select', (req, res) => {
   const species = req.session.data['death-animal-type']
   if (!species) {
-    return res.render('livestock-usability/v6/report-death/animal-select', {
+    return res.render('livestock-back-office/v1/report-death/animal-select', {
       errors: { 'death-animal-type': 'Select a species' }
     })
   }
-  res.redirect('/livestock-usability/v6/report-death/is-registered')
+  res.redirect('/livestock-back-office/v1/report-death/is-registered')
 })
 
-router.post('/livestock-usability/v6/report-death/is-registered', (req, res) => {
+router.post('/livestock-back-office/v1/report-death/is-registered', (req, res) => {
   const answer = req.session.data['death-is-registered']
   if (!answer) {
-    return res.render('livestock-usability/v6/report-death/is-registered', {
+    return res.render('livestock-back-office/v1/report-death/is-registered', {
       errors: { 'death-is-registered': 'Select if the animal is already registered to your holding' }
     })
   }
-  res.redirect('/livestock-usability/v6/report-death/ear-tag-number')
+  res.redirect('/livestock-back-office/v1/report-death/ear-tag-number')
 })
 
-router.post('/livestock-usability/v6/report-death/ear-tag-number', (req, res) => {
+router.post('/livestock-back-office/v1/report-death/ear-tag-number', (req, res) => {
   const data = req.session.data
   if (!data['death-ear-tag-number']) {
-    return res.render('livestock-usability/v6/report-death/ear-tag-number', {
+    return res.render('livestock-back-office/v1/report-death/ear-tag-number', {
       errors: { 'death-ear-tag-number': 'Enter the ear tag number of the animal' }
     })
   }
   if (data['death-is-registered'] === 'yes') {
-    return res.redirect('/livestock-usability/v6/report-death/date-of-death')
+    return res.redirect('/livestock-back-office/v1/report-death/date-of-death')
   }
-  res.redirect('/livestock-usability/v6/report-death/date-of-birth')
+  res.redirect('/livestock-back-office/v1/report-death/date-of-birth')
 })
 
-router.post('/livestock-usability/v6/report-death/date-of-birth', (req, res) => {
+router.post('/livestock-back-office/v1/report-death/date-of-birth', (req, res) => {
   const data = req.session.data
   if (!data['death-dob-day'] || !data['death-dob-month'] || !data['death-dob-year']) {
-    return res.render('livestock-usability/v6/report-death/date-of-birth', {
+    return res.render('livestock-back-office/v1/report-death/date-of-birth', {
       errors: { 'death-dob': 'Enter the date the animal was born' }
     })
   }
@@ -319,17 +314,17 @@ router.post('/livestock-usability/v6/report-death/date-of-birth', (req, res) => 
   const today = new Date()
   today.setHours(0, 0, 0, 0)
   if (entered > today) {
-    return res.render('livestock-usability/v6/report-death/date-of-birth', {
+    return res.render('livestock-back-office/v1/report-death/date-of-birth', {
       errors: { 'death-dob': 'Date of birth must be in the past.' }
     })
   }
-  res.redirect('/livestock-usability/v6/report-death/date-of-death')
+  res.redirect('/livestock-back-office/v1/report-death/date-of-death')
 })
 
-router.post('/livestock-usability/v6/report-death/date-of-death', (req, res) => {
+router.post('/livestock-back-office/v1/report-death/date-of-death', (req, res) => {
   const data = req.session.data
   if (!data['death-date-day'] || !data['death-date-month'] || !data['death-date-year']) {
-    return res.render('livestock-usability/v6/report-death/date-of-death', {
+    return res.render('livestock-back-office/v1/report-death/date-of-death', {
       errors: { 'death-date': 'Enter the date the animal died' }
     })
   }
@@ -341,37 +336,37 @@ router.post('/livestock-usability/v6/report-death/date-of-death', (req, res) => 
   const today = new Date()
   today.setHours(0, 0, 0, 0)
   if (entered > today) {
-    return res.render('livestock-usability/v6/report-death/date-of-death', {
+    return res.render('livestock-back-office/v1/report-death/date-of-death', {
       errors: { 'death-date': 'Date of death needs to be in the past' }
     })
   }
   if (data['death-is-registered'] === 'yes') {
-    return res.redirect('/livestock-usability/v6/report-death/check-death-details')
+    return res.redirect('/livestock-back-office/v1/report-death/check-death-details')
   }
-  res.redirect('/livestock-usability/v6/report-death/breed')
+  res.redirect('/livestock-back-office/v1/report-death/breed')
 })
 
-router.post('/livestock-usability/v6/report-death/breed', (req, res) => {
+router.post('/livestock-back-office/v1/report-death/breed', (req, res) => {
   const data = req.session.data
   if (!data['death-breed']) {
-    return res.render('livestock-usability/v6/report-death/breed', {
+    return res.render('livestock-back-office/v1/report-death/breed', {
       errors: { 'death-breed': 'Select a breed' }
     })
   }
-  res.redirect('/livestock-usability/v6/report-death/sex')
+  res.redirect('/livestock-back-office/v1/report-death/sex')
 })
 
-router.post('/livestock-usability/v6/report-death/sex', (req, res) => {
+router.post('/livestock-back-office/v1/report-death/sex', (req, res) => {
   const data = req.session.data
   if (!data['death-sex']) {
-    return res.render('livestock-usability/v6/report-death/sex', {
+    return res.render('livestock-back-office/v1/report-death/sex', {
       errors: { 'death-sex': 'Select if the animal is male or female' }
     })
   }
-  res.redirect('/livestock-usability/v6/report-death/dam-details')
+  res.redirect('/livestock-back-office/v1/report-death/dam-details')
 })
 
-router.post('/livestock-usability/v6/report-death/dam-details', (req, res) => {
+router.post('/livestock-back-office/v1/report-death/dam-details', (req, res) => {
   const data = req.session.data
   const errors = {}
   if (!data['death-dam-type']) {
@@ -382,19 +377,19 @@ router.post('/livestock-usability/v6/report-death/dam-details', (req, res) => {
     errors['death-surrogate-dam-number'] = 'Enter the last 6 digits of the animal ear tag number'
   }
   if (Object.keys(errors).length > 0) {
-    return res.render('livestock-usability/v6/report-death/dam-details', { errors })
+    return res.render('livestock-back-office/v1/report-death/dam-details', { errors })
   }
-  res.redirect('/livestock-usability/v6/report-death/sire-details')
+  res.redirect('/livestock-back-office/v1/report-death/sire-details')
 })
 
-router.post('/livestock-usability/v6/report-death/sire-details', (req, res) => {
-  res.redirect('/livestock-usability/v6/report-death/check-death-details')
+router.post('/livestock-back-office/v1/report-death/sire-details', (req, res) => {
+  res.redirect('/livestock-back-office/v1/report-death/check-death-details')
 })
 
-router.post('/livestock-usability/v6/report-death/add-more-deaths', (req, res) => {
+router.post('/livestock-back-office/v1/report-death/add-more-deaths', (req, res) => {
   const answer = req.session.data['add-more-deaths']
   if (!answer) {
-    return res.render('livestock-usability/v6/report-death/add-more-deaths', {
+    return res.render('livestock-back-office/v1/report-death/add-more-deaths', {
       errors: { 'add-more-deaths': 'Select yes to report more deaths, or no to continue' }
     })
   }
@@ -408,16 +403,16 @@ router.post('/livestock-usability/v6/report-death/add-more-deaths', (req, res) =
       'add-more-deaths'
     ]
     deathFields.forEach(f => delete req.session.data[f])
-    return res.redirect('/livestock-usability/v6/report-death/is-registered')
+    return res.redirect('/livestock-back-office/v1/report-death/is-registered')
   }
-  res.redirect('/livestock-usability/v6/report-death/submit')
+  res.redirect('/livestock-back-office/v1/report-death/submit')
 })
 
-router.post('/livestock-usability/v6/report-death/submit', (req, res) => {
-  res.redirect('/livestock-usability/v6/report-death/confirmation')
+router.post('/livestock-back-office/v1/report-death/submit', (req, res) => {
+  res.redirect('/livestock-back-office/v1/report-death/confirmation')
 })
 
-router.post('/livestock-usability/v6/report-death/check-death-details', (req, res) => {
+router.post('/livestock-back-office/v1/report-death/check-death-details', (req, res) => {
   const data = req.session.data
   const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
   const monthIndex = parseInt(data['death-date-month']) - 1
@@ -430,57 +425,57 @@ router.post('/livestock-usability/v6/report-death/check-death-details', (req, re
   if (!Array.isArray(completed)) completed = [completed]
   completed.push(entry)
   req.session.data['completed-deaths'] = completed
-  res.redirect('/livestock-usability/v6/report-death/add-more-deaths')
+  res.redirect('/livestock-back-office/v1/report-death/add-more-deaths')
 })
 
 // ---- report-movement flow ----
 
-router.post('/livestock-usability/v6/report-movement/animal-select', (req, res) => {
+router.post('/livestock-back-office/v1/report-movement/animal-select', (req, res) => {
   const species = req.session.data['movement-animal-type']
   if (!species) {
-    return res.render('livestock-usability/v6/report-movement/animal-select', {
+    return res.render('livestock-back-office/v1/report-movement/animal-select', {
       errors: { 'movement-animal-type': 'Select a species' }
     })
   }
-  res.redirect('/livestock-usability/v6/report-movement/movement-type')
+  res.redirect('/livestock-back-office/v1/report-movement/movement-type')
 })
 
-router.post('/livestock-usability/v6/report-movement/movement-type', (req, res) => {
+router.post('/livestock-back-office/v1/report-movement/movement-type', (req, res) => {
   const type = req.session.data['movement-type']
   if (!type) {
-    return res.render('livestock-usability/v6/report-movement/movement-type', {
+    return res.render('livestock-back-office/v1/report-movement/movement-type', {
       errors: { 'movement-type': 'Select if this is an on or off movement' }
     })
   }
-  res.redirect('/livestock-usability/v6/report-movement/movement-date')
+  res.redirect('/livestock-back-office/v1/report-movement/movement-date')
 })
 
-router.post('/livestock-usability/v6/report-movement/movement-date', (req, res) => {
+router.post('/livestock-back-office/v1/report-movement/movement-date', (req, res) => {
   const data = req.session.data
   if (!data['movement-date-day'] || !data['movement-date-month'] || !data['movement-date-year']) {
-    return res.render('livestock-usability/v6/report-movement/movement-date', {
+    return res.render('livestock-back-office/v1/report-movement/movement-date', {
       errors: { 'movement-date': 'Enter the date of the movement' }
     })
   }
-  res.redirect('/livestock-usability/v6/report-movement/ear-tag-numbers')
+  res.redirect('/livestock-back-office/v1/report-movement/ear-tag-numbers')
 })
 
-router.post('/livestock-usability/v6/report-movement/ear-tag-numbers', (req, res) => {
+router.post('/livestock-back-office/v1/report-movement/ear-tag-numbers', (req, res) => {
   const data = req.session.data
   if (!data['movement-ear-tags'] || !data['movement-ear-tags'].trim()) {
-    return res.render('livestock-usability/v6/report-movement/ear-tag-numbers', {
+    return res.render('livestock-back-office/v1/report-movement/ear-tag-numbers', {
       errors: { 'movement-ear-tags': 'Enter at least one ear tag number' }
     })
   }
-  res.redirect('/livestock-usability/v6/report-movement/check-movement-details')
+  res.redirect('/livestock-back-office/v1/report-movement/check-movement-details')
 })
 
-router.post('/livestock-usability/v6/report-movement/check-movement-details', (req, res) => {
-  res.redirect('/livestock-usability/v6/report-movement/submit')
+router.post('/livestock-back-office/v1/report-movement/check-movement-details', (req, res) => {
+  res.redirect('/livestock-back-office/v1/report-movement/submit')
 })
 
-router.post('/livestock-usability/v6/report-movement/submit', (req, res) => {
-  res.redirect('/livestock-usability/v6/report-movement/confirmation')
+router.post('/livestock-back-office/v1/report-movement/submit', (req, res) => {
+  res.redirect('/livestock-back-office/v1/report-movement/confirmation')
 })
 
 module.exports = router
