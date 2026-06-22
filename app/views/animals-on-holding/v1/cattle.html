@@ -1,0 +1,283 @@
+{% extends "layouts/main.html" %}
+
+{% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
+
+{% set pageName="Cattle register" %}
+
+{% set activeNav = "my-holdings" %}
+
+{% block header %}
+
+  {{ govukHeader({
+    homepageUrl: '/index.html'
+  }) }}
+
+  {{ govukServiceNavigation({
+    serviceName: "Livestock Information",
+    serviceUrl: "/animals-on-holding/v1/start",
+    navigation: [
+      {
+        href: "/animals-on-holding/v1/my-holdings",
+        text: "My holdings",
+        active: activeNav === "my-holdings"
+      },
+      {
+        href: "/animals-on-holding/v1/my-services",
+        text: "My services"
+      },
+      {
+        href: "/animals-on-holding/v1/activity-history",
+        text: "Activity history"
+      },
+      {
+        href: "/animals-on-holding/v1/profile-settings",
+        text: "Profile and settings"
+      },
+      {
+        href: "#",
+        text: "Sign out"
+      }
+    ]
+  }) }}
+
+{% endblock %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+  text: "Back",
+  href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+{%- from "govuk/components/checkboxes/macro.njk" import govukCheckboxes -%}
+{%- from "govuk/components/input/macro.njk" import govukInput -%}
+{%- from "govuk/components/table/macro.njk" import govukTable -%}
+{%- from "moj/components/filter/macro.njk" import mojFilter -%}
+
+{% set filterOptionsHtml %}
+
+{{ govukInput({
+  id: "keywords",
+  name: "keywords",
+  label: {
+    text: "Search",
+    classes: "govuk-label--m"
+  }
+}) }}
+
+{{ govukCheckboxes({
+  idPrefix: "sex",
+  name: "sex",
+  classes: "govuk-checkboxes--small",
+  fieldset: {
+    legend: {
+      text: "Sex",
+      classes: "govuk-fieldset__legend--m"
+    }
+  },
+  items: [
+    {
+      value: "F",
+      text: "Female (4)"
+    },
+    {
+      value: "M",
+      text: "Male (1)"
+    }
+  ]
+}) }}
+
+{{ govukCheckboxes({
+  idPrefix: "breed",
+  name: "breed",
+  classes: "govuk-checkboxes--small",
+  fieldset: {
+    legend: {
+      text: "Breed",
+      classes: "govuk-fieldset__legend--m"
+    }
+  },
+  items: [
+    {
+      value: "BWB",
+      text: "Belted Welsh Black (2)"
+    },
+    {
+      value: "HIX",
+      text: "Highland Cross (1)"
+    },
+    {
+      value: "DEVX",
+      text: "Devon Cross (2)"
+    }
+  ]
+}) }}
+
+{% endset %}
+
+<div>
+  <h1 class="govuk-heading-l">
+    Cattle register
+  </h1>
+</div>
+
+<div class="moj-filter-layout">
+
+  <div class="moj-filter-layout__filter">
+
+    {{ mojFilter({
+      heading: {
+        text: "Filter"
+      },
+      selectedFilters: {
+        heading: {
+          text: "Selected filters"
+        },
+        clearLink: {
+          text: "Clear filters",
+          href: "#"
+        },
+        categories: []
+      },
+      optionsHtml: filterOptionsHtml
+    }) }}
+
+  </div>
+
+  <div class="moj-filter-layout__content">
+
+    <div class="">
+      <button type="button" class="govuk-button govuk-button--secondary js-filter-toggle">
+        Show filter
+      </button>
+    </div>
+
+    <div class="moj-scrollable-pane">
+      {{ govukTable({
+        firstCellIsHeader: true,
+        head: [
+          { text: "Ear tag number" },
+          { text: "Date of birth" },
+          { text: "Sex" },
+          { text: "Breed" },
+          { text: "Status", classes: "govuk-table__header--numeric" }
+        ],
+        rows: [
+          [
+            { html: '<a href="/animals-on-holding/v1/uk123456301549" class="govuk-link govuk-!-font-weight-bold">UK123456301549</a>' },
+            { text: "1 June 2026" },
+            { text: "F" },
+            { text: "Belted Welsh Black (BWB)" },
+            { html: '<strong class="govuk-tag govuk-tag--green">Active</strong>', classes: "govuk-table__cell--numeric" }
+          ],
+          [
+            { html: 'UK123456301550' },
+            { text: "16 May 2026" },
+            { text: "F" },
+            { text: "Highland Cross (HIX)" },
+            { html: '<strong class="govuk-tag govuk-tag--green">Active</strong>', classes: "govuk-table__cell--numeric" }
+          ],
+          [
+            { html: 'UK123456301551' },
+            { text: "5 May 2026" },
+            { text: "M" },
+            { text: "Belted Welsh Black (BWB)" },
+            { html: '<strong class="govuk-tag govuk-tag--green">Active</strong>', classes: "govuk-table__cell--numeric" }
+          ],
+          [
+            { html: 'UK123456301552' },
+            { text: "2 May 2025" },
+            { text: "F" },
+            { text: "Devon Cross (DEVX)" },
+            { html: '<strong class="govuk-tag govuk-tag--red">Restricted</strong>', classes: "govuk-table__cell--numeric" }
+          ],
+          [
+            { html: 'UK123456301553' },
+            { text: "30 April 2026" },
+            { text: "F" },
+            { text: "Devon Cross (DEVX)" },
+            { html: '<strong class="govuk-tag govuk-tag--green">Active</strong>', classes: "govuk-table__cell--numeric" }
+          ]
+        ]
+      }) }}
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+  ;(function () {
+    const filterPanel = document.querySelector('.moj-filter-layout__filter')
+    const toggleBtn = document.querySelector('.js-filter-toggle')
+    const closeBtn = document.querySelector('.moj-filter__close')
+
+    function showFilter () {
+      filterPanel.hidden = false
+      toggleBtn.textContent = 'Hide filter'
+    }
+
+    function hideFilter () {
+      filterPanel.hidden = true
+      toggleBtn.textContent = 'Show filter'
+    }
+
+    hideFilter()
+
+    toggleBtn.addEventListener('click', function () {
+      filterPanel.hidden ? showFilter() : hideFilter()
+    })
+
+    if (closeBtn) {
+      closeBtn.addEventListener('click', function (e) {
+        e.preventDefault()
+        hideFilter()
+      })
+    }
+
+    const rows = document.querySelectorAll('.moj-scrollable-pane .govuk-table__body .govuk-table__row')
+    const keywordsInput = document.getElementById('keywords')
+
+    function filterRows () {
+      const keyword = keywordsInput ? keywordsInput.value.toLowerCase() : ''
+      const selectedSex = Array.from(document.querySelectorAll('[name="sex"]:checked')).map(c => c.value)
+      const selectedBreed = Array.from(document.querySelectorAll('[name="breed"]:checked')).map(c => c.value)
+
+      rows.forEach(row => {
+        const earTag = row.cells[0].textContent.trim().toLowerCase()
+        const sex = row.cells[2].textContent.trim()
+        const breed = row.cells[3].textContent.trim()
+
+        const keywordMatch = !keyword || earTag.includes(keyword) || breed.toLowerCase().includes(keyword)
+        const sexMatch = selectedSex.length === 0 || selectedSex.includes(sex)
+        const breedMatch = selectedBreed.length === 0 || selectedBreed.some(b => breed.includes(b))
+
+        row.hidden = !(keywordMatch && sexMatch && breedMatch)
+      })
+    }
+
+    const filterOptions = document.querySelector('.moj-filter__options')
+    const applyBtn = document.querySelector('.moj-filter button[type="submit"]')
+    if (filterOptions && applyBtn) filterOptions.appendChild(applyBtn)
+    if (applyBtn) {
+      applyBtn.addEventListener('click', function (e) {
+        e.preventDefault()
+        filterRows()
+      })
+    }
+
+    const clearLink = document.querySelector('.moj-filter__heading-action a')
+    if (clearLink) {
+      clearLink.addEventListener('click', function (e) {
+        e.preventDefault()
+        if (keywordsInput) keywordsInput.value = ''
+        document.querySelectorAll('[name="sex"], [name="breed"]').forEach(cb => { cb.checked = false })
+        filterRows()
+      })
+    }
+  })()
+</script>
+
+{% endblock %}

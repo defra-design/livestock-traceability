@@ -88,6 +88,25 @@ router.get('/livestock-usability/v5/calf-details', (req, res) => {
   res.render('livestock-usability/v5/register-animal/calf-details')
 })
 
+router.get('/livestock-usability/v5/calf-details-2', (req, res) => {
+  if (req.query.tag) {
+    req.session.data['current-tag'] = req.query.tag
+  }
+  res.render('livestock-usability/v5/register-animal/calf-details-2')
+})
+
+router.post('/livestock-usability/v5/calf-details-2', (req, res) => {
+  const data = req.session.data
+  if (data['multiple-birth'] === 'yes') {
+    return res.redirect('/livestock-usability/v5/multiple-birth')
+  }
+  res.redirect('#')
+})
+
+router.get('/livestock-usability/v5/multiple-birth', (req, res) => {
+  res.render('livestock-usability/v5/register-animal/multiple-birth')
+})
+
 router.post('/livestock-usability/v5/calf-details', (req, res) => {
   const data = req.session.data
   const errors = {}

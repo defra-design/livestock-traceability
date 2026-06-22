@@ -1,0 +1,106 @@
+{% extends "layouts/main.html" %}
+
+{% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
+
+{% set pageName="Livestock Information" %}
+
+{% block header %}
+
+  {{ govukHeader({
+    homepageUrl: '/index.html'
+  }) }}
+
+  {{ govukServiceNavigation({
+    serviceName: "Livestock Information",
+    serviceUrl: "/animals-on-holding/v1/start",
+    navigation: [
+      {
+      href: "/animals-on-holding/v1/my-holdings",
+      text: "My holdings"
+      },
+      {
+      href: "/animals-on-holding/v1/my-services",
+      text: "My services"
+      },
+      {
+        href: "/animals-on-holding/v1/activity-history",
+        text: "Activity history"
+      },
+      {
+        href: "/animals-on-holding/v1/profile-settings",
+        text: "Profile and settings"
+      },
+      {
+        href: "#",
+        text: "Sign out"
+      }
+    ]
+  }) }}
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-width-container">
+
+<!--
+  <div class="govuk-notification-banner" role="region" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
+    <div class="govuk-notification-banner__header">
+      <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+        Important
+      </h2>
+    </div>
+    <div class="govuk-notification-banner__content">
+      <p class="govuk-notification-banner__heading">
+        You have 3 pending delegated invitations to respond to.
+        <a class="govuk-notification-banner__link" href="#">View invites</a>.
+      </p>
+    </div>
+  </div>
+-->
+
+  <h1 class="govuk-heading-l">
+    Livestock Information
+  </h1>
+
+  <ul class="govuk-grid-row card-group">
+    <li class="govuk-grid-column-one-third card-group__item">
+      <div class="card card--clickable" data-test="global-search">
+        <h2 class="govuk-heading-m card__heading">
+          <a class="govuk-link card__link govuk-link--no-visited-state" href="/animals-on-holding/v1/my-holdings">
+            My holdings
+          </a>
+        </h2>
+        <p class="govuk-body card__description">
+          Manage your holdings, including assigning delegate access.
+        </p>
+      </div>
+    </li>
+    <li class="govuk-grid-column-one-third card-group__item">
+      <div class="card card--clickable" data-test="manage-prisoner-whereabouts">
+        <h2 class="govuk-heading-m card__heading">
+          <a class="govuk-link card__link govuk-link--no-visited-state" href="/animals-on-holding/v1/my-services">
+            My services
+          </a>
+        </h2>
+        <p class="govuk-body card__description">
+          Make updates including animal births, deaths and movements on or off your holding.
+        </p>
+      </div>
+    </li>
+    <li class="govuk-grid-column-one-third card-group__item">
+      <div class="card card--clickable" data-test="use-of-force">
+        <h2 class="govuk-heading-m card__heading">
+          <a class="govuk-link card__link govuk-link--no-visited-state" href="/animals-on-holding/v1/activity-history">
+            Activity history
+          </a>
+        </h2>
+        <p class="govuk-body card__description">
+          View the transaction history on your account, including animal movements, delegate access and holding updates.
+        </p>
+      </div>
+    </li>
+  </ul>
+</div>
+
+{% endblock %}

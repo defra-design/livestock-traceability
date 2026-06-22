@@ -1,0 +1,160 @@
+{% extends "layouts/main.html" %}
+
+{% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
+
+{% set pageName="My services" %}
+
+{% set activeNav = "my-services" %}
+
+{% block header %}
+
+  {{ govukHeader({
+    homepageUrl: '/index.html'
+  }) }}
+
+  {{ govukServiceNavigation({
+    serviceName: "Livestock Information",
+    serviceUrl: "/animals-on-holding/v1/start",
+    navigation: [
+      {
+      href: "/animals-on-holding/v1/my-holdings",
+      text: "My holdings"
+      },
+      {
+      href: "/animals-on-holding/v1/my-services",
+      text: "My services",
+      active: activeNav === "my-services"
+      },
+      {
+        href: "/animals-on-holding/v1/activity-history",
+        text: "Activity history"
+      },
+      {
+        href: "/animals-on-holding/v1/profile-settings",
+        text: "Profile and settings"
+      },
+      {
+        href: "#",
+        text: "Sign out"
+      }
+    ]
+  }) }}
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-width-container">
+  <h1 class="govuk-heading-l">
+    My services
+  </h1>
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <table class="govuk-table">
+        <caption class="govuk-table__caption govuk-table__caption--m">Cattle</caption>
+        <!--<thead class="govuk-table__head">
+          <tr class="govuk-table__row">
+            <th scope="col" class="govuk-table__header">Service</th>
+            <th scope="col" class="govuk-table__header govuk-table__header&#45;&#45;numeric">Status</th>
+          </tr>
+        </thead>-->
+        <tbody class="govuk-table__body">
+
+          <tr class="govuk-table__row">
+            <td class="govuk-table__cell">
+              <a class="govuk-link govuk-!-font-weight-bold" href="#">
+                Register a cattle birth
+              </a>
+            </td>
+            <td class="govuk-table__cell govuk-table__cell--numeric">
+              <strong class="govuk-tag govuk-tag--green">Active</strong>
+            </td>
+          </tr>
+
+          <tr class="govuk-table__row">
+            <td class="govuk-table__cell">
+              <a class="govuk-link govuk-!-font-weight-bold" href="#">
+                Report a cattle movement
+              </a>
+            </td>
+            <td class="govuk-table__cell govuk-table__cell--numeric">
+              <strong class="govuk-tag govuk-tag--blue">Pending</strong>
+            </td>
+          </tr>
+
+          <tr class="govuk-table__row">
+            <td class="govuk-table__cell">
+              <a class="govuk-link govuk-!-font-weight-bold" href="#">
+                Report a cattle death
+              </a>
+            </td>
+            <td class="govuk-table__cell govuk-table__cell--numeric">
+              <strong class="govuk-tag govuk-tag--red">Inactive</strong>
+            </td>
+          </tr>
+
+        </tbody>
+      </table>
+
+      <table class="govuk-table">
+        <caption class="govuk-table__caption govuk-table__caption--m">Sheep</caption>
+        <!--<thead class="govuk-table__head">
+          <tr class="govuk-table__row">
+            <th scope="col" class="govuk-table__header">Service</th>
+            <th scope="col" class="govuk-table__header govuk-table__header&#45;&#45;numeric">Status</th>
+          </tr>
+        </thead>-->
+        <tbody class="govuk-table__body">
+
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell">
+            <a class="govuk-link govuk-!-font-weight-bold" href="#">
+              Report a sheep movement
+            </a>
+          </td>
+          <td class="govuk-table__cell govuk-table__cell--numeric">
+            <strong class="govuk-tag govuk-tag--green">Active</strong>
+          </td>
+        </tr>
+
+        </tbody>
+      </table>
+
+      <table class="govuk-table">
+        <caption class="govuk-table__caption govuk-table__caption--m">Holding management</caption>
+        <!--<thead class="govuk-table__head">
+          <tr class="govuk-table__row">
+            <th scope="col" class="govuk-table__header">Service</th>
+            <th scope="col" class="govuk-table__header govuk-table__header&#45;&#45;numeric">Status</th>
+          </tr>
+        </thead>-->
+        <tbody class="govuk-table__body">
+
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell">
+            <a class="govuk-link govuk-!-font-weight-bold" href="#">
+              Add a delegate
+            </a>
+          </td>
+          <td class="govuk-table__cell govuk-table__cell--numeric">
+            <strong class="govuk-tag govuk-tag--green">Active</strong>
+          </td>
+        </tr>
+
+        </tbody>
+      </table>
+
+      {% from "govuk/components/button/macro.njk" import govukButton %}
+
+      {{ govukButton({
+      text: "Add a new service",
+      classes: "govuk-button--secondary"
+      }) }}
+
+    </div>
+  </div>
+</div>
+
+{% endblock %}

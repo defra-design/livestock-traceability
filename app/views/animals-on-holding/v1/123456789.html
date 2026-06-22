@@ -1,0 +1,157 @@
+{% extends "layouts/main.html" %}
+
+{% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
+
+{% set pageName="Holding information" %}
+
+{% set activeNav = "my-holdings" %}
+
+{% block header %}
+
+  {{ govukHeader({
+    homepageUrl: '/index.html'
+  }) }}
+
+  {{ govukServiceNavigation({
+    serviceName: "Livestock Information",
+    serviceUrl: "/animals-on-holding/v1/start",
+    navigation: [
+      {
+      href: "/animals-on-holding/v1/my-holdings",
+      text: "My holdings",
+      active: activeNav === "my-holdings"
+      },
+      {
+      href: "/animals-on-holding/v1/my-services",
+      text: "My services"
+      },
+      {
+        href: "/animals-on-holding/v1/activity-history",
+        text: "Activity history"
+      },
+      {
+        href: "/animals-on-holding/v1/profile-settings",
+        text: "Profile and settings"
+      },
+      {
+        href: "#",
+        text: "Sign out"
+      }
+    ]
+  }) }}
+
+{% endblock %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-width-container">
+  <span class="govuk-caption-xl">County Parish Holding: 123456789</span>
+  <h1 class="govuk-heading-l">
+    Holding information
+  </h1>
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      {% from "govuk/components/tabs/macro.njk" import govukTabs %}
+      {% from "govuk/components/table/macro.njk" import govukTable %}
+
+      {% set livestockHtml %}
+      <h2 class="govuk-heading-m">Livestock</h2>
+      <table class="govuk-table">
+        <thead class="govuk-table__head">
+          <tr class="govuk-table__row">
+            <th scope="col" class="govuk-table__header">Species</th>
+            <th scope="col" class="govuk-table__header govuk-table__header--numeric">Count</th>
+          </tr>
+        </thead>
+        <tbody class="govuk-table__body">
+          <tr class="govuk-table__row">
+            <td class="govuk-table__cell"><a class="govuk-link govuk-!-font-weight-bold" href="/animals-on-holding/v1/cattle">Cattle</a></td>
+            <td class="govuk-table__cell govuk-table__cell--numeric">121</td>
+          </tr>
+          <tr class="govuk-table__row">
+            <td class="govuk-table__cell"><a class="govuk-link govuk-!-font-weight-bold" href="#">Sheep</a></td>
+            <td class="govuk-table__cell govuk-table__cell--numeric">67</td>
+          </tr>
+          <tr class="govuk-table__row">
+            <td class="govuk-table__cell"><a class="govuk-link govuk-!-font-weight-bold" href="#">Goats</a></td>
+            <td class="govuk-table__cell govuk-table__cell--numeric">15</td>
+          </tr>
+        </tbody>
+      </table>
+      {% endset -%}
+
+      {% set delegatesHtml %}
+      <h2 class="govuk-heading-m">Delegates</h2>
+      {{ govukTable({
+      head: [
+      { text: "Name" },
+      { text: "Role" },
+      { text: "Status" }
+      ],
+      rows: [
+      [{ html: '<a class="govuk-link govuk-!-font-weight-bold" href="#">Joe Bloggs</a>' }, { text: "Owner" }, { html: '<strong class="govuk-tag govuk-tag--green">Active</strong>' }],
+      [{ html: '<a class="govuk-link govuk-!-font-weight-bold" href="#">Sarah Ahmed</a>' }, { text: "Keeper" }, { html: '<strong class="govuk-tag govuk-tag--green">Active</strong>' }],
+      [{ html: '<a class="govuk-link govuk-!-font-weight-bold" href="#">Tom Richards</a>' }, { text: "Agent" }, { html: '<strong class="govuk-tag govuk-tag--blue">Invited</strong>' }]
+      ]
+      }) }}
+      {% endset -%}
+
+      {% set bananaHtml %}
+      <h2 class="govuk-heading-m">Holding details</h2>
+      <dl class="govuk-summary-list">
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">County Parish Holding number</dt>
+          <dd class="govuk-summary-list__value">12/345/6789</dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">Address</dt>
+          <dd class="govuk-summary-list__value">Greenfield Farm, Market Lane, Shrewsbury, SY1 2AB</dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">Holding type</dt>
+          <dd class="govuk-summary-list__value">Mixed farm</dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">Owner</dt>
+          <dd class="govuk-summary-list__value">Joe Bloggs</dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">Registration date</dt>
+          <dd class="govuk-summary-list__value">12 March 2004</dd>
+        </div>
+      </dl>
+      {% endset -%}
+
+      {{ govukTabs({
+      items: [
+      {
+      label: "Livestock",
+      id: "livestock",
+      panel: { html: livestockHtml }
+      },
+      {
+      label: "Delegates",
+      id: "delegates",
+      panel: { html: delegatesHtml }
+      },
+      {
+      label: "Holding details",
+      id: "banana",
+      panel: { html: bananaHtml }
+      }
+      ]
+      }) }}
+    </div>
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,95 @@
+{% extends "layouts/main.html" %}
+
+{% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
+
+{% set pageName="Profile and settings" %}
+
+{% set activeNav = "profile-settings" %}
+
+{% block header %}
+
+  {{ govukHeader({
+    homepageUrl: '/index.html'
+  }) }}
+
+  {{ govukServiceNavigation({
+    serviceName: "Livestock Information",
+    serviceUrl: "/animals-on-holding/v1/start",
+    navigation: [
+      {
+        href: "/animals-on-holding/v1/my-holdings",
+        text: "My holdings"
+      },
+      {
+        href: "/animals-on-holding/v1/my-services",
+        text: "My services"
+      },
+      {
+        href: "/animals-on-holding/v1/activity-history",
+        text: "Activity history"
+      },
+      {
+        href: "/animals-on-holding/v1/profile-settings",
+        text: "Profile and settings",
+        active: activeNav === "profile-settings"
+      },
+      {
+        href: "#",
+        text: "Sign out"
+      }
+    ]
+  }) }}
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-width-container">
+  <h1 class="govuk-heading-l">
+    Profile and settings
+  </h1>
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <dl class="govuk-summary-list">
+
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">Name</dt>
+          <dd class="govuk-summary-list__value">Joe Bloggs</dd>
+          <dd class="govuk-summary-list__actions">
+            <a class="govuk-link" href="#">Change</a>
+          </dd>
+        </div>
+
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">Email address</dt>
+          <dd class="govuk-summary-list__value">joe.bloggs@example.com</dd>
+          <dd class="govuk-summary-list__actions">
+            <a class="govuk-link" href="#">Change</a>
+          </dd>
+        </div>
+
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">Phone number</dt>
+          <dd class="govuk-summary-list__value">07700 900000</dd>
+          <dd class="govuk-summary-list__actions">
+            <a class="govuk-link" href="#">Change</a>
+          </dd>
+        </div>
+
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">Password</dt>
+          <dd class="govuk-summary-list__value">••••••••</dd>
+          <dd class="govuk-summary-list__actions">
+            <a class="govuk-link" href="#">Change</a>
+          </dd>
+        </div>
+
+      </dl>
+
+    </div>
+  </div>
+</div>
+
+{% endblock %}
