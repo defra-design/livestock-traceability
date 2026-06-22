@@ -1,0 +1,76 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Select tag numbers" %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+{% set tags = [
+  "UK 12 34 56 30 15 50",
+  "UK 12 34 56 30 15 51",
+  "UK 12 34 56 30 15 52",
+  "UK 12 34 56 30 15 53",
+  "UK 12 34 56 30 15 54",
+  "UK 12 34 56 30 15 55",
+  "UK 12 34 56 30 15 56",
+  "UK 12 34 56 30 15 57",
+  "UK 12 34 56 30 15 58",
+  "UK 12 34 56 30 15 59",
+  "UK 12 34 56 30 15 60"
+] %}
+
+{% set defaultSelected = ["UK 12 34 56 30 15 50", "UK 12 34 56 30 15 51", "UK 12 34 56 30 15 52", "UK 12 34 56 30 15 53", "UK 12 34 56 30 15 54"] %}
+{% set selectedTags = data['tag-numbers'] if data['tag-numbers'] is not string else [data['tag-numbers']] %}
+{% set selectedTags = selectedTags if selectedTags else defaultSelected %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <form class="form" action="./tag-entry" method="post">
+
+      <div class="govuk-form-group">
+        <fieldset class="govuk-fieldset">
+
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+            <h1 class="govuk-fieldset__heading">
+              Select the animal ear tag numbers you are registering
+            </h1>
+          </legend>
+          <div id="waste-hint" class="govuk-hint">
+            Select all animal ear tag numbers you plan to register in this session.
+          </div>
+
+        <!--  <p class="govuk-body govuk-!-margin-bottom-2">
+            <span id="tag-selected-count">{{ selectedTags | length }}</span> of {{ tags | length }} ear tags selected
+          </p>-->
+
+          <div class="govuk-checkboxes" data-module="govuk-checkboxes" id="tag-entry-table">
+            {% for tag in tags %}
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input" id="tag-{{ loop.index }}" name="tag-numbers" type="checkbox" value="{{ tag }}" {% if tag in selectedTags %}checked{% endif %}>
+                <label class="govuk-label govuk-checkboxes__label" for="tag-{{ loop.index }}">
+                  {{ tag }}
+                </label>
+              </div>
+            {% endfor %}
+          </div>
+        </fieldset>
+
+      </div>
+
+      {{ govukButton({
+        text: "Continue"
+      }) }}
+
+    </form>
+
+  </div>
+</div>
+
+{% endblock %}

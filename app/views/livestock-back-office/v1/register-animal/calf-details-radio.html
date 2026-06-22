@@ -1,0 +1,53 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Placeholder radio" %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <form class="form" action="./calf-details-radio" method="post">
+
+      <div class="govuk-form-group">
+        <fieldset class="govuk-fieldset">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+            <h1 class="govuk-fieldset__heading">
+              Is the calf part of a multiple birth?
+            </h1>
+            <p class="govuk-hint">If the calves you are registering are siblings, you can select the related ear tag numbers to autofill details including date of birth, breed, sire and dam.</p>
+          </legend>
+          <div class="govuk-radios" data-module="govuk-radios">
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="calf-details-radio" name="calf-details-radio" type="radio" value="option-1" {% if data['calf-details-radio'] == 'option-1' %}checked{% endif %}>
+              <label class="govuk-label govuk-radios__label" for="calf-details-radio">
+                Yes
+              </label>
+            </div>
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="calf-details-radio-2" name="calf-details-radio" type="radio" value="option-2" {% if data['calf-details-radio'] == 'option-2' %}checked{% endif %}>
+              <label class="govuk-label govuk-radios__label" for="calf-details-radio-2">
+                No
+              </label>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+
+      {{ govukButton({
+        text: "Continue"
+      }) }}
+
+    </form>
+
+  </div>
+</div>
+
+{% endblock %}

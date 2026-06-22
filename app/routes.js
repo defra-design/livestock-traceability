@@ -44,20 +44,39 @@ router.use((req, res, next) => {
 })
 
 
-
+//include all routes files from the routes folder.
+//
 const journeysPath = path.join(__dirname, 'routes');
 
-fs.readdirSync(journeysPath)
-    .filter(file => file.endsWith('.js'))
-    .forEach(file => {
-        const routePath = path.join(journeysPath, file);
+function loadRouteFile(router, routePath, label) {
+    try {
+        console.log(`[routes] Loading ${label}`);
+        router.use(require(routePath));
+    } catch (err) {
+        console.error(`[routes] Failed to load ${label}:`, err.message);
+    }
+}
 
-        try {
-            router.use(require(routePath));
-        } catch (err) {
-            console.error(`[routes] Failed to load ${file}:`, err.message);
-        }
-    });
+function loadRoutesFromFolder(router, folderPath, basePath = folderPath) {
+    fs.readdirSync(folderPath)
+        .sort()
+        .forEach(item => {
+            const itemPath = path.join(folderPath, item);
+            const stats = fs.statSync(itemPath);
+
+            if (stats.isDirectory()) {
+                loadRoutesFromFolder(router, itemPath, basePath);
+                return;
+            }
+
+            if (stats.isFile() && item.endsWith('.js')) {
+                const label = path.relative(basePath, itemPath);
+                loadRouteFile(router, itemPath, label);
+            }
+        });
+}
+
+loadRoutesFromFolder(router, journeysPath);
 
 
 module.exports = router
