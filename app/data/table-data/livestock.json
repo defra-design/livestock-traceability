@@ -1,0 +1,408 @@
+{
+  "species": "cattle",
+  "recordCount": 20,
+  "animals": [
+    {
+      "cph": "91/214/0410",
+      "earTagNumber": "UK864202917556",
+      "dateOfBirth": "17-05-2023",
+      "sex": "Female",
+      "breed": {
+        "name": "Shorthorn",
+        "code": "SHO"
+      },
+      "status": "Deceased",
+      "dam": {
+        "type": "Generic",
+        "surrogateDam": null,
+        "geneticDam": {
+          "earTagNumber": "UK457586378257"
+        }
+      },
+      "sire": null
+    },
+    {
+      "cph": "23/792/8936",
+      "earTagNumber": "UK522634146510",
+      "dateOfBirth": "14-05-2024",
+      "sex": "Female",
+      "breed": {
+        "name": "Hereford",
+        "code": "HER"
+      },
+      "status": "Active",
+      "dam": {
+        "type": "Surrogate",
+        "surrogateDam": {
+          "earTagNumber": "UK901132588101"
+        },
+        "geneticDam": {
+          "earTagNumber": "UK864202917556"
+        }
+      },
+      "sire": null
+    },
+    {
+      "cph": "37/338/8280",
+      "earTagNumber": "UK159517919901",
+      "dateOfBirth": "23-02-2025",
+      "sex": "Male",
+      "breed": {
+        "name": "British Blue",
+        "code": "BRB"
+      },
+      "status": "Active",
+      "dam": {
+        "type": "Generic",
+        "surrogateDam": null,
+        "geneticDam": {
+          "earTagNumber": "UK864202917556"
+        }
+      },
+      "sire": {
+        "earTagNumber": "UK039310588087",
+        "name": "Highland Monarch"
+      }
+    },
+    {
+      "cph": "67/703/4558",
+      "earTagNumber": "UK132588101360",
+      "dateOfBirth": "04-04-2026",
+      "sex": "Male",
+      "breed": {
+        "name": "Belgian Blue",
+        "code": "BB"
+      },
+      "status": "Active",
+      "dam": {
+        "type": "Generic",
+        "surrogateDam": null,
+        "geneticDam": {
+          "earTagNumber": "UK765131516511"
+        }
+      },
+      "sire": null
+    },
+    {
+      "cph": "45/259/3528",
+      "earTagNumber": "UK551643261039",
+      "dateOfBirth": "29-07-2022",
+      "sex": "Male",
+      "breed": {
+        "name": "Charolais",
+        "code": "CHA"
+      },
+      "status": "Active",
+      "dam": {
+        "type": "Surrogate",
+        "surrogateDam": {
+          "earTagNumber": "UK208590753232"
+        },
+        "geneticDam": {
+          "earTagNumber": "UK052474911920"
+        }
+      },
+      "sire": {
+        "earTagNumber": "UK314575863782",
+        "name": ""
+      }
+    },
+    {
+      "cph": "55/967/5636",
+      "earTagNumber": "UK310588087895",
+      "dateOfBirth": "30-03-2022",
+      "sex": "Female",
+      "breed": {
+        "name": "Welsh Black",
+        "code": "WB"
+      },
+      "status": "Active",
+      "dam": {
+        "type": "Generic",
+        "surrogateDam": null,
+        "geneticDam": {
+          "earTagNumber": "UK701737377727"
+        }
+      },
+      "sire": null
+    },
+    {
+      "cph": "20/665/4804",
+      "earTagNumber": "UK946914377354",
+      "dateOfBirth": "20-06-2025",
+      "sex": "Female",
+      "breed": {
+        "name": "Highland",
+        "code": "HIG"
+      },
+      "status": "Deceased",
+      "dam": {
+        "type": "Generic",
+        "surrogateDam": null,
+        "geneticDam": {
+          "earTagNumber": "UK052474911920"
+        }
+      },
+      "sire": null
+    },
+    {
+      "cph": "18/146/3734",
+      "earTagNumber": "UK052474911920",
+      "dateOfBirth": "13-06-2022",
+      "sex": "Female",
+      "breed": {
+        "name": "Shorthorn",
+        "code": "SHO"
+      },
+      "status": "Active",
+      "dam": {
+        "type": "Generic",
+        "surrogateDam": null,
+        "geneticDam": {
+          "earTagNumber": "UK310588087895"
+        }
+      },
+      "sire": null
+    },
+    {
+      "cph": "45/564/5978",
+      "earTagNumber": "UK859075323231",
+      "dateOfBirth": "29-12-2023",
+      "sex": "Male",
+      "breed": {
+        "name": "British Blue",
+        "code": "BRB"
+      },
+      "status": "Deceased",
+      "dam": {
+        "type": "Generic",
+        "surrogateDam": null,
+        "geneticDam": {
+          "earTagNumber": "UK193908645785"
+        }
+      },
+      "sire": null
+    },
+    {
+      "cph": "97/763/1170",
+      "earTagNumber": "UK457586378257",
+      "dateOfBirth": "17-12-2022",
+      "sex": "Female",
+      "breed": {
+        "name": "Lincoln Red",
+        "code": "LR"
+      },
+      "status": "Active",
+      "dam": {
+        "type": "Surrogate",
+        "surrogateDam": {
+          "earTagNumber": "UK241434401087"
+        },
+        "geneticDam": {
+          "earTagNumber": "UK925127828938"
+        }
+      },
+      "sire": null
+    },
+    {
+      "cph": "69/488/4423",
+      "earTagNumber": "UK017373777279",
+      "dateOfBirth": "14-02-2025",
+      "sex": "Male",
+      "breed": {
+        "name": "Shorthorn",
+        "code": "SHO"
+      },
+      "status": "Active",
+      "dam": {
+        "type": "Generic",
+        "surrogateDam": null,
+        "geneticDam": {
+          "earTagNumber": "UK592532729963"
+        }
+      },
+      "sire": null
+    },
+    {
+      "cph": "39/941/0526",
+      "earTagNumber": "UK439125972228",
+      "dateOfBirth": "01-04-2024",
+      "sex": "Female",
+      "breed": {
+        "name": "Beef Shorthorn",
+        "code": "BSH"
+      },
+      "status": "Active",
+      "dam": {
+        "type": "Generic",
+        "surrogateDam": null,
+        "geneticDam": {
+          "earTagNumber": "UK332151260567"
+        }
+      },
+      "sire": null
+    },
+    {
+      "cph": "82/997/5156",
+      "earTagNumber": "UK755898557811",
+      "dateOfBirth": "19-10-2024",
+      "sex": "Male",
+      "breed": {
+        "name": "Galloway",
+        "code": "GAL"
+      },
+      "status": "Active",
+      "dam": {
+        "type": "Surrogate",
+        "surrogateDam": {
+          "earTagNumber": "UK776513151651"
+        },
+        "geneticDam": {
+          "earTagNumber": "UK911304820234"
+        }
+      },
+      "sire": null
+    },
+    {
+      "cph": "43/242/4041",
+      "earTagNumber": "UK939086457859",
+      "dateOfBirth": "08-01-2025",
+      "sex": "Male",
+      "breed": {
+        "name": "Beef Shorthorn",
+        "code": "BSH"
+      },
+      "status": "Sold",
+      "dam": {
+        "type": "Generic",
+        "surrogateDam": null,
+        "geneticDam": {
+          "earTagNumber": "UK197618642125"
+        }
+      },
+      "sire": null
+    },
+    {
+      "cph": "61/470/3594",
+      "earTagNumber": "UK251278289382",
+      "dateOfBirth": "07-10-2024",
+      "sex": "Female",
+      "breed": {
+        "name": "Charolais",
+        "code": "CHA"
+      },
+      "status": "Active",
+      "dam": {
+        "type": "Generic",
+        "surrogateDam": null,
+        "geneticDam": {
+          "earTagNumber": "UK401215635844"
+        }
+      },
+      "sire": null
+    },
+    {
+      "cph": "29/742/2622",
+      "earTagNumber": "UK414344010875",
+      "dateOfBirth": "14-05-2024",
+      "sex": "Female",
+      "breed": {
+        "name": "Piedmontese",
+        "code": "PIE"
+      },
+      "status": "Active",
+      "dam": {
+        "type": "Generic",
+        "surrogateDam": null,
+        "geneticDam": {
+          "earTagNumber": "UK121040157101"
+        }
+      },
+      "sire": {
+        "earTagNumber": "UK528457090237",
+        "name": "Blackthorn Major"
+      }
+    },
+    {
+      "cph": "58/710/7669",
+      "earTagNumber": "UK925327299633",
+      "dateOfBirth": "07-02-2025",
+      "sex": "Female",
+      "breed": {
+        "name": "Aberdeen Angus",
+        "code": "AA"
+      },
+      "status": "Deceased",
+      "dam": {
+        "type": "Generic",
+        "surrogateDam": null,
+        "geneticDam": {
+          "earTagNumber": "UK447178862431"
+        }
+      },
+      "sire": null
+    },
+    {
+      "cph": "78/868/4372",
+      "earTagNumber": "UK321512605679",
+      "dateOfBirth": "28-11-2023",
+      "sex": "Male",
+      "breed": {
+        "name": "Limousin",
+        "code": "LIM"
+      },
+      "status": "Active",
+      "dam": {
+        "type": "Surrogate",
+        "surrogateDam": {
+          "earTagNumber": "UK728753518518"
+        },
+        "geneticDam": {
+          "earTagNumber": "UK721767122463"
+        }
+      },
+      "sire": null
+    },
+    {
+      "cph": "30/564/0054",
+      "earTagNumber": "UK113048202347",
+      "dateOfBirth": "24-06-2023",
+      "sex": "Female",
+      "breed": {
+        "name": "Blonde d'Aquitaine",
+        "code": "BDA"
+      },
+      "status": "Sold",
+      "dam": {
+        "type": "Generic",
+        "surrogateDam": null,
+        "geneticDam": {
+          "earTagNumber": "UK804878885688"
+        }
+      },
+      "sire": {
+        "earTagNumber": "UK558006689864",
+        "name": "Cwm Valley Duke"
+      }
+    },
+    {
+      "cph": "23/991/4890",
+      "earTagNumber": "UK765131516511",
+      "dateOfBirth": "05-11-2024",
+      "sex": "Female",
+      "breed": {
+        "name": "Piedmontese",
+        "code": "PIE"
+      },
+      "status": "Active",
+      "dam": {
+        "type": "Generic",
+        "surrogateDam": null,
+        "geneticDam": {
+          "earTagNumber": "UK476245203267"
+        }
+      },
+      "sire": null
+    }
+  ]
+}

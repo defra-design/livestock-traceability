@@ -2,6 +2,92 @@
 
 {% set pageName="Livestock Information Service" %}
 
+{% block header %}
+
+
+{{ govukHeader({
+homepageUrl: "/index.html"
+}) }}
+<div class="govuk-service-navigation app-account-context ">
+  <div class="govuk-width-container">
+    <div class="govuk-service-navigation__container">
+
+      <div class="govuk-service-navigation__service-name">
+          <span class="govuk-service-navigation__text">
+            You are viewing the account for
+          </span>
+
+        <strong class="govuk-service-navigation__text">
+          Oakfield Farm
+        </strong>
+
+        <span class="govuk-service-navigation__text">
+            CPH 12/345/0001
+          </span>
+      </div>
+
+      <nav
+              class="govuk-service-navigation__wrapper"
+              aria-label="Administrator account access"
+      >
+        <ul class="govuk-service-navigation__list">
+          <li class="govuk-service-navigation__item">
+            <a
+                    class="govuk-service-navigation__link"
+                    href="/animals-on-holding/v1/holdings/holding-001"
+            >
+              Exit account
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+    </div>
+  </div>
+</div>
+{{ govukServiceNavigation({
+serviceName: "Livestock Information",
+serviceUrl: "/animals-on-holding/v1/start",
+navigation: [
+{
+href: "/animals-on-holding/v1/my-holdings",
+text: "My holdings",
+active: activeNav === "my-holdings"
+},
+{
+href: "/animals-on-holding/v1/my-services",
+text: "My services"
+},
+{
+href: "/animals-on-holding/v1/activity-history",
+text: "Activity history"
+},
+{
+href: "/animals-on-holding/v1/profile-settings",
+text: "Profile and settings"
+}
+]
+}) }}
+
+
+
+
+
+{% endblock %}
+
+{% block beforeContent %}
+<style>
+  .app-account-context {
+  background-color: #d2e2f1;
+  border-bottom: 1px solid #1d70b8;
+}
+</style>
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
 {% block content %}
 
 <div class="govuk-width-container">

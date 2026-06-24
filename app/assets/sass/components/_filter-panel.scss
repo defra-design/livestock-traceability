@@ -1,0 +1,89 @@
+.filter-panel {
+    background-color: #f3f2f1;
+    padding: 1.5rem;
+}
+/*
+.js-enabled .filter-panel{
+    display:none;
+}
+*/
+.filter-button{
+  line-height:1.26315;
+}
+@media (min-width: 40.0625em){
+  .filter-count {
+    margin-left:8px;
+      font-size: 16px !important;
+      font-size: 1rem !important;
+      line-height: 1.25 !important;
+  }
+}
+
+.filter-label .count {
+  background-color: #fff;
+  border-radius: 10px;
+  margin-left: 5px;
+  padding: 2px 5px;
+  font-size: 10px
+}
+
+
+.filter-count {
+    margin-left:4px;
+    padding-top: 4px;
+    padding-right: 6px;
+    padding-bottom: 3px;
+    padding-left: 6px;
+    font-size: 14px !important;
+    font-size: .875rem !important;
+    line-height: 1.1428571429 !important;
+}
+
+.filter-panel--header {
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-flex-wrap: nowrap;
+    -ms-flex-wrap: nowrap;
+    flex-wrap: nowrap;
+    -webkit-justify-content: space-between;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -webkit-align-content: stretch;
+    -ms-flex-line-pack: stretch;
+    align-content: stretch;
+    -webkit-align-items: flex-start;
+    -ms-flex-align: start;
+    align-items: flex-start;
+    }
+
+.filter-panel--heading {
+    -webkit-order: 0;
+    -ms-flex-order: 0;
+    order: 0;
+    -webkit-flex: 0 1 auto;
+    -ms-flex: 0 1 auto;
+    flex: 0 1 auto;
+    -webkit-align-self: auto;
+    -ms-flex-item-align: auto;
+    align-self: auto;
+    }
+
+.filter-panel--close-button  {
+    -webkit-order: 0;
+    -ms-flex-order: 0;
+    order: 0;
+    -webkit-flex: 0 1 auto;
+    -ms-flex: 0 1 auto;
+    flex: 0 1 auto;
+    -webkit-align-self: auto;
+    -ms-flex-item-align: auto;
+    align-self: auto;
+    }
+
+.filter-row .govuk-radios__label {
+  padding-left: 40px;
+}

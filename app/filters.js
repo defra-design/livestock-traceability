@@ -26,3 +26,86 @@ addFilter('removeWhiteSpace', function(text) {
 
      return cleanValue.replace(/^(.{2})(.{6})(.{6})$/, '$1 $2 $3');
  });
+
+
+ addFilter('shortDateFormat', function (value) {
+   if (!value || typeof value !== 'string') {
+     return value;
+   }
+
+   const parts = value.split('-');
+
+   if (parts.length !== 3) {
+     return value;
+   }
+
+   const [day, month, year] = parts;
+
+   const monthNames = [
+     'Jan',
+     'Feb',
+     'Mar',
+     'Apr',
+     'May',
+     'Jun',
+     'Jul',
+     'Aug',
+     'Sep',
+     'Oct',
+     'Nov',
+     'Dec'
+   ];
+
+   const monthIndex = Number(month) - 1;
+
+   if (
+     !Number.isInteger(monthIndex) ||
+     monthIndex < 0 ||
+     monthIndex > 11
+   ) {
+     return value;
+   }
+
+   return `${Number(day)} ${monthNames[monthIndex]} ${year}`;
+ });
+
+ addFilter('fullDateFormat', function (value) {
+    if (!value || typeof value !== 'string') {
+      return value;
+    }
+
+    const parts = value.split('-');
+
+    if (parts.length !== 3) {
+      return value;
+    }
+
+    const [day, month, year] = parts;
+
+    const monthNames = [
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December'
+    ];
+
+    const monthIndex = Number(month) - 1;
+
+    if (
+      !Number.isInteger(monthIndex) ||
+      monthIndex < 0 ||
+      monthIndex > 11
+    ) {
+      return value;
+    }
+
+    return `${Number(day)} ${monthNames[monthIndex]} ${year}`;
+  });

@@ -1,0 +1,271 @@
+<div class="defra-filter--content">
+  <form method="get">
+    <div class="govuk-grid-row">
+      <!-- <div class="govuk-grid-column-one-third ">
+        <div class="govuk-form-group">
+          <label class="govuk-label" for="filter-status">
+            Filter by status
+          </label>
+          <select class="govuk-select govuk-!-width-full" id="filter-status" name="filter_status">
+            <option value="any" selected="selected" >Any status</option>
+            <option value="draft" >Draft</option>
+            <option value="processing" >Processing</option>
+            <option value="dispatched" >Dispatched</option>
+            <option value="certifier action" >Certifier action</option>
+            <option value="completed" >Completed</option>
+            <option value="cancelled" >Cancelled</option>
+            <option value="rejected" >Rejected</option>
+          </select>
+        </div>
+      </div> -->
+      <div class="govuk-grid-column-one-third">
+        <div class="govuk-form-group">
+          <fieldset class="govuk-fieldset">
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+              Filter by status
+            </legend>
+            <div class="govuk-radios govuk-radios--small ">
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="type-9" name="filter_status" type="radio" value="any" checked="checked">
+                <label class="govuk-label govuk-radios__label" for="type-9">
+                  Any status
+                </label>
+              </div>
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="type-20" name="filter_status" type="radio" value="draft">
+                <label class="govuk-label govuk-radios__label" for="type-20">
+                  Draft
+                </label>
+              </div>
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="type-3" name="filter_status" type="radio" value="processing">
+                <label class="govuk-label govuk-radios__label" for="type-3">
+                  Processing
+                </label>
+              </div>
+              <div class="govuk-radios__item ">
+                <input class="govuk-radios__input" id="type" name="filter_status" type="radio" value="dispatched">
+                <label class="govuk-label govuk-radios__label" for="type">
+                  Dispatched
+                </label>
+              </div>
+            </div>
+            <div class="govuk-radios govuk-radios--small">
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="type-2" name="filter_status" type="radio" value="needs pre-check">
+                <label class="govuk-label govuk-radios__label" for="type-2">
+                  Needs pre-check
+                </label>
+              </div>
+              <div class="  govuk-radios__item">
+                <input class="govuk-radios__input" id="type-8" name="filter_status" type="radio" value="completed">
+                <label class="govuk-label govuk-radios__label" for="type-8">
+                  Completed
+                </label>
+              </div>
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="type-4" name="filter_status" type="radio" value="cancelled">
+                <label class="govuk-label govuk-radios__label" for="type-4">
+                  Cancelled
+                </label>
+              </div>
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="type-6" name="filter_status" type="radio" value="rejected">
+                <label class="govuk-label govuk-radios__label" for="type-6">
+                  Rejected
+                </label>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+      </div>
+      <div class="govuk-grid-column-one-third ">
+        <div class="govuk-form-group">
+          <fieldset class="govuk-fieldset">
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+              Filter by export date
+            </legend>
+            <div class="govuk-radios govuk-radios--small govuk-radios--conditional" data-module="govuk-radios">
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="date_range" name="date_range" type="radio" value="any">
+                <label class="govuk-label govuk-radios__label" for="date_range">
+                  Any
+                </label>
+              </div>
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="date_range-1" name="date_range" type="radio" value="today">
+                <label class="govuk-label govuk-radios__label" for="date_range-1">
+                  Today
+                </label>
+              </div>
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="date_range-3" name="date_range" type="radio" value="tomorrow">
+                <label class="govuk-label govuk-radios__label" for="date_range-3">
+                  Tomorrow
+                </label>
+              </div>
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="date_range-2" name="date_range" type="radio" value="in the next 7 days">
+                <label class="govuk-label govuk-radios__label" for="date_range-2">
+                  Next 7 days
+                </label>
+              </div>
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="date_range-4" name="date_range" type="radio" value="custom" aria-controls="conditional-how-contacted-conditional-2" aria-expanded="false">
+                <label class="govuk-label govuk-radios__label" for="date_range-4">
+                  Custom date range
+                </label>
+              </div>
+              <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-how-contacted-conditional-2">
+                <div class="govuk-grid-row">
+                  <div class="govuk-form-group">
+                    <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint">
+                      <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+                        <h1 class="govuk-fieldset__heading">
+                          From
+                        </h1>
+                      </legend>
+                      <span id="passport-issued-hint" class="govuk-hint">
+                      </span>
+                      <div class="govuk-date-input" id="passport-issued">
+                        <div class="govuk-date-input__item">
+                          <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="export_form_day">
+                              Day
+                            </label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="export_form_day" name="export_form_day" type="text" pattern="[0-9]*" inputmode="numeric">
+                          </div>
+                        </div>
+                        <div class="govuk-date-input__item">
+                          <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="export_form_month">
+                              Month
+                            </label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="export_form_month" name="export_form_month" type="text" pattern="[0-9]*" inputmode="numeric">
+                          </div>
+                        </div>
+                        <div class="govuk-date-input__item">
+                          <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
+                              Year
+                            </label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-4" id="export_form_year" name="export_form_year" type="text" pattern="[0-9]*" inputmode="numeric">
+                          </div>
+                        </div>
+                      </div>
+                    </fieldset>
+                  </div>
+                  <div class="govuk-form-group">
+                    <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint">
+                      <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+                        <h1 class="govuk-fieldset__heading">
+                          to
+                        </h1>
+                      </legend>
+                      <span id="passport-issued-hint" class="govuk-hint">
+                      </span>
+                      <div class="govuk-date-input" id="passport-issued">
+                        <div class="govuk-date-input__item">
+                          <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="export_to_day">
+                              Day
+                            </label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="export_to_day" name="export_to_day" type="text" pattern="[0-9]*" inputmode="numeric">
+                          </div>
+                        </div>
+                        <div class="govuk-date-input__item">
+                          <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="export_to_month">
+                              Month
+                            </label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="export_to_month" name="export_to_month" type="text" pattern="[0-9]*" inputmode="numeric">
+                          </div>
+                        </div>
+                        <div class="govuk-date-input__item">
+                          <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="export_to_year">
+                              Year
+                            </label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-4" id="export_to_year" name="export_to_year" type="text" pattern="[0-9]*" inputmode="numeric">
+                          </div>
+                        </div>
+                      </div>
+                    </fieldset>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+      </div>
+      <div class="govuk-grid-column-one-third">
+        <div class="govuk-form-group">
+          <fieldset class="govuk-fieldset">
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+              Filter by user
+            </legend>
+            <p class="govuk-body">Show applications created by:</p>
+            <div class="govuk-radios govuk-radios--small govuk-radios--conditional" data-module="govuk-radios">
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="show_applications_by_me" name="show_applications_by" type="radio" value="me" checked="checked">
+                <label class="govuk-label govuk-radios__label" for="show_applications_by_me">
+                  Me
+                </label>
+              </div>
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="show_applications_by_everyone" name="show_applications_by" type="radio" value="everyone" aria-controls="conditional-how-contacted-conditional-3" aria-expanded="false">
+                <label class="govuk-label govuk-radios__label" for="show_applications_by_everyone">
+                  Someone else
+                </label>
+              </div>
+              <div class=" govuk-form-group govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-how-contacted-conditional-3">
+                <!-- <label class="govuk-label" for="filter_name">
+            Filter by user name
+          </label> -->
+                <select class="govuk-select govuk-!-width-full" id="filter_name" name="filter_name">
+                  <option value="All users">All users</option>
+                  <option value="Ann Cooper">Ann Cooper (you)</option>
+                  1
+                  <option value="Ilene Harrison">Ilene Harrison</option>
+                  2
+                  <option value="Morgan Head">Morgan Head</option>
+                  3
+                  <option value="Cecelia Benson">Cecelia Benson</option>
+                  4
+                  <option value="Victoria Reese">Victoria Reese</option>
+                  5
+                  <option value="Kathy Burt" selected="">Kathy Burt</option>
+                  6
+                  <option value="Tamika Hurley">Tamika Hurley</option>
+                  7
+                  <option value="Frank Harper">Frank Harper</option>
+                  8
+                  <option value="Garza Salazar">Garza Salazar</option>
+                  9
+                  <option value="Watson Jenkins">Watson Jenkins</option>
+                  10
+                  <option value="Odom Schroeder">Odom Schroeder</option>
+                  11
+                  <option value="Beasley Chang">Beasley Chang</option>
+                  12
+                  <option value="Evangelina Campbell">Evangelina Campbell</option>
+                  13
+                  <option value="Decker Lindsey">Decker Lindsey</option>
+                  14
+                </select>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+      </div>
+      <div class="govuk-grid-column-full">
+        <button type="submit" class="govuk-button govuk-!-margin-bottom-0" data-module="govuk-button" name="has_filter" value="yes">
+          Apply filter
+        </button>
+        <a href="?filter_status=&amp;has_filter=&amp;date_range=&amp;filter_name=&amp;show_applications_by=me" class="defra-link-button defra-link-button--inline" data-module="govuk-button">
+          Clear filters
+        </a>
+      </div>
+    </div>
+  </form>
+</div>
