@@ -1,0 +1,41 @@
+{% extends "layouts/main.html" %}
+
+{% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
+
+{% set pageName = "Invitation sent" %}
+
+{% block header %}
+
+  {{ govukHeader({
+    homepageUrl: '/index.html'
+  }) }}
+
+  {{ govukServiceNavigation({
+    serviceName: "Livestock Information",
+    serviceUrl: "/animals-on-holding/v2/start"
+  }) }}
+
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <div class="govuk-panel govuk-panel--confirmation">
+      <h1 class="govuk-panel__title">Invite sent</h1>
+    </div>
+
+    <p class="govuk-body">An invite was sent to your new delegate at {{ data.confirmedDelegateEmail }}.</p>
+
+    <h2 class="govuk-heading-m">What happens next</h2>
+    <p class="govuk-body">The delegate will have 7 days to reply using the invite link sent to their email address.</p>
+
+    <form action="/animals-on-holding/v2/holdings/{{ holding.id }}/confirmation" method="post" novalidate>
+      {{ govukButton({
+        text: "Back to manage delegates"
+      }) }}
+    </form>
+
+  </div>
+</div>
+{% endblock %}
