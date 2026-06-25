@@ -1,0 +1,123 @@
+{% extends "layouts/main.html" %}
+
+{% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
+
+{% set pageName="Holdings" %}
+
+{% block header %}
+
+  {{ govukHeader({
+    homepageUrl: '/index.html'
+  }) }}
+
+  {{ govukServiceNavigation({
+    serviceName: "Livestock Information",
+    serviceUrl: "/animals-on-holding/v2/start"
+  }) }}
+
+{% endblock %}
+
+{% block content %}
+
+{%- from "govuk/components/input/macro.njk" import govukInput -%}
+{%- from "govuk/components/table/macro.njk" import govukTable -%}
+
+<div>
+  <h1 class="govuk-heading-l">
+    My holdings
+  </h1>
+</div>
+
+<div>
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <form method="GET" >
+        <div class="search-wrapper govuk-form-group">
+          <label for="search-reservations" class="govuk-label">
+            Search holdings by CPH number, name or postcode
+          </label>
+          <div class="search-input-wrapper">
+            <input type="search" value="{{ search }}" id="search-reservations" name="search" title="Search" class="govuk-input">
+            <div class="search-input-submit-wrapper">
+              <button type="submit" class="search-submit">Search</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+  <div>
+
+    <p class="govuk-body" aria-live="polite">
+      {% if search %}
+        {{ holdings.length }}
+        {% if holdings.length === 1 %}
+          holding matches
+        {% else %}
+          holdings match
+        {% endif %}
+        <strong>'{{ search }}'</strong>
+      {% else %}
+        {{ holdings.length }} holdings
+      {% endif %}
+    </p>
+
+    {% if search %}
+    <p class="govuk-body">
+      <a class="govuk-link" href="/animals-on-holding/v2/start">
+        Clear search
+      </a>
+    </p>
+    {% endif %}
+
+    {% if holdings.length %}
+    <table class="govuk-table">
+      <caption class="govuk-table__caption govuk-visually-hidden">
+        Holdings search results
+      </caption>
+
+      <thead class="govuk-table__head">
+        <tr class="govuk-table__row">
+          <th scope="col" class="govuk-table__header">CPH number</th>
+          <th scope="col" class="govuk-table__header">Holding name</th>
+          <th scope="col" class="govuk-table__header">Postcode</th>
+          <th scope="col" class="govuk-table__header">Role</th>
+        </tr>
+      </thead>
+
+      <tbody class="govuk-table__body">
+        {% for holding in holdings %}
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell">
+            {% if loop.first %}
+              <a class="govuk-link govuk-!-font-weight-bold" href="/animals-on-holding/v2/holdings/{{ holding.id }}">{{ holding.cph }}</a>
+            {% else %}
+             <span class="govuk-!-font-weight-bold">
+                {{ holding.cph }}
+             </span>
+            {% endif %}
+          </td>
+          <td class="govuk-table__cell">
+            {{ holding.holdingName }}
+          </td>
+          <td class="govuk-table__cell">
+            {{ holding.address.postcode }}
+          </td>
+          <td class="govuk-table__cell">
+            {{ holding.role }}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <p class="govuk-body">No holdings found.</p>
+    {% endif %}
+
+  </div>
+</div>
+
+{% endblock %}

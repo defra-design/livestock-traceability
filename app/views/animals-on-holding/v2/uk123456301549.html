@@ -1,0 +1,119 @@
+{% extends "layouts/main.html" %}
+
+{% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
+
+{% set pageName="Animal detail view" %}
+
+{% set activeNav = "my-holdings" %}
+
+{% block header %}
+
+  {{ govukHeader({
+    homepageUrl: '/index.html'
+  }) }}
+
+  {{ govukServiceNavigation({
+    serviceName: "Livestock Information",
+    serviceUrl: "/animals-on-holding/v2/start",
+    navigation: [
+      {
+      href: "/animals-on-holding/v2/my-holdings",
+      text: "My holdings",
+      active: activeNav === "my-holdings"
+      },
+      {
+      href: "/animals-on-holding/v2/my-services",
+      text: "My services"
+      },
+      {
+        href: "/animals-on-holding/v2/activity-history",
+        text: "Activity history"
+      },
+      {
+        href: "/animals-on-holding/v2/profile-settings",
+        text: "Profile and settings"
+      },
+      {
+        href: "#",
+        text: "Sign out"
+      }
+    ]
+  }) }}
+
+{% endblock %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-width-container">
+  <h1 class="govuk-heading-l">
+    Animal detail view
+  </h1>
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+
+      {{ govukSummaryList({
+      rows: [
+      {
+      key: {
+      text: "Animal ear tag number"
+      },
+      value: {
+      text: "UK123456301549"
+      }
+      },
+      {
+      key: {
+      text: "Date of birth"
+      },
+      value: {
+      text: "5 May 2026"
+      }
+      },
+      {
+      key: {
+      text: "Date of registration"
+      },
+      value: {
+      text: "15 May 2026"
+      }
+      },
+      {
+      key: {
+      text: "Sex"
+      },
+      value: {
+      text: "F"
+      }
+      },
+      {
+      key: {
+      text: "Status"
+      },
+      value: {
+      text: "Active"
+      }
+      },
+      {
+      key: {
+      text: "Breed"
+      },
+      value: {
+      text: "Fresian"
+      }
+      }
+      ]
+      }) }}
+    </div>
+  </div>
+</div>
+
+{% endblock %}

@@ -6,6 +6,7 @@
       "cph": "12/345/0001",
       "holdingName": "Oakfield Farm",
       "businessName": "Oakfield Livestock Ltd",
+      "role": "Owner",
       "address": {
         "addressLine1": "Oakfield Farm",
         "addressLine2": "Church Lane",
@@ -39,6 +40,7 @@
       "cph": "24/118/0042",
       "holdingName": "Willow Brook Farm",
       "businessName": "Willow Brook Agriculture",
+      "role": "Agent",
       "address": {
         "addressLine1": "Willow Brook Farm",
         "addressLine2": "Mill Road",
@@ -67,6 +69,7 @@
       "cph": "31/672/0158",
       "holdingName": "Red Barn Holdings",
       "businessName": "Red Barn Rural Ltd",
+      "role": "Keeper",
       "address": {
         "addressLine1": "Red Barn",
         "addressLine2": "Station Lane",
@@ -100,6 +103,7 @@
       "cph": "44/209/0317",
       "holdingName": "Cwm Valley Farm",
       "businessName": "Cwm Valley Livestock",
+      "role": "Owner",
       "address": {
         "addressLine1": "Cwm Valley Farm",
         "addressLine2": "Llan Road",
@@ -133,6 +137,7 @@
       "cph": "18/553/0029",
       "holdingName": "Meadow View",
       "businessName": "Meadow View Smallholding",
+      "role": "Keeper",
       "address": {
         "addressLine1": "Meadow View",
         "addressLine2": "North Lane",
@@ -166,6 +171,7 @@
       "cph": "27/884/0106",
       "holdingName": "Blackthorn Estate",
       "businessName": "Blackthorn Estate Farms",
+      "role": "Agent",
       "address": {
         "addressLine1": "Blackthorn Estate",
         "addressLine2": "Estate Road",
@@ -199,6 +205,7 @@
       "cph": "53/417/0088",
       "holdingName": "High Fell Farm",
       "businessName": "High Fell Farming Partnership",
+      "role": "Owner",
       "address": {
         "addressLine1": "High Fell Farm",
         "addressLine2": "Moorland Road",
@@ -232,6 +239,7 @@
       "cph": "66/204/0141",
       "holdingName": "Green Pastures",
       "businessName": "Green Pastures Dairy",
+      "role": "Keeper",
       "address": {
         "addressLine1": "Green Pastures",
         "addressLine2": "Dairy Lane",
@@ -260,6 +268,7 @@
       "cph": "72/391/0254",
       "holdingName": "Riverside Smallholding",
       "businessName": "",
+      "role": "Agent",
       "address": {
         "addressLine1": "Riverside Smallholding",
         "addressLine2": "Bridge End",
@@ -288,6 +297,7 @@
       "cph": "39/740/0193",
       "holdingName": "Hilltop Farm",
       "businessName": "Hilltop Beef Ltd",
+      "role": "Owner",
       "address": {
         "addressLine1": "Hilltop Farm",
         "addressLine2": "Beacon Road",
@@ -316,6 +326,7 @@
       "cph": "15/628/0067",
       "holdingName": "Long Acre Farm",
       "businessName": "Long Acre Farms",
+      "role": "Keeper",
       "address": {
         "addressLine1": "Long Acre Farm",
         "addressLine2": "Lower Road",
@@ -345,6 +356,7 @@
       "cph": "48/952/0205",
       "holdingName": "Ty Mawr",
       "businessName": "Ty Mawr Farming",
+      "role": "Agent",
       "address": {
         "addressLine1": "Ty Mawr",
         "addressLine2": "Bryn Road",
@@ -383,6 +395,7 @@
       "cph": "21/366/0094",
       "holdingName": "Westmoor Farm",
       "businessName": "Westmoor Organics",
+      "role": "Owner",
       "address": {
         "addressLine1": "Westmoor Farm",
         "addressLine2": "Moor Lane",
@@ -416,6 +429,7 @@
       "cph": "58/103/0122",
       "holdingName": "Ash Grove Farm",
       "businessName": "Ash Grove Rural Enterprises",
+      "role": "Agent",
       "address": {
         "addressLine1": "Ash Grove Farm",
         "addressLine2": "Old Rectory Lane",
@@ -449,6 +463,7 @@
       "cph": "63/829/0276",
       "holdingName": "Stonebridge Farm",
       "businessName": "Stonebridge Livestock",
+      "role": "Keeper",
       "address": {
         "addressLine1": "Stonebridge Farm",
         "addressLine2": "River Lane",
@@ -482,6 +497,7 @@
       "cph": "34/547/0031",
       "holdingName": "Rosebank Farm",
       "businessName": "",
+      "role": "Owner",
       "address": {
         "addressLine1": "Rosebank Farm",
         "addressLine2": "Rose Lane",
@@ -510,6 +526,7 @@
       "cph": "47/215/0169",
       "holdingName": "Low Wood Farm",
       "businessName": "Low Wood Farming Co",
+      "role": "Agent",
       "address": {
         "addressLine1": "Low Wood Farm",
         "addressLine2": "Woodland Drive",
@@ -538,6 +555,7 @@
       "cph": "69/438/0114",
       "holdingName": "Pen-y-Bryn",
       "businessName": "Pen-y-Bryn Farm Partnership",
+      "role": "Keeper",
       "address": {
         "addressLine1": "Pen-y-Bryn",
         "addressLine2": "Mountain Road",
@@ -571,6 +589,7 @@
       "cph": "25/701/0238",
       "holdingName": "Brookside Farm",
       "businessName": "Brookside Agricultural Services",
+      "role": "Owner",
       "address": {
         "addressLine1": "Brookside Farm",
         "addressLine2": "Water Lane",
@@ -605,6 +624,7 @@
       "cph": "56/312/0056",
       "holdingName": "Sunnybank Farm",
       "businessName": "Sunnybank Livestock Ltd",
+      "role": "Agent",
       "address": {
         "addressLine1": "Sunnybank Farm",
         "addressLine2": "East Road",
