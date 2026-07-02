@@ -1,0 +1,94 @@
+{% extends "layouts/main.html" %}
+
+{% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
+
+{% set pageName="Holdings" %}
+
+{% block header %}
+
+  {{ govukHeader({
+    homepageUrl: '/index.html'
+  }) }}
+
+  {{ govukServiceNavigation({
+    serviceName: "Livestock Information",
+    serviceUrl: "/animals-on-holding/v3/holding-information"
+  }) }}
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+
+    <span class="govuk-caption-l">County Parish Holding: 12/345/0001</span>
+    <h1 class="govuk-heading-l">
+      Oakfield Farm
+    </h1>
+
+    <nav class="moj-sub-navigation" aria-label="Sub navigation">
+      <ul class="moj-sub-navigation__list">
+        <li class="moj-sub-navigation__item">
+          <a class="moj-sub-navigation__link" aria-current="page" href="/animals-on-holding/v3/holding-information">Holding information</a>
+        </li>
+        <li class="moj-sub-navigation__item">
+          <a class="moj-sub-navigation__link" href="/animals-on-holding/v3/cattle-register">Cattle register</a>
+        </li>
+      </ul>
+    </nav>
+
+<!--    <h2 class="govuk-heading-m">Holding information</h2>-->
+
+    <dl class="govuk-summary-list">
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">County Parish Holding Number</dt>
+        <dd class="govuk-summary-list__value">{{ holding.cph }}</dd>
+      </div>
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Holding name</dt>
+        <dd class="govuk-summary-list__value">{{ holding.holdingName }}</dd>
+      </div>
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Holding type</dt>
+        <dd class="govuk-summary-list__value">{{ holding.holdingType }}</dd>
+      </div>
+
+      {% if holding.businessName %}
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Business name</dt>
+        <dd class="govuk-summary-list__value">{{ holding.businessName }}</dd>
+      </div>
+      {% endif %}
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Address</dt>
+        <dd class="govuk-summary-list__value">
+          {{ holding.address.addressLine1 }}
+          {% if holding.address.addressLine2 %}<br>{{ holding.address.addressLine2 }}{% endif %}
+          <br>{{ holding.address.town }}
+          <br>{{ holding.address.county }}
+          <br>{{ holding.address.postcode }}
+          {% if holding.address.country %}<br>{{ holding.address.country }}{% endif %}
+        </dd>
+      </div>
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Registered keeper</dt>
+        <dd class="govuk-summary-list__value">{{ holding.keeper.name }}</dd>
+      </div>
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Herd mark</dt>
+        <dd class="govuk-summary-list__value">{{ holding.herdmark }}</dd>
+      </div>
+
+    </dl>
+
+  </div>
+</div>
+
+{% endblock %}

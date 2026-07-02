@@ -1,0 +1,29 @@
+{
+  "recordCount": 1,
+  "holdings": [
+    {
+      "id": "holding-001",
+      "cph": "12/345/0001",
+      "holdingName": "Oakfield Farm",
+      "businessName": "Oakfield Livestock Ltd",
+      "role": "Owner",
+      "address": {
+        "addressLine1": "Oakfield Farm",
+        "addressLine2": "Church Lane",
+        "town": "Shrewsbury",
+        "county": "Shropshire",
+        "postcode": "SY4 1AB",
+        "country": "England"
+      },
+      "status": "Active",
+      "holdingType": "Permanent",
+      "herdmark": "UK 324537",
+      "species": [
+        "Cattle"
+      ],
+      "keeper": {
+        "name": "James Williams"
+      }
+    }
+  ]
+}

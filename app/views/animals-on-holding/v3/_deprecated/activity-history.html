@@ -1,0 +1,98 @@
+{% extends "layouts/main.html" %}
+
+{% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
+
+{% set pageName="Activity history" %}
+
+{% set activeNav = "activity-history" %}
+
+{% block header %}
+
+  {{ govukHeader({
+    homepageUrl: '/index.html'
+  }) }}
+
+  {{ govukServiceNavigation({
+    serviceName: "Livestock Information",
+    serviceUrl: "/animals-on-holding/v3/holding-information",
+    navigation: [
+      {
+        href: "/animals-on-holding/v3/my-holdings",
+        text: "My holdings"
+      },
+      {
+        href: "/animals-on-holding/v3/my-services",
+        text: "My services"
+      },
+      {
+        href: "/animals-on-holding/v3/activity-history",
+        text: "Activity history",
+        active: activeNav === "activity-history"
+      },
+      {
+        href: "/animals-on-holding/v3/profile-settings",
+        text: "Profile and settings"
+      },
+      {
+        href: "#",
+        text: "Sign out"
+      }
+    ]
+  }) }}
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-width-container">
+  <h1 class="govuk-heading-l">
+    Activity history
+  </h1>
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+
+      <table class="govuk-table">
+        <thead class="govuk-table__head">
+          <tr class="govuk-table__row">
+            <th scope="col" class="govuk-table__header">Date</th>
+            <th scope="col" class="govuk-table__header">Activity</th>
+            <th scope="col" class="govuk-table__header">Holding</th>
+            <th scope="col" class="govuk-table__header">Reporter</th>
+            <th scope="col" class="govuk-table__header"></th>
+          </tr>
+        </thead>
+        <tbody class="govuk-table__body">
+
+          <tr class="govuk-table__row">
+            <td class="govuk-table__cell">18 Jun 2026</td>
+            <td class="govuk-table__cell">Register a cattle birth</td>
+            <td class="govuk-table__cell">12/345/6789</td>
+            <td class="govuk-table__cell">Joe Bloggs</td>
+            <td class="govuk-table__cell"><a class="govuk-link govuk-!-font-weight-bold" href="#">View</a></td>
+          </tr>
+
+          <tr class="govuk-table__row">
+            <td class="govuk-table__cell">12 Jun 2026</td>
+            <td class="govuk-table__cell">Report a death</td>
+            <td class="govuk-table__cell">12/345/6789</td>
+            <td class="govuk-table__cell">Joe Bloggs</td>
+            <td class="govuk-table__cell"><a class="govuk-link govuk-!-font-weight-bold" href="#">View</a></td>
+          </tr>
+
+          <tr class="govuk-table__row">
+            <td class="govuk-table__cell">3 Jun 2026</td>
+            <td class="govuk-table__cell">Report a sheep movement</td>
+            <td class="govuk-table__cell">12/345/6790</td>
+            <td class="govuk-table__cell">Sarah Ahmed</td>
+            <td class="govuk-table__cell"><a class="govuk-link govuk-!-font-weight-bold" href="#">View</a></td>
+          </tr>
+
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+</div>
+
+{% endblock %}
