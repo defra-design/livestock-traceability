@@ -1,0 +1,428 @@
+{
+  "species": "cattle",
+  "recordCount": 20,
+  "animals": [
+    {
+      "cph": "91/214/0410",
+      "earTagNumber": "UK324537113234",
+      "dateOfBirth": "10-03-2023",
+      "dateOfRegistration": "14-03-2023",
+      "sex": "F",
+      "breed": {
+        "name": "Holstein Friesian",
+        "code": "HO"
+      },
+      "status": "Active",
+      "dam": {
+        "type": "Generic",
+        "surrogateDam": null,
+        "geneticDam": {
+          "earTagNumber": "UK324537113243"
+        }
+      },
+      "sire": null
+    },
+    {
+      "cph": "23/792/8936",
+      "earTagNumber": "UK324537113235",
+      "dateOfBirth": "28-03-2023",
+      "dateOfRegistration": "03-04-2023",
+      "sex": "F",
+      "breed": {
+        "name": "Holstein Friesian Cross",
+        "code": "HOX"
+      },
+      "status": "Active",
+      "dam": {
+        "type": "Surrogate",
+        "surrogateDam": {
+          "earTagNumber": "UK901132588101"
+        },
+        "geneticDam": {
+          "earTagNumber": "UK324537113234"
+        }
+      },
+      "sire": null
+    },
+    {
+      "cph": "37/338/8280",
+      "earTagNumber": "UK324537113236",
+      "dateOfBirth": "15-04-2023",
+      "dateOfRegistration": "15-04-2023",
+      "sex": "M",
+      "breed": {
+        "name": "Holstein Friesian",
+        "code": "HO"
+      },
+      "status": "Active",
+      "dam": {
+        "type": "Generic",
+        "surrogateDam": null,
+        "geneticDam": {
+          "earTagNumber": "UK324537113234"
+        }
+      },
+      "sire": {
+        "earTagNumber": "UK039310588087",
+        "name": "Highland Monarch"
+      }
+    },
+    {
+      "cph": "67/703/4558",
+      "earTagNumber": "UK324537113237",
+      "dateOfBirth": "02-05-2023",
+      "dateOfRegistration": "07-05-2023",
+      "sex": "M",
+      "breed": {
+        "name": "Holstein Friesian Cross",
+        "code": "HOX"
+      },
+      "status": "Active",
+      "dam": {
+        "type": "Generic",
+        "surrogateDam": null,
+        "geneticDam": {
+          "earTagNumber": "UK324537113253"
+        }
+      },
+      "sire": null
+    },
+    {
+      "cph": "45/259/3528",
+      "earTagNumber": "UK324537113238",
+      "dateOfBirth": "20-05-2023",
+      "dateOfRegistration": "21-05-2023",
+      "sex": "M",
+      "breed": {
+        "name": "Holstein Friesian",
+        "code": "HO"
+      },
+      "status": "Active",
+      "dam": {
+        "type": "Surrogate",
+        "surrogateDam": {
+          "earTagNumber": "UK208590753232"
+        },
+        "geneticDam": {
+          "earTagNumber": "UK324537113241"
+        }
+      },
+      "sire": {
+        "earTagNumber": "UK314575863782",
+        "name": ""
+      }
+    },
+    {
+      "cph": "55/967/5636",
+      "earTagNumber": "UK324537113239",
+      "dateOfBirth": "08-09-2023",
+      "dateOfRegistration": "09-09-2023",
+      "sex": "F",
+      "breed": {
+        "name": "Holstein Friesian Cross",
+        "code": "HOX"
+      },
+      "status": "Active",
+      "dam": {
+        "type": "Generic",
+        "surrogateDam": null,
+        "geneticDam": {
+          "earTagNumber": "UK701737377727"
+        }
+      },
+      "sire": null
+    },
+    {
+      "cph": "20/665/4804",
+      "earTagNumber": "UK324537113240",
+      "dateOfBirth": "25-09-2023",
+      "dateOfRegistration": "27-09-2023",
+      "sex": "F",
+      "breed": {
+        "name": "Holstein Friesian",
+        "code": "HO"
+      },
+      "status": "Active",
+      "dam": {
+        "type": "Generic",
+        "surrogateDam": null,
+        "geneticDam": {
+          "earTagNumber": "UK324537113241"
+        }
+      },
+      "sire": null
+    },
+    {
+      "cph": "18/146/3734",
+      "earTagNumber": "UK324537113241",
+      "dateOfBirth": "12-10-2023",
+      "dateOfRegistration": "19-10-2023",
+      "sex": "F",
+      "breed": {
+        "name": "Holstein Friesian Cross",
+        "code": "HOX"
+      },
+      "status": "Active",
+      "dam": {
+        "type": "Generic",
+        "surrogateDam": null,
+        "geneticDam": {
+          "earTagNumber": "UK324537113239"
+        }
+      },
+      "sire": null
+    },
+    {
+      "cph": "45/564/5978",
+      "earTagNumber": "UK324537113242",
+      "dateOfBirth": "30-10-2023",
+      "dateOfRegistration": "01-11-2023",
+      "sex": "M",
+      "breed": {
+        "name": "Holstein Friesian",
+        "code": "HO"
+      },
+      "status": "Active",
+      "dam": {
+        "type": "Generic",
+        "surrogateDam": null,
+        "geneticDam": {
+          "earTagNumber": "UK193908645785"
+        }
+      },
+      "sire": null
+    },
+    {
+      "cph": "97/763/1170",
+      "earTagNumber": "UK324537113243",
+      "dateOfBirth": "16-11-2023",
+      "dateOfRegistration": "23-11-2023",
+      "sex": "F",
+      "breed": {
+        "name": "Holstein Friesian Cross",
+        "code": "HOX"
+      },
+      "status": "Active",
+      "dam": {
+        "type": "Surrogate",
+        "surrogateDam": {
+          "earTagNumber": "UK241434401087"
+        },
+        "geneticDam": {
+          "earTagNumber": "UK925127828938"
+        }
+      },
+      "sire": null
+    },
+    {
+      "cph": "69/488/4423",
+      "earTagNumber": "UK324537113244",
+      "dateOfBirth": "05-03-2024",
+      "dateOfRegistration": "12-03-2024",
+      "sex": "M",
+      "breed": {
+        "name": "Holstein Friesian",
+        "code": "HO"
+      },
+      "status": "Active",
+      "dam": {
+        "type": "Generic",
+        "surrogateDam": null,
+        "geneticDam": {
+          "earTagNumber": "UK592532729963"
+        }
+      },
+      "sire": null
+    },
+    {
+      "cph": "39/941/0526",
+      "earTagNumber": "UK324537113245",
+      "dateOfBirth": "22-03-2024",
+      "dateOfRegistration": "25-03-2024",
+      "sex": "F",
+      "breed": {
+        "name": "Holstein Friesian Cross",
+        "code": "HOX"
+      },
+      "status": "Active",
+      "dam": {
+        "type": "Generic",
+        "surrogateDam": null,
+        "geneticDam": {
+          "earTagNumber": "UK332151260567"
+        }
+      },
+      "sire": null
+    },
+    {
+      "cph": "82/997/5156",
+      "earTagNumber": "UK324537113246",
+      "dateOfBirth": "09-04-2024",
+      "dateOfRegistration": "12-04-2024",
+      "sex": "M",
+      "breed": {
+        "name": "Holstein Friesian",
+        "code": "HO"
+      },
+      "status": "Active",
+      "dam": {
+        "type": "Surrogate",
+        "surrogateDam": {
+          "earTagNumber": "UK776513151651"
+        },
+        "geneticDam": {
+          "earTagNumber": "UK911304820234"
+        }
+      },
+      "sire": null
+    },
+    {
+      "cph": "43/242/4041",
+      "earTagNumber": "UK324537113247",
+      "dateOfBirth": "26-04-2024",
+      "dateOfRegistration": "26-04-2024",
+      "sex": "M",
+      "breed": {
+        "name": "Holstein Friesian Cross",
+        "code": "HOX"
+      },
+      "status": "Sold",
+      "dam": {
+        "type": "Generic",
+        "surrogateDam": null,
+        "geneticDam": {
+          "earTagNumber": "UK197618642125"
+        }
+      },
+      "sire": null
+    },
+    {
+      "cph": "61/470/3594",
+      "earTagNumber": "UK324537113248",
+      "dateOfBirth": "14-05-2024",
+      "dateOfRegistration": "17-05-2024",
+      "sex": "F",
+      "breed": {
+        "name": "Holstein Friesian",
+        "code": "HO"
+      },
+      "status": "Active",
+      "dam": {
+        "type": "Generic",
+        "surrogateDam": null,
+        "geneticDam": {
+          "earTagNumber": "UK401215635844"
+        }
+      },
+      "sire": null
+    },
+    {
+      "cph": "29/742/2622",
+      "earTagNumber": "UK324537113249",
+      "dateOfBirth": "03-09-2024",
+      "dateOfRegistration": "07-09-2024",
+      "sex": "F",
+      "breed": {
+        "name": "Holstein Friesian Cross",
+        "code": "HOX"
+      },
+      "status": "Active",
+      "dam": {
+        "type": "Generic",
+        "surrogateDam": null,
+        "geneticDam": {
+          "earTagNumber": "UK121040157101"
+        }
+      },
+      "sire": {
+        "earTagNumber": "UK528457090237",
+        "name": "Blackthorn Major"
+      }
+    },
+    {
+      "cph": "58/710/7669",
+      "earTagNumber": "UK324537113250",
+      "dateOfBirth": "20-09-2024",
+      "dateOfRegistration": "27-09-2024",
+      "sex": "F",
+      "breed": {
+        "name": "Holstein Friesian",
+        "code": "HO"
+      },
+      "status": "Active",
+      "dam": {
+        "type": "Generic",
+        "surrogateDam": null,
+        "geneticDam": {
+          "earTagNumber": "UK447178862431"
+        }
+      },
+      "sire": null
+    },
+    {
+      "cph": "78/868/4372",
+      "earTagNumber": "UK324537113251",
+      "dateOfBirth": "08-10-2024",
+      "dateOfRegistration": "10-10-2024",
+      "sex": "M",
+      "breed": {
+        "name": "Holstein Friesian Cross",
+        "code": "HOX"
+      },
+      "status": "Active",
+      "dam": {
+        "type": "Surrogate",
+        "surrogateDam": {
+          "earTagNumber": "UK728753518518"
+        },
+        "geneticDam": {
+          "earTagNumber": "UK721767122463"
+        }
+      },
+      "sire": null
+    },
+    {
+      "cph": "30/564/0054",
+      "earTagNumber": "UK324537113252",
+      "dateOfBirth": "25-10-2024",
+      "dateOfRegistration": "30-10-2024",
+      "sex": "F",
+      "breed": {
+        "name": "Holstein Friesian",
+        "code": "HO"
+      },
+      "status": "Sold",
+      "dam": {
+        "type": "Generic",
+        "surrogateDam": null,
+        "geneticDam": {
+          "earTagNumber": "UK804878885688"
+        }
+      },
+      "sire": {
+        "earTagNumber": "UK558006689864",
+        "name": "Cwm Valley Duke"
+      }
+    },
+    {
+      "cph": "23/991/4890",
+      "earTagNumber": "UK324537113253",
+      "dateOfBirth": "12-11-2024",
+      "dateOfRegistration": "15-11-2024",
+      "sex": "F",
+      "breed": {
+        "name": "Holstein Friesian Cross",
+        "code": "HOX"
+      },
+      "status": "Active",
+      "dam": {
+        "type": "Generic",
+        "surrogateDam": null,
+        "geneticDam": {
+          "earTagNumber": "UK476245203267"
+        }
+      },
+      "sire": null
+    }
+  ]
+}

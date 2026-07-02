@@ -1,0 +1,63 @@
+{% extends "layouts/main.html" %}
+
+{% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+{% set pageName = "Change role" %}
+
+{% block header %}
+
+  {{ govukHeader({
+    homepageUrl: '/index.html'
+  }) }}
+
+  {{ govukServiceNavigation({
+    serviceName: "Livestock Information",
+    serviceUrl: "/animals-on-holding/v3/holding-information"
+  }) }}
+
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <form action="/animals-on-holding/v3/holdings/{{ holding.id }}/change-role" method="post" novalidate>
+      {{ govukRadios({
+        name: "delegate-role",
+        fieldset: {
+          legend: {
+            text: "Change role",
+            isPageHeading: true,
+            classes: "govuk-fieldset__legend--l"
+          }
+        },
+        items: [
+          {
+            value: "Keeper",
+            text: "Keeper",
+            checked: checked("delegate-role", "Keeper")
+          },
+          {
+            value: "Agent",
+            text: "Agent",
+            checked: checked("delegate-role", "Agent")
+          }
+        ]
+      }) }}
+
+      {{ govukButton({
+        text: "Save changes"
+      }) }}
+    </form>
+
+  </div>
+</div>
+{% endblock %}

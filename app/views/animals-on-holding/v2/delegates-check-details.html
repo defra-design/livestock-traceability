@@ -1,0 +1,78 @@
+{% extends "layouts/main.html" %}
+
+{% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+
+{% set pageName = "Check details before sending your invitation" %}
+
+{% block header %}
+
+  {{ govukHeader({
+    homepageUrl: '/index.html'
+  }) }}
+
+  {{ govukServiceNavigation({
+    serviceName: "Livestock Information",
+    serviceUrl: "/animals-on-holding/v2/start"
+  }) }}
+
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <h1 class="govuk-heading-l">Check details before sending your invitation</h1>
+
+    {{ govukSummaryList({
+      classes: "govuk-!-margin-bottom-9",
+      rows: [
+        {
+          key: { text: "Email address" },
+          value: { text: data['email-address'] },
+          actions: {
+            items: [
+              {
+                href: "/animals-on-holding/v2/holdings/" + holding.id + "/add-delegate",
+                text: "Change",
+                visuallyHiddenText: "email address"
+              }
+            ]
+          }
+        },
+        {
+          key: { text: "Role" },
+          value: { text: data['delegate-role'] },
+          actions: {
+            items: [
+              {
+                href: "/animals-on-holding/v2/holdings/" + holding.id + "/add-delegate",
+                text: "Change",
+                visuallyHiddenText: "role"
+              }
+            ]
+          }
+        },
+        {
+          key: { text: "Holding" },
+          value: { text: holding.cph + " – " + holding.holdingName }
+        }
+      ]
+    }) }}
+
+    <form action="/animals-on-holding/v2/holdings/{{ holding.id }}/check-details" method="post" novalidate>
+      {{ govukButton({
+        text: "Send invitation"
+      }) }}
+    </form>
+
+  </div>
+</div>
+{% endblock %}

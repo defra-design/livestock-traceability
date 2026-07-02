@@ -1,0 +1,84 @@
+{% extends "layouts/main.html" %}
+
+{% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+{% set pageName = "Add a new delegate" %}
+
+{% block header %}
+
+  {{ govukHeader({
+    homepageUrl: '/index.html'
+  }) }}
+
+  {{ govukServiceNavigation({
+    serviceName: "Livestock Information",
+    serviceUrl: "/animals-on-holding/v3/holding-information"
+  }) }}
+
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <h1 class="govuk-heading-l">Delegate details</h1>
+
+    {% if errors and errors.length %}
+      {{ govukErrorSummary({ titleText: "There is a problem", errorList: errors }) }}
+    {% endif %}
+
+    <form action="/animals-on-holding/v3/holdings/{{ holding.id }}/add-delegate" method="post" novalidate>
+      {{ govukInput({
+        label: {
+          text: "Email address",
+          isPageHeading: true,
+          classes: "govuk-label--m"
+        },
+        errorMessage: errors and errors.length and { text: errors[0].text },
+        id: "email-address",
+        name: "email-address",
+        value: data['email-address'],
+        autocomplete: "email",
+        spellcheck: false
+      }) }}
+
+      {{ govukRadios({
+        name: "delegate-role",
+        fieldset: {
+          legend: {
+            text: "Role",
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
+        items: [
+          {
+            value: "Keeper",
+            text: "Keeper",
+            checked: checked("delegate-role", "Keeper")
+          },
+          {
+            value: "Agent",
+            text: "Agent",
+            checked: checked("delegate-role", "Agent")
+          }
+        ]
+      }) }}
+
+    <!--  <p class="govuk-body">Your delegate will receive an email invitation from the Livestock Information Service after you submit the form.</p>
+-->
+      {{ govukButton({
+        text: "Continue"
+      }) }}
+    </form>
+
+  </div>
+</div>
+{% endblock %}

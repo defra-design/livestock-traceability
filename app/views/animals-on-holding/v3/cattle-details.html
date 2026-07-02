@@ -1,0 +1,212 @@
+{% extends "layouts/main.html" %}
+
+{% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
+{% from "govuk/components/tabs/macro.njk" import govukTabs %}
+
+{% set pageName = "Cattle details" %}
+
+{% block header %}
+
+  {{ govukHeader({
+    homepageUrl: '/index.html'
+  }) }}
+
+  {{ govukServiceNavigation({
+    serviceName: "Livestock Information",
+    serviceUrl: "/animals-on-holding/v3/holding-information"
+  }) }}
+
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+
+    <span class="govuk-caption-l">County Parish Holding: 12/345/0001</span>
+    <h1 class="govuk-heading-l">{{ animal.earTagNumber | formatReference }}</h1>
+
+    {% set detailsHtml %}
+
+    <h2 class="govuk-heading-m">Cattle details</h2>
+
+    <dl class="govuk-summary-list">
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Ear tag number</dt>
+        <dd class="govuk-summary-list__value">{{ animal.earTagNumber | formatReference }}</dd>
+      </div>
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Date of birth</dt>
+        <dd class="govuk-summary-list__value">{{ animal.dateOfBirth | shortDateFormat }}</dd>
+      </div>
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Date of registration</dt>
+        <dd class="govuk-summary-list__value">{{ animal.dateOfRegistration | shortDateFormat }}</dd>
+      </div>
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Sex</dt>
+        <dd class="govuk-summary-list__value">{{ animal.sex }}</dd>
+      </div>
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Breed</dt>
+        <dd class="govuk-summary-list__value">
+          {{ animal.breed.name }}{% if animal.breed.code %} ({{ animal.breed.code }}){% endif %}
+        </dd>
+      </div>
+
+    </dl>
+
+    {% if animal.dam %}
+    <h2 class="govuk-heading-m">Dam details</h2>
+
+    <dl class="govuk-summary-list">
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Dam type</dt>
+        <dd class="govuk-summary-list__value">{{ animal.dam.type }}</dd>
+      </div>
+
+      {% if animal.dam.geneticDam %}
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Genetic dam ear tag</dt>
+        <dd class="govuk-summary-list__value">{{ animal.dam.geneticDam.earTagNumber | formatReference }}</dd>
+      </div>
+      {% endif %}
+
+      {% if animal.dam.surrogateDam %}
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Surrogate dam ear tag</dt>
+        <dd class="govuk-summary-list__value">{{ animal.dam.surrogateDam.earTagNumber | formatReference }}</dd>
+      </div>
+      {% endif %}
+
+    </dl>
+    {% endif %}
+
+    {% if animal.sire %}
+    <h2 class="govuk-heading-m">Sire details</h2>
+
+    <dl class="govuk-summary-list">
+
+      {% if animal.sire.earTagNumber %}
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Sire ear tag</dt>
+        <dd class="govuk-summary-list__value">{{ animal.sire.earTagNumber | formatReference }}</dd>
+      </div>
+      {% endif %}
+
+      {% if animal.sire.name %}
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Sire name</dt>
+        <dd class="govuk-summary-list__value">{{ animal.sire.name }}</dd>
+      </div>
+      {% endif %}
+
+    </dl>
+    {% else %}
+    <h2 class="govuk-heading-m">Sire details</h2>
+    <p class="govuk-body">No sire details recorded.</p>
+    {% endif %}
+
+    {% endset %}
+
+
+    {% set offspringHtml %}
+
+    <h2 class="govuk-heading-m">Offspring</h2>
+
+    {% if offspring.length %}
+    <table class="govuk-table">
+      <thead class="govuk-table__head">
+        <tr class="govuk-table__row">
+          <th scope="col" class="govuk-table__header">Ear tag number</th>
+          <th scope="col" class="govuk-table__header">Date of birth</th>
+          <th scope="col" class="govuk-table__header">Sex</th>
+          <th scope="col" class="govuk-table__header">Breed</th>
+          <th scope="col" class="govuk-table__header">Status</th>
+        </tr>
+      </thead>
+      <tbody class="govuk-table__body">
+        {% for calf in offspring %}
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell">{{ calf.earTagNumber | formatReference }}</td>
+          <td class="govuk-table__cell">{{ calf.dateOfBirth | shortDateFormat }}</td>
+          <td class="govuk-table__cell">{{ calf.sex }}</td>
+          <td class="govuk-table__cell">
+            {{ calf.breed.name }}{% if calf.breed.code %} ({{ calf.breed.code }}){% endif %}
+          </td>
+          <td class="govuk-table__cell">
+            {% if calf.status === "Active" %}
+              <strong class="govuk-tag govuk-tag--green">Active</strong>
+            {% elseif calf.status === "Deceased" %}
+              <strong class="govuk-tag govuk-tag--grey">Deceased</strong>
+            {% else %}
+              <strong class="govuk-tag">{{ calf.status }}</strong>
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <p class="govuk-body">No offspring recorded.</p>
+    {% endif %}
+
+    {% endset %}
+
+
+    {% set historyHtml %}
+
+    <h2 class="govuk-heading-m">History</h2>
+
+    <table class="govuk-table">
+      <thead class="govuk-table__head">
+        <tr class="govuk-table__row">
+          <th scope="col" class="govuk-table__header">Date</th>
+          <th scope="col" class="govuk-table__header">Event</th>
+          <th scope="col" class="govuk-table__header">Details</th>
+        </tr>
+      </thead>
+      <tbody class="govuk-table__body">
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell">{{ animal.dateOfBirth | shortDateFormat }}</td>
+          <td class="govuk-table__cell">Birth registered</td>
+          <td class="govuk-table__cell">Registered at holding 12/345/0001</td>
+        </tr>
+      </tbody>
+    </table>
+
+    {% endset %}
+
+
+    {{ govukTabs({
+      items: [
+        {
+          label: "Animal details",
+          id: "details",
+          panel: { html: detailsHtml }
+        },
+        {
+          label: "Activity history",
+          id: "history",
+          panel: { html: historyHtml }
+        }
+      ]
+    }) }}
+
+  </div>
+</div>
+
+{% endblock %}

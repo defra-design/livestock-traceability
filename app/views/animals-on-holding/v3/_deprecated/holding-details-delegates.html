@@ -1,0 +1,120 @@
+{% extends "layouts/main.html" %}
+
+{% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
+
+{% set pageName = "Manage delegates" %}
+
+{% block header %}
+
+  {{ govukHeader({
+    homepageUrl: '/index.html'
+  }) }}
+
+  {{ govukServiceNavigation({
+    serviceName: "Livestock Information",
+    serviceUrl: "/animals-on-holding/v3/holding-information"
+  }) }}
+
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+
+    <span class="govuk-caption-l">County Parish Holding: {{ holding.cph }}</span>
+    <h1 class="govuk-heading-l">{{ holding.holdingName }}</h1>
+
+    <nav class="moj-sub-navigation" aria-label="Sub navigation">
+      <ul class="moj-sub-navigation__list">
+        <li class="moj-sub-navigation__item">
+          <a class="moj-sub-navigation__link" href="/animals-on-holding/v3/holdings/{{ holding.id }}/holding-details">Holding information</a>
+        </li>
+        <li class="moj-sub-navigation__item">
+          <a class="moj-sub-navigation__link" href="/animals-on-holding/v3/holdings/{{ holding.id }}">Livestock register</a>
+        </li>
+      </ul>
+    </nav>
+
+    <h2 class="govuk-heading-m">Manage delegates</h2>
+
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+        <form method="GET">
+          <div class="search-wrapper govuk-form-group">
+            <label for="search-delegates" class="govuk-label">
+              Search by email address, role or status
+            </label>
+            <div class="search-input-wrapper">
+              <input type="search" value="{{ search }}" id="search-delegates" name="search" title="Search" class="govuk-input">
+              <div class="search-input-submit-wrapper">
+                <button type="submit" class="search-submit">Search</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <p class="govuk-body" aria-live="polite">
+      {% if search %}
+        {{ delegates.length }}
+        {% if delegates.length === 1 %}delegate matches{% else %}delegates match{% endif %}
+        <strong>'{{ search }}'</strong>
+      {% else %}
+        {{ delegates.length }} delegates
+      {% endif %}
+    </p>
+
+    {% if search %}
+    <p class="govuk-body">
+      <a class="govuk-link" href="/animals-on-holding/v3/holdings/{{ holding.id }}/manage-delegates">Clear search</a>
+    </p>
+    {% endif %}
+
+    <table class="govuk-table govuk-table--small-text-until-tablet">
+      <thead class="govuk-table__head">
+        <tr class="govuk-table__row">
+          <th scope="col" class="govuk-table__header">Email address</th>
+          <th scope="col" class="govuk-table__header">Role</th>
+          <th scope="col" class="govuk-table__header">Status</th>
+        </tr>
+      </thead>
+      <tbody class="govuk-table__body">
+        {% for delegate in delegates %}
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell">
+            {% if loop.first %}
+              <a class="govuk-link govuk-!-font-weight-bold" href="/animals-on-holding/v3/holdings/{{ holding.id }}/manage-delegate?index={{ loop.index0 }}">{{ delegate.email }}</a>
+            {% else %}
+              <span class="govuk-!-font-weight-bold">{{ delegate.email }}</span>
+            {% endif %}
+          </td>
+          <td class="govuk-table__cell">{{ delegate.role }}</td>
+          <td class="govuk-table__cell">
+            {% if delegate.status === "Active" %}
+              <strong class="govuk-tag govuk-tag--green">Active</strong>
+            {% else %}
+              <strong class="govuk-tag govuk-tag--blue">Invite sent</strong>
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <a href="/animals-on-holding/v3/holdings/{{ holding.id }}/add-delegate" class="govuk-button" data-module="govuk-button">
+      Add a new delegate
+    </a>
+
+  </div>
+</div>
+
+{% endblock %}
