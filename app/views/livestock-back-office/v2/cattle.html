@@ -1,0 +1,191 @@
+{% extends "layouts/main.html" %}
+
+{% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
+
+{% set pageName="Cattle register" %}
+
+{% set activeNav = "my-holdings" %}
+
+{% block header %}
+
+  {{ govukHeader({
+    homepageUrl: '/index.html'
+  }) }}
+
+  {{ govukServiceNavigation({
+    serviceName: "Livestock Information",
+    serviceUrl: "/animals-on-holding/v1/start",
+    navigation: [
+      {
+        href: "/animals-on-holding/v1/my-holdings",
+        text: "My holdings",
+        active: activeNav === "my-holdings"
+      },
+      {
+        href: "/animals-on-holding/v1/my-services",
+        text: "My services"
+      },
+      {
+        href: "/animals-on-holding/v1/activity-history",
+        text: "Activity history"
+      },
+      {
+        href: "/animals-on-holding/v1/profile-settings",
+        text: "Profile and settings"
+      },
+      {
+        href: "#",
+        text: "Sign out"
+      }
+    ]
+  }) }}
+
+{% endblock %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+  text: "Back",
+  href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+{%- from "govuk/components/checkboxes/macro.njk" import govukCheckboxes -%}
+{%- from "govuk/components/input/macro.njk" import govukInput -%}
+{%- from "govuk/components/table/macro.njk" import govukTable -%}
+
+
+
+<div>
+  <h1 class="govuk-heading-l">
+    Cattle register
+  </h1>
+</div>
+
+
+
+  <div>
+
+    {% block filterBar %}{% include "./components/_filter-bar.html" %}{% endblock %}
+
+  <div>
+
+    <p class="govuk-body" aria-live="polite">
+      {% if search %}
+      {{ cattle.length }}
+      {% if cattle.length === 1 %}
+      registered cattle record matches
+      {% else %}
+      registered cattle records match
+      {% endif %}
+        <strong>‘{{ search }}’</strong>
+      {% else %}
+      {{ cattle.length }} registered cattle
+      {% endif %}
+    </p>
+
+        {% if search %}
+        <p class="govuk-body">
+          <a class="govuk-link" href="./cattle">
+            Clear search
+          </a>
+        </p>
+        {% endif %}
+
+
+    {% if cattle.length %}
+    <table class="govuk-table">
+
+      <thead class="govuk-table__head">
+      <tr class="govuk-table__row">
+<!--        <th scope="col" class="govuk-table__header">-->
+<!--          CPH-->
+<!--        </th>-->
+
+        <th scope="col" class="govuk-table__header">
+          Ear tag number
+        </th>
+
+        <th scope="col" class="govuk-table__header">
+          Date of birth
+        </th>
+
+        <th scope="col" class="govuk-table__header">
+          Sex
+        </th>
+
+        <th scope="col" class="govuk-table__header">
+          Breed
+        </th>
+
+        <th scope="col" class="govuk-table__header">
+          Status
+        </th>
+      </tr>
+      </thead>
+
+      <tbody class="govuk-table__body">
+      {% for animal in cattle %}
+      <tr class="govuk-table__row">
+
+<!--        <td class="govuk-table__cell">-->
+<!--          {{ animal.cph }}-->
+<!--        </td>-->
+
+          <th scope="row" class="govuk-table__header">
+         <a href="./cattle/{{ animal.earTagNumber }}">{{ animal.earTagNumber | formatReference }}</a>
+        </th>
+
+        <td class="govuk-table__cell">
+          {{ animal.dateOfBirth | shortDateFormat}}
+        </td>
+
+        <td class="govuk-table__cell">
+            {{ animal.sex }}
+        </td>
+
+        <td class="govuk-table__cell">
+          {{ animal.breed.name }}
+          {% if animal.breed.code %}
+          ({{ animal.breed.code }})
+          {% endif %}
+        </td>
+
+        <td class="govuk-table__cell">
+          {% if animal.status === "Active" %}
+          <strong class="govuk-tag govuk-tag--green">
+            Active
+          </strong>
+          {% elseif animal.status === "Sold" %}
+          <strong class="govuk-tag govuk-tag--blue">
+            Sold
+          </strong>
+          {% elseif animal.status === "Deceased" %}
+          <strong class="govuk-tag govuk-tag--grey">
+            Deceased
+          </strong>
+          {% else %}
+          <strong class="govuk-tag">
+            {{ animal.status }}
+          </strong>
+          {% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <div class="govuk-inset-text">
+      No cattle records found
+      {% if search %}
+      for “{{ search }}”.
+      {% else %}
+      .
+      {% endif %}
+    </div>
+    {% endif %}
+
+</div>
+
+{% endblock %}

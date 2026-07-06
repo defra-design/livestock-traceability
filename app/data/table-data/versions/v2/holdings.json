@@ -1,0 +1,577 @@
+{
+  "recordCount": 20,
+  "holdings": [
+    {
+      "id": "holding-001",
+      "cph": "12/345/0001",
+      "holdingName": "Oakfield Farm",
+      "businessName": "Oakfield Livestock Ltd",
+      "address": {
+        "addressLine1": "Oakfield Farm",
+        "addressLine2": "Church Lane",
+        "town": "Shrewsbury",
+        "county": "Shropshire",
+        "postcode": "SY4 1AB",
+        "country": "England"
+      },
+      "status": "Active",
+      "holdingType": "Permanent",
+      "species": [
+        "Cattle",
+        "Sheep"
+      ],
+      "herdAndFlockMarks": [
+        {
+          "species": "Cattle",
+          "mark": "UK123456"
+        },
+        {
+          "species": "Sheep",
+          "mark": "UK654321"
+        }
+      ]
+    },
+    {
+      "id": "holding-002",
+      "cph": "24/118/0042",
+      "holdingName": "Willow Brook Farm",
+      "businessName": "Willow Brook Agriculture",
+      "address": {
+        "addressLine1": "Willow Brook Farm",
+        "addressLine2": "Mill Road",
+        "town": "Hereford",
+        "county": "Herefordshire",
+        "postcode": "HR2 8JL",
+        "country": "England"
+      },
+      "status": "Active",
+      "holdingType": "Permanent",
+      "species": [
+        "Cattle"
+      ],
+      "herdAndFlockMarks": [
+        {
+          "species": "Cattle",
+          "mark": "UK234567"
+        }
+      ]
+    },
+    {
+      "id": "holding-003",
+      "cph": "31/672/0158",
+      "holdingName": "Red Barn Holdings",
+      "businessName": "Red Barn Rural Ltd",
+      "address": {
+        "addressLine1": "Red Barn",
+        "addressLine2": "Station Lane",
+        "town": "Lincoln",
+        "county": "Lincolnshire",
+        "postcode": "LN5 0QF",
+        "country": "England"
+      },
+      "status": "Inactive",
+      "holdingType": "Permanent",
+      "species": [
+        "Sheep",
+        "Goats"
+      ],
+      "herdAndFlockMarks": [
+        {
+          "species": "Sheep",
+          "mark": "UK345678"
+        },
+        {
+          "species": "Goats",
+          "mark": "UK345679"
+        }
+      ]
+    },
+    {
+      "id": "holding-004",
+      "cph": "44/209/0317",
+      "holdingName": "Cwm Valley Farm",
+      "businessName": "Cwm Valley Livestock",
+      "address": {
+        "addressLine1": "Cwm Valley Farm",
+        "addressLine2": "Llan Road",
+        "town": "Brecon",
+        "county": "Powys",
+        "postcode": "LD3 7TP",
+        "country": "Wales"
+      },
+      "status": "Active",
+      "holdingType": "Permanent",
+      "species": [
+        "Cattle",
+        "Sheep"
+      ],
+      "herdAndFlockMarks": [
+        {
+          "species": "Cattle",
+          "mark": "UK456780"
+        },
+        {
+          "species": "Sheep",
+          "mark": "UK456781"
+        }
+      ]
+    },
+    {
+      "id": "holding-005",
+      "cph": "18/553/0029",
+      "holdingName": "Meadow View",
+      "businessName": "Meadow View Smallholding",
+      "address": {
+        "addressLine1": "Meadow View",
+        "addressLine2": "North Lane",
+        "town": "York",
+        "county": "North Yorkshire",
+        "postcode": "YO26 8RW",
+        "country": "England"
+      },
+      "status": "Active",
+      "holdingType": "Permanent",
+      "species": [
+        "Sheep",
+        "Goats"
+      ],
+      "herdAndFlockMarks": [
+        {
+          "species": "Sheep",
+          "mark": "UK567890"
+        },
+        {
+          "species": "Goats",
+          "mark": "UK567891"
+        }
+      ]
+    },
+    {
+      "id": "holding-006",
+      "cph": "27/884/0106",
+      "holdingName": "Blackthorn Estate",
+      "businessName": "Blackthorn Estate Farms",
+      "address": {
+        "addressLine1": "Blackthorn Estate",
+        "addressLine2": "Estate Road",
+        "town": "Taunton",
+        "county": "Somerset",
+        "postcode": "TA3 5PL",
+        "country": "England"
+      },
+      "status": "Active",
+      "holdingType": "Permanent",
+      "species": [
+        "Cattle",
+        "Pigs"
+      ],
+      "herdAndFlockMarks": [
+        {
+          "species": "Cattle",
+          "mark": "UK678901"
+        },
+        {
+          "species": "Pigs",
+          "mark": "UK678902"
+        }
+      ]
+    },
+    {
+      "id": "holding-007",
+      "cph": "53/417/0088",
+      "holdingName": "High Fell Farm",
+      "businessName": "High Fell Farming Partnership",
+      "address": {
+        "addressLine1": "High Fell Farm",
+        "addressLine2": "Moorland Road",
+        "town": "Kendal",
+        "county": "Cumbria",
+        "postcode": "LA8 9HS",
+        "country": "England"
+      },
+      "status": "Active",
+      "holdingType": "Permanent",
+      "species": [
+        "Cattle",
+        "Sheep"
+      ],
+      "herdAndFlockMarks": [
+        {
+          "species": "Cattle",
+          "mark": "UK789012"
+        },
+        {
+          "species": "Sheep",
+          "mark": "UK789013"
+        }
+      ]
+    },
+    {
+      "id": "holding-008",
+      "cph": "66/204/0141",
+      "holdingName": "Green Pastures",
+      "businessName": "Green Pastures Dairy",
+      "address": {
+        "addressLine1": "Green Pastures",
+        "addressLine2": "Dairy Lane",
+        "town": "Chester",
+        "county": "Cheshire",
+        "postcode": "CH3 6NT",
+        "country": "England"
+      },
+      "status": "Active",
+      "holdingType": "Permanent",
+      "species": [
+        "Cattle"
+      ],
+      "herdAndFlockMarks": [
+        {
+          "species": "Cattle",
+          "mark": "UK890123"
+        }
+      ]
+    },
+    {
+      "id": "holding-009",
+      "cph": "72/391/0254",
+      "holdingName": "Riverside Smallholding",
+      "businessName": "",
+      "address": {
+        "addressLine1": "Riverside Smallholding",
+        "addressLine2": "Bridge End",
+        "town": "Bury St Edmunds",
+        "county": "Suffolk",
+        "postcode": "IP31 2DH",
+        "country": "England"
+      },
+      "status": "Closed",
+      "holdingType": "Permanent",
+      "species": [
+        "Sheep"
+      ],
+      "herdAndFlockMarks": [
+        {
+          "species": "Sheep",
+          "mark": "UK901234"
+        }
+      ]
+    },
+    {
+      "id": "holding-010",
+      "cph": "39/740/0193",
+      "holdingName": "Hilltop Farm",
+      "businessName": "Hilltop Beef Ltd",
+      "address": {
+        "addressLine1": "Hilltop Farm",
+        "addressLine2": "Beacon Road",
+        "town": "Exeter",
+        "county": "Devon",
+        "postcode": "EX5 4QR",
+        "country": "England"
+      },
+      "status": "Active",
+      "holdingType": "Permanent",
+      "species": [
+        "Cattle"
+      ],
+      "herdAndFlockMarks": [
+        {
+          "species": "Cattle",
+          "mark": "UK012345"
+        }
+      ]
+    },
+    {
+      "id": "holding-011",
+      "cph": "15/628/0067",
+      "holdingName": "Long Acre Farm",
+      "businessName": "Long Acre Farms",
+      "address": {
+        "addressLine1": "Long Acre Farm",
+        "addressLine2": "Lower Road",
+        "town": "Norwich",
+        "county": "Norfolk",
+        "postcode": "NR10 5BX",
+        "country": "England"
+      },
+      "status": "Active",
+      "holdingType": "Permanent",
+      "species": [
+        "Pigs",
+        "Poultry"
+      ],
+      "herdAndFlockMarks": [
+        {
+          "species": "Pigs",
+          "mark": "UK112233"
+        }
+      ]
+    },
+    {
+      "id": "holding-012",
+      "cph": "48/952/0205",
+      "holdingName": "Ty Mawr",
+      "businessName": "Ty Mawr Farming",
+      "address": {
+        "addressLine1": "Ty Mawr",
+        "addressLine2": "Bryn Road",
+        "town": "Carmarthen",
+        "county": "Carmarthenshire",
+        "postcode": "SA32 7LG",
+        "country": "Wales"
+      },
+      "status": "Active",
+      "holdingType": "Permanent",
+      "species": [
+        "Cattle",
+        "Sheep",
+        "Goats"
+      ],
+      "herdAndFlockMarks": [
+        {
+          "species": "Cattle",
+          "mark": "UK223344"
+        },
+        {
+          "species": "Sheep",
+          "mark": "UK223345"
+        },
+        {
+          "species": "Goats",
+          "mark": "UK223346"
+        }
+      ]
+    },
+    {
+      "id": "holding-013",
+      "cph": "21/366/0094",
+      "holdingName": "Westmoor Farm",
+      "businessName": "Westmoor Organics",
+      "address": {
+        "addressLine1": "Westmoor Farm",
+        "addressLine2": "Moor Lane",
+        "town": "Plymouth",
+        "county": "Devon",
+        "postcode": "PL7 5ND",
+        "country": "England"
+      },
+      "status": "Inactive",
+      "holdingType": "Permanent",
+      "species": [
+        "Cattle",
+        "Sheep"
+      ],
+      "herdAndFlockMarks": [
+        {
+          "species": "Cattle",
+          "mark": "UK334455"
+        },
+        {
+          "species": "Sheep",
+          "mark": "UK334456"
+        }
+      ]
+    },
+    {
+      "id": "holding-014",
+      "cph": "58/103/0122",
+      "holdingName": "Ash Grove Farm",
+      "businessName": "Ash Grove Rural Enterprises",
+      "address": {
+        "addressLine1": "Ash Grove Farm",
+        "addressLine2": "Old Rectory Lane",
+        "town": "Gloucester",
+        "county": "Gloucestershire",
+        "postcode": "GL2 8SA",
+        "country": "England"
+      },
+      "status": "Active",
+      "holdingType": "Permanent",
+      "species": [
+        "Cattle",
+        "Pigs"
+      ],
+      "herdAndFlockMarks": [
+        {
+          "species": "Cattle",
+          "mark": "UK445566"
+        },
+        {
+          "species": "Pigs",
+          "mark": "UK445567"
+        }
+      ]
+    },
+    {
+      "id": "holding-015",
+      "cph": "63/829/0276",
+      "holdingName": "Stonebridge Farm",
+      "businessName": "Stonebridge Livestock",
+      "address": {
+        "addressLine1": "Stonebridge Farm",
+        "addressLine2": "River Lane",
+        "town": "Derby",
+        "county": "Derbyshire",
+        "postcode": "DE6 2PA",
+        "country": "England"
+      },
+      "status": "Active",
+      "holdingType": "Permanent",
+      "species": [
+        "Cattle",
+        "Sheep"
+      ],
+      "herdAndFlockMarks": [
+        {
+          "species": "Cattle",
+          "mark": "UK556677"
+        },
+        {
+          "species": "Sheep",
+          "mark": "UK556678"
+        }
+      ]
+    },
+    {
+      "id": "holding-016",
+      "cph": "34/547/0031",
+      "holdingName": "Rosebank Farm",
+      "businessName": "",
+      "address": {
+        "addressLine1": "Rosebank Farm",
+        "addressLine2": "Rose Lane",
+        "town": "Lancaster",
+        "county": "Lancashire",
+        "postcode": "LA2 7DX",
+        "country": "England"
+      },
+      "status": "Active",
+      "holdingType": "Permanent",
+      "species": [
+        "Sheep"
+      ],
+      "herdAndFlockMarks": [
+        {
+          "species": "Sheep",
+          "mark": "UK667788"
+        }
+      ]
+    },
+    {
+      "id": "holding-017",
+      "cph": "47/215/0169",
+      "holdingName": "Low Wood Farm",
+      "businessName": "Low Wood Farming Co",
+      "address": {
+        "addressLine1": "Low Wood Farm",
+        "addressLine2": "Woodland Drive",
+        "town": "Carlisle",
+        "county": "Cumbria",
+        "postcode": "CA5 7LD",
+        "country": "England"
+      },
+      "status": "Closed",
+      "holdingType": "Temporary CPH",
+      "species": [
+        "Cattle"
+      ],
+      "herdAndFlockMarks": [
+        {
+          "species": "Cattle",
+          "mark": "UK778899"
+        }
+      ]
+    },
+    {
+      "id": "holding-018",
+      "cph": "69/438/0114",
+      "holdingName": "Pen-y-Bryn",
+      "businessName": "Pen-y-Bryn Farm Partnership",
+      "address": {
+        "addressLine1": "Pen-y-Bryn",
+        "addressLine2": "Mountain Road",
+        "town": "Aberystwyth",
+        "county": "Ceredigion",
+        "postcode": "SY23 4NB",
+        "country": "Wales"
+      },
+      "status": "Active",
+      "holdingType": "Permanent",
+      "species": [
+        "Cattle",
+        "Sheep"
+      ],
+      "herdAndFlockMarks": [
+        {
+          "species": "Cattle",
+          "mark": "UK889900"
+        },
+        {
+          "species": "Sheep",
+          "mark": "UK889901"
+        }
+      ]
+    },
+    {
+      "id": "holding-019",
+      "cph": "25/701/0238",
+      "holdingName": "Brookside Farm",
+      "businessName": "Brookside Agricultural Services",
+      "address": {
+        "addressLine1": "Brookside Farm",
+        "addressLine2": "Water Lane",
+        "town": "Leicester",
+        "county": "Leicestershire",
+        "postcode": "LE8 6UJ",
+        "country": "England"
+      },
+      "status": "Active",
+      "holdingType": "Permanent",
+      "species": [
+        "Cattle",
+        "Pigs",
+        "Poultry"
+      ],
+      "herdAndFlockMarks": [
+        {
+          "species": "Cattle",
+          "mark": "UK990011"
+        },
+        {
+          "species": "Pigs",
+          "mark": "UK990012"
+        }
+      ]
+    },
+    {
+      "id": "holding-020",
+      "cph": "56/312/0056",
+      "holdingName": "Sunnybank Farm",
+      "businessName": "Sunnybank Livestock Ltd",
+      "address": {
+        "addressLine1": "Sunnybank Farm",
+        "addressLine2": "East Road",
+        "town": "Durham",
+        "county": "County Durham",
+        "postcode": "DH7 9RE",
+        "country": "England"
+      },
+      "status": "Active",
+      "holdingType": "Permanent",
+      "species": [
+        "Cattle",
+        "Sheep"
+      ],
+      "herdAndFlockMarks": [
+        {
+          "species": "Cattle",
+          "mark": "UK101112"
+        },
+        {
+          "species": "Sheep",
+          "mark": "UK101113"
+        }
+      ]
+    }
+  ]
+}

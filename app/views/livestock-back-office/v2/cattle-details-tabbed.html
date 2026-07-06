@@ -1,0 +1,324 @@
+{% extends "layouts/main.html" %}
+
+{% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
+{% from "govuk/components/tabs/macro.njk" import govukTabs %}
+
+{% set pageName = "Animal detail view" %}
+{% set activeNav = "my-holdings" %}
+
+{% block header %}
+
+{{ govukHeader({
+homepageUrl: "/index.html"
+}) }}
+
+{{ govukServiceNavigation({
+serviceName: "Livestock Information",
+serviceUrl: "/animals-on-holding/v1/start",
+navigation: [
+{
+href: "/animals-on-holding/v1/my-holdings",
+text: "My holdings",
+active: activeNav === "my-holdings"
+},
+{
+href: "/animals-on-holding/v1/my-services",
+text: "My services"
+},
+{
+href: "/animals-on-holding/v1/activity-history",
+text: "Activity history"
+},
+{
+href: "/animals-on-holding/v1/profile-settings",
+text: "Profile and settings"
+},
+{
+href: "#",
+text: "Sign out"
+}
+]
+}) }}
+
+{% endblock %}
+
+{% block beforeContent %}
+
+{{ govukBackLink({
+text: "Back",
+href: "/animals-on-holding/v1/cattle"
+}) }}
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+
+      <span class="govuk-caption-l">
+        Registered cattle
+      </span>
+
+    <h1 class="govuk-heading-l">
+      UK 765131 516511
+    </h1>
+
+    {% set detailsHtml %}
+
+    <h2 class="govuk-heading-m">
+      Cattle details
+    </h2>
+
+    <dl class="govuk-summary-list">
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Ear tag number
+        </dt>
+        <dd class="govuk-summary-list__value">
+          UK 765131 516511
+        </dd>
+      </div>
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Date of birth
+        </dt>
+        <dd class="govuk-summary-list__value">
+          5 November 2024
+        </dd>
+      </div>
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Sex
+        </dt>
+        <dd class="govuk-summary-list__value">
+          Female
+        </dd>
+      </div>
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Breed
+        </dt>
+        <dd class="govuk-summary-list__value">
+          Piedmontese (PIE)
+        </dd>
+      </div>
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Status
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <strong class="govuk-tag govuk-tag--green">
+            Active
+          </strong>
+        </dd>
+      </div>
+    </dl>
+
+    <h2 class="govuk-heading-m">
+      Dam details
+    </h2>
+
+    <dl class="govuk-summary-list">
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Dam type
+        </dt>
+        <dd class="govuk-summary-list__value">
+          Genetic
+        </dd>
+      </div>
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Genetic dam ear tag
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <a
+                  class="govuk-link"
+                  href="/animals-on-holding/v1/cattle/UK476245203267"
+          >
+            UK 476245 203267
+          </a>
+        </dd>
+      </div>
+    </dl>
+
+    <h2 class="govuk-heading-m">
+      Sire details
+    </h2>
+
+    <p class="govuk-body">
+      No sire details are recorded.
+    </p>
+
+    {% endset %}
+
+
+    {% set offspringHtml %}
+
+    <h2 class="govuk-heading-m">
+      Offspring
+    </h2>
+
+    <table class="govuk-table">
+      <caption class="govuk-table__caption govuk-visually-hidden">
+        Offspring of UK 765131 516511
+      </caption>
+
+      <thead class="govuk-table__head">
+      <tr class="govuk-table__row">
+        <th scope="col" class="govuk-table__header">
+          Ear tag number
+        </th>
+        <th scope="col" class="govuk-table__header">
+          Date of birth
+        </th>
+        <th scope="col" class="govuk-table__header">
+          Sex
+        </th>
+        <th scope="col" class="govuk-table__header">
+          Breed
+        </th>
+        <th scope="col" class="govuk-table__header">
+          Status
+        </th>
+      </tr>
+      </thead>
+
+      <tbody class="govuk-table__body">
+      <tr class="govuk-table__row">
+        <td class="govuk-table__cell">
+          <a
+                  class="govuk-link"
+                  href="/animals-on-holding/v1/cattle/UK132588101360"
+          >
+            UK 132588 101360
+          </a>
+        </td>
+
+        <td class="govuk-table__cell">
+          4 Apr 2026
+        </td>
+
+        <td class="govuk-table__cell">
+          Male
+        </td>
+
+        <td class="govuk-table__cell">
+          Belgian Blue
+        </td>
+
+        <td class="govuk-table__cell">
+          <strong class="govuk-tag govuk-tag--green">
+            Active
+          </strong>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+
+    {% endset %}
+
+
+    {% set historyHtml %}
+
+    <h2 class="govuk-heading-m">
+      History
+    </h2>
+
+    <table class="govuk-table">
+      <caption class="govuk-table__caption govuk-visually-hidden">
+        History for UK 765131 516511
+      </caption>
+
+      <thead class="govuk-table__head">
+      <tr class="govuk-table__row">
+        <th scope="col" class="govuk-table__header">
+          Date
+        </th>
+        <th scope="col" class="govuk-table__header">
+          Event
+        </th>
+        <th scope="col" class="govuk-table__header">
+          Details
+        </th>
+      </tr>
+      </thead>
+
+      <tbody class="govuk-table__body">
+      <tr class="govuk-table__row">
+        <td class="govuk-table__cell">
+          5 Nov 2024
+        </td>
+        <td class="govuk-table__cell">
+          Birth registered
+        </td>
+        <td class="govuk-table__cell">
+          Registered at holding 23/991/4890
+        </td>
+      </tr>
+
+      <tr class="govuk-table__row">
+        <td class="govuk-table__cell">
+          12 Jan 2025
+        </td>
+        <td class="govuk-table__cell">
+          Movement recorded
+        </td>
+        <td class="govuk-table__cell">
+          Moved to holding 12/345/0001
+        </td>
+      </tr>
+
+      <tr class="govuk-table__row">
+        <td class="govuk-table__cell">
+          18 Mar 2025
+        </td>
+        <td class="govuk-table__cell">
+          Status updated
+        </td>
+        <td class="govuk-table__cell">
+          Status changed to active
+        </td>
+      </tr>
+      </tbody>
+    </table>
+
+    {% endset %}
+
+
+    {{ govukTabs({
+    items: [
+    {
+    label: "Details",
+    id: "details",
+    panel: {
+    html: detailsHtml
+    }
+    },
+    {
+    label: "Offspring",
+    id: "offspring",
+    panel: {
+    html: offspringHtml
+    }
+    },
+    {
+    label: "History",
+    id: "history",
+    panel: {
+    html: historyHtml
+    }
+    }
+    ]
+    }) }}
+
+  </div>
+</div>
+
+{% endblock %}

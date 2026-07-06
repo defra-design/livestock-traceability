@@ -1,0 +1,160 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Dam details" %}
+
+{% block head %}
+  {{ super() }}
+  <link href="https://unpkg.com/accessible-autocomplete/dist/accessible-autocomplete.min.css" rel="stylesheet" media="all" />
+  <style>
+    .autocomplete__wrapper {
+      flex: 1;
+      min-width: 0;
+    }
+    .autocomplete__hint,
+    .autocomplete__input,
+    .autocomplete__option {
+      font-family: arial, sans-serif;
+      font-size: 1.1875rem;
+      font-weight: normal!important;
+    }
+    .govuk-form-group--error .autocomplete__input {
+      border-color: #d4351c;
+    }
+    .autocomplete__option strong {
+      font-weight: normal;
+    }
+  </style>
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <span class="govuk-caption-l">Animal ear tag number: UK 123456 {{ data['death-ear-tag-number'] }}</span>
+    <h1 class="govuk-heading-l">Dam details</h1>
+
+    {% if errors %}
+    <div class="govuk-error-summary" data-module="govuk-error-summary">
+      <div role="alert">
+        <h2 class="govuk-error-summary__title">There is a problem</h2>
+        <div class="govuk-error-summary__body">
+          <ul class="govuk-list govuk-error-summary__list">
+            {% if errors['death-dam-type'] %}
+            <li><a href="#death-dam-type">{{ errors['death-dam-type'] }}</a></li>
+            {% endif %}
+            {% if errors['death-dam-number'] %}
+            <li><a href="#death-dam-number">{{ errors['death-dam-number'] }}</a></li>
+            {% endif %}
+            {% if errors['death-surrogate-dam-number'] %}
+            <li><a href="#death-surrogate-dam-number">{{ errors['death-surrogate-dam-number'] }}</a></li>
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
+    <form action="./report-death/dam-details" method="post" novalidate>
+
+      <div class="govuk-form-group {% if errors['death-dam-type'] %}govuk-form-group--error{% endif %}">
+        <fieldset class="govuk-fieldset" aria-describedby="death-dam-type-hint{% if errors['death-dam-type'] %} death-dam-type-error{% endif %}">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+            Genetic or surrogate dam?
+          </legend>
+          <div id="death-dam-type-hint" class="govuk-hint">
+            Select one option
+          </div>
+          {% if errors['death-dam-type'] %}
+          <p id="death-dam-type-error" class="govuk-error-message">
+            <span class="govuk-visually-hidden">Error:</span> {{ errors['death-dam-type'] }}
+          </p>
+          {% endif %}
+          <div class="govuk-radios" data-module="govuk-radios">
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="death-dam-type" name="death-dam-type" type="radio" value="genetic" data-aria-controls="conditional-death-genetic" {% if data['death-dam-type'] == 'genetic' %}checked{% endif %}>
+              <label class="govuk-label govuk-radios__label" for="death-dam-type">Genetic</label>
+            </div>
+            <div class="govuk-radios__conditional {% if data['death-dam-type'] != 'genetic' %}govuk-radios__conditional--hidden{% endif %}" id="conditional-death-genetic">
+              <div class="govuk-form-group {% if errors['death-dam-number'] %}govuk-form-group--error{% endif %}">
+                <label class="govuk-label" for="death-dam-number">
+                  Genetic dam ear tag number
+                </label>
+                <div id="death-dam-number-hint" class="govuk-hint">
+                  Enter the last 6 digits of the animal ear tag number
+                </div>
+                {% if errors['death-dam-number'] %}
+                <p id="death-dam-number-error" class="govuk-error-message">
+                  <span class="govuk-visually-hidden">Error:</span> {{ errors['death-dam-number'] }}
+                </p>
+                {% endif %}
+                <div class="govuk-input__wrapper">
+                  <div class="govuk-input__prefix" aria-hidden="true">UK 123456</div>
+                  <select id="death-dam-number" name="death-dam-number" aria-describedby="death-dam-number-hint{% if errors['death-dam-number'] %} death-dam-number-error{% endif %}">
+                    <option value=""></option>
+                    <option value="301550" {% if data['death-dam-number'] == '301550' %}selected{% endif %}>301550</option>
+                    <option value="301551" {% if data['death-dam-number'] == '301551' %}selected{% endif %}>301551</option>
+                    <option value="301552" {% if data['death-dam-number'] == '301552' %}selected{% endif %}>301552</option>
+                    <option value="301553" {% if data['death-dam-number'] == '301553' %}selected{% endif %}>301553</option>
+                    <option value="301554" {% if data['death-dam-number'] == '301554' %}selected{% endif %}>301554</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="death-dam-type-2" name="death-dam-type" type="radio" value="surrogate" data-aria-controls="conditional-death-surrogate" {% if data['death-dam-type'] == 'surrogate' %}checked{% endif %}>
+              <label class="govuk-label govuk-radios__label" for="death-dam-type-2">Surrogate</label>
+            </div>
+            <div class="govuk-radios__conditional {% if data['death-dam-type'] != 'surrogate' %}govuk-radios__conditional--hidden{% endif %}" id="conditional-death-surrogate">
+              <div class="govuk-form-group {% if errors['death-surrogate-dam-number'] %}govuk-form-group--error{% endif %}">
+                <label class="govuk-label" for="death-surrogate-dam-number">
+                  Surrogate dam ear tag number
+                </label>
+                <div id="death-surrogate-dam-number-hint" class="govuk-hint">
+                  Enter the last 6 digits of the animal ear tag number
+                </div>
+                {% if errors['death-surrogate-dam-number'] %}
+                <p id="death-surrogate-dam-number-error" class="govuk-error-message">
+                  <span class="govuk-visually-hidden">Error:</span> {{ errors['death-surrogate-dam-number'] }}
+                </p>
+                {% endif %}
+                <div class="govuk-input__wrapper">
+                  <div class="govuk-input__prefix" aria-hidden="true">UK 123456</div>
+                  <select id="death-surrogate-dam-number" name="death-surrogate-dam-number" aria-describedby="death-surrogate-dam-number-hint{% if errors['death-surrogate-dam-number'] %} death-surrogate-dam-number-error{% endif %}">
+                    <option value=""></option>
+                    <option value="301550" {% if data['death-surrogate-dam-number'] == '301550' %}selected{% endif %}>301550</option>
+                    <option value="301551" {% if data['death-surrogate-dam-number'] == '301551' %}selected{% endif %}>301551</option>
+                    <option value="301552" {% if data['death-surrogate-dam-number'] == '301552' %}selected{% endif %}>301552</option>
+                    <option value="301553" {% if data['death-surrogate-dam-number'] == '301553' %}selected{% endif %}>301553</option>
+                    <option value="301554" {% if data['death-surrogate-dam-number'] == '301554' %}selected{% endif %}>301554</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+
+      {{ govukButton({ text: "Continue" }) }}
+
+    </form>
+
+  </div>
+</div>
+
+{% endblock %}
+
+{% block pageScripts %}
+  <script src="https://unpkg.com/accessible-autocomplete/dist/accessible-autocomplete.min.js"></script>
+  <script>
+    accessibleAutocomplete.enhanceSelectElement({ selectElement: document.querySelector('#death-dam-number') })
+    accessibleAutocomplete.enhanceSelectElement({ selectElement: document.querySelector('#death-surrogate-dam-number') })
+  </script>
+{% endblock %}

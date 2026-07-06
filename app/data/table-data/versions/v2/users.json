@@ -1,0 +1,479 @@
+{
+  "recordCount": 20,
+  "users": [
+    {
+      "id": "user-001",
+      "firstName": "James",
+      "lastName": "Williams",
+      "name": "James Williams",
+      "email": "james.williams@example.com",
+      "phone": "07700 900001",
+      "postcode": "SY4 1AB",
+      "holdings": [
+        {
+          "holdingId": "holding-001",
+          "cph": "12/345/0001",
+          "role": "owner",
+          "speciesManagedByRole": [
+            "Cattle",
+            "Sheep"
+          ]
+        },
+        {
+          "holdingId": "holding-002",
+          "cph": "24/118/0042",
+          "role": "keeper",
+          "speciesManagedByRole": [
+            "Cattle"
+          ]
+        },
+        {
+          "holdingId": "holding-004",
+          "cph": "44/209/0317",
+          "role": "agent",
+          "speciesManagedByRole": [
+            "Cattle",
+            "Sheep"
+          ]
+        },
+        {
+          "holdingId": "holding-007",
+          "cph": "53/417/0088",
+          "role": "keeper",
+          "speciesManagedByRole": [
+            "Cattle"
+          ]
+        },
+        {
+          "holdingId": "holding-012",
+          "cph": "48/952/0205",
+          "role": "agent",
+          "speciesManagedByRole": [
+            "Cattle",
+            "Sheep",
+            "Goats"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "user-002",
+      "firstName": "Sarah",
+      "lastName": "Evans",
+      "name": "Sarah Evans",
+      "email": "sarah.evans@example.com",
+      "phone": "07700 900002",
+      "postcode": "HR2 8JL",
+      "holdings": [
+        {
+          "holdingId": "holding-002",
+          "cph": "24/118/0042",
+          "role": "owner",
+          "speciesManagedByRole": [
+            "Cattle"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "user-003",
+      "firstName": "Peter",
+      "lastName": "Clarke",
+      "name": "Peter Clarke",
+      "email": "peter.clarke@example.com",
+      "phone": "07700 900003",
+      "postcode": "LN5 0QF",
+      "holdings": [
+        {
+          "holdingId": "holding-003",
+          "cph": "31/672/0158",
+          "role": "owner",
+          "speciesManagedByRole": [
+            "Sheep",
+            "Goats"
+          ]
+        },
+        {
+          "holdingId": "holding-005",
+          "cph": "18/553/0029",
+          "role": "keeper",
+          "speciesManagedByRole": [
+            "Sheep",
+            "Goats"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "user-004",
+      "firstName": "Rhys",
+      "lastName": "Morgan",
+      "name": "Rhys Morgan",
+      "email": "rhys.morgan@example.com",
+      "phone": "07700 900004",
+      "postcode": "LD3 7TP",
+      "holdings": [
+        {
+          "holdingId": "holding-004",
+          "cph": "44/209/0317",
+          "role": "owner",
+          "speciesManagedByRole": [
+            "Cattle",
+            "Sheep"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "user-005",
+      "firstName": "Helen",
+      "lastName": "Price",
+      "name": "Helen Price",
+      "email": "helen.price@example.com",
+      "phone": "07700 900005",
+      "postcode": "YO26 8RW",
+      "holdings": [
+        {
+          "holdingId": "holding-005",
+          "cph": "18/553/0029",
+          "role": "owner",
+          "speciesManagedByRole": [
+            "Sheep",
+            "Goats"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "user-006",
+      "firstName": "Oliver",
+      "lastName": "Grant",
+      "name": "Oliver Grant",
+      "email": "oliver.grant@example.com",
+      "phone": "07700 900006",
+      "postcode": "TA3 5PL",
+      "holdings": [
+        {
+          "holdingId": "holding-006",
+          "cph": "27/884/0106",
+          "role": "owner",
+          "speciesManagedByRole": [
+            "Cattle",
+            "Pigs"
+          ]
+        },
+        {
+          "holdingId": "holding-014",
+          "cph": "58/103/0122",
+          "role": "agent",
+          "speciesManagedByRole": [
+            "Cattle",
+            "Pigs"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "user-007",
+      "firstName": "Alice",
+      "lastName": "Thompson",
+      "name": "Alice Thompson",
+      "email": "alice.thompson@example.com",
+      "phone": "07700 900007",
+      "postcode": "LA8 9HS",
+      "holdings": [
+        {
+          "holdingId": "holding-007",
+          "cph": "53/417/0088",
+          "role": "owner",
+          "speciesManagedByRole": [
+            "Cattle",
+            "Sheep"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "user-008",
+      "firstName": "Daniel",
+      "lastName": "Foster",
+      "name": "Daniel Foster",
+      "email": "daniel.foster@example.com",
+      "phone": "07700 900008",
+      "postcode": "CH3 6NT",
+      "holdings": [
+        {
+          "holdingId": "holding-008",
+          "cph": "66/204/0141",
+          "role": "owner",
+          "speciesManagedByRole": [
+            "Cattle"
+          ]
+        },
+        {
+          "holdingId": "holding-010",
+          "cph": "39/740/0193",
+          "role": "keeper",
+          "speciesManagedByRole": [
+            "Cattle"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "user-009",
+      "firstName": "Laura",
+      "lastName": "Bennett",
+      "name": "Laura Bennett",
+      "email": "laura.bennett@example.com",
+      "phone": "07700 900009",
+      "postcode": "IP31 2DH",
+      "holdings": [
+        {
+          "holdingId": "holding-009",
+          "cph": "72/391/0254",
+          "role": "owner",
+          "speciesManagedByRole": [
+            "Sheep"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "user-010",
+      "firstName": "Matthew",
+      "lastName": "Reed",
+      "name": "Matthew Reed",
+      "email": "matthew.reed@example.com",
+      "phone": "07700 900010",
+      "postcode": "EX5 4QR",
+      "holdings": [
+        {
+          "holdingId": "holding-010",
+          "cph": "39/740/0193",
+          "role": "owner",
+          "speciesManagedByRole": [
+            "Cattle"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "user-011",
+      "firstName": "Rebecca",
+      "lastName": "Hall",
+      "name": "Rebecca Hall",
+      "email": "rebecca.hall@example.com",
+      "phone": "07700 900011",
+      "postcode": "NR10 5BX",
+      "holdings": [
+        {
+          "holdingId": "holding-011",
+          "cph": "15/628/0067",
+          "role": "owner",
+          "speciesManagedByRole": [
+            "Pigs",
+            "Poultry"
+          ]
+        },
+        {
+          "holdingId": "holding-019",
+          "cph": "25/701/0238",
+          "role": "agent",
+          "speciesManagedByRole": [
+            "Pigs",
+            "Poultry"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "user-012",
+      "firstName": "Carys",
+      "lastName": "Jones",
+      "name": "Carys Jones",
+      "email": "carys.jones@example.com",
+      "phone": "07700 900012",
+      "postcode": "SA32 7LG",
+      "holdings": [
+        {
+          "holdingId": "holding-012",
+          "cph": "48/952/0205",
+          "role": "owner",
+          "speciesManagedByRole": [
+            "Cattle",
+            "Sheep",
+            "Goats"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "user-013",
+      "firstName": "George",
+      "lastName": "Mills",
+      "name": "George Mills",
+      "email": "george.mills@example.com",
+      "phone": "07700 900013",
+      "postcode": "PL7 5ND",
+      "holdings": [
+        {
+          "holdingId": "holding-013",
+          "cph": "21/366/0094",
+          "role": "owner",
+          "speciesManagedByRole": [
+            "Cattle",
+            "Sheep"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "user-014",
+      "firstName": "Sophie",
+      "lastName": "Carter",
+      "name": "Sophie Carter",
+      "email": "sophie.carter@example.com",
+      "phone": "07700 900014",
+      "postcode": "GL2 8SA",
+      "holdings": [
+        {
+          "holdingId": "holding-014",
+          "cph": "58/103/0122",
+          "role": "owner",
+          "speciesManagedByRole": [
+            "Cattle",
+            "Pigs"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "user-015",
+      "firstName": "Henry",
+      "lastName": "Lawson",
+      "name": "Henry Lawson",
+      "email": "henry.lawson@example.com",
+      "phone": "07700 900015",
+      "postcode": "DE6 2PA",
+      "holdings": [
+        {
+          "holdingId": "holding-015",
+          "cph": "63/829/0276",
+          "role": "owner",
+          "speciesManagedByRole": [
+            "Cattle",
+            "Sheep"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "user-016",
+      "firstName": "Emma",
+      "lastName": "Brooks",
+      "name": "Emma Brooks",
+      "email": "emma.brooks@example.com",
+      "phone": "07700 900016",
+      "postcode": "LA2 7DX",
+      "holdings": [
+        {
+          "holdingId": "holding-016",
+          "cph": "34/547/0031",
+          "role": "owner",
+          "speciesManagedByRole": [
+            "Sheep"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "user-017",
+      "firstName": "Jack",
+      "lastName": "Turner",
+      "name": "Jack Turner",
+      "email": "jack.turner@example.com",
+      "phone": "07700 900017",
+      "postcode": "CA5 7LD",
+      "holdings": [
+        {
+          "holdingId": "holding-017",
+          "cph": "47/215/0169",
+          "role": "owner",
+          "speciesManagedByRole": [
+            "Cattle"
+          ]
+        },
+        {
+          "holdingId": "holding-008",
+          "cph": "66/204/0141",
+          "role": "agent",
+          "speciesManagedByRole": [
+            "Cattle"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "user-018",
+      "firstName": "Owain",
+      "lastName": "Hughes",
+      "name": "Owain Hughes",
+      "email": "owain.hughes@example.com",
+      "phone": "07700 900018",
+      "postcode": "SY23 4NB",
+      "holdings": [
+        {
+          "holdingId": "holding-018",
+          "cph": "69/438/0114",
+          "role": "owner",
+          "speciesManagedByRole": [
+            "Cattle",
+            "Sheep"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "user-019",
+      "firstName": "Anna",
+      "lastName": "Wilson",
+      "name": "Anna Wilson",
+      "email": "anna.wilson@example.com",
+      "phone": "07700 900019",
+      "postcode": "LE8 6UJ",
+      "holdings": [
+        {
+          "holdingId": "holding-019",
+          "cph": "25/701/0238",
+          "role": "owner",
+          "speciesManagedByRole": [
+            "Cattle",
+            "Pigs",
+            "Poultry"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "user-020",
+      "firstName": "Michael",
+      "lastName": "Green",
+      "name": "Michael Green",
+      "email": "michael.green@example.com",
+      "phone": "07700 900020",
+      "postcode": "DH7 9RE",
+      "holdings": [
+        {
+          "holdingId": "holding-020",
+          "cph": "56/312/0056",
+          "role": "owner",
+          "speciesManagedByRole": [
+            "Cattle",
+            "Sheep"
+          ]
+        }
+      ]
+    }
+  ]
+}

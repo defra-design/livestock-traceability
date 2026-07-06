@@ -1,0 +1,122 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Check death details" %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+{% set months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'] %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds-from-desktop">
+
+    <h1 class="govuk-heading-l">Check animal details</h1>
+
+    <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Animal registered</dt>
+        <dd class="govuk-summary-list__value">{{ data['death-is-registered'] | capitalize }}</dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="./report-death/is-registered">Change<span class="govuk-visually-hidden"> whether the animal is registered</span></a>
+        </dd>
+      </div>
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Animal ear tag number</dt>
+        <dd class="govuk-summary-list__value">UK 123456 {{ data['death-ear-tag-number'] }}</dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="./report-death/ear-tag-number">Change<span class="govuk-visually-hidden"> animal ear tag number</span></a>
+        </dd>
+      </div>
+
+      {% if data['death-is-registered'] == 'no' %}
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Date of birth</dt>
+        <dd class="govuk-summary-list__value">{{ data['death-dob-day'] }} {{ months[data['death-dob-month'] | int - 1] }} {{ data['death-dob-year'] }}</dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="./report-death/date-of-birth">Change<span class="govuk-visually-hidden"> date of birth</span></a>
+        </dd>
+      </div>
+
+      {% endif %}
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Date of death</dt>
+        <dd class="govuk-summary-list__value">{{ data['death-date-day'] }} {{ months[data['death-date-month'] | int - 1] }} {{ data['death-date-year'] }}</dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="./report-death/date-of-death">Change<span class="govuk-visually-hidden"> date of death</span></a>
+        </dd>
+      </div>
+
+      {% if data['death-is-registered'] == 'no' %}
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Breed</dt>
+        <dd class="govuk-summary-list__value">{{ data['death-breed'] }}</dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="./report-death/breed">Change<span class="govuk-visually-hidden"> breed</span></a>
+        </dd>
+      </div>
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Sex</dt>
+        <dd class="govuk-summary-list__value">{{ data['death-sex'] | capitalize }}</dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="./report-death/sex">Change<span class="govuk-visually-hidden"> sex</span></a>
+        </dd>
+      </div>
+
+      {% if data['death-dam-type'] == 'surrogate' %}
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Surrogate dam ear tag number</dt>
+        <dd class="govuk-summary-list__value">UK 123456 {{ data['death-surrogate-dam-number'] }}</dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="./report-death/dam-details">Change<span class="govuk-visually-hidden"> surrogate dam ear tag number</span></a>
+        </dd>
+      </div>
+      {% else %}
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Genetic dam ear tag number</dt>
+        <dd class="govuk-summary-list__value">UK 123456 {{ data['death-dam-number'] }}</dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="./report-death/dam-details">Change<span class="govuk-visually-hidden"> genetic dam ear tag number</span></a>
+        </dd>
+      </div>
+      {% endif %}
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Sire ear tag number</dt>
+        <dd class="govuk-summary-list__value">{{ data['death-sire-number'] if data['death-sire-number'] else 'Not provided' }}</dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="./report-death/sire-details">Change<span class="govuk-visually-hidden"> sire ear tag number</span></a>
+        </dd>
+      </div>
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Sire name</dt>
+        <dd class="govuk-summary-list__value">{{ data['death-sire-name'] if data['death-sire-name'] else 'Not provided' }}</dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="./report-death/sire-details">Change<span class="govuk-visually-hidden"> sire name</span></a>
+        </dd>
+      </div>
+
+      {% endif %}
+
+    </dl>
+
+    <form action="./report-death/check-death-details" method="post" novalidate>
+      {{ govukButton({ text: "Continue" }) }}
+    </form>
+
+  </div>
+</div>
+
+{% endblock %}
