@@ -22,7 +22,7 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
 
-    <span class="govuk-caption-l">County Parish Holding: 12/345/0001</span>
+    <span class="govuk-caption-l">CPH number: 12/345/0001</span>
     <h1 class="govuk-heading-l">
       Oakfield Farm
     </h1>
@@ -30,10 +30,12 @@
     <nav class="moj-sub-navigation" aria-label="Sub navigation">
       <ul class="moj-sub-navigation__list">
         <li class="moj-sub-navigation__item">
-          <a class="moj-sub-navigation__link" aria-current="page" href="/animals-on-holding/v3/holding-information">Holding information</a>
+          <a class="moj-sub-navigation__link" aria-current="page" href="/animals-on-holding/v3/holding-information">Holding details</a>
         </li>
         <li class="moj-sub-navigation__item">
-          <a class="moj-sub-navigation__link" href="/animals-on-holding/v3/cattle-register">Cattle register</a>
+          <a class="moj-sub-navigation__link" href="/animals-on-holding/v3/cattle-register">
+            Livestock information
+          </a>
         </li>
       </ul>
     </nav>
@@ -43,18 +45,13 @@
     <dl class="govuk-summary-list">
 
       <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">County Parish Holding Number</dt>
+        <dt class="govuk-summary-list__key">CPH number</dt>
         <dd class="govuk-summary-list__value">{{ holding.cph }}</dd>
       </div>
 
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">Holding name</dt>
         <dd class="govuk-summary-list__value">{{ holding.holdingName }}</dd>
-      </div>
-
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">Holding type</dt>
-        <dd class="govuk-summary-list__value">{{ holding.holdingType }}</dd>
       </div>
 
       {% if holding.businessName %}
@@ -74,6 +71,11 @@
           <br>{{ holding.address.postcode }}
           {% if holding.address.country %}<br>{{ holding.address.country }}{% endif %}
         </dd>
+      </div>
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Holding type</dt>
+        <dd class="govuk-summary-list__value">{{ holding.holdingType }}</dd>
       </div>
 
       <div class="govuk-summary-list__row">
