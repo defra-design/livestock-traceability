@@ -54,7 +54,7 @@
 
 
   <div>
-
+    {{set filterHint = 'Filter by CHP number, holding name or postcode'}}
     {% block filterBar %}{% include "./components/_filter-bar.html" %}{% endblock %}
 
   <div>
@@ -117,7 +117,7 @@
               <td class="govuk-table__cell">
                   <a
                           class="govuk-link"
-                          href="./holdings/{{ holding.id }}"
+                          href="./holdings/{{ holding.id}}"
                   >
                       {{ holding.cph }}
                   </a>

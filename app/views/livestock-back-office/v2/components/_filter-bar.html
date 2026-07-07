@@ -3,7 +3,7 @@
     <form method="GET" >
       <div class="search-wrapper govuk-form-group">
         <label for="search-reservations" class="govuk-label">
-          Search or filter by ear tag number, breed or sex
+          {{filterHint or 'Set the hint text in the parent page using {{set filterHint = }}'}}
         </label>
         <div class="search-input-wrapper">
           <input type="search" value="" id="search-reservations" name="search" title="Search" class="govuk-input">

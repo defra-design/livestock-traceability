@@ -1,0 +1,135 @@
+{% extends "layouts/main.html" %}
+
+{% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
+
+{% set pageName="Cattle register" %}
+
+{% set activeNav = "my-holdings" %}
+
+{% block header %}
+
+  {{ govukHeader({
+    homepageUrl: '/index.html'
+  }) }}
+
+  {{ govukServiceNavigation({
+    serviceName: "Livestock Information",
+    serviceUrl: "/animals-on-holding/v1/start",
+    navigation: [
+    {
+    href: "./holdings",
+    text: "Holdings",
+    active: activeNav === "holdings"
+    },
+      {
+        href: "#",
+        text: "Sign out"
+      }
+    ]
+  }) }}
+
+{% endblock %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+  text: "Back",
+  href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+{%- from "govuk/components/checkboxes/macro.njk" import govukCheckboxes -%}
+{%- from "govuk/components/input/macro.njk" import govukInput -%}
+{%- from "govuk/components/table/macro.njk" import govukTable -%}
+
+
+
+<div>
+  <h1 class="govuk-heading-l">
+    Holdings
+  </h1>
+</div>
+
+
+
+  <div>
+     {% set filterHint = 'Search by name, postcode, email, phone'%}
+    {% block filterBar %}{% include "./components/_filter-bar.html" %}{% endblock %}
+
+  <div>
+
+    <p class="govuk-body" aria-live="polite">
+        {% if search %}
+        {{ users.length }}
+        {% if users.length === 1 %}
+        user matches
+        {% else %}
+        users match
+        {% endif %}
+        <strong>‘{{ search }}’</strong>
+        {% else %}
+        {{ users.length }} users
+        {% endif %}
+    </p>
+
+        {% if search %}
+        <p class="govuk-body">
+          <a class="govuk-link" href="./users">
+            Clear search
+          </a>
+        </p>
+        {% endif %}
+
+
+      {% if users.length %}
+      <table class="govuk-table">
+
+          <thead class="govuk-table__head">
+          <tr class="govuk-table__row">
+              <th scope="col" class="govuk-table__header">Name</th>
+              <th scope="col" class="govuk-table__header">Postcode</th>
+              <th scope="col" class="govuk-table__header">Email</th>
+              <th scope="col" class="govuk-table__header">Phone</th>
+              <th scope="col" class="govuk-table__header">Holdings</th>
+          </tr>
+          </thead>
+
+          <tbody class="govuk-table__body">
+          {% for user in users %}
+          <tr class="govuk-table__row">
+              <td class="govuk-table__cell">
+                  <a class="govuk-link" href="./{{ user.id }}">
+                      {{ user.name }}
+                  </a>
+              </td>
+
+              <td class="govuk-table__cell">
+                  {{ user.address.postcode }}
+              </td>
+
+              <td class="govuk-table__cell">
+                      {{ user.email }}
+              </td>
+
+              <td class="govuk-table__cell">
+                  {{ user.phone }}
+              </td>
+
+
+
+              <td class="govuk-table__cell">
+                  {{ user.holdings.length }}
+              </td>
+          </tr>
+          {% endfor %}
+          </tbody>
+      </table>
+      {% else %}
+      <p class="govuk-body">No users found.</p>
+      {% endif %}
+
+  </div>
+  </div>
+
+{% endblock %}

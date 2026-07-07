@@ -50,7 +50,7 @@ href: "javascript:window.history.back()"
         <h1 class="govuk-heading-l">
             {{ holding.holdingName }}
         </h1>
-        <p><a href="../start" class="govuk-button">Access holding account</a></p>
+<!--        <p><a href="../start" class="govuk-button">View livestock</a></p>-->
         <h2 class="govuk-heading-m">
             Holding details
         </h2>
@@ -181,62 +181,41 @@ href: "javascript:window.history.back()"
 
         </dl>
 
-        <h2 class="govuk-heading-m">
-            Keeper details
-        </h2>
+        <h2 class="govuk-heading-m">People linked to this holding</h2>
 
-        <dl class="govuk-summary-list">
-
-            <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                    Keeper name
-                </dt>
-                <dd class="govuk-summary-list__value">
-                    {{ holding.keeper.name }}
-                </dd>
-            </div>
-
-        </dl>
-
-        <h2 class="govuk-heading-m">
-            Herd and flock marks
-        </h2>
-
-        {% if holding.herdAndFlockMarks and holding.herdAndFlockMarks.length %}
+        {% if users.length %}
         <table class="govuk-table">
-            <caption class="govuk-table__caption govuk-visually-hidden">
-                Herd and flock marks for {{ holding.holdingName }}
-            </caption>
-
             <thead class="govuk-table__head">
             <tr class="govuk-table__row">
-                <th scope="col" class="govuk-table__header">
-                    Species
-                </th>
-                <th scope="col" class="govuk-table__header">
-                    Mark
-                </th>
+                <th scope="col" class="govuk-table__header">Name</th>
+                <th scope="col" class="govuk-table__header">Role</th>
+                <th scope="col" class="govuk-table__header">Species managed</th>
             </tr>
             </thead>
 
             <tbody class="govuk-table__body">
-            {% for item in holding.herdAndFlockMarks %}
+            {% for user in users %}
             <tr class="govuk-table__row">
                 <td class="govuk-table__cell">
-                    {{ item.species }}
+                    <a class="govuk-link" href="../users/{{ user.id }}">
+                        {{ user.name }}
+                    </a>
                 </td>
-                <td class="govuk-table__cell">
-                    {{ item.mark }}
-                </td>
+                <td class="govuk-table__cell">{{ user.holdingRole | capitalize }}</td>
+                <td class="govuk-table__cell">{{ user.speciesManagedByRole | join(", ") }}</td>
             </tr>
             {% endfor %}
             </tbody>
         </table>
         {% else %}
-        <p class="govuk-body">
-            No herd or flock marks are recorded.
-        </p>
+        <p class="govuk-body">No users linked to this holding.</p>
         {% endif %}
+
+
+        <h2 class="govuk-heading-m">
+            Herd and flock marks
+        </h2>
+
 
     </div>
 </div>

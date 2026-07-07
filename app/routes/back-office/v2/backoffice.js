@@ -61,7 +61,7 @@ function normalise(value) {
 }
 
 router.get('/' + baseURL + '/holdings', (req, res) => {
-  const holdingsData = req.session.data.holdings;
+  const holdingsData = req.session.data.holdings_v2;
   const search = String(req.query.search || '').trim();
 
   const holdings = holdingsData.holdings.filter((holding) => {
@@ -99,12 +99,164 @@ router.get('/' + baseURL + '/holdings', (req, res) => {
 });
 
 router.get('/' + baseURL + '/holdings/:id', (req, res) => {
-  const holdingsData = req.session.data.holdings;
+  const holdingsData = req.session.data.holdings_v2;
+  const usersData = req.session.data.users_v2;
+
   const holding = holdingsData.holdings.find((holding) => holding.id === req.params.id);
 
   if (!holding) {
     return res.status(404).render(baseURL + '/404', { pageName: 'Holding not found' });
   }
 
-  return res.render(baseURL + '/holding-details', { holding });
+  const users = usersData.users
+    .map((user) => {
+      const holdingMembership = (user.holdings || []).find((membership) => {
+        return membership.holdingId === holding.id;
+      });
+
+      if (!holdingMembership) {
+        return null;
+      }
+
+      return {
+        ...user,
+        holdingRole: holdingMembership.role,
+        speciesManagedByRole: holdingMembership.speciesManagedByRole,
+        cph: holdingMembership.cph
+      };
+    })
+    .filter(Boolean);
+
+  return res.render(baseURL + '/holding-details', {
+    holding,
+    users,
+    baseURL
+  });
+
+  router.get('/' + baseURL + '/users/:id', (req, res) => {
+    const usersData = req.session.data.users_v2;
+    const holdingsData = req.session.data.holdings_v2;
+
+    const user = usersData.users.find((user) => user.id === req.params.id);
+
+    if (!user) {
+      return res.status(404).render(baseURL + '/404', { pageName: 'User not found' });
+    }
+
+    const userHoldings = (user.holdings || []).map((membership) => {
+      const holding = holdingsData.holdings.find((holding) => {
+        return holding.id === membership.holdingId;
+      });
+
+      return {
+        ...membership,
+        holding
+      };
+    });
+
+    return res.render(baseURL + '/user-details', {
+      user,
+      userHoldings,
+      baseURL
+    });
+  });
+});
+
+router.get('/' + baseURL + '/holdings/:id', (req, res) => {
+  const holdingsData = req.session.data.holdings_v2;
+  const usersData = req.session.data.users_v2 || { users: [] };
+
+  const holding = holdingsData.holdings.find((holding) => holding.id === req.params.id);
+
+  if (!holding) {
+    return res.status(404).render(baseURL + '/404', {
+      pageName: 'Holding not found'
+    });
+  }
+
+  const users = usersData.users
+    .map((user) => {
+      const holdingMembership = (user.holdings || []).find((membership) => {
+        return membership.holdingId === holding.id;
+      });
+
+      if (!holdingMembership) {
+        return null;
+      }
+
+      return {
+        ...user,
+        holdingRole: holdingMembership.role,
+        speciesManagedByRole: holdingMembership.speciesManagedByRole,
+        cph: holdingMembership.cph
+      };
+    })
+    .filter(Boolean);
+
+  return res.render(baseURL + '/holding-details', {
+    holding,
+    users,
+    baseURL
+  });
+});
+
+
+router.get('/' + baseURL + '/users', (req, res) => {
+  const usersData = req.session.data.users_v2 || { users: [] };
+  const search = String(req.query.search || '').trim();
+
+  const users = usersData.users.filter((user) => {
+    if (!search) return true;
+
+    const searchableValues = [
+      user.name,
+      user.firstName,
+      user.lastName,
+      user.email,
+      user.phone,
+      user.address?.postcode,
+      user.securityWord
+    ];
+
+    return searchableValues.some((value) => {
+      return normalise(value).includes(normalise(search));
+    });
+  });
+
+  return res.render(baseURL + '/users', {
+    users,
+    search,
+    baseURL
+  });
+});
+
+
+router.get('/' + baseURL + '/users/:id', (req, res) => {
+  const usersData = req.session.data.users_v2 || { users: [] };
+  const holdingsData = req.session.data.holdings_v2 || { holdings: [] };
+
+  const user = usersData.users.find((user) => user.id === req.params.id);
+
+  if (!user) {
+    return res.status(404).render(baseURL + '/404', {
+      pageName: 'User not found'
+    });
+  }
+
+  const userHoldings = (user.holdings || []).map((membership) => {
+    const holding = holdingsData.holdings.find((holding) => {
+      return holding.id === membership.holdingId;
+    });
+
+    return {
+      ...membership,
+      holding
+    };
+  });
+
+  return res.render(baseURL + '/user-details', {
+    user,
+    userHoldings,
+    baseURL
+  });
 });

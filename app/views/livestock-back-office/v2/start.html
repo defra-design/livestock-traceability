@@ -8,43 +8,6 @@
 {{ govukHeader({
 homepageUrl: "/index.html"
 }) }}
-<div class="govuk-service-navigation app-account-context ">
-  <div class="govuk-width-container">
-    <div class="govuk-service-navigation__container">
-
-      <div class="govuk-service-navigation__service-name">
-          <span class="govuk-service-navigation__text">
-            You are viewing the account for
-          </span>
-
-        <strong class="govuk-service-navigation__text">
-          Oakfield Farm
-        </strong>
-
-        <span class="govuk-service-navigation__text">
-            CPH 12/345/0001
-          </span>
-      </div>
-
-      <nav
-              class="govuk-service-navigation__wrapper"
-              aria-label="Administrator account access"
-      >
-        <ul class="govuk-service-navigation__list">
-          <li class="govuk-service-navigation__item">
-            <a
-                    class="govuk-service-navigation__link"
-                    href="/animals-on-holding/v1/holdings/holding-001"
-            >
-              Exit account
-            </a>
-          </li>
-        </ul>
-      </nav>
-
-    </div>
-  </div>
-</div>
 {{ govukServiceNavigation({
 serviceName: "Livestock Information",
 serviceUrl: "/animals-on-holding/v1/start",
