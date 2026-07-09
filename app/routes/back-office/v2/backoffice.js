@@ -58,8 +58,7 @@ function registerCattleRoute(urlPath, viewPath) {
   });
 }
 
-registerCattleRoute('cattle', 'cattle');
-registerCattleRoute('holdings/cattle-register', 'holding-cattle-register');
+
 
 
 function getCattleDetails(req, earTagNumber) {
@@ -101,9 +100,8 @@ function registerCattleDetailsRoute(urlPath, viewPath) {
   });
 }
 
-registerCattleDetailsRoute('cattle', 'cattle-details');
-registerCattleDetailsRoute('livestock', 'cattle-details');
-registerCattleDetailsRoute('holdings/cattle', 'holding-cattle-details');
+registerCattleRoute('cattle', 'cattle');
+registerCattleRoute('holdings/cattle-register', 'holding-cattle-register');
 
 router.get('/' + baseURL + '/cattle/:earTagNumber', (req, res) => {
   const cattleData = req.session.data.livestock;
@@ -126,8 +124,8 @@ router.get('/' + baseURL + '/cattle/:earTagNumber', (req, res) => {
 
 
 
-router.get('/' + baseURL + '/holdings', (req, res) => {
-  const holdingsData = req.session.data.holdings_v2;
+function getFilteredHoldings(req) {
+  const holdingsData = req.session.data.holdings_v2 || { holdings: [] };
   const search = String(req.query.search || '').trim();
 
   const holdings = holdingsData.holdings.filter((holding) => {
@@ -153,16 +151,30 @@ router.get('/' + baseURL + '/holdings', (req, res) => {
       ...herdAndFlockMarks
     ];
 
-    return searchableValues.some((value) =>
-      normalise(value).includes(normalise(search))
-    );
+    return searchableValues.some((value) => {
+      return normalise(value).includes(normalise(search));
+    });
   });
 
-  res.render(baseURL + '/holdings', {
+  return {
     holdings,
     search
+  };
+}
+
+function registerHoldingsRoute(urlPath, viewPath) {
+  router.get('/' + baseURL + '/' + urlPath, (req, res) => {
+    const holdingResults = getFilteredHoldings(req);
+
+    return res.render(baseURL + '/' + viewPath, {
+      holdings: holdingResults.holdings,
+      search: holdingResults.search,
+      baseURL
+    });
   });
-});
+}
+registerHoldingsRoute('holdings', 'holdings');
+registerHoldingsRoute('holding-search', 'holding-search');
 
 router.get('/' + baseURL + '/holdings/:id', (req, res) => {
   const holdingsData = req.session.data.holdings_v2;
@@ -225,44 +237,6 @@ router.get('/' + baseURL + '/holdings/:id', (req, res) => {
       userHoldings,
       baseURL
     });
-  });
-});
-
-router.get('/' + baseURL + '/holdings/:id', (req, res) => {
-  const holdingsData = req.session.data.holdings_v2;
-  const usersData = req.session.data.users_v2 || { users: [] };
-
-  const holding = holdingsData.holdings.find((holding) => holding.id === req.params.id);
-
-  if (!holding) {
-    return res.status(404).render(baseURL + '/404', {
-      pageName: 'Holding not found'
-    });
-  }
-
-  const users = usersData.users
-    .map((user) => {
-      const holdingMembership = (user.holdings || []).find((membership) => {
-        return membership.holdingId === holding.id;
-      });
-
-      if (!holdingMembership) {
-        return null;
-      }
-
-      return {
-        ...user,
-        holdingRole: holdingMembership.role,
-        speciesManagedByRole: holdingMembership.speciesManagedByRole,
-        cph: holdingMembership.cph
-      };
-    })
-    .filter(Boolean);
-
-  return res.render(baseURL + '/holding-details', {
-    holding,
-    users,
-    baseURL
   });
 });
 

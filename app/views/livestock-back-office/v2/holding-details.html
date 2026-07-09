@@ -70,35 +70,6 @@ href: "#"
 
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    Holding name
-                </dt>
-                <dd class="govuk-summary-list__value">
-                    {{ holding.holdingName }}
-                </dd>
-            </div>
-
-            {% if holding.businessName %}
-            <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                    Business name
-                </dt>
-                <dd class="govuk-summary-list__value">
-                    {{ holding.businessName }}
-                </dd>
-            </div>
-            {% endif %}
-
-            <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                    Holding type
-                </dt>
-                <dd class="govuk-summary-list__value">
-                    {{ holding.holdingType }}
-                </dd>
-            </div>
-
-            <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
                     Status
                 </dt>
                 <dd class="govuk-summary-list__value">
@@ -119,6 +90,30 @@ href: "#"
                     {% endif %}
                 </dd>
             </div>
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Holding name
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {{ holding.holdingName }}
+                </dd>
+            </div>
+
+            {% if holding.businessName %}
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Business name
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {{ holding.businessName }}
+                </dd>
+            </div>
+            {% endif %}
+
+
+
+
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
                     Address
@@ -146,7 +141,18 @@ href: "#"
                     {% endif %}
                 </dd>
             </div>
-
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Holding type
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {{ holding.holdingType }}
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">CPH owner</dt>
+                <dd class="govuk-summary-list__value">James Williams</dd>
+            </div>
         </dl>
 
 
