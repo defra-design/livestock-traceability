@@ -69,6 +69,24 @@ addFilter('removeWhiteSpace', function(text) {
    return `${Number(day)} ${monthNames[monthIndex]} ${year}`;
  });
 
+addFilter('sexToLetter', function(value) {
+   if (!value) {
+     return '';
+   }
+
+   const sex = String(value).trim().toLowerCase();
+
+   if (sex === 'male') {
+     return 'M';
+   }
+
+   if (sex === 'female') {
+     return 'F';
+   }
+
+   return value;
+ });
+
  addFilter('fullDateFormat', function (value) {
     if (!value || typeof value !== 'string') {
       return value;

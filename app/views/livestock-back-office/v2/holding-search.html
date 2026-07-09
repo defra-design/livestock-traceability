@@ -1,0 +1,57 @@
+{% extends "layouts/main.html" %}
+
+{% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
+
+{% set pageName = "Holding details" %}
+{% set activeNav = "my-holdings" %}
+
+{% block header %}
+
+{% block navBar %}{% include "./components/_navigation.html" %}{% endblock %}
+
+{% endblock %}
+
+{% block beforeContent %}
+{% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
+
+{{ govukBreadcrumbs({
+items: [
+{
+text: "Home",
+href: "#"
+},
+{
+text: "Holdings",
+href: "#"
+}
+]
+}) }}
+{% endblock %}
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+        <span class="govuk-caption-l">Holdings</span>
+        <h1 class="govuk-heading-xl">Search holdings</h1>
+
+
+        <p class="govuk-body">
+            You can search using:
+        </p>
+
+        <ul class="govuk-list govuk-list--bullet">
+            <li>CPH number, for example 12/345/0001</li>
+            <li>holding name, for example Oakfield Farm</li>
+            <li>postcode, for example SY4 1AB</li>
+        </ul>
+        <form method="get" action="./holdings">
+            <div class="govuk-!-margin-top-6">
+                {% set filterHint = 'Search by CPH number, holding name or postcode' %}
+                {% block filterBar %}{% include "./components/_filter-bar.html" %}{% endblock %}
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

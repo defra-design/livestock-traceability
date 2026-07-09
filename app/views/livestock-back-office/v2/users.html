@@ -8,25 +8,7 @@
 
 {% block header %}
 
-  {{ govukHeader({
-    homepageUrl: '/index.html'
-  }) }}
-
-  {{ govukServiceNavigation({
-    serviceName: "Livestock Information",
-    serviceUrl: "/animals-on-holding/v1/start",
-    navigation: [
-    {
-    href: "./holdings",
-    text: "Holdings",
-    active: activeNav === "holdings"
-    },
-      {
-        href: "#",
-        text: "Sign out"
-      }
-    ]
-  }) }}
+{% block navBar %}{% include "./components/_navigation.html" %}{% endblock %}
 
 {% endblock %}
 
@@ -47,87 +29,112 @@
 
 <div>
   <h1 class="govuk-heading-l">
-    Holdings
+    Customers
   </h1>
 </div>
 
 
 
-  <div>
-     {% set filterHint = 'Search by name, postcode, email, phone'%}
+<div>
+    {% set filterHint = 'Search by name, postcode, email, phone or security word' %}
     {% block filterBar %}{% include "./components/_filter-bar.html" %}{% endblock %}
+</div>
 
-  <div>
 
-    <p class="govuk-body" aria-live="polite">
-        {% if search %}
-        {{ users.length }}
-        {% if users.length === 1 %}
-        user matches
-        {% else %}
-        users match
-        {% endif %}
-        <strong>‘{{ search }}’</strong>
-        {% else %}
-        {{ users.length }} users
-        {% endif %}
-    </p>
+{% if not search %}
 
-        {% if search %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
         <p class="govuk-body">
-          <a class="govuk-link" href="./users">
-            Clear search
-          </a>
+            You can search using:
         </p>
-        {% endif %}
 
+        <ul class="govuk-list govuk-list--bullet">
+            <li>name, for example James Williams</li>
+            <li>postcode, for example SY4 1AB</li>
+            <li>email address, for example james.williams@example.com</li>
+            <li>phone number, for example 07700 900001</li>
+            <li>security word, for example badger</li>
+        </ul>
+    </div>
+</div>
 
-      {% if users.length %}
-      <table class="govuk-table">
+{% else %}
 
-          <thead class="govuk-table__head">
-          <tr class="govuk-table__row">
-              <th scope="col" class="govuk-table__header">Name</th>
-              <th scope="col" class="govuk-table__header">Postcode</th>
-              <th scope="col" class="govuk-table__header">Email</th>
-              <th scope="col" class="govuk-table__header">Phone</th>
-              <th scope="col" class="govuk-table__header">Holdings</th>
-          </tr>
-          </thead>
+<p class="govuk-body" aria-live="polite">
+    {{ users.length }}
+    {% if users.length === 1 %}
+    user matches
+    {% else %}
+    users match
+    {% endif %}
+    <strong>‘{{ search }}’</strong>
+</p>
 
-          <tbody class="govuk-table__body">
-          {% for user in users %}
-          <tr class="govuk-table__row">
-              <td class="govuk-table__cell">
-                  <a class="govuk-link" href="./{{ user.id }}">
-                      {{ user.name }}
-                  </a>
-              </td>
+<p class="govuk-body">
+    <a class="govuk-link" href="./users">
+        Clear search
+    </a>
+</p>
 
-              <td class="govuk-table__cell">
-                  {{ user.address.postcode }}
-              </td>
+{% if users.length %}
+<table class="govuk-table">
+    <caption class="govuk-table__caption govuk-visually-hidden">
+        Users search results
+    </caption>
 
-              <td class="govuk-table__cell">
-                      {{ user.email }}
-              </td>
+    <thead class="govuk-table__head">
+    <tr class="govuk-table__row">
+        <th scope="col" class="govuk-table__header">Name</th>
+        <th scope="col" class="govuk-table__header">Email</th>
+        <th scope="col" class="govuk-table__header">Phone</th>
+        <th scope="col" class="govuk-table__header">Postcode</th>
+        <th scope="col" class="govuk-table__header">Security word</th>
+        <th scope="col" class="govuk-table__header">Holdings</th>
+    </tr>
+    </thead>
 
-              <td class="govuk-table__cell">
-                  {{ user.phone }}
-              </td>
+    <tbody class="govuk-table__body">
+    {% for user in users %}
+    <tr class="govuk-table__row">
+        <td class="govuk-table__cell">
+            <a class="govuk-link" href="./users/{{ user.id }}">
+                {{ user.name }}
+            </a>
+        </td>
 
+        <td class="govuk-table__cell">
+            <a class="govuk-link" href="mailto:{{ user.email }}">
+                {{ user.email }}
+            </a>
+        </td>
 
+        <td class="govuk-table__cell">
+            {{ user.phone }}
+        </td>
 
-              <td class="govuk-table__cell">
-                  {{ user.holdings.length }}
-              </td>
-          </tr>
-          {% endfor %}
-          </tbody>
-      </table>
-      {% else %}
-      <p class="govuk-body">No users found.</p>
-      {% endif %}
+        <td class="govuk-table__cell">
+            {{ user.address.postcode }}
+        </td>
+
+        <td class="govuk-table__cell">
+            {{ user.securityWord }}
+        </td>
+
+        <td class="govuk-table__cell">
+            {{ user.holdings.length }}
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p class="govuk-body">
+    No users found.
+</p>
+{% endif %}
+
+{% endif %}
 
   </div>
   </div>

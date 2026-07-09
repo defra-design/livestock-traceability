@@ -8,37 +8,7 @@
 
 {% block header %}
 
-{{ govukHeader({
-homepageUrl: "/index.html"
-}) }}
-
-{{ govukServiceNavigation({
-serviceName: "Livestock Information",
-serviceUrl: "/animals-on-holding/v1/start",
-navigation: [
-{
-href: "/animals-on-holding/v1/my-holdings",
-text: "My holdings",
-active: activeNav === "my-holdings"
-},
-{
-href: "/animals-on-holding/v1/my-services",
-text: "My services"
-},
-{
-href: "/animals-on-holding/v1/activity-history",
-text: "Activity history"
-},
-{
-href: "/animals-on-holding/v1/profile-settings",
-text: "Profile and settings"
-},
-{
-href: "#",
-text: "Sign out"
-}
-]
-}) }}
+{% block navBar %}{% include "./components/_navigation.html" %}{% endblock %}
 
 {% endblock %}
 

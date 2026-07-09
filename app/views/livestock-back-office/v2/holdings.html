@@ -2,38 +2,24 @@
 
 {% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
 
-{% set pageName="Cattle register" %}
+{% set pageName="Holdings" %}
 
 {% set activeNav = "my-holdings" %}
 
 {% block header %}
 
-  {{ govukHeader({
-    homepageUrl: '/index.html'
-  }) }}
-
-  {{ govukServiceNavigation({
-    serviceName: "Livestock Information",
-    serviceUrl: "/animals-on-holding/v1/start",
-    navigation: [
-    {
-    href: "./holdings",
-    text: "Holdings",
-    active: activeNav === "holdings"
-    },
-      {
-        href: "#",
-        text: "Sign out"
-      }
-    ]
-  }) }}
+{% block navBar %}{% include "./components/_navigation.html" %}{% endblock %}
 
 {% endblock %}
 
 {% block beforeContent %}
-{{ govukBackLink({
-  text: "Back",
-  href: "javascript:window.history.back()"
+{{ govukBreadcrumbs({
+items: [
+{
+text: "Home",
+href: "./home"
+}
+]
 }) }}
 {% endblock %}
 
@@ -54,33 +40,45 @@
 
 
   <div>
-    {{set filterHint = 'Filter by CHP number, holding name or postcode'}}
+    {% set filterHint = 'Filter by CHP number, holding name or postcode' %}
     {% block filterBar %}{% include "./components/_filter-bar.html" %}{% endblock %}
 
   <div>
 
-    <p class="govuk-body" aria-live="polite">
-        {% if search %}
-        {{ holdings.length }}
-        {% if holdings.length === 1 %}
-        holding matches
-        {% else %}
-        holdings match
-        {% endif %}
-        <strong>‘{{ search }}’</strong>
-        {% else %}
-        {{ holdings.length }} holdings
-        {% endif %}
-    </p>
 
-        {% if search %}
-        <p class="govuk-body">
+      {% if not search %}
+
+      <div class="govuk-grid-row">
+          <div class="govuk-grid-column-two-thirds">
+              <p class="govuk-body">
+                  You can search using:
+              </p>
+
+              <ul class="govuk-list govuk-list--bullet">
+                  <li>CPH number, for example 12/345/0001</li>
+                  <li>holding name, for example Oakfield Farm</li>
+                  <li>postcode, for example SY4 1AB</li>
+              </ul>
+          </div>
+      </div>
+
+      {% else %}
+
+      <p class="govuk-body" aria-live="polite">
+          {{ holdings.length }}
+          {% if holdings.length === 1 %}
+          holding matches
+          {% else %}
+          holdings match
+          {% endif %}
+          <strong>‘{{ search }}’</strong>
+      </p>
+
+      <p class="govuk-body">
           <a class="govuk-link" href="./holdings">
-            Clear search
+              Clear search
           </a>
-        </p>
-        {% endif %}
-
+      </p>
 
       {% if holdings.length %}
       <table class="govuk-table">
@@ -103,7 +101,7 @@
                   Postcode
               </th>
               <th scope="col" class="govuk-table__header">
-                  Species
+                  Livestock
               </th>
               <th scope="col" class="govuk-table__header">
                   Status
@@ -117,7 +115,7 @@
               <td class="govuk-table__cell">
                   <a
                           class="govuk-link"
-                          href="./holdings/{{ holding.id}}"
+                          href="./holdings/{{ holding.id }}"
                   >
                       {{ holding.cph }}
                   </a>
@@ -131,8 +129,8 @@
                   {{ holding.address.town }}
                   <br>
                   <span class="govuk-hint govuk-!-margin-bottom-0">
-              {{ holding.address.county }}
-            </span>
+                {{ holding.address.county }}
+              </span>
               </td>
 
               <td class="govuk-table__cell">
@@ -170,6 +168,46 @@
       </p>
       {% endif %}
 
+      {% endif %}
+      {% if search and holdings.length >= 16 %}
+      <div class="govuk-grid-row govuk-!-margin-top-6">
+          <div class="govuk-grid-column-two-thirds">
+              {{ govukPagination({
+              next: {
+              href: "#"
+              },
+              items: [
+              {
+              number: 1,
+              current: true,
+              href: "#"
+              },
+              {
+              number: 2,
+              href: "#"
+              },
+              {
+              number: 3,
+              href: "#"
+              },
+              {
+              ellipsis: true
+              },
+              {
+              number: 50,
+              href: "#"
+              }
+              ]
+              }) }}
+          </div>
+
+          <div class="govuk-grid-column-one-third govuk-!-text-align-right">
+              <p class="govuk-body govuk-!-margin-top-2">
+                  Showing 1 to 50 of 1000
+              </p>
+          </div>
+      </div>
+      {% endif %}
 </div>
   </div>
 

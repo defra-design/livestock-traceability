@@ -25,7 +25,7 @@ href: "javascript:window.history.back()"
     <div class="govuk-grid-column-two-thirds">
 
           <span class="govuk-caption-l">
-            Registered cattle
+            CPH number: {{animal.cph}}
           </span>
 
       <h1 class="govuk-heading-l">
@@ -46,14 +46,7 @@ href: "javascript:window.history.back()"
           </dd>
         </div>
 
-<!--        <div class="govuk-summary-list__row">-->
-<!--          <dt class="govuk-summary-list__key">-->
-<!--            CPH-->
-<!--          </dt>-->
-<!--          <dd class="govuk-summary-list__value">-->
-<!--            {{ animal.cph }}-->
-<!--          </dd>-->
-<!--        </div>-->
+
 
         <div class="govuk-summary-list__row">
           <dt class="govuk-summary-list__key">
@@ -61,6 +54,15 @@ href: "javascript:window.history.back()"
           </dt>
           <dd class="govuk-summary-list__value">
             {{ animal.dateOfBirth  | fullDateFormat}}
+          </dd>
+        </div>
+
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Date of registration
+          </dt>
+          <dd class="govuk-summary-list__value">
+            {{ animal.dateOfRegistration  | fullDateFormat}}
           </dd>
         </div>
 
@@ -177,80 +179,6 @@ href: "javascript:window.history.back()"
       </div>
     </div>
 
-<div class="govuk-grid-row">
-  <div class="govuk-grid-column-full">
-      <h2 class="govuk-heading-m">
-        {{offspring.length}} Offspring{% if offspring.length != 1%}s{%endif%}
-      </h2>
-
-      {% if offspring.length %}
-      <table class="govuk-table">
-        <caption class="govuk-table__caption govuk-visually-hidden">
-          Offspring of {{ animal.earTagNumber | formatReference }}
-        </caption>
-
-        <thead class="govuk-table__head">
-        <tr class="govuk-table__row">
-          <th scope="col" class="govuk-table__header">
-            Ear tag number
-          </th>
-
-          <th scope="col" class="govuk-table__header">
-            Date of birth
-          </th>
-
-          <th scope="col" class="govuk-table__header">
-            Sex
-          </th>
-
-          <th scope="col" class="govuk-table__header">
-            Breed
-          </th>
-
-          <th scope="col" class="govuk-table__header">
-            Status
-          </th>
-        </tr>
-        </thead>
-
-        <tbody class="govuk-table__body">
-        {% for calf in offspring %}
-        <tr class="govuk-table__row">
-          <td class="govuk-table__cell">
-            <a
-                    class="govuk-link"
-                    href="./{{ calf.earTagNumber }}"
-            >
-              {{ calf.earTagNumber  | formatReference }}
-            </a>
-          </td>
-
-          <td class="govuk-table__cell">
-            {{ calf.dateOfBirth | shortDateFormat }}
-          </td>
-
-          <td class="govuk-table__cell">
-            {{ calf.sex }}
-          </td>
-
-          <td class="govuk-table__cell">
-            {{ calf.breed.name }}
-          </td>
-
-          <td class="govuk-table__cell">
-            {{ calf.status }}
-          </td>
-        </tr>
-        {% endfor %}
-        </tbody>
-      </table>
-      {% else %}
-      <p class="govuk-body">
-        No offspring are recorded for this animal.
-      </p>
-      {% endif %}
-    </div>
-  </div>
 
 
 {% endblock %}

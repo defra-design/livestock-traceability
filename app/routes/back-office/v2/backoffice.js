@@ -6,12 +6,20 @@ const baseURL = 'livestock-back-office/v2'
 
 module.exports = router
 
-router.get('/' + baseURL + '/cattle', (req, res) => {
-  const search = String(req.query.search || '').trim().toLowerCase();
-  const cattleData = req.session.data.livestock;
+function normalise(value) {
+  return String(value || '')
+    .toLowerCase()
+    .replace(/\s+/g, '')
+    .replace(/\//g, '');
+}
+
+function getFilteredCattle(req) {
+  const search = String(req.query.search || '').trim();
+  const cattleData = req.session.data.livestock || { animals: [] };
 
   const cattle = cattleData.animals.filter((animal) => {
     if (!search) return true;
+
     const searchableValues = [
       animal.cph,
       animal.earTagNumber,
@@ -26,13 +34,76 @@ router.get('/' + baseURL + '/cattle', (req, res) => {
       animal.sire?.earTagNumber,
       animal.sire?.name
     ];
-    return searchableValues.some((value) =>
-      String(value || '').toLowerCase().includes(search)
-    );
+
+    return searchableValues.some((value) => {
+      return normalise(value).includes(normalise(search));
+    });
   });
 
-  res.render(baseURL + '/cattle', { cattle, search });
-});
+  return {
+    cattle,
+    search
+  };
+}
+
+function registerCattleRoute(urlPath, viewPath) {
+  router.get('/' + baseURL + '/' + urlPath, (req, res) => {
+    const cattleResults = getFilteredCattle(req);
+
+    return res.render(baseURL + '/' + viewPath, {
+      cattle: cattleResults.cattle,
+      search: cattleResults.search,
+      baseURL
+    });
+  });
+}
+
+registerCattleRoute('cattle', 'cattle');
+registerCattleRoute('holdings/cattle-register', 'holding-cattle-register');
+
+
+function getCattleDetails(req, earTagNumber) {
+  const cattleData = req.session.data.livestock || { animals: [] };
+
+  const animal = cattleData.animals.find((animal) => {
+    return animal.earTagNumber.toLowerCase() === String(earTagNumber).toLowerCase();
+  });
+
+  if (!animal) {
+    return null;
+  }
+
+  const offspring = cattleData.animals.filter((record) => {
+    return record.dam?.geneticDam?.earTagNumber === animal.earTagNumber;
+  });
+
+  return {
+    animal,
+    offspring
+  };
+}
+
+function registerCattleDetailsRoute(urlPath, viewPath) {
+  router.get('/' + baseURL + '/' + urlPath + '/:earTagNumber', (req, res) => {
+    const cattleDetails = getCattleDetails(req, req.params.earTagNumber);
+
+    if (!cattleDetails) {
+      return res.status(404).render(baseURL + '/404', {
+        pageTitle: 'Cattle record not found'
+      });
+    }
+
+    return res.render(baseURL + '/' + viewPath, {
+      animal: cattleDetails.animal,
+      offspring: cattleDetails.offspring,
+      baseURL
+    });
+  });
+}
+
+registerCattleDetailsRoute('cattle', 'cattle-details');
+registerCattleDetailsRoute('livestock', 'cattle-details');
+registerCattleDetailsRoute('holdings/cattle', 'holding-cattle-details');
 
 router.get('/' + baseURL + '/cattle/:earTagNumber', (req, res) => {
   const cattleData = req.session.data.livestock;
@@ -53,12 +124,7 @@ router.get('/' + baseURL + '/cattle/:earTagNumber', (req, res) => {
   return res.render(baseURL + '/cattle-details', { animal, offspring });
 });
 
-function normalise(value) {
-  return String(value || '')
-    .toLowerCase()
-    .replace(/\s+/g, '')
-    .replace(/\//g, '');
-}
+
 
 router.get('/' + baseURL + '/holdings', (req, res) => {
   const holdingsData = req.session.data.holdings_v2;

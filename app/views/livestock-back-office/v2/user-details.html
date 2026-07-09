@@ -7,25 +7,7 @@
 
 {% block header %}
 
-{{ govukHeader({
-homepageUrl: "/index.html"
-}) }}
-
-{{ govukServiceNavigation({
-serviceName: "Livestock Information",
-serviceUrl: "/animals-on-holding/v1/start",
-navigation: [
-{
-href: "../holdings",
-text: "Holdings",
-active: activeNav === "holdings"
-},
-{
-href: "#",
-text: "Sign out"
-}
-]
-}) }}
+{% block NavBar %}{% include "./components/_navigation.html" %}{% endblock %}
 
 {% endblock %}
 

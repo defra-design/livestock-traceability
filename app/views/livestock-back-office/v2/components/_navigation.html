@@ -1,0 +1,40 @@
+{{ govukHeader({
+homepageUrl: "/index.html"
+}) }}
+
+<style>
+    .govuk-service-navigation__list {
+      width: 100%;
+      display: flex;
+    }
+
+    .govuk-service-navigation__item:last-child {
+      margin-left: auto;
+    }
+</style>
+
+{{ govukServiceNavigation({
+serviceName: "Livestock Information",
+serviceUrl: "/livestock-back-office/v2/home",
+navigation: [
+{
+href: "./holdings",
+text: "Holdings",
+active: activeNav === "holdings"
+},
+{
+href: "./users",
+text: "Users",
+active: activeNav === "users"
+},
+{
+href: "./cattle",
+text: "Livestock",
+active: activeNav === "livestock"
+},
+{
+href: "./sign-out",
+text: "Sign out"
+}
+]
+}) }}
