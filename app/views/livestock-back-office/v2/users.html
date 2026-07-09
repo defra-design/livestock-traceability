@@ -54,7 +54,6 @@
             <li>postcode, for example SY4 1AB</li>
             <li>email address, for example james.williams@example.com</li>
             <li>phone number, for example 07700 900001</li>
-            <li>security word, for example badger</li>
         </ul>
     </div>
 </div>
@@ -86,10 +85,10 @@
     <thead class="govuk-table__head">
     <tr class="govuk-table__row">
         <th scope="col" class="govuk-table__header">Name</th>
-        <th scope="col" class="govuk-table__header">Email</th>
         <th scope="col" class="govuk-table__header">Phone</th>
         <th scope="col" class="govuk-table__header">Postcode</th>
-        <th scope="col" class="govuk-table__header">Security word</th>
+        <th scope="col" class="govuk-table__header">Date joined</th>
+        <th scope="col" class="govuk-table__header">Last activity</th>
         <th scope="col" class="govuk-table__header">Holdings</th>
     </tr>
     </thead>
@@ -97,17 +96,12 @@
     <tbody class="govuk-table__body">
     {% for user in users %}
     <tr class="govuk-table__row">
-        <td class="govuk-table__cell">
+        <th scope="row" class="govuk-table__header">
             <a class="govuk-link" href="./users/{{ user.id }}">
                 {{ user.name }}
             </a>
-        </td>
+        </th>
 
-        <td class="govuk-table__cell">
-            <a class="govuk-link" href="mailto:{{ user.email }}">
-                {{ user.email }}
-            </a>
-        </td>
 
         <td class="govuk-table__cell">
             {{ user.phone }}
@@ -118,7 +112,11 @@
         </td>
 
         <td class="govuk-table__cell">
-            {{ user.securityWord }}
+            {{ user.dateJoined  | shortDateFormat }}
+        </td>
+
+        <td class="govuk-table__cell">
+            {{ user.lastActivityDate  | shortDateFormat }}
         </td>
 
         <td class="govuk-table__cell">

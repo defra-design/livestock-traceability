@@ -62,7 +62,9 @@
             "Goats"
           ]
         }
-      ]
+      ],
+      "dateJoined": "12-03-2021",
+      "lastActivityDate": "08-07-2026"
     },
     {
       "id": "user-002",
@@ -89,7 +91,9 @@
             "Cattle"
           ]
         }
-      ]
+      ],
+      "dateJoined": "24-06-2021",
+      "lastActivityDate": "07-07-2026"
     },
     {
       "id": "user-003",
@@ -126,7 +130,9 @@
             "Goats"
           ]
         }
-      ]
+      ],
+      "dateJoined": "05-11-2021",
+      "lastActivityDate": "06-07-2026"
     },
     {
       "id": "user-004",
@@ -154,7 +160,9 @@
             "Sheep"
           ]
         }
-      ]
+      ],
+      "dateJoined": "18-01-2022",
+      "lastActivityDate": "04-07-2026"
     },
     {
       "id": "user-005",
@@ -182,7 +190,9 @@
             "Goats"
           ]
         }
-      ]
+      ],
+      "dateJoined": "09-04-2022",
+      "lastActivityDate": "02-07-2026"
     },
     {
       "id": "user-006",
@@ -219,7 +229,9 @@
             "Pigs"
           ]
         }
-      ]
+      ],
+      "dateJoined": "27-07-2022",
+      "lastActivityDate": "30-06-2026"
     },
     {
       "id": "user-007",
@@ -247,7 +259,9 @@
             "Sheep"
           ]
         }
-      ]
+      ],
+      "dateJoined": "14-09-2022",
+      "lastActivityDate": "28-06-2026"
     },
     {
       "id": "user-008",
@@ -282,7 +296,9 @@
             "Cattle"
           ]
         }
-      ]
+      ],
+      "dateJoined": "02-12-2022",
+      "lastActivityDate": "25-06-2026"
     },
     {
       "id": "user-009",
@@ -309,7 +325,9 @@
             "Sheep"
           ]
         }
-      ]
+      ],
+      "dateJoined": "21-02-2023",
+      "lastActivityDate": "21-06-2026"
     },
     {
       "id": "user-010",
@@ -336,7 +354,9 @@
             "Cattle"
           ]
         }
-      ]
+      ],
+      "dateJoined": "16-05-2023",
+      "lastActivityDate": "18-06-2026"
     },
     {
       "id": "user-011",
@@ -373,7 +393,9 @@
             "Poultry"
           ]
         }
-      ]
+      ],
+      "dateJoined": "08-08-2023",
+      "lastActivityDate": "14-06-2026"
     },
     {
       "id": "user-012",
@@ -402,7 +424,9 @@
             "Goats"
           ]
         }
-      ]
+      ],
+      "dateJoined": "30-10-2023",
+      "lastActivityDate": "09-06-2026"
     },
     {
       "id": "user-013",
@@ -430,7 +454,9 @@
             "Sheep"
           ]
         }
-      ]
+      ],
+      "dateJoined": "11-01-2024",
+      "lastActivityDate": "03-06-2026"
     },
     {
       "id": "user-014",
@@ -458,7 +484,9 @@
             "Pigs"
           ]
         }
-      ]
+      ],
+      "dateJoined": "19-03-2024",
+      "lastActivityDate": "28-05-2026"
     },
     {
       "id": "user-015",
@@ -486,7 +514,9 @@
             "Sheep"
           ]
         }
-      ]
+      ],
+      "dateJoined": "04-06-2024",
+      "lastActivityDate": "19-05-2026"
     },
     {
       "id": "user-016",
@@ -513,7 +543,9 @@
             "Sheep"
           ]
         }
-      ]
+      ],
+      "dateJoined": "22-08-2024",
+      "lastActivityDate": "06-05-2026"
     },
     {
       "id": "user-017",
@@ -548,7 +580,9 @@
             "Cattle"
           ]
         }
-      ]
+      ],
+      "dateJoined": "15-11-2024",
+      "lastActivityDate": "17-04-2026"
     },
     {
       "id": "user-018",
@@ -576,7 +610,9 @@
             "Sheep"
           ]
         }
-      ]
+      ],
+      "dateJoined": "07-02-2025",
+      "lastActivityDate": "22-03-2026"
     },
     {
       "id": "user-019",
@@ -605,7 +641,9 @@
             "Poultry"
           ]
         }
-      ]
+      ],
+      "dateJoined": "26-04-2025",
+      "lastActivityDate": "11-02-2026"
     },
     {
       "id": "user-020",
@@ -633,7 +671,9 @@
             "Sheep"
           ]
         }
-      ]
+      ],
+      "dateJoined": "13-09-2025",
+      "lastActivityDate": "15-12-2025"
     }
   ]
 }
