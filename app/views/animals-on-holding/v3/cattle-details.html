@@ -33,7 +33,6 @@
     <span class="govuk-caption-l">County Parish Holding: 12/345/0001</span>
     <h1 class="govuk-heading-l">{{ animal.earTagNumber | formatReference }}</h1>
 
-    {% set detailsHtml %}
 
     <h2 class="govuk-heading-m">Cattle details</h2>
 
@@ -50,7 +49,7 @@
       </div>
 
       <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">Date of registration</dt>
+        <dt class="govuk-summary-list__key">Date registered</dt>
         <dd class="govuk-summary-list__value">{{ animal.dateOfRegistration | shortDateFormat }}</dd>
       </div>
 
@@ -119,92 +118,6 @@
     <h2 class="govuk-heading-m">Sire details</h2>
     <p class="govuk-body">No sire details recorded.</p>
     {% endif %}
-
-    {% endset %}
-
-
-    {% set offspringHtml %}
-
-    <h2 class="govuk-heading-m">Offspring</h2>
-
-    {% if offspring.length %}
-    <table class="govuk-table">
-      <thead class="govuk-table__head">
-        <tr class="govuk-table__row">
-          <th scope="col" class="govuk-table__header">Ear tag number</th>
-          <th scope="col" class="govuk-table__header">Date of birth</th>
-          <th scope="col" class="govuk-table__header">Sex</th>
-          <th scope="col" class="govuk-table__header">Breed</th>
-          <th scope="col" class="govuk-table__header">Status</th>
-        </tr>
-      </thead>
-      <tbody class="govuk-table__body">
-        {% for calf in offspring %}
-        <tr class="govuk-table__row">
-          <td class="govuk-table__cell">{{ calf.earTagNumber | formatReference }}</td>
-          <td class="govuk-table__cell">{{ calf.dateOfBirth | shortDateFormat }}</td>
-          <td class="govuk-table__cell">{{ calf.sex }}</td>
-          <td class="govuk-table__cell">
-            {{ calf.breed.name }}{% if calf.breed.code %} ({{ calf.breed.code }}){% endif %}
-          </td>
-          <td class="govuk-table__cell">
-            {% if calf.status === "Active" %}
-              <strong class="govuk-tag govuk-tag--green">Active</strong>
-            {% elseif calf.status === "Deceased" %}
-              <strong class="govuk-tag govuk-tag--grey">Deceased</strong>
-            {% else %}
-              <strong class="govuk-tag">{{ calf.status }}</strong>
-            {% endif %}
-          </td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-    {% else %}
-    <p class="govuk-body">No offspring recorded.</p>
-    {% endif %}
-
-    {% endset %}
-
-
-    {% set historyHtml %}
-
-    <h2 class="govuk-heading-m">History</h2>
-
-    <table class="govuk-table">
-      <thead class="govuk-table__head">
-        <tr class="govuk-table__row">
-          <th scope="col" class="govuk-table__header">Date</th>
-          <th scope="col" class="govuk-table__header">Event</th>
-          <th scope="col" class="govuk-table__header">Details</th>
-        </tr>
-      </thead>
-      <tbody class="govuk-table__body">
-        <tr class="govuk-table__row">
-          <td class="govuk-table__cell">{{ animal.dateOfBirth | shortDateFormat }}</td>
-          <td class="govuk-table__cell">Birth registered</td>
-          <td class="govuk-table__cell">Registered at holding 12/345/0001</td>
-        </tr>
-      </tbody>
-    </table>
-
-    {% endset %}
-
-
-    {{ govukTabs({
-      items: [
-        {
-          label: "Animal details",
-          id: "details",
-          panel: { html: detailsHtml }
-        },
-        {
-          label: "Activity history",
-          id: "history",
-          panel: { html: historyHtml }
-        }
-      ]
-    }) }}
 
   </div>
 </div>

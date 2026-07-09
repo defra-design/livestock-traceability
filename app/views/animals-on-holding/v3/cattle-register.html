@@ -17,16 +17,9 @@
 
 {% endblock %}
 
-{% block beforeContent %}
-  {{ govukBackLink({
-    text: "Back",
-    href: "javascript:window.history.back()"
-  }) }}
-{% endblock %}
-
 {% block content %}
 
-<span class="govuk-caption-l">County Parish Holding: 12/345/0001</span>
+<span class="govuk-caption-l">CPH number: 12/345/0001</span>
 <h1 class="govuk-heading-l">
   Oakfield Farm
 </h1>
@@ -34,17 +27,17 @@
 <nav class="moj-sub-navigation" aria-label="Sub navigation">
   <ul class="moj-sub-navigation__list">
     <li class="moj-sub-navigation__item">
-      <a class="moj-sub-navigation__link" href="/animals-on-holding/v3/holding-information">Holding information</a>
+      <a class="moj-sub-navigation__link" href="/animals-on-holding/v3/holding-information">Holding details</a>
     </li>
     <li class="moj-sub-navigation__item">
-      <a class="moj-sub-navigation__link" aria-current="page" href="/animals-on-holding/v3/cattle-register">Cattle register</a>
+      <a class="moj-sub-navigation__link" aria-current="page" href="/animals-on-holding/v3/cattle-register">Livestock information</a>
     </li>
   </ul>
 </nav>
 
 <div>
 
-  <div class="govuk-grid-row">
+ <!-- <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
       <form method="GET" >
         <div class="search-wrapper govuk-form-group">
@@ -60,11 +53,11 @@
         </div>
       </form>
     </div>
-  </div>
+  </div>-->
 
   <div>
 
-    <p class="govuk-body" aria-live="polite">
+  <!--  <p class="govuk-body" aria-live="polite">
       {% if search %}
         {{ cattle.length }}
         {% if cattle.length === 1 %}
@@ -76,13 +69,13 @@
       {% else %}
         {{ cattle.length }} registered cattle
       {% endif %}
-    </p>
+    </p>-->
 
-    {% if search %}
+   <!-- {% if search %}
     <p class="govuk-body">
       <a class="govuk-link" href="/animals-on-holding/v3/cattle-register">Clear search</a>
     </p>
-    {% endif %}
+    {% endif %}-->
 
     {% if cattle.length %}
     <table class="govuk-table">
@@ -90,7 +83,7 @@
         <tr class="govuk-table__row">
           <th scope="col" class="govuk-table__header">Ear tag number</th>
           <th scope="col" class="govuk-table__header">Date of birth</th>
-          <th scope="col" class="govuk-table__header">Date of registration</th>
+          <th scope="col" class="govuk-table__header">Date registered</th>
           <th scope="col" class="govuk-table__header">Sex</th>
           <th scope="col" class="govuk-table__header">Breed</th>
         </tr>
@@ -103,7 +96,7 @@
           </th>
           <td class="govuk-table__cell">{{ animal.dateOfBirth | shortDateFormat }}</td>
           <td class="govuk-table__cell">{{ animal.dateOfRegistration | shortDateFormat }}</td>
-          <td class="govuk-table__cell">{{ animal.sex }}</td>
+          <td class="govuk-table__cell">{{ animal.sex | sexInitial }}</td>
           <td class="govuk-table__cell">
             {{ animal.breed.name }}
             {% if animal.breed.code %}({{ animal.breed.code }}){% endif %}

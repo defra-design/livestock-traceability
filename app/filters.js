@@ -127,3 +127,19 @@ addFilter('sexToLetter', function(value) {
 
     return `${Number(day)} ${monthNames[monthIndex]} ${year}`;
   });
+
+  addFilter('sexInitial', function (value) {
+    if (!value || typeof value !== 'string') {
+      return value;
+    }
+
+    if (value.toLowerCase() === 'female') {
+      return 'F';
+    }
+
+    if (value.toLowerCase() === 'male') {
+      return 'M';
+    }
+
+    return value;
+  });
