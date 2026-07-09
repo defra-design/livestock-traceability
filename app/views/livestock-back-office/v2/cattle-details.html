@@ -22,7 +22,7 @@ href: "javascript:window.history.back()"
 {% block content %}
 
   <div class="govuk-grid-row">
-    <div class="govuk-grid-column-two-thirds">
+    <div class="govuk-grid-column-full">
 
           <span class="govuk-caption-l">
             Registered cattle
@@ -32,223 +32,382 @@ href: "javascript:window.history.back()"
         {{ animal.earTagNumber  | formatReference }}
       </h1>
 
-      <h2 class="govuk-heading-m">
-        Cattle details
-      </h2>
+      <div class="govuk-tabs" data-module="govuk-tabs">
+        <h2 class="govuk-tabs__title">
+          Contents
+        </h2>
 
-      <dl class="govuk-summary-list">
-        <div class="govuk-summary-list__row">
-          <dt class="govuk-summary-list__key">
-            Ear tag number
-          </dt>
-          <dd class="govuk-summary-list__value">
-            {{ animal.earTagNumber | formatReference }}
-          </dd>
-        </div>
-
-<!--        <div class="govuk-summary-list__row">-->
-<!--          <dt class="govuk-summary-list__key">-->
-<!--            CPH-->
-<!--          </dt>-->
-<!--          <dd class="govuk-summary-list__value">-->
-<!--            {{ animal.cph }}-->
-<!--          </dd>-->
-<!--        </div>-->
-
-        <div class="govuk-summary-list__row">
-          <dt class="govuk-summary-list__key">
-            Date of birth
-          </dt>
-          <dd class="govuk-summary-list__value">
-            {{ animal.dateOfBirth  | fullDateFormat}}
-          </dd>
-        </div>
-
-        <div class="govuk-summary-list__row">
-          <dt class="govuk-summary-list__key">
-            Sex
-          </dt>
-          <dd class="govuk-summary-list__value">
-            {{ animal.sex}}
-          </dd>
-        </div>
-
-        <div class="govuk-summary-list__row">
-          <dt class="govuk-summary-list__key">
-            Breed
-          </dt>
-          <dd class="govuk-summary-list__value">
-            {{ animal.breed.name }}
-
-            {% if animal.breed.code %}
-            ({{ animal.breed.code }})
-            {% endif %}
-          </dd>
-        </div>
-
-        <div class="govuk-summary-list__row">
-          <dt class="govuk-summary-list__key">
-            Status
-          </dt>
-          <dd class="govuk-summary-list__value">
-            {% if animal.status === "Active" %}
-            <strong class="govuk-tag govuk-tag--green">
-              Active
-            </strong>
-            {% elseif animal.status === "Sold" %}
-            <strong class="govuk-tag govuk-tag--blue">
-              Sold
-            </strong>
-            {% elseif animal.status === "Deceased" %}
-            <strong class="govuk-tag govuk-tag--grey">
-              Deceased
-            </strong>
-            {% else %}
-            {{ animal.status }}
-            {% endif %}
-          </dd>
-        </div>
-      </dl>
-
-      <h2 class="govuk-heading-m">
-        Dam details
-      </h2>
-
-      <dl class="govuk-summary-list">
-        <div class="govuk-summary-list__row">
-          <dt class="govuk-summary-list__key">
-            Dam type
-          </dt>
-          <dd class="govuk-summary-list__value">
-            {{ animal.dam.type }}
-          </dd>
-        </div>
-
-        <div class="govuk-summary-list__row">
-          <dt class="govuk-summary-list__key">
-            Genetic dam ear tag
-          </dt>
-          <dd class="govuk-summary-list__value">
-            {{ animal.dam.geneticDam.earTagNumber  | formatReference }}
-          </dd>
-        </div>
-
-        {% if animal.dam.surrogateDam %}
-        <div class="govuk-summary-list__row">
-          <dt class="govuk-summary-list__key">
-            Surrogate dam ear tag
-          </dt>
-          <dd class="govuk-summary-list__value">
-            {{ animal.dam.surrogateDam.earTagNumber  | formatReference }}
-          </dd>
-        </div>
-        {% endif %}
-      </dl>
-
-      <h2 class="govuk-heading-m">
-        Sire details
-      </h2>
-
-      {% if animal.sire %}
-      <dl class="govuk-summary-list">
-        <div class="govuk-summary-list__row">
-          <dt class="govuk-summary-list__key">
-            Sire ear tag number
-          </dt>
-          <dd class="govuk-summary-list__value">
-            {{ animal.sire.earTagNumber  | formatReference }}
-          </dd>
-        </div>
-
-        <div class="govuk-summary-list__row">
-          <dt class="govuk-summary-list__key">
-            Sire name
-          </dt>
-          <dd class="govuk-summary-list__value">
-            {{ animal.sire.name }}
-          </dd>
-        </div>
-      </dl>
-      {% else %}
-      <p class="govuk-body">
-        No sire details are recorded.
-      </p>
-      {% endif %}
-      </div>
-    </div>
-
-<div class="govuk-grid-row">
-  <div class="govuk-grid-column-full">
-      <h2 class="govuk-heading-m">
-        {{offspring.length}} Offspring{% if offspring.length != 1%}s{%endif%}
-      </h2>
-
-      {% if offspring.length %}
-      <table class="govuk-table">
-        <caption class="govuk-table__caption govuk-visually-hidden">
-          Offspring of {{ animal.earTagNumber | formatReference }}
-        </caption>
-
-        <thead class="govuk-table__head">
-        <tr class="govuk-table__row">
-          <th scope="col" class="govuk-table__header">
-            Ear tag number
-          </th>
-
-          <th scope="col" class="govuk-table__header">
-            Date of birth
-          </th>
-
-          <th scope="col" class="govuk-table__header">
-            Sex
-          </th>
-
-          <th scope="col" class="govuk-table__header">
-            Breed
-          </th>
-
-          <th scope="col" class="govuk-table__header">
-            Status
-          </th>
-        </tr>
-        </thead>
-
-        <tbody class="govuk-table__body">
-        {% for calf in offspring %}
-        <tr class="govuk-table__row">
-          <td class="govuk-table__cell">
-            <a
-                    class="govuk-link"
-                    href="./{{ calf.earTagNumber }}"
-            >
-              {{ calf.earTagNumber  | formatReference }}
+        <ul class="govuk-tabs__list">
+          <li class="govuk-tabs__list-item govuk-tabs__list-item--selected">
+            <a class="govuk-tabs__tab" href="#details">
+              Details
             </a>
-          </td>
+          </li>
 
-          <td class="govuk-table__cell">
-            {{ calf.dateOfBirth | shortDateFormat }}
-          </td>
+          <li class="govuk-tabs__list-item">
+            <a class="govuk-tabs__tab" href="#offspring">
+              Offspring
+            </a>
+          </li>
 
-          <td class="govuk-table__cell">
-            {{ calf.sex }}
-          </td>
+          <li class="govuk-tabs__list-item">
+            <a class="govuk-tabs__tab" href="#history">
+              History
+            </a>
+          </li>
+        </ul>
 
-          <td class="govuk-table__cell">
-            {{ calf.breed.name }}
-          </td>
+        <div class="govuk-tabs__panel" id="details">
+          <div class="govuk-grid-row">
+            <div class="govuk-grid-column-two-thirds">
+          <h2 class="govuk-heading-m">
+            Cattle details
+          </h2>
 
-          <td class="govuk-table__cell">
-            {{ calf.status }}
-          </td>
-        </tr>
-        {% endfor %}
-        </tbody>
-      </table>
-      {% else %}
-      <p class="govuk-body">
-        No offspring are recorded for this animal.
-      </p>
-      {% endif %}
+          <dl class="govuk-summary-list">
+            <div class="govuk-summary-list__row">
+              <dt class="govuk-summary-list__key">
+                Ear tag number
+              </dt>
+              <dd class="govuk-summary-list__value">
+                {{ animal.earTagNumber | formatReference }}
+              </dd>
+            </div>
+
+            <div class="govuk-summary-list__row">
+              <dt class="govuk-summary-list__key">
+                Date of birth
+              </dt>
+              <dd class="govuk-summary-list__value">
+                {{ animal.dateOfBirth | fullDateFormat }}
+              </dd>
+            </div>
+
+            <div class="govuk-summary-list__row">
+              <dt class="govuk-summary-list__key">
+                Sex
+              </dt>
+              <dd class="govuk-summary-list__value">
+                {{ animal.sex }}
+              </dd>
+            </div>
+
+            <div class="govuk-summary-list__row">
+              <dt class="govuk-summary-list__key">
+                Breed
+              </dt>
+              <dd class="govuk-summary-list__value">
+                {{ animal.breed.name }}
+
+                {% if animal.breed.code %}
+                ({{ animal.breed.code }})
+                {% endif %}
+              </dd>
+            </div>
+
+            <div class="govuk-summary-list__row">
+              <dt class="govuk-summary-list__key">
+                Status
+              </dt>
+              <dd class="govuk-summary-list__value">
+                {% if animal.status === "Active" %}
+                <strong class="govuk-tag govuk-tag--green">
+                  Active
+                </strong>
+                {% elseif animal.status === "Sold" %}
+                <strong class="govuk-tag govuk-tag--blue">
+                  Sold
+                </strong>
+                {% elseif animal.status === "Deceased" %}
+                <strong class="govuk-tag govuk-tag--grey">
+                  Deceased
+                </strong>
+                {% else %}
+                {{ animal.status }}
+                {% endif %}
+              </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+              <dt class="govuk-summary-list__key">
+                Current location
+              </dt>
+              <dd class="govuk-summary-list__value">
+<!--                //make this dynamic later-->
+                <p class="govuk-body govuk-!-margin-bottom-2">
+                  <a href="../holdings/holding-005">CPH:{{ animal.cph }}</a>
+                </p>
+
+                <p class="govuk-body govuk-!-margin-bottom-0">
+                  Meadow View, North Lane, York, North Yorkshire, YO26 8RW, England
+                </p>
+              </dd>
+            </div>
+          </dl>
+
+          <h2 class="govuk-heading-m">
+            Dam details
+          </h2>
+
+          <dl class="govuk-summary-list">
+            <div class="govuk-summary-list__row">
+              <dt class="govuk-summary-list__key">
+                Dam type
+              </dt>
+              <dd class="govuk-summary-list__value">
+                {{ animal.dam.type }}
+              </dd>
+            </div>
+
+            <div class="govuk-summary-list__row">
+              <dt class="govuk-summary-list__key">
+                Genetic dam ear tag
+              </dt>
+              <dd class="govuk-summary-list__value">
+                {{ animal.dam.geneticDam.earTagNumber | formatReference }}
+              </dd>
+            </div>
+
+            {% if animal.dam.surrogateDam %}
+            <div class="govuk-summary-list__row">
+              <dt class="govuk-summary-list__key">
+                Surrogate dam ear tag
+              </dt>
+              <dd class="govuk-summary-list__value">
+                {{ animal.dam.surrogateDam.earTagNumber | formatReference }}
+              </dd>
+            </div>
+            {% endif %}
+          </dl>
+
+          <h2 class="govuk-heading-m">
+            Sire details
+          </h2>
+
+          {% if animal.sire %}
+          <dl class="govuk-summary-list">
+            <div class="govuk-summary-list__row">
+              <dt class="govuk-summary-list__key">
+                Sire ear tag number
+              </dt>
+              <dd class="govuk-summary-list__value">
+                {{ animal.sire.earTagNumber | formatReference }}
+              </dd>
+            </div>
+
+            <div class="govuk-summary-list__row">
+              <dt class="govuk-summary-list__key">
+                Sire name
+              </dt>
+              <dd class="govuk-summary-list__value">
+                {{ animal.sire.name }}
+              </dd>
+            </div>
+          </dl>
+          {% else %}
+          <p class="govuk-body">
+            No sire details are recorded.
+          </p>
+          {% endif %}
+            </div>
+          </div>
+        </div>
+
+        <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="offspring">
+          <h2 class="govuk-heading-m">
+            {{ offspring.length }} offspring{% if offspring.length != 1 %} records{% else %} record{% endif %}
+          </h2>
+
+          {% if offspring.length %}
+          <table class="govuk-table">
+            <caption class="govuk-table__caption govuk-visually-hidden">
+              Offspring of {{ animal.earTagNumber | formatReference }}
+            </caption>
+
+            <thead class="govuk-table__head">
+            <tr class="govuk-table__row">
+              <th scope="col" class="govuk-table__header">
+                Ear tag number
+              </th>
+
+              <th scope="col" class="govuk-table__header">
+                Date of birth
+              </th>
+
+              <th scope="col" class="govuk-table__header">
+                Sex
+              </th>
+
+              <th scope="col" class="govuk-table__header">
+                Breed
+              </th>
+
+              <th scope="col" class="govuk-table__header">
+                Status
+              </th>
+            </tr>
+            </thead>
+
+            <tbody class="govuk-table__body">
+            {% for calf in offspring %}
+            <tr class="govuk-table__row">
+              <td class="govuk-table__cell">
+                <a class="govuk-link" href="./{{ calf.earTagNumber }}">
+                  {{ calf.earTagNumber | formatReference }}
+                </a>
+              </td>
+
+              <td class="govuk-table__cell">
+                {{ calf.dateOfBirth | shortDateFormat }}
+              </td>
+
+              <td class="govuk-table__cell">
+                {{ calf.sex }}
+              </td>
+
+              <td class="govuk-table__cell">
+                {{ calf.breed.name }}
+              </td>
+
+              <td class="govuk-table__cell">
+                {{ calf.status }}
+              </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+          {% else %}
+          <p class="govuk-body">
+            No offspring are recorded for this animal.
+          </p>
+          {% endif %}
+        </div>
+
+        <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="history">
+          <h2 class="govuk-heading-m">
+            Animal history
+          </h2>
+
+          {% if animalEvents.length %}
+          <ol class="app-timeline">
+            {% for event in animalEvents %}
+            <li class="app-timeline__item">
+              <time class="app-timeline__datetime" datetime="{{ event.event_date }}">
+                {{ event.event_date | fullDateFormat}}
+              </time>
+
+              <h3 class="app-timeline__heading">
+                {% if event.event_type === "birth" %}
+                Birth reported
+                {% elseif event.event_type === "movement" %}
+                Movement reported
+                {% elseif event.event_type === "death" %}
+                Death recorded
+                {% else %}
+                {{ event.event_type | capitalize }}
+                {% endif %}
+              </h3>
+
+              <p class="app-timeline__byline">
+                Reported by {{ event.reported_by }}
+              </p>
+
+              <div class="app-timeline__content">
+                {% if event.event_type === "birth" %}
+                <p class="app-timeline__description">
+                  Animal born at holding {{ event.details.holding_cph }}.
+                </p>
+
+                <ul class="app-timeline__meta">
+                  {% if event.details.dam_id %}
+                  <li class="app-timeline__meta-item">
+                    Genetic dam: {{ event.details.dam_id | formatReference }}
+                  </li>
+                  {% endif %}
+
+                  {% if event.details.surrogate_dam_id %}
+                  <li class="app-timeline__meta-item">
+                    Surrogate dam: {{ event.details.surrogate_dam_id | formatReference }}
+                  </li>
+                  {% endif %}
+
+                  {% if event.details.sire_id %}
+                  <li class="app-timeline__meta-item">
+                    Sire: {{ event.details.sire_id | formatReference }}
+                  </li>
+                  {% endif %}
+
+                  {% if event.details.registration %}
+                  <li class="app-timeline__meta-item">
+                    Registration status: {{ event.details.registration.status }}
+                  </li>
+
+                  <li class="app-timeline__meta-item">
+                    Registered date: {{ event.details.registration.registered_date }}
+                  </li>
+
+                  <li class="app-timeline__meta-item">
+                    DEFRA reference: {{ event.details.registration.defra_reference }}
+                  </li>
+                  {% endif %}
+                </ul>
+                {% endif %}
+
+                {% if event.event_type === "movement" %}
+                <p class="app-timeline__description">
+                  Moved from {{ event.details.from_cph }} to {{ event.details.to_cph }}.
+                </p>
+
+                <ul class="app-timeline__meta">
+                  {% if event.details.reason %}
+                  <li class="app-timeline__meta-item">
+                    Reason: {{ event.details.reason }}
+                  </li>
+                  {% endif %}
+
+                  {% if event.details.to_holding_type %}
+                  <li class="app-timeline__meta-item">
+                    Destination type: {{ event.details.to_holding_type }}
+                  </li>
+                  {% endif %}
+                </ul>
+                {% endif %}
+
+                {% if event.event_type === "death" %}
+                <p class="app-timeline__description">
+                  Death recorded at holding {{ event.details.holding_cph }}.
+                </p>
+
+                <ul class="app-timeline__meta">
+                  {% if event.details.cause %}
+                  <li class="app-timeline__meta-item">
+                    Cause: {{ event.details.cause }}
+                  </li>
+                  {% endif %}
+
+                  {% if event.details.linked_movement_id %}
+                  <li class="app-timeline__meta-item">
+                    Linked movement: {{ event.details.linked_movement_id }}
+                  </li>
+                  {% endif %}
+
+                  {% if event.details.disposal_method %}
+                  <li class="app-timeline__meta-item">
+                    Disposal method: {{ event.details.disposal_method }}
+                  </li>
+                  {% endif %}
+                </ul>
+                {% endif %}
+              </div>
+            </li>
+            {% endfor %}
+          </ol>
+          {% else %}
+          <p class="govuk-body">
+            No history events are recorded for this animal.
+          </p>
+          {% endif %}
+        </div>
+      </div>
     </div>
   </div>
 

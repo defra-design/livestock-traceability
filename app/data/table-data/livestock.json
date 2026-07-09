@@ -56,7 +56,9 @@
       "status": "Active",
       "dam": {
         "type": "Generic",
-        "surrogateDam": null,
+        "surrogateDam": {
+          "earTagNumber": "UK208590753232"
+        },
         "geneticDam": {
           "earTagNumber": "UK864202917556"
         }

@@ -53,6 +53,10 @@
         {
           "species": "Cattle",
           "mark": "UK234567"
+        },
+        {
+          "species": "Cattle",
+          "mark": "UK234221"
         }
       ]
     },
@@ -72,12 +76,12 @@
       "status": "Inactive",
       "holdingType": "Permanent",
       "species": [
-        "Sheep",
+        "Cattle",
         "Goats"
       ],
       "herdAndFlockMarks": [
         {
-          "species": "Sheep",
+          "species": "Cattle",
           "mark": "UK345678"
         },
         {
@@ -132,12 +136,12 @@
       "status": "Active",
       "holdingType": "Permanent",
       "species": [
-        "Sheep",
+        "Cattle",
         "Goats"
       ],
       "herdAndFlockMarks": [
         {
-          "species": "Sheep",
+          "species": "Cattle",
           "mark": "UK567890"
         },
         {
@@ -247,11 +251,11 @@
       "status": "Closed",
       "holdingType": "Permanent",
       "species": [
-        "Sheep"
+        "Cattle"
       ],
       "herdAndFlockMarks": [
         {
-          "species": "Sheep",
+          "species": "Cattle",
           "mark": "UK901234"
         }
       ]
@@ -297,12 +301,12 @@
       "status": "Active",
       "holdingType": "Permanent",
       "species": [
-        "Pigs",
+        "Cattle",
         "Poultry"
       ],
       "herdAndFlockMarks": [
         {
-          "species": "Pigs",
+          "species": "Cattle",
           "mark": "UK112233"
         }
       ]
@@ -448,11 +452,11 @@
       "status": "Active",
       "holdingType": "Permanent",
       "species": [
-        "Sheep"
+        "Cattle"
       ],
       "herdAndFlockMarks": [
         {
-          "species": "Sheep",
+          "species": "Cattle",
           "mark": "UK667788"
         }
       ]

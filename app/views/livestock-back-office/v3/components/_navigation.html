@@ -1,0 +1,26 @@
+{{ govukHeader({
+homepageUrl: "/index.html"
+}) }}
+
+<style>
+    .govuk-service-navigation__list {
+      width: 100%;
+      display: flex;
+    }
+
+    .govuk-service-navigation__item:last-child {
+      margin-left: auto;
+    }
+</style>
+
+{{ govukServiceNavigation({
+serviceName: "Livestock Information",
+serviceUrl: "/livestock-back-office/v2/",
+navigation: [
+
+{
+href: "./sign-out",
+text: "Sign out"
+}
+]
+}) }}

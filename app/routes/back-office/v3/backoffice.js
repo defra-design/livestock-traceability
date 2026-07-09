@@ -1,14 +1,10 @@
 const govukPrototypeKit = require('govuk-prototype-kit');
 const router = govukPrototypeKit.requests.setupRouter();
 
-const baseURL = 'livestock-back-office/v2';
 
-module.exports = router;
+const baseURL = 'livestock-back-office/v3'
 
-
-/**
- * Shared helpers
- */
+module.exports = router
 
 function normalise(value) {
   return String(value || '')
@@ -16,39 +12,6 @@ function normalise(value) {
     .replace(/\s+/g, '')
     .replace(/\//g, '');
 }
-
-function getAnimalByEarTag(req, earTagNumber) {
-  const cattleData = req.session.data.livestock || { animals: [] };
-
-  return cattleData.animals.find((animal) => {
-    return animal.earTagNumber.toLowerCase() === String(earTagNumber).toLowerCase();
-  });
-}
-
-function getOffspring(req, animal) {
-  const cattleData = req.session.data.livestock || { animals: [] };
-
-  return cattleData.animals.filter((record) => {
-    return record.dam?.geneticDam?.earTagNumber === animal.earTagNumber;
-  });
-}
-
-function getAnimalEvents(req, animal) {
-  const eventsData = req.session.data.events_livestock || { events: [] };
-
-  return eventsData.events
-    .filter((event) => {
-      return event.animal_id === animal.earTagNumber;
-    })
-    .sort((a, b) => {
-      return new Date(a.event_date) - new Date(b.event_date);
-    });
-}
-
-
-/**
- * Cattle search
- */
 
 function getFilteredCattle(req) {
   const search = String(req.query.search || '').trim();
@@ -61,7 +24,6 @@ function getFilteredCattle(req) {
       animal.cph,
       animal.earTagNumber,
       animal.dateOfBirth,
-      animal.dateOfRegistration,
       animal.sex,
       animal.breed?.name,
       animal.breed?.code,
@@ -97,24 +59,26 @@ function registerCattleRoute(urlPath, viewPath) {
 }
 
 
-/**
- * Cattle details
- */
+
 
 function getCattleDetails(req, earTagNumber) {
-  const animal = getAnimalByEarTag(req, earTagNumber);
+  const cattleData = req.session.data.livestock || { animals: [] };
+
+  const animal = cattleData.animals.find((animal) => {
+    return animal.earTagNumber.toLowerCase() === String(earTagNumber).toLowerCase();
+  });
 
   if (!animal) {
     return null;
   }
 
-  const offspring = getOffspring(req, animal);
-  const animalEvents = getAnimalEvents(req, animal);
+  const offspring = cattleData.animals.filter((record) => {
+    return record.dam?.geneticDam?.earTagNumber === animal.earTagNumber;
+  });
 
   return {
     animal,
-    offspring,
-    animalEvents
+    offspring
   };
 }
 
@@ -131,16 +95,33 @@ function registerCattleDetailsRoute(urlPath, viewPath) {
     return res.render(baseURL + '/' + viewPath, {
       animal: cattleDetails.animal,
       offspring: cattleDetails.offspring,
-      animalEvents: cattleDetails.animalEvents,
       baseURL
     });
   });
 }
 
+registerCattleRoute('cattle', 'cattle');
+registerCattleRoute('holdings/cattle-register', 'holding-cattle-register');
+router.get('/' + baseURL + '/holdings/cattle/:earTagNumber', (req, res) => {
+  const cattleData = req.session.data.livestock;
 
-/**
- * Holdings search
- */
+  const animal = cattleData.animals.find(
+    (animal) =>
+      animal.earTagNumber.toLowerCase() === req.params.earTagNumber.toLowerCase()
+  );
+
+  if (!animal) {
+    return res.status(404).render(baseURL + '/404', { pageTitle: 'Cattle record not found' });
+  }
+
+  const offspring = cattleData.animals.filter(
+    (record) => record.dam?.geneticDam?.earTagNumber === animal.earTagNumber
+  );
+
+  return res.render(baseURL + '/holding-cattle-details', { animal, offspring });
+});
+
+
 
 function getFilteredHoldings(req) {
   const holdingsData = req.session.data.holdings_v2 || { holdings: [] };
@@ -191,13 +172,79 @@ function registerHoldingsRoute(urlPath, viewPath) {
     });
   });
 }
+registerHoldingsRoute('holdings', 'holdings');
+registerHoldingsRoute('holding-search', 'holding-search');
 
 
-/**
- * Users search
- */
+router.get('/' + baseURL + '/holdings/:id', (req, res) => {
+  const holdingsData = req.session.data.holdings_v2;
+  const usersData = req.session.data.users_v2;
 
-function getFilteredUsers(req) {
+  const holding = holdingsData.holdings.find((holding) => holding.id === req.params.id);
+
+  if (!holding) {
+    return res.status(404).render(baseURL + '/404', { pageName: 'Holding not found' });
+  }
+
+  const users = usersData.users
+    .map((user) => {
+      const holdingMembership = (user.holdings || []).find((membership) => {
+        return membership.holdingId === holding.id;
+      });
+
+      if (!holdingMembership) {
+        return null;
+      }
+
+      return {
+        ...user,
+        holdingRole: holdingMembership.role,
+        speciesManagedByRole: holdingMembership.speciesManagedByRole,
+        cph: holdingMembership.cph
+      };
+    })
+    .filter(Boolean);
+       const cattleHerdMarks = (holding.herdAndFlockMarks || []).filter((item) => {
+         return item.species === 'Cattle';
+       });
+  return res.render(baseURL + '/holding-details', {
+      holding,
+      users,
+      cattleHerdMarks,
+      baseURL
+  });
+
+  router.get('/' + baseURL + '/users/:id', (req, res) => {
+    const usersData = req.session.data.users_v2;
+    const holdingsData = req.session.data.holdings_v2;
+
+    const user = usersData.users.find((user) => user.id === req.params.id);
+
+    if (!user) {
+      return res.status(404).render(baseURL + '/404', { pageName: 'User not found' });
+    }
+
+    const userHoldings = (user.holdings || []).map((membership) => {
+      const holding = holdingsData.holdings.find((holding) => {
+        return holding.id === membership.holdingId;
+      });
+
+      return {
+        ...membership,
+        holding
+      };
+    });
+
+    return res.render(baseURL + '/user-details', {
+      user,
+      userHoldings,
+      baseURL
+    });
+  });
+});
+
+
+router.get('/' + baseURL + '/users', (req, res) => {
   const usersData = req.session.data.users_v2 || { users: [] };
   const search = String(req.query.search || '').trim();
 
@@ -219,107 +266,19 @@ function getFilteredUsers(req) {
     });
   });
 
-  return {
+  return res.render(baseURL + '/users', {
     users,
-    search
-  };
-}
-
-function registerUsersRoute(urlPath, viewPath) {
-  router.get('/' + baseURL + '/' + urlPath, (req, res) => {
-    const userResults = getFilteredUsers(req);
-
-    return res.render(baseURL + '/' + viewPath, {
-      users: userResults.users,
-      search: userResults.search,
-      baseURL
-    });
-  });
-}
-
-
-/**
- * Register list/search routes first
- */
-
-registerCattleRoute('cattle', 'cattle');
-registerCattleRoute('holdings/cattle-register', 'holding-cattle-register');
-
-registerHoldingsRoute('holdings', 'holdings');
-registerHoldingsRoute('holding-search', 'holding-search');
-
-registerUsersRoute('users', 'users');
-
-
-/**
- * Register cattle detail routes
- */
-
-registerCattleDetailsRoute('cattle', 'cattle-details');
-registerCattleDetailsRoute('holdings/cattle', 'holding-cattle-details');
-
-
-/**
- * Holding details
- */
-
-router.get('/' + baseURL + '/holdings/:id', (req, res) => {
-  const holdingsData = req.session.data.holdings_v2 || { holdings: [] };
-  const usersData = req.session.data.users_v2 || { users: [] };
-
-  const holding = holdingsData.holdings.find((holding) => {
-    return holding.id === req.params.id;
-  });
-
-  if (!holding) {
-    return res.status(404).render(baseURL + '/404', {
-      pageName: 'Holding not found'
-    });
-  }
-
-  const users = usersData.users
-    .map((user) => {
-      const holdingMembership = (user.holdings || []).find((membership) => {
-        return membership.holdingId === holding.id;
-      });
-
-      if (!holdingMembership) {
-        return null;
-      }
-
-      return {
-        ...user,
-        holdingRole: holdingMembership.role,
-        speciesManagedByRole: holdingMembership.speciesManagedByRole,
-        cph: holdingMembership.cph
-      };
-    })
-    .filter(Boolean);
-
-  const cattleHerdMarks = (holding.herdAndFlockMarks || []).filter((item) => {
-    return item.species === 'Cattle';
-  });
-
-  return res.render(baseURL + '/holding-details', {
-    holding,
-    users,
-    cattleHerdMarks,
+    search,
     baseURL
   });
 });
 
 
-/**
- * User details
- */
-
 router.get('/' + baseURL + '/users/:id', (req, res) => {
   const usersData = req.session.data.users_v2 || { users: [] };
   const holdingsData = req.session.data.holdings_v2 || { holdings: [] };
 
-  const user = usersData.users.find((user) => {
-    return user.id === req.params.id;
-  });
+  const user = usersData.users.find((user) => user.id === req.params.id);
 
   if (!user) {
     return res.status(404).render(baseURL + '/404', {

@@ -1,0 +1,644 @@
+{
+  "recordCount": 36,
+  "events": [
+    {
+      "id": "evt_0001",
+      "animal_id": "UK864202917556",
+      "event_type": "birth",
+      "event_date": "17-05-2023",
+      "reported_by": "keeper",
+      "details": {
+        "holding_cph": "12/345/0001",
+        "dam_id": "UK457586378257",
+        "surrogate_dam_id": null,
+        "sire_id": null,
+        "registration": {
+          "status": "confirmed",
+          "registered_date": "17-05-2023",
+          "batch_id": "batch_2023_0001",
+          "defra_reference": "REG-2023-0001"
+        }
+      }
+    },
+    {
+      "id": "evt_0002",
+      "animal_id": "UK864202917556",
+      "event_type": "movement",
+      "event_date": "11-10-2025",
+      "reported_by": "keeper",
+      "details": {
+        "from_cph": "12/345/0001",
+        "to_cph": "69/438/0114",
+        "to_holding_type": "abattoir",
+        "reason": "slaughter"
+      }
+    },
+    {
+      "id": "evt_0003",
+      "animal_id": "UK864202917556",
+      "event_type": "death",
+      "event_date": "13-10-2025",
+      "reported_by": "abattoir",
+      "details": {
+        "cause": "slaughter",
+        "cause_label": "Slaughtered at abattoir",
+        "holding_cph": "69/438/0114",
+        "linked_movement_id": "evt_0002",
+        "disposal_method": null
+      }
+    },
+    {
+      "id": "evt_0004",
+      "animal_id": "UK522634146510",
+      "event_type": "birth",
+      "event_date": "14-05-2024",
+      "reported_by": "keeper",
+      "details": {
+        "holding_cph": "24/118/0042",
+        "dam_id": "UK864202917556",
+        "surrogate_dam_id": "UK901132588101",
+        "sire_id": null,
+        "registration": {
+          "status": "confirmed",
+          "registered_date": "15-05-2024",
+          "batch_id": "batch_2024_0002",
+          "defra_reference": "REG-2024-0002"
+        }
+      }
+    },
+    {
+      "id": "evt_0005",
+      "animal_id": "UK522634146510",
+      "event_type": "movement",
+      "event_date": "22-09-2024",
+      "reported_by": "keeper",
+      "details": {
+        "from_cph": "24/118/0042",
+        "to_cph": "18/553/0029",
+        "to_holding_type": "farm",
+        "reason": "summer grazing"
+      }
+    },
+    {
+      "id": "evt_0006",
+      "animal_id": "UK159517919901",
+      "event_type": "birth",
+      "event_date": "23-02-2025",
+      "reported_by": "keeper",
+      "details": {
+        "holding_cph": "31/672/0158",
+        "dam_id": "UK864202917556",
+        "surrogate_dam_id": "UK208590753232",
+        "sire_id": "UK039310588087",
+        "registration": {
+          "status": "confirmed",
+          "registered_date": "25-02-2025",
+          "batch_id": "batch_2025_0003",
+          "defra_reference": "REG-2025-0003"
+        }
+      }
+    },
+    {
+      "id": "evt_0007",
+      "animal_id": "UK159517919901",
+      "event_type": "movement",
+      "event_date": "15-07-2025",
+      "reported_by": "keeper",
+      "details": {
+        "from_cph": "31/672/0158",
+        "to_cph": "66/204/0141",
+        "to_holding_type": "farm",
+        "reason": "veterinary treatment"
+      }
+    },
+    {
+      "id": "evt_0008",
+      "animal_id": "UK132588101360",
+      "event_type": "birth",
+      "event_date": "04-04-2026",
+      "reported_by": "keeper",
+      "details": {
+        "holding_cph": "44/209/0317",
+        "dam_id": "UK765131516511",
+        "surrogate_dam_id": null,
+        "sire_id": null,
+        "registration": {
+          "status": "confirmed",
+          "registered_date": "07-04-2026",
+          "batch_id": "batch_2026_0004",
+          "defra_reference": "REG-2026-0004"
+        }
+      }
+    },
+    {
+      "id": "evt_0009",
+      "animal_id": "UK551643261039",
+      "event_type": "birth",
+      "event_date": "29-07-2022",
+      "reported_by": "keeper",
+      "details": {
+        "holding_cph": "18/553/0029",
+        "dam_id": "UK052474911920",
+        "surrogate_dam_id": "UK208590753232",
+        "sire_id": "UK314575863782",
+        "registration": {
+          "status": "confirmed",
+          "registered_date": "03-08-2022",
+          "batch_id": "batch_2022_0005",
+          "defra_reference": "REG-2022-0005"
+        }
+      }
+    },
+    {
+      "id": "evt_0010",
+      "animal_id": "UK310588087895",
+      "event_type": "birth",
+      "event_date": "30-03-2022",
+      "reported_by": "keeper",
+      "details": {
+        "holding_cph": "27/884/0106",
+        "dam_id": "UK701737377727",
+        "surrogate_dam_id": null,
+        "sire_id": null,
+        "registration": {
+          "status": "confirmed",
+          "registered_date": "06-04-2022",
+          "batch_id": "batch_2022_0006",
+          "defra_reference": "REG-2022-0006"
+        }
+      }
+    },
+    {
+      "id": "evt_0011",
+      "animal_id": "UK310588087895",
+      "event_type": "movement",
+      "event_date": "21-09-2022",
+      "reported_by": "keeper",
+      "details": {
+        "from_cph": "27/884/0106",
+        "to_cph": "15/628/0067",
+        "to_holding_type": "farm",
+        "reason": "veterinary treatment"
+      }
+    },
+    {
+      "id": "evt_0012",
+      "animal_id": "UK946914377354",
+      "event_type": "birth",
+      "event_date": "20-06-2025",
+      "reported_by": "keeper",
+      "details": {
+        "holding_cph": "53/417/0088",
+        "dam_id": "UK052474911920",
+        "surrogate_dam_id": null,
+        "sire_id": null,
+        "registration": {
+          "status": "confirmed",
+          "registered_date": "30-06-2025",
+          "batch_id": "batch_2025_0007",
+          "defra_reference": "REG-2025-0007"
+        }
+      }
+    },
+    {
+      "id": "evt_0013",
+      "animal_id": "UK946914377354",
+      "event_type": "death",
+      "event_date": "02-09-2025",
+      "reported_by": "keeper",
+      "details": {
+        "cause": "natural",
+        "cause_label": "Natural death",
+        "holding_cph": "53/417/0088",
+        "disposal_method": "fallen stock collection",
+        "disposal_reference": "DISP-2025-0007"
+      }
+    },
+    {
+      "id": "evt_0014",
+      "animal_id": "UK052474911920",
+      "event_type": "birth",
+      "event_date": "13-06-2022",
+      "reported_by": "keeper",
+      "details": {
+        "holding_cph": "66/204/0141",
+        "dam_id": "UK310588087895",
+        "surrogate_dam_id": null,
+        "sire_id": null,
+        "registration": {
+          "status": "confirmed",
+          "registered_date": "27-06-2022",
+          "batch_id": "batch_2022_0008",
+          "defra_reference": "REG-2022-0008"
+        }
+      }
+    },
+    {
+      "id": "evt_0015",
+      "animal_id": "UK859075323231",
+      "event_type": "birth",
+      "event_date": "29-12-2023",
+      "reported_by": "keeper",
+      "details": {
+        "holding_cph": "72/391/0254",
+        "dam_id": "UK193908645785",
+        "surrogate_dam_id": null,
+        "sire_id": null,
+        "registration": {
+          "status": "confirmed",
+          "registered_date": "19-01-2024",
+          "batch_id": "batch_2024_0009",
+          "defra_reference": "REG-2024-0009"
+        }
+      }
+    },
+    {
+      "id": "evt_0016",
+      "animal_id": "UK859075323231",
+      "event_type": "death",
+      "event_date": "22-02-2025",
+      "reported_by": "keeper",
+      "details": {
+        "cause": "euthanised_illness",
+        "cause_label": "Euthanised - illness/injury",
+        "holding_cph": "72/391/0254",
+        "disposal_method": "fallen stock collection",
+        "disposal_reference": "DISP-2025-0009"
+      }
+    },
+    {
+      "id": "evt_0017",
+      "animal_id": "UK457586378257",
+      "event_type": "birth",
+      "event_date": "17-12-2022",
+      "reported_by": "keeper",
+      "details": {
+        "holding_cph": "39/740/0193",
+        "dam_id": "UK925127828938",
+        "surrogate_dam_id": "UK241434401087",
+        "sire_id": null,
+        "registration": {
+          "status": "confirmed",
+          "registered_date": "10-01-2023",
+          "batch_id": "batch_2023_0010",
+          "defra_reference": "REG-2023-0010"
+        }
+      }
+    },
+    {
+      "id": "evt_0018",
+      "animal_id": "UK457586378257",
+      "event_type": "movement",
+      "event_date": "24-07-2023",
+      "reported_by": "keeper",
+      "details": {
+        "from_cph": "39/740/0193",
+        "to_cph": "15/628/0067",
+        "to_holding_type": "farm",
+        "reason": "sale"
+      }
+    },
+    {
+      "id": "evt_0019",
+      "animal_id": "UK017373777279",
+      "event_type": "birth",
+      "event_date": "14-02-2025",
+      "reported_by": "keeper",
+      "details": {
+        "holding_cph": "15/628/0067",
+        "dam_id": "UK592532729963",
+        "surrogate_dam_id": null,
+        "sire_id": null,
+        "registration": {
+          "status": "confirmed",
+          "registered_date": "14-02-2025",
+          "batch_id": "batch_2025_0011",
+          "defra_reference": "REG-2025-0011"
+        }
+      }
+    },
+    {
+      "id": "evt_0020",
+      "animal_id": "UK017373777279",
+      "event_type": "movement",
+      "event_date": "02-10-2025",
+      "reported_by": "keeper",
+      "details": {
+        "from_cph": "15/628/0067",
+        "to_cph": "58/103/0122",
+        "to_holding_type": "farm",
+        "reason": "summer grazing"
+      }
+    },
+    {
+      "id": "evt_0021",
+      "animal_id": "UK439125972228",
+      "event_type": "birth",
+      "event_date": "01-04-2024",
+      "reported_by": "keeper",
+      "details": {
+        "holding_cph": "48/952/0205",
+        "dam_id": "UK332151260567",
+        "surrogate_dam_id": null,
+        "sire_id": null,
+        "registration": {
+          "status": "confirmed",
+          "registered_date": "02-04-2024",
+          "batch_id": "batch_2024_0012",
+          "defra_reference": "REG-2024-0012"
+        }
+      }
+    },
+    {
+      "id": "evt_0022",
+      "animal_id": "UK755898557811",
+      "event_type": "birth",
+      "event_date": "19-10-2024",
+      "reported_by": "keeper",
+      "details": {
+        "holding_cph": "21/366/0094",
+        "dam_id": "UK911304820234",
+        "surrogate_dam_id": "UK776513151651",
+        "sire_id": null,
+        "registration": {
+          "status": "confirmed",
+          "registered_date": "21-10-2024",
+          "batch_id": "batch_2024_0013",
+          "defra_reference": "REG-2024-0013"
+        }
+      }
+    },
+    {
+      "id": "evt_0023",
+      "animal_id": "UK755898557811",
+      "event_type": "death",
+      "event_date": "22-01-2025",
+      "reported_by": "keeper",
+      "details": {
+        "cause": "unknown",
+        "cause_label": "Cause not yet confirmed",
+        "holding_cph": "21/366/0094",
+        "disposal_method": "fallen stock collection",
+        "disposal_reference": "DISP-2025-0013"
+      }
+    },
+    {
+      "id": "evt_0024",
+      "animal_id": "UK939086457859",
+      "event_type": "birth",
+      "event_date": "08-01-2025",
+      "reported_by": "keeper",
+      "details": {
+        "holding_cph": "58/103/0122",
+        "dam_id": "UK197618642125",
+        "surrogate_dam_id": null,
+        "sire_id": null,
+        "registration": {
+          "status": "confirmed",
+          "registered_date": "11-01-2025",
+          "batch_id": "batch_2025_0014",
+          "defra_reference": "REG-2025-0014"
+        }
+      }
+    },
+    {
+      "id": "evt_0025",
+      "animal_id": "UK939086457859",
+      "event_type": "movement",
+      "event_date": "31-01-2026",
+      "reported_by": "keeper",
+      "details": {
+        "from_cph": "58/103/0122",
+        "to_cph": "47/215/0169",
+        "to_holding_type": "abattoir",
+        "reason": "slaughter"
+      }
+    },
+    {
+      "id": "evt_0026",
+      "animal_id": "UK939086457859",
+      "event_type": "death",
+      "event_date": "02-02-2026",
+      "reported_by": "abattoir",
+      "details": {
+        "cause": "slaughter",
+        "cause_label": "Slaughtered at abattoir",
+        "holding_cph": "47/215/0169",
+        "linked_movement_id": "evt_0025",
+        "disposal_method": null
+      }
+    },
+    {
+      "id": "evt_0027",
+      "animal_id": "UK251278289382",
+      "event_type": "birth",
+      "event_date": "07-10-2024",
+      "reported_by": "keeper",
+      "details": {
+        "holding_cph": "63/829/0276",
+        "dam_id": "UK401215635844",
+        "surrogate_dam_id": null,
+        "sire_id": null,
+        "registration": {
+          "status": "confirmed",
+          "registered_date": "12-10-2024",
+          "batch_id": "batch_2024_0015",
+          "defra_reference": "REG-2024-0015"
+        }
+      }
+    },
+    {
+      "id": "evt_0028",
+      "animal_id": "UK251278289382",
+      "event_type": "movement",
+      "event_date": "08-07-2025",
+      "reported_by": "keeper",
+      "details": {
+        "from_cph": "63/829/0276",
+        "to_cph": "56/312/0056",
+        "to_holding_type": "farm",
+        "reason": "veterinary treatment"
+      }
+    },
+    {
+      "id": "evt_0029",
+      "animal_id": "UK414344010875",
+      "event_type": "birth",
+      "event_date": "14-05-2024",
+      "reported_by": "keeper",
+      "details": {
+        "holding_cph": "34/547/0031",
+        "dam_id": "UK121040157101",
+        "surrogate_dam_id": null,
+        "sire_id": "UK528457090237",
+        "registration": {
+          "status": "confirmed",
+          "registered_date": "21-05-2024",
+          "batch_id": "batch_2024_0016",
+          "defra_reference": "REG-2024-0016"
+        }
+      }
+    },
+    {
+      "id": "evt_0030",
+      "animal_id": "UK925327299633",
+      "event_type": "birth",
+      "event_date": "07-02-2025",
+      "reported_by": "keeper",
+      "details": {
+        "holding_cph": "47/215/0169",
+        "dam_id": "UK447178862431",
+        "surrogate_dam_id": null,
+        "sire_id": null,
+        "registration": {
+          "status": "confirmed",
+          "registered_date": "17-02-2025",
+          "batch_id": "batch_2025_0017",
+          "defra_reference": "REG-2025-0017"
+        }
+      }
+    },
+    {
+      "id": "evt_0031",
+      "animal_id": "UK925327299633",
+      "event_type": "death",
+      "event_date": "24-06-2025",
+      "reported_by": "keeper",
+      "details": {
+        "cause": "accident",
+        "cause_label": "Accidental death",
+        "holding_cph": "47/215/0169",
+        "disposal_method": "fallen stock collection",
+        "disposal_reference": "DISP-2025-0017"
+      }
+    },
+    {
+      "id": "evt_0032",
+      "animal_id": "UK321512605679",
+      "event_type": "birth",
+      "event_date": "28-11-2023",
+      "reported_by": "keeper",
+      "details": {
+        "holding_cph": "69/438/0114",
+        "dam_id": "UK721767122463",
+        "surrogate_dam_id": "UK728753518518",
+        "sire_id": null,
+        "registration": {
+          "status": "confirmed",
+          "registered_date": "12-12-2023",
+          "batch_id": "batch_2023_0018",
+          "defra_reference": "REG-2023-0018"
+        }
+      }
+    },
+    {
+      "id": "evt_0033",
+      "animal_id": "UK321512605679",
+      "event_type": "movement",
+      "event_date": "30-09-2024",
+      "reported_by": "keeper",
+      "details": {
+        "from_cph": "69/438/0114",
+        "to_cph": "31/672/0158",
+        "to_holding_type": "farm",
+        "reason": "veterinary treatment"
+      }
+    },
+    {
+      "id": "evt_0034",
+      "animal_id": "UK113048202347",
+      "event_type": "birth",
+      "event_date": "24-06-2023",
+      "reported_by": "keeper",
+      "details": {
+        "holding_cph": "25/701/0238",
+        "dam_id": "UK804878885688",
+        "surrogate_dam_id": null,
+        "sire_id": "UK558006689864",
+        "registration": {
+          "status": "confirmed",
+          "registered_date": "15-07-2023",
+          "batch_id": "batch_2023_0019",
+          "defra_reference": "REG-2023-0019"
+        }
+      }
+    },
+    {
+      "id": "evt_0035",
+      "animal_id": "UK113048202347",
+      "event_type": "death",
+      "event_date": "20-01-2024",
+      "reported_by": "keeper",
+      "details": {
+        "cause": "culled_statutory",
+        "cause_label": "Statutory cull",
+        "holding_cph": "25/701/0238",
+        "disposal_method": "fallen stock collection",
+        "disposal_reference": "DISP-2024-0019",
+        "apha_case_reference": "APHA-2024-0019"
+      }
+    },
+    {
+      "id": "evt_0036",
+      "animal_id": "UK765131516511",
+      "event_type": "birth",
+      "event_date": "05-11-2024",
+      "reported_by": "keeper",
+      "details": {
+        "holding_cph": "56/312/0056",
+        "dam_id": "UK476245203267",
+        "surrogate_dam_id": null,
+        "sire_id": null,
+        "registration": {
+          "status": "confirmed",
+          "registered_date": "29-11-2024",
+          "batch_id": "batch_2024_0020",
+          "defra_reference": "REG-2024-0020"
+        }
+      }
+    }
+  ],
+  "death_cause_reference": {
+    "natural": {
+      "label": "Natural death",
+      "reported_by": "keeper",
+      "requires_disposal": true
+    },
+    "euthanised_illness": {
+      "label": "Euthanised - illness/injury",
+      "reported_by": "keeper",
+      "requires_disposal": true
+    },
+    "culled_statutory": {
+      "label": "Statutory cull",
+      "reported_by": "keeper",
+      "requires_disposal": true,
+      "extra_fields": [
+        "apha_case_reference"
+      ]
+    },
+    "accident": {
+      "label": "Accidental death",
+      "reported_by": "keeper",
+      "requires_disposal": true
+    },
+    "stillborn": {
+      "label": "Stillborn",
+      "reported_by": "keeper",
+      "requires_disposal": true
+    },
+    "slaughter": {
+      "label": "Slaughtered at abattoir",
+      "reported_by": "abattoir",
+      "requires_disposal": false,
+      "extra_fields": [
+        "linked_movement_id"
+      ]
+    },
+    "unknown": {
+      "label": "Cause not yet confirmed",
+      "reported_by": "keeper",
+      "requires_disposal": true
+    }
+  }
+}
