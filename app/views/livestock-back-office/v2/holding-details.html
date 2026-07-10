@@ -13,16 +13,17 @@
 
 {% block beforeContent %}
 {% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
-
+{% set pathParts = currentPath.split('/') %}
+{% set currentBaseUrl = '/' + pathParts[1] + '/' + pathParts[2] + '/' %}
 {{ govukBreadcrumbs({
 items: [
 {
 text: "Home",
-href: "./home"
+href: currentBaseUrl+"home"
 },
 {
 text: "Holdings",
-href: "#"
+href: currentBaseUrl+"cattle"
 }
 ]
 }) }}

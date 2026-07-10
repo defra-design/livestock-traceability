@@ -102,7 +102,7 @@ href: "./home"
         <article class="app-search-result__item">
             <h2 class="govuk-heading-m govuk-!-margin-bottom-2 govuk-!-margin-top-4">
                 <a class="govuk-link" href="./holdings/{{ holding.id }}">
-                    {{ holding.cph }}
+                    {{ holding.cph }} - {{ holding.holdingName  }}
                 </a>
             </h2>
 
@@ -112,7 +112,7 @@ href: "./home"
 
             <ul class="govuk-list govuk-!-margin-bottom-0">
                 <li>
-                    {{ holding.address.addressLine1 }}{% if holding.address.addressLine2 %}, {{ holding.address.addressLine2 }}{% endif %}, {{ holding.address.town }}{% if holding.address.county %}, {{ holding.address.county }}{% endif %}, {{ holding.address.postcode }}
+                     {{ holding.address.addressLine1 }}{% if holding.address.addressLine2 %}, {{ holding.address.addressLine2 }}{% endif %}, {{ holding.address.town }}{% if holding.address.county %}, {{ holding.address.county }}{% endif %}, {{ holding.address.postcode }}
                 </li>
 
                 <li>

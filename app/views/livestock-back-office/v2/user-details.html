@@ -11,13 +11,22 @@
 
 {% endblock %}
 
+
 {% block beforeContent %}
-
-{{ govukBackLink({
-text: "Back",
-href: "javascript:window.history.back()"
-}) }}
-
+    {% set pathParts = currentPath.split('/') %}
+    {% set currentBaseUrl = '/' + pathParts[1] + '/' + pathParts[2] + '/' %}
+    {{ govukBreadcrumbs({
+    items: [
+    {
+    text: "Home",
+    href: currentBaseUrl+"home"
+    },
+{
+text: "Keepers",
+href: currentBaseUrl+"users"
+}
+    ]
+    }) }}
 {% endblock %}
 
 {% block content %}

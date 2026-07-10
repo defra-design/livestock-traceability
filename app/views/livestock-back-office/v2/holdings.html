@@ -13,11 +13,13 @@
 {% endblock %}
 
 {% block beforeContent %}
+{% set pathParts = currentPath.split('/') %}
+{% set currentBaseUrl = '/' + pathParts[1] + '/' + pathParts[2] + '/' %}
 {{ govukBreadcrumbs({
 items: [
 {
 text: "Home",
-href: "./home"
+href: "home"
 }
 ]
 }) }}
