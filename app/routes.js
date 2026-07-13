@@ -13,18 +13,19 @@ const path = require('path');
 
 //Add middleware to include query to all pages
 router.use(function(req, res, next) {
-    if (req.query.cleardata === 'true') {
-            return req.session.destroy(function(err) {
-                if (err) {
-                    return next(err);
-                }
+   if (req.query.cleardata === 'true') {
+           return req.session.destroy(function(err) {
+               if (err) {
+                   return next(err);
+               }
 
-                return res.redirect(req.path);
-            });
-    }
-    res.locals.query = req.query;
-    res.locals.host = req.headers.host;
-    next();
+               return res.redirect(req.path);
+           });
+   }
+   res.locals.query = req.query;
+   res.locals.host = req.headers.host;
+   res.locals.currentPath = req.path;
+   next();
 });
 
 //Add middleware to include radio redirects, This is taken from

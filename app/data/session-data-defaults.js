@@ -2,6 +2,9 @@ const livestock = require('./table-data/livestock.json');
 const livestockSameHerd = require('./table-data/livestock-same-herd.json');
 const holdings = require('./table-data/holdings.json');
 const holdingsSingleCph = require('./table-data/holdings-single-cph.json');
+const holdings_v2 = require('./table-data/versions/v2/holdings.json');
+const users_v2 = require('./table-data/versions/v2/users.json');
+const events_livestock = require('./table-data/events-livestock.json');
 
 module.exports = {
   delegates: [
@@ -10,6 +13,9 @@ module.exports = {
   livestock : livestock,
   livestockSameHerd : livestockSameHerd,
   holdings : holdings,
+  holdings_v2 : holdings_v2,
+  users_v2 : users_v2,
+  events_livestock : events_livestock,
   holdingsSingleCph : holdingsSingleCph,
   singleCph: '23/456/0001'
 }

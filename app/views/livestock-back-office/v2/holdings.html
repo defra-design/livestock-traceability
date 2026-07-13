@@ -1,0 +1,215 @@
+{% extends "layouts/main.html" %}
+
+{% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
+
+{% set pageName="Holdings" %}
+
+{% set activeNav = "my-holdings" %}
+
+{% block header %}
+
+{% block navBar %}{% include "./components/_navigation.html" %}{% endblock %}
+
+{% endblock %}
+
+{% block beforeContent %}
+{% set pathParts = currentPath.split('/') %}
+{% set currentBaseUrl = '/' + pathParts[1] + '/' + pathParts[2] + '/' %}
+{{ govukBreadcrumbs({
+items: [
+{
+text: "Home",
+href: "home"
+}
+]
+}) }}
+{% endblock %}
+
+{% block content %}
+
+{%- from "govuk/components/checkboxes/macro.njk" import govukCheckboxes -%}
+{%- from "govuk/components/input/macro.njk" import govukInput -%}
+{%- from "govuk/components/table/macro.njk" import govukTable -%}
+
+
+
+<div>
+  <h1 class="govuk-heading-l">
+    Holdings
+  </h1>
+</div>
+
+
+
+  <div>
+    {% set filterHint = 'Search by CHP number, holding name or postcode' %}
+    {% block filterBar %}{% include "./components/_filter-bar.html" %}{% endblock %}
+  <div>
+
+
+      {% if not search %}
+
+      <div class="govuk-grid-row">
+          <div class="govuk-grid-column-two-thirds">
+              <p class="govuk-body">
+                  You can search using:
+              </p>
+
+              <ul class="govuk-list govuk-list--bullet">
+                  <li>CPH number, for example 12/345/0001</li>
+                  <li>holding name, for example Oakfield Farm</li>
+                  <li>postcode, for example SY4 1AB</li>
+              </ul>
+          </div>
+      </div>
+
+      {% else %}
+
+      <p class="govuk-body" aria-live="polite">
+          {{ holdings.length }}
+          {% if holdings.length === 1 %}
+          holding matches
+          {% else %}
+          holdings match
+          {% endif %}
+          <strong>‘{{ search }}’</strong>
+      </p>
+
+      <p class="govuk-body">
+          <a class="govuk-link" href="./holdings">
+              Clear search
+          </a>
+      </p>
+
+      {% if holdings.length %}
+      <table class="govuk-table">
+          <caption class="govuk-table__caption govuk-visually-hidden">
+              Holdings search results
+          </caption>
+
+          <thead class="govuk-table__head">
+          <tr class="govuk-table__row">
+              <th scope="col" class="govuk-table__header">
+                  CPH
+              </th>
+              <th scope="col" class="govuk-table__header">
+                  Holding name
+              </th>
+              <th scope="col" class="govuk-table__header">
+                  Town or county
+              </th>
+              <th scope="col" class="govuk-table__header">
+                  Postcode
+              </th>
+              <th scope="col" class="govuk-table__header">
+                  Livestock
+              </th>
+              <th scope="col" class="govuk-table__header">
+                  Status
+              </th>
+          </tr>
+          </thead>
+
+          <tbody class="govuk-table__body">
+          {% for holding in holdings %}
+          <tr class="govuk-table__row">
+              <td class="govuk-table__cell">
+                  <a
+                          class="govuk-link"
+                          href="./holdings/{{ holding.id }}"
+                  >
+                      {{ holding.cph }}
+                  </a>
+              </td>
+
+              <td class="govuk-table__cell">
+                  {{ holding.holdingName }}
+              </td>
+
+              <td class="govuk-table__cell">
+                  {{ holding.address.town }}
+                  <br>
+                  <span class="govuk-hint govuk-!-margin-bottom-0">
+                {{ holding.address.county }}
+              </span>
+              </td>
+
+              <td class="govuk-table__cell">
+                  {{ holding.address.postcode }}
+              </td>
+
+              <td class="govuk-table__cell">
+                  {{ holding.species | join(", ") }}
+              </td>
+
+              <td class="govuk-table__cell">
+                  {% if holding.status === "Active" %}
+                  <strong class="govuk-tag govuk-tag--green">
+                      Active
+                  </strong>
+                  {% elseif holding.status === "Inactive" %}
+                  <strong class="govuk-tag govuk-tag--yellow">
+                      Inactive
+                  </strong>
+                  {% elseif holding.status === "Closed" %}
+                  <strong class="govuk-tag govuk-tag--grey">
+                      Closed
+                  </strong>
+                  {% else %}
+                  {{ holding.status }}
+                  {% endif %}
+              </td>
+          </tr>
+          {% endfor %}
+          </tbody>
+      </table>
+      {% else %}
+      <p class="govuk-body">
+          No holdings found.
+      </p>
+      {% endif %}
+
+      {% endif %}
+      {% if search and holdings.length >= 16 %}
+      <div class="govuk-grid-row govuk-!-margin-top-6">
+          <div class="govuk-grid-column-two-thirds">
+              {{ govukPagination({
+              next: {
+              href: "#"
+              },
+              items: [
+              {
+              number: 1,
+              current: true,
+              href: "#"
+              },
+              {
+              number: 2,
+              href: "#"
+              },
+              {
+              number: 3,
+              href: "#"
+              },
+              {
+              ellipsis: true
+              },
+              {
+              number: 50,
+              href: "#"
+              }
+              ]
+              }) }}
+          </div>
+
+          <div class="govuk-grid-column-one-third govuk-!-text-align-right">
+              <p class="govuk-body govuk-!-margin-top-2">
+                  Showing 1 to 50 of 1000
+              </p>
+          </div>
+      </div>
+      {% endif %}
+</div>
+  </div>
+
+{% endblock %}

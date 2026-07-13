@@ -19,7 +19,8 @@
           "earTagNumber": "UK457586378257"
         }
       },
-      "sire": null
+      "sire": null,
+      "dateOfRegistration": "17-05-2023"
     },
     {
       "cph": "23/792/8936",
@@ -40,7 +41,8 @@
           "earTagNumber": "UK864202917556"
         }
       },
-      "sire": null
+      "sire": null,
+      "dateOfRegistration": "15-05-2024"
     },
     {
       "cph": "37/338/8280",
@@ -54,7 +56,9 @@
       "status": "Active",
       "dam": {
         "type": "Generic",
-        "surrogateDam": null,
+        "surrogateDam": {
+          "earTagNumber": "UK208590753232"
+        },
         "geneticDam": {
           "earTagNumber": "UK864202917556"
         }
@@ -62,7 +66,8 @@
       "sire": {
         "earTagNumber": "UK039310588087",
         "name": "Highland Monarch"
-      }
+      },
+      "dateOfRegistration": "25-02-2025"
     },
     {
       "cph": "67/703/4558",
@@ -81,7 +86,8 @@
           "earTagNumber": "UK765131516511"
         }
       },
-      "sire": null
+      "sire": null,
+      "dateOfRegistration": "07-04-2026"
     },
     {
       "cph": "45/259/3528",
@@ -105,7 +111,8 @@
       "sire": {
         "earTagNumber": "UK314575863782",
         "name": ""
-      }
+      },
+      "dateOfRegistration": "03-08-2022"
     },
     {
       "cph": "55/967/5636",
@@ -124,7 +131,8 @@
           "earTagNumber": "UK701737377727"
         }
       },
-      "sire": null
+      "sire": null,
+      "dateOfRegistration": "06-04-2022"
     },
     {
       "cph": "20/665/4804",
@@ -143,7 +151,8 @@
           "earTagNumber": "UK052474911920"
         }
       },
-      "sire": null
+      "sire": null,
+      "dateOfRegistration": "30-06-2025"
     },
     {
       "cph": "18/146/3734",
@@ -162,7 +171,8 @@
           "earTagNumber": "UK310588087895"
         }
       },
-      "sire": null
+      "sire": null,
+      "dateOfRegistration": "27-06-2022"
     },
     {
       "cph": "45/564/5978",
@@ -181,7 +191,8 @@
           "earTagNumber": "UK193908645785"
         }
       },
-      "sire": null
+      "sire": null,
+      "dateOfRegistration": "19-01-2024"
     },
     {
       "cph": "97/763/1170",
@@ -202,7 +213,8 @@
           "earTagNumber": "UK925127828938"
         }
       },
-      "sire": null
+      "sire": null,
+      "dateOfRegistration": "10-01-2023"
     },
     {
       "cph": "69/488/4423",
@@ -221,7 +233,8 @@
           "earTagNumber": "UK592532729963"
         }
       },
-      "sire": null
+      "sire": null,
+      "dateOfRegistration": "14-02-2025"
     },
     {
       "cph": "39/941/0526",
@@ -240,7 +253,8 @@
           "earTagNumber": "UK332151260567"
         }
       },
-      "sire": null
+      "sire": null,
+      "dateOfRegistration": "02-04-2024"
     },
     {
       "cph": "82/997/5156",
@@ -261,7 +275,8 @@
           "earTagNumber": "UK911304820234"
         }
       },
-      "sire": null
+      "sire": null,
+      "dateOfRegistration": "21-10-2024"
     },
     {
       "cph": "43/242/4041",
@@ -280,7 +295,8 @@
           "earTagNumber": "UK197618642125"
         }
       },
-      "sire": null
+      "sire": null,
+      "dateOfRegistration": "11-01-2025"
     },
     {
       "cph": "61/470/3594",
@@ -299,7 +315,8 @@
           "earTagNumber": "UK401215635844"
         }
       },
-      "sire": null
+      "sire": null,
+      "dateOfRegistration": "12-10-2024"
     },
     {
       "cph": "29/742/2622",
@@ -321,7 +338,8 @@
       "sire": {
         "earTagNumber": "UK528457090237",
         "name": "Blackthorn Major"
-      }
+      },
+      "dateOfRegistration": "21-05-2024"
     },
     {
       "cph": "58/710/7669",
@@ -340,7 +358,8 @@
           "earTagNumber": "UK447178862431"
         }
       },
-      "sire": null
+      "sire": null,
+      "dateOfRegistration": "17-02-2025"
     },
     {
       "cph": "78/868/4372",
@@ -361,7 +380,8 @@
           "earTagNumber": "UK721767122463"
         }
       },
-      "sire": null
+      "sire": null,
+      "dateOfRegistration": "12-12-2023"
     },
     {
       "cph": "30/564/0054",
@@ -383,7 +403,8 @@
       "sire": {
         "earTagNumber": "UK558006689864",
         "name": "Cwm Valley Duke"
-      }
+      },
+      "dateOfRegistration": "15-07-2023"
     },
     {
       "cph": "23/991/4890",
@@ -402,7 +423,8 @@
           "earTagNumber": "UK476245203267"
         }
       },
-      "sire": null
+      "sire": null,
+      "dateOfRegistration": "29-11-2024"
     }
   ]
 }

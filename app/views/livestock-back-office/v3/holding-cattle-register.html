@@ -1,0 +1,224 @@
+{% extends "layouts/main.html" %}
+
+{% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
+
+{% set pageName="Cattle register" %}
+
+{% set activeNav = "my-holdings" %}
+
+{% block header %}
+
+{% block navBar %}{% include "./components/_navigation.html" %}{% endblock %}
+
+{% endblock %}
+
+{% block beforeContent %}
+{% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
+
+{{ govukBreadcrumbs({
+items: [
+{
+text: "Holdings",
+href: "../holdings"
+}
+]
+}) }}
+{% endblock %}
+
+{% block content %}
+
+{%- from "govuk/components/checkboxes/macro.njk" import govukCheckboxes -%}
+{%- from "govuk/components/input/macro.njk" import govukInput -%}
+{%- from "govuk/components/table/macro.njk" import govukTable -%}
+
+{% set currentHolding = query.name or 'Oakfield Farm' %}
+{% set currentCPH = query.cph or '12/345/0001' %}
+{% set currentID = query.id or 'holding-001' %}
+
+<span class="govuk-caption-l">
+        CPH number {{ currentCPH }}
+</span>
+
+<h1 class="govuk-heading-l">
+    {{ currentHolding }}
+</h1>
+
+<nav class="moj-sub-navigation" aria-label="Sub navigation">
+    <ul class="moj-sub-navigation__list">
+        <li class="moj-sub-navigation__item">
+            <a class="moj-sub-navigation__link"  href="./{{currentID}}">Holding details</a>
+        </li>
+        <li class="moj-sub-navigation__item">
+            <a class="moj-sub-navigation__link" aria-current="page" href="./cattle-register">Livestock information</a>
+        </li>
+    </ul>
+</nav>
+
+  <div>
+      {% set filterHint = "Search by ear tag number, herd number, breed or status" %}
+    {% block filterBar %}{% include "./components/_filter-bar.html" %}{% endblock %}
+
+  <div>
+
+    <p class="govuk-body" aria-live="polite">
+      {% if search %}
+      {{ cattle.length }}
+      {% if cattle.length === 1 %}
+      registered cattle record matches
+      {% else %}
+      registered cattle records match
+      {% endif %}
+        <strong>‘{{ search }}’</strong>
+      {% else %}
+      {{ cattle.length }} registered cattle
+      {% endif %}
+    </p>
+
+        {% if search %}
+        <p class="govuk-body">
+          <a class="govuk-link" href="./cattle-register">
+            Clear search
+          </a>
+        </p>
+        {% endif %}
+
+
+    {% if cattle.length %}
+    <table class="govuk-table">
+
+      <thead class="govuk-table__head">
+      <tr class="govuk-table__row">
+<!--        <th scope="col" class="govuk-table__header">-->
+<!--          CPH-->
+<!--        </th>-->
+
+        <th scope="col" class="govuk-table__header">
+          Ear tag number
+        </th>
+
+        <th scope="col" class="govuk-table__header">
+          Date of birth
+        </th>
+          <th scope="col" class="govuk-table__header">
+              Date of registration
+          </th>
+
+        <th scope="col" class="govuk-table__header">
+          Sex
+        </th>
+
+        <th scope="col" class="govuk-table__header">
+          Breed
+        </th>
+
+        <th scope="col" class="govuk-table__header">
+          Status
+        </th>
+      </tr>
+      </thead>
+
+      <tbody class="govuk-table__body">
+      {% for animal in cattle %}
+      <tr class="govuk-table__row">
+
+<!--        <td class="govuk-table__cell">-->
+<!--          {{ animal.cph }}-->
+<!--        </td>-->
+
+          <th scope="row" class="govuk-table__header">
+         <a href="./cattle/{{ animal.earTagNumber }}">{{ animal.earTagNumber | formatReference }}</a>
+        </th>
+
+        <td class="govuk-table__cell">
+          {{ animal.dateOfBirth | shortDateFormat}}
+        </td>
+          <td class="govuk-table__cell">
+              {{ animal.dateOfRegistration | shortDateFormat}}
+          </td>
+
+        <td class="govuk-table__cell">
+            {{ animal.sex | sexToLetter}}
+        </td>
+
+        <td class="govuk-table__cell">
+          {{ animal.breed.name }}
+          {% if animal.breed.code %}
+          ({{ animal.breed.code }})
+          {% endif %}
+        </td>
+
+        <td class="govuk-table__cell">
+          {% if animal.status === "Active" %}
+          <strong class="govuk-tag govuk-tag--green">
+            Active
+          </strong>
+          {% elseif animal.status === "Sold" %}
+          <strong class="govuk-tag govuk-tag--blue">
+            Sold
+          </strong>
+          {% elseif animal.status === "Deceased" %}
+          <strong class="govuk-tag govuk-tag--grey">
+            Deceased
+          </strong>
+          {% else %}
+          <strong class="govuk-tag">
+            {{ animal.status }}
+          </strong>
+          {% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <div class="govuk-inset-text">
+      No cattle records found
+      {% if search %}
+      for “{{ search }}”.
+      {% else %}
+      .
+      {% endif %}
+    </div>
+    {% endif %}
+      {% if not search %}
+      <div class="govuk-grid-row govuk-!-margin-top-6">
+          <div class="govuk-grid-column-two-thirds">
+              {{ govukPagination({
+              next: {
+              href: "#"
+              },
+              items: [
+              {
+              number: 1,
+              current: true,
+              href: "#"
+              },
+              {
+              number: 2,
+              href: "#"
+              },
+              {
+              number: 3,
+              href: "#"
+              },
+              {
+              ellipsis: true
+              },
+              {
+              number: 50,
+              href: "#"
+              }
+              ]
+              }) }}
+          </div>
+
+          <div class="govuk-grid-column-one-third govuk-!-text-align-right">
+              <p class="govuk-body govuk-!-margin-top-2">
+                  Showing 1 to {{ cattle.length }} of 1000
+              </p>
+          </div>
+      </div>
+      {% endif %}
+</div>
+
+{% endblock %}

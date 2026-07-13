@@ -1,0 +1,145 @@
+{% extends "layouts/main.html" %}
+
+{% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
+
+{% set pageName="Cattle register" %}
+
+{% set activeNav = "my-holdings" %}
+
+{% block header %}
+
+{% block navBar %}{% include "./components/_navigation.html" %}{% endblock %}
+
+{% endblock %}
+
+{% block beforeContent %}
+    {% set pathParts = currentPath.split('/') %}
+    {% set currentBaseUrl = '/' + pathParts[1] + '/' + pathParts[2] + '/' %}
+    {{ govukBreadcrumbs({
+    items: [
+    {
+    text: "Home",
+    href: currentBaseUrl+"home"
+    }
+    ]
+    }) }}
+{% endblock %}
+
+{% block content %}
+
+{%- from "govuk/components/checkboxes/macro.njk" import govukCheckboxes -%}
+{%- from "govuk/components/input/macro.njk" import govukInput -%}
+{%- from "govuk/components/table/macro.njk" import govukTable -%}
+
+
+
+<div>
+  <h1 class="govuk-heading-l">
+    Keepers
+  </h1>
+</div>
+
+
+
+<div>
+    {% set filterHint = 'Search by name, postcode, email, phone or security word' %}
+    {% block filterBar %}{% include "./components/_filter-bar.html" %}{% endblock %}
+</div>
+
+
+{% if not search %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <p class="govuk-body">
+            You can search using:
+        </p>
+
+        <ul class="govuk-list govuk-list--bullet">
+            <li>name, for example James Williams</li>
+            <li>postcode, for example SY4 1AB</li>
+            <li>email address, for example james.williams@example.com</li>
+            <li>phone number, for example 07700 900001</li>
+        </ul>
+    </div>
+</div>
+
+{% else %}
+
+<p class="govuk-body" aria-live="polite">
+    {{ users.length }}
+    {% if users.length === 1 %}
+    user matches
+    {% else %}
+    users match
+    {% endif %}
+    <strong>‘{{ search }}’</strong>
+</p>
+
+<p class="govuk-body">
+    <a class="govuk-link" href="./users">
+        Clear search
+    </a>
+</p>
+
+{% if users.length %}
+<table class="govuk-table">
+    <caption class="govuk-table__caption govuk-visually-hidden">
+        Users search results
+    </caption>
+    <thead class="govuk-table__head">
+    <tr class="govuk-table__row">
+        <th scope="col" class="govuk-table__header">Name</th>
+        <th scope="col" class="govuk-table__header">Phone</th>
+        <th scope="col" class="govuk-table__header">Postcode</th>
+        <th scope="col" class="govuk-table__header">Date joined</th>
+        <th scope="col" class="govuk-table__header">Last activity</th>
+        <th scope="col" class="govuk-table__header">Holdings</th>
+    </tr>
+    </thead>
+
+    <tbody class="govuk-table__body">
+    {% for user in users %}
+    <tr class="govuk-table__row">
+        <th scope="row" class="govuk-table__header">
+            <a class="govuk-link" href="./users/{{ user.id }}">
+                {{ user.name }}
+            </a>
+        </th>
+
+
+        <td class="govuk-table__cell">
+            {{ user.phone }}
+        </td>
+
+        <td class="govuk-table__cell">
+            {{ user.address.postcode }}
+        </td>
+
+        <td class="govuk-table__cell">
+            {{ user.dateJoined  | shortDateFormat }}
+        </td>
+
+        <td class="govuk-table__cell">
+            {{ user.lastActivityDate  | shortDateFormat }}
+        </td>
+
+        <td class="govuk-table__cell">
+            {{ user.holdings.length }}
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p class="govuk-body">
+    No users found.
+</p>
+{% endif %}
+
+{% endif %}
+
+  </div>
+  </div>
+
+{% endblock %}

@@ -1,0 +1,70 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Livestock Information Service" %}
+
+{% block header %}
+
+{% block navBar %}{% include "./components/_navigation.html" %}{% endblock %}
+
+{% endblock %}
+
+{% block beforeContent %}
+<style>
+  .app-account-context {
+  background-color: #d2e2f1;
+  border-bottom: 1px solid #1d70b8;
+}
+</style>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-width-container">
+  <h1 class="govuk-heading-xl">
+    Livestock Information Service
+  </h1>
+
+  <ul class="govuk-grid-row card-group">
+    <li class="govuk-grid-column-one-third card-group__item">
+      <div class="card card--clickable" data-test="holdings">
+        <h2 class="govuk-heading-m card__heading">
+          <a class="govuk-link card__link govuk-link--no-visited-state" href="./holdings">
+            Holdings
+          </a>
+        </h2>
+        <p class="govuk-body card__description">
+          Search for holdings by CPH, holding name, postcode, species, status or herd and flock mark.
+        </p>
+      </div>
+    </li>
+
+    <li class="govuk-grid-column-one-third card-group__item">
+      <div class="card card--clickable" data-test="users">
+        <h2 class="govuk-heading-m card__heading">
+          <a class="govuk-link card__link govuk-link--no-visited-state" href="./users">
+            Keepers
+          </a>
+        </h2>
+        <p class="govuk-body card__description">
+          Search for keepers, holding owners and agents by name, postcode, email, phone or security word.
+        </p>
+      </div>
+    </li>
+
+    <li class="govuk-grid-column-one-third card-group__item">
+      <div class="card card--clickable" data-test="livestock">
+        <h2 class="govuk-heading-m card__heading">
+          <a class="govuk-link card__link govuk-link--no-visited-state" href="./cattle">
+            Livestock
+          </a>
+        </h2>
+        <p class="govuk-body card__description">
+          Search for livestock records by ear tag, species, status or holding.
+        </p>
+      </div>
+    </li>
+  </ul>
+</div>
+
+{% endblock %}

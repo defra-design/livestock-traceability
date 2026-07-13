@@ -1,0 +1,184 @@
+{% extends "layouts/main.html" %}
+
+{% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
+
+{% set pageName="Animal detail view" %}
+
+{% set activeNav = "my-holdings" %}
+
+{% block header %}
+
+{% block navBar %}{% include "./components/_navigation.html" %}{% endblock %}
+
+{% endblock %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+          <span class="govuk-caption-l">
+            CPH number: {{animal.cph}}
+          </span>
+
+      <h1 class="govuk-heading-l">
+        {{ animal.earTagNumber  | formatReference }}
+      </h1>
+
+      <h2 class="govuk-heading-m">
+        Cattle details
+      </h2>
+
+      <dl class="govuk-summary-list">
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Ear tag number
+          </dt>
+          <dd class="govuk-summary-list__value">
+            {{ animal.earTagNumber | formatReference }}
+          </dd>
+        </div>
+
+
+
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Date of birth
+          </dt>
+          <dd class="govuk-summary-list__value">
+            {{ animal.dateOfBirth  | fullDateFormat}}
+          </dd>
+        </div>
+
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Date of registration
+          </dt>
+          <dd class="govuk-summary-list__value">
+            {{ animal.dateOfRegistration  | fullDateFormat}}
+          </dd>
+        </div>
+
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Sex
+          </dt>
+          <dd class="govuk-summary-list__value">
+            {{ animal.sex}}
+          </dd>
+        </div>
+
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Breed
+          </dt>
+          <dd class="govuk-summary-list__value">
+            {{ animal.breed.name }}
+
+            {% if animal.breed.code %}
+            ({{ animal.breed.code }})
+            {% endif %}
+          </dd>
+        </div>
+
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Status
+          </dt>
+          <dd class="govuk-summary-list__value">
+            {% if animal.status === "Active" %}
+            <strong class="govuk-tag govuk-tag--green">
+              Active
+            </strong>
+            {% elseif animal.status === "Sold" %}
+            <strong class="govuk-tag govuk-tag--blue">
+              Sold
+            </strong>
+            {% elseif animal.status === "Deceased" %}
+            <strong class="govuk-tag govuk-tag--grey">
+              Deceased
+            </strong>
+            {% else %}
+            {{ animal.status }}
+            {% endif %}
+          </dd>
+        </div>
+      </dl>
+
+      <h2 class="govuk-heading-m">
+        Dam details
+      </h2>
+
+      <dl class="govuk-summary-list">
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Dam type
+          </dt>
+          <dd class="govuk-summary-list__value">
+            {{ animal.dam.type }}
+          </dd>
+        </div>
+
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Genetic dam ear tag
+          </dt>
+          <dd class="govuk-summary-list__value">
+            {{ animal.dam.geneticDam.earTagNumber  | formatReference }}
+          </dd>
+        </div>
+
+        {% if animal.dam.surrogateDam %}
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Surrogate dam ear tag
+          </dt>
+          <dd class="govuk-summary-list__value">
+            {{ animal.dam.surrogateDam.earTagNumber  | formatReference }}
+          </dd>
+        </div>
+        {% endif %}
+      </dl>
+
+      <h2 class="govuk-heading-m">
+        Sire details
+      </h2>
+
+      {% if animal.sire %}
+      <dl class="govuk-summary-list">
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Sire ear tag number
+          </dt>
+          <dd class="govuk-summary-list__value">
+            {{ animal.sire.earTagNumber  | formatReference }}
+          </dd>
+        </div>
+
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Sire name
+          </dt>
+          <dd class="govuk-summary-list__value">
+            {{ animal.sire.name }}
+          </dd>
+        </div>
+      </dl>
+      {% else %}
+      <p class="govuk-body">
+        No sire details are recorded.
+      </p>
+      {% endif %}
+      </div>
+    </div>
+
+
+
+{% endblock %}

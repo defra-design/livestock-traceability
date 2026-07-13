@@ -1,0 +1,292 @@
+{% extends "layouts/main.html" %}
+
+{% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
+
+{% set pageName = "Holding details" %}
+{% set activeNav = "my-holdings" %}
+
+{% block header %}
+
+{% block NavBar %}{% include "./components/_navigation.html" %}{% endblock %}
+
+{% endblock %}
+
+
+{% block beforeContent %}
+    {% set pathParts = currentPath.split('/') %}
+    {% set currentBaseUrl = '/' + pathParts[1] + '/' + pathParts[2] + '/' %}
+    {{ govukBreadcrumbs({
+    items: [
+    {
+    text: "Home",
+    href: currentBaseUrl+"home"
+    },
+{
+text: "Keepers",
+href: currentBaseUrl+"users"
+}
+    ]
+    }) }}
+{% endblock %}
+
+{% block content %}
+
+<span class="govuk-caption-l">User</span>
+<h1 class="govuk-heading-l">{{ user.name }}</h1>
+
+<div class="govuk-tabs" data-module="govuk-tabs">
+    <h2 class="govuk-tabs__title">
+        Contents
+    </h2>
+
+    <ul class="govuk-tabs__list">
+        <li class="govuk-tabs__list-item govuk-tabs__list-item--selected">
+            <a class="govuk-tabs__tab" href="#details">
+                Details
+            </a>
+        </li>
+
+        <li class="govuk-tabs__list-item">
+            <a class="govuk-tabs__tab" href="#holdings">
+                Holdings
+            </a>
+        </li>
+
+        <li class="govuk-tabs__list-item">
+            <a class="govuk-tabs__tab" href="#activity">
+                Activity
+            </a>
+        </li>
+    </ul>
+
+    <div class="govuk-tabs__panel" id="details">
+        <h2 class="govuk-heading-m">User details</h2>
+
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-two-thirds">
+
+                <dl class="govuk-summary-list">
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">Name</dt>
+                        <dd class="govuk-summary-list__value">{{ user.name }}</dd>
+                    </div>
+
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">Email</dt>
+                        <dd class="govuk-summary-list__value">
+                            <a class="govuk-link" href="mailto:{{ user.email }}">{{ user.email }}</a>
+                        </dd>
+                    </div>
+
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">Phone</dt>
+                        <dd class="govuk-summary-list__value">{{ user.phone }}</dd>
+                    </div>
+
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">Address</dt>
+                        <dd class="govuk-summary-list__value">
+                            {{ user.address.addressLine1 }}<br>
+                            {% if user.address.addressLine2 %}
+                            {{ user.address.addressLine2 }}<br>
+                            {% endif %}
+                            {{ user.address.town }}<br>
+                            {{ user.address.county }}<br>
+                            {{ user.address.country }}
+                        </dd>
+                    </div>
+
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">Postcode</dt>
+                        <dd class="govuk-summary-list__value">{{ user.address.postcode }}</dd>
+                    </div>
+
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">Security word</dt>
+                        <dd class="govuk-summary-list__value">{{ user.securityWord }}</dd>
+                    </div>
+                </dl>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="holdings">
+        <h2 class="govuk-heading-m">Holdings</h2>
+
+        {% if userHoldings.length %}
+        <table class="govuk-table">
+            <caption class="govuk-table__caption govuk-table__caption--s">
+                Holdings linked to {{ user.name }}
+            </caption>
+
+            <thead class="govuk-table__head">
+            <tr class="govuk-table__row">
+                <th scope="col" class="govuk-table__header">CPH</th>
+                <th scope="col" class="govuk-table__header">Holding</th>
+                <th scope="col" class="govuk-table__header">Role</th>
+                <th scope="col" class="govuk-table__header">Species managed</th>
+                <th scope="col" class="govuk-table__header">Status</th>
+                <th scope="col" class="govuk-table__header">Holding type</th>
+            </tr>
+            </thead>
+
+            <tbody class="govuk-table__body">
+            {% for item in userHoldings %}
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">
+                    {% if item.holding %}
+                    <a class="govuk-link" href="../holdings/{{ item.holding.id }}">
+                        {{ item.cph }}
+                    </a>
+                    {% else %}
+                    {{ item.cph }}
+                    {% endif %}
+                </td>
+
+                <td class="govuk-table__cell">
+                    {% if item.holding %}
+                    {{ item.holding.holdingName }}
+                    {% else %}
+                    Holding not found
+                    {% endif %}
+                </td>
+
+                <td class="govuk-table__cell">
+                    {{ item.role | capitalize }}
+                </td>
+
+                <td class="govuk-table__cell">
+                    {{ item.speciesManagedByRole | join(", ") }}
+                </td>
+
+                <td class="govuk-table__cell">
+                    {% if item.holding %}
+                    {{ item.holding.status }}
+                    {% else %}
+                    -
+                    {% endif %}
+                </td>
+
+                <td class="govuk-table__cell">
+                    {% if item.holding %}
+                    {{ item.holding.holdingType }} CPH
+                    {% else %}
+                    -
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p class="govuk-body">This user is not linked to any holdings.</p>
+        {% endif %}
+    </div>
+
+    <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="activity">
+        <h2 class="govuk-heading-m">Activity</h2>
+
+        <table class="govuk-table">
+            <caption class="govuk-table__caption govuk-table__caption--s">
+                Recent activity for {{ user.name }}
+            </caption>
+
+            <thead class="govuk-table__head">
+            <tr class="govuk-table__row">
+                <th scope="col" class="govuk-table__header">Date and time</th>
+                <th scope="col" class="govuk-table__header">Activity</th>
+                <th scope="col" class="govuk-table__header">Holding</th>
+                <th scope="col" class="govuk-table__header">Species</th>
+                <th scope="col" class="govuk-table__header">
+                    <span class="govuk-visually-hidden">Action</span>
+                </th>
+            </tr>
+            </thead>
+
+            <tbody class="govuk-table__body">
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">18 January 2026 at 09:42</td>
+                <td class="govuk-table__cell">Birth reported</td>
+                <td class="govuk-table__cell">
+                    <a class="govuk-link" href="../holdings/holding-001">Oakfield Farm</a>
+                    <br>
+                    <span class="govuk-hint govuk-!-margin-bottom-0">12/345/0001</span>
+                </td>
+                <td class="govuk-table__cell">Cattle</td>
+                <td class="govuk-table__cell">
+                    <a class="govuk-link" href="../activity/activity-001">
+                        View<span class="govuk-visually-hidden"> birth reported activity</span>
+                    </a>
+                </td>
+            </tr>
+
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">15 January 2026 at 14:10</td>
+                <td class="govuk-table__cell">Movement reported</td>
+                <td class="govuk-table__cell">
+                    <a class="govuk-link" href="../holdings/holding-001">Oakfield Farm</a>
+                    <br>
+                    <span class="govuk-hint govuk-!-margin-bottom-0">12/345/0001</span>
+                </td>
+                <td class="govuk-table__cell">Cattle</td>
+                <td class="govuk-table__cell">
+                    <a class="govuk-link" href="../activity/activity-002">
+                        View<span class="govuk-visually-hidden"> movement reported activity</span>
+                    </a>
+                </td>
+            </tr>
+
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">12 January 2026 at 11:05</td>
+                <td class="govuk-table__cell">Death reported</td>
+                <td class="govuk-table__cell">
+                    <a class="govuk-link" href="../holdings/holding-002">Willow Brook Farm</a>
+                    <br>
+                    <span class="govuk-hint govuk-!-margin-bottom-0">24/118/0042</span>
+                </td>
+                <td class="govuk-table__cell">Cattle</td>
+                <td class="govuk-table__cell">
+                    <a class="govuk-link" href="../activity/activity-003">
+                        View<span class="govuk-visually-hidden"> death reported activity</span>
+                    </a>
+                </td>
+            </tr>
+
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">18 December 2025 at 08:55</td>
+                <td class="govuk-table__cell">Movement reported</td>
+                <td class="govuk-table__cell">
+                    <a class="govuk-link" href="../holdings/holding-004">Cwm Valley Farm</a>
+                    <br>
+                    <span class="govuk-hint govuk-!-margin-bottom-0">44/209/0317</span>
+                </td>
+                <td class="govuk-table__cell">Sheep</td>
+                <td class="govuk-table__cell">
+                    <a class="govuk-link" href="../activity/activity-004">
+                        View<span class="govuk-visually-hidden"> movement reported activity</span>
+                    </a>
+                </td>
+            </tr>
+
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">12 December 2025 at 17:06</td>
+                <td class="govuk-table__cell">User role updated</td>
+                <td class="govuk-table__cell">
+                    <a class="govuk-link" href="../holdings/holding-012">Ty Mawr</a>
+                    <br>
+                    <span class="govuk-hint govuk-!-margin-bottom-0">48/952/0205</span>
+                </td>
+                <td class="govuk-table__cell">Cattle, sheep and goats</td>
+                <td class="govuk-table__cell">
+                    <a class="govuk-link" href="../activity/activity-005">
+                        View<span class="govuk-visually-hidden"> user role updated activity</span>
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}

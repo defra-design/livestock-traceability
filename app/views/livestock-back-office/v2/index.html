@@ -1,0 +1,125 @@
+```html
+{% extends "layouts/main.html" %}
+
+{% set pageName = "Livestock back office v1 prototype" %}
+
+{% block content %}
+<div class="govuk-phase-banner govuk-width-container" style="margin-top:-30px; margin-bottom:30px">
+  <p class="govuk-phase-banner__content">
+    <strong class="govuk-tag govuk-phase-banner__content__tag">
+      Alpha
+    </strong>
+    <span class="govuk-phase-banner__text">
+      These are conceptual prototypes, not a finalised service.
+    </span>
+  </p>
+</div>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <h1 class="govuk-heading-xl">
+      Livestock back office v2 prototype
+    </h1>
+    <p><strong class="govuk-tag govuk-tag--orange">
+      Exploration
+    </strong></p>
+    <p class="govuk-body-l">
+      This is an early prototype exploring how holding records
+      could be searched and displayed only.
+    </p>
+
+    <p><a class="govuk-link" href="./home">Home</a></p>
+
+    <h2 class="govuk-heading-m">
+      Search holdings
+    </h2>
+
+
+    <ul class="govuk-list govuk-list--spaced">
+      <li>
+        <a class="govuk-link" href="./holdings">
+          Search start page (no search query)
+        </a>
+      </li>
+      <li>
+        <a class="govuk-link" href="./holdings?search=12%2F345%2F0001">
+          Single holding result (CPH exact match)
+        </a>
+      </li>
+      <li>
+        <a class="govuk-link" href="./holdings?search=farm">
+          multiple holding results - with pagination
+        </a>
+      </li>
+      <li>
+        <a class="govuk-link" href="./holdings/holding-001">
+          View an example holding
+        </a>
+      </li>
+    </ul>
+    <h2 class="govuk-heading-m">
+      Holding details
+    </h2>
+    <ul class="govuk-list govuk-list--spaced">
+      <li>
+        <a class="govuk-link" href="./holdings/holding-001">
+          Holding details
+        </a>
+      </li>
+      <li>
+        <a class="govuk-link" href="./holdings/holding-002">
+          Holding details - with multiple herd marks
+        </a>
+      </li>
+      <li>
+        <a class="govuk-link" href="./holdings/cattle-register">
+          Holding current livestock
+        </a>
+      </li>
+      <li>
+        <a class="govuk-link" href="./holdings/cattle-register">
+          Holding current livestock
+        </a>
+      </li>
+
+      <li>
+        <a class="govuk-link" href="./holdings/cattle-register?search=146510">
+          Holding current livestock -  search results
+        </a>
+      </li>
+    </ul>
+    <p>Alternative design for searching holdings. This is moving away from the table approach. <br> <a class="govuk-link" href="./holding-search?search=farm">
+      Alternative results view (vertical)</a> </p>
+    <h2 class="govuk-heading-m">
+      Cattle details
+    </h2>
+    <ul class="govuk-list govuk-list--spaced">
+      <li>
+        <a class="govuk-link" href="./cattle/UK159517919901">
+          Cattle details - full
+        </a>
+      </li>
+      <li>
+        <a class="govuk-link" href="./cattle/UK864202917556">
+          Cattle details - no sire, or surrogate
+        </a>
+      </li>
+      <li>
+        <a class="govuk-link" href="./cattle/UK864202917556#history">
+          Cattle details - history
+        </a>
+      </li>
+
+    </ul>
+
+
+    <div class="govuk-inset-text">
+      All data in this prototype is fictional and should not be treated as
+      real livestock, holding or customer information.
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}
