@@ -1,0 +1,43 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Ear tag numbers" %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <form action="/livestock-usability/v7/report-movement/ear-tag-numbers" method="post" novalidate>
+
+      <div class="govuk-form-group {% if errors['movement-ear-tags'] %}govuk-form-group--error{% endif %}">
+        <h1 class="govuk-label-wrapper">
+          <label class="govuk-label govuk-label--l" for="movement-ear-tags">
+            Add the ear tag numbers of the animals involved
+          </label>
+        </h1>
+        <div id="movement-ear-tags-hint" class="govuk-hint">
+          Enter one ear tag number per line
+        </div>
+        {% if errors['movement-ear-tags'] %}
+        <p id="movement-ear-tags-error" class="govuk-error-message">
+          <span class="govuk-visually-hidden">Error:</span> {{ errors['movement-ear-tags'] }}
+        </p>
+        {% endif %}
+        <textarea class="govuk-textarea {% if errors['movement-ear-tags'] %}govuk-textarea--error{% endif %}" id="movement-ear-tags" name="movement-ear-tags" rows="10" aria-describedby="movement-ear-tags-hint{% if errors['movement-ear-tags'] %} movement-ear-tags-error{% endif %}">{{ data['movement-ear-tags'] }}</textarea>
+      </div>
+
+      {{ govukButton({ text: "Continue" }) }}
+
+    </form>
+
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,128 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Surrogate dam" %}
+
+{% block head %}
+  {{ super() }}
+  <link href="https://unpkg.com/accessible-autocomplete/dist/accessible-autocomplete.min.css" rel="stylesheet" media="all" />
+  <style>
+    .autocomplete__wrapper {
+      max-width: 20.5em;
+    }
+    .autocomplete__hint,
+    .autocomplete__input,
+    .autocomplete__option {
+      font-family: "Transport", arial, sans-serif;
+      font-size: 1.1875rem;
+      font-weight: normal!important;
+    }
+    .govuk-form-group--error .autocomplete__input {
+      border-color: #d4351c;
+    }
+    .autocomplete__option strong {
+      font-weight: normal;
+    }
+  </style>
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    {% if errors %}
+    <div class="govuk-error-summary" data-module="govuk-error-summary">
+      <div role="alert">
+        <h2 class="govuk-error-summary__title">There is a problem</h2>
+        <div class="govuk-error-summary__body">
+          <ul class="govuk-list govuk-error-summary__list">
+            {% if errors['genetic-dam-number'] %}
+            <li><a href="#genetic-dam-number">{{ errors['genetic-dam-number'] }}</a></li>
+            {% endif %}
+            {% if errors['surrogate-dam-number'] %}
+            <li><a href="#surrogate-dam-number">{{ errors['surrogate-dam-number'] }}</a></li>
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
+    <span class="govuk-caption-l">Official animal ear tag number: {{ data['ear-tag-number'] }}</span>
+    <h1 class="govuk-heading-l">Genetic and surrogate dam details</h1>
+
+    <form action="/livestock-usability/v7/surrogate-dam" method="post" novalidate>
+
+      <div class="govuk-form-group {% if errors['genetic-dam-number'] %}govuk-form-group--error{% endif %}">
+        <label class="govuk-label govuk-label--m" for="genetic-dam-number">
+          Genetic dam ear tag number
+        </label>
+        {% if errors['genetic-dam-number'] %}
+        <p id="genetic-dam-number-error" class="govuk-error-message">
+          <span class="govuk-visually-hidden">Error:</span> {{ errors['genetic-dam-number'] }}
+        </p>
+        {% endif %}
+        <input class="govuk-input govuk-input--width-20 {% if errors['genetic-dam-number'] %}govuk-input--error{% endif %}"
+          id="genetic-dam-number"
+          name="genetic-dam-number"
+          type="text"
+          spellcheck="false"
+          autocomplete="off"
+          aria-describedby="genetic-dam-hint{% if errors['genetic-dam-number'] %} genetic-dam-number-error{% endif %}"
+          value="{{ data['genetic-dam-number'] }}">
+      </div>
+
+      <div class="govuk-form-group {% if errors['surrogate-dam-number'] %}govuk-form-group--error{% endif %}">
+        <label class="govuk-label govuk-label--m" for="surrogate-dam-number">
+          Surrogate dam ear tag number
+        </label>
+        <div id="account-number-hint" class="govuk-hint">
+          Start typing the last 6 digits of the ear tag number and select from the list
+        </div>
+        {% if errors['surrogate-dam-number'] %}
+        <p id="surrogate-dam-number-error" class="govuk-error-message">
+          <span class="govuk-visually-hidden">Error:</span> {{ errors['surrogate-dam-number'] }}
+        </p>
+        {% endif %}
+        <select id="surrogate-dam-number" name="surrogate-dam-number" aria-describedby="surrogate-dam-hint{% if errors['surrogate-dam-number'] %} surrogate-dam-number-error{% endif %}">
+          <option value=""></option>
+          <option value="UK123456601200" {% if data['surrogate-dam-number'] == 'UK123456601200' %}selected{% endif %}>UK123456601200</option>
+          <option value="UK123456601201" {% if data['surrogate-dam-number'] == 'UK123456601201' %}selected{% endif %}>UK123456601201</option>
+          <option value="UK123456601202" {% if data['surrogate-dam-number'] == 'UK123456601202' %}selected{% endif %}>UK123456601202</option>
+          <option value="UK123456601203" {% if data['surrogate-dam-number'] == 'UK123456601203' %}selected{% endif %}>UK123456601203</option>
+          <option value="UK123456601204" {% if data['surrogate-dam-number'] == 'UK123456601204' %}selected{% endif %}>UK123456601204</option>
+          <option value="UK123456601205" {% if data['surrogate-dam-number'] == 'UK123456601205' %}selected{% endif %}>UK123456601205</option>
+          <option value="UK123456601206" {% if data['surrogate-dam-number'] == 'UK123456601206' %}selected{% endif %}>UK123456601206</option>
+          <option value="UK123456601207" {% if data['surrogate-dam-number'] == 'UK123456601207' %}selected{% endif %}>UK123456601207</option>
+          <option value="UK123456601208" {% if data['surrogate-dam-number'] == 'UK123456601208' %}selected{% endif %}>UK123456601208</option>
+          <option value="UK123456601209" {% if data['surrogate-dam-number'] == 'UK123456601209' %}selected{% endif %}>UK123456601209</option>
+        </select>
+      </div>
+
+      {{ govukButton({ text: "Continue" }) }}
+
+    </form>
+
+  </div>
+</div>
+
+{% endblock %}
+
+{% block pageScripts %}
+  <script src="https://unpkg.com/accessible-autocomplete/dist/accessible-autocomplete.min.js"></script>
+  <script>
+    accessibleAutocomplete.enhanceSelectElement({
+      selectElement: document.querySelector('#surrogate-dam-number'),
+      showAllValues: false,
+      autoselect: true,
+      displayMenu: 'overlay'
+    })
+  </script>
+{% endblock %}
