@@ -1,0 +1,68 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Sex of the animal" %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <span class="govuk-caption-l">Animal ear tag number: UK 123456 {{ data['death-ear-tag-number'] }}</span>
+
+    {% if errors %}
+    <div class="govuk-error-summary" data-module="govuk-error-summary">
+      <div role="alert">
+        <h2 class="govuk-error-summary__title">There is a problem</h2>
+        <div class="govuk-error-summary__body">
+          <ul class="govuk-list govuk-error-summary__list">
+            {% if errors['death-sex'] %}
+            <li><a href="#death-sex">{{ errors['death-sex'] }}</a></li>
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
+    <form action="/livestock-usability/v7/report-death/sex" method="post" novalidate>
+
+      <div class="govuk-form-group {% if errors['death-sex'] %}govuk-form-group--error{% endif %}">
+        <fieldset class="govuk-fieldset" aria-describedby="{% if errors['death-sex'] %}death-sex-error{% endif %}">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+            <h1 class="govuk-fieldset__heading">
+              Sex of the animal
+            </h1>
+          </legend>
+          {% if errors['death-sex'] %}
+          <p id="death-sex-error" class="govuk-error-message">
+            <span class="govuk-visually-hidden">Error:</span> {{ errors['death-sex'] }}
+          </p>
+          {% endif %}
+          <div class="govuk-radios govuk-radios--inline" data-module="govuk-radios">
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="death-sex" name="death-sex" type="radio" value="male" {% if data['death-sex'] == 'male' %}checked{% endif %}>
+              <label class="govuk-label govuk-radios__label" for="death-sex">Male</label>
+            </div>
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="death-sex-2" name="death-sex" type="radio" value="female" {% if data['death-sex'] == 'female' %}checked{% endif %}>
+              <label class="govuk-label govuk-radios__label" for="death-sex-2">Female</label>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+
+      {{ govukButton({ text: "Continue" }) }}
+
+    </form>
+
+  </div>
+</div>
+
+{% endblock %}

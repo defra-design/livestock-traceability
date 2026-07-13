@@ -1,0 +1,64 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Select animal type" %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    {% if errors %}
+      {{ govukErrorSummary({
+        titleText: "There is a problem",
+        errorList: [
+          {
+            text: errors['animal-type'].text,
+            href: "#animal-type"
+          }
+        ]
+      }) }}
+    {% endif %}
+
+    <form class="form" action="/livestock-usability/v7/animal-select" method="post">
+
+      {{ govukRadios({
+        name: "animal-type",
+        fieldset: {
+          legend: {
+            text: "Which species would you like to register?",
+            isPageHeading: true,
+            classes: "govuk-fieldset__legend--l"
+          }
+        },
+        errorMessage: errors['animal-type'] if errors,
+        items: [
+          {
+            value: "cattle",
+            text: "Cattle",
+            checked: data['animal-type'] === "cattle"
+          },
+          {
+            value: "camelids",
+            text: "Camelids",
+            checked: data['animal-type'] === "camelids"
+          }
+        ]
+      }) }}
+
+      {{ govukButton({
+        text: "Continue"
+      }) }}
+
+    </form>
+
+  </div>
+</div>
+
+{% endblock %}

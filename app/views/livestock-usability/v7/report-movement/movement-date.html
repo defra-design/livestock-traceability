@@ -1,0 +1,64 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Movement date" %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <form action="/livestock-usability/v7/report-movement/movement-date" method="post" novalidate>
+
+      <div class="govuk-form-group {% if errors['movement-date'] %}govuk-form-group--error{% endif %}">
+        <fieldset class="govuk-fieldset" role="group" aria-describedby="movement-date-hint{% if errors['movement-date'] %} movement-date-error{% endif %}">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+            <h1 class="govuk-fieldset__heading">
+              What is the date of the movement?
+            </h1>
+          </legend>
+          <div id="movement-date-hint" class="govuk-hint">
+            For example, 31 3 2026
+          </div>
+          {% if errors['movement-date'] %}
+          <p id="movement-date-error" class="govuk-error-message">
+            <span class="govuk-visually-hidden">Error:</span> {{ errors['movement-date'] }}
+          </p>
+          {% endif %}
+          <div class="govuk-date-input" id="movement-date">
+            <div class="govuk-date-input__item">
+              <div class="govuk-form-group">
+                <label class="govuk-label govuk-date-input__label" for="movement-date-day">Day</label>
+                <input class="govuk-input govuk-date-input__input govuk-input--width-2 {% if errors['movement-date'] and not data['movement-date-day'] %}govuk-input--error{% endif %}" id="movement-date-day" name="movement-date-day" type="text" inputmode="numeric" value="{{ data['movement-date-day'] }}">
+              </div>
+            </div>
+            <div class="govuk-date-input__item">
+              <div class="govuk-form-group">
+                <label class="govuk-label govuk-date-input__label" for="movement-date-month">Month</label>
+                <input class="govuk-input govuk-date-input__input govuk-input--width-2 {% if errors['movement-date'] and not data['movement-date-month'] %}govuk-input--error{% endif %}" id="movement-date-month" name="movement-date-month" type="text" inputmode="numeric" value="{{ data['movement-date-month'] }}">
+              </div>
+            </div>
+            <div class="govuk-date-input__item">
+              <div class="govuk-form-group">
+                <label class="govuk-label govuk-date-input__label" for="movement-date-year">Year</label>
+                <input class="govuk-input govuk-date-input__input govuk-input--width-4 {% if errors['movement-date'] and not data['movement-date-year'] %}govuk-input--error{% endif %}" id="movement-date-year" name="movement-date-year" type="text" inputmode="numeric" value="{{ data['movement-date-year'] }}">
+              </div>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+
+      {{ govukButton({ text: "Continue" }) }}
+
+    </form>
+
+  </div>
+</div>
+
+{% endblock %}

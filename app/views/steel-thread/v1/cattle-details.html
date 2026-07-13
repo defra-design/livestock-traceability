@@ -1,0 +1,128 @@
+{% extends "layouts/main.html" %}
+
+{% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
+{% from "govuk/components/tabs/macro.njk" import govukTabs %}
+
+{% set pageName = "Cattle details" %}
+
+{% block header %}
+
+  {{ govukHeader({
+    homepageUrl: '/index.html'
+  }) }}
+
+  {{ govukServiceNavigation({
+    serviceName: "Livestock Information",
+    serviceUrl: "/steel-thread/v1/holding-information",
+    slots: {
+      navigationEnd: '<li class="govuk-service-navigation__item app-service-navigation__item--right"><a class="govuk-service-navigation__link" href="/steel-thread/v1/one-login">Sign out</a></li>'
+    }
+  }) }}
+
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+
+    <span class="govuk-caption-l">County Parish Holding: 12/345/0001</span>
+    <h1 class="govuk-heading-l">{{ animal.earTagNumber | formatReference }}</h1>
+
+
+    <h2 class="govuk-heading-m">Cattle details</h2>
+
+    <dl class="govuk-summary-list">
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Ear tag number</dt>
+        <dd class="govuk-summary-list__value">{{ animal.earTagNumber | formatReference }}</dd>
+      </div>
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Date of birth</dt>
+        <dd class="govuk-summary-list__value">{{ animal.dateOfBirth | shortDateFormat }}</dd>
+      </div>
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Date registered</dt>
+        <dd class="govuk-summary-list__value">{{ animal.dateOfRegistration | shortDateFormat }}</dd>
+      </div>
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Sex</dt>
+        <dd class="govuk-summary-list__value">{{ animal.sex }}</dd>
+      </div>
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Breed</dt>
+        <dd class="govuk-summary-list__value">
+          {{ animal.breed.name }}{% if animal.breed.code %} ({{ animal.breed.code }}){% endif %}
+        </dd>
+      </div>
+
+    </dl>
+
+    {% if animal.dam %}
+    <h2 class="govuk-heading-m">Dam details</h2>
+
+    <dl class="govuk-summary-list">
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Dam type</dt>
+        <dd class="govuk-summary-list__value">{{ animal.dam.type }}</dd>
+      </div>
+
+      {% if animal.dam.geneticDam %}
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Genetic dam ear tag</dt>
+        <dd class="govuk-summary-list__value">{{ animal.dam.geneticDam.earTagNumber | formatReference }}</dd>
+      </div>
+      {% endif %}
+
+      {% if animal.dam.surrogateDam %}
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Surrogate dam ear tag</dt>
+        <dd class="govuk-summary-list__value">{{ animal.dam.surrogateDam.earTagNumber | formatReference }}</dd>
+      </div>
+      {% endif %}
+
+    </dl>
+    {% endif %}
+
+    {% if animal.sire %}
+    <h2 class="govuk-heading-m">Sire details</h2>
+
+    <dl class="govuk-summary-list">
+
+      {% if animal.sire.earTagNumber %}
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Sire ear tag</dt>
+        <dd class="govuk-summary-list__value">{{ animal.sire.earTagNumber | formatReference }}</dd>
+      </div>
+      {% endif %}
+
+      {% if animal.sire.name %}
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Sire name</dt>
+        <dd class="govuk-summary-list__value">{{ animal.sire.name }}</dd>
+      </div>
+      {% endif %}
+
+    </dl>
+    {% else %}
+    <h2 class="govuk-heading-m">Sire details</h2>
+    <p class="govuk-body">No sire details recorded.</p>
+    {% endif %}
+
+  </div>
+</div>
+
+{% endblock %}

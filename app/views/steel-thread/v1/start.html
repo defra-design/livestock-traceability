@@ -1,0 +1,123 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Livestock Information Service (LIS) for cattle" %}
+
+{% block header %}
+
+{{ govukHeader({
+homepageUrl: '/index.html'
+}) }}
+
+{% endblock %}
+
+{% block containerStart %}
+  {{ govukBreadcrumbs({
+    items: [
+      {
+        text: "Home",
+        href: "#"
+      },
+      {
+        text: "Environment",
+        href: "#"
+      },
+      {
+        text: "Food and farming",
+        href: "#"
+      },
+      {
+        text: "Keeping farmed animals",
+        href: "#"
+      }
+    ]
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <h1 class="govuk-heading-xl">
+        Livestock Information Service (LIS) for cattle
+      </h1>
+    </div>
+  </div>
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <p class="govuk-body">Use this service to:</p>
+
+      <ul class="govuk-list govuk-list--bullet">
+        <li>Report births, deaths and movements of your cattle</li>
+        <li>Maintain an online holding register</li>
+        <li>View an animal's digital record</li>
+        <li>Pre-notify other keepers of movements</li>
+        <li>Edit animal details (where allowed)</li>
+        <li>Track herd performance with the Keeper Insights dashboard</li>
+      </ul>
+
+      <h2 class="govuk-heading-m">Create an account</h2>
+
+      <p class="govuk-body">To create an account, you'll need:</p>
+      <ul class="govuk-list govuk-list--bullet">
+        <li>Your County Parish Holding (CPH) number</li>
+        <li>Your email address associated with the CPH number</li>
+        <li>To be registered as a cattle keeper with the Rural Payments Agency (RPA) and the Animal and Plant Health Agency (APHA)</li>
+      </ul>
+
+      {{ govukButton({
+        text: "Sign in",
+        href: "/steel-thread/v1/one-login",
+        isStartButton: true
+      }) }}
+
+      <h2 class="govuk-heading-m">
+        About the Livestock Information Service
+      </h2>
+
+      <p class="govuk-body">
+        The Livestock Information Service (LIS) is th eofficial cattle traceability service for England – replacing the Cattle Tracing system previously managed by the British Cattle Movement Service (BCMS).
+      </p>
+
+      <p class="govuk-body">
+        LIS provides a secure, single sign-on platform for livestock keepers and those across the supply chain to report cattle movements in England.
+      </p>
+
+    </div>
+
+    <div class="govuk-grid-column-one-third">
+
+      <aside class="govuk-prototype-kit-common-templates-related-items" role="complementary">
+        <h2 class="govuk-heading-s" id="subsection-title">
+          Related content
+        </h2>
+        <nav role="navigation" aria-labelledby="subsection-title">
+          <ul class="govuk-list govuk-!-font-size-16">
+            <li>
+              <a href="https://www.gov.uk/guidance/get-a-cattle-passport">
+                Apply for, correct or replace a cattle passport
+              </a>
+            </li>
+            <li>
+              <a href="https://www.gov.uk/government/collections/keeping-cattle-bison-and-buffalo-in-england-and-wales">
+                Keeping cattle, bison and buffalo in England and Wales
+              </a>
+            </li>
+            <li>
+              <a href="https://www.gov.uk/guidance/moving-cattle-what-cattle-keepers-need-to-know">
+                Moving cattle: what cattle keepers need to know
+              </a>
+            </li>
+            <li>
+              <a href="https://www.gov.uk/government/publications/template-holding-register-for-cattle-keepers">
+                Template holding register for cattle keepers
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </aside>
+
+    </div>
+  </div>
+
+{% endblock %}
