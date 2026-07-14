@@ -6,6 +6,10 @@ router.post('/steel-thread/v1/one-login-password', (req, res) => {
 })
 
 router.post('/steel-thread/v1/gateway-login', (req, res) => {
+  res.redirect('/steel-thread/v1/check-your-phone')
+})
+
+router.post('/steel-thread/v1/check-your-phone', (req, res) => {
   res.redirect('/steel-thread/v1/holding-information')
 })
 
@@ -43,6 +47,31 @@ router.get('/steel-thread/v1/cattle-register', (req, res) => {
     })
 
   res.render('steel-thread/v1/cattle-register', { cattle, search })
+})
+
+router.get('/steel-thread/v1/animal-error-record', (req, res) => {
+  const errorRecords = [
+    {
+      earTagNumber: 'UK324537113253',
+      dateOfBirth: '12-11-2024',
+      dateOfRegistration: '15-11-2024',
+      reason: 'Ear tag number does not match the number recorded at birth notification.'
+    },
+    {
+      earTagNumber: 'UK324537119876',
+      dateOfBirth: '03-02-2024',
+      dateOfRegistration: '10-02-2024',
+      reason: 'Date of registration is more than 27 days after date of birth.'
+    },
+    {
+      earTagNumber: 'UK324537128341',
+      dateOfBirth: '21-06-2024',
+      dateOfRegistration: '25-06-2024',
+      reason: 'Dam ear tag number recorded does not exist on the holding register.'
+    }
+  ]
+
+  res.render('steel-thread/v1/animal-error-record', { errorRecords })
 })
 
 router.get('/steel-thread/v1/cattle/:earTagNumber', (req, res) => {

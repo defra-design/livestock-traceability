@@ -28,7 +28,7 @@ serviceUrl: "/animals-on-holding/v1/start"
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
 
-      <h1 class="govuk-heading-xl">
+      <h1 class="govuk-heading-l">
         Create your GOV.UK One Login or sign in
       </h1>
 
@@ -40,8 +40,11 @@ serviceUrl: "/animals-on-holding/v1/start"
       <ul class="govuk-list govuk-list--bullet">
         <li>an email address</li>
         <li>a way to get security codes - this can be a UK mobile phone number or an authenticator app</li>
-        <li>pears</li>
       </ul>
+
+      <p class="govuk-body">
+        You can prove your identity after you’ve created your GOV.UK One Login. You only need to do this for some services.
+      </p>
 
       <div class="govuk-inset-text">
         You can also <a href="#" class="govuk-link">use GOV.UK One Login in Welsh (Cymraeg)</a>.
@@ -50,10 +53,15 @@ serviceUrl: "/animals-on-holding/v1/start"
       {% from "govuk/components/button/macro.njk" import govukButton %}
 
       <div class="govuk-button-group">
-        {{ govukButton({
-        text: "Create your GOV.UK One Login",
-        href: "/user-registration/email-address"
-        }) }}
+
+        <a href="https://govuk-one-login-prototype-6d2545e2d700.herokuapp.com/page-index/authentication/create-account/enter-email"
+           target="_blank" type="submit"
+           class="govuk-button" data-module="govuk-button">
+          Create your GOV.UK One Login
+        </a>
+
+      </div>
+      <div class="govuk-button-group">
 
         {{ govukButton({
         text: "Sign in",

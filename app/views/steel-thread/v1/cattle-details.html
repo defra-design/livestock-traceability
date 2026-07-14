@@ -57,6 +57,25 @@
       </div>
 
       <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          On-location date
+        </dt>
+        <dd class="govuk-summary-list__value">
+          {{ animal.onHoldingDate | shortDateFormat }}
+        </dd>
+      </div>
+
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Animal status
+        </dt>
+        <dd class="govuk-summary-list__value">
+          {{ animal.status }}
+        </dd>
+      </div>
+
+      <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">Sex</dt>
         <dd class="govuk-summary-list__value">{{ animal.sex }}</dd>
       </div>
