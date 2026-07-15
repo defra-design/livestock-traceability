@@ -1,0 +1,590 @@
+{% extends "layouts/main.html" %}
+
+{% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "govuk/components/date-input/macro.njk" import govukDateInput %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/select/macro.njk" import govukSelect %}
+
+{% set pageName = "Advanced cattle search" %}
+{% set activeNav = "my-holdings" %}
+
+{% set criteria = criteria or {} %}
+{% set selectedBreeds = selectedBreeds or [] %}
+{% set selectedStatuses = selectedStatuses or [] %}
+
+{% set breedOptions = [
+"Aberdeen Angus",
+"Beef Shorthorn",
+"Belgian Blue",
+"British Blue",
+"Charolais",
+"Galloway",
+"Hereford",
+"Highland",
+"Holstein",
+"Jersey",
+"Limousin",
+"Lincoln Red",
+"Simmental"
+] %}
+
+
+{% macro dateField(id, namePrefix, label, values) %}
+
+{{ govukDateInput({
+id: id,
+namePrefix: namePrefix,
+fieldset: {
+legend: {
+text: label,
+classes: "govuk-fieldset__legend--s"
+}
+},
+hint: {
+text: "For example, 27 3 2024"
+},
+items: [
+{
+name: "day",
+classes: "govuk-input--width-2",
+value: values.day
+},
+{
+name: "month",
+classes: "govuk-input--width-2",
+value: values.month
+},
+{
+name: "year",
+classes: "govuk-input--width-4",
+value: values.year
+}
+]
+}) }}
+
+{% endmacro %}
+
+
+{% block header %}
+
+{% block navBar %}
+{% include "./components/_navigation.html" %}
+{% endblock %}
+
+{% endblock %}
+
+
+{% block beforeContent %}
+<style>.app-advanced-search__section{margin-bottom:50px;}</style>
+
+{% set pathParts = currentPath.split('/') %}
+{% set currentBaseUrl = '/' + pathParts[1] + '/' + pathParts[2] + '/' %}
+
+{{ govukBreadcrumbs({
+items: [
+{
+text: "Home",
+href: currentBaseUrl + "home"
+},
+{
+text: "Cattle register",
+href: currentBaseUrl + "cattle"
+}
+]
+}) }}
+
+{% endblock %}
+
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+
+        <h1 class="govuk-heading-xl">
+            Advanced cattle search
+        </h1>
+
+        <p class="govuk-body-l">
+            Use one or more fields to find a group of cattle records.
+        </p>
+
+        <p class="govuk-body">
+            <a class="govuk-link" href="{{ currentBaseUrl }}cattle">
+                Find an animal by ear tag number
+            </a>
+        </p>
+
+
+        <form
+                class="app-advanced-search"
+                method="get"
+                action="{{ currentBaseUrl }}cattle-advanced-results"
+                novalidate
+        >
+
+            <input
+                    type="hidden"
+                    name="searchSubmitted"
+                    value="true"
+            >
+
+
+            {# Animal details #}
+
+            <section
+                    class="app-advanced-search__section"
+                    aria-labelledby="animal-details-heading"
+            >
+
+                <h2
+                        class="govuk-heading-l"
+                        id="animal-details-heading"
+                >
+                    Animal details
+                </h2>
+
+                {{ govukInput({
+                id: "ear-tag",
+                name: "earTag",
+                value: criteria.earTag,
+                classes: "govuk-input--width-20",
+                label: {
+                text: "Ear tag number"  
+                },
+                hint: {
+                text: "Enter a complete or partial ear tag number"
+                }
+                }) }}
+
+
+                <div
+                        class="app-c-option-select js-collapsible js-searchable-checkboxes"
+                        data-module="option-select"
+                >
+
+                    <h3
+                            class="js-container-heading govuk-heading-s searchable-filters-heading"
+                            id="breed-filter-heading"
+                    >
+                        Breed
+
+                        <span
+                                class="app-c-option-select__selected-counter js-selected-counter"
+                                hidden
+                        ></span>
+                    </h3>
+
+                    <div class="app-c-option-select__filter">
+
+                        <label
+                                for="breed-option-filter"
+                                class="govuk-label govuk-visually-hidden"
+                        >
+                            Search the list of breeds
+                        </label>
+
+                        <input
+                                id="breed-option-filter"
+                                class="app-c-option-select__filter-input govuk-input"
+                                type="search"
+                                autocomplete="off"
+                                aria-describedby="breed-option-count"
+                                aria-controls="breed-checkboxes"
+                        >
+
+                    </div>
+
+                    <div
+                            role="group"
+                            aria-labelledby="breed-filter-heading"
+                            class="app-c-option-select__container js-options-container"
+                            id="breed-options"
+                            tabindex="-1"
+                    >
+
+                        <div class="app-c-option-select__container-inner js-auto-height-inner">
+
+                <span
+                        id="breed-option-count"
+                        class="app-c-option-select__count govuk-visually-hidden"
+                        aria-live="polite"
+                        aria-atomic="true"
+                ></span>
+
+                            <div
+                                    id="breed-checkboxes"
+                                    class="gem-c-checkboxes govuk-form-group"
+                                    data-module="govuk-checkboxes"
+                            >
+
+                                <div class="govuk-checkboxes govuk-checkboxes--small gem-c-checkboxes__list">
+
+                                    {% for breed in breedOptions %}
+
+                                    <div class="govuk-checkboxes__item js-option">
+
+                                        <input
+                                                class="govuk-checkboxes__input"
+                                                id="breed-{{ loop.index }}"
+                                                name="breed"
+                                                type="checkbox"
+                                                value="{{ breed }}"
+                                                {% if breed in selectedBreeds %}checked{% endif %}
+                                        >
+
+                                        <label
+                                                class="govuk-label govuk-checkboxes__label"
+                                                for="breed-{{ loop.index }}"
+                                        >
+                                            {{ breed }}
+                                        </label>
+
+                                    </div>
+
+                                    {% endfor %}
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                {{ govukRadios({
+                name: "sex",
+                classes: "govuk-radios--small",
+                fieldset: {
+                legend: {
+                text: "Sex" 
+                }
+                },
+                items: [
+                {
+                value: "",
+                text: "Any sex",
+                checked: not criteria.sex
+                },
+                {
+                value: "Female",
+                text: "Female",
+                checked: criteria.sex == "Female"
+                },
+                {
+                value: "Male",
+                text: "Male",
+                checked: criteria.sex == "Male"
+                }
+                ]
+                }) }}
+
+
+                {{ govukCheckboxes({
+                name: "status",
+                classes: "govuk-checkboxes--small",
+                fieldset: {
+                legend: {
+                text: "Status" 
+                }
+                },
+                items: [
+                {
+                value: "Active",
+                text: "Active",
+                checked: "Active" in selectedStatuses
+                },
+                {
+                value: "Sold",
+                text: "Sold",
+                checked: "Sold" in selectedStatuses
+                },
+                {
+                value: "Deceased",
+                text: "Deceased",
+                checked: "Deceased" in selectedStatuses
+                }
+                ]
+                }) }}
+
+                <h3 class="govuk-heading-m">
+                    Date of birth
+                </h3>
+
+                {{ mojDatePicker({
+                id: "birth-from",
+                name: "birthFrom",
+                label: {
+                text: "Birth date from"
+                },
+                hint: {
+                text: "For example, 17/5/2024."
+                }
+                }) }}
+
+
+                {{ mojDatePicker({
+                id: "birth-to",
+                name: "birthTo",
+                label: {
+                text: "Birth date to"
+                },
+                hint: {
+                text: "For example, 17/5/2024."
+                }
+                }) }}
+
+
+          
+
+                <h3 class="govuk-heading-m">
+                    Date of registration
+                </h3>
+                {{ mojDatePicker({
+                id: "registrationFrom",
+                name: "registrationFrom",
+                label: {
+                text: "Registration date from"
+                },
+                hint: {
+                text: "For example, 17/5/2024."
+                }
+                }) }}
+
+                {{ mojDatePicker({
+                id: "registrationTo",
+                name: "registrationTo",
+                label: {
+                text: "Registration date to"
+                },
+                hint: {
+                text: "For example, 17/5/2024."
+                }
+                }) }}
+
+
+            </section>
+
+
+
+
+            {# Holding #}
+
+            <section
+                    class="app-advanced-search__section"
+                    aria-labelledby="holding-heading"
+            >
+
+                <h2
+                        class="govuk-heading-l"
+                        id="holding-heading"
+                >
+                    Holding
+                </h2>
+
+                {{ govukInput({
+                id: "holding",
+                name: "holding",
+                value: criteria.holding,
+                classes: "govuk-input--width-20",
+                label: {
+                text: "CPH number or holding name"  
+                },
+                hint: {
+                text: "For example, 12/345/6789 or Fern Hollow Farm"
+                }
+                }) }}
+
+            </section>
+
+
+            {# Movement #}
+
+            <section
+                    class="app-advanced-search__section govuk-!-margin-bottom-6"
+                    aria-labelledby="movement-heading"
+            >
+
+                <h2
+                        class="govuk-heading-l"
+                        id="movement-heading"
+                >
+                    Movement
+                </h2>
+
+                {{ govukRadios({
+                name: "movementDirection",
+                classes: "govuk-radios--small",
+                fieldset: {
+                legend: {
+                text: "Movement type" 
+                }
+                },
+                hint: {
+                text: "Movement direction is relative to the holding entered above"
+                },
+                items: [
+                {
+                value: "any",
+                text: "Any movement",
+                checked: criteria.movementDirection == "any"
+                },
+                {
+                value: "on",
+                text: "Moved onto the holding",
+                checked: criteria.movementDirection == "on"
+                },
+                {
+                value: "off",
+                text: "Moved off the holding",
+                checked: criteria.movementDirection == "off"
+                }
+                ]
+                }) }}
+
+
+                {{ mojDatePicker({
+                id: "movement-from",
+                name: "movementFrom",
+                label: {
+                text: "Movement date from"
+                },
+                hint: {
+                text: "For example, 17/5/2024."
+                }
+                }) }}
+
+                {{ mojDatePicker({
+                id: "movement-from",
+                name: "movementFrom",
+                label: {
+                text: "Movement date to"
+                },
+                hint: {
+                text: "For example, 17/5/2024."
+                }
+                }) }}
+
+
+
+            </section>
+
+
+            {# Death #}
+
+            <section
+                    class="app-advanced-search__section"
+                    aria-labelledby="death-heading"
+            >
+
+                <h2
+                        class="govuk-heading-l"
+                        id="death-heading"
+                >
+                    Death
+                </h2>
+
+
+
+                {%- from "moj/components/date-picker/macro.njk" import mojDatePicker -%}
+
+                {{ mojDatePicker({
+                id: "death-from",
+                name: "deathFrom",
+                label: {
+                text: "Death from date"
+                },
+                hint: {
+                text: "For example, 17/5/2024."
+                }
+                }) }}
+
+                {{ mojDatePicker({
+                id: "death-to",
+                name: "deathTo",
+                label: {
+                text: "Death from to"
+                },
+                hint: {
+                text: "For example, 17/5/2024."
+                }
+                }) }}
+
+
+                {{ govukSelect({
+                id: "cause-of-death",
+                name: "causeOfDeath",
+                label: {
+                text: "Cause of death"
+                },
+                items: [
+                {
+                value: "",
+                text: "Any cause",
+                selected: not criteria.causeOfDeath
+                },
+                {
+                value: "Slaughter",
+                text: "Slaughter",
+                selected: criteria.causeOfDeath == "Slaughter"
+                },
+                {
+                value: "Disease",
+                text: "Disease",
+                selected: criteria.causeOfDeath == "Disease"
+                },
+                {
+                value: "Accident",
+                text: "Accident",
+                selected: criteria.causeOfDeath == "Accident"
+                },
+                {
+                value: "Natural causes",
+                text: "Natural causes",
+                selected: criteria.causeOfDeath == "Natural causes"
+                },
+                {
+                value: "Unknown",
+                text: "Unknown",
+                selected: criteria.causeOfDeath == "Unknown"
+                },
+                {
+                value: "Other",
+                text: "Other",
+                selected: criteria.causeOfDeath == "Other"
+                }
+                ]
+                }) }}
+
+            </section>
+
+
+            <div class="govuk-button-group govuk-!-margin-top-8">
+
+                {{ govukButton({
+                text: "Apply filters"
+                }) }}
+
+                <a
+                        class="govuk-link"
+                        href="{{ currentBaseUrl }}cattle/advanced-search"
+                >
+                    Clear form
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

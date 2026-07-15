@@ -8,8 +8,12 @@
 @import "components/timeline";
 
 
-.app-width-container--wide {
-  max-width: 1280px;
+.app-layout--wide {
+  .govuk-header__container,
+  .govuk-service-navigation > .govuk-width-container,
+  .app-width-container--wide {
+    max-width: 1280px;
+  }
 }
 
 // Add extra styles here

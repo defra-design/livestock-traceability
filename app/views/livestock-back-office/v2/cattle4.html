@@ -712,7 +712,8 @@ selectedBreeds: array
     <strong>‘{{ search }}’</strong>
     {% if filtersActive %}
     and these filters:
-    {% if query.status !=''%}<br>Status is <strong>‘{{ query.status }}’</strong>{% endif %}
+    {% if query.status !=''%}<br>Status is <strong>{{ query.status | selectedOptions}}</strong>{% endif %}
+    {% if query.breed !=''%}<br>Breed is <strong>{{ query.breed | selectedOptions}}</strong>{% endif %}
    {% if query.sex !=''%}Sex <strong>‘{{ query.sex }}’</strong>{% endif %}
     {% endif %}
 </p>
@@ -749,19 +750,15 @@ selectedBreeds: array
                 {{ animal.earTagNumber | formatReference }}
             </a>
         </th>
-
         <td class="govuk-table__cell">
             {{ animal.cph }}
         </td>
-
         <td class="govuk-table__cell">
             {{ animal.dateOfBirth | shortDateFormat }}
         </td>
-
         <td class="govuk-table__cell">
             {{ animal.dateOfRegistration | shortDateFormat}}
         </td>
-
         <td class="govuk-table__cell">
             {{ animal.sex}}
         </td>
