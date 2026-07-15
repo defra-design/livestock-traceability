@@ -1,0 +1,514 @@
+{% extends "layouts/main.html" %}
+
+{% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
+
+{% set pageName = "Holding details" %}
+{% set activeNav = "my-holdings" %}
+
+{% block header %}
+
+{% block navBar %}{% include "./components/_navigation.html" %}{% endblock %}
+
+{% endblock %}
+
+{% block beforeContent %}
+{% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
+{% set pathParts = currentPath.split('/') %}
+{% set currentBaseUrl = '/' + pathParts[1] + '/' + pathParts[2] + '/' %}
+{{ govukBreadcrumbs({
+items: [
+{
+text: "Home",
+href: currentBaseUrl+"home"
+},
+{
+text: "Holdings",
+href: currentBaseUrl+"cattle"
+}
+]
+}) }}
+{% endblock %}
+
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+
+        <div class="app-holding-header">
+            <div>
+        <h2 class="govuk-caption-l">
+          Holding
+        </h2>
+
+                <h1 class="govuk-heading-l govuk-!-margin-bottom-2">
+                    Oakfield Farm - 12/345/0001
+                </h1>
+                <strong class="govuk-tag">
+                    Active
+                </strong>
+
+
+
+            </div>
+
+            <div class="app-holding-header__actions">
+                <a href="#" class="govuk-button" data-module="govuk-button">
+                    Report an event
+                </a>
+            </div>
+        </div>
+
+        <nav class="moj-sub-navigation" aria-label="Sub navigation">
+            <ul class="moj-sub-navigation__list">
+                <li class="moj-sub-navigation__item">
+                    <a class="moj-sub-navigation__link" aria-current="page" href="./{{ currentID }}">
+                        Overview
+                    </a>
+                </li>
+                <li class="moj-sub-navigation__item">
+                    <a class="moj-sub-navigation__link" href="./cattle-register">
+                        Livestock information
+                    </a>
+                </li>
+                <li class="moj-sub-navigation__item">
+                    <a class="moj-sub-navigation__link" href="../events">
+                        Events
+                    </a>
+                </li>
+                <li class="moj-sub-navigation__item">
+                    <a class="moj-sub-navigation__link" href="#holding-information">
+                        Holding details
+                    </a>
+                </li>
+                <li class="moj-sub-navigation__item">
+                    <a class="moj-sub-navigation__link" href="#keepers">
+                        Keepers
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <h2 class="govuk-heading-m">
+            Overview
+        </h2>
+
+        <div class="app-grid-container app-overview-cards govuk-!-margin-bottom-8">
+
+            <div class="app-card">
+                <div class="app-card-container">
+                    <h3 class="govuk-heading-m">
+                        <a href="./cattle-register" class="govuk-link govuk-link--no-visited-state app-card-link--header">
+                            Animals on holding
+                        </a>
+                    </h3>
+
+                    <p class="govuk-body app-card__number">
+                        142
+                    </p>
+
+                    <p class="govuk-body">
+                        View livestock on this holding.
+                    </p>
+                </div>
+            </div>
+
+            <div class="app-card">
+                <div class="app-card-container">
+                    <h3 class="govuk-heading-m">
+                        <a href="#issues" class="govuk-link govuk-link--no-visited-state app-card-link--header">
+                            Open issues
+                        </a>
+                    </h3>
+
+                    <p class="govuk-body app-card__number">
+                        5
+                    </p>
+
+                    <p class="govuk-body">
+                        Review issues that may need resolving.
+                    </p>
+                </div>
+            </div>
+
+            <div class="app-card">
+                <div class="app-card-container">
+                    <h3 class="govuk-heading-m">
+                        <a href="../events" class="govuk-link govuk-link--no-visited-state app-card-link--header">
+                            Events in progress
+                        </a>
+                    </h3>
+
+                    <p class="govuk-body app-card__number">
+                        2
+                    </p>
+
+                    <p class="govuk-body">
+                        View events that have not been completed.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="app-section-heading">
+            <h2 class="govuk-heading-m govuk-!-margin-bottom-0">
+                Recent registered events
+            </h2>
+
+            <div class="govuk-form-group govuk-!-margin-bottom-0">
+                <label class="govuk-label" for="event-period">
+                    Event period
+                </label>
+                <select class="govuk-select" id="event-period" name="eventPeriod">
+                    <option value="3-months">Last 3 months</option>
+                    <option value="30-days">Last 30 days</option>
+                    <option value="6-months">Last 6 months</option>
+                    <option value="12-months">Last 12 months</option>
+                </select>
+            </div>
+        </div>
+
+        <table class="govuk-table">
+            <caption class="govuk-table__caption govuk-visually-hidden">
+                Recent registered events for {{ holding.holdingName }}
+            </caption>
+
+            <thead class="govuk-table__head">
+            <tr class="govuk-table__row">
+                <th scope="col" class="govuk-table__header">
+                    Event type
+                </th>
+                <th scope="col" class="govuk-table__header govuk-table__header--numeric">
+                    Completed
+                </th>
+                <th scope="col" class="govuk-table__header govuk-table__header--numeric">
+                    In progress
+                </th>
+                <th scope="col" class="govuk-table__header govuk-table__header--numeric">
+                    Issues
+                </th>
+            </tr>
+            </thead>
+
+            <tbody class="govuk-table__body">
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">
+                    <a href="#">Births</a>
+                </th>
+                <td class="govuk-table__cell govuk-table__cell--numeric">
+                    6
+                </td>
+                <td class="govuk-table__cell govuk-table__cell--numeric">
+                    1
+                </td>
+                <td class="govuk-table__cell govuk-table__cell--numeric">
+                    <strong class="govuk-tag govuk-tag--red">
+                        2
+                    </strong>
+                </td>
+            </tr>
+
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">
+                    <a href="#"> Moved on</a>
+                </th>
+                <td class="govuk-table__cell govuk-table__cell--numeric">
+                    4
+                </td>
+                <td class="govuk-table__cell govuk-table__cell--numeric">
+                    1
+                </td>
+                <td class="govuk-table__cell govuk-table__cell--numeric">
+                    <strong class="govuk-tag govuk-tag--red">
+                        1
+                    </strong>
+                </td>
+            </tr>
+
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">
+                    <a href="#"> Moved off</a>
+                </th>
+                <td class="govuk-table__cell govuk-table__cell--numeric">
+                    5
+                </td>
+                <td class="govuk-table__cell govuk-table__cell--numeric">
+                    0
+                </td>
+                <td class="govuk-table__cell govuk-table__cell--numeric">
+                    <strong class="govuk-tag govuk-tag--red">
+                        1
+                    </strong>
+                </td>
+            </tr>
+
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">
+                    <a href="#">Deaths</a>
+                </th>
+                <td class="govuk-table__cell govuk-table__cell--numeric">
+                    2
+                </td>
+                <td class="govuk-table__cell govuk-table__cell--numeric">
+                    0
+                </td>
+                <td class="govuk-table__cell govuk-table__cell--numeric">
+                    <strong class="govuk-tag govuk-tag--red">
+                        1
+                    </strong>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <p class="govuk-body govuk-!-margin-bottom-7">
+            <a class="govuk-link" href="#">
+                <strong>View all recent events</strong>
+            </a>
+        </p>
+        <div id="issues" class="app-section-heading">
+            <h2 class="govuk-heading-m govuk-!-margin-bottom-0">
+                5 open issues
+            </h2>
+
+        </div>
+
+        <ol class="govuk-list app-event-results app-event-results--issues">
+
+            <li class="app-event-card app-event-card--issue">
+                <article class="app-event-card__content">
+
+                    <p class="govuk-body-s app-event-card__date">
+                        3 January 2024
+                    </p>
+
+                    <h3 class="govuk-heading-s app-event-card__heading">
+                        <a class="govuk-link" href="#">
+                            <span class="govuk-visually-hidden">Has issue: </span>  Birth reported - {{ "UK098765432107" | formatReference }}
+                        </a>
+                    </h3>
+
+                    <ul class="govuk-list app-event-card__details">
+
+
+                        <li>
+                            <span class="app-event-card__details-key">Registered to:</span>
+                            Oakfield Farm - 12/345/0001 (this holding)
+                        </li>
+
+                        <li>
+                            <span class="app-event-card__details-key">Registered:</span>
+                            8 January 2024 · REG-2024-0091
+                        </li>
+                    </ul>
+
+                    <div class="app-event-card__notice">
+                        <h4 class="govuk-heading-s govuk-!-margin-bottom-1 app-event-card__notice-heading app-event-card__notice-heading--issue">
+                            <span class="govuk-visually-hidden">Error: </span>
+                            Sex recorded for the birth does not match the issued passport
+                        </h4>
+
+                        <p class="govuk-body-s govuk-!-margin-bottom-1">
+                            Check the sex recorded for the birth and the details on the issued passport.  <br>Movements are restricted until this issue is resolved.
+                        </p>
+
+                    </div>
+
+                </article>
+            </li>
+
+            <li class="app-event-card app-event-card--issue">
+                <article class="app-event-card__content">
+
+                    <p class="govuk-body-s app-event-card__date">
+                        5 January 2024
+                    </p>
+
+                    <h3 class="govuk-heading-s app-event-card__heading">
+                        <a class="govuk-link" href="#">
+                            <span class="govuk-visually-hidden">Has issue: </span> Birth reported - {{ "UK098765432199" | formatReference }}
+                        </a>
+                    </h3>
+
+
+
+                    <ul class="govuk-list app-event-card__details">
+
+
+                        <li>
+                            <span class="app-event-card__details-key">Registered to:</span>
+                            Oakfield Farm - 12/345/0001 (this holding)
+                        </li>
+
+                        <li>
+                            <span class="app-event-card__details-key">Registered:</span>
+                            10 January 2024 · REG-2024-0098
+                        </li>
+                    </ul>
+
+                    <div class="app-event-card__notice">
+                        <h4 class="govuk-heading-s govuk-!-margin-bottom-1 app-event-card__notice-heading app-event-card__notice-heading--issue">
+                            <span class="govuk-visually-hidden">Error:</span> Dam tag not found on register
+                        </h4>
+
+                        <p class="govuk-body-s govuk-!-margin-bottom-0">
+                            Check the dam details before completing this birth registration.
+                        </p>
+                    </div>
+
+                </article>
+            </li>
+
+            <li class="app-event-card app-event-card--issue">
+                <article class="app-event-card__content">
+
+                    <p class="govuk-body-s app-event-card__date">
+                        15 June 2024
+                    </p>
+
+                    <h3 class="govuk-heading-s app-event-card__heading">
+                        <a class="govuk-link" href="#">
+                            <span class="govuk-visually-hidden">Has issue:</span> Movement reported - {{ "UK223344556677" | formatReference }}
+                        </a>
+                    </h3>
+
+                    <ul class="govuk-list app-event-card__details">
+                        <li>
+                            <span class="app-event-card__details-key">From:</span>
+                            09/112/3399
+                        </li>
+
+                        <li>
+                            <span class="app-event-card__details-key">To:</span>
+                            Oakfield Farm - 12/345/0001 (this holding)
+                        </li>
+
+                        <li>
+                            <span class="app-event-card__details-key">Reason:</span>
+                            Sale
+                        </li>
+                    </ul>
+
+                    <div class="app-event-card__notice">
+
+                        <h4 class="govuk-heading-s govuk-!-margin-bottom-1 app-event-card__notice-heading app-event-card__notice-heading--issue">
+                            <span class="govuk-visually-hidden">Error:</span> Origin CPH 09/112/3399 not found on register
+                        </h4>
+
+                        <p class="govuk-body-s govuk-!-margin-bottom-0">
+                            Check the origin holding before completing this movement.
+                        </p>
+                    </div>
+
+                </article>
+            </li>
+
+            <li class="app-event-card app-event-card--review">
+                <article class="app-event-card__content">
+
+                    <p class="govuk-body-s app-event-card__date">
+                        18 February 2026
+                    </p>
+
+                    <h3 class="govuk-heading-s app-event-card__heading">
+                        <a class="govuk-link" href="#">
+                            Movement reported - {{ "UK667788990022" | formatReference }}
+                        </a>
+                    </h3>
+
+                    <ul class="govuk-list app-event-card__details">
+                        <li>
+                            <span class="app-event-card__details-key">From:</span>
+                            Cold Comfort Farm -  44/112/9087
+                        </li>
+
+                        <li>
+                            <span class="app-event-card__details-key">To:</span>
+                            Oakfield Farm - 12/345/0001 (this holding)
+                        </li>
+
+                        <li>
+                            <span class="app-event-card__details-key">Reason:</span>
+                            Sale
+                        </li>
+                    </ul>
+
+
+                    <div class="app-event-card__notice">
+                        <p class="govuk-tag">
+                            Needs review
+                        </p>
+
+                        <h4 class="govuk-heading-s govuk-!-margin-bottom-1">
+                           <span class="govuk-visually-hidden">Needs review</span> Reported 5 days after the event, outside the 3 day window
+                        </h4>
+
+                        <p class="govuk-body-s govuk-!-margin-bottom-0">
+                            Check whether this late movement report needs further action.
+                        </p>
+                    </div>
+
+                </article>
+            </li>
+
+            <li class="app-event-card app-event-card--review">
+                <article class="app-event-card__content">
+
+                    <p class="govuk-body-s app-event-card__date">
+                        20 February 2026
+                    </p>
+
+                    <h3 class="govuk-heading-s app-event-card__heading">
+                        <a class="govuk-link" href="#">
+                            Death recorded - {{ "UK334455667700" | formatReference }}
+                        </a>
+                    </h3>
+
+                    <ul class="govuk-list app-event-card__details">
+                        <li>
+                            <span class="app-event-card__details-key">Death registered at</span>
+                            Oakfield Farm - 12/345/0001 (this holding)
+                        </li>
+
+                        <li>
+                            <span class="app-event-card__details-key">Cause:</span>
+                            Cause
+                        </li>
+
+                        <li>
+                            <span class="app-event-card__details-key">Reported by: </span>
+                            Riverside Abattoir
+                        </li>
+                    </ul>
+
+
+                    <div class="app-event-card__notice">
+                        <p class="govuk-tag">
+                            Needs review
+                        </p>
+
+                        <h4 class="govuk-heading-s govuk-!-margin-bottom-1">
+                            Passport return overdue, 3 days late
+                        </h4>
+
+                        <p class="govuk-body-s govuk-!-margin-bottom-0">
+                            Check whether the passport has been returned or needs chasing.
+                        </p>
+                    </div>
+
+                </article>
+            </li>
+
+        </ol>
+
+        <p class="govuk-body govuk-!-margin-bottom-7">
+            <a class="govuk-link" href="#">
+                <strong>View all issues for this holding</strong>
+            </a>
+        </p>
+    </div>
+    </div>
+    </div>
+</div>
+
+{% endblock %}

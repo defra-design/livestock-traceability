@@ -1,11 +1,16 @@
 //
 // For guidance on how to add CSS and SCSS see:
 // https://prototype-kit.service.gov.uk/docs/adding-css-javascript-and-images
+@import "components/event-card";
 @import "components/filter-panel";
+@import "components/overview";
 @import "components/search";
 @import "components/timeline";
 
 
+.app-width-container--wide {
+  max-width: 1280px;
+}
 
 // Add extra styles here
 
