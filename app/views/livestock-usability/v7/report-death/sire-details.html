@@ -1,0 +1,43 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Sire details" %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <span class="govuk-caption-l">Animal ear tag number: UK 123456 {{ data['death-ear-tag-number'] }}</span>
+    <h1 class="govuk-heading-l">Sire details</h1>
+
+    <form action="/livestock-usability/v7/report-death/sire-details" method="post" novalidate>
+
+      <div class="govuk-form-group">
+        <label class="govuk-label govuk-label--m" for="death-sire-number">
+          Sire ear tag number (optional)
+        </label>
+        <input class="govuk-input govuk-!-width-two-thirds" id="death-sire-number" name="death-sire-number" type="text" value="{{ data['death-sire-number'] }}">
+      </div>
+
+      <div class="govuk-form-group">
+        <label class="govuk-label govuk-label--m" for="death-sire-name">
+          Sire name (optional)
+        </label>
+        <input class="govuk-input govuk-!-width-two-thirds" id="death-sire-name" name="death-sire-name" type="text" value="{{ data['death-sire-name'] }}">
+      </div>
+
+      {{ govukButton({ text: "Continue" }) }}
+
+    </form>
+
+  </div>
+</div>
+
+{% endblock %}

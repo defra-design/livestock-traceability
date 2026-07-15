@@ -1,0 +1,107 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Multiple birth" %}
+
+{% block head %}
+  {{ super() }}
+  <link href="https://unpkg.com/accessible-autocomplete/dist/accessible-autocomplete.min.css" rel="stylesheet" media="all" />
+  <style>
+    .autocomplete__wrapper {
+      max-width: 20.5em;
+    }
+    .autocomplete__hint,
+    .autocomplete__input,
+    .autocomplete__option {
+      font-family: "Transport", arial, sans-serif;
+      font-size: 1.1875rem;
+      font-weight: normal!important;
+    }
+    .autocomplete__option strong {
+      font-weight: normal;
+    }
+  </style>
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+      <span class="govuk-caption-l">Official animal ear tag number: {{ data['ear-tag-number'] }}</span>
+      <h1 class="govuk-fieldset__heading">
+        Sibling details
+      </h1>
+    </legend>
+
+    <form action="/livestock-usability/v7/multiple-birth" method="post" novalidate>
+
+      <div class="govuk-form-group">
+        <label class="govuk-label govuk-label--m" for="ear-tag-number-2">
+          Animal ear tag number
+        </label>
+        <div class="govuk-hint">
+          Start typing the last 6 digits of the ear tag number and select from the list
+        </div>
+        <div class="govuk-input__wrapper">
+          <select id="ear-tag-number-2" name="ear-tag-number-2">
+            <option value=""></option>
+            <option value="UK123456301550" {% if data['ear-tag-number-2'] == 'UK123456301550' %}selected{% endif %}>UK123456301550</option>
+            <option value="UK123456301551" {% if data['ear-tag-number-2'] == 'UK123456301551' %}selected{% endif %}>UK123456301551</option>
+            <option value="UK123456301552" {% if data['ear-tag-number-2'] == 'UK123456301552' %}selected{% endif %}>UK123456301552</option>
+            <option value="UK123456301553" {% if data['ear-tag-number-2'] == 'UK123456301553' %}selected{% endif %}>UK123456301553</option>
+            <option value="UK123456301554" {% if data['ear-tag-number-2'] == 'UK123456301554' %}selected{% endif %}>UK123456301554</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="govuk-form-group">
+        <fieldset class="govuk-fieldset">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+            Sex of the calf
+          </legend>
+          <div class="govuk-radios govuk-radios--inline" data-module="govuk-radios">
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="sex-mb" name="sex-mb" type="radio" value="male" {% if data['sex-mb'] == 'male' %}checked{% endif %}>
+              <label class="govuk-label govuk-radios__label" for="sex-mb">Male</label>
+            </div>
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="sex-mb-2" name="sex-mb" type="radio" value="female" {% if data['sex-mb'] == 'female' %}checked{% endif %}>
+              <label class="govuk-label govuk-radios__label" for="sex-mb-2">Female</label>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+
+      <div class="govuk-button-group">
+        <button type="submit" name="action" value="continue" class="govuk-button" data-module="govuk-button">
+          Continue
+        </button>
+        <button type="submit" name="action" value="add-another" class="govuk-button govuk-button--secondary" data-module="govuk-button">
+          Add another
+        </button>
+      </div>
+
+    </form>
+
+  </div>
+</div>
+
+{% endblock %}
+
+{% block pageScripts %}
+  <script src="https://unpkg.com/accessible-autocomplete/dist/accessible-autocomplete.min.js"></script>
+  <script>
+    const $picker = document.querySelector('#ear-tag-number-2')
+    accessibleAutocomplete.enhanceSelectElement({
+      selectElement: $picker
+    })
+  </script>
+{% endblock %}

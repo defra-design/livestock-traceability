@@ -7,6 +7,7 @@
       "earTagNumber": "UK324537113234",
       "dateOfBirth": "10-03-2023",
       "dateOfRegistration": "14-03-2023",
+      "onHoldingDate": "10-03-2023",
       "sex": "Female",
       "breed": {
         "name": "Holstein Friesian",
@@ -27,6 +28,7 @@
       "earTagNumber": "UK324537113235",
       "dateOfBirth": "28-03-2023",
       "dateOfRegistration": "03-04-2023",
+      "onHoldingDate": "28-03-2023",
       "sex": "Female",
       "breed": {
         "name": "Holstein Friesian Cross",
@@ -49,6 +51,7 @@
       "earTagNumber": "UK324537113236",
       "dateOfBirth": "15-04-2023",
       "dateOfRegistration": "15-04-2023",
+      "onHoldingDate": "15-04-2023",
       "sex": "Male",
       "breed": {
         "name": "Holstein Friesian",
@@ -72,6 +75,7 @@
       "earTagNumber": "UK324537113237",
       "dateOfBirth": "02-05-2023",
       "dateOfRegistration": "07-05-2023",
+      "onHoldingDate": "02-05-2023",
       "sex": "Male",
       "breed": {
         "name": "Holstein Friesian Cross",
@@ -92,6 +96,7 @@
       "earTagNumber": "UK324537113238",
       "dateOfBirth": "20-05-2023",
       "dateOfRegistration": "21-05-2023",
+      "onHoldingDate": "20-05-2023",
       "sex": "Male",
       "breed": {
         "name": "Holstein Friesian",
@@ -117,6 +122,7 @@
       "earTagNumber": "UK324537113239",
       "dateOfBirth": "08-09-2023",
       "dateOfRegistration": "09-09-2023",
+      "onHoldingDate": "08-09-2023",
       "sex": "Female",
       "breed": {
         "name": "Holstein Friesian Cross",
@@ -137,6 +143,7 @@
       "earTagNumber": "UK324537113240",
       "dateOfBirth": "25-09-2023",
       "dateOfRegistration": "27-09-2023",
+      "onHoldingDate": "25-09-2023",
       "sex": "Female",
       "breed": {
         "name": "Holstein Friesian",
@@ -157,6 +164,7 @@
       "earTagNumber": "UK324537113241",
       "dateOfBirth": "12-10-2023",
       "dateOfRegistration": "19-10-2023",
+      "onHoldingDate": "12-10-2023",
       "sex": "Female",
       "breed": {
         "name": "Holstein Friesian Cross",
@@ -177,6 +185,7 @@
       "earTagNumber": "UK324537113242",
       "dateOfBirth": "30-10-2023",
       "dateOfRegistration": "01-11-2023",
+      "onHoldingDate": "30-10-2023",
       "sex": "Male",
       "breed": {
         "name": "Holstein Friesian",
@@ -197,6 +206,7 @@
       "earTagNumber": "UK324537113243",
       "dateOfBirth": "16-11-2023",
       "dateOfRegistration": "23-11-2023",
+      "onHoldingDate": "16-11-2023",
       "sex": "Female",
       "breed": {
         "name": "Holstein Friesian Cross",
@@ -219,6 +229,7 @@
       "earTagNumber": "UK324537113244",
       "dateOfBirth": "05-03-2024",
       "dateOfRegistration": "12-03-2024",
+      "onHoldingDate": "05-03-2024",
       "sex": "Male",
       "breed": {
         "name": "Holstein Friesian",
@@ -239,6 +250,7 @@
       "earTagNumber": "UK324537113245",
       "dateOfBirth": "22-03-2024",
       "dateOfRegistration": "25-03-2024",
+      "onHoldingDate": "22-03-2024",
       "sex": "Female",
       "breed": {
         "name": "Holstein Friesian Cross",
@@ -259,6 +271,7 @@
       "earTagNumber": "UK324537113246",
       "dateOfBirth": "09-04-2024",
       "dateOfRegistration": "12-04-2024",
+      "onHoldingDate": "09-04-2024",
       "sex": "Male",
       "breed": {
         "name": "Holstein Friesian",
@@ -281,6 +294,7 @@
       "earTagNumber": "UK324537113247",
       "dateOfBirth": "26-04-2024",
       "dateOfRegistration": "26-04-2024",
+      "onHoldingDate": "26-04-2024",
       "sex": "Male",
       "breed": {
         "name": "Holstein Friesian Cross",
@@ -301,6 +315,7 @@
       "earTagNumber": "UK324537113248",
       "dateOfBirth": "14-05-2024",
       "dateOfRegistration": "17-05-2024",
+      "onHoldingDate": "14-05-2024",
       "sex": "Female",
       "breed": {
         "name": "Holstein Friesian",
@@ -321,6 +336,7 @@
       "earTagNumber": "UK324537113249",
       "dateOfBirth": "03-09-2024",
       "dateOfRegistration": "07-09-2024",
+      "onHoldingDate": "03-09-2024",
       "sex": "Female",
       "breed": {
         "name": "Holstein Friesian Cross",
@@ -344,6 +360,7 @@
       "earTagNumber": "UK324537113250",
       "dateOfBirth": "20-09-2024",
       "dateOfRegistration": "27-09-2024",
+      "onHoldingDate": "20-09-2024",
       "sex": "Female",
       "breed": {
         "name": "Holstein Friesian",
@@ -364,6 +381,7 @@
       "earTagNumber": "UK324537113251",
       "dateOfBirth": "08-10-2024",
       "dateOfRegistration": "10-10-2024",
+      "onHoldingDate": "08-10-2024",
       "sex": "Male",
       "breed": {
         "name": "Holstein Friesian Cross",
@@ -386,6 +404,7 @@
       "earTagNumber": "UK324537113252",
       "dateOfBirth": "25-10-2024",
       "dateOfRegistration": "30-10-2024",
+      "onHoldingDate": "25-10-2024",
       "sex": "Female",
       "breed": {
         "name": "Holstein Friesian",
@@ -409,6 +428,7 @@
       "earTagNumber": "UK324537113253",
       "dateOfBirth": "12-11-2024",
       "dateOfRegistration": "15-11-2024",
+      "onHoldingDate": "12-11-2024",
       "sex": "Female",
       "breed": {
         "name": "Holstein Friesian Cross",

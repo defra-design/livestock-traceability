@@ -1,0 +1,108 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Genetic dam" %}
+
+{% block head %}
+  {{ super() }}
+  <link href="https://unpkg.com/accessible-autocomplete/dist/accessible-autocomplete.min.css" rel="stylesheet" media="all" />
+  <style>
+    .autocomplete__wrapper {
+      max-width: 20.5em;
+    }
+    .autocomplete__hint,
+    .autocomplete__input,
+    .autocomplete__option {
+      font-family: "Transport", arial, sans-serif;
+      font-size: 1.1875rem;
+      font-weight: normal!important;
+    }
+    .govuk-form-group--error .autocomplete__input {
+      border-color: #d4351c;
+    }
+    .autocomplete__option strong {
+      font-weight: normal;
+    }
+  </style>
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    {% if errors %}
+    <div class="govuk-error-summary" data-module="govuk-error-summary">
+      <div role="alert">
+        <h2 class="govuk-error-summary__title">There is a problem</h2>
+        <div class="govuk-error-summary__body">
+          <ul class="govuk-list govuk-error-summary__list">
+            {% if errors['genetic-dam-number'] %}
+            <li><a href="#genetic-dam-number">{{ errors['genetic-dam-number'] }}</a></li>
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
+    <form action="/livestock-usability/v7/genetic-dam" method="post" novalidate>
+
+      <div class="govuk-form-group {% if errors['genetic-dam-number'] %}govuk-form-group--error{% endif %}">
+
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+          <span class="govuk-caption-l">Official animal ear tag number: {{ data['ear-tag-number'] }}</span>
+          <h1 class="govuk-fieldset__heading">
+            Genetic dam details
+          </h1>
+        </legend>
+
+        <label class="govuk-label govuk-label--m" for="genetic-dam-number">
+          Animal ear tag number
+        </label>
+        <div id="account-number-hint" class="govuk-hint">
+          Start typing the last 6 digits of the ear tag number and select from the list
+        </div>
+        {% if errors['genetic-dam-number'] %}
+        <p id="genetic-dam-number-error" class="govuk-error-message">
+          <span class="govuk-visually-hidden">Error:</span> {{ errors['genetic-dam-number'] }}
+        </p>
+        {% endif %}
+        <select id="genetic-dam-number" name="genetic-dam-number" aria-describedby="{% if errors['genetic-dam-number'] %}genetic-dam-number-error{% endif %}">
+          <option value=""></option>
+          <option value="UK123456501100" {% if data['genetic-dam-number'] == 'UK123456501100' %}selected{% endif %}>UK123456501100</option>
+          <option value="UK123456501101" {% if data['genetic-dam-number'] == 'UK123456501101' %}selected{% endif %}>UK123456501101</option>
+          <option value="UK123456501102" {% if data['genetic-dam-number'] == 'UK123456501102' %}selected{% endif %}>UK123456501102</option>
+          <option value="UK123456501103" {% if data['genetic-dam-number'] == 'UK123456501103' %}selected{% endif %}>UK123456501103</option>
+          <option value="UK123456501104" {% if data['genetic-dam-number'] == 'UK123456501104' %}selected{% endif %}>UK123456501104</option>
+          <option value="UK123456501105" {% if data['genetic-dam-number'] == 'UK123456501105' %}selected{% endif %}>UK123456501105</option>
+          <option value="UK123456501106" {% if data['genetic-dam-number'] == 'UK123456501106' %}selected{% endif %}>UK123456501106</option>
+          <option value="UK123456501107" {% if data['genetic-dam-number'] == 'UK123456501107' %}selected{% endif %}>UK123456501107</option>
+          <option value="UK123456501108" {% if data['genetic-dam-number'] == 'UK123456501108' %}selected{% endif %}>UK123456501108</option>
+          <option value="UK123456501109" {% if data['genetic-dam-number'] == 'UK123456501109' %}selected{% endif %}>UK123456501109</option>
+        </select>
+      </div>
+
+      {{ govukButton({ text: "Continue" }) }}
+
+    </form>
+
+  </div>
+</div>
+
+{% endblock %}
+
+{% block pageScripts %}
+  <script src="https://unpkg.com/accessible-autocomplete/dist/accessible-autocomplete.min.js"></script>
+  <script>
+    accessibleAutocomplete.enhanceSelectElement({
+      selectElement: document.querySelector('#genetic-dam-number')
+    })
+  </script>
+{% endblock %}

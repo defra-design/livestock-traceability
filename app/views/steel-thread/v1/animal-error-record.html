@@ -1,0 +1,131 @@
+{% extends "layouts/main.html" %}
+
+{% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
+
+{% set pageName="Animal error record" %}
+
+{% block header %}
+
+  {{ govukHeader({
+    homepageUrl: '/index.html'
+  }) }}
+
+  {{ govukServiceNavigation({
+    serviceName: "Livestock Information",
+    serviceUrl: "/steel-thread/v1/holding-information",
+    slots: {
+      navigationEnd: '<li class="govuk-service-navigation__item app-service-navigation__item--right"><a class="govuk-service-navigation__link" href="/steel-thread/v1/one-login">Sign out</a></li>'
+    }
+  }) }}
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-notification-banner" role="region" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
+  <div class="govuk-notification-banner__header">
+    <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+      Important
+    </h2>
+  </div>
+
+  <div class="govuk-notification-banner__content">
+    <p class="govuk-notification-banner__heading">
+      You have {{ errorRecords.length }} animals that need your attention.
+      <a class="govuk-notification-banner__link"
+         href="/steel-thread/v1/animal-error-record">
+        View animal error records
+      </a>.
+    </p>
+  </div>
+</div>
+
+
+<span class="govuk-caption-l">CPH number: 12/345/0001</span>
+<h1 class="govuk-heading-l">
+  Oakfield Farm
+</h1>
+
+<nav class="moj-sub-navigation" aria-label="Sub navigation">
+  <ul class="moj-sub-navigation__list">
+    <li class="moj-sub-navigation__item">
+      <a class="moj-sub-navigation__link" href="/steel-thread/v1/holding-information">Holding details</a>
+    </li>
+    <li class="moj-sub-navigation__item">
+      <a class="moj-sub-navigation__link" href="/steel-thread/v1/cattle-register">Animals on holding</a>
+    </li>
+    <li class="moj-sub-navigation__item">
+      <a class="moj-sub-navigation__link" aria-current="page" href="/steel-thread/v1/animal-error-record">Animal error record</a>
+    </li>
+  </ul>
+</nav>
+
+<div>
+
+  <div>
+
+    {% for record in errorRecords %}
+    <div class="govuk-summary-card">
+      <div class="govuk-summary-card__title-wrapper">
+        <h2 class="govuk-summary-card__title">
+          {{ record.earTagNumber | formatReference }}
+        </h2>
+      </div>
+      <div class="govuk-summary-card__content">
+        <dl class="govuk-summary-list">
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Date of birth
+            </dt>
+            <dd class="govuk-summary-list__value">
+              {{ record.dateOfBirth | shortDateFormat }}
+            </dd>
+          </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Date of registration
+            </dt>
+            <dd class="govuk-summary-list__value">
+              {{ record.dateOfRegistration | shortDateFormat }}
+            </dd>
+          </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Reason for error
+            </dt>
+            <dd class="govuk-summary-list__value">
+              {{ record.reason }}
+            </dd>
+          </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              How to rectify this error
+            </dt>
+            <dd class="govuk-summary-list__value">
+
+              <p class="govuk-body">
+                Please contact BCMS for more information:
+              </p>
+
+              <ul class="govuk-list">
+                <li>
+                    Email: <a class="govuk-link" href="#">bcmsenquiries@rpa.gov.uk</a>
+                </li>
+                <li>
+                  BCMS helpline: 0345 050 1234
+                </li>
+                <li>
+                  Helpline for cattle keepers in Wales: 0345 050 3456
+                </li>
+              </ul>
+            </dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+    {% endfor %}
+
+  </div>
+</div>
+
+{% endblock %}

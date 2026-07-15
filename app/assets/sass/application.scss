@@ -217,6 +217,15 @@
       padding-top: 15px;
       margin-top: 20px;
     }
+
+    // Push a service navigation slot item (eg. Sign out) to the right
+    .app-service-navigation__item--right {
+      @media (min-width: 40.0625em) {
+        margin-left: auto;
+      }
+    }
+
+    
     
     .app-table--compact {
       font-size: 1rem;
