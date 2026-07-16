@@ -1,0 +1,1125 @@
+{% extends "layouts/main.html" %}
+
+{% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
+
+{% set pageName="Cattle register" %}
+
+{% set activeNav = "my-holdings" %}
+
+{% block header %}
+
+{% block navBar %}{% include "./components/_navigation.html" %}{% endblock %}
+
+{% endblock %}
+
+{% block beforeContent %}
+{% set pathParts = currentPath.split('/') %}
+{% set currentBaseUrl = '/' + pathParts[1] + '/' + pathParts[2] + '/' %}
+{{ govukBreadcrumbs({
+items: [
+{
+text: "Home",
+href: currentBaseUrl+"home"
+}
+]
+}) }}
+
+<style>
+    #defra-filter--button {
+                margin-top: inherit;
+            }
+
+            /* This is a unique pixel width for 'dashboard-submitted.html' (e.g. users with >1 submitted applications) */
+            @media (min-width: 641px) and (max-width: 852px) {
+                #defra-filter--button {
+                    margin-top: 30px;
+                }
+            }
+
+            @media (min-width: 853px) {
+                #defra-filter--button {
+                    margin-top: 30px;
+                }
+            }
+    .defra-filter--action {
+      position: relative;
+          margin-top: 30px;
+
+    }
+    .defra-filter--action:after {
+      content: "";
+      display: block;
+      clear: both;
+    }
+    .defra-filter--action .govuk-button {
+      margin-bottom: 0;
+      padding: 16px 50px 10px 20px;
+      /* width: 100%; */
+      display: block;
+      text-align: left;
+      background-color: #f3f2f1;
+      box-shadow: 0 2px 0 #929191;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+    @media (min-width: 48.0625em) {
+      .defra-filter--action .govuk-button {
+        margin-bottom: 0;
+      }
+    }
+    .defra-filter--action .defra-accordion__icon:before {
+      content: "";
+      box-sizing: border-box;
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      width: 25%;
+      height: 25%;
+      margin: auto;
+      border: 2px solid transparent;
+      background-color: #0b0c0c;
+    }
+    .defra-filter--action .defra-filter__icon {
+      position: absolute;
+      top: 50%;
+      right: 15px;
+      width: 16px;
+      height: 16px;
+      margin-top: -8px;
+    }
+    .defra-filter--action .defra-filter__icon:before {
+      content: "";
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      width: 25%;
+      height: 25%;
+      margin: auto;
+      border: 2px solid transparent;
+      background-color: #0b0c0c;
+    }
+    .defra-filter--action .defra-filter__icon:after {
+      content: "";
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      width: 25%;
+      height: 25%;
+      margin: auto;
+      border: 2px solid transparent;
+      background-color: #0b0c0c;
+    }
+    .defra-filter--action .defra-filter__icon:before {
+      width: 100%;
+    }
+    .defra-filter--action .defra-filter__icon:after {
+      height: 100%;
+    }
+    .defra-filter--action .defra-filter-button--active {
+      background-color: #005ea5 !important;
+      color: #fff !important;
+      box-shadow: 0 2px 0 #091728;
+    }
+    .defra-filter--action .defra-filter-button--active .defra-filter__icon:before {
+      background-color: #fff;
+    }
+    .defra-filter--action .defra-filter-button--active .defra-filter__icon:after {
+      background-color: #fff;
+    }
+
+    .defra-filter--content {
+      background-color: #f3f2f1;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+    @media (min-width: 48.0625em) {
+      .defra-filter--content {
+        margin-top: -10px;
+      }
+    }
+    .defra-filter--content .govuk-grid-column--divider {
+      border-right: 1px solid #b1b4b6;
+    }
+
+    .defra-filter--open .govuk-button {
+      box-shadow: none !important;
+      background-color: #dee0e2 !important;
+      color: #0b0c0c !important;
+      margin-bottom: 0;
+    }
+    @media (min-width: 48.0625em) {
+      .defra-filter--open .govuk-button {
+        padding-bottom: 30px;
+        height: 70px;
+      }
+      .defra-filter--open .govuk-button .defra-filter__icon {
+        top: 25px;
+      }
+    }
+    .defra-filter--open .govuk-button .defra-filter__icon:before {
+      background-color: #0b0c0c !important;
+    }
+    .defra-filter--open .govuk-button .defra-filter__icon:after {
+      background-color: transparent !important;
+    }
+    .app-c-option-select__filter-input {
+    background-color: #f3f2f1;
+}
+.app-c-option-select__filter-input {
+    font-size: 16px;
+    line-height: 1.25;
+}
+.app-c-option-select__filter-input {
+    font-family: "GDS Transport", arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.25;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 36'%3E%3Cpath d='M25.7 24.8L21.9 21c.7-1 1.1-2.2 1.1-3.5 0-3.6-2.9-6.5-6.5-6.5S10 13.9 10 17.5s2.9 6.5 6.5 6.5c1.6 0 3-.6 4.1-1.5l3.7 3.7 1.4-1.4zM12 17.5c0-2.5 2-4.5 4.5-4.5s4.5 2 4.5 4.5-2 4.5-4.5 4.5-4.5-2-4.5-4.5z' fill='%230b0c0c'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: 2px 50%;
+  background-size: 36px 36px;
+
+  padding-left: 36px;
+}
+
+
+.app-c-option-select__container {
+    position: relative;
+     max-height: 225px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+</style>
+{% endblock %}
+
+
+{% block content %}
+
+{%- from "govuk/components/checkboxes/macro.njk" import govukCheckboxes -%}
+{%- from "govuk/components/input/macro.njk" import govukInput -%}
+{%- from "govuk/components/table/macro.njk" import govukTable -%}
+
+{% set hasSearch = search and search | trim %}
+{% set sexActive =
+query.sex
+and query.sex != "_unchecked"
+%}
+
+{% set statusActive =
+query.status
+and query.status != "_unchecked"
+and not (
+(query.status | length) == 1
+and query.status[0] == "_unchecked"
+)
+%}
+
+{% set breedActive =
+query.breed
+and query.breed != "_unchecked"
+and not (
+(query.breed | length) == 1
+and query.breed[0] == "_unchecked"
+)
+%}
+
+{% set filtersActive =
+sexActive
+or statusActive
+or breedActive
+or query.holding
+or query.dobFrom
+or query.dobTo
+%}
+<div>
+  <h1 class="govuk-heading-l">
+    Cattle register
+  </h1>
+</div>
+
+
+{#
+Expected values:
+
+search: string
+filtersActive: boolean
+selectedSex: string
+selectedStatuses: array
+selectedBreeds: array
+#}
+
+{% set selectedSexValue = selectedSex or "" %}
+{% set selectedStatusValues = selectedStatuses or [] %}
+{% set selectedBreedValues = selectedBreeds or [] %}
+
+{% set breedOptions = [
+"Aberdeen Angus",
+"Beef Shorthorn",
+"Belgian Blue",
+"British Blue",
+"Charolais",
+"Galloway",
+"Hereford",
+"Highland",
+"Holstein",
+"Lincoln Red",
+"Shorthorn"
+] %}
+
+<h2 class="govuk-heading-m">
+    Search and filter
+</h2>
+
+<form method="get" action="" novalidate>
+
+    <div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-two-thirds">
+
+            <div class="search-wrapper govuk-form-group">
+
+                <label for="search-cattle" class="govuk-label">
+                    Search by ear tag number, CPH number or holding name
+                </label>
+
+                <div class="search-input-wrapper">
+
+                    <input
+                            type="search"
+                            value="{{ query.search or '' }}"
+                            id="search-cattle"
+                            name="search"
+                            title="Search cattle records"
+                            class="govuk-input"
+                    >
+
+                    <div class="search-input-submit-wrapper">
+                        <button type="submit" class="search-submit">
+                            Search
+                        </button>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="govuk-grid-column-one-third">
+
+            {#
+            Hidden when JavaScript is unavailable.
+
+            Without JavaScript, the filter content remains visible and usable.
+            #}
+
+            <div class="defra-filter--action">
+
+                <button
+                        id="defra-filter--button"
+                        class="govuk-button govuk-button--secondary{% if filtersActive %} defra-filter-button--active{% endif %}"
+                        type="button"
+                        aria-expanded="{% if filtersActive %}true{% else %}false{% endif %}"
+                        aria-controls="defra-filter-content"
+                >
+          <span class="defra-filter--button-content">
+            {% if filtersActive %}
+              Hide filters
+            {% else %}
+              Show filters
+            {% endif %}
+          </span>
+
+                    <span class="defra-filter__icon" aria-hidden="true"></span>
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div
+            class="defra-filter--content"
+            id="defra-filter-content"
+    >
+
+        <h2 class="govuk-visually-hidden">
+            Filter cattle records
+        </h2>
+
+        <div class="govuk-grid-row govuk-!-margin-top-3">
+
+            {# Sex #}
+
+            <div class="govuk-grid-column-one-third">
+
+                <div class="govuk-form-group">
+
+                    <fieldset class="govuk-fieldset">
+
+                        <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+                            Filter by sex
+                        </legend>
+
+                        <div
+                                class="govuk-radios govuk-radios--small"
+                                data-module="govuk-radios"
+                        >
+
+                            <div class="govuk-radios__item">
+
+                                <input
+                                        class="govuk-radios__input"
+                                        id="sex-all"
+                                        name="sex"
+                                        type="radio"
+                                        value=""
+                                        {% if not selectedSexValue %}checked{% endif %}
+                                >
+
+                                <label
+                                        class="govuk-label govuk-radios__label"
+                                        for="sex-all"
+                                >
+                                    All
+                                </label>
+
+                            </div>
+
+                            <div class="govuk-radios__item">
+
+                                <input
+                                        class="govuk-radios__input"
+                                        id="sex-female"
+                                        name="sex"
+                                        type="radio"
+                                        value="Female"
+                                        {% if selectedSexValue == "Female" %}checked{% endif %}
+                                >
+
+                                <label
+                                        class="govuk-label govuk-radios__label"
+                                        for="sex-female"
+                                >
+                                    Female
+                                </label>
+
+                            </div>
+
+                            <div class="govuk-radios__item">
+
+                                <input
+                                        class="govuk-radios__input"
+                                        id="sex-male"
+                                        name="sex"
+                                        type="radio"
+                                        value="Male"
+                                        {% if selectedSexValue == "Male" %}checked{% endif %}
+                                >
+
+                                <label
+                                        class="govuk-label govuk-radios__label"
+                                        for="sex-male"
+                                >
+                                    Male
+                                </label>
+
+                            </div>
+
+                        </div>
+
+                    </fieldset>
+
+                </div>
+
+            </div>
+
+
+            {# Status: standard non-searchable checkboxes #}
+
+            <div class="govuk-grid-column-one-third">
+
+                <div class="govuk-form-group">
+
+                    <fieldset class="govuk-fieldset">
+
+                        <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+                            Filter by status
+                        </legend>
+
+                        <div
+                                class="govuk-checkboxes govuk-checkboxes--small"
+                                data-module="govuk-checkboxes"
+                        >
+
+                            <div class="govuk-checkboxes__item">
+
+                                <input
+                                        class="govuk-checkboxes__input"
+                                        id="status-active"
+                                        name="status"
+                                        type="checkbox"
+                                        value="Active"
+                                        {% if "Active" in selectedStatusValues %}checked{% endif %}
+                                >
+
+                                <label
+                                        class="govuk-label govuk-checkboxes__label"
+                                        for="status-active"
+                                >
+                                    Active
+                                </label>
+
+                            </div>
+
+                            <div class="govuk-checkboxes__item">
+
+                                <input
+                                        class="govuk-checkboxes__input"
+                                        id="status-sold"
+                                        name="status"
+                                        type="checkbox"
+                                        value="Sold"
+                                        {% if "Sold" in selectedStatusValues %}checked{% endif %}
+                                >
+
+                                <label
+                                        class="govuk-label govuk-checkboxes__label"
+                                        for="status-sold"
+                                >
+                                    Sold
+                                </label>
+
+                            </div>
+
+                            <div class="govuk-checkboxes__item">
+
+                                <input
+                                        class="govuk-checkboxes__input"
+                                        id="status-deceased"
+                                        name="status"
+                                        type="checkbox"
+                                        value="Deceased"
+                                        {% if "Deceased" in selectedStatusValues %}checked{% endif %}
+                                >
+
+                                <label
+                                        class="govuk-label govuk-checkboxes__label"
+                                        for="status-deceased"
+                                >
+                                    Deceased
+                                </label>
+
+                            </div>
+
+                        </div>
+
+                    </fieldset>
+
+                </div>
+
+            </div>
+
+
+            {# Breed: searchable checkbox group #}
+
+            <div class="govuk-grid-column-one-third govuk-grid-column-one-third-searchable-checkboxes-section">
+
+                <div
+                        class="app-c-option-select js-collapsible js-searchable-checkboxes"
+                        data-module="option-select"
+                >
+
+                    <h3
+                            class="js-container-heading govuk-heading-s searchable-filters-heading"
+                            id="breed-filter-heading"
+                    >
+                        Filter by breed
+
+                        <span
+                                class="app-c-option-select__selected-counter js-selected-counter"
+                                hidden
+                        ></span>
+                    </h3>
+
+                    <div class="app-c-option-select__filter">
+
+                        <label
+                                for="breed-option-filter"
+                                class="govuk-label govuk-visually-hidden"
+                        >
+                            Search the list of breeds
+                        </label>
+
+                        {#
+                        This field deliberately has no name attribute.
+
+                        It searches the checkbox options but is not included in the
+                        submitted URL.
+                        #}
+
+                        <input
+                                id="breed-option-filter"
+                                class="app-c-option-select__filter-input govuk-input"
+                                type="search"
+                                autocomplete="off"
+                                aria-describedby="breed-option-count"
+                                aria-controls="breed-checkboxes"
+                        >
+
+                    </div>
+
+                    <div
+                            role="group"
+                            aria-labelledby="breed-filter-heading"
+                            class="app-c-option-select__container js-options-container"
+                            id="breed-options"
+                            tabindex="-1"
+                    >
+
+                        <div class="app-c-option-select__container-inner js-auto-height-inner">
+
+              <span
+                      id="breed-option-count"
+                      class="app-c-option-select__count govuk-visually-hidden"
+                      aria-live="polite"
+                      aria-atomic="true"
+              ></span>
+
+                            <div
+                                    id="breed-checkboxes"
+                                    class="gem-c-checkboxes govuk-form-group"
+                                    data-module="govuk-checkboxes"
+                            >
+
+                                {#
+                                This is intentionally a div rather than a ul.
+
+                                GOV.UK checkbox items already provide the visual and
+                                accessible control structure. There is no need for an
+                                additional list around them.
+                                #}
+
+                                <div class="govuk-checkboxes govuk-checkboxes--small gem-c-checkboxes__list">
+
+                                    {% for breed in breedOptions %}
+
+                                    <div class="govuk-checkboxes__item js-option">
+
+                                        <input
+                                                type="checkbox"
+                                                name="breed"
+                                                id="breed-{{ loop.index }}"
+                                                value="{{ breed }}"
+                                                class="govuk-checkboxes__input"
+                                                {% if breed in selectedBreedValues %}checked{% endif %}
+                                        >
+
+                                        <label
+                                                for="breed-{{ loop.index }}"
+                                                class="govuk-label govuk-checkboxes__label"
+                                        >
+                                            {{ breed }}
+                                        </label>
+
+                                    </div>
+
+                                    {% endfor %}
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="govuk-button-group govuk-!-margin-top-4">
+
+            <button
+                    type="submit"
+                    class="govuk-button"
+                    data-module="govuk-button"
+            >
+                Apply filters
+            </button>
+
+            <a
+                    class="govuk-link"
+                    href="?{% if search %}search={{ search | urlencode }}{% endif %}"
+            >
+                Clear filters
+            </a>
+
+        </div>
+
+    </div>
+
+</form>
+
+
+
+
+{% if not search %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <p class="govuk-body">
+            You can search using:
+        </p>
+
+        <ul class="govuk-list govuk-list--bullet">
+            <li>ear tag number, for example UK864202917556</li>
+            <li>CPH number, for example 12/345/0001</li>
+            <li>date of birth, for example 17-05-2023</li>
+            <li>breed, for example Hereford</li>
+            <li>status, for example Active</li>
+        </ul>
+    </div>
+</div>
+
+{% else %}
+
+<p class="govuk-body" aria-live="polite" style="margin-top:20px">
+    Showing
+    {{ cattle.length }}
+    {% if cattle.length === 1 %}
+    cattle records matching
+    {% else %}
+    cattle records matching
+    {% endif %}
+    <strong>‘{{ search }}’</strong>
+    {% if filtersActive %}
+    and these filters:
+    {% if query.status !=''%}<br>Status is <strong>{{ query.status | selectedOptions}}</strong>{% endif %}
+    {% if query.breed !=''%}<br>Breed is <strong>{{ query.breed | selectedOptions}}</strong>{% endif %}
+   {% if query.sex !=''%}Sex <strong>‘{{ query.sex }}’</strong>{% endif %}
+    {% endif %}
+</p>
+
+<p class="govuk-body">
+    <a class="govuk-link" href="./cattle">
+        Clear search
+    </a>
+</p>
+
+{% if cattle.length %}
+<table class="govuk-table app-table--compact">
+    <caption class="govuk-table__caption govuk-visually-hidden">
+        Cattle search results
+    </caption>
+
+    <thead class="govuk-table__head">
+    <tr class="govuk-table__row">
+        <th scope="col" class="govuk-table__header">Ear tag</th>
+        <th scope="col" class="govuk-table__header">CPH</th>
+        <th scope="col" class="govuk-table__header">Date of birth</th>
+        <th scope="col" class="govuk-table__header">Date of registration</th>
+        <th scope="col" class="govuk-table__header">Sex</th>
+        <th scope="col" class="govuk-table__header">Breed</th>
+        <th scope="col" class="govuk-table__header">Status</th>
+    </tr>
+    </thead>
+
+    <tbody class="govuk-table__body">
+    {% for animal in cattle %}
+    <tr class="govuk-table__row">
+        <th scope="row" class="govuk-table__header app-table__cell--no-wrap ">
+            <a class="govuk-link" href="./cattle/{{ animal.earTagNumber }}">
+                {{ animal.earTagNumber | formatReference }}
+            </a>
+        </th>
+        <td class="govuk-table__cell">
+            {{ animal.cph }}
+        </td>
+        <td class="govuk-table__cell">
+            {{ animal.dateOfBirth | shortDateFormat }}
+        </td>
+        <td class="govuk-table__cell">
+            {{ animal.dateOfRegistration | shortDateFormat}}
+        </td>
+        <td class="govuk-table__cell">
+            {{ animal.sex}}
+        </td>
+
+        <td class="govuk-table__cell">
+            {{ animal.breed.name }} ({{ animal.breed.code }})
+        </td>
+
+        <td class="govuk-table__cell">
+            {% if animal.status === "Active" %}
+            <strong class="govuk-tag govuk-tag--green">
+                Active
+            </strong>
+            {% elseif animal.status === "Deceased" %}
+            <strong class="govuk-tag govuk-tag--red">
+                Deceased
+            </strong>
+            {% elseif animal.status === "Sold" %}
+            <strong class="govuk-tag govuk-tag--grey">
+                Sold
+            </strong>
+            {% else %}
+            {{ animal.status }}
+            {% endif %}
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p class="govuk-body">
+    No cattle records found.
+</p>
+{% endif %}
+
+{% endif %}
+</div>
+</div>
+
+{% endblock %}
+
+
+
+{% block pageScripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+initialiseFilterToggle();
+initialiseSearchableCheckboxes();
+});
+
+
+function initialiseFilterToggle() {
+var action = document.querySelector('.defra-filter--action');
+var button = document.getElementById('defra-filter--button');
+var content = document.getElementById('defra-filter-content');
+
+if (!action || !button || !content) {
+return;
+}
+
+/*
+* The filter content is visible in the HTML by default.
+* Only hide it once JavaScript has successfully initialised.
+*/
+action.hidden = false;
+
+var hasActiveFilters = filterContentHasSelectedValues(content);
+var openOnLoad =
+button.classList.contains('defra-filter-button--active')
+|| hasActiveFilters;
+
+setFilterVisibility(openOnLoad);
+
+button.addEventListener('click', function () {
+var isOpen = button.getAttribute('aria-expanded') === 'true';
+
+setFilterVisibility(!isOpen);
+});
+
+
+function setFilterVisibility(showFilters) {
+content.hidden = !showFilters;
+
+button.setAttribute(
+'aria-expanded',
+showFilters ? 'true' : 'false'
+);
+
+action.classList.toggle(
+'defra-filter--open',
+showFilters
+);
+
+var buttonContent = button.querySelector(
+'.defra-filter--button-content'
+);
+
+if (buttonContent) {
+buttonContent.textContent = showFilters
+? 'Hide filters'
+: 'Show filters';
+}
+}
+}
+
+
+function filterContentHasSelectedValues(content) {
+var selectedCheckbox = content.querySelector(
+'input[type="checkbox"]:checked'
+);
+
+if (selectedCheckbox) {
+return true;
+}
+
+var selectedSex = content.querySelector(
+'input[type="radio"][name="sex"]:checked'
+);
+
+return Boolean(
+selectedSex
+&& selectedSex.value
+);
+}
+
+
+function initialiseSearchableCheckboxes() {
+var searchableGroups = document.querySelectorAll(
+'.js-searchable-checkboxes'
+);
+
+searchableGroups.forEach(function (group) {
+initialiseSearchableCheckboxGroup(group);
+});
+}
+
+
+function initialiseSearchableCheckboxGroup(group) {
+var filterInput = group.querySelector(
+'.app-c-option-select__filter-input'
+);
+
+var options = Array.from(
+group.querySelectorAll('.js-option')
+);
+
+var selectedCounter = group.querySelector(
+'.js-selected-counter'
+);
+
+var resultCount = group.querySelector(
+'.app-c-option-select__count'
+);
+
+if (!filterInput || options.length === 0) {
+return;
+}
+
+filterInput.addEventListener('input', updateOptions);
+
+options.forEach(function (option) {
+var checkbox = option.querySelector(
+'input[type="checkbox"]'
+);
+
+if (!checkbox) {
+return;
+}
+
+checkbox.addEventListener('change', updateOptions);
+});
+
+updateOptions();
+
+
+function updateOptions() {
+var searchTerm = normaliseText(filterInput.value);
+var visibleOptionCount = 0;
+var selectedOptionCount = 0;
+
+options.forEach(function (option) {
+var checkbox = option.querySelector(
+'input[type="checkbox"]'
+);
+
+var label = option.querySelector('label');
+
+var optionText = normaliseText(
+label ? label.textContent : option.textContent
+);
+
+var isChecked = Boolean(
+checkbox
+&& checkbox.checked
+);
+
+/*
+* Keep selected options visible even when they do not match
+* the current search term.
+*/
+var isVisible =
+isChecked
+|| !searchTerm
+|| optionText.indexOf(searchTerm) !== -1;
+
+option.hidden = !isVisible;
+
+if (isVisible) {
+visibleOptionCount += 1;
+}
+
+if (isChecked) {
+selectedOptionCount += 1;
+}
+});
+
+updateSelectedCounter(selectedOptionCount);
+updateResultCount(
+visibleOptionCount,
+selectedOptionCount
+);
+}
+
+
+function updateSelectedCounter(selectedOptionCount) {
+if (!selectedCounter) {
+return;
+}
+
+if (selectedOptionCount === 0) {
+selectedCounter.textContent = '';
+selectedCounter.hidden = true;
+return;
+}
+
+selectedCounter.textContent =
+selectedOptionCount
++ ' selected';
+
+selectedCounter.hidden = false;
+}
+
+
+function updateResultCount(
+visibleOptionCount,
+selectedOptionCount
+) {
+if (!resultCount) {
+return;
+}
+
+var optionText =
+visibleOptionCount === 1
+? ' option found'
+: ' options found';
+
+var selectedText =
+selectedOptionCount === 1
+? '1 selected'
+: selectedOptionCount + ' selected';
+
+resultCount.textContent =
+visibleOptionCount
++ optionText
++ ', '
++ selectedText;
+}
+}
+
+
+function normaliseText(value) {
+return String(value || '')
+.toLowerCase()
+.trim()
+.replace(/\s+/g, ' ');
+}
+<!--route-side query normalisation-->
+
+<!--Repeated checkbox names may arrive as either a string or an array. Normalise them before filtering or sending them back to Nunjucks:-->
+
+function toArray(value) {
+if (Array.isArray(value)) {
+return value;
+}
+
+if (value === undefined || value === null || value === '') {
+return [];
+}
+
+return [value];
+}
+
+
+router.get('/' + baseURL + '/cattle', function (req, res) {
+var search = String(req.query.search || '').trim();
+var selectedSex = String(req.query.sex || '');
+var selectedStatuses = toArray(req.query.status);
+var selectedBreeds = toArray(req.query.breed);
+
+var filtersActive = Boolean(
+selectedSex
+|| selectedStatuses.length
+|| selectedBreeds.length
+);
+
+var cattleData =
+req.session.data.livestock
+|| { animals: [] };
+
+var cattle = cattleData.animals.filter(function (animal) {
+if (search) {
+var searchableValues = [
+animal.earTagNumber,
+animal.cph,
+animal.holdingName
+];
+
+var matchesSearch = searchableValues.some(function (value) {
+return String(value || '')
+.toLowerCase()
+.includes(search.toLowerCase());
+});
+
+if (!matchesSearch) {
+return false;
+}
+}
+
+if (
+selectedSex
+&& animal.sex !== selectedSex
+) {
+return false;
+}
+
+if (
+selectedStatuses.length
+&& !selectedStatuses.includes(animal.status)
+) {
+return false;
+}
+
+if (
+selectedBreeds.length
+&& !selectedBreeds.includes(animal.breed.name)
+) {
+return false;
+}
+
+return true;
+});
+
+return res.render(baseURL + '/cattle', {
+cattle: cattle,
+search: search,
+filtersActive: filtersActive,
+selectedSex: selectedSex,
+selectedStatuses: selectedStatuses,
+selectedBreeds: selectedBreeds,
+baseURL: baseURL
+});
+});
+</script>
+{% endblock %}

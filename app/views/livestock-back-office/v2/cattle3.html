@@ -1,0 +1,334 @@
+{% extends "layouts/main.html" %}
+
+{% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
+
+{% set pageName="Cattle register" %}
+
+{% set activeNav = "my-holdings" %}
+
+{% block header %}
+
+{% block navBar %}{% include "./components/_navigation.html" %}{% endblock %}
+
+{% endblock %}
+
+{% block beforeContent %}
+{% set pathParts = currentPath.split('/') %}
+{% set currentBaseUrl = '/' + pathParts[1] + '/' + pathParts[2] + '/' %}
+{{ govukBreadcrumbs({
+items: [
+{
+text: "Home",
+href: currentBaseUrl+"home"
+}
+]
+}) }}
+
+<style>
+.app-filter-toggle{display:inline;}
+    .app-filter-toggle {
+    vertical-align: middle;
+    margin-top: 35px;
+}
+    .app-combined-filter-panel{
+    background-color:#f3f3f3;
+    padding:20px 20px 0 20px;
+    }
+
+</style>
+{% endblock %}
+
+
+{% block content %}
+
+{%- from "govuk/components/checkboxes/macro.njk" import govukCheckboxes -%}
+{%- from "govuk/components/input/macro.njk" import govukInput -%}
+{%- from "govuk/components/table/macro.njk" import govukTable -%}
+
+{% set hasSearch = search and search | trim %}
+{% set filtersActive = query.sex or query.status or query.breed or query.holding or query.dobFrom or query.dobTo %}
+
+<div>
+  <h1 class="govuk-heading-l">
+    Cattle register
+  </h1>
+</div>
+
+
+
+<div class="app-combined-filter-panel">
+
+            <form method="GET" >
+                <div class="govuk-grid-row">
+                    <div class="govuk-grid-column-two-thirds">
+                <div class="govuk-form-group">
+                    <label for="search" class="govuk-label">
+                        Search by ear tag number, CPH number, date of birth, breed or status
+                    </label>
+                    <input class="govuk-input app-search-bar__input" id="search" name="search" type="search" value="{{ search }}" aria-describedby="search-hint" value="">
+                    <a
+                            class="govuk-link" style="display:block; margin:20px 0"
+                            aria-expanded="{% if filtersActive %}true{% else %}false{% endif %}"
+                            aria-controls="livestock-filters"
+                            id ="app-filter-toggle"
+                    >
+                        {% if filtersActive %}
+                        &#9650; Hide filters
+                        {% else %}
+                        &#9660; Show filters
+                        {% endif %}
+                    </a>
+                    {% if hasSearch %}
+
+
+                    <div id="livestock-filters" class="app-inline-filters{% if not filtersActive %} js-hidden{% endif %}" style="padding:0;">
+                        <div class="app-inline-filters__grid">
+
+                            <div class="govuk-form-group">
+                                <label class="govuk-label govuk-label--s" for="sex">
+                                    Sex
+                                </label>
+
+                                <select class="govuk-select" id="sex" name="sex">
+                                    <option value="">All</option>
+                                    <option value="Male" {% if query.sex == "Male" %}selected{% endif %}>Male</option>
+                                    <option value="Female" {% if query.sex == "Female" %}selected{% endif %}>Female</option>
+                                </select>
+                            </div>
+
+                            <div class="govuk-form-group">
+                                <label class="govuk-label govuk-label--s" for="status">
+                                    Status
+                                </label>
+
+                                <select class="govuk-select" id="status" name="status">
+                                    <option value="">All</option>
+                                    <option value="Active" {% if query.status == "Active" %}selected{% endif %}>Active</option>
+                                    <option value="Moved" {% if query.status == "Moved" %}selected{% endif %}>Moved</option>
+                                    <option value="Deceased" {% if query.status == "Deceased" %}selected{% endif %}>Deceased</option>
+                                </select>
+                            </div>
+
+                            <div class="govuk-form-group">
+                                <label class="govuk-label govuk-label--s" for="breed">
+                                    Breed
+                                </label>
+
+                                <select class="govuk-select" id="breed" name="breed">
+                                    <option value="">All</option>
+                                    <option value="Hereford" {% if query.breed == "Hereford" %}selected{% endif %}>Hereford</option>
+                                    <option value="Holstein" {% if query.breed == "Holstein" %}selected{% endif %}>Holstein</option>
+                                    <option value="Aberdeen Angus" {% if query.breed == "Aberdeen Angus" %}selected{% endif %}>Aberdeen Angus</option>
+                                </select>
+                            </div>
+
+                            <div class="govuk-form-group">
+                                <label class="govuk-label govuk-label--s" for="holding">
+                                    Holding CPH
+                                </label>
+
+                                <input
+                                        class="govuk-input"
+                                        id="holding"
+                                        name="holding"
+                                        type="text"
+                                        value="{{ query.holding }}"
+                                >
+                            </div>
+
+                            <div class="govuk-form-group">
+                                <label class="govuk-label govuk-label--s" for="dobFrom">
+                                    Date of birth from
+                                </label>
+
+                                <input
+                                        class="govuk-input"
+                                        id="dobFrom"
+                                        name="dobFrom"
+                                        type="text"
+                                        value="{{ query.dobFrom }}"
+                                >
+                            </div>
+
+                            <div class="govuk-form-group">
+                                <label class="govuk-label govuk-label--s" for="dobTo">
+                                    Date of birth to
+                                </label>
+
+                                <input
+                                        class="govuk-input"
+                                        id="dobTo"
+                                        name="dobTo"
+                                        type="text"
+                                        value="{{ query.dobTo }}"
+                                >
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    {% endif %}
+                    <button class="govuk-button govuk-!-margin-bottom-0" data-module="govuk-button" data-govuk-button-init="">
+                        Search
+                    </button>
+                </div>
+                    </div>
+                </div>
+
+            </form>
+
+</div>
+
+
+
+
+
+{% if not search %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <p class="govuk-body">
+            You can search using:
+        </p>
+
+        <ul class="govuk-list govuk-list--bullet">
+            <li>ear tag number, for example UK864202917556</li>
+            <li>CPH number, for example 12/345/0001</li>
+            <li>date of birth, for example 17-05-2023</li>
+            <li>breed, for example Hereford</li>
+            <li>status, for example Active</li>
+        </ul>
+    </div>
+</div>
+
+{% else %}
+
+<p class="govuk-body" aria-live="polite" style="margin-top:20px">
+    Showing
+    {{ cattle.length }}
+    {% if cattle.length === 1 %}
+    cattle records matching
+    {% else %}
+    cattle records matching
+    {% endif %}
+    <strong>‘{{ search }}’</strong>
+    {% if filtersActive %}
+    and these filters:
+    {% if query.status !=''%}<br>Status is <strong>‘{{ query.status }}’</strong>{% endif %}
+   {% if query.sex !=''%}Sex <strong>‘{{ query.sex }}’</strong>{% endif %}
+    {% endif %}
+</p>
+
+<p class="govuk-body">
+    <a class="govuk-link" href="./cattle">
+        Clear search
+    </a>
+</p>
+
+{% if cattle.length %}
+<table class="govuk-table app-table--compact">
+    <caption class="govuk-table__caption govuk-visually-hidden">
+        Cattle search results
+    </caption>
+
+    <thead class="govuk-table__head">
+    <tr class="govuk-table__row">
+        <th scope="col" class="govuk-table__header">Ear tag</th>
+        <th scope="col" class="govuk-table__header">CPH</th>
+        <th scope="col" class="govuk-table__header">Date of birth</th>
+        <th scope="col" class="govuk-table__header">Date of registration</th>
+        <th scope="col" class="govuk-table__header">Sex</th>
+        <th scope="col" class="govuk-table__header">Breed</th>
+        <th scope="col" class="govuk-table__header">Status</th>
+    </tr>
+    </thead>
+
+    <tbody class="govuk-table__body">
+    {% for animal in cattle %}
+    <tr class="govuk-table__row">
+        <th scope="row" class="govuk-table__header app-table__cell--no-wrap ">
+            <a class="govuk-link" href="./cattle/{{ animal.earTagNumber }}">
+                {{ animal.earTagNumber | formatReference }}
+            </a>
+        </th>
+
+        <td class="govuk-table__cell">
+            {{ animal.cph }}
+        </td>
+
+        <td class="govuk-table__cell">
+            {{ animal.dateOfBirth | shortDateFormat }}
+        </td>
+
+        <td class="govuk-table__cell">
+            {{ animal.dateOfRegistration | shortDateFormat}}
+        </td>
+
+        <td class="govuk-table__cell">
+            {{ animal.sex}}
+        </td>
+
+        <td class="govuk-table__cell">
+            {{ animal.breed.name }} ({{ animal.breed.code }})
+        </td>
+
+        <td class="govuk-table__cell">
+            {% if animal.status === "Active" %}
+            <strong class="govuk-tag govuk-tag--green">
+                Active
+            </strong>
+            {% elseif animal.status === "Deceased" %}
+            <strong class="govuk-tag govuk-tag--red">
+                Deceased
+            </strong>
+            {% elseif animal.status === "Sold" %}
+            <strong class="govuk-tag govuk-tag--grey">
+                Sold
+            </strong>
+            {% else %}
+            {{ animal.status }}
+            {% endif %}
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p class="govuk-body">
+    No cattle records found.
+</p>
+{% endif %}
+
+{% endif %}
+</div>
+</div>
+
+{% endblock %}
+{% block pageScripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var toggleButton = document.getElementById('app-filter-toggle')
+      var filtersPanel = document.getElementById('livestock-filters')
+
+      if (!toggleButton || !filtersPanel) return
+
+      if (filtersPanel.classList.contains('js-hidden')) {
+        filtersPanel.hidden = true
+      }
+
+      toggleButton.addEventListener('click', function () {
+        var isExpanded = toggleButton.getAttribute('aria-expanded') === 'true'
+
+        toggleButton.setAttribute('aria-expanded', String(!isExpanded))
+        toggleButton.textContent = isExpanded ? 'Show filters' : 'Hide filters'
+
+        if (isExpanded) {
+          filtersPanel.hidden = true
+        } else {
+          filtersPanel.hidden = false
+        }
+      })
+    })
+</script>
+{% endblock %}

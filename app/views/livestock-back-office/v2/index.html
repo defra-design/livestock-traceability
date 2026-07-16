@@ -3,6 +3,9 @@
 
 {% set pageName = "Livestock back office v1 prototype" %}
 
+{% set pathParts = currentPath.split('/') %}
+{% set currentBaseUrl = '/' + pathParts[1] + '/' + pathParts[2] + '/' %}
+
 {% block content %}
 <div class="govuk-phase-banner govuk-width-container" style="margin-top:-30px; margin-bottom:30px">
   <p class="govuk-phase-banner__content">
@@ -96,23 +99,80 @@
     </h2>
     <ul class="govuk-list govuk-list--spaced">
       <li>
-        <a class="govuk-link" href="./cattle/UK159517919901">
+        <a class="govuk-link" href="{{currentBaseUrl}}cattle/">
+          Cattle search - start
+        </a>
+      </li>
+      <li>
+        <a class="govuk-link" href="{{currentBaseUrl}}cattle/">
+          Cattle search - with results
+        </a>
+      </li>
+      <li>
+        <a class="govuk-link" href="{{currentBaseUrl}}cattle?search=UK864202917556">
           Cattle details - full
         </a>
       </li>
       <li>
-        <a class="govuk-link" href="./cattle/UK864202917556">
+        <a class="govuk-link" href="{{currentBaseUrl}}cattle/UK864202917556">
           Cattle details - no sire, or surrogate
         </a>
       </li>
       <li>
-        <a class="govuk-link" href="./cattle/UK864202917556#history">
+        <a class="govuk-link" href="{{currentBaseUrl}}cattle/UK864202917556#history">
           Cattle details - history
         </a>
       </li>
 
     </ul>
 
+    <h2 class="govuk-heading-m">
+      Activity and issues
+    </h2>
+    <ul class="govuk-list govuk-list--spaced">
+      <li>
+        <a class="govuk-link" href="{{currentBaseUrl}}events">
+          Filtered view
+        </a>
+      </li>
+      <li>
+        <a class="govuk-link" href="{{currentBaseUrl}}holding-details-with-overview">
+          Possible holding dashboard with issues (highly exprimental)
+        </a>
+      </li>
+    </ul>
+
+    <h2 class="govuk-heading-m">
+      Cattle filters
+    </h2>
+    <p>Exploring various designs for filter - Experimental</p>
+    <ul class="govuk-list govuk-list--spaced">
+      <li>
+        <a class="govuk-link" href="{{currentBaseUrl}}cattle2/">
+          Cattle basic filter button
+        </a>
+      </li>
+      <li>
+        <a class="govuk-link" href="{{currentBaseUrl}}cattle4/">
+          Cattle more advanced filter button
+        </a>
+      </li>
+      <li>
+        <a class="govuk-link" href="{{currentBaseUrl}}cattle5/">
+          Cattle with advanced search
+        </a>
+      </li>
+      <li>
+        <a class="govuk-link" href="{{currentBaseUrl}}cattle-advanced-search">
+          Advanced search
+        </a>
+      </li>
+      <li>
+        <a class="govuk-link" href="{{currentBaseUrl}}cattle-advanced-results">
+          Advanced search - results
+        </a>
+      </li>
+    </ul>
 
     <div class="govuk-inset-text">
       All data in this prototype is fictional and should not be treated as

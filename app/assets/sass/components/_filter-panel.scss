@@ -87,3 +87,239 @@
 .filter-row .govuk-radios__label {
   padding-left: 40px;
 }
+
+.app-filter-panel {
+  margin-bottom: govuk-spacing(6);
+  padding-right: govuk-spacing(6);
+  border-right: 2px solid $govuk-border-colour;
+  //background: govuk-colour("light-grey");
+}
+
+.app-applied-filters {
+  margin-bottom: govuk-spacing(6);
+  padding: govuk-spacing(4);
+  background: govuk-colour("light-grey");
+}
+
+.app-applied-filters__header {
+  margin-bottom: govuk-spacing(3);
+
+  @include govuk-media-query($from: tablet) {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: govuk-spacing(4);
+  }
+}
+
+.app-applied-filters__list {
+  margin: 0;
+}
+
+.app-applied-filters__group {
+  padding: govuk-spacing(2) 0;
+  border-top: 1px solid $govuk-border-colour;
+  @include govuk-font($size: 16);
+
+  @include govuk-media-query($from: tablet) {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    column-gap: govuk-spacing(3);
+  }
+}
+
+.app-applied-filters__value {
+  margin: govuk-spacing(1) 0 0;
+
+  @include govuk-media-query($from: tablet) {
+    margin-top: 0;
+  }
+}
+
+.app-applied-filters__key {
+  font-weight: bold;
+}
+
+
+.app-applied-filters__remove {
+  margin-left: govuk-spacing(2);
+  font-size: 1rem;
+}
+
+.app-results-header {
+  margin-bottom: govuk-spacing(4);
+
+  @include govuk-media-query($from: tablet) {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: govuk-spacing(4);
+  }
+}
+
+.app-filter-toggle {
+  margin-bottom: govuk-spacing(4);
+}
+
+.app-inline-filters {
+background: govuk-colour("light-grey");
+  margin-bottom: govuk-spacing(5);
+  padding: govuk-spacing(4);
+}
+
+
+.app-inline-filters__grid {
+  display: grid;
+  gap: govuk-spacing(4);
+
+  @include govuk-media-query($from: tablet) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.app-inline-filters__actions {
+  display: flex;
+  align-items: center;
+  gap: govuk-spacing(3);
+  margin-top: govuk-spacing(2);
+}
+.app-width-container--wide {
+  max-width: 1280px;
+}
+
+
+/**
+ * Filter and result columns
+ */
+
+.app-filter-results-layout {
+  display: block;
+
+  @include govuk-media-query($from: desktop) {
+    display: grid;
+    grid-template-columns: 300px minmax(0, 1fr);
+    column-gap: govuk-spacing(6);
+    align-items: start;
+  }
+}
+
+.app-filter-results-layout__filters {
+  margin-bottom: govuk-spacing(6);
+
+  @include govuk-media-query($from: desktop) {
+    padding-right: govuk-spacing(5);
+    border-right: 1px solid $govuk-border-colour;
+  }
+}
+
+.app-filter-results-layout__results {
+  min-width: 0;
+}
+
+
+/**
+ * Apply button
+ */
+
+.app-filter-results__submit {
+  width: 100%;
+}
+
+
+/**
+ * Filter accordions
+ */
+
+.app-filter-accordion {
+  border-top: 1px solid $govuk-border-colour;
+}
+
+.app-filter-accordion:last-of-type {
+  border-bottom: 1px solid $govuk-border-colour;
+}
+
+.app-filter-accordion__summary {
+  position: relative;
+  padding: govuk-spacing(3) govuk-spacing(5) govuk-spacing(3) 0;
+  cursor: pointer;
+  list-style: none;
+}
+
+.app-filter-accordion__summary::-webkit-details-marker {
+  display: none;
+}
+
+.app-filter-accordion__summary::after {
+  position: absolute;
+  top: govuk-spacing(3);
+  right: govuk-spacing(1);
+  content: "+";
+  font-weight: bold;
+}
+
+.app-filter-accordion[open] > .app-filter-accordion__summary::after {
+  content: "−";
+}
+
+.app-filter-accordion__heading {
+  display: block;
+  font-weight: bold;
+  @include govuk-font($size: 19);
+}
+
+.app-filter-accordion__selected {
+  display: block;
+  margin-top: govuk-spacing(1);
+  color: $govuk-secondary-text-colour;
+  @include govuk-font($size: 16);
+}
+
+.app-filter-accordion__content {
+  padding: govuk-spacing(2) 0 govuk-spacing(4);
+}
+
+
+/**
+ * Searchable breed control
+ */
+
+.app-c-option-select {
+  margin-bottom: govuk-spacing(6);
+}
+
+.app-c-option-select__container {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.app-c-option-select__filter-input {
+  margin-bottom: govuk-spacing(2);
+}
+
+
+/**
+ * Results
+ */
+
+.app-search-results__header {
+  max-width: 800px;
+  margin-bottom: govuk-spacing(5);
+}
+
+.app-search-results {
+  margin-top: govuk-spacing(4);
+}
+
+.app-search-result {
+  margin-bottom: govuk-spacing(4);
+  padding-bottom: govuk-spacing(4);
+  border-bottom: 1px solid $govuk-border-colour;
+}
+
+.app-search-result__item {
+  max-width: 800px;
+}
+
+.app-search-results__footer {
+  margin-top: govuk-spacing(5);
+}

@@ -1,0 +1,538 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName = "Activity" %}
+{% set activeNav = "activity" %}
+<!--{% set containerClasses = "app-width-container&#45;&#45;wide" %}-->
+
+
+
+{% block header %}
+{% block navBar %}
+{% include "./components/_navigation.html" %}
+{% endblock %}
+{% endblock %}
+
+{% block beforeContent %}
+{% set pathParts = currentPath.split('/') %}
+{% set currentBaseUrl = '/' + pathParts[1] + '/' + pathParts[2] + '/' %}
+
+{{ govukBreadcrumbs({
+items: [
+{
+text: "Home",
+href: currentBaseUrl + "home"
+}
+]
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <h1 class="govuk-heading-xl">
+            Activity
+        </h1>
+
+        <p class="govuk-body-l">
+            Find birth, movement and death events across livestock records.
+        </p>
+    </div>
+</div>
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-one-third">
+
+        <form class="app-filter-panel" method="get" action="{{ currentBaseUrl }}events">
+
+            <h2 class="govuk-heading-m">
+                Filter activity
+            </h2>
+
+            <button class="govuk-button" data-module="govuk-button">
+                Apply filters
+            </button>
+
+            <div class="govuk-form-group">
+                <label class="govuk-label govuk-label--s" for="search">
+                    Keywords or reference
+                </label>
+
+                <div id="search-hint" class="govuk-hint">
+                    For example an ear tag, CPH number, holding name or event reference
+                </div>
+
+                <input
+                        class="govuk-input"
+                        id="search"
+                        name="search"
+                        type="search"
+                        aria-describedby="search-hint"
+                        value="{{ query.search }}"
+                >
+            </div>
+
+            <div class="govuk-form-group">
+                <fieldset class="govuk-fieldset">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+                        Attention
+                    </legend>
+
+                    <div class="govuk-checkboxes govuk-checkboxes--small">
+
+                        <div class="govuk-checkboxes__item">
+                            <input
+                                    class="govuk-checkboxes__input"
+                                    id="attention-issue"
+                                    name="attention"
+                                    type="checkbox"
+                                    value="issue"
+                                    checked
+                            >
+                            <label class="govuk-label govuk-checkboxes__label" for="attention-issue">
+                                Has issue
+                            </label>
+                        </div>
+
+                        <div class="govuk-checkboxes__item">
+                            <input
+                                    class="govuk-checkboxes__input"
+                                    id="attention-review"
+                                    name="attention"
+                                    type="checkbox"
+                                    value="review"
+                            >
+                            <label class="govuk-label govuk-checkboxes__label" for="attention-review">
+                                Needs review
+                            </label>
+                        </div>
+
+                        <div class="govuk-checkboxes__item">
+                            <input
+                                    class="govuk-checkboxes__input"
+                                    id="attention-none"
+                                    name="attention"
+                                    type="checkbox"
+                                    value="none"
+                            >
+                            <label class="govuk-label govuk-checkboxes__label" for="attention-none">
+                                No issue
+                            </label>
+                        </div>
+
+                    </div>
+                </fieldset>
+            </div>
+
+            <div class="govuk-form-group">
+                <fieldset class="govuk-fieldset">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+                        Event type
+                    </legend>
+
+                    <div class="govuk-checkboxes govuk-checkboxes--small">
+
+                        <div class="govuk-checkboxes__item">
+                            <input
+                                    class="govuk-checkboxes__input"
+                                    id="event-type-birth"
+                                    name="eventType"
+                                    type="checkbox"
+                                    value="birth"
+                            >
+                            <label class="govuk-label govuk-checkboxes__label" for="event-type-birth">
+                                Birth
+                            </label>
+                        </div>
+
+                        <div class="govuk-checkboxes__item">
+                            <input
+                                    class="govuk-checkboxes__input"
+                                    id="event-type-movement"
+                                    name="eventType"
+                                    type="checkbox"
+                                    value="movement"
+                                    checked
+                            >
+                            <label class="govuk-label govuk-checkboxes__label" for="event-type-movement">
+                                Movement
+                            </label>
+                        </div>
+
+                        <div class="govuk-checkboxes__item">
+                            <input
+                                    class="govuk-checkboxes__input"
+                                    id="event-type-death"
+                                    name="eventType"
+                                    type="checkbox"
+                                    value="death"
+                            >
+                            <label class="govuk-label govuk-checkboxes__label" for="event-type-death">
+                                Death
+                            </label>
+                        </div>
+
+                    </div>
+                </fieldset>
+            </div>
+
+            <div class="govuk-form-group">
+                <fieldset class="govuk-fieldset">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+                        Event status
+                    </legend>
+
+                    <div class="govuk-checkboxes govuk-checkboxes--small">
+
+                        <div class="govuk-checkboxes__item">
+                            <input
+                                    class="govuk-checkboxes__input"
+                                    id="status-completed"
+                                    name="status"
+                                    type="checkbox"
+                                    value="completed"
+                            >
+                            <label class="govuk-label govuk-checkboxes__label" for="status-completed">
+                                Completed
+                            </label>
+                        </div>
+
+                        <div class="govuk-checkboxes__item">
+                            <input
+                                    class="govuk-checkboxes__input"
+                                    id="status-progress"
+                                    name="status"
+                                    type="checkbox"
+                                    value="in-progress"
+                            >
+                            <label class="govuk-label govuk-checkboxes__label" for="status-progress">
+                                In progress
+                            </label>
+                        </div>
+
+                    </div>
+                </fieldset>
+            </div>
+
+            <div class="govuk-form-group">
+                <fieldset class="govuk-fieldset">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+                        Event date
+                    </legend>
+
+                    <div id="date-hint" class="govuk-hint">
+                        For example, 27 3 2026
+                    </div>
+
+                    <div class="govuk-form-group">
+                        <label class="govuk-label" for="date-from">
+                            From
+                        </label>
+
+                        <input
+                                class="govuk-input govuk-input--width-10"
+                                id="date-from"
+                                name="dateFrom"
+                                type="text"
+                                inputmode="numeric"
+                                aria-describedby="date-hint"
+                                value="{{ query.dateFrom }}"
+                        >
+                    </div>
+
+                    <div class="govuk-form-group govuk-!-margin-bottom-0">
+                        <label class="govuk-label" for="date-to">
+                            To
+                        </label>
+
+                        <input
+                                class="govuk-input govuk-input--width-10"
+                                id="date-to"
+                                name="dateTo"
+                                type="text"
+                                inputmode="numeric"
+                                aria-describedby="date-hint"
+                                value="{{ query.dateTo }}"
+                        >
+                    </div>
+                </fieldset>
+            </div>
+
+            <div class="govuk-form-group">
+                <label class="govuk-label govuk-label--s" for="holding">
+                    Holding CPH
+                </label>
+
+                <input
+                        class="govuk-input govuk-input--width-10"
+                        id="holding"
+                        name="holding"
+                        type="text"
+                        value="12/345/6789"
+                >
+            </div>
+
+            <div class="govuk-form-group">
+                <label class="govuk-label govuk-label--s" for="reported-by">
+                    Reported by
+                </label>
+
+                <select class="govuk-select" id="reported-by" name="reportedBy">
+                    <option value="">Any reporter</option>
+                    <option value="keeper">Keeper</option>
+                    <option value="abattoir">Abattoir</option>
+                    <option value="market">Market</option>
+                    <option value="system">System</option>
+                </select>
+            </div>
+
+            <button class="govuk-button" data-module="govuk-button">
+                Apply filters
+            </button>
+
+        </form>
+
+    </div>
+
+    <div class="govuk-grid-column-two-thirds">
+
+        <section class="app-applied-filters" aria-labelledby="applied-filters-heading">
+
+            <div class="app-applied-filters__header">
+                <h2 class="govuk-heading-m govuk-!-margin-bottom-0" id="applied-filters-heading">
+                    Applied filters
+                </h2>
+
+                <a class="govuk-link" href="{{ currentBaseUrl }}events">
+                    Clear all filters
+                </a>
+            </div>
+
+            <dl class="app-applied-filters__list">
+
+                <div class="app-applied-filters__group">
+                    <dt class="app-applied-filters__key">
+                        Holding
+                    </dt>
+                    <dd class="app-applied-filters__value">
+                        12/345/6789
+
+                        <a
+                                class="govuk-link app-applied-filters__remove"
+                                href="{{ currentBaseUrl }}events?eventType=movement&attention=issue"
+                        >
+              <span class="govuk-visually-hidden">
+                Remove holding filter:
+              </span>
+                            Remove
+                        </a>
+                    </dd>
+                </div>
+
+                <div class="app-applied-filters__group">
+                    <dt class="app-applied-filters__key">
+                        Event type
+                    </dt>
+                    <dd class="app-applied-filters__value">
+                        Movement
+
+                        <a
+                                class="govuk-link app-applied-filters__remove"
+                                href="{{ currentBaseUrl }}events?holding=12%2F345%2F6789&attention=issue"
+                        >
+              <span class="govuk-visually-hidden">
+                Remove event type filter: Movement
+              </span>
+                            Remove
+                        </a>
+                    </dd>
+                </div>
+
+                <div class="app-applied-filters__group">
+                    <dt class="app-applied-filters__key">
+                        Attention
+                    </dt>
+                    <dd class="app-applied-filters__value">
+                        Has issue
+
+                        <a
+                                class="govuk-link app-applied-filters__remove"
+                                href="{{ currentBaseUrl }}events?holding=12%2F345%2F6789&eventType=movement"
+                        >
+              <span class="govuk-visually-hidden">
+                Remove attention filter: Has issue
+              </span>
+                            Remove
+                        </a>
+                    </dd>
+                </div>
+
+            </dl>
+
+        </section>
+
+        <div class="app-results-header">
+            <h2 class="govuk-heading-l govuk-!-margin-bottom-0" id="event-results" tabindex="-1">
+                3 events
+            </h2>
+
+            <div class="govuk-form-group govuk-!-margin-bottom-0">
+                <label class="govuk-label govuk-label--s" for="sort">
+                    Sort by
+                </label>
+
+                <select class="govuk-select" id="sort" name="sort">
+                    <option value="newest">Newest first</option>
+                    <option value="oldest">Oldest first</option>
+                </select>
+            </div>
+        </div>
+
+        <ol class="govuk-list app-event-results">
+
+            <li class="app-event-card app-event-card--issue">
+                <article class="app-event-card__content">
+
+                    <p class="govuk-body-s app-event-card__date">
+                        15 June 2024
+                    </p>
+
+                    <h3 class="govuk-heading-s app-event-card__heading">
+                        <a class="govuk-link" href="#">
+                            <span class="govuk-visually-hidden">Has issue: </span>
+                            Movement reported -
+                            {{ "UK223344556677" | formatReference }}
+                        </a>
+                    </h3>
+
+                    <ul class="govuk-list app-event-card__details">
+                        <li>
+                            <span class="app-event-card__details-key">From:</span>
+                            09/112/3399
+                        </li>
+                        <li>
+                            <span class="app-event-card__details-key">To:</span>
+                            12/345/6789
+                            <span class="govuk-hint govuk-!-display-inline">
+                (this holding)
+              </span>
+                        </li>
+                        <li>
+                            <span class="app-event-card__details-key">Reason:</span>
+                            Sale
+                        </li>
+                    </ul>
+
+                    <div class="app-event-card__notice">
+                        <h4 class="govuk-heading-s govuk-!-margin-bottom-1 app-event-card__notice-heading app-event-card__notice-heading--issue">
+                            <span class="govuk-visually-hidden">Issue reason: </span>
+                            Origin CPH 09/112/3399 not found on register
+                        </h4>
+
+                        <p class="govuk-body-s govuk-!-margin-bottom-0">
+                            Check the origin CPH before completing this movement.
+                        </p>
+                    </div>
+
+                </article>
+            </li>
+
+            <li class="app-event-card app-event-card--issue">
+                <article class="app-event-card__content">
+
+                    <p class="govuk-body-s app-event-card__date">
+                        3 January 2024
+                    </p>
+
+                    <h3 class="govuk-heading-s app-event-card__heading">
+                        <a class="govuk-link" href="#">
+                            <span class="govuk-visually-hidden">Has issue: </span>
+                            Movement reported -
+                            {{ "UK098765432107" | formatReference }}
+                        </a>
+                    </h3>
+
+                    <ul class="govuk-list app-event-card__details">
+                        <li>
+                            <span class="app-event-card__details-key">From:</span>
+                            12/345/6789
+                        </li>
+                        <li>
+                            <span class="app-event-card__details-key">To:</span>
+                            98/765/4321
+                        </li>
+                        <li>
+                            <span class="app-event-card__details-key">Reason:</span>
+                            Sale
+                        </li>
+                    </ul>
+
+                    <div class="app-event-card__notice">
+                        <h4 class="govuk-heading-s govuk-!-margin-bottom-1 app-event-card__notice-heading app-event-card__notice-heading--issue">
+                            <span class="govuk-visually-hidden">Issue reason: </span>
+                            Destination CPH does not match the movement document
+                        </h4>
+
+                        <p class="govuk-body-s govuk-!-margin-bottom-0">
+                            Check the destination CPH before completing this movement.
+                        </p>
+                    </div>
+
+                </article>
+            </li>
+
+            <li class="app-event-card app-event-card--issue">
+                <article class="app-event-card__content">
+
+                    <p class="govuk-body-s app-event-card__date">
+                        18 December 2023
+                    </p>
+
+                    <h3 class="govuk-heading-s app-event-card__heading">
+                        <a class="govuk-link" href="#">
+                            <span class="govuk-visually-hidden">Has issue: </span>
+                            Movement reported -
+                            {{ "UK667788990022" | formatReference }}
+                        </a>
+                    </h3>
+
+                    <ul class="govuk-list app-event-card__details">
+                        <li>
+                            <span class="app-event-card__details-key">From:</span>
+                            44/112/9087
+                        </li>
+                        <li>
+                            <span class="app-event-card__details-key">To:</span>
+                            12/345/6789
+                            <span class="govuk-hint govuk-!-display-inline">
+                (this holding)
+              </span>
+                        </li>
+                        <li>
+                            <span class="app-event-card__details-key">Reason:</span>
+                            Purchase
+                        </li>
+                    </ul>
+
+                    <div class="app-event-card__notice">
+                        <h4 class="govuk-heading-s govuk-!-margin-bottom-1 app-event-card__notice-heading app-event-card__notice-heading--issue">
+                            <span class="govuk-visually-hidden">Issue reason: </span>
+                            Movement date is earlier than the previous recorded movement
+                        </h4>
+
+                        <p class="govuk-body-s govuk-!-margin-bottom-0">
+                            Check the movement date and the animal’s previous event history.
+                        </p>
+                    </div>
+
+                </article>
+            </li>
+
+        </ol>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -69,6 +69,27 @@ addFilter('removeWhiteSpace', function(text) {
    return `${Number(day)} ${monthNames[monthIndex]} ${year}`;
  });
 
+ addFilter('selectedOptions', function (value) {
+   if (!value) {
+     return '';
+   }
+
+   const values = Array.isArray(value)
+     ? value
+     : [value];
+
+   return values
+     .flatMap((item) => String(item).split(','))
+     .map((item) => item.trim())
+     .filter((item) => {
+       return item && item !== '_unchecked';
+     })
+     .filter((item, index, items) => {
+       return items.indexOf(item) === index;
+     })
+     .join(' or ');
+ });
+
 addFilter('sexToLetter', function(value) {
    if (!value) {
      return '';
