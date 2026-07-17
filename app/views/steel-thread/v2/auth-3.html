@@ -1,0 +1,90 @@
+{% extends "layouts/main.html" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% set pageName="Accessing the service on behalf for a business or organisation" %}
+
+{% block header %}
+
+{{ govukHeader({
+homepageUrl: '/index.html'
+}) }}
+
+{{ govukServiceNavigation({
+serviceName: "Sign in to Defra online services",
+serviceUrl: "/animals-on-holding/v1/start"
+})
+}}
+
+{% endblock %}
+
+{% block containerStart %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <form action="/steel-thread/v2/auth-3" method="post" novalidate>
+
+        <span class="govuk-caption-l">Create a Defra account</span>
+        <h1 class="govuk-heading-l">
+          Accessing the service on behalf for a business or organisation
+        </h1>
+
+        <p class="govuk-body">
+          We need the following information from you. This can take up to 10 minutes.
+        </p>
+
+        <h2 class="govuk-heading-m">
+          Personal contact details
+        </h2>
+
+        <ul class="govuk-list govuk-list--bullet">
+          <li>your name</li>
+          <li>contact number</li>
+        </ul>
+
+        <h2 class="govuk-heading-m">
+          Organisation details
+        </h2>
+
+        <ul class="govuk-list govuk-list--bullet">
+          <li>company or charity registration number (if applicable)</li>
+          <li>registered address</li>
+          <li>business contact details (in case you leave)</li>
+        </ul>
+
+        <p class="govuk-body">
+          If your details with Companies House is not up-to-date, you can save your personal details and complete the organisation details once you've updated them with Companies House.
+        </p>
+
+        <p class="govuk-body">
+          To find out how we use, process and store your personal information, read our <a class="govuk-link" href="https://your-account.defra.gov.uk/content/privacy-notice" target="_blank" rel="noopener noreferrer">privacy notice (opens new tab)</a>.
+        </p>
+
+        {{ govukCheckboxes({
+          name: "agree-terms",
+          items: [
+            {
+              value: "agree",
+              html: 'I agree to the Defra account <a class="govuk-link" href="https://your-account.defra.gov.uk/registration/terms" target="_blank" rel="noopener noreferrer">Terms and Conditions (opens in a new tab)</a>',
+              checked: checked("agree-terms", "agree")
+            }
+          ]
+        }) }}
+
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+
+      </form>
+
+    </div>
+  </div>
+
+{% endblock %}

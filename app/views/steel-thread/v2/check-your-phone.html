@@ -1,0 +1,73 @@
+{% extends "layouts/main.html" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% set pageName="Check your phone" %}
+
+{% block header %}
+
+{{ govukHeader({
+homepageUrl: '/index.html'
+}) }}
+
+{{ govukServiceNavigation({
+serviceName: "Sign in to Defra online services",
+serviceUrl: "/animals-on-holding/v1/start"
+})
+}}
+
+{% endblock %}
+
+{% block containerStart %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <h1 class="govuk-heading-l">Check your phone</h1>
+
+      <div class="govuk-inset-text">
+        We have sent a code to your phone number ending with <b>137</b>
+      </div>
+
+      <p class="govuk-body">It might take a few minutes to arrive. The code will expire after 15 minutes.</p>
+
+      <form action="/steel-thread/v2/check-your-phone" method="post" novalidate>
+
+        {{ govukInput({
+          label: {
+            text: "Enter the 6 digit code"
+          },
+          id: "code",
+          name: "code",
+          classes: "govuk-input--width-10",
+          attributes: {
+            inputmode: "numeric",
+            autocomplete: "one-time-code"
+          }
+        }) }}
+
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+
+      </form>
+
+      {% from "govuk/components/details/macro.njk" import govukDetails %}
+
+      {% call govukDetails({
+      summaryText: "Problems with the code?"
+      }) %}
+      We can send the code again if the code is not working or you did not receive it.
+      If you no longer have access to this phone number, check if you can change how you get security codes.
+      {% endcall %}
+
+    </div>
+  </div>
+
+{% endblock %}
