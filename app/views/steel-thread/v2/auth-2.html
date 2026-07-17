@@ -1,0 +1,80 @@
+{% extends "layouts/main.html" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% set pageName="Create a Defra account" %}
+
+{% block header %}
+
+{{ govukHeader({
+homepageUrl: '/index.html'
+}) }}
+
+{{ govukServiceNavigation({
+serviceName: "Sign in to Defra online services",
+serviceUrl: "/animals-on-holding/v1/start"
+})
+}}
+
+{% endblock %}
+
+{% block containerStart %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <form action="/steel-thread/v2/auth-2" method="post" novalidate>
+
+        <span class="govuk-caption-l">Create a Defra account</span>
+        <h1 class="govuk-heading-l">
+          We need more information from you
+        </h1>
+
+        <p class="govuk-body">
+          You don't have a Defra account yet, so we need to ask you a few more questions. You will only need to provide this information once, then we will re-use it across <a class="govuk-link" href="#" target="_blank" rel="noopener noreferrer">other Defra services (opens in a new tab)</a> you access with the same email.
+        </p>
+
+        {{ govukRadios({
+          name: "service-user-type",
+          fieldset: {
+            legend: {
+              text: "Who are you using this service for?",
+              isPageHeading: false,
+              classes: "govuk-fieldset__legend--m"
+            }
+          },
+          items: [
+            {
+              value: "personal",
+              text: "Myself for personal use, not work related",
+              checked: checked("service-user-type", "personal")
+            },
+            {
+              value: "business",
+              text: "For a business or organisation, including if you are self-employed",
+              checked: checked("service-user-type", "business")
+            },
+            {
+              value: "representative",
+              text: "As a professional representative for someone else",
+              checked: checked("service-user-type", "representative")
+            }
+          ]
+        }) }}
+
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+
+      </form>
+
+    </div>
+  </div>
+
+{% endblock %}

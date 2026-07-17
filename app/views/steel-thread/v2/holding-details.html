@@ -1,0 +1,121 @@
+{% extends "layouts/main.html" %}
+
+{% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
+
+{% set pageName="Holding details" %}
+
+{% block header %}
+
+  {{ govukHeader({
+    homepageUrl: '/index.html'
+  }) }}
+
+  {{ govukServiceNavigation({
+    serviceName: "Livestock Information",
+    serviceUrl: "/steel-thread/v2/holding-details",
+    slots: {
+      navigationEnd: '<li class="govuk-service-navigation__item app-service-navigation__item--right"><a class="govuk-service-navigation__link" href="/steel-thread/v2/one-login">Sign out</a></li>'
+    }
+  }) }}
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+
+    <div class="govuk-notification-banner" role="region" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
+      <div class="govuk-notification-banner__header">
+        <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+          Important
+        </h2>
+      </div>
+
+      <div class="govuk-notification-banner__content">
+        <p class="govuk-notification-banner__heading">
+          You have 3 animals that need your attention.
+          <a class="govuk-notification-banner__link"
+             href="/steel-thread/v2/animal-error-record">
+            View animal error record</a>.
+        </p>
+      </div>
+    </div>
+
+    <span class="govuk-caption-l">CPH number: 12/345/0001</span>
+    <h1 class="govuk-heading-l">
+      Oakfield Farm
+    </h1>
+
+    <nav class="moj-sub-navigation" aria-label="Sub navigation">
+      <ul class="moj-sub-navigation__list">
+        <li class="moj-sub-navigation__item">
+          <a class="moj-sub-navigation__link" aria-current="page" href="/steel-thread/v2/holding-details">Holding details</a>
+        </li>
+        <li class="moj-sub-navigation__item">
+          <a class="moj-sub-navigation__link" href="/steel-thread/v2/animals-on-holding">
+            Animals on holding
+          </a>
+        </li>
+        <li class="moj-sub-navigation__item">
+          <a class="moj-sub-navigation__link" href="/steel-thread/v2/animal-error-record">
+            Animal error record
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+<!--    <h2 class="govuk-heading-m">Holding information</h2>-->
+
+    <dl class="govuk-summary-list">
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">CPH number</dt>
+        <dd class="govuk-summary-list__value">{{ holding.cph }}</dd>
+      </div>
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Holding name</dt>
+        <dd class="govuk-summary-list__value">{{ holding.holdingName }}</dd>
+      </div>
+
+      {% if holding.businessName %}
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Business name</dt>
+        <dd class="govuk-summary-list__value">{{ holding.businessName }}</dd>
+      </div>
+      {% endif %}
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Address</dt>
+        <dd class="govuk-summary-list__value">
+          {{ holding.address.addressLine1 }}
+          {% if holding.address.addressLine2 %}<br>{{ holding.address.addressLine2 }}{% endif %}
+          <br>{{ holding.address.town }}
+          <br>{{ holding.address.county }}
+          <br>{{ holding.address.postcode }}
+          {% if holding.address.country %}<br>{{ holding.address.country }}{% endif %}
+        </dd>
+      </div>
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Holding type</dt>
+        <dd class="govuk-summary-list__value">{{ holding.holdingType }}</dd>
+      </div>
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Registered keeper</dt>
+        <dd class="govuk-summary-list__value">{{ holding.keeper.name }}</dd>
+      </div>
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Herd mark</dt>
+        <dd class="govuk-summary-list__value">{{ holding.herdmark }}</dd>
+      </div>
+
+    </dl>
+
+  </div>
+</div>
+
+{% endblock %}

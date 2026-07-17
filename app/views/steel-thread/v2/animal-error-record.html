@@ -1,0 +1,107 @@
+{% extends "layouts/main.html" %}
+
+{% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
+
+{% set pageName="Animal error record" %}
+
+{% block header %}
+
+  {{ govukHeader({
+    homepageUrl: '/index.html'
+  }) }}
+
+  {{ govukServiceNavigation({
+    serviceName: "Livestock Information",
+    serviceUrl: "/steel-thread/v2/holding-details",
+    slots: {
+      navigationEnd: '<li class="govuk-service-navigation__item app-service-navigation__item--right"><a class="govuk-service-navigation__link" href="/steel-thread/v2/one-login">Sign out</a></li>'
+    }
+  }) }}
+
+{% endblock %}
+
+{% block content %}
+
+<span class="govuk-caption-l">CPH number: 12/345/0001</span>
+<h1 class="govuk-heading-l">
+  Oakfield Farm
+</h1>
+
+<nav class="moj-sub-navigation" aria-label="Sub navigation">
+  <ul class="moj-sub-navigation__list">
+    <li class="moj-sub-navigation__item">
+      <a class="moj-sub-navigation__link" href="/steel-thread/v2/holding-details">Holding details</a>
+    </li>
+    <li class="moj-sub-navigation__item">
+      <a class="moj-sub-navigation__link" href="/steel-thread/v2/animals-on-holding">Animals on holding</a>
+    </li>
+    <li class="moj-sub-navigation__item">
+      <a class="moj-sub-navigation__link" aria-current="page" href="/steel-thread/v2/animal-error-record">Animal error record</a>
+    </li>
+  </ul>
+</nav>
+
+<div>
+
+  <div>
+
+    <div class="govuk-inset-text">
+
+        <h2 class="govuk-heading-m">
+          How to fix animal error records
+        </h2>
+
+        <p class="govuk-body">
+          You need to contact BCMS to fix the errors related to your animals.
+        </p>
+
+        <ul class="govuk-list">
+          <li>BCMS phone: 0345 050 1234</li>
+         <li>Helpline for cattle keepers in Wales: 0345 050 3456</li>
+          <li>Monday to Friday, 8:30am to 5pm</li>
+          <li><a href="https://www.gov.uk/call-charges" target="_blank">Find out about call charges</a>.</li>
+        </ul>
+    </div>
+
+    {% for record in errorRecords %}
+    <div class="govuk-summary-card">
+      <div class="govuk-summary-card__title-wrapper">
+        <h2 class="govuk-summary-card__title">
+          {{ record.earTagNumber | formatReference }}
+        </h2>
+      </div>
+      <div class="govuk-summary-card__content">
+        <dl class="govuk-summary-list">
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Date of birth
+            </dt>
+            <dd class="govuk-summary-list__value">
+              {{ record.dateOfBirth | shortDateFormat }}
+            </dd>
+          </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Date of registration
+            </dt>
+            <dd class="govuk-summary-list__value">
+              {{ record.dateOfRegistration | shortDateFormat }}
+            </dd>
+          </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Reason for error
+            </dt>
+            <dd class="govuk-summary-list__value">
+              {{ record.reason }}
+            </dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+    {% endfor %}
+
+  </div>
+</div>
+
+{% endblock %}
