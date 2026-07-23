@@ -3,9 +3,11 @@
 // https://prototype-kit.service.gov.uk/docs/adding-css-javascript-and-images
 @import "components/event-card";
 @import "components/filter-panel";
+@import "components/filter-accordion";
 @import "components/overview";
 @import "components/search";
 @import "components/timeline";
+@import "components/wide-layout";
 
 
 .app-layout--wide {
@@ -253,3 +255,9 @@
     .app-table__cell--no-wrap {
       white-space: nowrap;
     }
+
+.app-\!-hide-from-desktop {
+  @include govuk-media-query($from: desktop) {
+    display: none !important;
+  }
+}

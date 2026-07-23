@@ -1,0 +1,1218 @@
+{% extends "layouts/main.html" %}
+
+{% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/select/macro.njk" import govukSelect %}
+{% from "moj/components/date-picker/macro.njk" import mojDatePicker %}
+
+{% set pageName = "Cattle search results" %}
+{% set activeNav = "my-holdings" %}
+{% set bodyClasses = "app-layout--wide" %}
+{% set containerClasses = "app-width-container--wide" %}
+
+
+{#
+Static options for this mock-up.
+#}
+
+{% set breedOptions = [
+"Aberdeen Angus",
+"Beef Shorthorn",
+"Belgian Blue",
+"British Blue",
+"Charolais",
+"Galloway",
+"Hereford",
+"Highland",
+"Holstein",
+"Jersey",
+"Limousin",
+"Lincoln Red",
+"Simmental"
+] %}
+
+
+{#
+Static result data.
+
+These all match:
+
+Breed: Aberdeen Angus
+Sex: Female
+Status: Active
+Holding: 12/345/6789
+Born between 1 January 2023 and 31 December 2024
+#}
+
+{% set cattleResults = [
+{
+earTagNumber: "UK123456700101",
+status: "Active",
+sex: "Female",
+breedName: "Aberdeen Angus",
+breedCode: "AA",
+dateOfBirth: "14-01-2023",
+dateOfRegistration: "19-02-2023",
+cph: "12/345/6789",
+holdingName: "Fern Hollow Farm"
+},
+{
+earTagNumber: "UK123456700118",
+status: "Active",
+sex: "Female",
+breedName: "Aberdeen Angus",
+breedCode: "AA",
+dateOfBirth: "2-02-2023",
+dateOfRegistration: "7-03-2023",
+cph: "12/345/6789",
+holdingName: "Fern Hollow Farm"
+},
+{
+earTagNumber: "UK123456700125",
+status: "Active",
+sex: "Female",
+breedName: "Aberdeen Angus",
+breedCode: "AA",
+dateOfBirth: "18-04-2023",
+dateOfRegistration: "22-04-2023",
+cph: "12/345/6789",
+holdingName: "Fern Hollow Farm"
+},
+{
+earTagNumber: "UK123456700132",
+status: "Active",
+sex: "Female",
+breedName: "Aberdeen Angus",
+breedCode: "AA",
+dateOfBirth: "9-07-2023",
+dateOfRegistration: "14-07-2023",
+cph: "12/345/6789",
+holdingName: "Fern Hollow Farm"
+},
+{
+earTagNumber: "UK123456700149",
+status: "Active",
+sex: "Female",
+breedName: "Aberdeen Angus",
+breedCode: "AA",
+dateOfBirth: "27-08-2023",
+dateOfRegistration: "1-10-2023",
+cph: "12/345/6789",
+holdingName: "Fern Hollow Farm"
+},
+{
+earTagNumber: "UK123456700156",
+status: "Active",
+sex: "Female",
+breedName: "Aberdeen Angus",
+breedCode: "AA",
+dateOfBirth: "27-11-2023",
+dateOfRegistration: "27-11-2023",
+cph: "12/345/6789",
+holdingName: "Fern Hollow Farm"
+},
+{
+earTagNumber: "UK123456700163",
+status: "Active",
+sex: "Female",
+breedName: "Aberdeen Angus",
+breedCode: "AA",
+dateOfBirth: "5-01-2024",
+dateOfRegistration: "10-01-2024",
+cph: "12/345/6789",
+holdingName: "Fern Hollow Farm"
+},
+{
+earTagNumber: "UK123456700170",
+status: "Active",
+sex: "Female",
+breedName: "Aberdeen Angus",
+breedCode: "AA",
+dateOfBirth: "21-02-2024",
+dateOfRegistration: "26-02-2024",
+cph: "12/345/6789",
+holdingName: "Fern Hollow Farm"
+},
+{
+earTagNumber: "UK123456700187",
+status: "Active",
+sex: "Female",
+breedName: "Aberdeen Angus",
+breedCode: "AA",
+dateOfBirth: "16-05-2024",
+dateOfRegistration: "21-05-2024",
+cph: "12/345/6789",
+holdingName: "Fern Hollow Farm"
+},
+{
+earTagNumber: "UK123456700194",
+status: "Active",
+sex: "Female",
+breedName: "Aberdeen Angus",
+breedCode: "AA",
+dateOfBirth: "30-09-2024",
+dateOfRegistration: "4-10-2024",
+cph: "12/345/6789",
+holdingName: "Fern Hollow Farm"
+}
+] %}
+
+
+{% block header %}
+
+{% block navBar %}
+{% include "./components/_navigation.html" %}
+{% endblock %}
+
+{% endblock %}
+
+
+{% block beforeContent %}
+
+{% set pathParts = currentPath.split('/') %}
+{% set currentBaseUrl = '/' + pathParts[1] + '/' + pathParts[2] + '/' %}
+
+{{ govukBreadcrumbs({
+items: [
+{
+text: "Home",
+href: currentBaseUrl + "home"
+},
+{
+text: "Cattle register",
+href: currentBaseUrl + "cattle"
+},
+{
+text: "Advanced cattle search",
+href: currentBaseUrl + "cattle/advanced-search"
+}
+]
+}) }}
+
+{% endblock %}
+
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+        <h1 class="govuk-heading-xl">
+            Cattle search results
+        </h1>
+
+
+
+    </div>
+    <div class="govuk-grid-column-full govuk-!-margin-bottom-6">
+        {% set filterHint = 'Search by ear tag number, CPH number, date of birth, breed or status' %}
+        {% block filterBar %}{% include "./components/_filter-bar.html" %}{% endblock %}
+
+    </div>
+
+</div>
+
+<div class="app-filter-results-layout">
+
+    {# Filter rail #}
+
+    <aside
+            class="app-filter-results-layout__filters"
+            aria-label="Filters"
+    >
+
+        <div
+                class="app-filter-panel-toggle js-filter-panel-toggle"
+                hidden
+        >
+            {{ govukButton({
+            text: "Hide filters",
+            type: "button",
+            id: "filter-panel-toggle",
+            classes: "govuk-button--secondary govuk-!-width-full",
+            attributes: {
+            "aria-controls": "filter-panel",
+            "aria-expanded": "true"
+            }
+            }) }}
+        </div>
+
+        <div
+                class="app-filter-panel-container"
+                id="filter-panel"
+        >
+
+            <form
+                    method="get"
+                    action="{{ currentBaseUrl }}cattle/advanced-search/results"
+                    novalidate
+            >
+
+                {# Your existing filter form contents #}
+
+            <input
+                    type="hidden"
+                    name="searchSubmitted"
+                    value="true"
+            >
+
+            <h2
+                    class="govuk-heading-m"
+                    id="filter-results-heading"
+            >
+                Filter results
+            </h2>
+
+            <button
+                    class="govuk-button app-filter-results__submit"
+                    data-module="govuk-button"
+            >
+                Apply filters
+            </button>
+
+
+            <div
+                    class="govuk-accordion app-filter-accordion"
+                    data-module="govuk-accordion"
+                    data-remember-expanded="false"
+                    id="advanced-cattle-filters"
+            >
+
+                {#
+                Animal details
+
+                Starts open because breed, sex and status are selected.
+                #}
+
+                <div class="govuk-accordion__section govuk-accordion__section--expanded">
+
+                    <div class="govuk-accordion__section-header">
+
+                        <h3 class="govuk-accordion__section-heading">
+
+                            <span
+                                    class="govuk-accordion__section-button"
+                                    id="advanced-cattle-filters-heading-1"
+                            >
+                                Animal details
+                            </span>
+
+                        </h3>
+
+                        <div
+                                class="govuk-accordion__section-summary govuk-body"
+                                id="advanced-cattle-filters-summary-1"
+                        >
+                            3 selected
+                        </div>
+
+                    </div>
+
+                    <div
+                            class="govuk-accordion__section-content"
+                            id="advanced-cattle-filters-content-1"
+                    >
+
+                        {{ govukInput({
+                        id: "ear-tag",
+                        name: "earTag",
+                        classes: "govuk-input--width-20",
+                        label: {
+                        text: "Ear tag number"
+                        },
+                        hint: {
+                        text: "Enter a complete or partial ear tag number"
+                        }
+                        }) }}
+
+
+                        {#
+                        Searchable breed checkboxes
+                        #}
+
+                        <div
+                                class="app-c-option-select js-collapsible js-searchable-checkboxes"
+                                data-module="option-select"
+                        >
+
+                            <h4
+                                    class="js-container-heading govuk-heading-s searchable-filters-heading"
+                                    id="breed-filter-heading"
+                            >
+                                Breed
+
+                                <span
+                                        class="app-c-option-select__selected-counter js-selected-counter"
+                                >
+                                    1 selected
+                                </span>
+                            </h4>
+
+                            <div class="app-c-option-select__filter">
+
+                                <label
+                                        for="breed-option-filter"
+                                        class="govuk-label govuk-visually-hidden"
+                                >
+                                    Search the list of breeds
+                                </label>
+
+                                <input
+                                        id="breed-option-filter"
+                                        class="app-c-option-select__filter-input govuk-input"
+                                        type="search"
+                                        autocomplete="off"
+                                        aria-describedby="breed-option-count"
+                                        aria-controls="breed-checkboxes"
+                                >
+
+                            </div>
+
+                            <div
+                                    role="group"
+                                    aria-labelledby="breed-filter-heading"
+                                    class="app-c-option-select__container js-options-container"
+                                    id="breed-options"
+                                    tabindex="-1"
+                            >
+
+                                <div class="app-c-option-select__container-inner js-auto-height-inner">
+
+                                    <span
+                                            id="breed-option-count"
+                                            class="app-c-option-select__count govuk-visually-hidden"
+                                            aria-live="polite"
+                                            aria-atomic="true"
+                                    ></span>
+
+                                    <div
+                                            id="breed-checkboxes"
+                                            class="gem-c-checkboxes govuk-form-group"
+                                            data-module="govuk-checkboxes"
+                                    >
+
+                                        <div class="govuk-checkboxes govuk-checkboxes--small gem-c-checkboxes__list">
+
+                                            {% for breed in breedOptions %}
+
+                                            <div class="govuk-checkboxes__item js-option">
+
+                                                <input
+                                                        class="govuk-checkboxes__input"
+                                                        id="breed-{{ loop.index }}"
+                                                        name="breed"
+                                                        type="checkbox"
+                                                        value="{{ breed }}"
+                                                        {% if breed == "Aberdeen Angus" %}checked{% endif %}
+                                                >
+
+                                                <label
+                                                        class="govuk-label govuk-checkboxes__label"
+                                                        for="breed-{{ loop.index }}"
+                                                >
+                                                    {{ breed }}
+                                                </label>
+
+                                            </div>
+
+                                            {% endfor %}
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        {{ govukRadios({
+                        name: "sex",
+                        classes: "govuk-radios--small",
+                        fieldset: {
+                        legend: {
+                        text: "Sex"
+                        }
+                        },
+                        items: [
+                        {
+                        value: "",
+                        text: "Any sex"
+                        },
+                        {
+                        value: "Female",
+                        text: "Female",
+                        checked: true
+                        },
+                        {
+                        value: "Male",
+                        text: "Male"
+                        }
+                        ]
+                        }) }}
+
+
+                        {{ govukCheckboxes({
+                        name: "status",
+                        classes: "govuk-checkboxes--small",
+                        fieldset: {
+                        legend: {
+                        text: "Status"
+                        }
+                        },
+                        items: [
+                        {
+                        value: "Active",
+                        text: "Active",
+                        checked: true
+                        },
+                        {
+                        value: "Sold",
+                        text: "Sold"
+                        },
+                        {
+                        value: "Deceased",
+                        text: "Deceased"
+                        }
+                        ]
+                        }) }}
+
+                    </div>
+
+                </div>
+
+
+                {#
+                Animal dates
+
+                Starts open because the birth range is selected.
+                #}
+
+                <div class="govuk-accordion__section govuk-accordion__section--expanded">
+
+                    <div class="govuk-accordion__section-header">
+
+                        <h3 class="govuk-accordion__section-heading">
+
+                            <span
+                                    class="govuk-accordion__section-button"
+                                    id="advanced-cattle-filters-heading-2"
+                            >
+                                Animal dates
+                            </span>
+
+                        </h3>
+
+                        <div
+                                class="govuk-accordion__section-summary govuk-body"
+                                id="advanced-cattle-filters-summary-2"
+                        >
+                            1 selected
+                        </div>
+
+                    </div>
+
+                    <div
+                            class="govuk-accordion__section-content"
+                            id="advanced-cattle-filters-content-2"
+                    >
+
+                        <h4 class="govuk-heading-s">
+                            Date of birth
+                        </h4>
+
+                        {{ mojDatePicker({
+                        id: "birth-from",
+                        name: "birthFrom",
+                        value: "01/01/2023",
+                        label: {
+                        text: "Birth date from"
+                        },
+                        hint: {
+                        text: "For example, 17/5/2024."
+                        }
+                        }) }}
+
+                        {{ mojDatePicker({
+                        id: "birth-to",
+                        name: "birthTo",
+                        value: "31/12/2024",
+                        label: {
+                        text: "Birth date to"
+                        },
+                        hint: {
+                        text: "For example, 17/5/2024."
+                        }
+                        }) }}
+
+
+                        <h4 class="govuk-heading-s govuk-!-margin-top-6">
+                            Date of registration
+                        </h4>
+
+                        {{ mojDatePicker({
+                        id: "registration-from",
+                        name: "registrationFrom",
+                        label: {
+                        text: "Registration date from"
+                        },
+                        hint: {
+                        text: "For example, 17/5/2024."
+                        }
+                        }) }}
+
+                        {{ mojDatePicker({
+                        id: "registration-to",
+                        name: "registrationTo",
+                        label: {
+                        text: "Registration date to"
+                        },
+                        hint: {
+                        text: "For example, 17/5/2024."
+                        }
+                        }) }}
+
+                    </div>
+
+                </div>
+
+
+                {#
+                Holding
+
+                Starts open because a holding is selected.
+                #}
+
+                <div class="govuk-accordion__section govuk-accordion__section--expanded">
+
+                    <div class="govuk-accordion__section-header">
+
+                        <h3 class="govuk-accordion__section-heading">
+
+                            <span
+                                    class="govuk-accordion__section-button"
+                                    id="advanced-cattle-filters-heading-3"
+                            >
+                                Holding
+                            </span>
+
+                        </h3>
+
+                        <div
+                                class="govuk-accordion__section-summary govuk-body"
+                                id="advanced-cattle-filters-summary-3"
+                        >
+                            1 selected
+                        </div>
+
+                    </div>
+
+                    <div
+                            class="govuk-accordion__section-content"
+                            id="advanced-cattle-filters-content-3"
+                    >
+
+                        {{ govukInput({
+                        id: "holding",
+                        name: "holding",
+                        value: "12/345/6789",
+                        classes: "govuk-input--width-20",
+                        label: {
+                        text: "CPH number or holding name"
+                        },
+                        hint: {
+                        text: "For example, 12/345/6789 or Fern Hollow Farm"
+                        }
+                        }) }}
+
+                        {{ govukRadios({
+                        name: "holdingOrigin",
+                        classes: "govuk-radios--small",
+                        fieldset: {
+                        legend: {
+                        text: "How did the animal arrive at this holding?"
+                        }
+                        },
+                        hint: {
+                        text: "Use this to distinguish animals born on the holding from animals moved onto it."
+                        },
+                        items: [
+                        {
+                        value: "all",
+                        text: "All animals",
+                        checked: true
+                        },
+                        {
+                        value: "born",
+                        text: "Born on this holding"
+                        },
+                        {
+                        value: "moved-on",
+                        text: "Moved onto this holding",
+                        hint: {
+                        text: "Includes animals bought or transferred onto the holding."
+                        }
+                        }
+                        ]
+                        }) }}
+
+                    </div>
+
+                </div>
+
+
+                {#
+                Movement
+
+                Closed because there are no active movement criteria.
+                #}
+
+                <div class="govuk-accordion__section">
+
+                    <div class="govuk-accordion__section-header">
+
+                        <h3 class="govuk-accordion__section-heading">
+
+                            <span
+                                    class="govuk-accordion__section-button"
+                                    id="advanced-cattle-filters-heading-4"
+                            >
+                                Movement
+                            </span>
+
+                        </h3>
+
+                    </div>
+
+                    <div
+                            class="govuk-accordion__section-content"
+                            id="advanced-cattle-filters-content-4"
+                    >
+
+                        {{ govukRadios({
+                        name: "movementDirection",
+                        classes: "govuk-radios--small",
+                        fieldset: {
+                        legend: {
+                        text: "Movement type"
+                        }
+                        },
+                        hint: {
+                        text: "Movement direction is relative to the holding entered above"
+                        },
+                        items: [
+                        {
+                        value: "any",
+                        text: "Any movement",
+                        checked: true
+                        },
+                        {
+                        value: "on",
+                        text: "Moved onto the holding"
+                        },
+                        {
+                        value: "off",
+                        text: "Moved off the holding"
+                        }
+                        ]
+                        }) }}
+
+
+                        {{ mojDatePicker({
+                        id: "movement-from",
+                        name: "movementFrom",
+                        label: {
+                        text: "Movement date from"
+                        },
+                        hint: {
+                        text: "For example, 17/5/2024."
+                        }
+                        }) }}
+
+                        {{ mojDatePicker({
+                        id: "movement-to",
+                        name: "movementTo",
+                        label: {
+                        text: "Movement date to"
+                        },
+                        hint: {
+                        text: "For example, 17/5/2024."
+                        }
+                        }) }}
+
+                    </div>
+
+                </div>
+
+
+                {#
+                Death
+
+                Closed because there are no active death criteria.
+                #}
+
+                <div class="govuk-accordion__section">
+
+                    <div class="govuk-accordion__section-header">
+
+                        <h3 class="govuk-accordion__section-heading">
+
+                            <span
+                                    class="govuk-accordion__section-button"
+                                    id="advanced-cattle-filters-heading-5"
+                            >
+                                Death
+                            </span>
+
+                        </h3>
+
+                    </div>
+
+                    <div
+                            class="govuk-accordion__section-content"
+                            id="advanced-cattle-filters-content-5"
+                    >
+
+                        {{ mojDatePicker({
+                        id: "death-from",
+                        name: "deathFrom",
+                        label: {
+                        text: "Death date from"
+                        },
+                        hint: {
+                        text: "For example, 17/5/2024."
+                        }
+                        }) }}
+
+                        {{ mojDatePicker({
+                        id: "death-to",
+                        name: "deathTo",
+                        label: {
+                        text: "Death date to"
+                        },
+                        hint: {
+                        text: "For example, 17/5/2024."
+                        }
+                        }) }}
+
+
+                        {{ govukSelect({
+                        id: "cause-of-death",
+                        name: "causeOfDeath",
+                        label: {
+                        text: "Cause of death"
+                        },
+                        items: [
+                        {
+                        value: "",
+                        text: "Any cause",
+                        selected: true
+                        },
+                        {
+                        value: "Slaughter",
+                        text: "Slaughter"
+                        },
+                        {
+                        value: "Disease",
+                        text: "Disease"
+                        },
+                        {
+                        value: "Accident",
+                        text: "Accident"
+                        },
+                        {
+                        value: "Natural causes",
+                        text: "Natural causes"
+                        },
+                        {
+                        value: "Unknown",
+                        text: "Unknown"
+                        },
+                        {
+                        value: "Other",
+                        text: "Other"
+                        }
+                        ]
+                        }) }}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="govuk-button-group govuk-!-margin-top-5">
+
+                {{ govukButton({
+                text: "Apply filters",
+                classes: "app-filter-results__submit"
+                }) }}
+
+                <a
+                        class="govuk-link"
+                        href="{{ currentBaseUrl }}cattle/advanced-search"
+                >
+                    Clear filters
+                </a>
+
+            </div>
+
+            </form>
+
+        </div>
+
+    </aside>
+
+
+    {#
+    Results
+    #}
+
+    <main
+            class="app-filter-results-layout__results"
+            id="cattle-results"
+    >
+
+        <div class="app-search-results__header">
+
+            <h2 class="govuk-heading-l govuk-!-margin-bottom-2">
+                10 cattle records found
+            </h2>
+            <p class="govuk-body">
+                Matching <strong>'test'</strong> the following filters:
+                <br>Breed is <strong>‘Aberdeen Angus’</strong>
+                <br>Sex is <strong>‘Female’</strong>
+                <br>Status is <strong>‘Active’</strong>;
+                <br>Holding is <strong>‘12/345/6789’</strong>;
+                <br>and born between
+                <strong>1 January 2023 and 31 December 2024</strong>.
+            </p>
+            <p><a href="#">Clear all filters</a></p>
+        </div>
+        <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible app-!-hide-from-desktop">
+
+
+        {#
+        Mobile and tablet results
+        #}
+
+        <ol class="govuk-list app-search-results app-search-results--list">
+
+            {% for animal in cattleResults %}
+
+            <li class="app-search-result">
+
+                <article class="app-search-result__item">
+
+                    <h3 class="govuk-heading-m govuk-!-margin-bottom-2">
+
+                        <a
+                                class="govuk-link"
+                                href="{{ currentBaseUrl }}cattle/{{ animal.earTagNumber }}"
+                        >
+                            {{ animal.earTagNumber | formatReference }}
+                        </a>
+
+                    </h3>
+
+                    <p class="govuk-body govuk-!-margin-bottom-2">
+                        <strong>{{ animal.status }}</strong>
+                    </p>
+
+                    <ul class="govuk-list govuk-!-margin-bottom-0">
+
+                        <li>
+                            {{ animal.breedName }} ({{ animal.breedCode }})
+                            · {{ animal.sex }}
+                        </li>
+
+                        <li>
+                            Born {{ animal.dateOfBirth | fullDateFormat}}
+                        </li>
+
+                        <li>
+                            Current holding:
+                            <a
+                                    class="govuk-link"
+                                    href="{{ currentBaseUrl }}holdings/{{ animal.cph }}"
+                            >
+                                {{ animal.cph }}
+                            </a>
+                            · {{ animal.holdingName }}
+                        </li>
+
+                    </ul>
+
+                </article>
+
+            </li>
+
+            {% endfor %}
+
+        </ol>
+
+
+        {#
+        Desktop results
+        #}
+
+        <div class="app-search-results--table">
+
+            <table class="govuk-table app-cattle-results-table">
+
+                <caption class="govuk-table__caption govuk-visually-hidden">
+                    Cattle search results
+                </caption>
+
+                <thead class="govuk-table__head">
+
+                <tr class="govuk-table__row">
+
+                    <th
+                            scope="col"
+                            class="govuk-table__header app-table__cell--no-wrap"
+                    >
+                        Ear tag
+                    </th>
+
+                    <th
+                            scope="col"
+                            class="govuk-table__header app-table__cell--no-wrap"
+                    >
+                        CPH
+                    </th>
+
+                    <th
+                            scope="col"
+                            class="govuk-table__header app-table__cell--no-wrap"
+                    >
+                        Date of birth
+                    </th>
+
+                    <th
+                            scope="col"
+                            class="govuk-table__header app-table__cell--compact"
+                    >
+                        Sex
+                    </th>
+
+                    <th
+                            scope="col"
+                            class="govuk-table__header"
+                    >
+                        Breed
+                    </th>
+
+                    <th
+                            scope="col"
+                            class="govuk-table__header app-table__cell--no-wrap"
+                    >
+                        Status
+                    </th>
+
+                </tr>
+
+                </thead>
+
+                <tbody class="govuk-table__body">
+
+                {% for animal in cattleResults %}
+
+                {% set statusTagClass = "govuk-tag--grey" %}
+
+                {% if animal.status == "Active" %}
+                {% set statusTagClass = "govuk-tag--green" %}
+                {% elseif animal.status == "Sold" %}
+                {% set statusTagClass = "govuk-tag--blue" %}
+                {% elseif animal.status == "Deceased" %}
+                {% set statusTagClass = "govuk-tag--red" %}
+                {% endif %}
+
+                <tr class="govuk-table__row">
+
+                    <th
+                            scope="row"
+                            class="govuk-table__header app-table__cell--no-wrap"
+                    >
+                        <a
+                                class="govuk-link"
+                                href="{{ currentBaseUrl }}cattle/{{ animal.earTagNumber }}"
+                        >
+                            {{ animal.earTagNumber | formatReference }}
+                        </a>
+                    </th>
+
+                    <td class="govuk-table__cell app-table__cell--no-wrap">
+
+                        <a
+                                class="govuk-link"
+                                href="{{ currentBaseUrl }}holdings/{{ animal.cph }}"
+                        >
+                            {{ animal.cph }}
+                        </a>
+
+                    </td>
+
+                    <td class="govuk-table__cell app-table__cell--no-wrap">
+                        {{ animal.dateOfBirth | shortDateFormat }}
+                    </td>
+
+                    <td class="govuk-table__cell app-table__cell--compact">
+            <span class="govuk-visually-hidden">
+              {{ animal.sex }}
+            </span>
+
+                        <span aria-hidden="true">
+              {{ animal.sex | first }}
+            </span>
+                    </td>
+
+                    <td class="govuk-table__cell">
+                        {{ animal.breedName }} ({{ animal.breedCode }})
+                    </td>
+
+                    <td class="govuk-table__cell app-table__cell--no-wrap">
+
+
+                            {{ animal.status }}
+
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+        <div class="app-search-results__footer">
+
+            <p class="govuk-body">
+                Showing 1 to 10 of 10 cattle records
+            </p>
+
+        </div>
+
+    </main>
+
+</div>
+
+{% endblock %}
+
+
+{% block pageScripts %}
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+  initialiseResponsiveFilterPanel();
+});
+
+function initialiseResponsiveFilterPanel() {
+  var toggleContainer = document.querySelector(
+    '.js-filter-panel-toggle'
+  );
+
+  var toggleButton = document.getElementById(
+    'filter-panel-toggle'
+  );
+
+  var filterPanel = document.getElementById(
+    'filter-panel'
+  );
+
+  if (!toggleContainer || !toggleButton || !filterPanel) {
+    return;
+  }
+
+  /*
+   * Matches the GOV.UK Frontend desktop breakpoint.
+   * Below this width, the responsive filter toggle is available.
+   */
+  var desktopMedia = window.matchMedia(
+    '(min-width: 48.0625em)'
+  );
+
+  /*
+   * The filter defaults to open on mobile and tablet.
+   */
+  var expandedOnSmallScreen = true;
+
+  /*
+   * The toggle is hidden in the HTML so it only appears when
+   * JavaScript is available. Without JavaScript, the filters
+   * remain visible.
+   */
+  toggleContainer.hidden = false;
+
+  updateForViewport();
+
+  toggleButton.addEventListener('click', function () {
+    if (desktopMedia.matches) {
+      return;
+    }
+
+    expandedOnSmallScreen = !expandedOnSmallScreen;
+
+    updatePanel(expandedOnSmallScreen);
+  });
+
+  if (typeof desktopMedia.addEventListener === 'function') {
+    desktopMedia.addEventListener(
+      'change',
+      updateForViewport
+    );
+  } else {
+    /*
+     * Fallback for older browsers.
+     */
+    desktopMedia.addListener(updateForViewport);
+  }
+
+  function updateForViewport() {
+    if (desktopMedia.matches) {
+      /*
+       * Filters must always be visible on desktop, even if the
+       * user previously closed them on a smaller screen.
+       */
+      filterPanel.hidden = false;
+
+      toggleButton.setAttribute(
+        'aria-expanded',
+        'true'
+      );
+
+      toggleButton.textContent = 'Hide filters';
+
+      return;
+    }
+
+    updatePanel(expandedOnSmallScreen);
+  }
+
+  function updatePanel(expanded) {
+    filterPanel.hidden = !expanded;
+
+    toggleButton.setAttribute(
+      'aria-expanded',
+      expanded ? 'true' : 'false'
+    );
+
+    toggleButton.textContent = expanded
+      ? 'Hide filters'
+      : 'Show filters';
+  }
+}
+</script>
+
+{% endblock %}

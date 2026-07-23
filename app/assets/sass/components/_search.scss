@@ -109,3 +109,48 @@
   }
 
 }
+
+/*
+ * Mobile and tablet use the article list.
+ */
+
+.app-search-results--list {
+  display: block;
+}
+
+.app-search-results--table {
+  display: none;
+}
+
+
+/*
+ * Desktop and above use the table.
+ */
+
+@include govuk-media-query($from: desktop) {
+  .app-search-results--list {
+    display: none;
+  }
+
+  .app-search-results--table {
+    display: block;
+  }
+}
+
+
+/*
+ * Table cell sizing.
+ */
+
+.app-cattle-results-table {
+  width: 100%;
+}
+
+.app-table__cell--no-wrap {
+  white-space: nowrap;
+}
+
+.app-table__cell--compact {
+  width: 1%;
+  white-space: nowrap;
+}

@@ -1,0 +1,197 @@
+{% extends "layouts/main.html" %}
+
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/select/macro.njk" import govukSelect %}
+
+{% set pageName = "Activity dashboard" %}
+{% set activeNav = "activity" %}
+{% set bodyClasses = "app-layout--wide" %}
+{% set containerClasses = "app-width-container--wide" %}
+
+{% set pathParts = currentPath.split('/') %}
+{% set currentBaseUrl = '/' + pathParts[1] + '/' + pathParts[2] + '/' %}
+
+{% set selectedPeriod = query.period or "7-days" %}
+{% set selectedRegion = query.region or "all" %}
+{% set dashboardQuery = "period=" + selectedPeriod + "&region=" + selectedRegion %}
+
+{% set activityCards = [
+  {
+    title: "Births",
+    count: "312",
+    issueText: "Registration pending",
+    totalText: "1,842 births recorded in this period",
+    href: currentBaseUrl + "events?eventType=birth&issue=pending-registration&" + dashboardQuery
+  },
+  {
+    title: "Deaths",
+    count: "44",
+    issueText: "Awaiting disposal confirmation",
+    totalText: "967 deaths recorded in this period",
+    href: currentBaseUrl + "events?eventType=death&issue=pending-disposal-confirmation&" + dashboardQuery
+  },
+  {
+    title: "Movements",
+    count: "384",
+    issueText: "Unreported or unmatched",
+    totalText: "8,108 movements recorded in this period",
+    href: currentBaseUrl + "events?eventType=movement&issue=unreported-or-unmatched&" + dashboardQuery
+  },
+  {
+    title: "Imports",
+    count: "6",
+    issueText: "Pending health checks",
+    totalText: "58 imports recorded in this period",
+    href: currentBaseUrl + "events?eventType=import&issue=pending-health-check&" + dashboardQuery
+  },
+  {
+    title: "Passports",
+    count: "37",
+    issueText: "Overdue",
+    totalText: "1,690 applications submitted in this period",
+    href: currentBaseUrl + "events?eventType=passport&issue=overdue&" + dashboardQuery
+  },
+  {
+    title: "All events with issues",
+    count: "783",
+    issueText: "Open issues across all event types",
+    totalText: "View all events that need attention",
+    href: currentBaseUrl + "events?hasIssues=true&" + dashboardQuery,
+    classes: "app-activity-card--all-issues"
+  }
+] %}
+
+{% block content %}
+
+  <div class="app-activity-dashboard__heading">
+
+    <div>
+      <h1 class="govuk-heading-xl govuk-!-margin-bottom-2">
+        Activity dashboard
+      </h1>
+
+      <p class="govuk-body-l">
+        Review livestock activity and events that need attention.
+      </p>
+    </div>
+
+    {{ govukButton({
+      text: "Build a report",
+      href: currentBaseUrl + "reports/new",
+      classes: "govuk-button--secondary"
+    }) }}
+
+  </div>
+
+  <form class="app-dashboard-filters" method="get" action="">
+
+    <div class="app-dashboard-filters__fields">
+
+      {{ govukSelect({
+        id: "period",
+        name: "period",
+        label: {
+          text: "Time period",
+          classes: "govuk-label--s"
+        },
+        items: [
+          { value: "7-days", text: "Last 7 days", selected: selectedPeriod == "7-days" },
+          { value: "30-days", text: "Last 30 days", selected: selectedPeriod == "30-days" },
+          { value: "3-months", text: "Last 3 months", selected: selectedPeriod == "3-months" },
+          { value: "12-months", text: "Last 12 months", selected: selectedPeriod == "12-months" }
+        ]
+      }) }}
+
+      {{ govukSelect({
+        id: "region",
+        name: "region",
+        label: {
+          text: "Region",
+          classes: "govuk-label--s"
+        },
+        items: [
+          { value: "all", text: "All regions", selected: selectedRegion == "all" },
+          { value: "north", text: "North", selected: selectedRegion == "north" },
+          { value: "midlands", text: "Midlands", selected: selectedRegion == "midlands" },
+          { value: "south", text: "South", selected: selectedRegion == "south" },
+          { value: "wales", text: "Wales", selected: selectedRegion == "wales" }
+        ]
+      }) }}
+
+      <div class="app-dashboard-filters__submit">
+        {{ govukButton({
+          text: "Apply",
+          classes: "govuk-button--secondary"
+        }) }}
+      </div>
+
+    </div>
+
+  </form>
+
+  <form class="app-dashboard-search" method="get" action="{{ currentBaseUrl }}events">
+
+    {{ govukInput({
+      id: "activity-search",
+      name: "search",
+      classes: "govuk-input--width-30",
+      label: {
+        text: "Search activity",
+        classes: "govuk-label--s"
+      },
+      hint: {
+        text: "Search by ear tag number, CPH number or reference"
+      }
+    }) }}
+
+    <input type="hidden" name="period" value="{{ selectedPeriod }}">
+    <input type="hidden" name="region" value="{{ selectedRegion }}">
+
+    <div class="app-dashboard-search__submit">
+      {{ govukButton({ text: "Search" }) }}
+    </div>
+
+  </form>
+
+  <div class="app-grid-container app-overview-cards app-activity-cards govuk-!-margin-bottom-8">
+
+    {% for card in activityCards %}
+
+      <article class="app-card app-activity-card {{ card.classes }}">
+
+        <div class="app-card-container">
+
+          <h2 class="govuk-heading-m app-activity-card__title">
+            {{ card.title }}
+          </h2>
+
+          <p class="app-activity-card__number">
+            <a
+              class="govuk-link govuk-link--no-visited-state app-activity-card__number-link"
+              href="{{ card.href }}"
+            >
+              <span aria-hidden="true">{{ card.count }}</span>
+              <span class="govuk-visually-hidden">
+                {{ card.count }} {{ card.title | lower }}: {{ card.issueText | lower }}
+              </span>
+            </a>
+          </p>
+
+          <p class="govuk-body app-activity-card__issue">
+            {{ card.issueText }}
+          </p>
+
+          <p class="govuk-body-s app-activity-card__total">
+            {{ card.totalText }}
+          </p>
+
+        </div>
+
+      </article>
+
+    {% endfor %}
+
+  </div>
+
+{% endblock %}

@@ -1,0 +1,120 @@
+{% if hasSearch %}
+
+<button
+        class="govuk-button govuk-button--secondary app-filter-toggle"
+        type="button"
+        aria-expanded="{% if filtersActive %}true{% else %}false{% endif %}"
+        aria-controls="livestock-filters"
+>
+  {% if filtersActive %}
+  Hide filters
+  {% else %}
+  Show filters
+  {% endif %}
+</button>
+
+<div
+        id="livestock-filters"
+        class="app-inline-filters{% if not filtersActive %} js-hidden{% endif %}"
+>
+  <h2 class="govuk-heading-m">
+    Filter results
+  </h2>
+
+  <div class="app-inline-filters__grid">
+
+    <div class="govuk-form-group">
+      <label class="govuk-label govuk-label--s" for="sex">
+        Sex
+      </label>
+
+      <select class="govuk-select" id="sex" name="sex">
+        <option value="">All</option>
+        <option value="Male" {% if query.sex == "Male" %}selected{% endif %}>Male</option>
+        <option value="Female" {% if query.sex == "Female" %}selected{% endif %}>Female</option>
+      </select>
+    </div>
+
+    <div class="govuk-form-group">
+      <label class="govuk-label govuk-label--s" for="status">
+        Status
+      </label>
+
+      <select class="govuk-select" id="status" name="status">
+        <option value="">All</option>
+        <option value="Active" {% if query.status == "Active" %}selected{% endif %}>Active</option>
+        <option value="Moved" {% if query.status == "Moved" %}selected{% endif %}>Moved</option>
+        <option value="Deceased" {% if query.status == "Deceased" %}selected{% endif %}>Deceased</option>
+      </select>
+    </div>
+
+    <div class="govuk-form-group">
+      <label class="govuk-label govuk-label--s" for="breed">
+        Breed
+      </label>
+
+      <select class="govuk-select" id="breed" name="breed">
+        <option value="">All</option>
+        <option value="Hereford" {% if query.breed == "Hereford" %}selected{% endif %}>Hereford</option>
+        <option value="Holstein" {% if query.breed == "Holstein" %}selected{% endif %}>Holstein</option>
+        <option value="Aberdeen Angus" {% if query.breed == "Aberdeen Angus" %}selected{% endif %}>Aberdeen Angus</option>
+      </select>
+    </div>
+
+    <div class="govuk-form-group">
+      <label class="govuk-label govuk-label--s" for="holding">
+        Holding CPH
+      </label>
+
+      <input
+              class="govuk-input"
+              id="holding"
+              name="holding"
+              type="text"
+              value="{{ query.holding }}"
+      >
+    </div>
+
+    <div class="govuk-form-group">
+      <label class="govuk-label govuk-label--s" for="dobFrom">
+        Date of birth from
+      </label>
+
+      <input
+              class="govuk-input"
+              id="dobFrom"
+              name="dobFrom"
+              type="text"
+              value="{{ query.dobFrom }}"
+      >
+    </div>
+
+    <div class="govuk-form-group">
+      <label class="govuk-label govuk-label--s" for="dobTo">
+        Date of birth to
+      </label>
+
+      <input
+              class="govuk-input"
+              id="dobTo"
+              name="dobTo"
+              type="text"
+              value="{{ query.dobTo }}"
+      >
+    </div>
+
+  </div>
+
+  <div class="app-inline-filters__actions">
+    <button class="govuk-button govuk-!-margin-bottom-0" data-module="govuk-button">
+      Apply filters
+    </button>
+
+    <a class="govuk-link" href="{{ currentBaseUrl }}cattle?search={{ search | urlencode }}">
+      Clear filters
+    </a>
+  </div>
+</div>
+
+{% endif %}
+

@@ -1,0 +1,54 @@
+{{ govukHeader({
+homepageUrl: "/index.html"
+}) }}
+
+<style>
+    .govuk-service-navigation__list {
+      width: 100%;
+      display: flex;
+    }
+
+    .govuk-service-navigation__item:last-child {
+      margin-left: auto;
+    }
+</style>
+{#
+    Set the current version base URL.
+
+    This takes the first 2 parts of the current path.
+    For example:
+    /tools/v6/holdings/holding-001
+    becomes:
+    /tools/v6/
+
+    If the prototype is moved into another child folder, add another path part.
+    For example, add pathParts[3].
+#}
+{% set pathParts = currentPath.split('/') %}
+{% set currentBaseUrl = '/' + pathParts[1] + '/' + pathParts[2] + '/' %}
+
+{{ govukServiceNavigation({
+serviceName: "Livestock Information",
+serviceUrl: "/livestock-back-office/v2/home",
+navigation: [
+{
+href: currentBaseUrl+"/holdings",
+text: "Holdings",
+active: activeNav === "holdings"
+},
+{
+href: currentBaseUrl+"/users",
+text: "Keepers",
+active: activeNav === "Keepers"
+},
+{
+href: currentBaseUrl+"/cattle",
+text: "Livestock",
+active: activeNav === "livestock"
+},
+{
+href: "./sign-out",
+text: "Sign out"
+}
+]
+}) }}
