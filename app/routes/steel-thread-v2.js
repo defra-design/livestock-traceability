@@ -242,22 +242,22 @@ router.get('/steel-thread/v2/animals-on-holding', (req, res) => {
 router.get('/steel-thread/v2/animal-error-record', (req, res) => {
   const errorRecords = [
     {
-      earTagNumber: 'UK324537113253',
-      dateOfBirth: '12-11-2024',
-      dateOfRegistration: '15-11-2024',
-      reason: 'Ear tag number does not match the number recorded at birth notification.'
+      earTagNumber: 'UK324537467886',
+      dateOfBirth: '09-07-2025',
+      dateOfRegistration: '10-08-2025',
+      reason: 'The date of birth you have entered is over the 27-day deadline to report a calf birth.'
     },
     {
-      earTagNumber: 'UK324537119876',
-      dateOfBirth: '03-02-2024',
-      dateOfRegistration: '10-02-2024',
-      reason: 'Date of registration is more than 27 days after date of birth.'
+      earTagNumber: 'UK324537467887',
+      dateOfBirth: '29-07-2025',
+      dateOfRegistration: '10-08-2025',
+      reason: 'The genetic dam you have entered has given birth in the last 240 days.'
     },
     {
-      earTagNumber: 'UK324537128341',
-      dateOfBirth: '21-06-2024',
-      dateOfRegistration: '25-06-2024',
-      reason: 'Dam ear tag number recorded does not exist on the holding register.'
+      earTagNumber: 'UK324537467888',
+      dateOfBirth: '29-07-2025',
+      dateOfRegistration: '10-08-2025',
+      reason: 'The genetic dam you have entered is over 20 years old.'
     }
   ]
 
