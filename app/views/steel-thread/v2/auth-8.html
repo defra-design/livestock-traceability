@@ -1,0 +1,85 @@
+{% extends "layouts/main.html" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+{% set pageName="Is this the business or organisation you are creating the account on behalf of?" %}
+
+{% block header %}
+
+{{ govukHeader({
+homepageUrl: '/index.html'
+}) }}
+
+{{ govukServiceNavigation({
+serviceName: "Sign in to Defra online services",
+serviceUrl: "/animals-on-holding/v1/start"
+})
+}}
+
+{% endblock %}
+
+{% block containerStart %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <form action="/steel-thread/v2/auth-8" method="post" novalidate>
+
+        <span class="govuk-caption-l">Create a Defra account</span>
+        <h1 class="govuk-heading-l">
+          Is this the business or organisation you are creating the account on behalf of?
+        </h1>
+
+        <div class="govuk-inset-text">
+          <p class="govuk-body">
+            Company number <b>{{ data['company-registration-number'] or '01234567' }}</b>
+          </p>
+
+          <p class="govuk-body">
+            FARM DIRECT LIMITED<br>
+            The Counting House, 9 High Street Tring, Hertfordshire, HP23 5TE<br>
+            United Kingdom
+          </p>
+        </div>
+
+        {% call govukDetails({
+          summaryText: "The address is not correct"
+        }) %}
+          <p class="govuk-body">We must use the address that is registered with Companies House</p>
+          <p class="govuk-body">If your registered address has changed then you must tell <a class="govuk-link" href="#" target="_blank" rel="noopener noreferrer">Companies House (opens in new tab)</a>.</p>
+          <p class="govuk-body">Once Companies House has updated your details you can return and continue your registration.</p>
+        {% endcall %}
+
+        {{ govukRadios({
+          name: "confirm-business",
+          items: [
+            {
+              value: "yes",
+              text: "Yes, it is my business",
+              checked: checked("confirm-business", "yes")
+            },
+            {
+              value: "no",
+              text: "No, I entered the wrong company registration number",
+              checked: checked("confirm-business", "no")
+            }
+          ]
+        }) }}
+
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+
+      </form>
+
+    </div>
+  </div>
+
+{% endblock %}

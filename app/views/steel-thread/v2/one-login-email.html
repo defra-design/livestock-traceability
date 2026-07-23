@@ -1,0 +1,71 @@
+{% extends "layouts/main.html" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% set pageName="Enter email" %}
+
+{% block header %}
+
+{{ govukHeader({
+homepageUrl: '/index.html'
+}) }}
+
+{{ govukServiceNavigation({
+serviceName: "Sign in to Defra online services",
+serviceUrl: "/animals-on-holding/v1/start"
+})
+}}
+
+{% endblock %}
+
+{% block containerStart %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      {{ govukErrorSummary({
+        titleText: "There is a problem",
+        errorList: [
+          {
+            text: errors['email-address'],
+            href: "#email-address"
+          }
+        ]
+      }) if errors }}
+
+      <form action="/steel-thread/v2/one-login-email" method="post" novalidate>
+
+        {% from "govuk/components/input/macro.njk" import govukInput %}
+
+        {{ govukInput({
+        label: {
+        text: "Enter your email address to sign in to your GOV.UK One login",
+        classes: "govuk-label--l",
+        isPageHeading: true
+        },
+        errorMessage: { text: errors['email-address'] } if errors,
+        id: "email-address",
+        name: "email-address",
+        type: "email",
+        autocomplete: "email",
+        spellcheck: false,
+        value: data['email-address']
+        }) }}
+
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+
+      </form>
+
+    </div>
+  </div>
+
+{% endblock %}

@@ -1,0 +1,76 @@
+{% extends "layouts/main.html" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% set pageName="Enter your phone number" %}
+
+{% block header %}
+
+{{ govukHeader({
+homepageUrl: '/index.html'
+}) }}
+
+{{ govukServiceNavigation({
+serviceName: "Sign in to Defra online services",
+serviceUrl: "/animals-on-holding/v1/start"
+})
+}}
+
+{% endblock %}
+
+{% block containerStart %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      {{ govukErrorSummary({
+        titleText: "There is a problem",
+        errorList: [
+          { text: errors['phone-number'], href: "#phone-number" }
+        ]
+      }) if errors }}
+
+      <form action="/steel-thread/v2/auth-5b" method="post" novalidate>
+
+        <span class="govuk-caption-l">Create a Defra account</span>
+        <h1 class="govuk-heading-l">
+          Enter your phone number
+        </h1>
+
+        <p class="govuk-body">
+          We ask for this in case the service you are accessing needs to call you
+        </p>
+
+        {{ govukInput({
+          label: {
+            text: "Phone number",
+            classes: "govuk-label--m"
+          },
+          hint: {
+            text: "For international numbers include the country code"
+          },
+          errorMessage: { text: errors['phone-number'] } if errors,
+          id: "phone-number",
+          name: "phone-number",
+          type: "tel",
+          autocomplete: "tel",
+          value: data['phone-number']
+        }) }}
+
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+
+      </form>
+
+    </div>
+  </div>
+
+{% endblock %}

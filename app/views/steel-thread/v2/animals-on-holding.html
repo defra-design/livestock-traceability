@@ -1,0 +1,183 @@
+{% extends "layouts/main.html" %}
+
+{% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
+
+{% set pageName="Animals on holding" %}
+
+{% block header %}
+
+  {{ govukHeader({
+    homepageUrl: '/index.html'
+  }) }}
+
+  {{ govukServiceNavigation({
+    serviceName: "Livestock Information",
+    serviceUrl: "/steel-thread/v2/holding-details",
+    slots: {
+      navigationEnd: '<li class="govuk-service-navigation__item app-service-navigation__item--right"><a class="govuk-service-navigation__link" href="/steel-thread/v2/one-login">Sign out</a></li>'
+    }
+  }) }}
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-notification-banner" role="region" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
+  <div class="govuk-notification-banner__header">
+    <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+      Important
+    </h2>
+  </div>
+
+  <div class="govuk-notification-banner__content">
+    <p class="govuk-notification-banner__heading">
+      You have 3 animals that need your attention.
+      <a class="govuk-notification-banner__link"
+         href="/steel-thread/v2/animal-error-record">
+        View animal error record</a>.
+    </p>
+  </div>
+</div>
+
+<span class="govuk-caption-l">CPH number: 12/345/0001</span>
+<h1 class="govuk-heading-l">
+  Oakfield Farm
+</h1>
+
+<nav class="moj-sub-navigation" aria-label="Sub navigation">
+  <ul class="moj-sub-navigation__list">
+    <li class="moj-sub-navigation__item">
+      <a class="moj-sub-navigation__link" href="/steel-thread/v2/holding-details">Holding details</a>
+    </li>
+    <li class="moj-sub-navigation__item">
+      <a class="moj-sub-navigation__link" aria-current="page" href="/steel-thread/v2/animals-on-holding">Animals on holding</a>
+    </li>
+    <li class="moj-sub-navigation__item">
+      <a class="moj-sub-navigation__link" href="/steel-thread/v2/animal-error-record">Animal error record</a>
+    </li>
+  </ul>
+</nav>
+
+<div>
+
+ <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <form method="GET" >
+        <div class="search-wrapper govuk-form-group">
+          <label for="search-reservations" class="govuk-label">
+            Search by animal ear tag number or breed
+          </label>
+          <div class="search-input-wrapper">
+            <input type="search" value="" id="search-reservations" name="search" title="Search" class="govuk-input">
+            <div class="search-input-submit-wrapper">
+              <button type="submit" class="search-submit">Search</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div>
+
+ <p class="govuk-body" aria-live="polite">
+      {% if search %}
+        {{ cattle.length }}
+        {% if cattle.length === 1 %}
+          registered cattle record matches
+        {% else %}
+          registered cattle records match
+        {% endif %}
+        <strong>'{{ search }}'</strong>
+      {% else %}
+        {{ cattle.length }} registered cattle
+      {% endif %}
+    </p>
+
+  {% if search %}
+    <p class="govuk-body">
+      <a class="govuk-link" href="/steel-thread/v2/animals-on-holding">Clear search</a>
+    </p>
+    {% endif %}
+
+    {% if cattle.length %}
+    {% from "govuk/components/table/macro.njk" import govukTable %}
+
+    {% set rows = [] %}
+    {% for animal in cattle %}
+      {% set row = [
+        {
+          html: '<a class="govuk-link" href="/steel-thread/v2/cattle/' + animal.earTagNumber + '">' + (animal.earTagNumber | formatReference) + '</a>'
+        },
+        {
+          text: animal.dateOfBirth | shortDateFormat,
+          attributes: {
+            "data-sort-value": animal.dateOfBirth.slice(6,10) + animal.dateOfBirth.slice(3,5) + animal.dateOfBirth.slice(0,2)
+          }
+        },
+        {
+          text: animal.dateOfRegistration | shortDateFormat,
+          attributes: {
+            "data-sort-value": animal.dateOfRegistration.slice(6,10) + animal.dateOfRegistration.slice(3,5) + animal.dateOfRegistration.slice(0,2)
+          }
+        },
+        {
+          text: animal.sex | sexInitial
+        },
+        {
+          text: animal.breed.name + (" (" + animal.breed.code + ")" if animal.breed.code else "")
+        }
+      ] %}
+      {% set rows = (rows.push(row), rows) %}
+    {% endfor %}
+
+    {{ govukTable({
+      attributes: {
+        "data-module": "moj-sortable-table"
+      },
+      caption: "Animals on holding",
+      captionClasses: "govuk-visually-hidden",
+      head: [
+        {
+          text: "Ear tag number",
+          attributes: {
+            "aria-sort": "ascending"
+          }
+        },
+        {
+          text: "Date of birth",
+          attributes: {
+            "aria-sort": "none"
+          }
+        },
+        {
+          text: "Date registered",
+          attributes: {
+            "aria-sort": "none"
+          }
+        },
+        {
+          text: "Sex",
+          attributes: {
+            "aria-sort": "none"
+          }
+        },
+        {
+          text: "Breed",
+          attributes: {
+            "aria-sort": "none"
+          }
+        }
+      ],
+      rows: rows
+    }) }}
+    {% else %}
+    <div class="govuk-inset-text">
+      No cattle records found{% if search %} for "{{ search }}"{% endif %}.
+    </div>
+    {% endif %}
+
+  </div>
+</div>
+
+{% endblock %}

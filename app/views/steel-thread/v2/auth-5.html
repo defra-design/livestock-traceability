@@ -1,0 +1,79 @@
+{% extends "layouts/main.html" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% set pageName="Enter your name" %}
+
+{% block header %}
+
+{{ govukHeader({
+homepageUrl: '/index.html'
+}) }}
+
+{{ govukServiceNavigation({
+serviceName: "Sign in to Defra online services",
+serviceUrl: "/animals-on-holding/v1/start"
+})
+}}
+
+{% endblock %}
+
+{% block containerStart %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      {{ govukErrorSummary({
+        titleText: "There is a problem",
+        errorList: [
+          { text: errors['first-name'], href: "#first-name" } if errors['first-name'],
+          { text: errors['last-name'], href: "#last-name" } if errors['last-name']
+        ] | select
+      }) if errors }}
+
+      <form action="/steel-thread/v2/auth-5" method="post" novalidate>
+
+        <span class="govuk-caption-l">Create a Defra account</span>
+        <h1 class="govuk-heading-l">
+          Enter your name
+        </h1>
+
+        {{ govukInput({
+          label: {
+            text: "First name"
+          },
+          errorMessage: { text: errors['first-name'] } if errors['first-name'],
+          id: "first-name",
+          name: "first-name",
+          autocomplete: "given-name",
+          value: data['first-name']
+        }) }}
+
+        {{ govukInput({
+          label: {
+            text: "Last name"
+          },
+          errorMessage: { text: errors['last-name'] } if errors['last-name'],
+          id: "last-name",
+          name: "last-name",
+          autocomplete: "family-name",
+          value: data['last-name']
+        }) }}
+
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+
+      </form>
+
+    </div>
+  </div>
+
+{% endblock %}

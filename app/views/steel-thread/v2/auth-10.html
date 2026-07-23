@@ -1,0 +1,136 @@
+{% extends "layouts/main.html" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% set pageName="Organisation contact details" %}
+
+{% block header %}
+
+{{ govukHeader({
+homepageUrl: '/index.html'
+}) }}
+
+{{ govukServiceNavigation({
+serviceName: "Sign in to Defra online services",
+serviceUrl: "/animals-on-holding/v1/start"
+})
+}}
+
+{% endblock %}
+
+{% block containerStart %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      {{ govukErrorSummary({
+        titleText: "There is a problem",
+        errorList: [
+          {
+            text: errors['use-personal-details'],
+            href: "#use-personal-details"
+          }
+        ]
+      }) if errors }}
+
+      <form action="/steel-thread/v2/auth-10" method="post" novalidate>
+
+        <span class="govuk-caption-l">Create a Defra account</span>
+        <h1 class="govuk-heading-l">
+          Organisation contact details
+        </h1>
+
+        <p class="govuk-body">
+          We ask this because we need a way to contact the organisation if you leave the organisation. This could be a customer support phone number or email addresses.
+        </p>
+
+        <p class="govuk-body">
+          If you are self-employed or in a general partnership, you can enter secondary contact information here.
+        </p>
+
+        <h2 class="govuk-heading-m">
+          What are the organisation contact details?
+        </h2>
+
+        {{ govukCheckboxes({
+          name: "use-personal-details",
+          errorMessage: { text: errors['use-personal-details'] } if errors,
+          items: [
+            {
+              value: "use-personal-details",
+              text: "Use my personal details as my organisation contact details",
+              checked: checked("use-personal-details", "use-personal-details")
+            }
+          ]
+        }) }}
+
+        {{ govukInput({
+          label: {
+            text: "Phone number"
+          },
+          hint: {
+            text: "For international numbers include the country code"
+          },
+          errorMessage: { text: errors['organisation-phone-number'] } if errors,
+          id: "organisation-phone-number",
+          name: "organisation-phone-number",
+          type: "tel",
+          autocomplete: "tel",
+          value: data['organisation-phone-number'] or (data['phone-number'] if data['use-personal-details'])
+        }) }}
+
+        {{ govukInput({
+          label: {
+            text: "Email address"
+          },
+          errorMessage: { text: errors['organisation-email'] } if errors,
+          id: "organisation-email",
+          name: "organisation-email",
+          type: "email",
+          autocomplete: "email",
+          value: data['organisation-email'] or (data['email-address'] if data['use-personal-details'])
+        }) }}
+
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+
+      </form>
+
+    </div>
+  </div>
+
+{% endblock %}
+
+{% block pageScripts %}
+  <script>
+    (function () {
+      var personalPhoneNumber = {{ (data['phone-number'] or '') | dump | safe }}
+      var personalEmail = {{ (data['email-address'] or '') | dump | safe }}
+
+      var checkbox = document.getElementById('use-personal-details')
+      var phoneInput = document.getElementById('organisation-phone-number')
+      var emailInput = document.getElementById('organisation-email')
+
+      if (checkbox && phoneInput && emailInput) {
+        checkbox.addEventListener('change', function () {
+          if (checkbox.checked) {
+            phoneInput.value = personalPhoneNumber
+            emailInput.value = personalEmail
+          } else {
+            phoneInput.value = ''
+            emailInput.value = ''
+          }
+        })
+      }
+    })()
+  </script>
+{% endblock %}

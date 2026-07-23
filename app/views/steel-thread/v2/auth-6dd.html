@@ -1,0 +1,87 @@
+{% extends "layouts/main.html" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/select/macro.njk" import govukSelect %}
+{% set pageName="Select the address" %}
+
+{% block header %}
+
+{{ govukHeader({
+homepageUrl: '/index.html'
+}) }}
+
+{{ govukServiceNavigation({
+serviceName: "Sign in to Defra online services",
+serviceUrl: "/animals-on-holding/v1/start"
+})
+}}
+
+{% endblock %}
+
+{% block containerStart %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <form action="/steel-thread/v2/auth-6dd" method="post" novalidate>
+
+        <span class="govuk-caption-l">Create a Defra account</span>
+        <h1 class="govuk-heading-l">
+          Select the address
+        </h1>
+
+        <p class="govuk-body">
+          We found the following address for postcode <b>{{ data['organisation-postcode'] or 'LA1 3DL' }}</b><br>
+        </p>
+
+        {% from "govuk/components/select/macro.njk" import govukSelect %}
+
+        {{ govukSelect({
+          id: "organisation-address",
+          name: "organisation-address",
+          label: {
+            text: "Select the address",
+            classes: "govuk-visually-hidden"
+          },
+          items: [
+            {
+              value: "",
+              text: "3 addresses found"
+            },
+            {
+              value: "2 Melrose Street, Lancaster, LA1 3DL",
+              text: "2 Melrose Street, Lancaster, LA1 3DL"
+            },
+            {
+              value: "4 Melrose Street, Lancaster, LA1 3DL",
+              text: "4 Melrose Street, Lancaster, LA1 3DL"
+            },
+            {
+              value: "6 Melrose Street, Lancaster, LA1 3DL",
+              text: "6 Melrose Street, Lancaster, LA1 3DL"
+            }
+          ]
+        }) }}
+
+        <div class="govuk-button-group">
+          {{ govukButton({
+            text: "Continue"
+          }) }}
+        </div>
+
+          <div class="govuk-button-group">
+            <a class="govuk-link" href="/steel-thread/v2/auth-6e">My address is not in this list</a>
+          </div>
+
+      </form>
+
+    </div>
+  </div>
+
+{% endblock %}
