@@ -1,0 +1,56 @@
+{% extends "layouts/main.html" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% set pageName="What is the name of the organisation?" %}
+
+{% block header %}
+
+{{ govukHeader({
+homepageUrl: '/index.html'
+}) }}
+
+{{ govukServiceNavigation({
+serviceName: "Sign in to Defra online services",
+serviceUrl: "/animals-on-holding/v1/start"
+})
+}}
+
+{% endblock %}
+
+{% block containerStart %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <form action="/mvp-front-office/v1/auth-6b" method="post" novalidate>
+
+        <span class="govuk-caption-l">Create a Defra account</span>
+
+        {{ govukInput({
+          label: {
+            text: "What is the name of the organisation?",
+            isPageHeading: true,
+            classes: "govuk-label--l"
+          },
+          id: "organisation-name",
+          name: "organisation-name",
+          value: data['organisation-name']
+        }) }}
+
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+
+      </form>
+
+    </div>
+  </div>
+
+{% endblock %}

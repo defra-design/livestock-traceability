@@ -1,0 +1,165 @@
+{% extends "layouts/main.html" %}
+
+{% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
+
+{% set pageName="Holding overview" %}
+
+{% block header %}
+
+  {{ govukHeader({
+    homepageUrl: '/index.html'
+  }) }}
+
+  {{ govukServiceNavigation({
+    serviceName: "Livestock Information",
+    serviceUrl: "/mvp-front-office/v1/overview",
+    navigation: [
+    {
+    href: "/mvp-front-office/v1/my-profile",
+    text: "My profile"
+    },
+    {
+    href: "https://www.gov.uk/government/organisations/british-cattle-movement-service",
+    text: "Help and guidance",
+    attributes: {
+      target: "_blank"
+    }
+    }
+    ],
+    slots: {
+      navigationEnd: '<li class="govuk-service-navigation__item app-service-navigation__item--right"><a class="govuk-service-navigation__link" href="/mvp-front-office/v1/one-login">Sign out</a></li>'
+    }
+  }) }}
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+
+    <!--<nav class="moj-sub-navigation" aria-label="Sub navigation">
+      <ul class="moj-sub-navigation__list">
+        <li class="moj-sub-navigation__item">
+          <a class="moj-sub-navigation__link" aria-current="page" href="/mvp-front-office/v1/holding-overview">Overview</a>
+        </li>
+        <li class="moj-sub-navigation__item">
+          <a class="moj-sub-navigation__link" href="/mvp-front-office/v1/holding-details">Holding details</a>
+        </li>
+        <li class="moj-sub-navigation__item">
+          <a class="moj-sub-navigation__link" href="/mvp-front-office/v1/animals-on-holding">
+            Animals on holding
+          </a>
+        </li>
+        <li class="moj-sub-navigation__item">
+          <a class="moj-sub-navigation__link" href="/mvp-front-office/v1/animal-error-record">
+            Animal error record
+          </a>
+        </li>
+      </ul>
+    </nav>
+-->
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-one-quarter">
+        <div class="dwp-ds-render">
+
+        <button class="dwp-side-navigation__button" data-module="dwp-side-navigation" data-target="dwp-side-navigation-panel" data-label-hide="Hide navigation" data-label-show="Show navigation" aria-expanded="false">
+
+          <span class="dwp-side-navigation__section-toggle-focus">
+              <span class="dwp-side-navigation__chevron dwp-side-navigation__chevron--down"></span>
+              <span class="dwp-side-navigation__section-toggle-text">Show navigation</span>
+          </span>
+        </button>
+
+        <nav data-module="dwp-side-navigation-panel" class="dwp-side-navigation dwp-side-navigation--mobile" aria-label="Side" role="navigation">
+                    <ul class="dwp-side-navigation__list">
+
+            <li class="dwp-side-navigation__item dwp-side-navigation__item--selected">
+              <a id="s-item-1" href="/mvp-front-office/v1/holding-overview" class="dwp-side-navigation__link dwp-side-navigation__link--selected" aria-current="true">
+                Overview
+              </a>
+            </li>
+
+            <li class="dwp-side-navigation__item">
+              <a id="s-item-2" href="/mvp-front-office/v1/holding-details" class="dwp-side-navigation__link">
+                Holding details
+              </a>
+            </li>
+
+            <li class="dwp-side-navigation__item">
+              <a id="s-item-3" href="/mvp-front-office/v1/submissions" class="dwp-side-navigation__link">
+                Submissions
+              </a>
+            </li>
+
+            <li class="dwp-side-navigation__item">
+              <a id="s-item-4" href="/mvp-front-office/v1/animals-on-holding" class="dwp-side-navigation__link">
+                Animals on holding
+              </a>
+            </li>
+
+            <li class="dwp-side-navigation__item">
+              <a id="s-item-5" href="/mvp-front-office/v1/activity-history" class="dwp-side-navigation__link">
+                Activity history
+              </a>
+            </li>
+
+            <li class="dwp-side-navigation__item">
+              <a id="s-item-6" href="/mvp-front-office/v1/animal-error-record" class="dwp-side-navigation__link">
+                Animal error record
+              </a>
+            </li>
+
+            <li class="dwp-side-navigation__item">
+              <a id="s-item-7" href="/mvp-front-office/v1/messages" class="dwp-side-navigation__link">
+                Messages
+              </a>
+            </li>
+
+            <li class="dwp-side-navigation__item">
+              <a id="s-item-8" href="/mvp-front-office/v1/manage-delegates" class="dwp-side-navigation__link">
+                Manage delegates
+              </a>
+            </li>
+
+          </ul>
+        </nav>
+
+        </div>
+      </div>
+
+      <div class="govuk-grid-column-three-quarters">
+
+        <span class="govuk-caption-l">
+          CPH number: {{ holding.cph }}
+        </span>
+        <h1 class="govuk-heading-l">
+          {{ holding.holdingName }}
+        </h1>
+
+        <div class="govuk-notification-banner" role="region" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
+          <div class="govuk-notification-banner__header">
+            <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+              Important
+            </h2>
+          </div>
+
+          <div class="govuk-notification-banner__content">
+            <p class="govuk-notification-banner__heading">
+              You have 3 animals that need your attention.
+              <a class="govuk-notification-banner__link"
+                 href="/mvp-front-office/v1/animal-error-record">
+                View animal error record</a>.
+            </p>
+          </div>
+        </div>
+
+
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}

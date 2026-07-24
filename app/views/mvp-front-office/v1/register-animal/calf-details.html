@@ -1,0 +1,431 @@
+{% extends "layouts/main.html" %}
+
+{% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
+
+{% block header %}
+
+  {{ govukHeader({
+    homepageUrl: '/index.html'
+  }) }}
+
+  {{ govukServiceNavigation({
+    serviceName: "Livestock Information",
+    serviceUrl: "/mvp-front-office/v1/overview",
+    navigation: [
+    {
+    href: "/mvp-front-office/v1/my-profile",
+    text: "My profile"
+    },
+    {
+    href: "https://www.gov.uk/government/organisations/british-cattle-movement-service",
+    text: "Help and guidance",
+    attributes: {
+      target: "_blank"
+    }
+    }
+    ],
+    slots: {
+      navigationEnd: '<li class="govuk-service-navigation__item app-service-navigation__item--right"><a class="govuk-service-navigation__link" href="/mvp-front-office/v1/one-login">Sign out</a></li>'
+    }
+  }) }}
+
+{% endblock %}
+
+{% set pageName="Calf details" %}
+
+{% set breeds = [
+  { description: "Aberdeen Angus", code: "AA" },
+  { description: "Aberdeen Angus Cross", code: "AAX" },
+  { description: "Abondance", code: "AB" },
+  { description: "Abondance Cross", code: "ABX" },
+  { description: "Australian Lowline", code: "ALL" },
+  { description: "Australian Lowline Cross", code: "ALLX" },
+  { description: "Angler Rotvieh", code: "AR" },
+  { description: "Angler Rotvieh Cross", code: "ARX" },
+  { description: "Ankole", code: "AN" },
+  { description: "Ankole Cross", code: "ANX" },
+  { description: "Armoricaine", code: "AM" },
+  { description: "Armoricaine Cross", code: "AMX" },
+  { description: "Aubrac", code: "AU" },
+  { description: "Aubrac Cross", code: "AUX" },
+  { description: "Ayrshire", code: "AY" },
+  { description: "Ayrshire Cross", code: "AYX" },
+  { description: "Baltata Romaneasca", code: "BRO" },
+  { description: "Bazadaise", code: "BAZ" },
+  { description: "Bazadaise Cross", code: "BAZX" },
+  { description: "Beefalo", code: "BEL" },
+  { description: "Beef Shorthorn", code: "BSH" },
+  { description: "Beef Shorthorn Cross", code: "BSHX" },
+  { description: "Belted Galloway", code: "BG" },
+  { description: "Belted Galloway Cross", code: "BGX" },
+  { description: "Belted Welsh Black", code: "BWB" },
+  { description: "Belted Welsh Black Cross", code: "BWBX" },
+  { description: "Bison", code: "BI" },
+  { description: "Blonde D'Aquitaine", code: "BA" },
+  { description: "Blonde D'Aquitaine Cross", code: "BAX" },
+  { description: "Blue Albion", code: "BAL" },
+  { description: "Blue Albion Cross", code: "BALX" },
+  { description: "Blue Grey", code: "BLG" },
+  { description: "Blue Grey Cross", code: "BLGX" },
+  { description: "Brahman", code: "BR" },
+  { description: "Brahman Cross", code: "BRX" },
+  { description: "Bretonne Pie-Noire", code: "BP" },
+  { description: "Bretonne Pie-Noire Cross", code: "BPX" },
+  { description: "British Blue", code: "BRB" },
+  { description: "British Blue Cross", code: "BRBX" },
+  { description: "British Friesian", code: "BF" },
+  { description: "British Friesian Cross", code: "BFX" },
+  { description: "British White", code: "BW" },
+  { description: "British White Cross", code: "BWX" },
+  { description: "Brown Swiss", code: "BS" },
+  { description: "Brown Swiss Cross", code: "BSX" },
+  { description: "Charolais", code: "CH" },
+  { description: "Charolais Cross", code: "CHX" },
+  { description: "Chianina", code: "CHI" },
+  { description: "Chianina Cross", code: "CHIX" },
+  { description: "Chillingham", code: "CHL" },
+  { description: "Chillingham Cross", code: "CHLX" },
+  { description: "Cross Breed Beef", code: "CB" },
+  { description: "Cross Breed Dairy", code: "CD" },
+  { description: "Coloured Welsh", code: "CW" },
+  { description: "Coloured Welsh Cross", code: "CWX" },
+  { description: "Danish Red", code: "DR" },
+  { description: "Danish Red Cross", code: "DRX" },
+  { description: "Dairy Shorthorn", code: "DS" },
+  { description: "Dairy Shorthorn Cross", code: "DSX" },
+  { description: "Devon", code: "DEV" },
+  { description: "Devon Cross", code: "DEVX" },
+  { description: "Dexter", code: "DEX" },
+  { description: "Dexter Cross", code: "DEXX" },
+  { description: "Dwarf Zebu", code: "DZE" },
+  { description: "East Finnish Brown", code: "EFB" },
+  { description: "East Finnish Brown Cross", code: "EFBX" },
+  { description: "Estonian Red", code: "ER" },
+  { description: "Estonian Red Cross", code: "ERX" },
+  { description: "Flekvieh", code: "FKV" },
+  { description: "Flekvieh Cross", code: "FKVX" },
+  { description: "Frisona Espagnola", code: "FE" },
+  { description: "Frisona Espagnola Cross", code: "FEX" },
+  { description: "Gasconne", code: "GAS" },
+  { description: "Gasconne Cross", code: "GASX" },
+  { description: "Galloway", code: "GA" },
+  { description: "Galloway Cross", code: "GAX" },
+  { description: "Gelbvieh", code: "GE" },
+  { description: "Gelbvieh Cross", code: "GEX" },
+  { description: "Gloucester", code: "GL" },
+  { description: "Gloucester Cross", code: "GLX" },
+  { description: "Groninger Blaarkop", code: "GB" },
+  { description: "Groninger Blaarkop Cross", code: "GBX" },
+  { description: "Guernsey", code: "GU" },
+  { description: "Guernsey Cross", code: "GUX" },
+  { description: "Heck", code: "HK" },
+  { description: "Heck Cross", code: "HKX" },
+  { description: "Hereford", code: "HE" },
+  { description: "Hereford Cross", code: "HEX" },
+  { description: "Highland", code: "HI" },
+  { description: "Highland Cross", code: "HIX" },
+  { description: "Holstein", code: "HO" },
+  { description: "Holstein Cross", code: "HOX" },
+  { description: "Holstein Friesian", code: "HF" },
+  { description: "Holstein Friesian Cross", code: "HFX" },
+  { description: "Hungarian Steppe", code: "HS" },
+  { description: "Hungarian Steppe Cross", code: "HSX" },
+  { description: "INRA95", code: "INRA" },
+  { description: "INRA95 Cross", code: "INRAX" },
+  { description: "Irish Moiled", code: "IM" },
+  { description: "Irish Moiled Cross", code: "IMX" },
+  { description: "Jersey", code: "JE" },
+  { description: "Jersey Cross", code: "JEX" },
+  { description: "Kerry", code: "KE" },
+  { description: "Kerry Cross", code: "KEX" },
+  { description: "Lakenvelder", code: "LV" },
+  { description: "Lakenvelder Cross", code: "LVX" },
+  { description: "Limousin", code: "LIM" },
+  { description: "Limousin Cross", code: "LIMX" },
+  { description: "Lincoln Red", code: "LR" },
+  { description: "Lincoln Red Cross", code: "LRX" },
+  { description: "Longhorn", code: "LH" },
+  { description: "Longhorn Cross", code: "LHX" },
+  { description: "Luing", code: "LU" },
+  { description: "Luing Cross", code: "LUX" },
+  { description: "Maine Anjou", code: "MA" },
+  { description: "Maine Anjou Cross", code: "MAX" },
+  { description: "Maraichine", code: "MAC" },
+  { description: "Maraichine Cross", code: "MACX" },
+  { description: "Marchigiana", code: "MAR" },
+  { description: "Marchigiana Cross", code: "MARX" },
+  { description: "Maremmana", code: "MARE" },
+  { description: "Maremmana Cross", code: "MAREX" },
+  { description: "Meuse Rhine Issel", code: "MRI" },
+  { description: "Meuse Rhine Issel Cross", code: "MRIX" },
+  { description: "Montbeliarde", code: "MO" },
+  { description: "Montbeliarde Cross", code: "MOX" },
+  { description: "Murray Grey", code: "MG" },
+  { description: "Murray Grey Cross", code: "MGX" },
+  { description: "Normande", code: "NO" },
+  { description: "Normande Cross", code: "NOX" },
+  { description: "Northern Dairy Shorthorn", code: "NDS" },
+  { description: "Northern Dairy Shorthorn Cross", code: "NDSX" },
+  { description: "Norwegian Red", code: "NR" },
+  { description: "Norwegian Red Cross", code: "NRX" },
+  { description: "Other Dairy", code: "OD" },
+  { description: "Pajuna", code: "PAJ" },
+  { description: "Pajuna Cross", code: "PAJX" },
+  { description: "Parthenais", code: "PA" },
+  { description: "Parthenais Cross", code: "PAX" },
+  { description: "Piemontese", code: "PI" },
+  { description: "Piemontese Cross", code: "PIX" },
+  { description: "Pie Rouge", code: "PR" },
+  { description: "Pie Rouge Cross", code: "PRX" },
+  { description: "Pinzgauer", code: "PIN" },
+  { description: "Pinzgauer Cross", code: "PINX" },
+  { description: "Red Poll", code: "RP" },
+  { description: "Red Poll Cross", code: "RPX" },
+  { description: "Reggiana", code: "RE" },
+  { description: "Reggiana Cross", code: "REX" },
+  { description: "Riggit Galloway", code: "RG" },
+  { description: "Riggit Galloway Cross", code: "RGX" },
+  { description: "Romagnola", code: "RO" },
+  { description: "Romagnola Cross", code: "ROX" },
+  { description: "Rotebunde", code: "ROT" },
+  { description: "Rotebunde Cross", code: "ROTX" },
+  { description: "Rouge Flamande", code: "RF" },
+  { description: "Rouge Flamande Cross", code: "RFX" },
+  { description: "Rubia Gallega/Galician Blond", code: "RUB" },
+  { description: "Rubia Gallega/Galician Blond Cross", code: "RUBX" },
+  { description: "Salers", code: "SA" },
+  { description: "Salers Cross", code: "SAX" },
+  { description: "Shetland", code: "SH" },
+  { description: "Shetland Cross", code: "SHX" },
+  { description: "Simmental", code: "SM" },
+  { description: "Simmental Cross", code: "SMX" },
+  { description: "South Devon", code: "SD" },
+  { description: "South Devon Cross", code: "SDX" },
+  { description: "Speckle Park", code: "SP" },
+  { description: "Speckle Park Cross", code: "SPX" },
+  { description: "Stabiliser", code: "ST" },
+  { description: "Stabiliser Cross", code: "STX" },
+  { description: "Swedish Black and White", code: "SBW" },
+  { description: "Swedish Black and White Cross", code: "SBWX" },
+  { description: "Swedish Red", code: "SR" },
+  { description: "Swedish Red Cross", code: "SRX" },
+  { description: "Swedish Red Polled", code: "SRP" },
+  { description: "Swedish Red and White", code: "SRW" },
+  { description: "Swedish Red and White Cross", code: "SRWX" },
+  { description: "Swiss Braunvieh", code: "SB" },
+  { description: "Swiss Braunvieh Cross", code: "SBX" },
+  { description: "Swiss Orig Braunvieh", code: "SOB" },
+  { description: "Swiss Orig Braunvieh Cross", code: "SOBX" },
+  { description: "Swiss Grey", code: "SG" },
+  { description: "Swiss Grey Cross", code: "SGX" },
+  { description: "Sussex", code: "SU" },
+  { description: "Sussex Cross", code: "SUX" },
+  { description: "Tyrone Black", code: "TB" },
+  { description: "Tyrone Black Cross", code: "TBX" },
+  { description: "Vaynol", code: "VA" },
+  { description: "Vaynol Cross", code: "VAX" },
+  { description: "Wagyu", code: "WA" },
+  { description: "Wagyu Cross", code: "WAX" },
+  { description: "Water Buffalo", code: "BU" },
+  { description: "Welsh Black", code: "WB" },
+  { description: "Welsh Black Cross", code: "WBX" },
+  { description: "Welsh White", code: "WW" },
+  { description: "Welsh White Cross", code: "WWX" },
+  { description: "White Galloway", code: "WG" },
+  { description: "White Galloway Cross", code: "WGX" },
+  { description: "Whitebred Shorthorn", code: "WS" },
+  { description: "Whitebred Shorthorn Cross", code: "WSX" },
+  { description: "White Park", code: "WP" },
+  { description: "White Park Cross", code: "WPX" },
+  { description: "Yak", code: "YK" },
+  { description: "Yak Cross", code: "YKX" },
+  { description: "Zebu", code: "ZE" }
+] %}
+
+{% block head %}
+  {{ super() }}
+  <link href="https://unpkg.com/accessible-autocomplete/dist/accessible-autocomplete.min.css" rel="stylesheet" media="all" />
+  <style>
+    .autocomplete__wrapper {
+      max-width: 20.5em;
+    }
+    .autocomplete__hint,
+    .autocomplete__input,
+    .autocomplete__option {
+      font-family: "Transport", arial, sans-serif;
+      font-size: 1.1875rem;
+      font-weight: normal!important;
+    }
+    .govuk-form-group--error .autocomplete__input {
+      border-color: #d4351c;
+    }
+    .autocomplete__option strong {
+      font-weight: normal;
+    }
+  </style>
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <h1 class="govuk-heading-l">Calf details</h1>
+
+    {% if errors %}
+    <div class="govuk-error-summary" data-module="govuk-error-summary">
+      <div role="alert">
+        <h2 class="govuk-error-summary__title">There is a problem</h2>
+        <div class="govuk-error-summary__body">
+          <ul class="govuk-list govuk-error-summary__list">
+            {% if errors['ear-tag-number'] %}
+            <li><a href="#ear-tag-number">{{ errors['ear-tag-number'] }}</a></li>
+            {% endif %}
+            {% if errors['dob'] %}
+            <li><a href="#dob-day">{{ errors['dob'] }}</a></li>
+            {% endif %}
+            {% if errors['sex'] %}
+            <li><a href="#sex">{{ errors['sex'] }}</a></li>
+            {% endif %}
+            {% if errors['breed'] %}
+            <li><a href="#breed">{{ errors['breed'] }}</a></li>
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
+    <form action="/mvp-front-office/v1/register-animal/calf-details" method="post" novalidate>
+
+      <div class="govuk-form-group {% if errors['ear-tag-number'] %}govuk-form-group--error{% endif %}">
+        <label class="govuk-label govuk-label--m" for="ear-tag-number">
+          Animal ear tag number
+        </label>
+        <div id="account-number-hint" class="govuk-hint">
+          Start typing the last 6 digits of the ear tag number and select from the list
+        </div>
+        {% if errors['ear-tag-number'] %}
+        <p id="ear-tag-number-error" class="govuk-error-message">
+          <span class="govuk-visually-hidden">Error:</span> {{ errors['ear-tag-number'] }}
+        </p>
+        {% endif %}
+        <div class="govuk-input__wrapper">
+          <select id="ear-tag-number" name="ear-tag-number" aria-describedby="ear-tag-hint{% if errors['ear-tag-number'] %} ear-tag-number-error{% endif %}">
+            <option value=""></option>
+            <option value="UK123456301550" {% if data['ear-tag-number'] == 'UK123456301550' %}selected{% endif %}>UK123456301550</option>
+            <option value="UK123456301551" {% if data['ear-tag-number'] == 'UK123456301551' %}selected{% endif %}>UK123456301551</option>
+            <option value="UK123456301552" {% if data['ear-tag-number'] == 'UK123456301552' %}selected{% endif %}>UK123456301552</option>
+            <option value="UK123456301553" {% if data['ear-tag-number'] == 'UK123456301553' %}selected{% endif %}>UK123456301553</option>
+            <option value="UK123456301554" {% if data['ear-tag-number'] == 'UK123456301554' %}selected{% endif %}>UK123456301554</option>
+          </select>
+        </div>
+      </div>
+
+      {{ govukDateInput({
+        id: "dob",
+        namePrefix: "dob",
+        fieldset: {
+          legend: {
+            text: "Date of birth",
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
+        hint: {
+          text: "For example, 27 3 2026."
+        },
+        errorMessage: errors['dob'] and { text: errors['dob'] },
+        items: [
+          {
+            name: "day",
+            classes: "govuk-input--width-2" + (" govuk-input--error" if errors['dob']),
+            value: data['dob-day']
+          },
+          {
+            name: "month",
+            classes: "govuk-input--width-2" + (" govuk-input--error" if errors['dob']),
+            value: data['dob-month']
+          },
+          {
+            name: "year",
+            classes: "govuk-input--width-4" + (" govuk-input--error" if errors['dob']),
+            value: data['dob-year']
+          }
+        ]
+      }) }}
+
+      <div class="govuk-form-group {% if errors['sex'] %}govuk-form-group--error{% endif %}">
+        <fieldset class="govuk-fieldset" aria-describedby="{% if errors['sex'] %}sex-error{% endif %}">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+            Sex of the calf
+          </legend>
+          {% if errors['sex'] %}
+          <p id="sex-error" class="govuk-error-message">
+            <span class="govuk-visually-hidden">Error:</span> {{ errors['sex'] }}
+          </p>
+          {% endif %}
+          <div class="govuk-radios govuk-radios--inline" data-module="govuk-radios">
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="sex" name="sex" type="radio" value="male" {% if data['sex'] == 'male' %}checked{% endif %}>
+              <label class="govuk-label govuk-radios__label" for="sex">Male</label>
+            </div>
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="sex-2" name="sex" type="radio" value="female" {% if data['sex'] == 'female' %}checked{% endif %}>
+              <label class="govuk-label govuk-radios__label" for="sex-2">Female</label>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+
+      <div class="govuk-form-group {% if errors['breed'] %}govuk-form-group--error{% endif %}">
+        <label class="govuk-label govuk-label--m" for="breed">
+          Breed
+        </label>
+        <div id="account-number-hint" class="govuk-hint">
+          Start typing the breed or enter the breed code to select from the list
+        </div>
+        {% if errors['breed'] %}
+        <p id="breed-error" class="govuk-error-message">
+          <span class="govuk-visually-hidden">Error:</span> {{ errors['breed'] }}
+        </p>
+        {% endif %}
+        <select id="breed" name="breed" aria-describedby="{% if errors['breed'] %}breed-error{% endif %}">
+          <option value=""></option>
+          {% for breed in breeds %}
+          <option value="{{ breed.description }} ({{ breed.code }})" {% if data['breed'] == breed.description ~ ' (' ~ breed.code ~ ')' %}selected{% endif %}>{{ breed.description }} ({{ breed.code }})</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <button type="submit" class="govuk-button" data-module="govuk-button">
+        Continue
+      </button>
+
+    </form>
+
+  </div>
+</div>
+
+{% endblock %}
+
+{% block pageScripts %}
+  <script src="https://unpkg.com/accessible-autocomplete/dist/accessible-autocomplete.min.js"></script>
+  <script>
+    const $picker = document.querySelector('#ear-tag-number')
+    accessibleAutocomplete.enhanceSelectElement({
+      selectElement: $picker
+    })
+
+    const $breedPicker = document.querySelector('#breed')
+    accessibleAutocomplete.enhanceSelectElement({
+      selectElement: $breedPicker
+    })
+  </script>
+{% endblock %}

@@ -1,0 +1,246 @@
+{% extends "layouts/main.html" %}
+
+{% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
+
+{% set pageName="Animals on holding" %}
+
+{% block header %}
+
+  {{ govukHeader({
+    homepageUrl: '/index.html'
+  }) }}
+
+  {{ govukServiceNavigation({
+    serviceName: "Livestock Information",
+    serviceUrl: "/mvp-front-office/v1/overview",
+    navigation: [
+    {
+    href: "/mvp-front-office/v1/my-profile",
+    text: "My profile"
+    },
+    {
+    href: "https://www.gov.uk/government/organisations/british-cattle-movement-service",
+    text: "Help and guidance",
+    attributes: {
+      target: "_blank"
+    }
+    }
+    ],
+    slots: {
+      navigationEnd: '<li class="govuk-service-navigation__item app-service-navigation__item--right"><a class="govuk-service-navigation__link" href="/mvp-front-office/v1/one-login">Sign out</a></li>'
+    }
+  }) }}
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+
+    <!--<div class="govuk-notification-banner" role="region" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
+      <div class="govuk-notification-banner__header">
+        <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+          Important
+        </h2>
+      </div>
+
+      <div class="govuk-notification-banner__content">
+        <p class="govuk-notification-banner__heading">
+          You have 3 animals that need your attention.
+          <a class="govuk-notification-banner__link"
+             href="/mvp-front-office/v1/animal-error-record">
+            View animal error record</a>.
+        </p>
+      </div>
+    </div>
+
+-->
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-one-quarter">
+        <div class="dwp-ds-render">
+
+        <button class="dwp-side-navigation__button" data-module="dwp-side-navigation" data-target="dwp-side-navigation-panel" data-label-hide="Hide navigation" data-label-show="Show navigation" aria-expanded="false">
+
+          <span class="dwp-side-navigation__section-toggle-focus">
+              <span class="dwp-side-navigation__chevron dwp-side-navigation__chevron--down"></span>
+              <span class="dwp-side-navigation__section-toggle-text">Show navigation</span>
+          </span>
+        </button>
+
+        <nav data-module="dwp-side-navigation-panel" class="dwp-side-navigation dwp-side-navigation--mobile" aria-label="Side" role="navigation">
+                    <ul class="dwp-side-navigation__list">
+
+            <li class="dwp-side-navigation__item">
+              <a id="s-item-1" href="/mvp-front-office/v1/holding-overview" class="dwp-side-navigation__link">
+                Overview
+              </a>
+            </li>
+
+            <li class="dwp-side-navigation__item">
+              <a id="s-item-2" href="/mvp-front-office/v1/holding-details" class="dwp-side-navigation__link">
+                Holding details
+              </a>
+            </li>
+
+            <li class="dwp-side-navigation__item">
+              <a id="s-item-3" href="/mvp-front-office/v1/submissions" class="dwp-side-navigation__link">
+                Submissions
+              </a>
+            </li>
+
+            <li class="dwp-side-navigation__item dwp-side-navigation__item--selected">
+              <a id="s-item-4" href="/mvp-front-office/v1/animals-on-holding" class="dwp-side-navigation__link dwp-side-navigation__link--selected" aria-current="true">
+                Animals on holding
+              </a>
+            </li>
+
+            <li class="dwp-side-navigation__item">
+              <a id="s-item-5" href="/mvp-front-office/v1/activity-history" class="dwp-side-navigation__link">
+                Activity history
+              </a>
+            </li>
+
+            <li class="dwp-side-navigation__item">
+              <a id="s-item-6" href="/mvp-front-office/v1/animal-error-record" class="dwp-side-navigation__link">
+                Animal error record
+              </a>
+            </li>
+
+            <li class="dwp-side-navigation__item">
+              <a id="s-item-7" href="/mvp-front-office/v1/messages" class="dwp-side-navigation__link">
+                Messages
+              </a>
+            </li>
+
+            <li class="dwp-side-navigation__item">
+              <a id="s-item-8" href="/mvp-front-office/v1/manage-delegates" class="dwp-side-navigation__link">
+                Manage delegates
+              </a>
+            </li>
+
+          </ul>
+        </nav>
+
+        </div>
+      </div>
+
+      <div class="govuk-grid-column-three-quarters">
+        <span class="govuk-caption-l">CPH number: {{ holding.cph }}</span>
+        <h1 class="govuk-heading-l">
+          Animals on holding
+        </h1>
+
+        <div class="govuk-grid-row">
+          <div class="govuk-grid-column-two-thirds">
+            <form method="GET">
+              <div class="search-wrapper govuk-form-group">
+                <label for="search-reservations" class="govuk-label">
+                  Search by animal ear tag number or breed
+                </label>
+                <div class="search-input-wrapper">
+                  <input type="search" value="" id="search-reservations" name="search" title="Search" class="govuk-input">
+                  <div class="search-input-submit-wrapper">
+                    <button type="submit" class="search-submit">Search</button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <p class="govuk-body" aria-live="polite">
+          {% if search %}
+            {{ cattle.length }}
+            {% if cattle.length === 1 %}
+              registered cattle record matches
+            {% else %}
+              registered cattle records match
+            {% endif %}
+            <strong>'{{ search }}'</strong>
+          {% else %}
+            {{ cattle.length }} registered cattle
+          {% endif %}
+        </p>
+
+        {% if search %}
+        <p class="govuk-body">
+          <a class="govuk-link" href="/mvp-front-office/v1/animals-on-holding">Clear search</a>
+        </p>
+        {% endif %}
+
+        {% if cattle.length %}
+        {% from "govuk/components/table/macro.njk" import govukTable %}
+
+        {% set rows = [] %}
+        {% for animal in cattle %}
+          {% set row = [
+            {
+              html: '<a class="govuk-link" href="/mvp-front-office/v1/cattle/' + animal.earTagNumber + '">' + (animal.earTagNumber | formatReference) + '</a>'
+            },
+            {
+              text: animal.dateOfBirth | shortDateFormat,
+              attributes: {
+                "data-sort-value": animal.dateOfBirth.slice(6,10) + animal.dateOfBirth.slice(3,5) + animal.dateOfBirth.slice(0,2)
+              }
+            },
+            {
+              text: animal.dateOfRegistration | shortDateFormat,
+              attributes: {
+                "data-sort-value": animal.dateOfRegistration.slice(6,10) + animal.dateOfRegistration.slice(3,5) + animal.dateOfRegistration.slice(0,2)
+              }
+            },
+            {
+              text: animal.sex
+            }
+          ] %}
+          {% set rows = (rows.push(row), rows) %}
+        {% endfor %}
+
+        {{ govukTable({
+          attributes: {
+            "data-module": "moj-sortable-table"
+          },
+          caption: "Animals on holding",
+          captionClasses: "govuk-visually-hidden",
+          head: [
+            {
+              text: "Ear tag number",
+              attributes: {
+                "aria-sort": "ascending"
+              }
+            },
+            {
+              text: "Date of birth",
+              attributes: {
+                "aria-sort": "none"
+              }
+            },
+            {
+              text: "Date registered",
+              attributes: {
+                "aria-sort": "none"
+              }
+            },
+            {
+              text: "Sex",
+              attributes: {
+                "aria-sort": "none"
+              }
+            }
+          ],
+          rows: rows
+        }) }}
+        {% else %}
+        <div class="govuk-inset-text">
+          No cattle records found{% if search %} for "{{ search }}"{% endif %}.
+        </div>
+        {% endif %}
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}

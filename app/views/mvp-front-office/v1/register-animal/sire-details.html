@@ -1,0 +1,76 @@
+{% extends "layouts/main.html" %}
+
+{% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
+
+{% block header %}
+
+  {{ govukHeader({
+    homepageUrl: '/index.html'
+  }) }}
+
+  {{ govukServiceNavigation({
+    serviceName: "Livestock Information",
+    serviceUrl: "/mvp-front-office/v1/overview",
+    navigation: [
+    {
+    href: "/mvp-front-office/v1/my-profile",
+    text: "My profile"
+    },
+    {
+    href: "https://www.gov.uk/government/organisations/british-cattle-movement-service",
+    text: "Help and guidance",
+    attributes: {
+      target: "_blank"
+    }
+    }
+    ],
+    slots: {
+      navigationEnd: '<li class="govuk-service-navigation__item app-service-navigation__item--right"><a class="govuk-service-navigation__link" href="/mvp-front-office/v1/one-login">Sign out</a></li>'
+    }
+  }) }}
+
+{% endblock %}
+
+{% set pageName="Sire details" %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <span class="govuk-caption-l">Official animal ear tag number: {{ data['ear-tag-number'] }}</span>
+    <h1 class="govuk-heading-l">Sire details</h1>
+
+    <form action="/mvp-front-office/v1/register-animal/sire-details" method="post" novalidate>
+
+      <div class="govuk-form-group">
+        <label class="govuk-label govuk-label--m" for="sire-number">
+          Sire ear tag number (optional)
+        </label>
+        <input class="govuk-input govuk-!-width-two-thirds" id="sire-number" name="sire-number" type="text" value="{{ data['sire-number'] }}">
+      </div>
+
+      <div class="govuk-form-group">
+        <label class="govuk-label govuk-label--m" for="sire-name">
+          Sire name (optional)
+        </label>
+        <input class="govuk-input govuk-!-width-two-thirds" id="sire-name" name="sire-name" type="text" value="{{ data['sire-name'] }}">
+      </div>
+
+      <button type="submit" class="govuk-button" data-module="govuk-button">
+        Continue
+      </button>
+
+    </form>
+
+  </div>
+</div>
+
+{% endblock %}

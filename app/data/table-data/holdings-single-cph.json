@@ -1,5 +1,5 @@
 {
-  "recordCount": 1,
+  "recordCount": 6,
   "holdings": [
     {
       "id": "holding-001",
@@ -23,6 +23,130 @@
       ],
       "keeper": {
         "name": "James Williams"
+      }
+    },
+    {
+      "id": "holding-002",
+      "cph": "24/118/0042",
+      "holdingName": "Willow Brook Farm",
+      "businessName": "Willow Brook Agriculture",
+      "role": "Agent",
+      "address": {
+        "addressLine1": "Willow Brook Farm",
+        "addressLine2": "Mill Road",
+        "town": "Hereford",
+        "county": "Herefordshire",
+        "postcode": "HR2 8JL",
+        "country": "England"
+      },
+      "status": "Active",
+      "holdingType": "Permanent",
+      "herdmark": "UK 234567",
+      "species": [
+        "Cattle"
+      ],
+      "keeper": {
+        "name": "Sarah Evans"
+      }
+    },
+    {
+      "id": "holding-003",
+      "cph": "31/672/0158",
+      "holdingName": "Red Barn Holdings",
+      "businessName": "Red Barn Rural Ltd",
+      "role": "Keeper",
+      "address": {
+        "addressLine1": "Red Barn",
+        "addressLine2": "Station Lane",
+        "town": "Lincoln",
+        "county": "Lincolnshire",
+        "postcode": "LN5 0QF",
+        "country": "England"
+      },
+      "status": "Inactive",
+      "holdingType": "Permanent",
+      "herdmark": "UK 345678",
+      "species": [
+        "Sheep",
+        "Goats"
+      ],
+      "keeper": {
+        "name": "Peter Clarke"
+      }
+    },
+    {
+      "id": "holding-004",
+      "cph": "44/209/0317",
+      "holdingName": "Cwm Valley Farm",
+      "businessName": "Cwm Valley Livestock",
+      "role": "Owner",
+      "address": {
+        "addressLine1": "Cwm Valley Farm",
+        "addressLine2": "Llan Road",
+        "town": "Brecon",
+        "county": "Powys",
+        "postcode": "LD3 7TP",
+        "country": "Wales"
+      },
+      "status": "Active",
+      "holdingType": "Permanent",
+      "herdmark": "UK 456780",
+      "species": [
+        "Cattle",
+        "Sheep"
+      ],
+      "keeper": {
+        "name": "Rhys Morgan"
+      }
+    },
+    {
+      "id": "holding-005",
+      "cph": "18/553/0029",
+      "holdingName": "Meadow View",
+      "businessName": "Meadow View Smallholding",
+      "role": "Keeper",
+      "address": {
+        "addressLine1": "Meadow View",
+        "addressLine2": "North Lane",
+        "town": "York",
+        "county": "North Yorkshire",
+        "postcode": "YO26 8RW",
+        "country": "England"
+      },
+      "status": "Active",
+      "holdingType": "Permanent",
+      "herdmark": "UK 567890",
+      "species": [
+        "Sheep",
+        "Goats"
+      ],
+      "keeper": {
+        "name": "Helen Price"
+      }
+    },
+    {
+      "id": "holding-006",
+      "cph": "27/884/0106",
+      "holdingName": "Blackthorn Estate",
+      "businessName": "Blackthorn Estate Farms",
+      "role": "Agent",
+      "address": {
+        "addressLine1": "Blackthorn Estate",
+        "addressLine2": "Estate Road",
+        "town": "Taunton",
+        "county": "Somerset",
+        "postcode": "TA3 5PL",
+        "country": "England"
+      },
+      "status": "Active",
+      "holdingType": "Permanent",
+      "herdmark": "UK 678901",
+      "species": [
+        "Cattle",
+        "Pigs"
+      ],
+      "keeper": {
+        "name": "Oliver Grant"
       }
     }
   ]
