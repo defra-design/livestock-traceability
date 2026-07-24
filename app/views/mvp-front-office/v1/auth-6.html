@@ -1,0 +1,88 @@
+{% extends "layouts/main.html" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
+{% set pageName="Is the business or organisation registered with the following?" %}
+
+{% block header %}
+
+{{ govukHeader({
+homepageUrl: '/index.html'
+}) }}
+
+{{ govukServiceNavigation({
+serviceName: "Sign in to Defra online services",
+serviceUrl: "/animals-on-holding/v1/start"
+})
+}}
+
+{% endblock %}
+
+{% block containerStart %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+     <!-- {{ govukNotificationBanner({
+        type: "success",
+        html: "Your personal contact details have been saved. We will now ask about the business or organisation you are using the service for."
+      }) }}-->
+
+      <form action="/mvp-front-office/v1/auth-6" method="post" novalidate>
+
+        <span class="govuk-caption-l">Create a Defra account</span>
+
+        {{ govukRadios({
+          name: "organisation-registered-with",
+          fieldset: {
+            legend: {
+              text: "Is the business or organisation registered with the following?",
+              isPageHeading: true,
+              classes: "govuk-fieldset__legend--l"
+            }
+          },
+          hint: {
+            text: "We use this to retrieve the registered address of your organisation"
+          },
+          items: [
+            {
+              value: "companies-house",
+              text: "Companies House",
+              hint: {
+                text: "The business will be on Companies House if it is a limited company or limited liability partnership"
+              },
+              checked: checked("organisation-registered-with", "companies-house")
+            },
+            {
+              value: "charity-commission",
+              text: "Charity Commission register",
+              hint: {
+                text: "Select neither of the above if you don't have your registration number yet (you can update it later) or if you charity is in Scotland or Northern Ireland"
+              },
+              checked: checked("organisation-registered-with", "charity-commission")
+            },
+            {
+              value: "neither",
+              text: "Neither of the above",
+              checked: checked("organisation-registered-with", "neither")
+            }
+          ]
+        }) }}
+
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+
+      </form>
+
+    </div>
+  </div>
+
+{% endblock %}

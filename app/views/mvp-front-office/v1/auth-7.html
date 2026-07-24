@@ -1,0 +1,67 @@
+{% extends "layouts/main.html" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+{% set pageName="What is the company registration number?" %}
+
+{% block header %}
+
+{{ govukHeader({
+homepageUrl: '/index.html'
+}) }}
+
+{{ govukServiceNavigation({
+serviceName: "Sign in to Defra online services",
+serviceUrl: "/animals-on-holding/v1/start"
+})
+}}
+
+{% endblock %}
+
+{% block containerStart %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <form action="/mvp-front-office/v1/auth-7" method="post" novalidate>
+
+        <span class="govuk-caption-l">Create a Defra account</span>
+
+        {{ govukInput({
+          label: {
+            text: "What is the company registration number?",
+            isPageHeading: true,
+            classes: "govuk-label--l"
+          },
+          hint: {
+            text: "It is 8 Characters. For example, 01234567 or AC012345"
+          },
+          id: "company-registration-number",
+          name: "company-registration-number",
+          classes: "govuk-input--width-10",
+          value: data['company-registration-number']
+        }) }}
+
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+
+      </form>
+
+      {% call govukDetails({
+        summaryText: "Where can I find my company registration number?"
+      }) %}
+        You can <a class="govuk-link" href="#" target="_blank" rel="noopener noreferrer">search Companies House for your company registration number (open in a new tab)</a>.
+      {% endcall %}
+
+    </div>
+  </div>
+
+{% endblock %}

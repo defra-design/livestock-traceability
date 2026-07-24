@@ -1,0 +1,61 @@
+{% extends "layouts/main.html" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% set pageName="What is the post code of the organisation?" %}
+
+{% block header %}
+
+{{ govukHeader({
+homepageUrl: '/index.html'
+}) }}
+
+{{ govukServiceNavigation({
+serviceName: "Sign in to Defra online services",
+serviceUrl: "/animals-on-holding/v1/start"
+})
+}}
+
+{% endblock %}
+
+{% block containerStart %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <form action="/mvp-front-office/v1/auth-6d" method="post" novalidate>
+
+        <span class="govuk-caption-l">Create a Defra account</span>
+        <h1 class="govuk-heading-l">
+          What is the post code of the organisation?
+        </h1>
+
+        {{ govukInput({
+          id: "organisation-postcode",
+          name: "organisation-postcode",
+          classes: "govuk-input--width-10",
+          autocomplete: "postal-code",
+          value: data['organisation-postcode'] or 'LA1 3DL'
+        }) }}
+
+        <div class="govuk-button-group">
+          {{ govukButton({
+            text: "Address look up"
+          }) }}
+        </div>
+        <div class="govuk-button-group">
+          <a class="govuk-link" href="/mvp-front-office/v1/auth-6e">Enter the address manually</a>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+
+{% endblock %}

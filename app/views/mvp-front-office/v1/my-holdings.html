@@ -1,0 +1,144 @@
+{% extends "layouts/main.html" %}
+
+{% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
+
+{% set pageName="My holdings" %}
+
+{% block header %}
+
+  {{ govukHeader({
+    homepageUrl: '/index.html'
+  }) }}
+
+  {{ govukServiceNavigation({
+    serviceName: "Livestock Information",
+    serviceUrl: "/mvp-front-office/v1/overview",
+    navigation: [
+    {
+    href: "/mvp-front-office/v1/my-profile",
+    text: "My profile"
+    },
+    {
+    href: "https://www.gov.uk/government/organisations/british-cattle-movement-service",
+    text: "Help and guidance",
+    attributes: {
+      target: "_blank"
+    }
+    }
+    ],
+    slots: {
+      navigationEnd: '<li class="govuk-service-navigation__item app-service-navigation__item--right"><a class="govuk-service-navigation__link" href="/mvp-front-office/v1/one-login">Sign out</a></li>'
+    }
+  }) }}
+
+{% endblock %}
+
+{% block content %}
+
+{% from "govuk/components/table/macro.njk" import govukTable %}
+
+<h1 class="govuk-heading-l">
+  My holdings
+</h1>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <form method="GET">
+      <div class="search-wrapper govuk-form-group">
+        <label for="search-holdings" class="govuk-label">
+          Search by CPH number, holding name or postcode
+        </label>
+        <div class="search-input-wrapper">
+          <input type="search" value="{{ search }}" id="search-holdings" name="search" title="Search" class="govuk-input">
+          <div class="search-input-submit-wrapper">
+            <button type="submit" class="search-submit">Search</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+{% if search %}
+
+<p class="govuk-body" aria-live="polite">
+  {{ holdings.length }}
+  {% if holdings.length === 1 %}
+    holding matches
+  {% else %}
+    holdings match
+  {% endif %}
+  <strong>'{{ search }}'</strong>
+</p>
+
+<p class="govuk-body">
+  <a class="govuk-link" href="/mvp-front-office/v1/my-holdings">
+    Clear search
+  </a>
+</p>
+
+{% endif %}
+
+{% if holdings.length %}
+
+{% set rows = [] %}
+{% for holding in holdings %}
+  {% set row = [
+    {
+      html: '<a class="govuk-link" href="/mvp-front-office/v1/holding-overview">' + holding.cph + '</a>'
+    },
+    {
+      text: holding.holdingName
+    },
+    {
+      text: holding.address.postcode
+    },
+    {
+      text: holding.role
+    }
+  ] %}
+  {% set rows = (rows.push(row), rows) %}
+{% endfor %}
+
+{{ govukTable({
+  attributes: {
+    "data-module": "moj-sortable-table"
+  },
+  caption: "Holdings search results",
+  captionClasses: "govuk-visually-hidden",
+  head: [
+    {
+      text: "CPH",
+      attributes: {
+        "aria-sort": "ascending"
+      }
+    },
+    {
+      text: "Holding name",
+      attributes: {
+        "aria-sort": "none"
+      }
+    },
+    {
+      text: "Postcode",
+      attributes: {
+        "aria-sort": "none"
+      }
+    },
+    {
+      text: "Role",
+      attributes: {
+        "aria-sort": "none"
+      }
+    }
+  ],
+  rows: rows
+}) }}
+
+{% else %}
+<p class="govuk-body">
+  No holdings found{% if search %} for "{{ search }}"{% endif %}.
+</p>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,164 @@
+{% extends "layouts/main.html" %}
+
+{% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
+
+{% set pageName="Submissions" %}
+
+{% block header %}
+
+  {{ govukHeader({
+    homepageUrl: '/index.html'
+  }) }}
+
+  {{ govukServiceNavigation({
+    serviceName: "Livestock Information",
+    serviceUrl: "/mvp-front-office/v1/overview",
+    navigation: [
+    {
+    href: "/mvp-front-office/v1/my-profile",
+    text: "My profile"
+    },
+    {
+    href: "https://www.gov.uk/government/organisations/british-cattle-movement-service",
+    text: "Help and guidance",
+    attributes: {
+      target: "_blank"
+    }
+    }
+    ],
+    slots: {
+      navigationEnd: '<li class="govuk-service-navigation__item app-service-navigation__item--right"><a class="govuk-service-navigation__link" href="/mvp-front-office/v1/one-login">Sign out</a></li>'
+    }
+  }) }}
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-one-quarter">
+        <div class="dwp-ds-render">
+
+        <button class="dwp-side-navigation__button" data-module="dwp-side-navigation" data-target="dwp-side-navigation-panel" data-label-hide="Hide navigation" data-label-show="Show navigation" aria-expanded="false">
+
+          <span class="dwp-side-navigation__section-toggle-focus">
+              <span class="dwp-side-navigation__chevron dwp-side-navigation__chevron--down"></span>
+              <span class="dwp-side-navigation__section-toggle-text">Show navigation</span>
+          </span>
+        </button>
+
+        <nav data-module="dwp-side-navigation-panel" class="dwp-side-navigation dwp-side-navigation--mobile" aria-label="Side" role="navigation">
+                    <ul class="dwp-side-navigation__list">
+
+            <li class="dwp-side-navigation__item">
+              <a id="s-item-1" href="/mvp-front-office/v1/holding-overview" class="dwp-side-navigation__link">
+                Overview
+              </a>
+            </li>
+
+            <li class="dwp-side-navigation__item">
+              <a id="s-item-2" href="/mvp-front-office/v1/holding-details" class="dwp-side-navigation__link">
+                Holding details
+              </a>
+            </li>
+
+            <li class="dwp-side-navigation__item dwp-side-navigation__item--selected">
+              <a id="s-item-3" href="/mvp-front-office/v1/submissions" class="dwp-side-navigation__link dwp-side-navigation__link--selected" aria-current="true">
+                Submissions
+              </a>
+            </li>
+
+            <li class="dwp-side-navigation__item">
+              <a id="s-item-4" href="/mvp-front-office/v1/animals-on-holding" class="dwp-side-navigation__link">
+                Animals on holding
+              </a>
+            </li>
+
+            <li class="dwp-side-navigation__item">
+              <a id="s-item-5" href="/mvp-front-office/v1/activity-history" class="dwp-side-navigation__link">
+                Activity history
+              </a>
+            </li>
+
+            <li class="dwp-side-navigation__item">
+              <a id="s-item-6" href="/mvp-front-office/v1/animal-error-record" class="dwp-side-navigation__link">
+                Animal error record
+              </a>
+            </li>
+
+            <li class="dwp-side-navigation__item">
+              <a id="s-item-7" href="/mvp-front-office/v1/messages" class="dwp-side-navigation__link">
+                Messages
+              </a>
+            </li>
+
+            <li class="dwp-side-navigation__item">
+              <a id="s-item-8" href="/mvp-front-office/v1/manage-delegates" class="dwp-side-navigation__link">
+                Manage delegates
+              </a>
+            </li>
+
+          </ul>
+        </nav>
+
+        </div>
+      </div>
+
+      <div class="govuk-grid-column-three-quarters">
+
+          <span class="govuk-caption-l">
+          CPH number: {{ holding.cph }}
+        </span>
+        <h1 class="govuk-heading-l">
+          Submissions
+        </h1>
+
+        <a href="/mvp-front-office/v1/register-animal/submission-type" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+          New submission
+        </a>
+
+        <table class="govuk-table">
+          <thead class="govuk-table__head">
+            <tr class="govuk-table__row">
+              <th scope="col" class="govuk-table__header">Submission date</th>
+              <th scope="col" class="govuk-table__header">Type</th>
+              <th scope="col" class="govuk-table__header">Species</th>
+              <th scope="col" class="govuk-table__header">Total animals</th>
+              <th scope="col" class="govuk-table__header">Status</th>
+            </tr>
+          </thead>
+          <tbody class="govuk-table__body">
+            <tr class="govuk-table__row">
+              <td class="govuk-table__cell"><a class="govuk-link" href="/mvp-front-office/v1/register-animal/submission-detail">14 May 2026</a></td>
+              <td class="govuk-table__cell">Birth</td>
+              <td class="govuk-table__cell">Cattle</td>
+              <td class="govuk-table__cell">12</td>
+              <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--green">Sent</strong></td>
+            </tr>
+            <tr class="govuk-table__row">
+              <td class="govuk-table__cell"><a class="govuk-link" href="#">28 April 2026</a></td>
+              <td class="govuk-table__cell">Movement</td>
+              <td class="govuk-table__cell">Cattle</td>
+              <td class="govuk-table__cell">8</td>
+              <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--blue">Draft</strong></td>
+            </tr>
+            <tr class="govuk-table__row">
+              <td class="govuk-table__cell"><a class="govuk-link" href="#">1 April 2026</a></td>
+              <td class="govuk-table__cell">Death</td>
+              <td class="govuk-table__cell">Cattle</td>
+              <td class="govuk-table__cell">2</td>
+              <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--green">Sent</strong></td>
+            </tr>
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}

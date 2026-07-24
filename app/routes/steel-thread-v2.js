@@ -2,21 +2,6 @@ const govukPrototypeKit = require('govuk-prototype-kit')
 const router = govukPrototypeKit.requests.setupRouter()
 
 router.post('/steel-thread/v2/one-login-email', (req, res) => {
-  const emailAddress = (req.body['email-address'] || '').trim()
-  const isValidFormat = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailAddress)
-
-  if (!emailAddress) {
-    return res.render('steel-thread/v2/one-login-email', {
-      errors: { 'email-address': 'Enter your email address' }
-    })
-  }
-
-  if (!isValidFormat) {
-    return res.render('steel-thread/v2/one-login-email', {
-      errors: { 'email-address': 'Enter an email address in the correct format, like name@example.com' }
-    })
-  }
-
   res.redirect('/steel-thread/v2/one-login-password')
 })
 
@@ -43,41 +28,10 @@ router.post('/steel-thread/v2/auth-4', (req, res) => {
 })
 
 router.post('/steel-thread/v2/auth-5', (req, res) => {
-  const firstName = (req.body['first-name'] || '').trim()
-  const lastName = (req.body['last-name'] || '').trim()
-  const errors = {}
-
-  if (!firstName) {
-    errors['first-name'] = 'Enter your first name'
-  }
-
-  if (!lastName) {
-    errors['last-name'] = 'Enter your last name'
-  }
-
-  if (Object.keys(errors).length > 0) {
-    return res.render('steel-thread/v2/auth-5', { errors })
-  }
-
   res.redirect('/steel-thread/v2/auth-5b')
 })
 
 router.post('/steel-thread/v2/auth-5b', (req, res) => {
-  const phoneNumber = (req.body['phone-number'] || '').trim()
-  const isValidFormat = /^[0-9+\s()-]{7,20}$/.test(phoneNumber)
-
-  if (!phoneNumber) {
-    return res.render('steel-thread/v2/auth-5b', {
-      errors: { 'phone-number': 'Enter your phone number' }
-    })
-  }
-
-  if (!isValidFormat) {
-    return res.render('steel-thread/v2/auth-5b', {
-      errors: { 'phone-number': 'Enter a phone number in the correct format' }
-    })
-  }
-
   const serviceUserType = req.session.data['service-user-type']
 
   if (serviceUserType === 'personal') {
@@ -133,21 +87,6 @@ router.post('/steel-thread/v2/auth-6f', (req, res) => {
 
 router.post('/steel-thread/v2/auth-10', (req, res) => {
   const usePersonalDetails = req.body['use-personal-details'] === 'use-personal-details'
-  const phoneNumber = (req.body['organisation-phone-number'] || '').trim()
-  const email = (req.body['organisation-email'] || '').trim()
-  const hasBothFields = Boolean(phoneNumber && email)
-
-  if (!usePersonalDetails && !hasBothFields) {
-    const message = 'Select the checkbox to use your personal details, or enter both a phone number and email address for the organisation'
-
-    return res.render('steel-thread/v2/auth-10', {
-      errors: {
-        'use-personal-details': message,
-        'organisation-phone-number': message,
-        'organisation-email': message
-      }
-    })
-  }
 
   if (usePersonalDetails) {
     req.session.data['organisation-phone-number'] = req.session.data['phone-number']
