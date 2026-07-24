@@ -133,10 +133,11 @@
         <span class="govuk-caption-l">
           CPH number: {{ holding.cph }}
         </span>
-        <h1 class="govuk-heading-l">
+        <h1 class="govuk-heading-l govuk-!-margin-bottom-6">
           {{ holding.holdingName }}
         </h1>
 
+    {% if errorRecordsCount %}
         <div class="govuk-notification-banner" role="region" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
           <div class="govuk-notification-banner__header">
             <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
@@ -146,15 +147,126 @@
 
           <div class="govuk-notification-banner__content">
             <p class="govuk-notification-banner__heading">
-              You have 3 animals that need your attention.
+              You have {{ errorRecordsCount }} animals that need your attention.
               <a class="govuk-notification-banner__link"
                  href="/mvp-front-office/v1/animal-error-record">
                 View animal error record</a>.
             </p>
           </div>
         </div>
+        {% endif %}
 
+        <h2 class="govuk-heading-m">
+          Your holding at a glance
+        </h2>
 
+        <div class="govuk-grid-row">
+          <div class="govuk-grid-column-one-quarter">
+            <span class="govuk-heading-l govuk-!-margin-bottom-0">{{ cattle.length }}</span>
+            <p class="govuk-body">
+              <a class="govuk-link" href="/mvp-front-office/v1/animals-on-holding">Animals on holding</a>
+            </p>
+          </div>
+
+          <div class="govuk-grid-column-one-quarter">
+            <span class="govuk-heading-l govuk-!-margin-bottom-0">3</span>
+            <p class="govuk-body">
+              <a class="govuk-link" href="/mvp-front-office/v1/submissions">Submissions</a>
+            </p>
+          </div>
+
+          <div class="govuk-grid-column-one-quarter">
+            <span class="govuk-heading-l govuk-!-margin-bottom-0">0</span>
+            <p class="govuk-body">
+              <a class="govuk-link" href="/mvp-front-office/v1/messages">Unread messages</a>
+            </p>
+          </div>
+
+          <div class="govuk-grid-column-one-quarter">
+            <span class="govuk-heading-l govuk-!-margin-bottom-0">5</span>
+            <p class="govuk-body">
+              <a class="govuk-link" href="/mvp-front-office/v1/manage-delegates">Delegates</a>
+            </p>
+          </div>
+        </div>
+
+        <hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible">
+
+        <h2 class="govuk-heading-m">
+          Key tasks
+        </h2>
+
+        <ul class="app-task-links">
+          <li class="app-task-links__item">
+            <a class="app-task-links__link" href="/mvp-front-office/v1/register-animal/submission-type">
+              <span class="app-task-links__text">Complete a new submission</span>
+              <svg class="app-task-links__chevron" xmlns="http://www.w3.org/2000/svg" height="13" width="15" aria-hidden="true" focusable="false" viewBox="0 0 15 13">
+                <path fill="currentColor" d="m8.107 12 4.998-5.5L8.107 1l-1.414 1.5 3.578 4-3.578 4z"></path>
+              </svg>
+            </a>
+          </li>
+
+          <li class="app-task-links__item">
+            <a class="app-task-links__link" href="/mvp-front-office/v1/report-death/is-registered">
+              <span class="app-task-links__text">Report an animal death</span>
+              <svg class="app-task-links__chevron" xmlns="http://www.w3.org/2000/svg" height="13" width="15" aria-hidden="true" focusable="false" viewBox="0 0 15 13">
+                <path fill="currentColor" d="m8.107 12 4.998-5.5L8.107 1l-1.414 1.5 3.578 4-3.578 4z"></path>
+              </svg>
+            </a>
+          </li>
+
+          <li class="app-task-links__item">
+            <a class="app-task-links__link" href="/mvp-front-office/v1/animal-error-record">
+              <span class="app-task-links__text">
+                View animal error records
+              </span>
+              <svg class="app-task-links__chevron" xmlns="http://www.w3.org/2000/svg" height="13" width="15" aria-hidden="true" focusable="false" viewBox="0 0 15 13">
+                <path fill="currentColor" d="m8.107 12 4.998-5.5L8.107 1l-1.414 1.5 3.578 4-3.578 4z"></path>
+              </svg>
+            </a>
+          </li>
+
+          <li class="app-task-links__item">
+            <a class="app-task-links__link" href="/mvp-front-office/v1/manage-delegates">
+              <span class="app-task-links__text">Manage delegates</span>
+              <svg class="app-task-links__chevron" xmlns="http://www.w3.org/2000/svg" height="13" width="15" aria-hidden="true" focusable="false" viewBox="0 0 15 13">
+                <path fill="currentColor" d="m8.107 12 4.998-5.5L8.107 1l-1.414 1.5 3.578 4-3.578 4z"></path>
+              </svg>
+            </a>
+          </li>
+        </ul>
+
+        <hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible">
+
+        <h2 class="govuk-heading-m">
+          Recent activity
+        </h2>
+
+        <table class="govuk-table">
+          <thead class="govuk-table__head">
+          <tr class="govuk-table__row">
+            <th scope="col" class="govuk-table__header">Date</th>
+            <th scope="col" class="govuk-table__header">Activity</th>
+            <th scope="col" class="govuk-table__header">Reporter</th>
+          </tr>
+          </thead>
+          <tbody class="govuk-table__body">
+          <tr class="govuk-table__row">
+            <td class="govuk-table__cell">27 Mar 2026</td>
+            <td class="govuk-table__cell">Registered a cattle birth</td>
+            <td class="govuk-table__cell">James Williams</td>
+          </tr>
+          <tr class="govuk-table__row">
+            <td class="govuk-table__cell">20 Mar 2026</td>
+            <td class="govuk-table__cell">Reported a cattle death</td>
+            <td class="govuk-table__cell">Sheila Jones</td>
+          </tr>
+          </tbody>
+        </table>
+
+        <p class="govuk-body">
+          <a class="govuk-link" href="/mvp-front-office/v1/activity-history">View all activity</a>
+        </p>
 
       </div>
     </div>

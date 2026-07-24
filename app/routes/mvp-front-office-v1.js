@@ -152,8 +152,15 @@ router.get('/mvp-front-office/v1/holding-details', (req, res) => {
 router.get('/mvp-front-office/v1/holding-overview', (req, res) => {
   const holdingsData = req.session.data.holdingsSingleCph
   const holding = holdingsData.holdings.find((h) => h.id === 'holding-001')
+  const cattleData = req.session.data.livestockSameHerd
 
-  res.render('mvp-front-office/v1/holding-overview', { holding })
+  const cattle = cattleData.animals.filter(
+    (animal) => animal.status !== 'Deceased' && animal.status !== 'Sold'
+  )
+
+  const errorRecordsCount = 3
+
+  res.render('mvp-front-office/v1/holding-overview', { holding, cattle, errorRecordsCount })
 })
 
 router.get('/mvp-front-office/v1/overview', (req, res) => {
@@ -190,35 +197,6 @@ router.get('/mvp-front-office/v1/submissions', (req, res) => {
   const holding = holdingsData.holdings.find((h) => h.id === 'holding-001')
 
   res.render('mvp-front-office/v1/submissions', { holding })
-})
-
-router.get('/mvp-front-office/v1/my-holdings', (req, res) => {
-  const holdingsData = req.session.data.holdingsSingleCph
-  const search = String(req.query.search || '').trim().toLowerCase()
-
-  const holdings = holdingsData.holdings.filter((holding) => {
-    if (!search) return true
-
-    const searchableValues = [
-      holding.cph,
-      holding.holdingName,
-      holding.businessName,
-      holding.address?.addressLine1,
-      holding.address?.addressLine2,
-      holding.address?.town,
-      holding.address?.county,
-      holding.address?.postcode,
-      holding.status,
-      holding.holdingType,
-      ...(holding.species || [])
-    ]
-
-    return searchableValues.some((value) =>
-      String(value || '').toLowerCase().includes(search)
-    )
-  })
-
-  res.render('mvp-front-office/v1/my-holdings', { holdings, search })
 })
 
 router.get('/mvp-front-office/v1/animals-on-holding', (req, res) => {

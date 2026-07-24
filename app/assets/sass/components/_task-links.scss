@@ -1,0 +1,61 @@
+// A vertical list of "next step" links with a trailing chevron, in the style
+// GOV.UK account-style services (eg. HMRC's business tax account) use for
+// key task navigation. Not a component in the GOV.UK Design System itself.
+
+.app-task-links {
+  margin: 0 0 govuk-spacing(6);
+  padding: 0;
+  list-style: none;
+}
+
+.app-task-links__item {
+  border-bottom: 1px solid $govuk-border-colour;
+}
+
+.app-task-links__item:last-child {
+  border-bottom: 0;
+}
+
+.app-task-links__link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: govuk-spacing(3);
+  padding: govuk-spacing(3) 0;
+  color: $govuk-link-colour;
+  text-decoration: none;
+  @include govuk-font($size: 19, $weight: bold);
+}
+
+.app-task-links__link:hover {
+  color: $govuk-link-hover-colour;
+  text-decoration: underline;
+}
+
+.app-task-links__link:focus {
+  outline: 3px solid transparent;
+  color: govuk-colour("black");
+  background-color: govuk-colour("yellow");
+  box-shadow: 0 -2px govuk-colour("yellow"), 0 4px govuk-colour("black");
+}
+
+.app-task-links__link:focus .app-task-links__chevron {
+  color: govuk-colour("black");
+}
+
+.app-task-links__text {
+  display: block;
+}
+
+.app-task-links__hint {
+  display: block;
+  margin-top: govuk-spacing(1);
+  color: $govuk-secondary-text-colour;
+  @include govuk-font($size: 16, $weight: regular);
+}
+
+.app-task-links__chevron {
+  flex-shrink: 0;
+  margin-left: govuk-spacing(3);
+  color: currentColor;
+}
