@@ -111,9 +111,6 @@ href: "../holdings"
           Breed
         </th>
 
-        <th scope="col" class="govuk-table__header">
-          Status
-        </th>
       </tr>
       </thead>
 
@@ -144,26 +141,6 @@ href: "../holdings"
           {{ animal.breed.name }}
           {% if animal.breed.code %}
           ({{ animal.breed.code }})
-          {% endif %}
-        </td>
-
-        <td class="govuk-table__cell">
-          {% if animal.status === "Active" %}
-          <strong class="govuk-tag govuk-tag--green">
-            Active
-          </strong>
-          {% elseif animal.status === "Sold" %}
-          <strong class="govuk-tag govuk-tag--blue">
-            Sold
-          </strong>
-          {% elseif animal.status === "Deceased" %}
-          <strong class="govuk-tag govuk-tag--grey">
-            Deceased
-          </strong>
-          {% else %}
-          <strong class="govuk-tag">
-            {{ animal.status }}
-          </strong>
           {% endif %}
         </td>
       </tr>

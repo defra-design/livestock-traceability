@@ -203,6 +203,17 @@ background: govuk-colour("light-grey");
   }
 }
 
+.app-layout--wide {
+  /*
+   * 1160px content width plus 30px gutters on each side.
+   */
+  @media (min-width: 1220px) {
+    .app-filter-results-layout {
+      grid-template-columns: 330px minmax(0, 1fr);
+    }
+  }
+}
+
 .app-filter-results-layout__filters {
   margin-bottom: govuk-spacing(6);
 
@@ -312,7 +323,8 @@ background: govuk-colour("light-grey");
 
 .app-search-result {
   margin-bottom: govuk-spacing(4);
-  padding-bottom: govuk-spacing(4);
+  padding-bottom: govuk-spacing(3);
+  padding-top: govuk-spacing(3);
   border-bottom: 1px solid $govuk-border-colour;
 }
 
