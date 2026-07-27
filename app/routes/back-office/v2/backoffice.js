@@ -30,9 +30,7 @@ function getCattleData(req) {
 }
 
 function getEventsData(req) {
-  return req.session.data.events_livestock
-    || req.session.data.events_livestock
-    || { events: [] };
+  return req.session.data.events_livestock || { events: [] };
 }
 
 function getHoldingByCph(req, cph) {
@@ -136,72 +134,412 @@ function getCurrentLocation(req, animal, animalEvents) {
 
 
 /**
- * Event search
+ * Event search and export
  */
+
+function getQueryValues(value) {
+  if (!value) return [];
+
+  const values = Array.isArray(value) ? value : [value];
+
+  return values
+    .flatMap((item) => {
+      return String(item).split(',');
+    })
+    .map((item) => {
+      return item.trim();
+    })
+    .filter((item) => {
+      return item && item !== '_unchecked';
+    })
+    .filter((item, index, items) => {
+      return items.indexOf(item) === index;
+    });
+}
+
+function normaliseFilterValue(value) {
+  return String(value || '')
+    .toLowerCase()
+    .trim()
+    .replace(/\s+/g, '-')
+    .replace(/_/g, '-');
+}
+
+function parseFilterDate(value, useEndOfDay) {
+  const input = String(value || '').trim();
+
+  if (!input) return null;
+
+  let year;
+  let month;
+  let day;
+
+  const isoMatch = input.match(/^(\d{4})-(\d{1,2})-(\d{1,2})$/);
+  const ukMatch = input.match(/^(\d{1,2})[\/\-.\s](\d{1,2})[\/\-.\s](\d{4})$/);
+
+  if (isoMatch) {
+    year = Number(isoMatch[1]);
+    month = Number(isoMatch[2]);
+    day = Number(isoMatch[3]);
+  } else if (ukMatch) {
+    day = Number(ukMatch[1]);
+    month = Number(ukMatch[2]);
+    year = Number(ukMatch[3]);
+  } else {
+    const parsedDate = new Date(input);
+
+    if (Number.isNaN(parsedDate.getTime())) {
+      return null;
+    }
+
+    return parsedDate;
+  }
+
+  const hours = useEndOfDay ? 23 : 0;
+  const minutes = useEndOfDay ? 59 : 0;
+  const seconds = useEndOfDay ? 59 : 0;
+  const milliseconds = useEndOfDay ? 999 : 0;
+
+  const parsedDate = new Date(
+    year,
+    month - 1,
+    day,
+    hours,
+    minutes,
+    seconds,
+    milliseconds
+  );
+
+  const isValidDate = (
+    parsedDate.getFullYear() === year
+    && parsedDate.getMonth() === month - 1
+    && parsedDate.getDate() === day
+  );
+
+  return isValidDate ? parsedDate : null;
+}
+
+function getEventStatusValues(event) {
+  const values = [
+    event.status,
+    event.event_status,
+    event.details?.status,
+    event.details?.registration?.status
+  ];
+
+  if (event.completed === true) {
+    values.push('completed');
+  }
+
+  if (event.completed === false) {
+    values.push('in-progress');
+  }
+
+  return values
+    .filter(Boolean)
+    .map((value) => {
+      return normaliseFilterValue(value);
+    });
+}
+
+function getEventAttentionValues(event) {
+  const explicitValues = getQueryValues(
+    event.attention || event.attention_type || event.attentionType
+  ).map((value) => {
+    return normaliseFilterValue(value);
+  });
+
+  const issues = Array.isArray(event.issues) ? event.issues : [];
+
+  const hasIssue = (
+    explicitValues.includes('issue')
+    || event.has_issue === true
+    || event.hasIssue === true
+    || issues.length > 0
+  );
+
+  const needsReview = (
+    explicitValues.includes('review')
+    || event.needs_review === true
+    || event.needsReview === true
+    || event.review_required === true
+  );
+
+  const values = [];
+
+  if (hasIssue) values.push('issue');
+  if (needsReview) values.push('review');
+
+  if (!hasIssue && !needsReview) {
+    values.push('none');
+  }
+
+  return values;
+}
+
+function eventMatchesSearch(event, search) {
+  if (!search) return true;
+
+  const registration = event.details?.registration || {};
+
+  const searchableValues = [
+    event.id,
+    event.animal_id,
+    event.event_type,
+    event.event_date,
+    event.reported_by,
+
+    event.details?.holding_cph,
+    event.details?.from_cph,
+    event.details?.to_cph,
+    event.details?.reason,
+    event.details?.cause,
+    event.details?.linked_movement_id,
+
+    registration.status,
+    registration.registered_date,
+    registration.batch_id,
+    registration.defra_reference,
+
+    event.animal?.earTagNumber,
+    event.animal?.cph,
+    event.animal?.status,
+    event.animal?.breed?.name,
+    event.animal?.breed?.code,
+
+    event.holding?.holdingName,
+    event.holding?.businessName,
+    event.holding?.address?.postcode,
+
+    event.fromHolding?.holdingName,
+    event.fromHolding?.businessName,
+    event.fromHolding?.address?.postcode,
+
+    event.toHolding?.holdingName,
+    event.toHolding?.businessName,
+    event.toHolding?.address?.postcode
+  ];
+
+  return searchableValues.some((value) => {
+    return normalise(value).includes(normalise(search));
+  });
+}
+
+function eventMatchesHolding(event, holdingSearch) {
+  if (!holdingSearch) return true;
+
+  const holdingValues = [
+    event.details?.holding_cph,
+    event.details?.from_cph,
+    event.details?.to_cph,
+
+    event.holding?.holdingName,
+    event.holding?.businessName,
+    event.holding?.address?.postcode,
+
+    event.fromHolding?.holdingName,
+    event.fromHolding?.businessName,
+    event.fromHolding?.address?.postcode,
+
+    event.toHolding?.holdingName,
+    event.toHolding?.businessName,
+    event.toHolding?.address?.postcode
+  ];
+
+  return holdingValues.some((value) => {
+    return normalise(value).includes(normalise(holdingSearch));
+  });
+}
 
 function getFilteredEvents(req) {
   const eventsData = getEventsData(req);
-  const search = String(req.query.search || '').trim();
+
+  const criteria = {
+    search: String(req.query.search || '').trim(),
+    eventTypes: getQueryValues(req.query.eventType),
+    attention: getQueryValues(req.query.attention),
+    statuses: getQueryValues(req.query.status),
+    dateFrom: String(req.query.dateFrom || '').trim(),
+    dateTo: String(req.query.dateTo || '').trim(),
+    holding: String(req.query.holding || '').trim(),
+    reportedBy: String(req.query.reportedBy || '').trim(),
+    sort: req.query.sort === 'oldest' ? 'oldest' : 'newest'
+  };
+
+  const selectedEventTypes = criteria.eventTypes.map((value) => {
+    return normaliseFilterValue(value);
+  });
+
+  const selectedAttention = criteria.attention.map((value) => {
+    return normaliseFilterValue(value);
+  });
+
+  const selectedStatuses = criteria.statuses.map((value) => {
+    return normaliseFilterValue(value);
+  });
+
+  const dateFrom = parseFilterDate(criteria.dateFrom, false);
+  const dateTo = parseFilterDate(criteria.dateTo, true);
 
   const events = eventsData.events
     .map((event) => {
       return enrichEvent(req, event);
     })
     .filter((event) => {
-      if (!search) return true;
+      return eventMatchesSearch(event, criteria.search);
+    })
+    .filter((event) => {
+      if (selectedEventTypes.length === 0) return true;
 
-      const registration = event.details?.registration || {};
+      return selectedEventTypes.includes(
+        normaliseFilterValue(event.event_type)
+      );
+    })
+    .filter((event) => {
+      if (selectedAttention.length === 0) return true;
 
-      const searchableValues = [
-        event.id,
-        event.animal_id,
-        event.event_type,
-        event.event_date,
-        event.reported_by,
+      const eventAttention = getEventAttentionValues(event);
 
-        event.details?.holding_cph,
-        event.details?.from_cph,
-        event.details?.to_cph,
-        event.details?.reason,
-        event.details?.cause,
-        event.details?.linked_movement_id,
-
-        registration.status,
-        registration.registered_date,
-        registration.batch_id,
-        registration.defra_reference,
-
-        event.animal?.earTagNumber,
-        event.animal?.cph,
-        event.animal?.status,
-        event.animal?.breed?.name,
-        event.animal?.breed?.code,
-
-        event.holding?.holdingName,
-        event.holding?.businessName,
-        event.holding?.address?.postcode,
-
-        event.fromHolding?.holdingName,
-        event.fromHolding?.businessName,
-        event.fromHolding?.address?.postcode,
-
-        event.toHolding?.holdingName,
-        event.toHolding?.businessName,
-        event.toHolding?.address?.postcode
-      ];
-
-      return searchableValues.some((value) => {
-        return normalise(value).includes(normalise(search));
+      return selectedAttention.some((value) => {
+        return eventAttention.includes(value);
       });
     })
+    .filter((event) => {
+      if (selectedStatuses.length === 0) return true;
+
+      const eventStatuses = getEventStatusValues(event);
+
+      return selectedStatuses.some((value) => {
+        return eventStatuses.includes(value);
+      });
+    })
+    .filter((event) => {
+      const eventDate = new Date(event.event_date);
+
+      if (Number.isNaN(eventDate.getTime())) {
+        return !dateFrom && !dateTo;
+      }
+
+      if (dateFrom && eventDate < dateFrom) return false;
+      if (dateTo && eventDate > dateTo) return false;
+
+      return true;
+    })
+    .filter((event) => {
+      return eventMatchesHolding(event, criteria.holding);
+    })
+    .filter((event) => {
+      if (!criteria.reportedBy) return true;
+
+      return normaliseFilterValue(event.reported_by)
+        === normaliseFilterValue(criteria.reportedBy);
+    })
     .sort((a, b) => {
-      return new Date(b.event_date) - new Date(a.event_date);
+      const aDate = new Date(a.event_date).getTime();
+      const bDate = new Date(b.event_date).getTime();
+      const safeADate = Number.isNaN(aDate) ? 0 : aDate;
+      const safeBDate = Number.isNaN(bDate) ? 0 : bDate;
+
+      if (criteria.sort === 'oldest') {
+        return safeADate - safeBDate;
+      }
+
+      return safeBDate - safeADate;
     });
 
   return {
     events,
-    search
+    criteria,
+    selectedEventTypes: criteria.eventTypes,
+    selectedAttention: criteria.attention,
+    selectedStatuses: criteria.statuses
   };
+}
+
+function appendQueryValue(params, name, value) {
+  const values = getQueryValues(value);
+
+  values.forEach((item) => {
+    params.append(name, item);
+  });
+}
+
+function createEventsExportUrl(req) {
+  const params = new URLSearchParams();
+
+  Object.entries(req.query).forEach(([name, value]) => {
+    if (name === 'page') return;
+
+    appendQueryValue(params, name, value);
+  });
+
+  const queryString = params.toString();
+
+  return (
+    '/' + baseURL + '/events/export'
+    + (queryString ? '?' + queryString : '')
+  );
+}
+
+function csvValue(value) {
+  const text = String(value ?? '');
+
+  return '"' + text.replace(/"/g, '""') + '"';
+}
+
+function getEventIssueCodes(event) {
+  if (!Array.isArray(event.issues)) return '';
+
+  return event.issues
+    .map((issue) => {
+      if (typeof issue === 'string') return issue;
+
+      return issue.code || issue.id || issue.type || '';
+    })
+    .filter(Boolean)
+    .join('; ');
+}
+
+function createEventsCsv(events) {
+  const headings = [
+    'Event reference',
+    'Event date',
+    'Event type',
+    'Animal ear tag',
+    'Event status',
+    'Attention',
+    'Issue codes',
+    'Holding CPH',
+    'From CPH',
+    'To CPH',
+    'Reported by',
+    'Reason or cause'
+  ];
+
+  const rows = events.map((event) => {
+    const statuses = getEventStatusValues(event).join('; ');
+    const attention = getEventAttentionValues(event).join('; ');
+
+    return [
+      event.id,
+      event.event_date,
+      event.event_type,
+      event.animal_id,
+      statuses,
+      attention,
+      getEventIssueCodes(event),
+      event.details?.holding_cph,
+      event.details?.from_cph,
+      event.details?.to_cph,
+      event.reported_by,
+      event.details?.reason || event.details?.cause
+    ].map(csvValue).join(',');
+  });
+
+  return '\uFEFF' + [
+    headings.map(csvValue).join(','),
+    ...rows
+  ].join('\r\n');
 }
 
 function registerEventsRoute(urlPath, viewPath) {
@@ -210,9 +548,31 @@ function registerEventsRoute(urlPath, viewPath) {
 
     return res.render(baseURL + '/' + viewPath, {
       events: eventResults.events,
-      search: eventResults.search,
+      criteria: eventResults.criteria,
+      search: eventResults.criteria.search,
+      selectedEventTypes: eventResults.selectedEventTypes,
+      selectedAttention: eventResults.selectedAttention,
+      selectedStatuses: eventResults.selectedStatuses,
+      exportUrl: createEventsExportUrl(req),
+      query: req.query,
+      sort: eventResults.criteria.sort,
       baseURL
     });
+  });
+}
+
+function registerEventsExportRoute() {
+  router.get('/' + baseURL + '/events/export', (req, res) => {
+    const eventResults = getFilteredEvents(req);
+    const csv = createEventsCsv(eventResults.events);
+
+    res.setHeader('Content-Type', 'text/csv; charset=utf-8');
+    res.setHeader(
+      'Content-Disposition',
+      'attachment; filename="filtered-events.csv"'
+    );
+
+    return res.status(200).send(csv);
   });
 }
 
@@ -419,6 +779,7 @@ function registerUsersRoute(urlPath, viewPath) {
  */
 
 registerEventsRoute('events', 'events');
+registerEventsExportRoute();
 
 registerCattleRoute('cattle', 'cattle');
 registerCattleRoute('cattle2', 'cattle2');

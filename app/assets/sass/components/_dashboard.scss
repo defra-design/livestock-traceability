@@ -1,0 +1,150 @@
+.app-activity-dashboard__heading {
+  margin-bottom: govuk-spacing(7);
+
+  @include govuk-media-query($from: tablet) {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: govuk-spacing(6);
+  }
+
+  .govuk-button {
+    flex: 0 0 auto;
+  }
+}
+
+.app-dashboard-filters {
+//   padding: govuk-spacing(4);
+  margin-bottom: govuk-spacing(4);
+//   background-color: #f3f2f1;
+}
+
+.app-dashboard-filters__fields {
+  display: grid;
+  gap: govuk-spacing(4);
+
+  @include govuk-media-query($from: tablet) {
+    grid-template-columns:
+      minmax(180px, 240px)
+      minmax(180px, 240px)
+      auto;
+    align-items: end;
+  }
+
+  .govuk-form-group,
+  .govuk-button {
+    margin-bottom: 0;
+  }
+}
+
+.app-dashboard-filters__submit {
+  @include govuk-media-query($from: tablet) {
+    padding-bottom: 2px;
+  }
+}
+
+.app-activity-cards {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: govuk-spacing(4);
+
+  @include govuk-media-query($from: tablet) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  @include govuk-media-query($from: desktop) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.app-activity-card {
+  min-width: 0;
+  border: 1px solid $govuk-border-colour;
+  background-color: govuk-colour("white");
+}
+
+.app-activity-card .app-card-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  padding: govuk-spacing(4);
+}
+
+.app-activity-card__title {
+  margin-bottom: govuk-spacing(3);
+}
+
+.app-activity-card__number {
+  @include govuk-font($size: 36, $weight: bold);
+
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.app-activity-card__label {
+  margin-bottom: govuk-spacing(4);
+}
+
+.app-activity-card__links {
+  margin-top: 0px !important;
+  margin-bottom: 0;
+
+  li {
+    margin-bottom: govuk-spacing(2);
+  }
+
+  li:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.app-dashboard-table-wrapper {
+  overflow-x: auto;
+  margin-bottom: govuk-spacing(4);
+}
+
+.app-dashboard-table-wrapper .govuk-table {
+  min-width: 720px;
+  margin-bottom: 0;
+}
+
+.app-table__cell--no-wrap {
+  white-space: nowrap;
+}
+
+.app-dashboard-issue-summary {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: govuk-spacing(4);
+  margin-top: govuk-spacing(6);
+  margin-bottom: govuk-spacing(6);
+
+  @include govuk-media-query($from: tablet) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.app-dashboard-issue-summary__item {
+  padding: govuk-spacing(4);
+  border-left: govuk-spacing(1) solid govuk-colour("blue");
+  background-color: #f3f2f1;
+}
+
+.app-dashboard-issue-summary__number {
+  @include govuk-font($size: 36, $weight: bold);
+
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.app-dashboard-issue-summary__label {
+  margin-bottom: govuk-spacing(3);
+  font-weight: bold;
+}
+
+.app-dashboard-issue-code {
+  display: block;
+  margin-top: govuk-spacing(1);
+  margin-bottom: 0;
+  color: $govuk-secondary-text-colour;
+}

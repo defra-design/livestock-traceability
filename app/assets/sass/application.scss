@@ -1,6 +1,7 @@
 //
 // For guidance on how to add CSS and SCSS see:
 // https://prototype-kit.service.gov.uk/docs/adding-css-javascript-and-images
+@import "components/dashboard";
 @import "components/event-card";
 @import "components/filter-panel";
 @import "components/filter-accordion";
@@ -260,4 +261,13 @@
   @include govuk-media-query($from: desktop) {
     display: none !important;
   }
+}
+
+.app-summary-list__row--error {
+  border-left: 5px solid $govuk-error-colour;
+  .govuk-summary-list__key{
+     padding-left: govuk-spacing(3) !important;
+      }
+
+
 }

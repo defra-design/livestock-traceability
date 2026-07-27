@@ -1,3 +1,12 @@
+   .app-layout--wide {
+      @media (min-width: 1220px) {
+        .app-dashboard-issue-summary,
+        .app-dashboard-table-wrapper {
+          max-width: 920px;
+        }
+      }
+    }
+
 .app-layout--wide {
   .govuk-header__container,
   .govuk-service-navigation > .govuk-width-container,
@@ -18,6 +27,7 @@
         calc(15px + env(safe-area-inset-left))
       );
     }
+
   }
 
   @include govuk-media-query($from: tablet) {
