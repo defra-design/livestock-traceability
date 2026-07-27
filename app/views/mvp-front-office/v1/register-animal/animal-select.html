@@ -1,0 +1,110 @@
+{% extends "layouts/main.html" %}
+
+{% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
+
+{% block header %}
+
+  {{ govukHeader({
+    homepageUrl: '/index.html'
+  }) }}
+
+  {{ govukServiceNavigation({
+    serviceName: "Livestock Information",
+    serviceUrl: "/mvp-front-office/v1/overview",
+    navigation: [
+    {
+    href: "/mvp-front-office/v1/my-profile",
+    text: "My profile"
+    },
+    {
+    href: "https://www.gov.uk/government/organisations/british-cattle-movement-service",
+    text: "Help and guidance",
+    attributes: {
+      target: "_blank"
+    }
+    }
+    ],
+    slots: {
+      navigationEnd: '<li class="govuk-service-navigation__item app-service-navigation__item--right"><a class="govuk-service-navigation__link" href="/mvp-front-office/v1/one-login">Sign out</a></li>'
+    }
+  }) }}
+
+{% endblock %}
+
+{% set pageName="Select animal type" %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    {% if errors %}
+      {{ govukErrorSummary({
+        titleText: "There is a problem",
+        errorList: [
+          {
+            text: errors['animal-type'].text,
+            href: "#animal-type"
+          }
+        ]
+      }) }}
+    {% endif %}
+
+    <form class="form" action="/mvp-front-office/v1/register-animal/animal-select" method="post">
+
+      {{ govukRadios({
+        name: "animal-type",
+        fieldset: {
+          legend: {
+            text: "Which species would you like to register?",
+            isPageHeading: true,
+            classes: "govuk-fieldset__legend--l"
+          }
+        },
+        errorMessage: errors['animal-type'] if errors,
+        items: [
+          {
+            value: "cattle",
+            text: "Cattle",
+            checked: data['animal-type'] === "cattle"
+          },
+          {
+            value: "sheep",
+            text: "Sheep",
+            checked: data['animal-type'] === "sheep"
+          },
+          {
+            value: "deer",
+            text: "Deer",
+            checked: data['animal-type'] === "deer"
+          },
+          {
+            value: "pigs",
+            text: "Pigs",
+            checked: data['animal-type'] === "pigs"
+          },
+          {
+            value: "camelids",
+            text: "Camelids",
+            checked: data['animal-type'] === "camelids"
+          }
+        ]
+      }) }}
+
+      {{ govukButton({
+        text: "Continue"
+      }) }}
+
+    </form>
+
+  </div>
+</div>
+
+{% endblock %}

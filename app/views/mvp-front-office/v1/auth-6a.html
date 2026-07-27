@@ -1,0 +1,81 @@
+{% extends "layouts/main.html" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% set pageName="What kind of business or organisation are you creating an account for?" %}
+
+{% block header %}
+
+{{ govukHeader({
+homepageUrl: '/index.html'
+}) }}
+
+{{ govukServiceNavigation({
+serviceName: "Sign in to Defra online services",
+serviceUrl: "/animals-on-holding/v1/start"
+})
+}}
+
+{% endblock %}
+
+{% block containerStart %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <form action="/mvp-front-office/v1/auth-6a" method="post" novalidate>
+
+        <span class="govuk-caption-l">Create a Defra account</span>
+
+        {{ govukRadios({
+          name: "organisation-type",
+          fieldset: {
+            legend: {
+              text: "What kind of business or organisation are you creating an account for?",
+              isPageHeading: true,
+              classes: "govuk-fieldset__legend--l"
+            }
+          },
+          items: [
+            {
+              value: "sole-trader",
+              text: "Sole trader or general partnership",
+              checked: checked("organisation-type", "sole-trader")
+            },
+            {
+              value: "charity",
+              text: "Charity or not-for-profit",
+              checked: checked("organisation-type", "charity")
+            },
+            {
+              value: "public-sector",
+              text: "Public sector organisation",
+              hint: {
+                text: "For example, Local Authority, Royal charters, etc."
+              },
+              checked: checked("organisation-type", "public-sector")
+            },
+            {
+              value: "other",
+              text: "Others",
+              checked: checked("organisation-type", "other")
+            }
+          ]
+        }) }}
+
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+
+      </form>
+
+    </div>
+  </div>
+
+{% endblock %}

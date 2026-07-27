@@ -1,0 +1,101 @@
+{% extends "layouts/main.html" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% set pageName="Sign in with GOV.UK One Login" %}
+
+{% block header %}
+
+{{ govukHeader({
+homepageUrl: '/index.html'
+}) }}
+
+{{ govukServiceNavigation({
+serviceName: "Sign in to Defra online services",
+serviceUrl: "/animals-on-holding/v1/start"
+})
+}}
+
+{% endblock %}
+
+{% block containerStart %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <h1 class="govuk-heading-l">
+         Sign in with GOV.UK One Login
+      </h1>
+
+      <p class="govuk-body">
+        If you are using this service for work related purpose, please create a GOV.UK One Login Account below using your work email address if you don't have one already.
+      </p>
+
+      <div class="govuk-warning-text">
+        <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+        <strong class="govuk-warning-text__text">
+          <span class="govuk-visually-hidden">Warning</span>
+          Check that you are using your work email address if creating an account for work related purpose. It will help you find if you have an existing account with your organisation.
+        </strong>
+      </div>
+
+      <p class="govuk-body">Sign in to:</p>
+      <ul class="govuk-list govuk-list--bullet">
+        <li>access different services from Department for Environment, Food and Rural Affairs (Defra)</li>
+        <li>manage your organisation's or business's interactions with Defra</li>
+      </ul>
+
+      <div class="govuk-button-group">
+
+        <a href="/mvp-front-office/v1/one-login"
+           type="submit"
+           class="govuk-button" data-module="govuk-button">
+          Continue
+        </a>
+
+      </div>
+
+      <hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible">
+
+      <h2 class="govuk-heading-m">
+        If you don't have an account already
+      </h2>
+
+      <p class="govuk-body">
+        Follow the 'Sign in with GOV.UK One Login' option to create an account.
+      </p>
+
+      <h2 class="govuk-heading-s">
+        What to expect
+      </h2>
+
+      <p class="govuk-body">
+        Creating the account can take up to 15 minutes if you don't already have a GOV.UK One Login account. You will be sent a confirmation code to your mobile phone.
+      </p>
+      <p class="govuk-body">
+        After creating a GOV.UK One Login account, we will ask for additional information.
+      </p>
+
+      <h2 class="govuk-heading-s">
+        Accessing this service for work or on behalf of an organisation
+      </h2>
+
+      <p class="govuk-body">
+        If you are accessing this service on behalf of a business or organisation for work purposes, set up a new GOV.UK One Login account with your work email address.
+      </p>
+      <p class="govuk-body">
+        We will then ask for additional information about your business or organisation.
+      </p>
+      <p class="govuk-body">
+        You will be able to invite other users to join your organisation after you created your Defra account.
+      </p>
+
+    </div>
+  </div>
+
+{% endblock %}

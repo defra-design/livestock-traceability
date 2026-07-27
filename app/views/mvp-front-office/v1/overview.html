@@ -1,0 +1,161 @@
+{% extends "layouts/main.html" %}
+
+{% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
+
+{% set pageName="Overview" %}
+
+{% block header %}
+
+  {{ govukHeader({
+    homepageUrl: '/index.html'
+  }) }}
+
+  {{ govukServiceNavigation({
+    serviceName: "Livestock Information",
+    serviceUrl: "/mvp-front-office/v1/overview",
+    navigation: [
+    {
+    href: "/mvp-front-office/v1/my-profile",
+    text: "My profile"
+    },
+    {
+    href: "https://www.gov.uk/government/organisations/british-cattle-movement-service",
+    text: "Help and guidance",
+    attributes: {
+      target: "_blank"
+    }
+    }
+    ],
+    slots: {
+      navigationEnd: '<li class="govuk-service-navigation__item app-service-navigation__item--right"><a class="govuk-service-navigation__link" href="/mvp-front-office/v1/one-login">Sign out</a></li>'
+    }
+  }) }}
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full-from-desktop">
+    <h1 class="govuk-heading-xl govuk-!-margin-bottom-4">
+      Livestock Information Service
+    </h1>
+  </div>
+</div>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <p class="govuk-caption-l" id="sub-heading">
+      Report cattle births, movements and deaths, browse your animal's digital record and manage your holding details.
+    </p>
+  </div>
+</div>
+
+<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+{% from "govuk/components/table/macro.njk" import govukTable %}
+
+<h2 class="govuk-heading-m">My holdings</h2>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <form method="GET">
+      <div class="search-wrapper govuk-form-group">
+        <label for="search-holdings" class="govuk-label">
+          Search by CPH number, holding name or postcode
+        </label>
+        <div class="search-input-wrapper">
+          <input type="search" value="{{ search }}" id="search-holdings" name="search" title="Search" class="govuk-input">
+          <div class="search-input-submit-wrapper">
+            <button type="submit" class="search-submit">Search</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+{% if search %}
+
+<p class="govuk-body" aria-live="polite">
+  {{ holdings.length }}
+  {% if holdings.length === 1 %}
+  holding matches
+  {% else %}
+  holdings match
+  {% endif %}
+  <strong>'{{ search }}'</strong>
+</p>
+
+<p class="govuk-body">
+  <a class="govuk-link" href="/mvp-front-office/v1/overview">
+    Clear search
+  </a>
+</p>
+
+{% endif %}
+
+{% if holdings.length %}
+
+{% set rows = [] %}
+{% for holding in holdings %}
+{% set row = [
+{
+html: '<a class="govuk-link" href="/mvp-front-office/v1/holding-overview">' + holding.cph + '</a>'
+},
+{
+text: holding.holdingName
+},
+{
+text: holding.address.postcode
+},
+{
+text: holding.role
+}
+] %}
+{% set rows = (rows.push(row), rows) %}
+{% endfor %}
+
+{{ govukTable({
+attributes: {
+"data-module": "moj-sortable-table"
+},
+caption: "My holdings",
+captionClasses: "govuk-visually-hidden",
+head: [
+{
+text: "CPH",
+attributes: {
+"aria-sort": "ascending"
+}
+},
+{
+text: "Holding name",
+attributes: {
+"aria-sort": "none"
+}
+},
+{
+text: "Postcode",
+attributes: {
+"aria-sort": "none"
+}
+},
+{
+text: "Role",
+attributes: {
+"aria-sort": "none"
+}
+}
+],
+rows: rows
+}) }}
+
+{% else %}
+<p class="govuk-body">
+  No holdings found{% if search %} for "{{ search }}"{% endif %}.
+</p>
+{% endif %}
+
+{% endblock %}

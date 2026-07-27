@@ -1,0 +1,182 @@
+{% extends "layouts/main.html" %}
+
+{% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
+
+{% set pageName="Animal error record" %}
+
+{% block header %}
+
+  {{ govukHeader({
+    homepageUrl: '/index.html'
+  }) }}
+
+  {{ govukServiceNavigation({
+    serviceName: "Livestock Information",
+    serviceUrl: "/mvp-front-office/v1/overview",
+    navigation: [
+    {
+    href: "/mvp-front-office/v1/my-profile",
+    text: "My profile"
+    },
+    {
+    href: "https://www.gov.uk/government/organisations/british-cattle-movement-service",
+    text: "Help and guidance",
+    attributes: {
+      target: "_blank"
+    }
+    }
+    ],
+    slots: {
+      navigationEnd: '<li class="govuk-service-navigation__item app-service-navigation__item--right"><a class="govuk-service-navigation__link" href="/mvp-front-office/v1/one-login">Sign out</a></li>'
+    }
+  }) }}
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-quarter">
+    <div class="dwp-ds-render">
+
+      <button class="dwp-side-navigation__button" data-module="dwp-side-navigation" data-target="dwp-side-navigation-panel" data-label-hide="Hide navigation" data-label-show="Show navigation" aria-expanded="false">
+
+          <span class="dwp-side-navigation__section-toggle-focus">
+              <span class="dwp-side-navigation__chevron dwp-side-navigation__chevron--down"></span>
+              <span class="dwp-side-navigation__section-toggle-text">Show navigation</span>
+          </span>
+      </button>
+
+      <nav data-module="dwp-side-navigation-panel" class="dwp-side-navigation dwp-side-navigation--mobile" aria-label="Side" role="navigation">
+                  <ul class="dwp-side-navigation__list">
+
+            <li class="dwp-side-navigation__item">
+              <a id="s-item-1" href="/mvp-front-office/v1/holding-overview" class="dwp-side-navigation__link">
+                Overview
+              </a>
+            </li>
+
+            <li class="dwp-side-navigation__item">
+              <a id="s-item-2" href="/mvp-front-office/v1/holding-details" class="dwp-side-navigation__link">
+                Holding details
+              </a>
+            </li>
+
+            <li class="dwp-side-navigation__item">
+              <a id="s-item-3" href="/mvp-front-office/v1/submissions" class="dwp-side-navigation__link">
+                Submissions
+              </a>
+            </li>
+
+            <li class="dwp-side-navigation__item">
+              <a id="s-item-4" href="/mvp-front-office/v1/animals-on-holding" class="dwp-side-navigation__link">
+                Animals on holding
+              </a>
+            </li>
+
+            <li class="dwp-side-navigation__item">
+              <a id="s-item-5" href="/mvp-front-office/v1/activity-history" class="dwp-side-navigation__link">
+                Activity history
+              </a>
+            </li>
+
+            <li class="dwp-side-navigation__item dwp-side-navigation__item--selected">
+              <a id="s-item-6" href="/mvp-front-office/v1/animal-error-record" class="dwp-side-navigation__link dwp-side-navigation__link--selected" aria-current="true">
+                Animal error record
+              </a>
+            </li>
+
+            <li class="dwp-side-navigation__item">
+              <a id="s-item-7" href="/mvp-front-office/v1/messages" class="dwp-side-navigation__link">
+                Messages
+              </a>
+            </li>
+
+            <li class="dwp-side-navigation__item">
+              <a id="s-item-8" href="/mvp-front-office/v1/manage-delegates" class="dwp-side-navigation__link">
+                Manage delegates
+              </a>
+            </li>
+
+          </ul>
+      </nav>
+
+    </div>
+  </div>
+
+  <div class="govuk-grid-column-three-quarters">
+    <span class="govuk-caption-l">CPH number: {{ holding.cph }}</span>
+    <h1 class="govuk-heading-l">
+      Animal Error Record
+    </h1>
+
+    <div class="govuk-inset-text">
+
+      <h2 class="govuk-heading-m">
+        How to fix animal error records
+      </h2>
+
+      <p class="govuk-body">
+        You need to contact BCMS to fix the errors related to your animals.
+      </p>
+
+      <ul class="govuk-list">
+        <li>BCMS phone: 0345 050 1234</li>
+        <li>Helpline for cattle keepers in Wales: 0345 050 3456</li>
+        <li>Monday to Friday, 8:30am to 5pm</li>
+      </ul>
+      <p class="govuk-body">
+        <a href="https://www.gov.uk/call-charges" target="_blank">Find out about call charges</a>
+      </p>
+    </div>
+
+    <hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible">
+
+    <h2 class="govuk-heading-m govuk-!-static-margin-bottom-6">
+      You have 3 outstanding animal error records
+    </h2>
+
+    {% for record in errorRecords %}
+    <div class="govuk-summary-card">
+      <div class="govuk-summary-card__title-wrapper">
+        <h2 class="govuk-summary-card__title">
+          {{ record.earTagNumber | formatReference }}
+        </h2>
+      </div>
+      <div class="govuk-summary-card__content">
+        <dl class="govuk-summary-list">
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Date of birth
+            </dt>
+            <dd class="govuk-summary-list__value">
+              {{ record.dateOfBirth | shortDateFormat }}
+            </dd>
+          </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Date of registration
+            </dt>
+            <dd class="govuk-summary-list__value">
+              {{ record.dateOfRegistration | shortDateFormat }}
+            </dd>
+          </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Reason for error
+            </dt>
+            <dd class="govuk-summary-list__value">
+              {{ record.reason }}
+            </dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+    {% endfor %}
+
+
+  </div>
+</div>
+
+
+{% endblock %}

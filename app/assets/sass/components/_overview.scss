@@ -42,6 +42,10 @@
   background-color: govuk-colour("white");
 }
 
+.app-card--full-width {
+  max-width: none;
+}
+
 @include govuk-media-query($until: tablet) {
   .app-card {
     max-width: 100%;
@@ -62,20 +66,6 @@
 .app-card-container h2 + p:last-child,
 .app-card-container h3 + p:last-child {
   margin-top: 0;
-}
-
-.app-card:hover,
-.app-card:focus-within {
-  background-color: #003a69;
-}
-
-.app-card:hover .govuk-heading-m,
-.app-card:hover a,
-.app-card:hover p,
-.app-card:focus-within .govuk-heading-m,
-.app-card:focus-within a,
-.app-card:focus-within p {
-  color: govuk-colour("white");
 }
 
 .app-card:focus-within {

@@ -1,0 +1,103 @@
+{% extends "layouts/main.html" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% set pageName="What is the address of the organisation?" %}
+
+{% block header %}
+
+{{ govukHeader({
+homepageUrl: '/index.html'
+}) }}
+
+{{ govukServiceNavigation({
+serviceName: "Sign in to Defra online services",
+serviceUrl: "/animals-on-holding/v1/start"
+})
+}}
+
+{% endblock %}
+
+{% block containerStart %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <form action="/mvp-front-office/v1/auth-6f" method="post" novalidate>
+
+        <span class="govuk-caption-l">Create a Defra account</span>
+        <h1 class="govuk-heading-l">
+          What is the address of the organisation?
+        </h1>
+
+        {{ govukInput({
+          label: {
+            text: "Address line 1"
+          },
+          id: "address-line-1",
+          name: "address-line-1",
+          autocomplete: "address-line1",
+          value: data['address-line-1']
+        }) }}
+
+        {{ govukInput({
+          label: {
+            text: "Address line 2 (Optional)"
+          },
+          id: "address-line-2",
+          name: "address-line-2",
+          autocomplete: "address-line2",
+          value: data['address-line-2']
+        }) }}
+
+        {{ govukInput({
+          label: {
+            text: "Town or city"
+          },
+          id: "town-or-city",
+          name: "town-or-city",
+          classes: "govuk-!-width-two-thirds",
+          autocomplete: "address-level2",
+          value: data['town-or-city']
+        }) }}
+
+        {{ govukInput({
+          label: {
+            text: "Country"
+          },
+          id: "country",
+          name: "country",
+          classes: "govuk-!-width-two-thirds",
+          autocomplete: "country-name",
+          value: data['country']
+        }) }}
+
+        {{ govukInput({
+          label: {
+            text: "Postcode or Zip Code (optional)"
+          },
+          id: "postcode-or-zip",
+          name: "postcode-or-zip",
+          classes: "govuk-input--width-10",
+          value: data['postcode-or-zip']
+        }) }}
+
+        <div class="govuk-button-group">
+          {{ govukButton({
+            text: "Continue"
+          }) }}
+
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends "layouts/main.html" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/panel/macro.njk" import govukPanel %}
+{% set pageName="You can now continue to the service" %}
+
+{% block header %}
+
+{{ govukHeader({
+homepageUrl: '/index.html'
+}) }}
+
+{{ govukServiceNavigation({
+serviceName: "Sign in to Defra online services",
+serviceUrl: "/animals-on-holding/v1/start"
+})
+}}
+
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      {{ govukPanel({
+        titleText: "Your Defra account is created",
+        html: "You can now continue to the service"
+      }) }}
+
+      <p class="govuk-body">
+        We have sent you a confirmation email to {{ data['email-address'] or "janedoe@gmail.com" }}.
+      </p>
+
+      <h2 class="govuk-heading-m">
+        Continue to service
+      </h2>
+
+      <p class="govuk-body">
+        Please continue to the Livestock Information Service.
+      </p>
+
+      <form action="/mvp-front-office/v1/auth-15" method="post" novalidate>
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+      </form>
+
+      <p class="govuk-body">
+        <a class="govuk-link" href="#" target="_blank" rel="noopener noreferrer">What did you think of this service (open in a new tab)?</a> (takes 30 seconds)
+      </p>
+
+    </div>
+  </div>
+
+{% endblock %}
