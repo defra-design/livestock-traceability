@@ -1,0 +1,601 @@
+{% extends "layouts/main.html" %}
+
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/select/macro.njk" import govukSelect %}
+
+{% set pageName = "Activity dashboard" %}
+{% set activeNav = "activity" %}
+{% set bodyClasses = "app-layout--wide" %}
+{% set containerClasses = "app-width-container--wide" %}
+
+{% set pathParts = currentPath.split('/') %}
+{% set currentBaseUrl = '/' + pathParts[1] + '/' + pathParts[2] + '/' + pathParts[3] + '/' %}
+
+{% set selectedPeriod = query.period or "7-days" %}
+{% set selectedRegion = query.region or "all" %}
+
+{% block header %}
+
+{% block navBar %}{% include "./components/_navigation.html" %}{% endblock %}
+
+{% endblock %}
+
+{% block beforeContent %}
+{% set pathParts = currentPath.split('/') %}
+{% set currentBaseUrl = '/' + pathParts[1] + '/' + pathParts[2] + '/' + pathParts[3] + '/' %}
+{{ govukBreadcrumbs({
+items: [
+{
+text: "Home",
+href: currentBaseUrl+"home"
+}
+]
+}) }}
+{% endblock %}
+
+{% set activityCards = [
+  {
+    title: "Births",
+    count: "1,231",
+    label: "Total births recorded",
+    viewText: "View recorded births",
+    viewHref: currentBaseUrl + "events?eventType=birth&period=" + selectedPeriod + "&region=" + selectedRegion,
+    findText: "Find a birth record",
+    findHref: currentBaseUrl + "events/advanced-search?eventType=birth"
+  },
+  {
+    title: "Deaths",
+    count: "967",
+    label: "Total deaths recorded",
+    viewText: "View recorded deaths",
+    viewHref: currentBaseUrl + "events?eventType=death&period=" + selectedPeriod + "&region=" + selectedRegion,
+    findText: "Find a death record",
+    findHref: currentBaseUrl + "events/advanced-search?eventType=death"
+  },
+  {
+    title: "Movements onto holdings",
+    count: "4,204",
+    label: "Total movements onto holdings",
+    viewText: "View movements onto holdings",
+    viewHref: currentBaseUrl + "events?eventType=movement-on&period=" + selectedPeriod + "&region=" + selectedRegion,
+    findText: "Find a movement onto a holding",
+    findHref: currentBaseUrl + "events/advanced-search?eventType=movement-on"
+  },
+  {
+    title: "Movements off holdings",
+    count: "3,904",
+    label: "Total movements off holdings",
+    viewText: "View movements off holdings",
+    viewHref: currentBaseUrl + "events?eventType=movement-off&period=" + selectedPeriod + "&region=" + selectedRegion,
+    findText: "Find a movement off a holding",
+    findHref: currentBaseUrl + "events/advanced-search?eventType=movement-off"
+  },
+  {
+    title: "Imports",
+    count: "58",
+    label: "Total imports recorded",
+    viewText: "View recorded imports",
+    viewHref: currentBaseUrl + "events?eventType=import&period=" + selectedPeriod + "&region=" + selectedRegion,
+    findText: "Find an import record",
+    findHref: currentBaseUrl + "events/advanced-search?eventType=import"
+  },
+  {
+    title: "Passports issued",
+    count: "1,690",
+    label: "Total passports issued",
+    viewText: "View issued passports",
+    viewHref: currentBaseUrl + "events?eventType=passport-issued&period=" + selectedPeriod + "&region=" + selectedRegion,
+    findText: "Find a passport",
+    findHref: currentBaseUrl + "events/advanced-search?eventType=passport"
+  }
+] %}
+
+{% set awaitingActionRows = [
+  {
+    workType: "Birth registrations awaiting approval",
+    count: "202",
+    oldest: "12 days",
+    href: currentBaseUrl + "events?workflowStatus=awaiting-approval&eventType=birth",
+    linkText: "View birth registrations"
+  },
+  {
+    workType: "Passports awaiting issue",
+    count: "84",
+    oldest: "8 days",
+    href: currentBaseUrl + "events?workflowStatus=awaiting-issue&eventType=passport",
+    linkText: "View passport work"
+  },
+  {
+    workType: "Imports awaiting health checks",
+    count: "6",
+    oldest: "4 days",
+    href: currentBaseUrl + "events?workflowStatus=awaiting-health-check&eventType=import",
+    linkText: "View import checks"
+  },
+  {
+    workType: "Death records awaiting confirmation",
+    count: "44",
+    oldest: "17 days",
+    href: currentBaseUrl + "events?workflowStatus=awaiting-confirmation&eventType=death",
+    linkText: "View death records"
+  }
+] %}
+
+{% set issueRows = [
+  {
+    issue: "Missing movement off",
+    code: "M002",
+    count: "126",
+    oldest: "94 days",
+    href: currentBaseUrl + "events?issueCode=M002&issueStatus=open"
+  },
+  {
+    issue: "Missing movement on",
+    code: "M003",
+    count: "108",
+    oldest: "87 days",
+    href: currentBaseUrl + "events?issueCode=M003&issueStatus=open"
+  },
+  {
+    issue: "Movement before birth",
+    code: "M001",
+    count: "32",
+    oldest: "63 days",
+    href: currentBaseUrl + "events?issueCode=M001&issueStatus=open"
+  },
+  {
+    issue: "Movement after death",
+    code: "M004",
+    count: "18",
+    oldest: "41 days",
+    href: currentBaseUrl + "events?issueCode=M004&issueStatus=open"
+  },
+  {
+    issue: "Movement history gap over 2 days",
+    code: "M025",
+    count: "74",
+    oldest: "112 days",
+    href: currentBaseUrl + "events?issueCode=M025&issueStatus=open"
+  },
+  {
+    issue: "Birth information missing",
+    code: "",
+    count: "46",
+    oldest: "28 days",
+    href: currentBaseUrl + "events?issueType=birth-information-missing&issueStatus=open"
+  },
+  {
+    issue: "Dam details not found",
+    code: "",
+    count: "21",
+    oldest: "35 days",
+    href: currentBaseUrl + "events?issueType=dam-not-found&issueStatus=open"
+  },
+  {
+    issue: "Sex does not match",
+    code: "",
+    count: "12",
+    oldest: "19 days",
+    href: currentBaseUrl + "events?issueType=sex-mismatch&issueStatus=open"
+  }
+] %}
+
+{% block content %}
+
+<!--  <div class="app-activity-dashboard__heading">-->
+
+<!--    <div>-->
+<!--      <h1 class="govuk-heading-xl govuk-!-margin-bottom-2">-->
+<!--        Activity dashboard-->
+<!--      </h1>-->
+
+<!--      <p class="govuk-body-l">-->
+<!--        Review recent livestock activity, work awaiting action and unresolved data issues.-->
+<!--      </p>-->
+<!--      </div>-->
+
+    {# govukButton({
+      text: "Build a report",
+      href: currentBaseUrl + "reports/new",
+      classes: "govuk-button"
+    }) #}
+
+<!--  </div>-->
+
+<h1 class="govuk-heading-xl govuk-!-margin-bottom-2">
+          Activity dashboard
+        </h1>
+
+        <p class="govuk-body-l">
+          Review recent livestock activity, work awaiting action and unresolved data issues.
+        </p>
+
+  {{ govukButton({
+  text: "Build a report",
+  href: currentBaseUrl + "reports/new",
+  classes: "govuk-button"
+  }) }}
+<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+
+  <section aria-labelledby="recent-activity-heading">
+
+    <h2
+      class="govuk-heading-l"
+      id="recent-activity-heading"
+    >
+      Recent activity
+    </h2>
+
+    <p class="govuk-body">
+      Choose a period and region to view recently recorded livestock activity.
+    </p>
+
+    <form
+      class="app-dashboard-filters"
+      method="get"
+      action=""
+    >
+
+      <div class="app-dashboard-filters__fields">
+
+        {{ govukSelect({
+          id: "period",
+          name: "period",
+          label: {
+            text: "Time period",
+            classes: "govuk-label--s"
+          },
+          items: [
+            {
+              value: "7-days",
+              text: "Last 7 days",
+              selected: selectedPeriod == "7-days"
+            },
+            {
+              value: "30-days",
+              text: "Last 30 days",
+              selected: selectedPeriod == "30-days"
+            },
+            {
+              value: "3-months",
+              text: "Last 3 months",
+              selected: selectedPeriod == "3-months"
+            },
+            {
+              value: "12-months",
+              text: "Last 12 months",
+              selected: selectedPeriod == "12-months"
+            }
+          ]
+        }) }}
+
+        {{ govukSelect({
+          id: "region",
+          name: "region",
+          label: {
+            text: "Region",
+            classes: "govuk-label--s"
+          },
+          items: [
+            {
+              value: "all",
+              text: "All regions",
+              selected: selectedRegion == "all"
+            },
+            {
+              value: "north",
+              text: "North",
+              selected: selectedRegion == "north"
+            },
+            {
+              value: "midlands",
+              text: "Midlands",
+              selected: selectedRegion == "midlands"
+            },
+            {
+              value: "south",
+              text: "South",
+              selected: selectedRegion == "south"
+            },
+            {
+              value: "wales",
+              text: "Wales",
+              selected: selectedRegion == "wales"
+            }
+          ]
+        }) }}
+
+        <div class="app-dashboard-filters__submit">
+          {{ govukButton({
+            text: "Apply",
+            classes:"govuk-button--secondary"
+          }) }}
+        </div>
+
+      </div>
+
+    </form>
+
+    <p class="govuk-body">
+      Showing activity from
+      <strong>1 to 7 June 2026</strong>
+      across
+      <strong>all regions</strong>.
+    </p>
+
+
+    <div class="app-grid-container app-overview-cards app-activity-cards govuk-!-margin-bottom-9">
+
+      {% for card in activityCards %}
+
+        <article class="app-card app-activity-card">
+
+          <div class="app-card-container">
+
+            <h3 class="govuk-heading-m app-activity-card__title">
+              {{ card.title }}
+            </h3>
+
+            <p class="app-activity-card__number">
+              {{ card.count }}
+            </p>
+
+            <p class="govuk-body app-activity-card__label">
+              {{ card.label }}
+            </p>
+
+            <ul class="govuk-list app-activity-card__links">
+
+              <li>
+                <a
+                  class="govuk-link govuk-link--no-visited-state"
+                  href="{{ card.viewHref }}"
+                >
+                  {{ card.viewText }}
+                  <span class="govuk-visually-hidden">
+                    from 1 to 7 June 2026 across all regions
+                  </span>
+                </a>
+              </li>
+
+              <li>
+                <a
+                  class="govuk-link govuk-link--no-visited-state"
+                  href="{{ card.findHref }}"
+                >
+                  {{ card.findText }}
+                </a>
+              </li>
+
+            </ul>
+
+          </div>
+
+        </article>
+
+      {% endfor %}
+
+    </div>
+
+  </section>
+
+
+  <section
+    class="govuk-!-margin-bottom-9"
+    aria-labelledby="awaiting-action-heading"
+  >
+
+    <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+
+
+    <h2
+      class="govuk-heading-l govuk-!-margin-bottom-2"
+      id="awaiting-action-heading"
+    >
+      Awaiting action
+    </h2>
+
+    <p class="govuk-body">
+      Work waiting for review, approval or completion. This includes work submitted before the recent activity period.
+    </p>
+
+    <div class="app-dashboard-table-wrapper">
+
+      <table class="govuk-table">
+
+        <caption class="govuk-table__caption govuk-visually-hidden">
+          Work awaiting action
+        </caption>
+
+        <thead class="govuk-table__head">
+          <tr class="govuk-table__row">
+            <th scope="col" class="govuk-table__header">
+              Work type
+            </th>
+            <th scope="col" class="govuk-table__header govuk-table__header--numeric">
+              Awaiting action
+            </th>
+            <th scope="col" class="govuk-table__header govuk-table__cell--numeric">
+              Oldest waiting
+            </th>
+            <th scope="col" class="govuk-table__header govuk-table__cell--numeric">
+              Action
+            </th>
+          </tr>
+        </thead>
+
+        <tbody class="govuk-table__body">
+
+          {% for row in awaitingActionRows %}
+
+            <tr class="govuk-table__row">
+              <th scope="row" class="govuk-table__header">
+                {{ row.workType }}
+              </th>
+              <td class="govuk-table__cell govuk-table__cell--numeric">
+                {{ row.count }}
+              </td>
+              <td class="govuk-table__cell govuk-table__cell--numeric">
+                {{ row.oldest }}
+              </td>
+              <td class="govuk-table__cell app-table__cell--no-wrap govuk-table__cell--numeric">
+                <a
+                  class="govuk-link govuk-link--no-visited-state"
+                  href="{{ row.href }}"
+                >
+                  {{ row.linkText }}
+                </a>
+              </td>
+            </tr>
+
+          {% endfor %}
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <p class="govuk-body">
+      <a
+        class="govuk-link govuk-link--no-visited-state"
+        href="{{ currentBaseUrl }}events?workflowStatus=awaiting-action"
+      >
+        View all work awaiting action
+      </a>
+    </p>
+
+  </section>
+
+<hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible ">
+
+<section aria-labelledby="issues-heading">
+
+    <h2
+      class="govuk-heading-l govuk-!-margin-bottom-2"
+      id="issues-heading"
+    >
+      Issues
+    </h2>
+
+    <p class="govuk-body">
+      Unresolved problems or inconsistencies found in livestock records. <br>Older issues remain visible until they are resolved or dismissed.
+    </p>
+
+
+    <div class="app-dashboard-issue-summary">
+
+      <div class="app-dashboard-issue-summary__item">
+
+        <p class="app-dashboard-issue-summary__number">
+          783
+        </p>
+
+        <p class="govuk-body app-dashboard-issue-summary__label">
+          Records with unresolved issues
+        </p>
+
+        <p class="govuk-body govuk-!-margin-bottom-0">
+          <a
+            class="govuk-link govuk-link--no-visited-state"
+            href="{{ currentBaseUrl }}events?issueStatus=open"
+          >
+            View all unresolved issues
+          </a>
+        </p>
+
+      </div>
+
+      <div class="app-dashboard-issue-summary__item">
+
+        <p class="app-dashboard-issue-summary__number">
+          126
+        </p>
+
+        <p class="govuk-body app-dashboard-issue-summary__label">
+          Records with issues open for more than 30 days
+        </p>
+
+        <p class="govuk-body govuk-!-margin-bottom-0 ">
+          <a
+            class="govuk-link govuk-link--no-visited-state"
+            href="{{ currentBaseUrl }}events?issueStatus=open&issueAge=over-30-days"
+          >
+            View older unresolved issues
+          </a>
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <div class="app-dashboard-table-wrapper">
+
+      <table class="govuk-table">
+
+        <caption class="govuk-table__caption govuk-visually-hidden">
+          Unresolved issue types
+        </caption>
+
+        <thead class="govuk-table__head">
+          <tr class="govuk-table__row">
+            <th scope="col" class="govuk-table__header">
+              Issue type
+            </th>
+            <th scope="col" class="govuk-table__header govuk-table__header--numeric">
+              Records affected
+            </th>
+            <th scope="col" class="govuk-table__header govuk-table__cell--numeric">
+              Oldest open issue
+            </th>
+            <th scope="col" class="govuk-table__header govuk-table__cell--numeric">
+              Action
+            </th>
+          </tr>
+        </thead>
+
+        <tbody class="govuk-table__body">
+
+          {% for row in issueRows %}
+
+            <tr class="govuk-table__row">
+              <th scope="row" class="govuk-table__header">
+                {{ row.issue }}
+                {% if row.code %}
+                  <span class="govuk-body-s app-dashboard-issue-code">
+                    {{ row.code }}
+                  </span>
+                {% endif %}
+              </th>
+              <td class="govuk-table__cell govuk-table__cell--numeric ">
+                {{ row.count }}
+              </td>
+              <td class="govuk-table__cell govuk-table__cell--numeric">
+                {{ row.oldest }}
+              </td>
+              <td class="govuk-table__cell app-table__cell--no-wrap govuk-table__cell--numeric">
+                <a
+                  class="govuk-link govuk-link--no-visited-state"
+                  href="{{ row.href }}"
+                >
+                  View records
+                  <span class="govuk-visually-hidden">
+                    for {{ row.issue | lower }}
+                  </span>
+                </a>
+              </td>
+            </tr>
+
+          {% endfor %}
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </section>
+
+{% endblock %}
