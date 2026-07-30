@@ -62,11 +62,31 @@
 
  <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
-      <form method="GET" >
+
+    <!--  <div class="govuk-warning-text">
+        <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+        <strong class="govuk-warning-text__text">
+          <span class="govuk-visually-hidden">Warning</span>
+          Recent changes such as new registrations may take up to 24 hours to appear in your list.
+        </strong>
+      </div>-->
+
+     <!-- <div class="govuk-inset-text govuk-!-margin-top-0 govuk-!-margin-bottom-8">
+        <h2 class="govuk-heading-m govuk-!-margin-top-0 govuk-!-margin-bottom-2">
+          Important notice
+        </h2>
+        <p class="govuk-body">
+          These are the cattle currently recorded by CTS as being on this holding. Recent changes may not appear straight away.
+        </p>
+      </div>-->
+
+      <!--<form method="GET" >
         <div class="search-wrapper govuk-form-group">
-          <label for="search-reservations" class="govuk-label">
-            Search by animal ear tag number or breed
-          </label>
+          <h2 class="govuk-label-wrapper">
+            <label class="govuk-label govuk-label&#45;&#45;m" for="search-reservations">
+              Search by animal ear tag number or breed
+            </label>
+          </h2>
           <div class="search-input-wrapper">
             <input type="search" value="" id="search-reservations" name="search" title="Search" class="govuk-input">
             <div class="search-input-submit-wrapper">
@@ -74,13 +94,22 @@
             </div>
           </div>
         </div>
-      </form>
+      </form>-->
     </div>
   </div>
 
   <div>
 
- <p class="govuk-body" aria-live="polite">
+
+    <div class="govuk-warning-text">
+      <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+      <strong class="govuk-warning-text__text">
+        <span class="govuk-visually-hidden">Warning</span>
+        Recent changes such as new registrations may take up to 24 hours to appear in your list.
+      </strong>
+    </div>
+
+<!-- <p class="govuk-body" aria-live="polite">
       {% if search %}
         {{ cattle.length }}
         {% if cattle.length === 1 %}
@@ -92,7 +121,7 @@
       {% else %}
         {{ cattle.length }} registered cattle
       {% endif %}
-    </p>
+    </p>-->
 
   {% if search %}
     <p class="govuk-body">

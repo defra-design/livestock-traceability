@@ -1,35 +1,29 @@
 {% extends "layouts/main.html" %}
 
-{% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
 
 {% set pageName="Manage delegates" %}
 
 {% block header %}
 
-  {{ govukHeader({
-    homepageUrl: '/index.html'
-  }) }}
+  {% include "mvp-front-office/v1/partials/header.html" %}
 
-  {{ govukServiceNavigation({
-    serviceName: "Livestock Information",
-    serviceUrl: "/mvp-front-office/v1/overview",
-    navigation: [
-    {
-    href: "/mvp-front-office/v1/my-profile",
-    text: "My profile"
-    },
-    {
-    href: "https://www.gov.uk/government/organisations/british-cattle-movement-service",
-    text: "Help and guidance",
-    attributes: {
-      target: "_blank"
-    }
-    }
-    ],
-    slots: {
-      navigationEnd: '<li class="govuk-service-navigation__item app-service-navigation__item--right"><a class="govuk-service-navigation__link" href="/mvp-front-office/v1/one-login">Sign out</a></li>'
-    }
-  }) }}
+{% endblock %}
+
+{% block beforeContent %}
+
+<nav class="govuk-breadcrumbs" aria-label="Breadcrumb">
+  <ol class="govuk-breadcrumbs__list">
+    <li class="govuk-breadcrumbs__list-item">
+      <a class="govuk-breadcrumbs__link" href="/mvp-front-office/v1/overview">Home</a>
+    </li>
+    <li class="govuk-breadcrumbs__list-item">
+      <a class="govuk-breadcrumbs__link" href="/mvp-front-office/v1/my-holdings">My holdings</a>
+    </li>
+    <li class="govuk-breadcrumbs__list-item">
+      {{ holding.cph }}
+    </li>
+  </ol>
+</nav>
 
 {% endblock %}
 
@@ -109,7 +103,6 @@
 
       <div class="govuk-grid-column-three-quarters">
 
-        <span class="govuk-caption-l">CPH number: {{ holding.cph }}</span>
         <h1 class="govuk-heading-l govuk-!-static-margin-bottom-4">
           Manage delegates
         </h1>
@@ -118,7 +111,7 @@
           Add new or remove existing delegates who can manage your holding. If you remove a delegate, they will no longer be able to access your holding details.
         </p>
 
-        <a href="#" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+        <a href="/mvp-front-office/v1/manage-delegates/add-email" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
           Add new delegate
         </a>
 
@@ -132,31 +125,13 @@
             </tr>
           </thead>
           <tbody class="govuk-table__body">
+            {% for delegate in delegates %}
             <tr class="govuk-table__row">
-              <td class="govuk-table__cell"><a class="govuk-link" href="mailto:sarah.evans@example.com">sarah.evans@example.com</a></td>
-              <td class="govuk-table__cell">12 January 2026</td>
-              <td class="govuk-table__cell">Agent</td>
+              <td class="govuk-table__cell"><a class="govuk-link" href="/mvp-front-office/v1/manage-delegates/view/{{ delegate.id }}">{{ delegate.email }}</a></td>
+              <td class="govuk-table__cell">{{ delegate.dateAdded }}</td>
+              <td class="govuk-table__cell">{{ delegate.role }}</td>
             </tr>
-            <tr class="govuk-table__row">
-              <td class="govuk-table__cell"><a class="govuk-link" href="mailto:peter.clarke@example.com">peter.clarke@example.com</a></td>
-              <td class="govuk-table__cell">3 February 2026</td>
-              <td class="govuk-table__cell">Keeper</td>
-            </tr>
-            <tr class="govuk-table__row">
-              <td class="govuk-table__cell"><a class="govuk-link" href="mailto:rhys.morgan@example.com">rhys.morgan@example.com</a></td>
-              <td class="govuk-table__cell">28 February 2026</td>
-              <td class="govuk-table__cell">Owner</td>
-            </tr>
-            <tr class="govuk-table__row">
-              <td class="govuk-table__cell"><a class="govuk-link" href="mailto:helen.price@example.com">helen.price@example.com</a></td>
-              <td class="govuk-table__cell">15 March 2026</td>
-              <td class="govuk-table__cell">Keeper</td>
-            </tr>
-            <tr class="govuk-table__row">
-              <td class="govuk-table__cell"><a class="govuk-link" href="mailto:oliver.grant@example.com">oliver.grant@example.com</a></td>
-              <td class="govuk-table__cell">9 April 2026</td>
-              <td class="govuk-table__cell">Agent</td>
-            </tr>
+            {% endfor %}
           </tbody>
         </table>
 
