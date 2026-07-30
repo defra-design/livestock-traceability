@@ -1,13 +1,13 @@
 {% extends "layouts/main.html" %}
 
 
+{% set pageName="Invite sent" %}
+
 {% block header %}
 
   {% include "mvp-front-office/v1/partials/header.html" %}
 
 {% endblock %}
-
-{% set pageName="Death reported" %}
 
 {% block content %}
 
@@ -16,24 +16,25 @@
 
     <div class="govuk-panel govuk-panel--confirmation">
       <h1 class="govuk-panel__title">
-        2 cattle deaths reported
+        Invite sent
       </h1>
     </div>
 
     <p class="govuk-body">
-      We have received your report of death.
+      An invite was sent to your new delegate at {{ data['delegate-email'] }}.
     </p>
 
     <h2 class="govuk-heading-m">What happens next</h2>
-    <p class="govuk-body">
-      Your records will be updated to reflect the status of the animal.
-    </p>
 
     <p class="govuk-body">
-      <a href="/mvp-front-office/v1/overview" type="submit" class="govuk-button">
-        Return to the homepage
-      </a>
+      The delegate will have 7 days to reply using the invite link sent to their email address.
     </p>
+
+    <form action="/mvp-front-office/v1/manage-delegates/confirmation" method="post" novalidate>
+      <button type="submit" class="govuk-button" data-module="govuk-button">
+        Continue
+      </button>
+    </form>
 
   </div>
 </div>

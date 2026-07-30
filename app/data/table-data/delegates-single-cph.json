@@ -1,0 +1,34 @@
+{
+  "delegates": [
+    {
+      "id": "delegate-1",
+      "email": "sarah.evans@example.com",
+      "dateAdded": "12 January 2026",
+      "role": "Agent"
+    },
+    {
+      "id": "delegate-2",
+      "email": "peter.clarke@example.com",
+      "dateAdded": "3 February 2026",
+      "role": "Agent"
+    },
+    {
+      "id": "delegate-3",
+      "email": "helen.price@example.com",
+      "dateAdded": "15 March 2026",
+      "role": "Keeper"
+    },
+    {
+      "id": "delegate-4",
+      "email": "jtwilliams@gmail.com",
+      "dateAdded": "19 December 2023",
+      "role": "Owner"
+    },
+    {
+      "id": "delegate-5",
+      "email": "michael.turner@example.com",
+      "dateAdded": "22 April 2026",
+      "role": "Keeper"
+    }
+  ]
+}

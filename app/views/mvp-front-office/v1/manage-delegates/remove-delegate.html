@@ -1,13 +1,13 @@
 {% extends "layouts/main.html" %}
 
 
+{% set pageName="Remove delegate" %}
+
 {% block header %}
 
   {% include "mvp-front-office/v1/partials/header.html" %}
 
 {% endblock %}
-
-{% set pageName="Remove calf" %}
 
 {% block beforeContent %}
   {{ govukBackLink({
@@ -21,16 +21,16 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
 
-    <form action="/mvp-front-office/v1/register-animal/remove-calf" method="post" novalidate>
+    <form action="/mvp-front-office/v1/manage-delegates/remove-delegate" method="post" novalidate>
 
       <div class="govuk-form-group">
         <fieldset class="govuk-fieldset">
           <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
             <h1 class="govuk-fieldset__heading">
-              Are you sure you want to cancel this registration?
+              Are you sure you want to remove this delegate?
             </h1>
           </legend>
-          <p class="govuk-body">{{ data['ear-tag-number'] }}</p>
+          <p class="govuk-body">{{ data['delegate-email'] }}</p>
         </fieldset>
       </div>
 
@@ -38,7 +38,9 @@
         <button type="submit" class="govuk-button" data-module="govuk-button">
           Continue
         </button>
-        <a class="govuk-link" href="/mvp-front-office/v1/register-animal/check-calf-details">Cancel</a>
+      </div>
+      <div class="govuk-button-group">
+        <a class="govuk-link" href="/mvp-front-office/v1/manage-delegates/check-details">Cancel</a>
       </div>
 
     </form>

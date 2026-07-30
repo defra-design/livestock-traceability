@@ -1,35 +1,11 @@
 {% extends "layouts/main.html" %}
 
-{% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
 
 {% set pageName="Contact the British Cattle Movement Service (BCMS)" %}
 
 {% block header %}
 
-  {{ govukHeader({
-    homepageUrl: '/index.html'
-  }) }}
-
-  {{ govukServiceNavigation({
-    serviceName: "Livestock Information",
-    serviceUrl: "/mvp-front-office/v1/overview",
-    navigation: [
-    {
-    href: "/mvp-front-office/v1/my-profile",
-    text: "My profile"
-    },
-    {
-    href: "https://www.gov.uk/government/organisations/british-cattle-movement-service",
-    text: "Help and guidance",
-    attributes: {
-      target: "_blank"
-    }
-    }
-    ],
-    slots: {
-      navigationEnd: '<li class="govuk-service-navigation__item app-service-navigation__item--right"><a class="govuk-service-navigation__link" href="/mvp-front-office/v1/one-login">Sign out</a></li>'
-    }
-  }) }}
+  {% include "mvp-front-office/v1/partials/header.html" %}
 
 {% endblock %}
 
@@ -38,12 +14,13 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
 
-
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-two-thirds">
         <h1 class="govuk-heading-l">
           Contact the British Cattle Movement Service (BCMS)
         </h1>
+
+        <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
 
         <dl class="govuk-summary-list govuk-summary-list--no-border">
           <div class="govuk-summary-list__row">

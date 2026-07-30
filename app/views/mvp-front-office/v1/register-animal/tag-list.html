@@ -1,33 +1,9 @@
 {% extends "layouts/main.html" %}
 
-{% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
 
 {% block header %}
 
-  {{ govukHeader({
-    homepageUrl: '/index.html'
-  }) }}
-
-  {{ govukServiceNavigation({
-    serviceName: "Livestock Information",
-    serviceUrl: "/mvp-front-office/v1/overview",
-    navigation: [
-    {
-    href: "/mvp-front-office/v1/my-profile",
-    text: "My profile"
-    },
-    {
-    href: "https://www.gov.uk/government/organisations/british-cattle-movement-service",
-    text: "Help and guidance",
-    attributes: {
-      target: "_blank"
-    }
-    }
-    ],
-    slots: {
-      navigationEnd: '<li class="govuk-service-navigation__item app-service-navigation__item--right"><a class="govuk-service-navigation__link" href="/mvp-front-office/v1/one-login">Sign out</a></li>'
-    }
-  }) }}
+  {% include "mvp-front-office/v1/partials/header.html" %}
 
 {% endblock %}
 
@@ -74,7 +50,7 @@
     {% endif %}
 
     <p class="govuk-body">
-      Select the tag number from the list to update calf, dam and sire details. You can use the status indicator to check which animals are ready to submit.
+      Select the tag number from the list to update calf, dam and sire details. You can use the status indicator to check which animals are ready to send.
     </p>
 
     {% if currentTag %}
@@ -108,9 +84,9 @@
           <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
             Do you need to add additional animals?
           </legend>
-          <div id="add-another-hint" class="govuk-hint">
+          <!--<div id="add-another-hint" class="govuk-hint">
             Additional animals can include calves from different dams, or siblings from a multiple birth.
-          </div>
+          </div>-->
           {% if errors['add-another'] %}
           <p id="add-another-error" class="govuk-error-message">
             <span class="govuk-visually-hidden">Error:</span> {{ errors['add-another'] }}

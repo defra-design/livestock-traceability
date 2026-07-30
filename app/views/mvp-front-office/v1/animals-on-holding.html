@@ -1,35 +1,29 @@
 {% extends "layouts/main.html" %}
 
-{% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
 
 {% set pageName="Animals on holding" %}
 
 {% block header %}
 
-  {{ govukHeader({
-    homepageUrl: '/index.html'
-  }) }}
+  {% include "mvp-front-office/v1/partials/header.html" %}
 
-  {{ govukServiceNavigation({
-    serviceName: "Livestock Information",
-    serviceUrl: "/mvp-front-office/v1/overview",
-    navigation: [
-    {
-    href: "/mvp-front-office/v1/my-profile",
-    text: "My profile"
-    },
-    {
-    href: "https://www.gov.uk/government/organisations/british-cattle-movement-service",
-    text: "Help and guidance",
-    attributes: {
-      target: "_blank"
-    }
-    }
-    ],
-    slots: {
-      navigationEnd: '<li class="govuk-service-navigation__item app-service-navigation__item--right"><a class="govuk-service-navigation__link" href="/mvp-front-office/v1/one-login">Sign out</a></li>'
-    }
-  }) }}
+{% endblock %}
+
+{% block beforeContent %}
+
+<nav class="govuk-breadcrumbs" aria-label="Breadcrumb">
+  <ol class="govuk-breadcrumbs__list">
+    <li class="govuk-breadcrumbs__list-item">
+      <a class="govuk-breadcrumbs__link" href="/mvp-front-office/v1/overview">Home</a>
+    </li>
+    <li class="govuk-breadcrumbs__list-item">
+      <a class="govuk-breadcrumbs__link" href="/mvp-front-office/v1/my-holdings">My holdings</a>
+    </li>
+    <li class="govuk-breadcrumbs__list-item">
+      {{ holding.cph }}
+    </li>
+  </ol>
+</nav>
 
 {% endblock %}
 
@@ -38,24 +32,6 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
 
-    <!--<div class="govuk-notification-banner" role="region" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
-      <div class="govuk-notification-banner__header">
-        <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
-          Important
-        </h2>
-      </div>
-
-      <div class="govuk-notification-banner__content">
-        <p class="govuk-notification-banner__heading">
-          You have 3 animals that need your attention.
-          <a class="govuk-notification-banner__link"
-             href="/mvp-front-office/v1/animal-error-record">
-            View animal error record</a>.
-        </p>
-      </div>
-    </div>
-
--->
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-one-quarter">
         <div class="dwp-ds-render">
@@ -126,10 +102,21 @@
       </div>
 
       <div class="govuk-grid-column-three-quarters">
-        <span class="govuk-caption-l">CPH number: {{ holding.cph }}</span>
-        <h1 class="govuk-heading-l">
-          Animals on holding
+         <!--  <span class="govuk-caption-l">
+          CPH number: {{ holding.cph }}
+        </span>-->
+        <h1 class="govuk-heading-l govuk-!-margin-bottom-6">
+          {{ holding.holdingName }}
         </h1>
+
+
+        <div class="govuk-warning-text">
+          <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+          <strong class="govuk-warning-text__text">
+            <span class="govuk-visually-hidden">Warning</span>
+            Recent changes such as new registrations may take up to 24 hours to appear in your list.
+          </strong>
+        </div>
 
        <!-- <div class="govuk-grid-row">
           <div class="govuk-grid-column-two-thirds">
