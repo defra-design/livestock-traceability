@@ -1,35 +1,29 @@
 {% extends "layouts/main.html" %}
 
-{% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
 
 {% set pageName="Holding details" %}
 
 {% block header %}
 
-{{ govukHeader({
-homepageUrl: '/index.html'
-}) }}
+  {% include "mvp-front-office/v1/partials/header.html" %}
 
-{{ govukServiceNavigation({
-serviceName: "Livestock Information",
-serviceUrl: "/mvp-front-office/v1/overview",
-    navigation: [
-    {
-    href: "/mvp-front-office/v1/my-profile",
-    text: "My profile"
-    },
-    {
-    href: "https://www.gov.uk/government/organisations/british-cattle-movement-service",
-    text: "Help and guidance",
-    attributes: {
-      target: "_blank"
-    }
-    }
-    ],
-slots: {
-navigationEnd: '<li class="govuk-service-navigation__item app-service-navigation__item--right"><a class="govuk-service-navigation__link" href="/mvp-front-office/v1/one-login">Sign out</a></li>'
-}
-}) }}
+{% endblock %}
+
+{% block beforeContent %}
+
+<nav class="govuk-breadcrumbs" aria-label="Breadcrumb">
+  <ol class="govuk-breadcrumbs__list">
+    <li class="govuk-breadcrumbs__list-item">
+      <a class="govuk-breadcrumbs__link" href="/mvp-front-office/v1/overview">Home</a>
+    </li>
+    <li class="govuk-breadcrumbs__list-item">
+      <a class="govuk-breadcrumbs__link" href="/mvp-front-office/v1/my-holdings">My holdings</a>
+    </li>
+    <li class="govuk-breadcrumbs__list-item">
+      {{ holding.cph }}
+    </li>
+  </ol>
+</nav>
 
 {% endblock %}
 
@@ -38,27 +32,6 @@ navigationEnd: '<li class="govuk-service-navigation__item app-service-navigation
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
 
-    <!--<nav class="moj-sub-navigation" aria-label="Sub navigation">
-      <ul class="moj-sub-navigation__list">
-        <li class="moj-sub-navigation__item">
-          <a class="moj-sub-navigation__link" aria-current="page" href="/mvp-front-office/v1/holding-overview">Overview</a>
-        </li>
-        <li class="moj-sub-navigation__item">
-          <a class="moj-sub-navigation__link" href="/mvp-front-office/v1/holding-details">Holding details</a>
-        </li>
-        <li class="moj-sub-navigation__item">
-          <a class="moj-sub-navigation__link" href="/mvp-front-office/v1/animals-on-holding">
-            Animals on holding
-          </a>
-        </li>
-        <li class="moj-sub-navigation__item">
-          <a class="moj-sub-navigation__link" href="/mvp-front-office/v1/animal-error-record">
-            Animal error record
-          </a>
-        </li>
-      </ul>
-    </nav>
--->
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-one-quarter">
         <div class="dwp-ds-render">
@@ -72,7 +45,7 @@ navigationEnd: '<li class="govuk-service-navigation__item app-service-navigation
           </button>
 
           <nav data-module="dwp-side-navigation-panel" class="dwp-side-navigation dwp-side-navigation--mobile" aria-label="Side" role="navigation">
-                      <ul class="dwp-side-navigation__list">
+            <ul class="dwp-side-navigation__list">
 
             <li class="dwp-side-navigation__item">
               <a id="s-item-1" href="/mvp-front-office/v1/holding-overview" class="dwp-side-navigation__link">
@@ -130,9 +103,6 @@ navigationEnd: '<li class="govuk-service-navigation__item app-service-navigation
 
       <div class="govuk-grid-column-three-quarters">
 
-        <span class="govuk-caption-l">
-          CPH number: {{ holding.cph }}
-        </span>
         <h1 class="govuk-heading-l">
           Holding details
         </h1>

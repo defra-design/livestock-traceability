@@ -1,35 +1,29 @@
 {% extends "layouts/main.html" %}
 
-{% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
 
 {% set pageName="Activity history" %}
 
 {% block header %}
 
-  {{ govukHeader({
-    homepageUrl: '/index.html'
-  }) }}
+  {% include "mvp-front-office/v1/partials/header.html" %}
 
-  {{ govukServiceNavigation({
-    serviceName: "Livestock Information",
-    serviceUrl: "/mvp-front-office/v1/overview",
-    navigation: [
-    {
-    href: "/mvp-front-office/v1/my-profile",
-    text: "My profile"
-    },
-    {
-    href: "https://www.gov.uk/government/organisations/british-cattle-movement-service",
-    text: "Help and guidance",
-    attributes: {
-      target: "_blank"
-    }
-    }
-    ],
-    slots: {
-      navigationEnd: '<li class="govuk-service-navigation__item app-service-navigation__item--right"><a class="govuk-service-navigation__link" href="/mvp-front-office/v1/one-login">Sign out</a></li>'
-    }
-  }) }}
+{% endblock %}
+
+{% block beforeContent %}
+
+<nav class="govuk-breadcrumbs" aria-label="Breadcrumb">
+  <ol class="govuk-breadcrumbs__list">
+    <li class="govuk-breadcrumbs__list-item">
+      <a class="govuk-breadcrumbs__link" href="/mvp-front-office/v1/overview">Home</a>
+    </li>
+    <li class="govuk-breadcrumbs__list-item">
+      <a class="govuk-breadcrumbs__link" href="/mvp-front-office/v1/my-holdings">My holdings</a>
+    </li>
+    <li class="govuk-breadcrumbs__list-item">
+      {{ holding.cph }}
+    </li>
+  </ol>
+</nav>
 
 {% endblock %}
 
@@ -109,7 +103,6 @@
 
       <div class="govuk-grid-column-three-quarters">
 
-        <span class="govuk-caption-l">CPH number: {{ holding.cph }}</span>
         <h1 class="govuk-heading-l">
           Activity history
         </h1>

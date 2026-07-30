@@ -1,6 +1,12 @@
 const govukPrototypeKit = require('govuk-prototype-kit')
 const router = govukPrototypeKit.requests.setupRouter()
 
+function getSelectedHolding(req) {
+  const holdingsData = req.session.data.holdingsSingleCph
+  const holdingId = req.session.data['holding-id'] || 'holding-001'
+  return holdingsData.holdings.find((h) => h.id === holdingId) || holdingsData.holdings[0]
+}
+
 router.post('/mvp-front-office/v1/one-login-email', (req, res) => {
   res.redirect('/mvp-front-office/v1/one-login-password')
 })
@@ -143,15 +149,13 @@ router.post('/mvp-front-office/v1/check-your-phone', (req, res) => {
 })
 
 router.get('/mvp-front-office/v1/holding-details', (req, res) => {
-  const holdingsData = req.session.data.holdingsSingleCph
-  const holding = holdingsData.holdings.find((h) => h.id === 'holding-001')
+  const holding = getSelectedHolding(req)
 
   res.render('mvp-front-office/v1/holding-details', { holding })
 })
 
 router.get('/mvp-front-office/v1/holding-overview', (req, res) => {
-  const holdingsData = req.session.data.holdingsSingleCph
-  const holding = holdingsData.holdings.find((h) => h.id === 'holding-001')
+  const holding = getSelectedHolding(req)
   const cattleData = req.session.data.livestockSameHerd
 
   const cattle = cattleData.animals.filter(
@@ -163,7 +167,7 @@ router.get('/mvp-front-office/v1/holding-overview', (req, res) => {
   res.render('mvp-front-office/v1/holding-overview', { holding, cattle, errorRecordsCount })
 })
 
-router.get('/mvp-front-office/v1/overview', (req, res) => {
+router.get('/mvp-front-office/v1/my-holdings', (req, res) => {
   const holdingsData = req.session.data.holdingsSingleCph
   const search = String(req.query.search || '').trim().toLowerCase()
 
@@ -189,12 +193,11 @@ router.get('/mvp-front-office/v1/overview', (req, res) => {
     )
   })
 
-  res.render('mvp-front-office/v1/overview', { holdings, search })
+  res.render('mvp-front-office/v1/my-holdings', { holdings, search })
 })
 
 router.get('/mvp-front-office/v1/submissions', (req, res) => {
-  const holdingsData = req.session.data.holdingsSingleCph
-  const holding = holdingsData.holdings.find((h) => h.id === 'holding-001')
+  const holding = getSelectedHolding(req)
 
   res.render('mvp-front-office/v1/submissions', { holding })
 })
@@ -202,8 +205,7 @@ router.get('/mvp-front-office/v1/submissions', (req, res) => {
 router.get('/mvp-front-office/v1/animals-on-holding', (req, res) => {
   const search = String(req.query.search || '').trim().toLowerCase()
   const cattleData = req.session.data.livestockSameHerd
-  const holdingsData = req.session.data.holdingsSingleCph
-  const holding = holdingsData.holdings.find((h) => h.id === 'holding-001')
+  const holding = getSelectedHolding(req)
 
   const cattle = cattleData.animals
     .filter((animal) => animal.status !== 'Deceased' && animal.status !== 'Sold')
@@ -230,9 +232,19 @@ router.get('/mvp-front-office/v1/animals-on-holding', (req, res) => {
   res.render('mvp-front-office/v1/animals-on-holding', { cattle, search, holding })
 })
 
+router.get('/mvp-front-office/v1/export-animals', (req, res) => {
+  const holding = getSelectedHolding(req)
+  const exported = req.query.exported === 'true'
+
+  res.render('mvp-front-office/v1/export-animals', { holding, exported })
+})
+
+router.post('/mvp-front-office/v1/export-animals', (req, res) => {
+  res.redirect('/mvp-front-office/v1/export-animals?exported=true')
+})
+
 router.get('/mvp-front-office/v1/animal-error-record', (req, res) => {
-  const holdingsData = req.session.data.holdingsSingleCph
-  const holding = holdingsData.holdings.find((h) => h.id === 'holding-001')
+  const holding = getSelectedHolding(req)
 
   const errorRecords = [
     {
@@ -259,24 +271,24 @@ router.get('/mvp-front-office/v1/animal-error-record', (req, res) => {
 })
 
 router.get('/mvp-front-office/v1/activity-history', (req, res) => {
-  const holdingsData = req.session.data.holdingsSingleCph
-  const holding = holdingsData.holdings.find((h) => h.id === 'holding-001')
+  const holding = getSelectedHolding(req)
 
   res.render('mvp-front-office/v1/activity-history', { holding })
 })
 
 router.get('/mvp-front-office/v1/messages', (req, res) => {
-  const holdingsData = req.session.data.holdingsSingleCph
-  const holding = holdingsData.holdings.find((h) => h.id === 'holding-001')
+  const holding = getSelectedHolding(req)
 
   res.render('mvp-front-office/v1/messages', { holding })
 })
 
 router.get('/mvp-front-office/v1/manage-delegates', (req, res) => {
-  const holdingsData = req.session.data.holdingsSingleCph
-  const holding = holdingsData.holdings.find((h) => h.id === 'holding-001')
+  const holding = getSelectedHolding(req)
 
-  res.render('mvp-front-office/v1/manage-delegates', { holding })
+  const delegates = [...req.session.data.delegatesSingleCph.delegates]
+    .sort((a, b) => new Date(b.dateAdded) - new Date(a.dateAdded))
+
+  res.render('mvp-front-office/v1/manage-delegates', { holding, delegates })
 })
 
 router.get('/mvp-front-office/v1/cattle/:earTagNumber', (req, res) => {

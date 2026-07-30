@@ -1,13 +1,13 @@
 {% extends "layouts/main.html" %}
 
 
+{% set pageName="Before you send the invitation" %}
+
 {% block header %}
 
   {% include "mvp-front-office/v1/partials/header.html" %}
 
 {% endblock %}
-
-{% set pageName="Submit your cattle death report" %}
 
 {% block beforeContent %}
   {{ govukBackLink({
@@ -21,13 +21,13 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
 
-    <h1 class="govuk-heading-l">Now submit your cattle death report</h1>
+    <h1 class="govuk-heading-l">Before you send the invitation</h1>
 
-    <p class="govuk-body">By submitting this cattle death report you are confirming that, to the best of your knowledge, the details you are providing are correct.</p>
+    <p class="govuk-body">If your delegate does not yet have a Defra account or GOV.UK One Login, they will be asked to create one before they can accept your invitation.</p>
 
-    <form method="post" action="/mvp-front-office/v1/report-death/submit" novalidate>
+    <form action="/mvp-front-office/v1/manage-delegates/before-you-send" method="post" novalidate>
       <button type="submit" class="govuk-button" data-module="govuk-button">
-        Accept and send
+        Continue
       </button>
     </form>
 
