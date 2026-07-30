@@ -163,7 +163,7 @@ router.get('/mvp-front-office/v1/holding-overview', (req, res) => {
   res.render('mvp-front-office/v1/holding-overview', { holding, cattle, errorRecordsCount })
 })
 
-router.get('/mvp-front-office/v1/overview', (req, res) => {
+router.get('/mvp-front-office/v1/my-holdings', (req, res) => {
   const holdingsData = req.session.data.holdingsSingleCph
   const search = String(req.query.search || '').trim().toLowerCase()
 
@@ -189,7 +189,7 @@ router.get('/mvp-front-office/v1/overview', (req, res) => {
     )
   })
 
-  res.render('mvp-front-office/v1/overview', { holdings, search })
+  res.render('mvp-front-office/v1/my-holdings', { holdings, search })
 })
 
 router.get('/mvp-front-office/v1/submissions', (req, res) => {
@@ -228,6 +228,18 @@ router.get('/mvp-front-office/v1/animals-on-holding', (req, res) => {
     })
 
   res.render('mvp-front-office/v1/animals-on-holding', { cattle, search, holding })
+})
+
+router.get('/mvp-front-office/v1/export-animals', (req, res) => {
+  const holdingsData = req.session.data.holdingsSingleCph
+  const holding = holdingsData.holdings.find((h) => h.id === 'holding-001')
+  const exported = req.query.exported === 'true'
+
+  res.render('mvp-front-office/v1/export-animals', { holding, exported })
+})
+
+router.post('/mvp-front-office/v1/export-animals', (req, res) => {
+  res.redirect('/mvp-front-office/v1/export-animals?exported=true')
 })
 
 router.get('/mvp-front-office/v1/animal-error-record', (req, res) => {

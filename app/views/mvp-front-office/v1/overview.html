@@ -15,6 +15,10 @@
     serviceUrl: "/mvp-front-office/v1/overview",
     navigation: [
     {
+    href: "/mvp-front-office/v1/my-holdings",
+    text: "My holdings"
+    },
+    {
     href: "/mvp-front-office/v1/my-profile",
     text: "My profile"
     },
@@ -46,116 +50,50 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <p class="govuk-caption-l" id="sub-heading">
-      Report cattle births, movements and deaths, browse your animal's digital record and manage your holding details.
+      Report cattle births, movements and deaths, browse your animal's digital record and manage your holding details
     </p>
   </div>
 </div>
 
-<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+<hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
 
-{% from "govuk/components/table/macro.njk" import govukTable %}
-
-<h2 class="govuk-heading-m">My holdings</h2>
-
-<div class="govuk-grid-row">
-  <div class="govuk-grid-column-two-thirds">
-    <form method="GET">
-      <div class="search-wrapper govuk-form-group">
-        <label for="search-holdings" class="govuk-label">
-          Search by CPH number, holding name or postcode
-        </label>
-        <div class="search-input-wrapper">
-          <input type="search" value="{{ search }}" id="search-holdings" name="search" title="Search" class="govuk-input">
-          <div class="search-input-submit-wrapper">
-            <button type="submit" class="search-submit">Search</button>
-          </div>
-        </div>
-      </div>
-    </form>
-  </div>
-</div>
-
-
-{% if search %}
-
-<p class="govuk-body" aria-live="polite">
-  {{ holdings.length }}
-  {% if holdings.length === 1 %}
-  holding matches
-  {% else %}
-  holdings match
-  {% endif %}
-  <strong>'{{ search }}'</strong>
-</p>
-
-<p class="govuk-body">
-  <a class="govuk-link" href="/mvp-front-office/v1/overview">
-    Clear search
-  </a>
-</p>
-
-{% endif %}
-
-{% if holdings.length %}
-
-{% set rows = [] %}
-{% for holding in holdings %}
-{% set row = [
-{
-html: '<a class="govuk-link" href="/mvp-front-office/v1/holding-overview">' + holding.cph + '</a>'
-},
-{
-text: holding.holdingName
-},
-{
-text: holding.address.postcode
-},
-{
-text: holding.role
-}
-] %}
-{% set rows = (rows.push(row), rows) %}
-{% endfor %}
-
-{{ govukTable({
-attributes: {
-"data-module": "moj-sortable-table"
-},
-caption: "My holdings",
-captionClasses: "govuk-visually-hidden",
-head: [
-{
-text: "CPH",
-attributes: {
-"aria-sort": "ascending"
-}
-},
-{
-text: "Holding name",
-attributes: {
-"aria-sort": "none"
-}
-},
-{
-text: "Postcode",
-attributes: {
-"aria-sort": "none"
-}
-},
-{
-text: "Role",
-attributes: {
-"aria-sort": "none"
-}
-}
-],
-rows: rows
-}) }}
-
-{% else %}
-<p class="govuk-body">
-  No holdings found{% if search %} for "{{ search }}"{% endif %}.
-</p>
-{% endif %}
+<ul class="govuk-grid-row card-group">
+  <li class="govuk-grid-column-one-third card-group__item">
+    <div class="card card--clickable" data-test="global-search">
+      <h2 class="govuk-heading-m card__heading">
+        <a class="govuk-link card__link govuk-link--no-visited-state" href="/mvp-front-office/v1/my-holdings">
+          My holdings
+        </a>
+      </h2>
+      <p class="govuk-body card__description">
+        Access the livestock information for your claimed holdings
+      </p>
+    </div>
+  </li>
+  <li class="govuk-grid-column-one-third card-group__item">
+    <div class="card card--clickable" data-test="manage-prisoner-whereabouts">
+      <h2 class="govuk-heading-m card__heading">
+        <a class="govuk-link card__link govuk-link--no-visited-state" href="#">
+          Claim a holding
+        </a>
+      </h2>
+      <p class="govuk-body card__description">
+        Verify your CPH number to claim access to a holding
+      </p>
+    </div>
+  </li>
+  <li class="govuk-grid-column-one-third card-group__item">
+    <div class="card card--clickable" data-test="use-of-force">
+      <h2 class="govuk-heading-m card__heading">
+        <a class="govuk-link card__link govuk-link--no-visited-state" href="/mvp-front-office/v1/contact-bcms">
+          Contact the British Cattle Movement Service (BCMS)
+        </a>
+      </h2>
+      <p class="govuk-body card__description">
+        Help and guidance for cattle births, movements and deaths
+      </p>
+    </div>
+  </li>
+</ul>
 
 {% endblock %}

@@ -1,0 +1,178 @@
+{% extends "layouts/main.html" %}
+
+{% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "govuk/components/date-input/macro.njk" import govukDateInput %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% set pageName="Export animals on holding (CSV)" %}
+
+{% block header %}
+
+  {{ govukHeader({
+    homepageUrl: '/index.html'
+  }) }}
+
+  {{ govukServiceNavigation({
+    serviceName: "Livestock Information",
+    serviceUrl: "/mvp-front-office/v1/overview",
+    navigation: [
+    {
+    href: "/mvp-front-office/v1/my-profile",
+    text: "My profile"
+    },
+    {
+    href: "https://www.gov.uk/government/organisations/british-cattle-movement-service",
+    text: "Help and guidance",
+    attributes: {
+      target: "_blank"
+    }
+    }
+    ],
+    slots: {
+      navigationEnd: '<li class="govuk-service-navigation__item app-service-navigation__item--right"><a class="govuk-service-navigation__link" href="/mvp-front-office/v1/one-login">Sign out</a></li>'
+    }
+  }) }}
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+
+    <div class="govuk-grid-row">
+
+      <div class="govuk-grid-column-two-thirds">
+        <span class="govuk-caption-l">CPH number: {{ holding.cph }}</span>
+        <h1 class="govuk-heading-l">
+          Export animals on holding (CSV)
+        </h1>
+
+        {% if exported %}
+        {% set html %}
+        <p class="govuk-notification-banner__heading">
+          Your export has been requested. This is a prototype - no file has actually been generated.
+        </p>
+        {% endset %}
+
+        {{ govukNotificationBanner({
+          type: "success",
+          html: html
+        }) }}
+        {% endif %}
+
+        <p class="govuk-body">
+          Choose the columns, date range and file format you want, then select 'Export'.
+        </p>
+
+        <form action="/mvp-front-office/v1/export-animals" method="post" novalidate>
+
+          {{ govukCheckboxes({
+            name: "columns",
+            fieldset: {
+              legend: {
+                text: "Which columns do you want to include?",
+                classes: "govuk-fieldset__legend--m"
+              }
+            },
+            hint: {
+              text: "Select all that apply"
+            },
+            items: [
+              { value: "cph", text: "CPH number", checked: true },
+              { value: "earTagNumber", text: "Ear tag number", checked: true },
+              { value: "dateOfBirth", text: "Date of birth", checked: true },
+              { value: "dateOfRegistration", text: "Date of registration" },
+              { value: "onHoldingDate", text: "On holding date" },
+              { value: "sex", text: "Sex", checked: true },
+              { value: "breedName", text: "Breed name" },
+              { value: "breedCode", text: "Breed code" },
+              { value: "status", text: "Status" },
+              { value: "damType", text: "Dam type" },
+              { value: "geneticDamEarTagNumber", text: "Genetic dam ear tag number" },
+              { value: "surrogateDamEarTagNumber", text: "Surrogate dam ear tag number" },
+              { value: "sireEarTagNumber", text: "Sire ear tag number" },
+              { value: "sireName", text: "Sire name" }
+            ]
+          }) }}
+
+          <div class="govuk-form-group">
+            <fieldset class="govuk-fieldset">
+              <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+                Date range
+              </legend>
+              <div id="date-range-hint" class="govuk-hint">
+                Only animals with a date of birth in this range will be included
+              </div>
+
+              {{ govukDateInput({
+                id: "date-from",
+                namePrefix: "date-from",
+                fieldset: {
+                  legend: {
+                    text: "From",
+                    classes: "govuk-fieldset__legend--s"
+                  }
+                },
+                hint: {
+                  text: "For example, 1 4 2023"
+                },
+                items: [
+                  { name: "day", classes: "govuk-input--width-2" },
+                  { name: "month", classes: "govuk-input--width-2" },
+                  { name: "year", classes: "govuk-input--width-4" }
+                ]
+              }) }}
+
+              {{ govukDateInput({
+                id: "date-to",
+                namePrefix: "date-to",
+                fieldset: {
+                  legend: {
+                    text: "To",
+                    classes: "govuk-fieldset__legend--s"
+                  }
+                },
+                hint: {
+                  text: "For example, 30 4 2024"
+                },
+                items: [
+                  { name: "day", classes: "govuk-input--width-2" },
+                  { name: "month", classes: "govuk-input--width-2" },
+                  { name: "year", classes: "govuk-input--width-4" }
+                ]
+              }) }}
+            </fieldset>
+          </div>
+
+          {{ govukRadios({
+            name: "file-format",
+            fieldset: {
+              legend: {
+                text: "File format",
+                classes: "govuk-fieldset__legend--m"
+              }
+            },
+            items: [
+              { value: "csv", text: "CSV", checked: true },
+              { value: "xlsx", text: "Excel (.xlsx)" }
+            ]
+          }) }}
+
+          {{ govukButton({
+            text: "Export",
+            preventDoubleClick: true
+          }) }}
+
+        </form>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}
