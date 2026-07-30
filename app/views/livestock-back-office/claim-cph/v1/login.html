@@ -1,0 +1,55 @@
+```html{% extends "layouts/main.html" %}
+
+{% set pageName = "Sign in to HMRC online services" %}{% set serviceName = "Livestock Information" %}{% set serviceUrl = "/livestock-back-office/v2/home" %}
+
+{% set pathParts = currentPath.split('/') %}{% set currentBaseUrl = '/' + pathParts[1] + '/' + pathParts[2] + '/' + pathParts[3] + '/' %}
+
+{% block header %}{{ govukHeader({homepageUrl: "/index.html"}) }}{% block navBar %}{% set pathParts = currentPath.split('/') %}{% set currentBaseUrl = '/' + pathParts[1] + '/' + pathParts[2] + '/' + pathParts[3] + '/' %}{{ govukServiceNavigation({serviceName: "Sign in to HMRC online services",serviceUrl: "{{currentBaseUrl}}/home",navigation: [
+
+]}) }}{% endblock %}
+
+{% endblock %}
+
+
+{% block content %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+
+        <form method="POST" novalidate=""
+              action="./before-you-link-a-holding">
+            <div class="govuk-form-group">
+
+
+                <h1 class="govuk-label-wrapper"><label class="govuk-label govuk-label--l" for="email-address">
+                    Enter the email address for your GOV.UK One Login for HMRC
+                </label></h1>
+
+                <div id="email-address-hint" class="govuk-hint">
+                    You can only sign in with a GOV.UK One Login if you already have one for HMRC
+                </div>
+
+                <input class="govuk-input" id="email-address" name="email-address" type="text" spellcheck="false"
+                       value="" aria-describedby="email-address-hint" autocomplete="email"
+                       inputmode="email">
+
+
+            </div>
+
+            <button type="submit" data-prevent-double-click="true" class="govuk-button" data-module="govuk-button"
+                    id="continue" data-govuk-button-init="">
+                Continue
+            </button>
+
+
+        </form>
+
+
+        <a lang="en" hreflang="en" class="govuk-link hmrc-report-technical-issue " rel="noreferrer noopener"
+           target="_blank"
+           href="https://www.tax.service.gov.uk/contact/report-technical-problem?service=identity-provider-gateway-frontend&amp;referrerUrl=https%3A%2F%2Fwww.tax.service.gov.uk%2Fsign-in-to-hmrc-online-services%2Fidentity%2Fenter-gov-uk-one-login-email-address%2FbnP7LW7sUkwJgw_U5KmZcH4hA7hW&amp;useServiceNavigation">Is
+            this page not working properly? (opens in new tab)</a>
+    </div>
+</div>
+
+{% endblock %}

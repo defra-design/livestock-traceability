@@ -1,0 +1,31 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}We need to check your request{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      {{ govukPanel({
+        titleText: "We need to check your request",
+        html: "CPH " ~ result.holding.cphNumber
+      }) }}
+
+      <p class="govuk-body">
+        Your request has been added to your account with a pending status. BCMS will check the information you provided before the CPH is linked.
+      </p>
+
+      <p class="govuk-body">
+        We will email the CPH holder and every email address linked to the existing account to tell them about this request.
+      </p>
+
+      <p class="govuk-body">
+        BCMS may contact you if more information is needed.
+      </p>
+
+      {{ govukButton({
+        text: "View holdings",
+        href: "/" ~ baseURL ~ "/holdings"
+      }) }}
+    </div>
+  </div>
+{% endblock %}

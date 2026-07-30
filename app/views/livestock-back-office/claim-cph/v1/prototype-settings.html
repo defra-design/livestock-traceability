@@ -1,0 +1,122 @@
+{% extends "layouts/main.html" %}
+
+{% set pageHeading = "Set account recovery questions" %}
+
+{% block pageTitle %}
+  {% if errors and errors.length %}Error: {% endif %}{{ pageHeading }}
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "/" ~ baseURL ~ "/before-you-link-a-holding"
+  }) }}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      {% if errors and errors.length %}
+        {{ govukErrorSummary({
+          titleText: "There is a problem",
+          errorList: errors
+        }) }}
+      {% endif %}
+
+      {% if saved %}
+        {{ govukNotificationBanner({
+          type: "success",
+          text: "Prototype settings saved"
+        }) }}
+      {% endif %}
+
+      {% if reset %}
+        {{ govukNotificationBanner({
+          type: "success",
+          text: "Prototype journey data reset"
+        }) }}
+      {% endif %}
+
+      <form action="/{{ baseURL }}/prototype-settings" method="post" novalidate>
+        {{ govukCheckboxes({
+          idPrefix: "recovery-questions",
+          name: "recovery-questions",
+          fieldset: {
+            legend: {
+              text: pageHeading,
+              isPageHeading: true,
+              classes: "govuk-fieldset__legend--l"
+            }
+          },
+          hint: {
+            text: "Select exactly 3 questions to ask in this prototype."
+          },
+          errorMessage: questionsError,
+          items: [
+            {
+              value: "sbi",
+              text: "SBI",
+              hint: { text: "Higher confidence" },
+              checked: "sbi" in selectedQuestions
+            },
+            {
+              value: "lastBirthEarTag",
+              text: "Full ear tag number of the last recorded calf birth",
+              hint: { text: "Higher confidence" },
+              checked: "lastBirthEarTag" in selectedQuestions
+            },
+            {
+              value: "lastMovementOn",
+              text: "Last movement onto the holding",
+              hint: { text: "Date and last 4 digits of the ear tag number" },
+              checked: "lastMovementOn" in selectedQuestions
+            },
+            {
+              value: "lastMovementOff",
+              text: "Last movement off the holding",
+              hint: { text: "Date and last 4 digits of the ear tag number" },
+              checked: "lastMovementOff" in selectedQuestions
+            },
+            {
+              value: "memorableWord",
+              text: "Memorable word",
+              hint: { text: "Medium confidence" },
+              checked: "memorableWord" in selectedQuestions
+            },
+            {
+              value: "herdMark",
+              text: "Cattle herd mark",
+              hint: { text: "Medium confidence. Some herd marks may be available from other sources." },
+              checked: "herdMark" in selectedQuestions
+            },
+            {
+              value: "animalCount",
+              text: "Number of cattle shown on the holding",
+              hint: { text: "Medium confidence. The total may differ if recent records have not been processed." },
+              checked: "animalCount" in selectedQuestions
+            }
+          ]
+        }) }}
+
+        {{ govukButton({ text: "Save settings" }) }}
+      </form>
+
+      {{ govukDetails({
+        summaryText: "Prototype answer key",
+        html: "<p class=\"govuk-body\">These answers are used when a holding record does not contain its own <code>recoveryAnswers</code>.</p><ul class=\"govuk-list govuk-list--bullet\"><li>SBI: 123456789</li><li>Last calf birth: UK 123456 123456</li><li>Last movement on: 15 June 2026, tag ending 3456</li><li>Last movement off: 20 June 2026, tag ending 7890</li><li>Memorable word: bluebell</li><li>Herd mark: 123456</li><li>Number of cattle: 42</li></ul>"
+      }) }}
+
+      <p class="govuk-body">
+        <a class="govuk-link" href="/{{ baseURL }}/before-you-link-a-holding">Start the claim journey</a>
+      </p>
+
+      <form action="/{{ baseURL }}/prototype-settings/reset" method="post">
+        {{ govukButton({
+          text: "Reset prototype journey data",
+          classes: "govuk-button--secondary"
+        }) }}
+      </form>
+    </div>
+  </div>
+{% endblock %}

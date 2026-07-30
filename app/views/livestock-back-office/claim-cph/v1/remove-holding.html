@@ -1,0 +1,62 @@
+{% extends "layouts/main.html" %}
+
+{% set pageHeading = "Are you sure you want to remove this CPH?" %}
+
+{% block pageTitle %}
+  {% if errors and errors.length %}Error: {% endif %}{{ pageHeading }}
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "/" ~ baseURL ~ "/holdings-added"
+  }) }}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      {% if errors and errors.length %}
+        {{ govukErrorSummary({
+          titleText: "There is a problem",
+          errorList: errors
+        }) }}
+      {% endif %}
+
+      <form action="/{{ baseURL }}/remove-holding/{{ holding.id }}" method="post" novalidate>
+        {{ govukRadios({
+          idPrefix: "remove-holding",
+          name: "remove-holding",
+          fieldset: {
+            legend: {
+              text: pageHeading,
+              isPageHeading: true,
+              classes: "govuk-fieldset__legend--l"
+            }
+          },
+          hint: {
+            html: "CPH " ~ holding.cphNumber ~ "<br>" ~ holding.postcode
+          },
+          errorMessage: removeError,
+          items: [
+            {
+              value: "yes",
+              text: "Yes",
+              checked: selectedAnswer == "yes"
+            },
+            {
+              value: "no",
+              text: "No",
+              checked: selectedAnswer == "no"
+            }
+          ]
+        }) }}
+
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+      </form>
+    </div>
+  </div>
+{% endblock %}

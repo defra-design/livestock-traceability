@@ -1,0 +1,27 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}CPH linked to your account{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      {{ govukPanel({
+        titleText: "CPH linked to your account",
+        html: "CPH " ~ result.holding.cphNumber
+      }) }}
+
+      <p class="govuk-body">
+        You can now use this account for the holding.
+      </p>
+
+      <p class="govuk-body">
+        We will email the CPH holder and every email address linked to the existing account to tell them that the CPH has been linked.
+      </p>
+
+      {{ govukButton({
+        text: "View holdings",
+        href: "/" ~ baseURL ~ "/holdings"
+      }) }}
+    </div>
+  </div>
+{% endblock %}

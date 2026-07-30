@@ -1,0 +1,97 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  {% if errors and errors.length %}Error: {% endif %}{{ question.heading }}
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: backLink
+  }) }}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      {% if errors and errors.length %}
+        {{ govukErrorSummary({
+          titleText: "There is a problem",
+          errorList: errors
+        }) }}
+      {% endif %}
+
+      <form action="/{{ baseURL }}/recovery-question/{{ questionNumber }}" method="post" novalidate>
+        {% if returnToCheck %}
+          <input type="hidden" name="return-to-check" value="true">
+        {% endif %}
+
+        {% if question.type == "movement" %}
+          <span class="govuk-caption-l">Question {{ questionNumber }} of {{ totalQuestions }}</span>
+          <h1 class="govuk-heading-l">{{ question.heading }}</h1>
+
+          {{ govukDateInput({
+            id: "recovery-date",
+            namePrefix: "recovery-date",
+            fieldset: {
+              legend: {
+                text: question.dateLabel,
+                classes: "govuk-fieldset__legend--m"
+              }
+            },
+            hint: {
+              text: "For example, 27 3 2026"
+            },
+            errorMessage: dateError,
+            items: [
+              { name: "day", value: values.day, classes: "govuk-input--width-2", autocomplete: "off", inputmode: "numeric" },
+              { name: "month", value: values.month, classes: "govuk-input--width-2", autocomplete: "off", inputmode: "numeric" },
+              { name: "year", value: values.year, classes: "govuk-input--width-4", autocomplete: "off", inputmode: "numeric" }
+            ]
+          }) }}
+
+          {{ govukInput({
+            label: {
+              text: question.tagLabel,
+              classes: "govuk-label--m"
+            },
+            hint: {
+              text: "For example, 4567"
+            },
+            id: "recovery-ear-tag-last4",
+            name: "recovery-ear-tag-last4",
+            value: values.earTagLast4,
+            classes: "govuk-input--width-4",
+            inputmode: "numeric",
+            autocomplete: "off",
+            spellcheck: false,
+            errorMessage: last4Error
+          }) }}
+        {% else %}
+          {{ govukInput({
+            label: {
+              html: "<span class=\"govuk-caption-l\">Question " ~ questionNumber ~ " of " ~ totalQuestions ~ "</span>" ~ question.heading,
+              isPageHeading: true,
+              classes: "govuk-label--l"
+            },
+            hint: {
+              text: question.hint
+            },
+            id: "recovery-answer",
+            name: "recovery-answer",
+            value: values.answer,
+            type: question.inputType or "text",
+            classes: question.classes,
+            inputmode: question.inputMode,
+            autocomplete: question.autocomplete or "off",
+            spellcheck: false,
+            errorMessage: answerError
+          }) }}
+        {% endif %}
+
+        {{ govukButton({ text: "Continue" }) }}
+      </form>
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,80 @@
+{% extends "layouts/main.html" %}
+
+{% set pageHeading = "What is your role for this holding?" %}
+
+{% block pageTitle %}
+  {% if errors and errors.length %}Error: {% endif %}{{ pageHeading }}
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: backLink
+  }) }}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      {% if errors and errors.length %}
+        {{ govukErrorSummary({
+          titleText: "There is a problem",
+          errorList: errors
+        }) }}
+      {% endif %}
+
+      <form action="/{{ baseURL }}/role-on-holding" method="post" novalidate>
+        {{ govukRadios({
+          idPrefix: "holding-role",
+          name: "holding-role",
+          fieldset: {
+            legend: {
+              text: pageHeading,
+              isPageHeading: true,
+              classes: "govuk-fieldset__legend--l"
+            }
+          },
+          hint: {
+            text: "Select the role that applies to you for CPH " ~ pendingHolding.cphNumber ~ "."
+          },
+          errorMessage: roleError,
+          items: [
+            {
+              value: "cph-holder",
+              text: "CPH holder",
+              checked: selectedRole == "cph-holder"
+            },
+            {
+              value: "keeper",
+              text: "Keeper",
+              checked: selectedRole == "keeper"
+            },
+            {
+              value: "delegate",
+              text: "Delegate",
+              checked: selectedRole == "delegate"
+            },
+            {
+              value: "agent",
+              text: "Agent",
+              checked: selectedRole == "agent"
+            },
+            {
+              divider: "or"
+            },
+            {
+              value: "not-sure",
+              text: "I’m not sure",
+              checked: selectedRole == "not-sure"
+            }
+          ]
+        }) }}
+
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+      </form>
+    </div>
+  </div>
+{% endblock %}
