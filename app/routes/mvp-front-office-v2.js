@@ -11,6 +11,10 @@ router.post('/mvp-front-office/v2/auth/one-login-email', (req, res) => {
   res.redirect('/mvp-front-office/v2/auth/one-login-password')
 })
 
+router.post('/mvp-front-office/v2/auth/one-login-password', (req, res) => {
+  res.redirect('/mvp-front-office/v2/auth/check-your-phone')
+})
+
 router.post('/mvp-front-office/v2/auth/check-your-phone', (req, res) => {
   res.redirect('/mvp-front-office/v2/overview')
 })
@@ -118,19 +122,22 @@ router.get('/mvp-front-office/v2/my-holdings/animal-error-record', (req, res) =>
       earTagNumber: 'UK324537467886',
       dateOfBirth: '09-07-2025',
       dateOfRegistration: '10-08-2025',
-      reason: 'The date of birth you have entered is over the 27-day deadline to report a calf birth.'
+      reason: 'The date of birth you have entered is over the 27-day deadline to report a calf birth.',
+      evidence: 'You may be required to provide a written explanation describing why the birth could not be reported within the allotted time.'
     },
     {
       earTagNumber: 'UK324537467887',
       dateOfBirth: '29-07-2025',
       dateOfRegistration: '10-08-2025',
-      reason: 'The genetic dam you have entered has given birth in the last 240 days.'
+      reason: 'The genetic dam you have entered has given birth in the last 240 days.',
+      evidence: 'You may be required to provide documentary evidence or DNA parentage testing.'
     },
     {
       earTagNumber: 'UK324537467888',
       dateOfBirth: '29-07-2025',
       dateOfRegistration: '10-08-2025',
-      reason: 'The genetic dam you have entered is over 20 years old.'
+      reason: 'The genetic dam you have entered is over 20 years old.',
+      evidence: 'You may be required to provide a signed declaration from your veterinarian or breed society.'
     }
   ]
 

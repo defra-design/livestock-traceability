@@ -2,7 +2,7 @@
 
 {% from "govuk/components/tabs/macro.njk" import govukTabs %}
 
-{% set pageName = "Cattle details" %}
+{% set pageName = animal.earTagNumber | formatReference %}
 {% set activeNavItem = "my-holdings" %}
 
 {% block header %}
