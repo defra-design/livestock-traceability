@@ -1,0 +1,51 @@
+// A vertical list of links to related services/tasks, each row divided by a
+// top border with a trailing chevron - the pattern GOV.UK One Login and
+// HMRC's business tax account use for "your services" style lists.
+
+.service-link {
+  padding-right: 10px;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  column-gap: 10px;
+  row-gap: 10px;
+  border-top: 1px solid $govuk-border-colour;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.service-link:last-child {
+  border-bottom: 1px solid $govuk-border-colour;
+}
+
+.service-link:hover {
+  background-color: #f8f8f8;
+  cursor: pointer;
+}
+
+.service-link__name {
+  display: flex;
+  flex-direction: column;
+  row-gap: 5px;
+}
+
+.service-link__overlay-link::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
+.service-link__status {
+  display: flex;
+}
+
+.chevron {
+  flex-shrink: 0;
+  width: 7px;
+  height: 7px;
+  border-top: 3px solid $govuk-link-colour;
+  border-right: 3px solid $govuk-link-colour;
+  rotate: 45deg;
+}

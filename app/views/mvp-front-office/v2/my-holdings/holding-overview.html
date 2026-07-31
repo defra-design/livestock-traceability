@@ -1,0 +1,171 @@
+{% extends "layouts/main.html" %}
+
+
+{% set pageName=holding.holdingName %}
+{% set activeNavItem = "my-holdings" %}
+{% set sideNavActive = "holding-overview" %}
+
+{% block beforeContent %}
+
+<nav class="govuk-breadcrumbs" aria-label="Breadcrumb">
+  <ol class="govuk-breadcrumbs__list">
+    <li class="govuk-breadcrumbs__list-item">
+      <a class="govuk-breadcrumbs__link" href="/mvp-front-office/v2/overview">Home</a>
+    </li>
+    <li class="govuk-breadcrumbs__list-item">
+      <a class="govuk-breadcrumbs__link" href="/mvp-front-office/v2/my-holdings">My holdings</a>
+    </li>
+    <li class="govuk-breadcrumbs__list-item">
+      {{ holding.holdingName if holding.holdingName else holding.cph }}
+    </li>
+  </ol>
+</nav>
+
+{% endblock %}
+
+{% block header %}
+
+  {% include "mvp-front-office/v2/partials/header.html" %}
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+
+    <div class="govuk-grid-row">
+
+      <div class="govuk-grid-column-one-quarter">
+        {% include "mvp-front-office/v2/partials/my-holdings-sidebar.html" %}
+      </div>
+
+      <div class="govuk-grid-column-three-quarters">
+
+      <!--  <span class="govuk-caption-m">
+          CPH number: {{ holding.cph }}
+        </span>-->
+
+        <h1 class="govuk-heading-l govuk-!-margin-bottom-6">
+          {{ holding.holdingName }}
+        </h1>
+
+        <div class="govuk-grid-row govuk-!-margin-bottom-0">
+
+          <div class="govuk-grid-column-one-half">
+            <div class="card govuk-!-margin-bottom-0">
+                <h3 class="govuk-heading-m govuk-!-margin-bottom-2">
+                  <a href="/mvp-front-office/v2/my-holdings/animals-on-holding" class="govuk-link govuk-link--no-visited-state app-card-link--header">
+                    Animals on holding
+                  </a>
+                </h3>
+                <h4 class="govuk-heading-xl govuk-!-margin-top-2 govuk-!-margin-bottom-2">
+                  18
+                </h4>
+                <p class="govuk-body govuk-!-margin-top-2 govuk-!-margin-bottom-0">
+                  View livestock on this holding
+                </p>
+            </div>
+          </div>
+          <div class="govuk-grid-column-one-half">
+            <div class="card govuk-!-margin-bottom-0">
+              <h3 class="govuk-heading-m govuk-!-margin-bottom-2">
+                <a href="http://localhost:3000/mvp-front-office/v2/my-holdings/animal-error-record" class="govuk-link govuk-link--no-visited-state app-card-link--header">
+                  Open issues
+                </a>
+              </h3>
+              <h4 class="govuk-heading-xl govuk-!-margin-top-2 govuk-!-margin-bottom-2">
+                3
+              </h4>
+              <p class="govuk-body govuk-!-margin-top-2 govuk-!-margin-bottom-0">
+                Review issues requiring attention
+              </p>
+            </div>
+          </div>
+
+        </div>
+
+        <hr class="govuk-section-break govuk-section-break--l">
+
+        <h2 class="govuk-heading-m">
+          Key tasks
+        </h2>
+
+        <ul class="govuk-list govuk-!-margin-bottom-0">
+          <li class="service-link govuk-!-margin-bottom-0">
+            <div class="service-link__name">
+              <a href="/mvp-front-office/v2/register-animal/submission-type" class="service-link__overlay-link govuk-link govuk-link--no-visited-state govuk-body govuk-!-font-weight-bold govuk-!-margin-0">Start a new submission</a>
+            </div>
+            <div class="chevron"></div>
+          </li>
+
+          <li class="service-link govuk-!-margin-bottom-0">
+            <div class="service-link__name">
+              <a href="/mvp-front-office/v2/my-holdings/animal-error-record" class="service-link__overlay-link govuk-link govuk-link--no-visited-state govuk-body govuk-!-font-weight-bold govuk-!-margin-0">View animal error records</a>
+            </div>
+            <div class="chevron"></div>
+          </li>
+
+          <li class="service-link govuk-!-margin-bottom-0">
+            <div class="service-link__name">
+              <a href="/mvp-front-office/v2/my-holdings/manage-delegates" class="service-link__overlay-link govuk-link govuk-link--no-visited-state govuk-body govuk-!-font-weight-bold govuk-!-margin-0">Manage delegates</a>
+            </div>
+            <div class="chevron"></div>
+          </li>
+
+          <li class="service-link govuk-!-margin-bottom-0">
+            <div class="service-link__name">
+              <a href="/mvp-front-office/v2/my-holdings/export-animals" class="service-link__overlay-link govuk-link govuk-link--no-visited-state govuk-body govuk-!-font-weight-bold govuk-!-margin-0">Export animals on holding</a>
+            </div>
+            <div class="chevron"></div>
+          </li>
+        </ul>
+
+        <hr class="govuk-section-break govuk-section-break--l">
+
+        <h2 class="govuk-heading-m">
+          Recent activity
+        </h2>
+        <table class="govuk-table">
+          <thead class="govuk-table__head">
+          <tr class="govuk-table__row">
+            <th scope="col" class="govuk-table__header">Date</th>
+            <th scope="col" class="govuk-table__header">Activity</th>
+            <th scope="col" class="govuk-table__header">Reporter</th>
+          </tr>
+          </thead>
+          <tbody class="govuk-table__body">
+          <tr class="govuk-table__row">
+            <td class="govuk-table__cell">27 Mar 2026</td>
+            <td class="govuk-table__cell">Registered a cattle birth</td>
+            <td class="govuk-table__cell">James Williams</td>
+          </tr>
+          <tr class="govuk-table__row">
+            <td class="govuk-table__cell">20 Mar 2026</td>
+            <td class="govuk-table__cell">Reported a cattle death</td>
+            <td class="govuk-table__cell">Sheila Jones</td>
+          </tr>
+          <tr class="govuk-table__row">
+            <td class="govuk-table__cell">14 Mar 2026</td>
+            <td class="govuk-table__cell">Reported a cattle movement</td>
+            <td class="govuk-table__cell">James Williams</td>
+          </tr>
+          <tr class="govuk-table__row">
+            <td class="govuk-table__cell">10 Mar 2026</td>
+            <td class="govuk-table__cell">Added Sheila Jones as an agent delegate</td>
+            <td class="govuk-table__cell">James Williams</td>
+          </tr>
+          </tbody>
+        </table>
+        <p class="govuk-body">
+          <a class="govuk-link" href="/mvp-front-office/v2/my-holdings/activity-history">View all activity</a>
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,121 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Animal Error Record" %}
+{% set activeNavItem = "my-holdings" %}
+{% set sideNavActive = "animal-error-record" %}
+
+{% block header %}
+  {% include "mvp-front-office/v2/partials/header.html" %}
+{% endblock %}
+
+{% block beforeContent %}
+
+<nav class="govuk-breadcrumbs" aria-label="Breadcrumb">
+  <ol class="govuk-breadcrumbs__list">
+    <li class="govuk-breadcrumbs__list-item">
+      <a class="govuk-breadcrumbs__link" href="/mvp-front-office/v2/overview">Home</a>
+    </li>
+    <li class="govuk-breadcrumbs__list-item">
+      <a class="govuk-breadcrumbs__link" href="/mvp-front-office/v2/my-holdings">My holdings</a>
+    </li>
+    <li class="govuk-breadcrumbs__list-item">
+      <a class="govuk-breadcrumbs__link" href="/mvp-front-office/v2/my-holdings/holding-overview">
+        {{ holding.holdingName if holding.holdingName else holding.cph }}
+      </a>
+    </li>
+  </ol>
+</nav>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-quarter">
+    {% include "mvp-front-office/v2/partials/my-holdings-sidebar.html" %}
+  </div>
+
+  <div class="govuk-grid-column-three-quarters">
+
+    <h1 class="govuk-heading-l">
+      Animal Error Record
+    </h1>
+
+    <div class="govuk-inset-text">
+
+      <h2 class="govuk-heading-m">
+        How to fix animal error records
+      </h2>
+
+      <p class="govuk-body">
+        You need to contact BCMS to fix the errors related to your animals.
+      </p>
+
+      <ul class="govuk-list">
+        <li>BCMS phone: 0345 050 1234</li>
+        <li>Helpline for cattle keepers in Wales: 0345 050 3456</li>
+        <li>Monday to Friday, 8:30am to 5pm</li>
+      </ul>
+      <p class="govuk-body">
+        <a href="https://www.gov.uk/call-charges" target="_blank">Find out about call charges</a>
+      </p>
+    </div>
+
+    <hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible">
+
+    <h2 class="govuk-heading-m govuk-!-static-margin-bottom-6">
+      You have 3 outstanding animal error records
+    </h2>
+
+    {% for record in errorRecords %}
+    <div class="govuk-summary-card">
+      <div class="govuk-summary-card__title-wrapper">
+        <h2 class="govuk-summary-card__title">
+          {{ record.earTagNumber | formatReference }}
+        </h2>
+      </div>
+      <div class="govuk-summary-card__content">
+        <dl class="govuk-summary-list">
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Date of birth
+            </dt>
+            <dd class="govuk-summary-list__value">
+              {{ record.dateOfBirth | shortDateFormat }}
+            </dd>
+          </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Date of registration
+            </dt>
+            <dd class="govuk-summary-list__value">
+              {{ record.dateOfRegistration | shortDateFormat }}
+            </dd>
+          </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Reason for error
+            </dt>
+            <dd class="govuk-summary-list__value">
+              {{ record.reason }}
+            </dd>
+          </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Providing evidence
+            </dt>
+            <dd class="govuk-summary-list__value">
+              {{ record.evidence }}
+            </dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+    {% endfor %}
+
+
+  </div>
+</div>
+
+
+{% endblock %}
