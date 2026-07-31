@@ -1,0 +1,145 @@
+{% extends "layouts/main.html" %}
+
+
+{% set pageName="Manage delegates" %}
+{% set activeNavItem = "my-holdings" %}
+
+{% block header %}
+
+  {% include "mvp-front-office/v2/partials/header.html" %}
+
+{% endblock %}
+
+{% block beforeContent %}
+
+<nav class="govuk-breadcrumbs" aria-label="Breadcrumb">
+  <ol class="govuk-breadcrumbs__list">
+    <li class="govuk-breadcrumbs__list-item">
+      <a class="govuk-breadcrumbs__link" href="/mvp-front-office/v2/overview">Home</a>
+    </li>
+    <li class="govuk-breadcrumbs__list-item">
+      <a class="govuk-breadcrumbs__link" href="/mvp-front-office/v2/my-holdings">My holdings</a>
+    </li>
+    <li class="govuk-breadcrumbs__list-item">
+      {{ holding.cph }}
+    </li>
+  </ol>
+</nav>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-one-quarter">
+        <div class="dwp-ds-render">
+
+        <button class="dwp-side-navigation__button" data-module="dwp-side-navigation" data-target="dwp-side-navigation-panel" data-label-hide="Hide navigation" data-label-show="Show navigation" aria-expanded="false">
+
+          <span class="dwp-side-navigation__section-toggle-focus">
+              <span class="dwp-side-navigation__chevron dwp-side-navigation__chevron--down"></span>
+              <span class="dwp-side-navigation__section-toggle-text">Show navigation</span>
+          </span>
+        </button>
+
+        <nav data-module="dwp-side-navigation-panel" class="dwp-side-navigation dwp-side-navigation--mobile" aria-label="Side" role="navigation">
+          <ul class="dwp-side-navigation__list">
+
+            <li class="dwp-side-navigation__item">
+              <a id="s-item-1" href="/mvp-front-office/v2/my-holdings/holding-overview" class="dwp-side-navigation__link">
+                Overview
+              </a>
+            </li>
+
+            <li class="dwp-side-navigation__item">
+              <a id="s-item-2" href="/mvp-front-office/v2/my-holdings/holding-details" class="dwp-side-navigation__link">
+                Holding details
+              </a>
+            </li>
+
+            <li class="dwp-side-navigation__item">
+              <a id="s-item-3" href="/mvp-front-office/v2/my-holdings/submissions" class="dwp-side-navigation__link">
+                Submissions
+              </a>
+            </li>
+
+            <li class="dwp-side-navigation__item">
+              <a id="s-item-4" href="/mvp-front-office/v2/my-holdings/animals-on-holding" class="dwp-side-navigation__link">
+                Animals on holding
+              </a>
+            </li>
+
+            <li class="dwp-side-navigation__item">
+              <a id="s-item-5" href="/mvp-front-office/v2/my-holdings/activity-history" class="dwp-side-navigation__link">
+                Activity history
+              </a>
+            </li>
+
+            <li class="dwp-side-navigation__item">
+              <a id="s-item-6" href="/mvp-front-office/v2/my-holdings/animal-error-record" class="dwp-side-navigation__link">
+                Animal error record
+              </a>
+            </li>
+
+            <li class="dwp-side-navigation__item">
+              <a id="s-item-7" href="/mvp-front-office/v2/my-holdings/messages" class="dwp-side-navigation__link">
+                Messages
+              </a>
+            </li>
+
+            <li class="dwp-side-navigation__item dwp-side-navigation__item--selected">
+              <a id="s-item-8" href="/mvp-front-office/v2/my-holdings/manage-delegates" class="dwp-side-navigation__link dwp-side-navigation__link--selected" aria-current="true">
+                Manage delegates
+              </a>
+            </li>
+
+          </ul>
+        </nav>
+
+        </div>
+      </div>
+
+      <div class="govuk-grid-column-three-quarters">
+
+        <h1 class="govuk-heading-l govuk-!-static-margin-bottom-4">
+          Manage delegates
+        </h1>
+
+        <p class="govuk-body">
+          Add new or remove existing delegates who can manage your holding. If you remove a delegate, they will no longer be able to access your holding details.
+        </p>
+
+        <a href="/mvp-front-office/v2/manage-delegates/add-email" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+          Add new delegate
+        </a>
+
+        <table class="govuk-table">
+          <caption class="govuk-table__caption govuk-visually-hidden">Delegates</caption>
+          <thead class="govuk-table__head">
+            <tr class="govuk-table__row">
+              <th scope="col" class="govuk-table__header">Email</th>
+              <th scope="col" class="govuk-table__header">Date added</th>
+              <th scope="col" class="govuk-table__header">Role</th>
+            </tr>
+          </thead>
+          <tbody class="govuk-table__body">
+            {% for delegate in delegates %}
+            <tr class="govuk-table__row">
+              <td class="govuk-table__cell"><a class="govuk-link" href="/mvp-front-office/v2/manage-delegates/view/{{ delegate.id }}">{{ delegate.email }}</a></td>
+              <td class="govuk-table__cell">{{ delegate.dateAdded }}</td>
+              <td class="govuk-table__cell">{{ delegate.role }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}

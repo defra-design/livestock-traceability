@@ -2,10 +2,11 @@
 
 
 {% set pageName="Holding details" %}
+{% set activeNavItem = "my-holdings" %}
 
 {% block header %}
 
-  {% include "mvp-front-office/v1/partials/header.html" %}
+  {% include "mvp-front-office/v2/partials/header.html" %}
 
 {% endblock %}
 
@@ -14,10 +15,10 @@
 <nav class="govuk-breadcrumbs" aria-label="Breadcrumb">
   <ol class="govuk-breadcrumbs__list">
     <li class="govuk-breadcrumbs__list-item">
-      <a class="govuk-breadcrumbs__link" href="/mvp-front-office/v1/overview">Home</a>
+      <a class="govuk-breadcrumbs__link" href="/mvp-front-office/v2/overview">Home</a>
     </li>
     <li class="govuk-breadcrumbs__list-item">
-      <a class="govuk-breadcrumbs__link" href="/mvp-front-office/v1/my-holdings">My holdings</a>
+      <a class="govuk-breadcrumbs__link" href="/mvp-front-office/v2/my-holdings">My holdings</a>
     </li>
     <li class="govuk-breadcrumbs__list-item">
       {{ holding.cph }}
@@ -48,49 +49,49 @@
             <ul class="dwp-side-navigation__list">
 
             <li class="dwp-side-navigation__item">
-              <a id="s-item-1" href="/mvp-front-office/v1/holding-overview" class="dwp-side-navigation__link">
+              <a id="s-item-1" href="/mvp-front-office/v2/my-holdings/holding-overview" class="dwp-side-navigation__link">
                 Overview
               </a>
             </li>
 
             <li class="dwp-side-navigation__item dwp-side-navigation__item--selected">
-              <a id="s-item-2" href="/mvp-front-office/v1/holding-details" class="dwp-side-navigation__link dwp-side-navigation__link--selected" aria-current="true">
+              <a id="s-item-2" href="/mvp-front-office/v2/my-holdings/holding-details" class="dwp-side-navigation__link dwp-side-navigation__link--selected" aria-current="true">
                 Holding details
               </a>
             </li>
 
             <li class="dwp-side-navigation__item">
-              <a id="s-item-3" href="/mvp-front-office/v1/submissions" class="dwp-side-navigation__link">
+              <a id="s-item-3" href="/mvp-front-office/v2/my-holdings/submissions" class="dwp-side-navigation__link">
                 Submissions
               </a>
             </li>
 
             <li class="dwp-side-navigation__item">
-              <a id="s-item-4" href="/mvp-front-office/v1/animals-on-holding" class="dwp-side-navigation__link">
+              <a id="s-item-4" href="/mvp-front-office/v2/my-holdings/animals-on-holding" class="dwp-side-navigation__link">
                 Animals on holding
               </a>
             </li>
 
             <li class="dwp-side-navigation__item">
-              <a id="s-item-5" href="/mvp-front-office/v1/activity-history" class="dwp-side-navigation__link">
+              <a id="s-item-5" href="/mvp-front-office/v2/my-holdings/activity-history" class="dwp-side-navigation__link">
                 Activity history
               </a>
             </li>
 
             <li class="dwp-side-navigation__item">
-              <a id="s-item-6" href="/mvp-front-office/v1/animal-error-record" class="dwp-side-navigation__link">
+              <a id="s-item-6" href="/mvp-front-office/v2/my-holdings/animal-error-record" class="dwp-side-navigation__link">
                 Animal error record
               </a>
             </li>
 
             <li class="dwp-side-navigation__item">
-              <a id="s-item-7" href="/mvp-front-office/v1/messages" class="dwp-side-navigation__link">
+              <a id="s-item-7" href="/mvp-front-office/v2/my-holdings/messages" class="dwp-side-navigation__link">
                 Messages
               </a>
             </li>
 
             <li class="dwp-side-navigation__item">
-              <a id="s-item-8" href="/mvp-front-office/v1/manage-delegates" class="dwp-side-navigation__link">
+              <a id="s-item-8" href="/mvp-front-office/v2/my-holdings/manage-delegates" class="dwp-side-navigation__link">
                 Manage delegates
               </a>
             </li>
