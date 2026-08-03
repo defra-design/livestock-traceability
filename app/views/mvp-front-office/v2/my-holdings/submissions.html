@@ -1,0 +1,94 @@
+{% extends "layouts/main.html" %}
+
+
+{% set pageName="Submissions" %}
+{% set activeNavItem = "my-holdings" %}
+{% set sideNavActive = "submissions" %}
+
+{% block header %}
+
+  {% include "mvp-front-office/v2/partials/header.html" %}
+
+{% endblock %}
+
+{% block beforeContent %}
+
+<nav class="govuk-breadcrumbs" aria-label="Breadcrumb">
+  <ol class="govuk-breadcrumbs__list">
+    <li class="govuk-breadcrumbs__list-item">
+      <a class="govuk-breadcrumbs__link" href="/mvp-front-office/v2/overview">Home</a>
+    </li>
+    <li class="govuk-breadcrumbs__list-item">
+      <a class="govuk-breadcrumbs__link" href="/mvp-front-office/v2/my-holdings">My holdings</a>
+    </li>
+    <li class="govuk-breadcrumbs__list-item">
+      <a class="govuk-breadcrumbs__link" href="/mvp-front-office/v2/my-holdings/holding-overview">
+        {{ holding.holdingName if holding.holdingName else holding.cph }}
+      </a>
+    </li>
+  </ol>
+</nav>
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-one-quarter">
+        {% include "mvp-front-office/v2/partials/my-holdings-sidebar.html" %}
+      </div>
+
+      <div class="govuk-grid-column-three-quarters">
+
+        <h1 class="govuk-heading-l">
+          Submissions
+        </h1>
+
+        <a href="/mvp-front-office/v2/register-animal/submission-type" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+          New submission
+        </a>
+
+        <table class="govuk-table">
+          <thead class="govuk-table__head">
+            <tr class="govuk-table__row">
+              <th scope="col" class="govuk-table__header">Submission date</th>
+              <th scope="col" class="govuk-table__header">Type</th>
+              <th scope="col" class="govuk-table__header">Species</th>
+              <th scope="col" class="govuk-table__header">Total animals</th>
+              <th scope="col" class="govuk-table__header">Status</th>
+            </tr>
+          </thead>
+          <tbody class="govuk-table__body">
+            <tr class="govuk-table__row">
+              <td class="govuk-table__cell"><a class="govuk-link" href="/mvp-front-office/v2/register-animal/submission-detail">14 May 2026</a></td>
+              <td class="govuk-table__cell">Birth</td>
+              <td class="govuk-table__cell">Cattle</td>
+              <td class="govuk-table__cell">12</td>
+              <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--green">Sent</strong></td>
+            </tr>
+            <tr class="govuk-table__row">
+              <td class="govuk-table__cell"><a class="govuk-link" href="#">28 April 2026</a></td>
+              <td class="govuk-table__cell">Movement</td>
+              <td class="govuk-table__cell">Cattle</td>
+              <td class="govuk-table__cell">8</td>
+              <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--blue">Draft</strong></td>
+            </tr>
+            <tr class="govuk-table__row">
+              <td class="govuk-table__cell"><a class="govuk-link" href="#">1 April 2026</a></td>
+              <td class="govuk-table__cell">Death</td>
+              <td class="govuk-table__cell">Cattle</td>
+              <td class="govuk-table__cell">2</td>
+              <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--green">Sent</strong></td>
+            </tr>
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}

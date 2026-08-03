@@ -6,7 +6,22 @@
 
 {% block header %}
 
-  {% include "mvp-front-office/v1/partials/header.html" %}
+  {% include "mvp-front-office/v2/partials/header.html" %}
+
+{% endblock %}
+
+{% block beforeContent %}
+
+<nav class="govuk-breadcrumbs" aria-label="Breadcrumb">
+  <ol class="govuk-breadcrumbs__list">
+    <li class="govuk-breadcrumbs__list-item">
+      <a class="govuk-breadcrumbs__link" href="/mvp-front-office/v2/overview">Home</a>
+    </li>
+    <li class="govuk-breadcrumbs__list-item">
+      My profile
+    </li>
+  </ol>
+</nav>
 
 {% endblock %}
 
