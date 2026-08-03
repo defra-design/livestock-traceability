@@ -90,6 +90,14 @@ const DEFAULT_RECOVERY_QUESTION_KEYS = [
   'lastMovementOff'
 ]
 
+const EMAIL_MATCH_SCENARIOS = {
+  'no-match': 0,
+  'one-holding': 1,
+  'three-holdings': 3
+}
+
+const DEFAULT_EMAIL_MATCH_SCENARIO = 'no-match'
+
 // These values let the prototype demonstrate all 3 outcomes before the
 // holdings fixture has recoveryAnswers added to each holding record.
 const DEFAULT_DEMO_RECOVERY_ANSWERS = {
@@ -165,15 +173,62 @@ function getHoldingsToLink (request) {
 }
 
 function getRecoverySettings (request) {
-  const savedQuestions = request.session.data.claimCphSettings?.questions
+  const savedSettings = request.session.data.claimCphSettings || {}
+  const savedQuestions = savedSettings.questions
   const validSavedQuestions = Array.isArray(savedQuestions) &&
     savedQuestions.length === 3 &&
     savedQuestions.every(key => RECOVERY_QUESTIONS[key])
+  const emailMatchScenario = Object.hasOwn(EMAIL_MATCH_SCENARIOS, savedSettings.emailMatchScenario)
+    ? savedSettings.emailMatchScenario
+    : DEFAULT_EMAIL_MATCH_SCENARIO
 
   return {
     questions: validSavedQuestions
       ? RECOVERY_QUESTION_ORDER.filter(key => savedQuestions.includes(key))
-      : [...DEFAULT_RECOVERY_QUESTION_KEYS]
+      : [...DEFAULT_RECOVERY_QUESTION_KEYS],
+    emailMatchScenario
+  }
+}
+
+function getEmailMatchedHoldings (request) {
+  const scenario = getRecoverySettings(request).emailMatchScenario
+  const candidateCount = EMAIL_MATCH_SCENARIOS[scenario] || 0
+
+  if (candidateCount === 0) return []
+
+  const completedIds = new Set(getHoldingsToLink(request).map(holding => holding.id))
+  const blockedIds = new Set(
+    Array.isArray(request.session.data.claimCphBlockedHoldingIds)
+      ? request.session.data.claimCphBlockedHoldingIds
+      : []
+  )
+
+  return getSourceHoldings(request)
+    .slice(0, candidateCount)
+    .filter(holding => !completedIds.has(holding.id) && !blockedIds.has(holding.id))
+    .map(holding => ({
+      id: holding.id,
+      cphNumber: normaliseCph(holding.cph) || holding.cph,
+      postcode: normalisePostcode(holding.address?.postcode) || holding.address?.postcode || '',
+      holdingName: holding.holdingName,
+      businessName: holding.businessName,
+      recordedRole: holding.role,
+      status: holding.status,
+      holdingType: holding.holdingType
+    }))
+}
+
+function buildPendingHolding (holding, claimRoute) {
+  return {
+    id: holding.id,
+    cphNumber: normaliseCph(holding.cphNumber || holding.cph) || holding.cphNumber || holding.cph,
+    postcode: normalisePostcode(holding.postcode || holding.address?.postcode) || holding.postcode || holding.address?.postcode || '',
+    holdingName: holding.holdingName,
+    businessName: holding.businessName,
+    recordedRole: holding.recordedRole || holding.role,
+    status: holding.status,
+    holdingType: holding.holdingType,
+    claimRoute
   }
 }
 
@@ -185,6 +240,20 @@ function getRecoveryAnswers (request) {
 function clearRecoveryJourney (request) {
   delete request.session.data.claimCphRecoveryAnswers
   delete request.session.data.claimCphRecoveryResult
+}
+
+function resetClaimCphJourney (request) {
+  const data = request.session.data
+
+  delete data.holdingsToLink
+  delete data.pendingHoldingToLink
+  delete data.claimCphRecoveryAnswers
+  delete data.claimCphRecoveryResult
+  delete data.claimCphBlockedHoldingIds
+  delete data['cph-number']
+  delete data['holding-postcode']
+  delete data['holding-role']
+  delete data['is-cph-registered-to-user']
 }
 
 function normaliseEarTag (value = '') {
@@ -321,10 +390,11 @@ function answerMatchesExpected (questionKey, submittedAnswer, expectedAnswers) {
 function renderAddHolding (request, response, options = {}) {
   const data = request.session.data
   const holdingsToLink = getHoldingsToLink(request)
+  const hasMatchingEmailScenario = getRecoverySettings(request).emailMatchScenario !== 'no-match'
 
   response.render(`${baseURL}/add-holding`, {
     baseURL,
-    backLink: holdingsToLink.length
+    backLink: holdingsToLink.length || hasMatchingEmailScenario
       ? `/${baseURL}/holdings`
       : `/${baseURL}/before-you-link-a-holding`,
     errors: options.errors || [],
@@ -347,18 +417,25 @@ function renderHoldingRole (request, response, options = {}) {
 
   response.render(`${baseURL}/role-on-holding`, {
     baseURL,
-    backLink: `/${baseURL}/add-holding`,
+    backLink: pendingHolding.claimRoute === 'matched-email'
+      ? `/${baseURL}/holdings`
+      : `/${baseURL}/add-holding`,
     pendingHolding,
     errors: options.errors || [],
     roleError: options.roleError,
-    selectedRole: options.selectedRole ?? data['holding-role'] ?? pendingHolding.claimedRole ?? ''
+    selectedAnswer: options.selectedAnswer ??
+      data['is-cph-registered-to-user'] ??
+      pendingHolding.isCphRegisteredToUser ??
+      ''
   })
 }
 
 function renderHoldings (request, response) {
   response.render(`${baseURL}/holdings`, {
     baseURL,
-    holdings: getHoldingsToLink(request)
+    linkedHoldings: getHoldingsToLink(request),
+    emailMatchedHoldings: getEmailMatchedHoldings(request),
+    emailMatchScenario: getRecoverySettings(request).emailMatchScenario
   })
 }
 
@@ -450,7 +527,8 @@ function getRecoverySummaryRows (request) {
 
 function addCompletedHolding (request, completedHolding) {
   const holdingsToLink = getHoldingsToLink(request)
-  request.session.data.holdingsToLink = [...holdingsToLink, completedHolding]
+  const withoutExisting = holdingsToLink.filter(holding => holding.id !== completedHolding.id)
+  request.session.data.holdingsToLink = [...withoutExisting, completedHolding]
 }
 
 function finishRecoveryJourney (request, outcome) {
@@ -502,18 +580,21 @@ function finishRecoveryJourney (request, outcome) {
   data['cph-number'] = ''
   data['holding-postcode'] = ''
   data['holding-role'] = ''
+  data['is-cph-registered-to-user'] = ''
 
   return completedHolding
 }
 
 router.get(`/${baseURL}/prototype-settings`, function (request, response) {
+  const settings = getRecoverySettings(request)
+
   response.render(`${baseURL}/prototype-settings`, {
     baseURL,
-    saved: request.query.saved === 'true',
-    reset: request.query.reset === 'true',
-    selectedQuestions: getRecoverySettings(request).questions,
+    selectedQuestions: settings.questions,
+    emailMatchScenario: settings.emailMatchScenario,
     errors: [],
-    questionsError: null
+    questionsError: null,
+    emailMatchScenarioError: null
   })
 })
 
@@ -525,41 +606,57 @@ router.post(`/${baseURL}/prototype-settings`, function (request, response) {
       : []
 
   const selectedQuestions = submittedQuestions.filter(key => RECOVERY_QUESTIONS[key])
+  const submittedScenario = String(request.body['email-match-scenario'] || '')
+  const emailMatchScenario = Object.hasOwn(EMAIL_MATCH_SCENARIOS, submittedScenario)
+    ? submittedScenario
+    : ''
+  const errors = []
+  let questionsError
+  let emailMatchScenarioError
+
+  if (!emailMatchScenario) {
+    emailMatchScenarioError = { text: 'Select an email matching scenario' }
+    errors.push({ text: emailMatchScenarioError.text, href: '#email-match-scenario' })
+  }
 
   if (selectedQuestions.length !== 3) {
-    const questionsError = { text: 'Select 3 account recovery questions' }
+    questionsError = { text: 'Select 3 account recovery questions' }
+    errors.push({ text: questionsError.text, href: '#recovery-questions' })
+  }
 
+  if (errors.length) {
     return response.render(`${baseURL}/prototype-settings`, {
       baseURL,
-      saved: false,
-      reset: false,
       selectedQuestions,
+      emailMatchScenario: submittedScenario,
       questionsError,
-      errors: [{ text: questionsError.text, href: '#recovery-questions' }]
+      emailMatchScenarioError,
+      errors
     })
   }
 
   request.session.data.claimCphSettings = {
-    questions: RECOVERY_QUESTION_ORDER.filter(key => selectedQuestions.includes(key))
+    questions: RECOVERY_QUESTION_ORDER.filter(key => selectedQuestions.includes(key)),
+    emailMatchScenario
   }
-  clearRecoveryJourney(request)
+  resetClaimCphJourney(request)
 
-  response.redirect(`/${baseURL}/prototype-settings?saved=true`)
+  if (emailMatchScenario === 'no-match') {
+    return response.redirect(`/${baseURL}/before-you-link-a-holding`)
+  }
+
+  response.redirect(`/${baseURL}/holdings`)
 })
 
-router.post(`/${baseURL}/prototype-settings/reset`, function (request, response) {
-  const data = request.session.data
-  const preservedData = {
-    holdings: data.holdings,
-    claimCphSettings: data.claimCphSettings
+// Retained so existing prototype links to /start continue to work.
+router.get(`/${baseURL}/start`, function (request, response) {
+  const scenario = getRecoverySettings(request).emailMatchScenario
+
+  if (scenario === 'no-match') {
+    return response.redirect(`/${baseURL}/before-you-link-a-holding`)
   }
 
-  Object.keys(data).forEach(key => {
-    delete data[key]
-  })
-
-  Object.assign(data, preservedData)
-  response.redirect(`/${baseURL}/prototype-settings?reset=true`)
+  response.redirect(`/${baseURL}/holdings`)
 })
 
 router.get(`/${baseURL}/before-you-link-a-holding`, function (request, response) {
@@ -635,6 +732,66 @@ router.get(`/${baseURL}/recovery-blocked`, function (request, response) {
 
 router.get(`/${baseURL}/holdings`, function (request, response) {
   renderHoldings(request, response)
+})
+
+router.get(`/${baseURL}/link-email-holding/:holdingId`, function (request, response) {
+  const matchedHolding = getEmailMatchedHoldings(request)
+    .find(holding => holding.id === request.params.holdingId)
+
+  if (!matchedHolding) {
+    return response.redirect(`/${baseURL}/holdings`)
+  }
+
+  request.session.data.pendingHoldingToLink = buildPendingHolding(matchedHolding, 'matched-email')
+  request.session.data['holding-role'] = ''
+  request.session.data['is-cph-registered-to-user'] = ''
+  clearRecoveryJourney(request)
+
+  response.redirect(`/${baseURL}/role-on-holding`)
+})
+
+router.get(`/${baseURL}/check-email-matched-holding`, function (request, response) {
+  const pendingHolding = request.session.data.pendingHoldingToLink
+
+  if (!pendingHolding || pendingHolding.claimRoute !== 'matched-email' || !pendingHolding.isCphRegisteredToUser) {
+    return response.redirect(`/${baseURL}/holdings`)
+  }
+
+  response.render(`${baseURL}/check-email-matched-holding`, {
+    baseURL,
+    pendingHolding,
+    backLink: `/${baseURL}/role-on-holding`
+  })
+})
+
+router.post(`/${baseURL}/check-email-matched-holding`, function (request, response) {
+  const data = request.session.data
+  const pendingHolding = data.pendingHoldingToLink
+
+  if (!pendingHolding || pendingHolding.claimRoute !== 'matched-email' || !pendingHolding.isCphRegisteredToUser) {
+    return response.redirect(`/${baseURL}/holdings`)
+  }
+
+  const completedHolding = {
+    ...pendingHolding,
+    verificationMethod: 'matched-email',
+    recoveryOutcome: 'success',
+    linkStatus: 'linked',
+    linkStatusLabel: 'Linked',
+    linkStatusTagColour: 'green'
+  }
+
+  addCompletedHolding(request, completedHolding)
+  data.claimCphRecoveryResult = {
+    outcome: 'success',
+    holding: completedHolding
+  }
+
+  delete data.pendingHoldingToLink
+  data['holding-role'] = ''
+  data['is-cph-registered-to-user'] = ''
+
+  response.redirect(`/${baseURL}/recovery-success`)
 })
 
 // Keep the previous prototype URL working while the journey is updated.
@@ -723,44 +880,60 @@ router.post(`/${baseURL}/add-holding`, function (request, response) {
   request.session.data['cph-number'] = enteredCph
   request.session.data['holding-postcode'] = enteredPostcode
   request.session.data['holding-role'] = ''
+  request.session.data['is-cph-registered-to-user'] = ''
   clearRecoveryJourney(request)
 
   response.redirect(`/${baseURL}/role-on-holding`)
 })
 
 router.post(`/${baseURL}/role-on-holding`, function (request, response) {
-  const selectedRole = String(request.body['holding-role'] || '')
+  const selectedAnswer = String(request.body['is-cph-registered-to-user'] || '')
   const pendingHolding = request.session.data.pendingHoldingToLink
 
   if (!pendingHolding) {
     return response.redirect(`/${baseURL}/add-holding`)
   }
 
-  const allowedRoles = {
-    'cph-holder': 'CPH holder',
-    keeper: 'Keeper',
-    delegate: 'Delegate',
-    agent: 'Agent',
-    'not-sure': 'I’m not sure'
+  const allowedAnswers = {
+    yes: 'Yes',
+    no: 'No'
   }
 
-  if (!allowedRoles[selectedRole]) {
-    const roleError = { text: 'Select your role for this holding' }
+  if (!allowedAnswers[selectedAnswer]) {
+    const roleError = {
+      text: 'Select yes if the CPH is registered to you or your business'
+    }
 
     return renderHoldingRole(request, response, {
-      errors: [{ text: roleError.text, href: '#holding-role' }],
+      errors: [{
+        text: roleError.text,
+        href: '#is-cph-registered-to-user'
+      }],
       roleError,
-      selectedRole
+      selectedAnswer
     })
   }
 
   request.session.data.pendingHoldingToLink = {
     ...pendingHolding,
-    claimedRole: selectedRole,
-    claimedRoleLabel: allowedRoles[selectedRole]
+    isCphRegisteredToUser: selectedAnswer,
+    isCphRegisteredToUserLabel: allowedAnswers[selectedAnswer],
+
+    // Retain these fields for the existing Holdings table until its
+    // Role column is redesigned for the new binary question.
+    claimedRole: selectedAnswer === 'yes' ? 'cph-holder' : 'not-cph-holder',
+    claimedRoleLabel: selectedAnswer === 'yes'
+      ? 'CPH holder'
+      : 'Not the CPH holder'
   }
-  request.session.data['holding-role'] = selectedRole
+
+  request.session.data['is-cph-registered-to-user'] = selectedAnswer
+  delete request.session.data['holding-role']
   clearRecoveryJourney(request)
+
+  if (pendingHolding.claimRoute === 'matched-email') {
+    return response.redirect(`/${baseURL}/check-email-matched-holding`)
+  }
 
   response.redirect(`/${baseURL}/recovery-question/1`)
 })

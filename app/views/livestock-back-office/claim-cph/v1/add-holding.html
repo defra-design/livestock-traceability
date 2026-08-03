@@ -34,7 +34,7 @@
         {{ govukInput({
           label: {
             text: "CPH number",
-            classes: "govuk-label--m"
+            classes: "govuk-label--s"
           },
           hint: {
             text: "For example, 08/123/4567"
@@ -51,7 +51,7 @@
         {{ govukInput({
           label: {
             text: "Postcode of the holding",
-            classes: "govuk-label--m"
+            classes: "govuk-label--s"
           },
           hint: {
             text: "Enter the postcode registered for this CPH number"
@@ -69,6 +69,18 @@
           text: "Continue"
         }) }}
       </form>
+      {{ govukDetails({
+  summaryText: "View usable CPH numbers and postcodes",
+  html: "
+    <ul class=\"govuk-list govuk-list--bullet\">
+      <li><strong>12/345/0001</strong> | SY4 1AB</li>
+      <li><strong>24/118/0042</strong> | HR2 8JL</li>
+      <li><strong>44/209/0317</strong> | LD3 7TP</li>
+      <li><strong>18/553/0029</strong> | YO26 8RW</li>
+      <li><strong>27/884/0106</strong> | TA3 5PL</li>
+      </ul>
+      "
+}) }}
     </div>
   </div>
 {% endblock %}

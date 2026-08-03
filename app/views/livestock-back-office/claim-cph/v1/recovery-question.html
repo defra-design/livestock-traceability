@@ -28,7 +28,7 @@
         {% endif %}
 
         {% if question.type == "movement" %}
-          <span class="govuk-caption-l">Question {{ questionNumber }} of {{ totalQuestions }}</span>
+          <span class="govuk-caption-l">Holding checks: {{ questionNumber }} of {{ totalQuestions }}</span>
           <h1 class="govuk-heading-l">{{ question.heading }}</h1>
 
           {{ govukDateInput({
@@ -92,6 +92,11 @@
 
         {{ govukButton({ text: "Continue" }) }}
       </form>
+      <br>
+      {{ govukDetails({
+          summaryText: "Prototype answer key",
+          html: "<p class=\"govuk-body\">These answers are used when a holding record does not contain its own <code>recoveryAnswers</code>.</p><ul class=\"govuk-list govuk-list--bullet\"><li>SBI: 123456789</li><li>Last calf birth: UK 123456 123456</li><li>Last movement on: 15 June 2026, tag ending 3456</li><li>Last movement off: 20 June 2026, tag ending 7890</li><li>Memorable word: bluebell</li><li>Herd mark: 123456</li><li>Number of cattle: 42</li></ul>"
+        }) }}
     </div>
   </div>
 {% endblock %}

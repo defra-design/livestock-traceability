@@ -26,15 +26,17 @@
         Check the CPH number and postcode in the existing service or in your records, then try again.
       </p>
 
+        <p class="govuk-body govuk-!-margin-bottom-6">
+        If you cannot match the holding, you’ll need to
+        <a class="govuk-link" href="/contact-bcms">contact the British Cattle Movement Service (BCMS)</a>.
+      </p>
+
       {{ govukButton({
         text: "Try again",
         href: "/" ~ baseURL ~ "/add-holding"
       }) }}
 
-      <p class="govuk-body">
-        If you cannot match the holding, you’ll need to
-        <a class="govuk-link" href="/contact-bcms">contact the British Cattle Movement Service (BCMS)</a>.
-      </p>
+
     </div>
   </div>
 {% endblock %}

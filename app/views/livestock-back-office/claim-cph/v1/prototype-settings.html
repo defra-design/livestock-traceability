@@ -1,6 +1,6 @@
 {% extends "layouts/main.html" %}
 
-{% set pageHeading = "Set account recovery questions" %}
+{% set pageHeading = "Prototype settings" %}
 
 {% block pageTitle %}
   {% if errors and errors.length %}Error: {% endif %}{{ pageHeading }}
@@ -9,7 +9,7 @@
 {% block beforeContent %}
   {{ govukBackLink({
     text: "Back",
-    href: "/" ~ baseURL ~ "/before-you-link-a-holding"
+    href: "/" ~ baseURL ~ "/holdings"
   }) }}
 {% endblock %}
 
@@ -24,33 +24,55 @@
         }) }}
       {% endif %}
 
-      {% if saved %}
-        {{ govukNotificationBanner({
-          type: "success",
-          text: "Prototype settings saved"
-        }) }}
-      {% endif %}
-
-      {% if reset %}
-        {{ govukNotificationBanner({
-          type: "success",
-          text: "Prototype journey data reset"
-        }) }}
-      {% endif %}
+      <h1 class="govuk-heading-l">{{ pageHeading }}</h1>
 
       <form action="/{{ baseURL }}/prototype-settings" method="post" novalidate>
+        {{ govukRadios({
+          idPrefix: "email-match-scenario",
+          name: "email-match-scenario",
+          fieldset: {
+            legend: {
+              text: "Email matching scenario",
+              classes: "govuk-fieldset__legend--m"
+            }
+          },
+          hint: {
+            text: "Choose where the configured journey starts and how many holdings are associated with the matching email address."
+          },
+          errorMessage: emailMatchScenarioError,
+          items: [
+            {
+              value: "no-match",
+              text: "Email does not match the existing account",
+              hint: { text: "Start with the existing CPH and postcode recovery journey." },
+              checked: emailMatchScenario == "no-match"
+            },
+            {
+              value: "one-holding",
+              text: "Email matches 1 holding",
+              hint: { text: "Show 1 holding that is available to link." },
+              checked: emailMatchScenario == "one-holding"
+            },
+            {
+              value: "three-holdings",
+              text: "Email matches 3 holdings",
+              hint: { text: "Show 3 holdings that are available to link." },
+              checked: emailMatchScenario == "three-holdings"
+            }
+          ]
+        }) }}
+
         {{ govukCheckboxes({
           idPrefix: "recovery-questions",
           name: "recovery-questions",
           fieldset: {
             legend: {
-              text: pageHeading,
-              isPageHeading: true,
-              classes: "govuk-fieldset__legend--l"
+              text: "Holding verification questions",
+              classes: "govuk-fieldset__legend--m"
             }
           },
           hint: {
-            text: "Select exactly 3 questions to ask in this prototype."
+            text: "Select exactly 3 questions for the non-matching email journey."
           },
           errorMessage: questionsError,
           items: [
@@ -99,22 +121,13 @@
           ]
         }) }}
 
-        {{ govukButton({ text: "Save settings" }) }}
-      </form>
+        {{ govukDetails({
+          summaryText: "Prototype answer key",
+          html: "<p class=\"govuk-body\">These answers are used when a holding record does not contain its own <code>recoveryAnswers</code>.</p><ul class=\"govuk-list govuk-list--bullet\"><li>SBI: 123456789</li><li>Last calf birth: UK 123456 123456</li><li>Last movement on: 15 June 2026, tag ending 3456</li><li>Last movement off: 20 June 2026, tag ending 7890</li><li>Memorable word: bluebell</li><li>Herd mark: 123456</li><li>Number of cattle: 42</li></ul>"
+        }) }}
 
-      {{ govukDetails({
-        summaryText: "Prototype answer key",
-        html: "<p class=\"govuk-body\">These answers are used when a holding record does not contain its own <code>recoveryAnswers</code>.</p><ul class=\"govuk-list govuk-list--bullet\"><li>SBI: 123456789</li><li>Last calf birth: UK 123456 123456</li><li>Last movement on: 15 June 2026, tag ending 3456</li><li>Last movement off: 20 June 2026, tag ending 7890</li><li>Memorable word: bluebell</li><li>Herd mark: 123456</li><li>Number of cattle: 42</li></ul>"
-      }) }}
-
-      <p class="govuk-body">
-        <a class="govuk-link" href="/{{ baseURL }}/before-you-link-a-holding">Start the claim journey</a>
-      </p>
-
-      <form action="/{{ baseURL }}/prototype-settings/reset" method="post">
         {{ govukButton({
-          text: "Reset prototype journey data",
-          classes: "govuk-button--secondary"
+          text: "Start Journey"
         }) }}
       </form>
     </div>

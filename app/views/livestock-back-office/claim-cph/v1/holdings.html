@@ -29,8 +29,10 @@
     <div class="govuk-grid-column-full-from-desktop">
       <h1 class="govuk-heading-l govuk-!-margin-bottom-6">{{ pageHeading }}</h1>
 
-      {% if holdings.length %}
-        <table class="govuk-table" {% if holdings.length  >= 5 %} data-module="moj-sortable-table" {% endif %}>
+      {% if linkedHoldings.length %}
+        <h2 class="govuk-heading-m">Holdings linked to your account</h2>
+
+        <table class="govuk-table" {% if linkedHoldings.length >= 5 %}data-module="moj-sortable-table"{% endif %}>
           <caption class="govuk-table__caption govuk-visually-hidden">
             Holdings linked to this account and requests being checked
           </caption>
@@ -46,7 +48,7 @@
           </thead>
 
           <tbody class="govuk-table__body">
-            {% for holding in holdings %}
+            {% for holding in linkedHoldings %}
               <tr class="govuk-table__row">
                 <td class="govuk-table__cell" data-sort-value="{{ holding.cphNumber }}">
                   {% if holding.linkStatus == "linked" %}
@@ -70,13 +72,65 @@
             {% endfor %}
           </tbody>
         </table>
+      {% endif %}
+
+      {% if emailMatchedHoldings.length %}
+        <h2 class="govuk-heading-m{% if linkedHoldings.length %} govuk-!-margin-top-8{% endif %}">
+          {% if linkedHoldings.length %}Other holdings linked to your email address{% else %}Holdings linked to your email address{% endif %}
+        </h2>
+
+        <p class="govuk-body">
+          We found these holdings using the email address on your existing account.
+        </p>
+
+        <table class="govuk-table">
+          <caption class="govuk-table__caption govuk-visually-hidden">
+            Other holdings available to link to this account
+          </caption>
+
+          <thead class="govuk-table__head">
+            <tr class="govuk-table__row">
+              <th scope="col" class="govuk-table__header">CPH</th>
+              <th scope="col" class="govuk-table__header">Holding name</th>
+              <th scope="col" class="govuk-table__header">Postcode</th>
+              <th scope="col" class="govuk-table__header">
+                <span class="govuk-visually-hidden">Action</span>
+              </th>
+            </tr>
+          </thead>
+
+          <tbody class="govuk-table__body">
+            {% for holding in emailMatchedHoldings %}
+              <tr class="govuk-table__row">
+                <td class="govuk-table__cell">{{ holding.cphNumber }}</td>
+                <td class="govuk-table__cell">{{ holding.holdingName }}</td>
+                <td class="govuk-table__cell">{{ holding.postcode }}</td>
+                <td class="govuk-table__cell govuk-table__cell--numeric">
+                  <a class="govuk-link" href="/{{ baseURL }}/link-email-holding/{{ holding.id }}">
+                    Link this holding<span class="govuk-visually-hidden">, CPH {{ holding.cphNumber }}</span>
+                  </a>
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      {% elseif not linkedHoldings.length %}
+        <p class="govuk-body">There are no holdings to show.</p>
+      {% endif %}
+
+      <h2 class="govuk-heading-m govuk-!-margin-top-8">If the holding is not listed</h2>
+      <p class="govuk-body">You can add a holding using its CPH number and postcode.</p>
+
+      {% if emailMatchedHoldings.length %}
+        {% set addHoldingButtonClasses = "govuk-button--secondary" %}
       {% else %}
-        <p class="govuk-body">You have not added any holdings.</p>
+        {% set addHoldingButtonClasses = "" %}
       {% endif %}
 
       {{ govukButton({
-        text: "Add another holding",
-        href: "/" ~ baseURL ~ "/add-holding"
+        text: "Add a holding",
+        href: "/" ~ baseURL ~ "/add-holding",
+        classes: addHoldingButtonClasses
       }) }}
     </div>
   </div>
