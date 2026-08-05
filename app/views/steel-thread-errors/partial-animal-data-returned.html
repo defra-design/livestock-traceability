@@ -76,7 +76,11 @@ href: "javascript:window.history.back()"
 
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">Sex</dt>
-                <dd class="govuk-summary-list__value"></dd>
+                <dd class="govuk-summary-list__value">
+                    <strong class="govuk-tag govuk-tag--grey">
+                        Not supplied
+                    </strong>
+                </dd>
             </div>
 
             <div class="govuk-summary-list__row">
@@ -105,30 +109,25 @@ href: "javascript:window.history.back()"
 
         </dl>
 
-        {% if animal.sire %}
         <h2 class="govuk-heading-m">Sire details</h2>
 
         <dl class="govuk-summary-list">
 
-            {% if animal.sire.earTagNumber %}
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">Sire ear tag</dt>
-                <dd class="govuk-summary-list__value">{{ animal.sire.earTagNumber | formatReference }}</dd>
+                <dd class="govuk-summary-list__value">
+                    <strong class="govuk-tag govuk-tag--grey">
+                        Not supplied
+                    </strong>
+                </dd>
             </div>
-            {% endif %}
 
-            {% if animal.sire.name %}
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">Sire name</dt>
-                <dd class="govuk-summary-list__value">{{ animal.sire.name }}</dd>
+                <dd class="govuk-summary-list__value">Glenfinnan Maverick</dd>
             </div>
-            {% endif %}
-
+            
         </dl>
-        {% else %}
-        <h2 class="govuk-heading-m">Sire details</h2>
-        <p class="govuk-body">No sire details recorded.</p>
-        {% endif %}
 
     </div>
 </div>
