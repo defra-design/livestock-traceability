@@ -175,7 +175,41 @@ router.get('/steel-thread/v2/animals-on-holding', (req, res) => {
       )
     })
 
-  res.render('steel-thread/v2/animals-on-holding', { cattle, search })
+  const pageSize = 15
+  const totalPages = Math.max(1, Math.ceil(cattle.length / pageSize))
+  const requestedPage = parseInt(req.query.page, 10) || 1
+  const page = Math.min(Math.max(requestedPage, 1), totalPages)
+
+  const pagedCattle = cattle.slice((page - 1) * pageSize, page * pageSize)
+
+  const pageHref = (pageNumber) => {
+    const params = new URLSearchParams()
+    if (search) params.set('search', search)
+    params.set('page', pageNumber)
+    return `/steel-thread/v2/animals-on-holding?${params.toString()}`
+  }
+
+  const pagination = totalPages > 1 ? {
+    previous: page > 1 ? { href: pageHref(page - 1) } : undefined,
+    next: page < totalPages ? { href: pageHref(page + 1) } : undefined,
+    items: Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNumber) => ({
+      number: pageNumber,
+      current: pageNumber === page,
+      href: pageHref(pageNumber)
+    }))
+  } : null
+
+  const showingFrom = cattle.length === 0 ? 0 : (page - 1) * pageSize + 1
+  const showingTo = Math.min(page * pageSize, cattle.length)
+
+  res.render('steel-thread/v2/animals-on-holding', {
+    cattle: pagedCattle,
+    search,
+    pagination,
+    showingFrom,
+    showingTo,
+    totalCattle: cattle.length
+  })
 })
 
 router.get('/steel-thread/v2/animal-error-record', (req, res) => {

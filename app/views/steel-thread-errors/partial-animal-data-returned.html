@@ -1,0 +1,133 @@
+{% extends "layouts/main.html" %}
+
+{% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
+{% from "govuk/components/tabs/macro.njk" import govukTabs %}
+
+{% set pageName = "Cattle details" %}
+
+{% block header %}
+
+{{ govukHeader({
+homepageUrl: '/index.html'
+}) }}
+
+{{ govukServiceNavigation({
+serviceName: "Livestock Information",
+serviceUrl: "/steel-thread-errors/start",
+slots: {
+navigationEnd: '<li class="govuk-service-navigation__item app-service-navigation__item--right"><a class="govuk-service-navigation__link" href="/steel-thread/v2/one-login">Sign out</a></li>'
+}
+}) }}
+
+{% endblock %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+        <span class="govuk-caption-l">County Parish Holding: 12/345/0001</span>
+        <h1 class="govuk-heading-l">UK 324537 113234</h1>
+
+        <h2 class="govuk-heading-m">Cattle details</h2>
+
+        <dl class="govuk-summary-list">
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">Ear tag number</dt>
+                <dd class="govuk-summary-list__value">UK 324537 113234</dd>
+            </div>
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">Date of birth</dt>
+                <dd class="govuk-summary-list__value">10 Mar 2023</dd>
+            </div>
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">Date registered</dt>
+                <dd class="govuk-summary-list__value">14 Mar 2023</dd>
+            </div>
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    On-location date
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    10 Mar 2023
+                </dd>
+            </div>
+
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Animal status
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    Active
+                </dd>
+            </div>
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">Sex</dt>
+                <dd class="govuk-summary-list__value">
+                    <strong class="govuk-tag govuk-tag--red">
+                        Not supplied
+                    </strong>
+                </dd>
+            </div>
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">Breed</dt>
+                <dd class="govuk-summary-list__value">
+                    Holstein Friesian (HO)
+                </dd>
+            </div>
+
+        </dl>
+
+
+        <h2 class="govuk-heading-m">Dam details</h2>
+
+        <dl class="govuk-summary-list">
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">Dam type</dt>
+                <dd class="govuk-summary-list__value">Genetic</dd>
+            </div>
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">Genetic dam ear tag</dt>
+                <dd class="govuk-summary-list__value">UK 324537 113243</dd>
+            </div>
+
+        </dl>
+
+        <h2 class="govuk-heading-m">Sire details</h2>
+
+        <dl class="govuk-summary-list">
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">Sire ear tag</dt>
+                <dd class="govuk-summary-list__value">
+                    Not required
+                </dd>
+            </div>
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">Sire name</dt>
+                <dd class="govuk-summary-list__value">Glenfinnan Maverick</dd>
+            </div>
+
+        </dl>
+
+    </div>
+</div>
+
+{% endblock %}

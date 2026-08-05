@@ -1,0 +1,47 @@
+{% extends "layouts/main.html" %}
+
+{% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
+{% from "govuk/components/tabs/macro.njk" import govukTabs %}
+
+{% set pageName = "Cattle details" %}
+
+{% block header %}
+
+{{ govukHeader({
+homepageUrl: '/index.html'
+}) }}
+
+{{ govukServiceNavigation({
+serviceName: "Livestock Information",
+serviceUrl: "/steel-thread-errors/start",
+slots: {
+navigationEnd: '<li class="govuk-service-navigation__item app-service-navigation__item--right"><a class="govuk-service-navigation__link" href="/steel-thread/v2/one-login">Sign out</a></li>'
+}
+}) }}
+
+{% endblock %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+
+        <span class="govuk-caption-l">County Parish Holding: 12/345/0001</span>
+        <h1 class="govuk-heading-l">UK 324537 113234</h1>
+        <h2 class="govuk-heading-m">
+            Sorry, there is a problem with the service
+        </h2>
+        <p class="govuk-body">Your holding details are not available right now.</p>
+        <p class="govuk-body">This may be due to a technical issue. Try refreshing your page or try again later.</p>
+
+    </div>
+</div>
+
+{% endblock %}
