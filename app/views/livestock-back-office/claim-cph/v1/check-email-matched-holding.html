@@ -31,14 +31,14 @@
             value: { text: pendingHolding.postcode }
           },
           {
-            key: { text: "Your role" },
-            value: { text: pendingHolding.claimedRoleLabel },
+            key: { text: "CPH registered to you or your business" },
+            value: { text: pendingHolding.registeredToUserLabel },
             actions: {
               items: [
                 {
-                  href: "/" ~ baseURL ~ "/role-on-holding",
+                  href: "/" ~ baseURL ~ "/cph-registered-to-you",
                   text: "Change",
-                  visuallyHiddenText: "your role"
+                  visuallyHiddenText: "whether the CPH is registered to you or your business"
                 }
               ]
             }

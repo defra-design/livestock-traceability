@@ -1,0 +1,45 @@
+{% extends "layouts/main.html" %}
+
+{% set pageHeading = "Confirm your access to the holding" %}
+
+{% block pageTitle %}{{ pageHeading }}{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: backLink
+  }) }}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <h1 class="govuk-heading-l">{{ pageHeading }}</h1>
+
+      <p class="govuk-body">
+        We need to ask you 3 questions about the holding before we can link it to your account.
+      </p>
+
+      <p class="govuk-body">
+        Your questions will be based on information recorded for the holding. You may need to check your records or the existing livestock service to find the answers.
+      </p>
+
+      <p class="govuk-body">We will use your answers to decide whether we can:</p>
+
+      <ul class="govuk-list govuk-list--bullet">
+        <li>link the holding to your account</li>
+        <li>send your request for a manual check</li>
+        <li>ask you to contact the British Cattle Movement Service (BCMS)</li>
+      </ul>
+
+      <p class="govuk-body">
+        We will not tell you which answers were correct.
+      </p>
+
+      {{ govukButton({
+        text: "Continue",
+        href: "/" ~ baseURL ~ "/verification-question/1"
+      }) }}
+    </div>
+  </div>
+{% endblock %}

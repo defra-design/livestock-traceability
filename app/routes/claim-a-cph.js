@@ -3,7 +3,7 @@ const router = govukPrototypeKit.requests.setupRouter()
 
 const baseURL = 'livestock-back-office/claim-cph/v1'
 
-const RECOVERY_QUESTIONS = {
+const VERIFICATION_QUESTIONS = {
   sbi: {
     key: 'sbi',
     type: 'single',
@@ -74,7 +74,7 @@ const RECOVERY_QUESTIONS = {
   }
 }
 
-const RECOVERY_QUESTION_ORDER = [
+const VERIFICATION_QUESTION_ORDER = [
   'sbi',
   'lastBirthEarTag',
   'lastMovementOn',
@@ -84,7 +84,7 @@ const RECOVERY_QUESTION_ORDER = [
   'animalCount'
 ]
 
-const DEFAULT_RECOVERY_QUESTION_KEYS = [
+const DEFAULT_VERIFICATION_QUESTION_KEYS = [
   'sbi',
   'lastBirthEarTag',
   'lastMovementOff'
@@ -99,8 +99,8 @@ const EMAIL_MATCH_SCENARIOS = {
 const DEFAULT_EMAIL_MATCH_SCENARIO = 'no-match'
 
 // These values let the prototype demonstrate all 3 outcomes before the
-// holdings fixture has recoveryAnswers added to each holding record.
-const DEFAULT_DEMO_RECOVERY_ANSWERS = {
+// holdings fixture has verificationAnswers added to each holding record.
+const DEFAULT_DEMO_VERIFICATION_ANSWERS = {
   sbi: '123456789',
   lastBirthEarTag: 'UK123456123456',
   lastMovementOn: {
@@ -172,26 +172,26 @@ function getHoldingsToLink (request) {
     : []
 }
 
-function getRecoverySettings (request) {
+function getVerificationSettings (request) {
   const savedSettings = request.session.data.claimCphSettings || {}
-  const savedQuestions = savedSettings.questions
+  const savedQuestions = savedSettings.verificationQuestions
   const validSavedQuestions = Array.isArray(savedQuestions) &&
     savedQuestions.length === 3 &&
-    savedQuestions.every(key => RECOVERY_QUESTIONS[key])
+    savedQuestions.every(key => VERIFICATION_QUESTIONS[key])
   const emailMatchScenario = Object.hasOwn(EMAIL_MATCH_SCENARIOS, savedSettings.emailMatchScenario)
     ? savedSettings.emailMatchScenario
     : DEFAULT_EMAIL_MATCH_SCENARIO
 
   return {
-    questions: validSavedQuestions
-      ? RECOVERY_QUESTION_ORDER.filter(key => savedQuestions.includes(key))
-      : [...DEFAULT_RECOVERY_QUESTION_KEYS],
+    verificationQuestions: validSavedQuestions
+      ? VERIFICATION_QUESTION_ORDER.filter(key => savedQuestions.includes(key))
+      : [...DEFAULT_VERIFICATION_QUESTION_KEYS],
     emailMatchScenario
   }
 }
 
 function getEmailMatchedHoldings (request) {
-  const scenario = getRecoverySettings(request).emailMatchScenario
+  const scenario = getVerificationSettings(request).emailMatchScenario
   const candidateCount = EMAIL_MATCH_SCENARIOS[scenario] || 0
 
   if (candidateCount === 0) return []
@@ -232,14 +232,14 @@ function buildPendingHolding (holding, claimRoute) {
   }
 }
 
-function getRecoveryAnswers (request) {
-  const answers = request.session.data.claimCphRecoveryAnswers
+function getVerificationAnswers (request) {
+  const answers = request.session.data.claimCphVerificationAnswers
   return answers && typeof answers === 'object' ? answers : {}
 }
 
-function clearRecoveryJourney (request) {
-  delete request.session.data.claimCphRecoveryAnswers
-  delete request.session.data.claimCphRecoveryResult
+function clearVerificationJourney (request) {
+  delete request.session.data.claimCphVerificationAnswers
+  delete request.session.data.claimCphVerificationResult
 }
 
 function resetClaimCphJourney (request) {
@@ -247,12 +247,11 @@ function resetClaimCphJourney (request) {
 
   delete data.holdingsToLink
   delete data.pendingHoldingToLink
-  delete data.claimCphRecoveryAnswers
-  delete data.claimCphRecoveryResult
+  delete data.claimCphVerificationAnswers
+  delete data.claimCphVerificationResult
   delete data.claimCphBlockedHoldingIds
   delete data['cph-number']
   delete data['holding-postcode']
-  delete data['holding-role']
   delete data['is-cph-registered-to-user']
 }
 
@@ -342,19 +341,19 @@ function parseDateParts (dayValue, monthValue, yearValue) {
   }
 }
 
-function getExpectedRecoveryAnswers (request, holdingId) {
+function getExpectedVerificationAnswers (request, holdingId) {
   const sourceHolding = getSourceHoldingById(request, holdingId)
-  const sourceAnswers = sourceHolding?.recoveryAnswers || {}
+  const sourceAnswers = sourceHolding?.verificationAnswers || {}
 
   return {
-    ...DEFAULT_DEMO_RECOVERY_ANSWERS,
+    ...DEFAULT_DEMO_VERIFICATION_ANSWERS,
     ...sourceAnswers,
     lastMovementOn: {
-      ...DEFAULT_DEMO_RECOVERY_ANSWERS.lastMovementOn,
+      ...DEFAULT_DEMO_VERIFICATION_ANSWERS.lastMovementOn,
       ...(sourceAnswers.lastMovementOn || {})
     },
     lastMovementOff: {
-      ...DEFAULT_DEMO_RECOVERY_ANSWERS.lastMovementOff,
+      ...DEFAULT_DEMO_VERIFICATION_ANSWERS.lastMovementOff,
       ...(sourceAnswers.lastMovementOff || {})
     }
   }
@@ -390,7 +389,7 @@ function answerMatchesExpected (questionKey, submittedAnswer, expectedAnswers) {
 function renderAddHolding (request, response, options = {}) {
   const data = request.session.data
   const holdingsToLink = getHoldingsToLink(request)
-  const hasMatchingEmailScenario = getRecoverySettings(request).emailMatchScenario !== 'no-match'
+  const hasMatchingEmailScenario = getVerificationSettings(request).emailMatchScenario !== 'no-match'
 
   response.render(`${baseURL}/add-holding`, {
     baseURL,
@@ -407,7 +406,7 @@ function renderAddHolding (request, response, options = {}) {
   })
 }
 
-function renderHoldingRole (request, response, options = {}) {
+function renderCphRegisteredToYou (request, response, options = {}) {
   const data = request.session.data
   const pendingHolding = data.pendingHoldingToLink
 
@@ -415,17 +414,17 @@ function renderHoldingRole (request, response, options = {}) {
     return response.redirect(`/${baseURL}/add-holding`)
   }
 
-  response.render(`${baseURL}/role-on-holding`, {
+  response.render(`${baseURL}/cph-registered-to-you`, {
     baseURL,
     backLink: pendingHolding.claimRoute === 'matched-email'
       ? `/${baseURL}/holdings`
       : `/${baseURL}/add-holding`,
     pendingHolding,
     errors: options.errors || [],
-    roleError: options.roleError,
-    selectedAnswer: options.selectedAnswer ??
+    registeredToUserError: options.registeredToUserError,
+    selectedRegisteredToUser: options.selectedRegisteredToUser ??
       data['is-cph-registered-to-user'] ??
-      pendingHolding.isCphRegisteredToUser ??
+      pendingHolding.registeredToUser ??
       ''
   })
 }
@@ -435,7 +434,7 @@ function renderHoldings (request, response) {
     baseURL,
     linkedHoldings: getHoldingsToLink(request),
     emailMatchedHoldings: getEmailMatchedHoldings(request),
-    emailMatchScenario: getRecoverySettings(request).emailMatchScenario
+    emailMatchScenario: getVerificationSettings(request).emailMatchScenario
   })
 }
 
@@ -454,30 +453,30 @@ function buildQuestionValues (question, savedAnswer, postedValues = {}) {
   }
 }
 
-function renderRecoveryQuestion (request, response, questionNumber, options = {}) {
+function renderVerificationQuestion (request, response, questionNumber, options = {}) {
   const pendingHolding = request.session.data.pendingHoldingToLink
 
   if (!pendingHolding) {
     return response.redirect(`/${baseURL}/add-holding`)
   }
 
-  const selectedQuestions = getRecoverySettings(request).questions
+  const selectedQuestions = getVerificationSettings(request).verificationQuestions
   const questionKey = selectedQuestions[questionNumber - 1]
-  const question = RECOVERY_QUESTIONS[questionKey]
+  const question = VERIFICATION_QUESTIONS[questionKey]
 
   if (!question) {
-    return response.redirect(`/${baseURL}/recovery-question/1`)
+    return response.redirect(`/${baseURL}/verification-question/1`)
   }
 
-  const savedAnswer = getRecoveryAnswers(request)[questionKey]
+  const savedAnswer = getVerificationAnswers(request)[questionKey]
   const returnToCheck = options.returnToCheck ?? request.query.return === 'check'
   const backLink = returnToCheck
-    ? `/${baseURL}/check-recovery-answers`
+    ? `/${baseURL}/check-verification-answers`
     : questionNumber === 1
-      ? `/${baseURL}/role-on-holding`
-      : `/${baseURL}/recovery-question/${questionNumber - 1}`
+      ? `/${baseURL}/before-holding-checks`
+      : `/${baseURL}/verification-question/${questionNumber - 1}`
 
-  response.render(`${baseURL}/recovery-question`, {
+  response.render(`${baseURL}/verification-question`, {
     baseURL,
     backLink,
     question,
@@ -492,12 +491,12 @@ function renderRecoveryQuestion (request, response, questionNumber, options = {}
   })
 }
 
-function getRecoverySummaryRows (request) {
-  const answers = getRecoveryAnswers(request)
-  const questionKeys = getRecoverySettings(request).questions
+function getVerificationSummaryRows (request) {
+  const answers = getVerificationAnswers(request)
+  const questionKeys = getVerificationSettings(request).verificationQuestions
 
   return questionKeys.map((questionKey, index) => {
-    const question = RECOVERY_QUESTIONS[questionKey]
+    const question = VERIFICATION_QUESTIONS[questionKey]
     const answer = answers[questionKey]
     let valueHtml = ''
 
@@ -515,7 +514,7 @@ function getRecoverySummaryRows (request) {
       actions: {
         items: [
           {
-            href: `/${baseURL}/recovery-question/${index + 1}?return=check`,
+            href: `/${baseURL}/verification-question/${index + 1}?return=check`,
             text: 'Change',
             visuallyHiddenText: question.shortLabel.toLowerCase()
           }
@@ -531,16 +530,16 @@ function addCompletedHolding (request, completedHolding) {
   request.session.data.holdingsToLink = [...withoutExisting, completedHolding]
 }
 
-function finishRecoveryJourney (request, outcome) {
+function finishVerificationJourney (request, outcome) {
   const data = request.session.data
   const pendingHolding = data.pendingHoldingToLink
-  const selectedQuestions = getRecoverySettings(request).questions
+  const selectedQuestions = getVerificationSettings(request).verificationQuestions
   if (!pendingHolding) return null
 
   const completedHolding = {
     ...pendingHolding,
-    recoveryOutcome: outcome,
-    recoveryQuestionKeys: selectedQuestions,
+    verificationOutcome: outcome,
+    verificationQuestionKeys: selectedQuestions,
     linkStatus: outcome === 'success'
       ? 'linked'
       : outcome === 'manual-check'
@@ -570,27 +569,26 @@ function finishRecoveryJourney (request, outcome) {
     data.claimCphBlockedHoldingIds = [...new Set([...blockedIds, pendingHolding.id])]
   }
 
-  data.claimCphRecoveryResult = {
+  data.claimCphVerificationResult = {
     outcome,
     holding: completedHolding
   }
 
   delete data.pendingHoldingToLink
-  delete data.claimCphRecoveryAnswers
+  delete data.claimCphVerificationAnswers
   data['cph-number'] = ''
   data['holding-postcode'] = ''
-  data['holding-role'] = ''
   data['is-cph-registered-to-user'] = ''
 
   return completedHolding
 }
 
 router.get(`/${baseURL}/prototype-settings`, function (request, response) {
-  const settings = getRecoverySettings(request)
+  const settings = getVerificationSettings(request)
 
   response.render(`${baseURL}/prototype-settings`, {
     baseURL,
-    selectedQuestions: settings.questions,
+    selectedQuestions: settings.verificationQuestions,
     emailMatchScenario: settings.emailMatchScenario,
     errors: [],
     questionsError: null,
@@ -599,13 +597,13 @@ router.get(`/${baseURL}/prototype-settings`, function (request, response) {
 })
 
 router.post(`/${baseURL}/prototype-settings`, function (request, response) {
-  const submittedQuestions = Array.isArray(request.body['recovery-questions'])
-    ? request.body['recovery-questions']
-    : request.body['recovery-questions']
-      ? [request.body['recovery-questions']]
+  const submittedQuestions = Array.isArray(request.body['verification-questions'])
+    ? request.body['verification-questions']
+    : request.body['verification-questions']
+      ? [request.body['verification-questions']]
       : []
 
-  const selectedQuestions = submittedQuestions.filter(key => RECOVERY_QUESTIONS[key])
+  const selectedQuestions = submittedQuestions.filter(key => VERIFICATION_QUESTIONS[key])
   const submittedScenario = String(request.body['email-match-scenario'] || '')
   const emailMatchScenario = Object.hasOwn(EMAIL_MATCH_SCENARIOS, submittedScenario)
     ? submittedScenario
@@ -620,8 +618,8 @@ router.post(`/${baseURL}/prototype-settings`, function (request, response) {
   }
 
   if (selectedQuestions.length !== 3) {
-    questionsError = { text: 'Select 3 account recovery questions' }
-    errors.push({ text: questionsError.text, href: '#recovery-questions' })
+    questionsError = { text: 'Select 3 holding verification questions' }
+    errors.push({ text: questionsError.text, href: '#verification-questions' })
   }
 
   if (errors.length) {
@@ -636,7 +634,7 @@ router.post(`/${baseURL}/prototype-settings`, function (request, response) {
   }
 
   request.session.data.claimCphSettings = {
-    questions: RECOVERY_QUESTION_ORDER.filter(key => selectedQuestions.includes(key)),
+    verificationQuestions: VERIFICATION_QUESTION_ORDER.filter(key => selectedQuestions.includes(key)),
     emailMatchScenario
   }
   resetClaimCphJourney(request)
@@ -650,7 +648,7 @@ router.post(`/${baseURL}/prototype-settings`, function (request, response) {
 
 // Retained so existing prototype links to /start continue to work.
 router.get(`/${baseURL}/start`, function (request, response) {
-  const scenario = getRecoverySettings(request).emailMatchScenario
+  const scenario = getVerificationSettings(request).emailMatchScenario
 
   if (scenario === 'no-match') {
     return response.redirect(`/${baseURL}/before-you-link-a-holding`)
@@ -671,19 +669,32 @@ router.get(`/${baseURL}/could-not-match-holding`, function (request, response) {
   response.render(`${baseURL}/could-not-match-holding`, { baseURL })
 })
 
-router.get(`/${baseURL}/role-on-holding`, function (request, response) {
-  renderHoldingRole(request, response)
+router.get(`/${baseURL}/cph-registered-to-you`, function (request, response) {
+  renderCphRegisteredToYou(request, response)
 })
 
-router.get(`/${baseURL}/recovery-question/:number`, function (request, response) {
-  const questionNumber = Number(request.params.number)
-  renderRecoveryQuestion(request, response, questionNumber)
-})
-
-router.get(`/${baseURL}/check-recovery-answers`, function (request, response) {
+router.get(`/${baseURL}/before-holding-checks`, function (request, response) {
   const pendingHolding = request.session.data.pendingHoldingToLink
-  const selectedQuestions = getRecoverySettings(request).questions
-  const answers = getRecoveryAnswers(request)
+
+  if (!pendingHolding) {
+    return response.redirect(`/${baseURL}/add-holding`)
+  }
+
+  response.render(`${baseURL}/before-holding-checks`, {
+    baseURL,
+    backLink: `/${baseURL}/cph-registered-to-you`
+  })
+})
+
+router.get(`/${baseURL}/verification-question/:number`, function (request, response) {
+  const questionNumber = Number(request.params.number)
+  renderVerificationQuestion(request, response, questionNumber)
+})
+
+router.get(`/${baseURL}/check-verification-answers`, function (request, response) {
+  const pendingHolding = request.session.data.pendingHoldingToLink
+  const selectedQuestions = getVerificationSettings(request).verificationQuestions
+  const answers = getVerificationAnswers(request)
   const hasAllAnswers = selectedQuestions.every(key => answers[key])
 
   if (!pendingHolding) {
@@ -692,42 +703,42 @@ router.get(`/${baseURL}/check-recovery-answers`, function (request, response) {
 
   if (!hasAllAnswers) {
     const firstMissingIndex = selectedQuestions.findIndex(key => !answers[key])
-    return response.redirect(`/${baseURL}/recovery-question/${firstMissingIndex + 1}`)
+    return response.redirect(`/${baseURL}/verification-question/${firstMissingIndex + 1}`)
   }
 
-  response.render(`${baseURL}/check-recovery-answers`, {
+  response.render(`${baseURL}/check-verification-answers`, {
     baseURL,
     pendingHolding,
-    rows: getRecoverySummaryRows(request),
-    backLink: `/${baseURL}/recovery-question/${selectedQuestions.length}`
+    rows: getVerificationSummaryRows(request),
+    backLink: `/${baseURL}/verification-question/${selectedQuestions.length}`
   })
 })
 
-router.get(`/${baseURL}/recovery-success`, function (request, response) {
-  const result = request.session.data.claimCphRecoveryResult
-  if (!result || result.outcome !== 'success') {
+router.get(`/${baseURL}/verification-success`, function (request, response) {
+  const verificationResult = request.session.data.claimCphVerificationResult
+  if (!verificationResult || verificationResult.outcome !== 'success') {
     return response.redirect(`/${baseURL}/add-holding`)
   }
 
-  response.render(`${baseURL}/recovery-success`, { baseURL, result })
+  response.render(`${baseURL}/verification-success`, { baseURL, verificationResult })
 })
 
-router.get(`/${baseURL}/recovery-manual-check`, function (request, response) {
-  const result = request.session.data.claimCphRecoveryResult
-  if (!result || result.outcome !== 'manual-check') {
+router.get(`/${baseURL}/verification-manual-check`, function (request, response) {
+  const verificationResult = request.session.data.claimCphVerificationResult
+  if (!verificationResult || verificationResult.outcome !== 'manual-check') {
     return response.redirect(`/${baseURL}/add-holding`)
   }
 
-  response.render(`${baseURL}/recovery-manual-check`, { baseURL, result })
+  response.render(`${baseURL}/verification-manual-check`, { baseURL, verificationResult })
 })
 
-router.get(`/${baseURL}/recovery-blocked`, function (request, response) {
-  const result = request.session.data.claimCphRecoveryResult
-  if (!result || result.outcome !== 'blocked') {
+router.get(`/${baseURL}/verification-blocked`, function (request, response) {
+  const verificationResult = request.session.data.claimCphVerificationResult
+  if (!verificationResult || verificationResult.outcome !== 'blocked') {
     return response.redirect(`/${baseURL}/add-holding`)
   }
 
-  response.render(`${baseURL}/recovery-blocked`, { baseURL, result })
+  response.render(`${baseURL}/verification-blocked`, { baseURL, verificationResult })
 })
 
 router.get(`/${baseURL}/holdings`, function (request, response) {
@@ -743,24 +754,23 @@ router.get(`/${baseURL}/link-email-holding/:holdingId`, function (request, respo
   }
 
   request.session.data.pendingHoldingToLink = buildPendingHolding(matchedHolding, 'matched-email')
-  request.session.data['holding-role'] = ''
   request.session.data['is-cph-registered-to-user'] = ''
-  clearRecoveryJourney(request)
+  clearVerificationJourney(request)
 
-  response.redirect(`/${baseURL}/role-on-holding`)
+  response.redirect(`/${baseURL}/cph-registered-to-you`)
 })
 
 router.get(`/${baseURL}/check-email-matched-holding`, function (request, response) {
   const pendingHolding = request.session.data.pendingHoldingToLink
 
-  if (!pendingHolding || pendingHolding.claimRoute !== 'matched-email' || !pendingHolding.isCphRegisteredToUser) {
+  if (!pendingHolding || pendingHolding.claimRoute !== 'matched-email' || !pendingHolding.registeredToUser) {
     return response.redirect(`/${baseURL}/holdings`)
   }
 
   response.render(`${baseURL}/check-email-matched-holding`, {
     baseURL,
     pendingHolding,
-    backLink: `/${baseURL}/role-on-holding`
+    backLink: `/${baseURL}/cph-registered-to-you`
   })
 })
 
@@ -768,30 +778,29 @@ router.post(`/${baseURL}/check-email-matched-holding`, function (request, respon
   const data = request.session.data
   const pendingHolding = data.pendingHoldingToLink
 
-  if (!pendingHolding || pendingHolding.claimRoute !== 'matched-email' || !pendingHolding.isCphRegisteredToUser) {
+  if (!pendingHolding || pendingHolding.claimRoute !== 'matched-email' || !pendingHolding.registeredToUser) {
     return response.redirect(`/${baseURL}/holdings`)
   }
 
   const completedHolding = {
     ...pendingHolding,
     verificationMethod: 'matched-email',
-    recoveryOutcome: 'success',
+    verificationOutcome: 'success',
     linkStatus: 'linked',
     linkStatusLabel: 'Linked',
     linkStatusTagColour: 'green'
   }
 
   addCompletedHolding(request, completedHolding)
-  data.claimCphRecoveryResult = {
+  data.claimCphVerificationResult = {
     outcome: 'success',
     holding: completedHolding
   }
 
   delete data.pendingHoldingToLink
-  data['holding-role'] = ''
   data['is-cph-registered-to-user'] = ''
 
-  response.redirect(`/${baseURL}/recovery-success`)
+  response.redirect(`/${baseURL}/verification-success`)
 })
 
 // Keep the previous prototype URL working while the journey is updated.
@@ -854,7 +863,7 @@ router.post(`/${baseURL}/add-holding`, function (request, response) {
     : []
 
   if (blockedIds.includes(matchedHolding.id)) {
-    request.session.data.claimCphRecoveryResult = {
+    request.session.data.claimCphVerificationResult = {
       outcome: 'blocked',
       holding: {
         id: matchedHolding.id,
@@ -863,7 +872,7 @@ router.post(`/${baseURL}/add-holding`, function (request, response) {
         holdingName: matchedHolding.holdingName
       }
     }
-    return response.redirect(`/${baseURL}/recovery-blocked`)
+    return response.redirect(`/${baseURL}/verification-blocked`)
   }
 
   request.session.data.pendingHoldingToLink = {
@@ -879,14 +888,13 @@ router.post(`/${baseURL}/add-holding`, function (request, response) {
 
   request.session.data['cph-number'] = enteredCph
   request.session.data['holding-postcode'] = enteredPostcode
-  request.session.data['holding-role'] = ''
   request.session.data['is-cph-registered-to-user'] = ''
-  clearRecoveryJourney(request)
+  clearVerificationJourney(request)
 
-  response.redirect(`/${baseURL}/role-on-holding`)
+  response.redirect(`/${baseURL}/cph-registered-to-you`)
 })
 
-router.post(`/${baseURL}/role-on-holding`, function (request, response) {
+router.post(`/${baseURL}/cph-registered-to-you`, function (request, response) {
   const selectedAnswer = String(request.body['is-cph-registered-to-user'] || '')
   const pendingHolding = request.session.data.pendingHoldingToLink
 
@@ -900,53 +908,45 @@ router.post(`/${baseURL}/role-on-holding`, function (request, response) {
   }
 
   if (!allowedAnswers[selectedAnswer]) {
-    const roleError = {
+    const registeredToUserError = {
       text: 'Select yes if the CPH is registered to you or your business'
     }
 
-    return renderHoldingRole(request, response, {
+    return renderCphRegisteredToYou(request, response, {
       errors: [{
-        text: roleError.text,
+        text: registeredToUserError.text,
         href: '#is-cph-registered-to-user'
       }],
-      roleError,
-      selectedAnswer
+      registeredToUserError,
+      selectedRegisteredToUser: selectedAnswer
     })
   }
 
   request.session.data.pendingHoldingToLink = {
     ...pendingHolding,
-    isCphRegisteredToUser: selectedAnswer,
-    isCphRegisteredToUserLabel: allowedAnswers[selectedAnswer],
-
-    // Retain these fields for the existing Holdings table until its
-    // Role column is redesigned for the new binary question.
-    claimedRole: selectedAnswer === 'yes' ? 'cph-holder' : 'not-cph-holder',
-    claimedRoleLabel: selectedAnswer === 'yes'
-      ? 'CPH holder'
-      : 'Not the CPH holder'
+    registeredToUser: selectedAnswer,
+    registeredToUserLabel: allowedAnswers[selectedAnswer]
   }
 
   request.session.data['is-cph-registered-to-user'] = selectedAnswer
-  delete request.session.data['holding-role']
-  clearRecoveryJourney(request)
+  clearVerificationJourney(request)
 
   if (pendingHolding.claimRoute === 'matched-email') {
     return response.redirect(`/${baseURL}/check-email-matched-holding`)
   }
 
-  response.redirect(`/${baseURL}/recovery-question/1`)
+  response.redirect(`/${baseURL}/before-holding-checks`)
 })
 
-router.post(`/${baseURL}/recovery-question/:number`, function (request, response) {
+router.post(`/${baseURL}/verification-question/:number`, function (request, response) {
   const questionNumber = Number(request.params.number)
-  const selectedQuestions = getRecoverySettings(request).questions
+  const selectedQuestions = getVerificationSettings(request).verificationQuestions
   const questionKey = selectedQuestions[questionNumber - 1]
-  const question = RECOVERY_QUESTIONS[questionKey]
+  const question = VERIFICATION_QUESTIONS[questionKey]
   const returnToCheck = String(request.body['return-to-check'] || '') === 'true'
 
   if (!question) {
-    return response.redirect(`/${baseURL}/recovery-question/1`)
+    return response.redirect(`/${baseURL}/verification-question/1`)
   }
 
   const errors = []
@@ -957,10 +957,10 @@ router.post(`/${baseURL}/recovery-question/:number`, function (request, response
   let postedValues = {}
 
   if (question.type === 'movement') {
-    const day = String(request.body['recovery-date-day'] || '').trim()
-    const month = String(request.body['recovery-date-month'] || '').trim()
-    const year = String(request.body['recovery-date-year'] || '').trim()
-    const earTagLast4Raw = String(request.body['recovery-ear-tag-last4'] || '').trim()
+    const day = String(request.body['verification-date-day'] || '').trim()
+    const month = String(request.body['verification-date-month'] || '').trim()
+    const year = String(request.body['verification-date-year'] || '').trim()
+    const earTagLast4Raw = String(request.body['verification-ear-tag-last4'] || '').trim()
     const parsedDate = parseDateParts(day, month, year)
     const earTagLast4 = normaliseLast4(earTagLast4Raw)
 
@@ -968,15 +968,15 @@ router.post(`/${baseURL}/recovery-question/:number`, function (request, response
 
     if (parsedDate.error) {
       dateError = { text: parsedDate.error }
-      errors.push({ text: dateError.text, href: '#recovery-date-day' })
+      errors.push({ text: dateError.text, href: '#verification-date-day' })
     }
 
     if (!earTagLast4Raw) {
       last4Error = { text: 'Enter the last 4 digits of the ear tag number' }
-      errors.push({ text: last4Error.text, href: '#recovery-ear-tag-last4' })
+      errors.push({ text: last4Error.text, href: '#verification-ear-tag-last4' })
     } else if (!earTagLast4) {
       last4Error = { text: 'Enter exactly 4 digits from the end of the ear tag number' }
-      errors.push({ text: last4Error.text, href: '#recovery-ear-tag-last4' })
+      errors.push({ text: last4Error.text, href: '#verification-ear-tag-last4' })
     }
 
     if (!errors.length) {
@@ -990,7 +990,7 @@ router.post(`/${baseURL}/recovery-question/:number`, function (request, response
       }
     }
   } else {
-    const rawAnswer = String(request.body['recovery-answer'] || '').trim()
+    const rawAnswer = String(request.body['verification-answer'] || '').trim()
     let normalised
 
     postedValues = { answer: rawAnswer }
@@ -1022,7 +1022,7 @@ router.post(`/${baseURL}/recovery-question/:number`, function (request, response
     }
 
     if (answerError) {
-      errors.push({ text: answerError.text, href: '#recovery-answer' })
+      errors.push({ text: answerError.text, href: '#verification-answer' })
     } else {
       savedAnswer = {
         raw: rawAnswer,
@@ -1039,7 +1039,7 @@ router.post(`/${baseURL}/recovery-question/:number`, function (request, response
   }
 
   if (errors.length) {
-    return renderRecoveryQuestion(request, response, questionNumber, {
+    return renderVerificationQuestion(request, response, questionNumber, {
       returnToCheck,
       errors,
       answerError,
@@ -1049,32 +1049,32 @@ router.post(`/${baseURL}/recovery-question/:number`, function (request, response
     })
   }
 
-  request.session.data.claimCphRecoveryAnswers = {
-    ...getRecoveryAnswers(request),
+  request.session.data.claimCphVerificationAnswers = {
+    ...getVerificationAnswers(request),
     [questionKey]: savedAnswer
   }
 
   if (returnToCheck) {
-    return response.redirect(`/${baseURL}/check-recovery-answers`)
+    return response.redirect(`/${baseURL}/check-verification-answers`)
   }
 
   if (questionNumber < selectedQuestions.length) {
-    return response.redirect(`/${baseURL}/recovery-question/${questionNumber + 1}`)
+    return response.redirect(`/${baseURL}/verification-question/${questionNumber + 1}`)
   }
 
-  response.redirect(`/${baseURL}/check-recovery-answers`)
+  response.redirect(`/${baseURL}/check-verification-answers`)
 })
 
-router.post(`/${baseURL}/check-recovery-answers`, function (request, response) {
+router.post(`/${baseURL}/check-verification-answers`, function (request, response) {
   const pendingHolding = request.session.data.pendingHoldingToLink
 
   if (!pendingHolding) {
     return response.redirect(`/${baseURL}/add-holding`)
   }
 
-  const questionKeys = getRecoverySettings(request).questions
-  const submittedAnswers = getRecoveryAnswers(request)
-  const expectedAnswers = getExpectedRecoveryAnswers(request, pendingHolding.id)
+  const questionKeys = getVerificationSettings(request).verificationQuestions
+  const submittedAnswers = getVerificationAnswers(request)
+  const expectedAnswers = getExpectedVerificationAnswers(request, pendingHolding.id)
   const correctCount = questionKeys.filter(questionKey =>
     answerMatchesExpected(questionKey, submittedAnswers[questionKey], expectedAnswers)
   ).length
@@ -1088,17 +1088,17 @@ router.post(`/${baseURL}/check-recovery-answers`, function (request, response) {
     outcome = 'manual-check'
   }
 
-  finishRecoveryJourney(request, outcome)
+  finishVerificationJourney(request, outcome)
 
   if (outcome === 'success') {
-    return response.redirect(`/${baseURL}/recovery-success`)
+    return response.redirect(`/${baseURL}/verification-success`)
   }
 
   if (outcome === 'manual-check') {
-    return response.redirect(`/${baseURL}/recovery-manual-check`)
+    return response.redirect(`/${baseURL}/verification-manual-check`)
   }
 
-  response.redirect(`/${baseURL}/recovery-blocked`)
+  response.redirect(`/${baseURL}/verification-blocked`)
 })
 
 

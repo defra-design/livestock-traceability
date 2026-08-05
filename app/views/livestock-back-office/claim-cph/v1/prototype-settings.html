@@ -44,7 +44,7 @@
             {
               value: "no-match",
               text: "Email does not match the existing account",
-              hint: { text: "Start with the existing CPH and postcode recovery journey." },
+              hint: { text: "Start by entering a CPH and postcode, then complete the holding checks." },
               checked: emailMatchScenario == "no-match"
             },
             {
@@ -63,8 +63,8 @@
         }) }}
 
         {{ govukCheckboxes({
-          idPrefix: "recovery-questions",
-          name: "recovery-questions",
+          idPrefix: "verification-questions",
+          name: "verification-questions",
           fieldset: {
             legend: {
               text: "Holding verification questions",
@@ -123,7 +123,7 @@
 
         {{ govukDetails({
           summaryText: "Prototype answer key",
-          html: "<p class=\"govuk-body\">These answers are used when a holding record does not contain its own <code>recoveryAnswers</code>.</p><ul class=\"govuk-list govuk-list--bullet\"><li>SBI: 123456789</li><li>Last calf birth: UK 123456 123456</li><li>Last movement on: 15 June 2026, tag ending 3456</li><li>Last movement off: 20 June 2026, tag ending 7890</li><li>Memorable word: bluebell</li><li>Herd mark: 123456</li><li>Number of cattle: 42</li></ul>"
+          html: "<p class=\"govuk-body\">These answers are used when a holding record does not contain its own <code>verificationAnswers</code>.</p><ul class=\"govuk-list govuk-list--bullet\"><li>SBI: 123456789</li><li>Last calf birth: UK 123456 123456</li><li>Last movement on: 15 June 2026, tag ending 3456</li><li>Last movement off: 20 June 2026, tag ending 7890</li><li>Memorable word: bluebell</li><li>Herd mark: 123456</li><li>Number of cattle: 42</li></ul>"
         }) }}
 
         {{ govukButton({
