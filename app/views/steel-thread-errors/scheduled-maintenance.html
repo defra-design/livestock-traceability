@@ -1,0 +1,29 @@
+{% extends "layouts/main.html" %}
+
+{% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
+{% from "govuk/components/tabs/macro.njk" import govukTabs %}
+
+{% set pageName = "Cattle details" %}
+
+{% block header %}
+
+{{ govukHeader({
+homepageUrl: '/index.html'
+}) }}
+
+{% endblock %}
+
+{% block content %}
+
+    <div class="govuk-grid-row">
+            <div class="govuk-grid-column-two-thirds">
+                <h1 class="govuk-heading-l">Sorry, the service is unavailable</h1>
+                <p class="govuk-body">You will be able to use the service from [time] on [day month year].</p>
+                <p class="govuk-body">
+                    Contact the <a class="govuk-link" href="#">British Cattle Movement Service (BCMS)</a> if you need to speak to someone about your account.
+                </p>
+            </div>
+        </div>
+
+{% endblock %}
+
