@@ -175,7 +175,7 @@ router.get('/steel-thread/v3/animals-on-holding', (req, res) => {
       )
     })
 
-  const pageSize = 15
+  const pageSize = 25
   const totalPages = Math.max(1, Math.ceil(cattle.length / pageSize))
   const requestedPage = parseInt(req.query.page, 10) || 1
   const page = Math.min(Math.max(requestedPage, 1), totalPages)

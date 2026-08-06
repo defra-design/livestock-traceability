@@ -1,6 +1,6 @@
 {
   "species": "cattle",
-  "recordCount": 20,
+  "recordCount": 36,
   "animals": [
     {
       "cph": "91/214/0410",
@@ -440,6 +440,362 @@
         "surrogateDam": null,
         "geneticDam": {
           "earTagNumber": "UK476245203267"
+        }
+      },
+      "sire": null
+    },
+    {
+      "cph": "14/582/3096",
+      "earTagNumber": "UK324537113254",
+      "dateOfBirth": "29-11-2024",
+      "dateOfRegistration": "03-12-2024",
+      "onHoldingDate": "29-11-2024",
+      "sex": "Male",
+      "breed": {
+        "name": "Holstein Friesian",
+        "code": "HO"
+      },
+      "status": "Active",
+      "dam": {
+        "type": "Genetic",
+        "surrogateDam": null,
+        "geneticDam": {
+          "earTagNumber": "UK324537113240"
+        }
+      },
+      "sire": null
+    },
+    {
+      "cph": "52/319/7745",
+      "earTagNumber": "UK324537113255",
+      "dateOfBirth": "14-12-2024",
+      "dateOfRegistration": "18-12-2024",
+      "onHoldingDate": "14-12-2024",
+      "sex": "Female",
+      "breed": {
+        "name": "Holstein Friesian Cross",
+        "code": "HOX"
+      },
+      "status": "Active",
+      "dam": {
+        "type": "Surrogate",
+        "surrogateDam": {
+          "earTagNumber": "UK315772904417"
+        },
+        "geneticDam": {
+          "earTagNumber": "UK324537113242"
+        }
+      },
+      "sire": null
+    },
+    {
+      "cph": "77/046/1283",
+      "earTagNumber": "UK324537113256",
+      "dateOfBirth": "02-01-2025",
+      "dateOfRegistration": "06-01-2025",
+      "onHoldingDate": "02-01-2025",
+      "sex": "Male",
+      "breed": {
+        "name": "Holstein Friesian",
+        "code": "HO"
+      },
+      "status": "Active",
+      "dam": {
+        "type": "Genetic",
+        "surrogateDam": null,
+        "geneticDam": {
+          "earTagNumber": "UK324537113246"
+        }
+      },
+      "sire": {
+        "earTagNumber": "UK663820447192",
+        "name": "Fenwick Ridge"
+      }
+    },
+    {
+      "cph": "36/875/6021",
+      "earTagNumber": "UK324537113257",
+      "dateOfBirth": "18-01-2025",
+      "dateOfRegistration": "22-01-2025",
+      "onHoldingDate": "18-01-2025",
+      "sex": "Female",
+      "breed": {
+        "name": "Holstein Friesian Cross",
+        "code": "HOX"
+      },
+      "status": "Active",
+      "dam": {
+        "type": "Genetic",
+        "surrogateDam": null,
+        "geneticDam": {
+          "earTagNumber": "UK324537113249"
+        }
+      },
+      "sire": null
+    },
+    {
+      "cph": "91/638/2957",
+      "earTagNumber": "UK324537113258",
+      "dateOfBirth": "05-02-2025",
+      "dateOfRegistration": "09-02-2025",
+      "onHoldingDate": "05-02-2025",
+      "sex": "Male",
+      "breed": {
+        "name": "Holstein Friesian",
+        "code": "HO"
+      },
+      "status": "Active",
+      "dam": {
+        "type": "Surrogate",
+        "surrogateDam": {
+          "earTagNumber": "UK184490371025"
+        },
+        "geneticDam": {
+          "earTagNumber": "UK324537113250"
+        }
+      },
+      "sire": null
+    },
+    {
+      "cph": "63/204/8419",
+      "earTagNumber": "UK324537113259",
+      "dateOfBirth": "21-02-2025",
+      "dateOfRegistration": "25-02-2025",
+      "onHoldingDate": "21-02-2025",
+      "sex": "Female",
+      "breed": {
+        "name": "Holstein Friesian",
+        "code": "HO"
+      },
+      "status": "Active",
+      "dam": {
+        "type": "Genetic",
+        "surrogateDam": null,
+        "geneticDam": {
+          "earTagNumber": "UK324537113251"
+        }
+      },
+      "sire": null
+    },
+    {
+      "cph": "48/917/3360",
+      "earTagNumber": "UK324537113260",
+      "dateOfBirth": "10-03-2025",
+      "dateOfRegistration": "14-03-2025",
+      "onHoldingDate": "10-03-2025",
+      "sex": "Male",
+      "breed": {
+        "name": "Holstein Friesian Cross",
+        "code": "HOX"
+      },
+      "status": "Active",
+      "dam": {
+        "type": "Genetic",
+        "surrogateDam": null,
+        "geneticDam": {
+          "earTagNumber": "UK324537113253"
+        }
+      },
+      "sire": {
+        "earTagNumber": "UK802135690574",
+        "name": "Greenlow Baron"
+      }
+    },
+    {
+      "cph": "27/460/5182",
+      "earTagNumber": "UK324537113261",
+      "dateOfBirth": "28-03-2025",
+      "dateOfRegistration": "01-04-2025",
+      "onHoldingDate": "28-03-2025",
+      "sex": "Female",
+      "breed": {
+        "name": "Holstein Friesian",
+        "code": "HO"
+      },
+      "status": "Active",
+      "dam": {
+        "type": "Genetic",
+        "surrogateDam": null,
+        "geneticDam": {
+          "earTagNumber": "UK324537113255"
+        }
+      },
+      "sire": null
+    },
+    {
+      "cph": "85/302/6647",
+      "earTagNumber": "UK324537113262",
+      "dateOfBirth": "15-04-2025",
+      "dateOfRegistration": "19-04-2025",
+      "onHoldingDate": "15-04-2025",
+      "sex": "Male",
+      "breed": {
+        "name": "Holstein Friesian",
+        "code": "HO"
+      },
+      "status": "Active",
+      "dam": {
+        "type": "Genetic",
+        "surrogateDam": null,
+        "geneticDam": {
+          "earTagNumber": "UK324537113256"
+        }
+      },
+      "sire": null
+    },
+    {
+      "cph": "41/759/2088",
+      "earTagNumber": "UK324537113263",
+      "dateOfBirth": "02-05-2025",
+      "dateOfRegistration": "06-05-2025",
+      "onHoldingDate": "02-05-2025",
+      "sex": "Female",
+      "breed": {
+        "name": "Holstein Friesian Cross",
+        "code": "HOX"
+      },
+      "status": "Active",
+      "dam": {
+        "type": "Surrogate",
+        "surrogateDam": {
+          "earTagNumber": "UK447291805563"
+        },
+        "geneticDam": {
+          "earTagNumber": "UK324537113258"
+        }
+      },
+      "sire": null
+    },
+    {
+      "cph": "68/914/3371",
+      "earTagNumber": "UK324537113264",
+      "dateOfBirth": "20-05-2025",
+      "dateOfRegistration": "24-05-2025",
+      "onHoldingDate": "20-05-2025",
+      "sex": "Male",
+      "breed": {
+        "name": "Holstein Friesian",
+        "code": "HO"
+      },
+      "status": "Active",
+      "dam": {
+        "type": "Genetic",
+        "surrogateDam": null,
+        "geneticDam": {
+          "earTagNumber": "UK324537113259"
+        }
+      },
+      "sire": {
+        "earTagNumber": "UK275984631708",
+        "name": "Oakridge Sovereign"
+      }
+    },
+    {
+      "cph": "23/486/9015",
+      "earTagNumber": "UK324537113265",
+      "dateOfBirth": "07-06-2025",
+      "dateOfRegistration": "11-06-2025",
+      "onHoldingDate": "07-06-2025",
+      "sex": "Female",
+      "breed": {
+        "name": "Holstein Friesian Cross",
+        "code": "HOX"
+      },
+      "status": "Active",
+      "dam": {
+        "type": "Genetic",
+        "surrogateDam": null,
+        "geneticDam": {
+          "earTagNumber": "UK324537113260"
+        }
+      },
+      "sire": null
+    },
+    {
+      "cph": "59/173/4482",
+      "earTagNumber": "UK324537113266",
+      "dateOfBirth": "25-06-2025",
+      "dateOfRegistration": "29-06-2025",
+      "onHoldingDate": "25-06-2025",
+      "sex": "Male",
+      "breed": {
+        "name": "Holstein Friesian",
+        "code": "HO"
+      },
+      "status": "Active",
+      "dam": {
+        "type": "Surrogate",
+        "surrogateDam": {
+          "earTagNumber": "UK609217384450"
+        },
+        "geneticDam": {
+          "earTagNumber": "UK324537113261"
+        }
+      },
+      "sire": null
+    },
+    {
+      "cph": "07/628/5539",
+      "earTagNumber": "UK324537113267",
+      "dateOfBirth": "12-07-2025",
+      "dateOfRegistration": "16-07-2025",
+      "onHoldingDate": "12-07-2025",
+      "sex": "Female",
+      "breed": {
+        "name": "Holstein Friesian Cross",
+        "code": "HOX"
+      },
+      "status": "Active",
+      "dam": {
+        "type": "Genetic",
+        "surrogateDam": null,
+        "geneticDam": {
+          "earTagNumber": "UK324537113262"
+        }
+      },
+      "sire": null
+    },
+    {
+      "cph": "94/365/1206",
+      "earTagNumber": "UK324537113268",
+      "dateOfBirth": "30-07-2025",
+      "dateOfRegistration": "03-08-2025",
+      "onHoldingDate": "30-07-2025",
+      "sex": "Male",
+      "breed": {
+        "name": "Holstein Friesian",
+        "code": "HO"
+      },
+      "status": "Active",
+      "dam": {
+        "type": "Genetic",
+        "surrogateDam": null,
+        "geneticDam": {
+          "earTagNumber": "UK324537113263"
+        }
+      },
+      "sire": {
+        "earTagNumber": "UK518743206915",
+        "name": "Ashgrove Chieftain"
+      }
+    },
+    {
+      "cph": "16/850/7734",
+      "earTagNumber": "UK324537113269",
+      "dateOfBirth": "17-08-2025",
+      "dateOfRegistration": "21-08-2025",
+      "onHoldingDate": "17-08-2025",
+      "sex": "Female",
+      "breed": {
+        "name": "Holstein Friesian Cross",
+        "code": "HOX"
+      },
+      "status": "Active",
+      "dam": {
+        "type": "Genetic",
+        "surrogateDam": null,
+        "geneticDam": {
+          "earTagNumber": "UK324537113264"
         }
       },
       "sire": null
