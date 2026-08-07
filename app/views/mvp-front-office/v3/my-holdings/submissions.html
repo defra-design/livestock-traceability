@@ -7,7 +7,7 @@
 
 {% block header %}
 
-  {% include "mvp-front-office/v2/partials/header.html" %}
+  {% include "mvp-front-office/v3/partials/header.html" %}
 
 {% endblock %}
 
@@ -16,13 +16,13 @@
 <nav class="govuk-breadcrumbs" aria-label="Breadcrumb">
   <ol class="govuk-breadcrumbs__list">
     <li class="govuk-breadcrumbs__list-item">
-      <a class="govuk-breadcrumbs__link" href="/mvp-front-office/v2/overview">Home</a>
+      <a class="govuk-breadcrumbs__link" href="/mvp-front-office/v3/overview">Home</a>
     </li>
     <li class="govuk-breadcrumbs__list-item">
-      <a class="govuk-breadcrumbs__link" href="/mvp-front-office/v2/my-holdings">My holdings</a>
+      <a class="govuk-breadcrumbs__link" href="/mvp-front-office/v3/my-holdings">My holdings</a>
     </li>
     <li class="govuk-breadcrumbs__list-item">
-      <a class="govuk-breadcrumbs__link" href="/mvp-front-office/v2/my-holdings/holding-overview">
+      <a class="govuk-breadcrumbs__link" href="/mvp-front-office/v3/my-holdings/holding-overview">
         {{ holding.holdingName if holding.holdingName else holding.cph }}
       </a>
     </li>
@@ -37,7 +37,7 @@
 
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-one-quarter">
-        {% include "mvp-front-office/v2/partials/my-holdings-sidebar.html" %}
+        {% include "mvp-front-office/v3/partials/my-holdings-sidebar.html" %}
       </div>
 
       <div class="govuk-grid-column-three-quarters">
@@ -46,8 +46,8 @@
           Submissions
         </h1>
 
-        <a href="/mvp-front-office/v2/register-animal/calf-details" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
-          Register a cattle birth
+        <a href="/mvp-front-office/v3/register-animal/submission-type" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+          New submission
         </a>
 
         <table class="govuk-table">
@@ -62,7 +62,7 @@
           </thead>
           <tbody class="govuk-table__body">
             <tr class="govuk-table__row">
-              <td class="govuk-table__cell"><a class="govuk-link" href="/mvp-front-office/v2/register-animal/submission-detail">14 May 2026</a></td>
+              <td class="govuk-table__cell"><a class="govuk-link" href="/mvp-front-office/v3/register-animal/submission-detail">14 May 2026</a></td>
               <td class="govuk-table__cell">Birth</td>
               <td class="govuk-table__cell">Cattle</td>
               <td class="govuk-table__cell">12</td>
@@ -70,14 +70,14 @@
             </tr>
             <tr class="govuk-table__row">
               <td class="govuk-table__cell"><a class="govuk-link" href="#">28 April 2026</a></td>
-              <td class="govuk-table__cell">Birth</td>
+              <td class="govuk-table__cell">Movement</td>
               <td class="govuk-table__cell">Cattle</td>
               <td class="govuk-table__cell">8</td>
-              <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--green">Sent</strong></td>
+              <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--blue">Draft</strong></td>
             </tr>
             <tr class="govuk-table__row">
               <td class="govuk-table__cell"><a class="govuk-link" href="#">1 April 2026</a></td>
-              <td class="govuk-table__cell">Birth</td>
+              <td class="govuk-table__cell">Death</td>
               <td class="govuk-table__cell">Cattle</td>
               <td class="govuk-table__cell">2</td>
               <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--green">Sent</strong></td>

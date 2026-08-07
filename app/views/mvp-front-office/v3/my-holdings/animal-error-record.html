@@ -5,7 +5,7 @@
 {% set sideNavActive = "animal-error-record" %}
 
 {% block header %}
-  {% include "mvp-front-office/v2/partials/header.html" %}
+  {% include "mvp-front-office/v3/partials/header.html" %}
 {% endblock %}
 
 {% block beforeContent %}
@@ -13,13 +13,13 @@
 <nav class="govuk-breadcrumbs" aria-label="Breadcrumb">
   <ol class="govuk-breadcrumbs__list">
     <li class="govuk-breadcrumbs__list-item">
-      <a class="govuk-breadcrumbs__link" href="/mvp-front-office/v2/overview">Home</a>
+      <a class="govuk-breadcrumbs__link" href="/mvp-front-office/v3/overview">Home</a>
     </li>
     <li class="govuk-breadcrumbs__list-item">
-      <a class="govuk-breadcrumbs__link" href="/mvp-front-office/v2/my-holdings">My holdings</a>
+      <a class="govuk-breadcrumbs__link" href="/mvp-front-office/v3/my-holdings">My holdings</a>
     </li>
     <li class="govuk-breadcrumbs__list-item">
-      <a class="govuk-breadcrumbs__link" href="/mvp-front-office/v2/my-holdings/holding-overview">
+      <a class="govuk-breadcrumbs__link" href="/mvp-front-office/v3/my-holdings/holding-overview">
         {{ holding.holdingName if holding.holdingName else holding.cph }}
       </a>
     </li>
@@ -31,29 +31,15 @@
 {% block content %}
 
 <div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-quarter">
+    {% include "mvp-front-office/v3/partials/my-holdings-sidebar.html" %}
+  </div>
 
-  <h1 class="govuk-heading-l">
-    Animal error record
-  </h1>
+  <div class="govuk-grid-column-three-quarters">
 
-  <nav class="moj-sub-navigation" aria-label="Sub navigation">
-    <ul class="moj-sub-navigation__list">
-      <li class="moj-sub-navigation__item">
-        <a class="moj-sub-navigation__link" href="/mvp-front-office/v2/my-holdings/holding-overview">
-          Overview
-        </a>
-      </li>
-      <li class="moj-sub-navigation__item">
-        <a class="moj-sub-navigation__link" href="/mvp-front-office/v2/my-holdings/holding-details">Holding details</a>
-      </li>
-      <li class="moj-sub-navigation__item">
-        <a class="moj-sub-navigation__link" href="/mvp-front-office/v2/my-holdings/animals-on-holding">Animals on holding</a>
-      </li>
-      <li class="moj-sub-navigation__item">
-        <a class="moj-sub-navigation__link" aria-current="page" href="/mvp-front-office/v2/my-holdings/animal-error-record">Animal error record</a>
-      </li>
-    </ul>
-  </nav>
+    <h1 class="govuk-heading-l">
+      Animal Error Record
+    </h1>
 
     <div class="govuk-inset-text">
 
@@ -127,6 +113,8 @@
     </div>
     {% endfor %}
 
+
+  </div>
 </div>
 
 

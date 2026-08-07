@@ -62,7 +62,7 @@ router.get('/mvp-front-office/v2/my-holdings', (req, res) => {
     return searchableValues.some((value) =>
       String(value || '').toLowerCase().includes(search)
     )
-  })
+  }).slice(0, 1)
 
   res.render('mvp-front-office/v2/my-holdings', { holdings, search })
 })
@@ -100,7 +100,42 @@ router.get('/mvp-front-office/v2/my-holdings/animals-on-holding', (req, res) => 
       )
     })
 
-  res.render('mvp-front-office/v2/my-holdings/animals-on-holding', { cattle, search, holding })
+  const pageSize = 25
+  const totalPages = Math.max(1, Math.ceil(cattle.length / pageSize))
+  const requestedPage = parseInt(req.query.page, 10) || 1
+  const page = Math.min(Math.max(requestedPage, 1), totalPages)
+
+  const pagedCattle = cattle.slice((page - 1) * pageSize, page * pageSize)
+
+  const pageHref = (pageNumber) => {
+    const params = new URLSearchParams()
+    if (search) params.set('search', search)
+    params.set('page', pageNumber)
+    return `/mvp-front-office/v2/my-holdings/animals-on-holding?${params.toString()}`
+  }
+
+  const pagination = totalPages > 1 ? {
+    previous: page > 1 ? { href: pageHref(page - 1) } : undefined,
+    next: page < totalPages ? { href: pageHref(page + 1) } : undefined,
+    items: Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNumber) => ({
+      number: pageNumber,
+      current: pageNumber === page,
+      href: pageHref(pageNumber)
+    }))
+  } : null
+
+  const showingFrom = cattle.length === 0 ? 0 : (page - 1) * pageSize + 1
+  const showingTo = Math.min(page * pageSize, cattle.length)
+
+  res.render('mvp-front-office/v2/my-holdings/animals-on-holding', {
+    cattle: pagedCattle,
+    search,
+    holding,
+    pagination,
+    showingFrom,
+    showingTo,
+    totalCattle: cattle.length
+  })
 })
 
 router.get('/mvp-front-office/v2/my-holdings/export-animals', (req, res) => {
@@ -167,6 +202,7 @@ router.get('/mvp-front-office/v2/my-holdings/manage-delegates', (req, res) => {
 
 router.get('/mvp-front-office/v2/my-holdings/cattle/:earTagNumber', (req, res) => {
   const cattleData = req.session.data.livestockSameHerd
+  const holding = getSelectedHolding(req)
 
   const animal = cattleData.animals.find(
     (a) => a.earTagNumber.toLowerCase() === req.params.earTagNumber.toLowerCase()
@@ -180,7 +216,34 @@ router.get('/mvp-front-office/v2/my-holdings/cattle/:earTagNumber', (req, res) =
     (a) => a.dam?.geneticDam?.earTagNumber === animal.earTagNumber
   )
 
-  res.render('mvp-front-office/v2/my-holdings/animal-details', { animal, offspring })
+  res.render('mvp-front-office/v2/my-holdings/animal-details', { animal, offspring, holding })
+})
+
+router.get('/mvp-front-office/v2/my-holdings/cattle/:earTagNumber/activity-record', (req, res) => {
+  const cattleData = req.session.data.livestockSameHerd
+  const holding = getSelectedHolding(req)
+
+  const animal = cattleData.animals.find(
+    (a) => a.earTagNumber.toLowerCase() === req.params.earTagNumber.toLowerCase()
+  )
+
+  if (!animal) {
+    return res.status(404).send('Animal not found')
+  }
+
+  // Dummy data for now - a real transaction/movement history data source
+  // will replace this once the JSON is built.
+  const transactions = [
+    { date: '10 March 2023', event: 'Birth registered', location: holding.holdingName || holding.cph, recordedBy: 'System' },
+    { date: '14 March 2023', event: 'Ear tag applied', location: holding.holdingName || holding.cph, recordedBy: 'James Williams' },
+    { date: '02 June 2023', event: 'TB test - clear', location: holding.holdingName || holding.cph, recordedBy: 'Dr. A. Fenwick' },
+    { date: '18 September 2023', event: 'Weighed', location: holding.holdingName || holding.cph, recordedBy: 'Sheila Jones' },
+    { date: '05 January 2024', event: 'Moved off holding (show)', location: 'Cumbria County Show', recordedBy: 'James Williams' },
+    { date: '09 January 2024', event: 'Moved on to holding', location: holding.holdingName || holding.cph, recordedBy: 'James Williams' },
+    { date: '22 April 2024', event: 'TB test - clear', location: holding.holdingName || holding.cph, recordedBy: 'Dr. A. Fenwick' }
+  ]
+
+  res.render('mvp-front-office/v2/my-holdings/animal-activity-record', { animal, holding, transactions })
 })
 
 module.exports = router

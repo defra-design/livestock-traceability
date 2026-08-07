@@ -7,26 +7,15 @@
 
 {% block header %}
 
-  {% include "mvp-front-office/v2/partials/header.html" %}
+  {% include "mvp-front-office/v3/partials/header.html" %}
 
 {% endblock %}
 
 {% block beforeContent %}
-<nav class="govuk-breadcrumbs" aria-label="Breadcrumb">
-  <ol class="govuk-breadcrumbs__list">
-    <li class="govuk-breadcrumbs__list-item">
-      <a class="govuk-breadcrumbs__link" href="/mvp-front-office/v2/overview">Home</a>
-    </li>
-    <li class="govuk-breadcrumbs__list-item">
-      <a class="govuk-breadcrumbs__link" href="/mvp-front-office/v2/my-holdings">My holdings</a>
-    </li>
-    <li class="govuk-breadcrumbs__list-item">
-      <a class="govuk-breadcrumbs__link" href="/mvp-front-office/v2/my-holdings/holding-overview">
-        {{ holding.holdingName if holding.holdingName else holding.cph }}
-      </a>
-    </li>
-  </ol>
-</nav>
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
 {% endblock %}
 
 {% block content %}
@@ -34,21 +23,8 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
 
+    <span class="govuk-caption-l">County Parish Holding: 12/345/0001</span>
     <h1 class="govuk-heading-l">{{ animal.earTagNumber | formatReference }}</h1>
-
-    <nav class="moj-sub-navigation" aria-label="Sub navigation">
-      <ul class="moj-sub-navigation__list">
-        <li class="moj-sub-navigation__item">
-          <a class="moj-sub-navigation__link" aria-current="page" href="/mvp-front-office/v2/my-holdings/cattle/{{ animal.earTagNumber }}">
-            Animal details
-          </a>
-        </li>
-        <li class="moj-sub-navigation__item">
-          <a class="moj-sub-navigation__link" href="/mvp-front-office/v2/my-holdings/cattle/{{ animal.earTagNumber }}/activity-record">Activity record</a>
-        </li>
-      </ul>
-    </nav>
-
 
 
     <h2 class="govuk-heading-m">Cattle details</h2>

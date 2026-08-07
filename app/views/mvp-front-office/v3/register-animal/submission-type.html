@@ -1,0 +1,76 @@
+{% extends "layouts/main.html" %}
+
+
+{% block header %}
+
+  {% include "mvp-front-office/v3/partials/header.html" %}
+
+{% endblock %}
+
+{% set pageName="What would you like to do?" %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    {% if errors %}
+      {{ govukErrorSummary({
+        titleText: "There is a problem",
+        errorList: [
+          {
+            text: errors['submission-type'],
+            href: "#submission-type"
+          }
+        ]
+      }) }}
+    {% endif %}
+
+    <form class="form" action="/mvp-front-office/v3/register-animal/submission-type" method="post">
+
+      {{ govukRadios({
+        name: "submission-type",
+        fieldset: {
+          legend: {
+            text: "What would you like to do?",
+            isPageHeading: true,
+            classes: "govuk-fieldset__legend--l"
+          }
+        },
+        errorMessage: { text: errors['submission-type'] } if errors,
+        items: [
+          {
+            value: "birth",
+            text: "Register a cattle birth",
+            checked: data['submission-type'] === "birth"
+          },
+          {
+            value: "movement",
+            text: "Report an animal movement",
+            checked: data['submission-type'] === "movement"
+          },
+          {
+            value: "death",
+            text: "Report an animal death",
+            checked: data['submission-type'] === "death"
+          }
+        ]
+      }) }}
+
+      {{ govukButton({
+        text: "Continue"
+      }) }}
+
+    </form>
+
+  </div>
+</div>
+
+{% endblock %}
