@@ -4,7 +4,9 @@
   { key: "submissions", label: "Submissions" },
   { key: "animals-on-holding", label: "Animals on holding" },
   { key: "activity-history", label: "Activity history" },
-  { key: "animal-error-record", label: "Animal error record" }
+  { key: "animal-error-record", label: "Animal error record" },
+  { key: "messages", label: "Messages" },
+  { key: "manage-delegates", label: "Manage delegates" }
 ] %}
 
 <div class="dwp-ds-render">
@@ -22,7 +24,7 @@
 
       {% for item in sideNavItems %}
       <li class="dwp-side-navigation__item{% if sideNavActive == item.key %} dwp-side-navigation__item--selected{% endif %}">
-        <a id="s-item-{{ loop.index }}" href="/mvp-front-office/v2/my-holdings/{{ item.key }}" class="dwp-side-navigation__link{% if sideNavActive == item.key %} dwp-side-navigation__link--selected{% endif %}"{% if sideNavActive == item.key %} aria-current="true"{% endif %}>
+        <a id="s-item-{{ loop.index }}" href="/mvp-front-office/v3/my-holdings/{{ item.key }}" class="dwp-side-navigation__link{% if sideNavActive == item.key %} dwp-side-navigation__link--selected{% endif %}"{% if sideNavActive == item.key %} aria-current="true"{% endif %}>
           {{ item.label }}
         </a>
       </li>

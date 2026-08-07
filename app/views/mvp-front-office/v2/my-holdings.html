@@ -38,45 +38,6 @@
 
 {% from "govuk/components/table/macro.njk" import govukTable %}
 
-<div class="govuk-grid-row">
-  <div class="govuk-grid-column-two-thirds">
-    <!--<form method="GET">
-      <div class="search-wrapper govuk-form-group">
-        <label for="search-holdings" class="govuk-label">
-          Search by CPH number, holding name or postcode
-        </label>
-        <div class="search-input-wrapper">
-          <input type="search" value="{{ search }}" id="search-holdings" name="search" title="Search" class="govuk-input">
-          <div class="search-input-submit-wrapper">
-            <button type="submit" class="search-submit">Search</button>
-          </div>
-        </div>
-      </div>
-    </form>-->
-  </div>
-</div>
-
-
-{% if search %}
-
-<p class="govuk-body" aria-live="polite">
-  {{ holdings.length }}
-  {% if holdings.length === 1 %}
-  holding matches
-  {% else %}
-  holdings match
-  {% endif %}
-  <strong>'{{ search }}'</strong>
-</p>
-
-<p class="govuk-body">
-  <a class="govuk-link" href="/mvp-front-office/v2/overview">
-    Clear search
-  </a>
-</p>
-
-{% endif %}
-
 {% if holdings.length %}
 
 {% set rows = [] %}
@@ -99,35 +60,20 @@ text: holding.role
 {% endfor %}
 
 {{ govukTable({
-attributes: {
-"data-module": "moj-sortable-table"
-},
 caption: "My holdings",
 captionClasses: "govuk-visually-hidden",
 head: [
 {
-text: "CPH",
-attributes: {
-"aria-sort": "ascending"
-}
+text: "CPH"
 },
 {
-text: "Holding name",
-attributes: {
-"aria-sort": "none"
-}
+text: "Holding name"
 },
 {
-text: "Postcode",
-attributes: {
-"aria-sort": "none"
-}
+text: "Postcode"
 },
 {
-text: "Role",
-attributes: {
-"aria-sort": "none"
-}
+text: "Role"
 }
 ],
 rows: rows

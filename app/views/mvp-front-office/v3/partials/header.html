@@ -1,0 +1,25 @@
+{% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
+
+{{ govukHeader({
+  homepageUrl: '/index.html'
+}) }}
+
+{{ govukServiceNavigation({
+  serviceName: "Livestock Information",
+  serviceUrl: "/mvp-front-office/v3/overview",
+  navigation: [
+  {
+  href: "/mvp-front-office/v3/my-holdings",
+  text: "My holdings",
+  active: activeNavItem == "my-holdings"
+  },
+  {
+  href: "/mvp-front-office/v3/my-profile",
+  text: "My profile",
+  active: activeNavItem == "my-profile"
+  }
+  ],
+  slots: {
+    navigationEnd: '<li class="govuk-service-navigation__item app-service-navigation__item--right"><a class="govuk-service-navigation__link" href="/mvp-front-office/v3/auth/one-login">Sign out</a></li>'
+  }
+}) }}

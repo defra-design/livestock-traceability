@@ -1,0 +1,86 @@
+{% extends "layouts/main.html" %}
+
+
+{% block header %}
+
+  {% include "mvp-front-office/v3/partials/header.html" %}
+
+{% endblock %}
+
+{% set pageName="Which species would you like to register?" %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    {% if errors %}
+      {{ govukErrorSummary({
+        titleText: "There is a problem",
+        errorList: [
+          {
+            text: errors['animal-type'].text,
+            href: "#animal-type"
+          }
+        ]
+      }) }}
+    {% endif %}
+
+    <form class="form" action="/mvp-front-office/v3/register-animal/animal-select" method="post">
+
+      {{ govukRadios({
+        name: "animal-type",
+        fieldset: {
+          legend: {
+            text: "Which species would you like to register?",
+            isPageHeading: true,
+            classes: "govuk-fieldset__legend--l"
+          }
+        },
+        errorMessage: errors['animal-type'] if errors,
+        items: [
+          {
+            value: "cattle",
+            text: "Cattle",
+            checked: data['animal-type'] === "cattle"
+          },
+          {
+            value: "sheep",
+            text: "Sheep",
+            checked: data['animal-type'] === "sheep"
+          },
+          {
+            value: "deer",
+            text: "Deer",
+            checked: data['animal-type'] === "deer"
+          },
+          {
+            value: "pigs",
+            text: "Pigs",
+            checked: data['animal-type'] === "pigs"
+          },
+          {
+            value: "camelids",
+            text: "Camelids",
+            checked: data['animal-type'] === "camelids"
+          }
+        ]
+      }) }}
+
+      {{ govukButton({
+        text: "Continue"
+      }) }}
+
+    </form>
+
+  </div>
+</div>
+
+{% endblock %}

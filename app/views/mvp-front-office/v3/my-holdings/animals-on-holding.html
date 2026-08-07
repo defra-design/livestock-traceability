@@ -7,7 +7,7 @@
 
 {% block header %}
 
-  {% include "mvp-front-office/v2/partials/header.html" %}
+  {% include "mvp-front-office/v3/partials/header.html" %}
 
 {% endblock %}
 
@@ -16,13 +16,13 @@
 <nav class="govuk-breadcrumbs" aria-label="Breadcrumb">
   <ol class="govuk-breadcrumbs__list">
     <li class="govuk-breadcrumbs__list-item">
-      <a class="govuk-breadcrumbs__link" href="/mvp-front-office/v2/overview">Home</a>
+      <a class="govuk-breadcrumbs__link" href="/mvp-front-office/v3/overview">Home</a>
     </li>
     <li class="govuk-breadcrumbs__list-item">
-      <a class="govuk-breadcrumbs__link" href="/mvp-front-office/v2/my-holdings">My holdings</a>
+      <a class="govuk-breadcrumbs__link" href="/mvp-front-office/v3/my-holdings">My holdings</a>
     </li>
     <li class="govuk-breadcrumbs__list-item">
-      <a class="govuk-breadcrumbs__link" href="/mvp-front-office/v2/my-holdings/holding-overview">
+      <a class="govuk-breadcrumbs__link" href="/mvp-front-office/v3/my-holdings/holding-overview">
         {{ holding.holdingName if holding.holdingName else holding.cph }}
       </a>
     </li>
@@ -36,31 +36,18 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
 
-    <h1 class="govuk-heading-l">
-      Animals on holding
-    </h1>
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-one-quarter">
+        {% include "mvp-front-office/v3/partials/my-holdings-sidebar.html" %}
+      </div>
 
-    <nav class="moj-sub-navigation" aria-label="Sub navigation">
-      <ul class="moj-sub-navigation__list">
-        <li class="moj-sub-navigation__item">
-          <a class="moj-sub-navigation__link" href="/mvp-front-office/v2/my-holdings/holding-overview">
-            Overview
-          </a>
-        </li>
-        <li class="moj-sub-navigation__item">
-          <a class="moj-sub-navigation__link" href="/mvp-front-office/v2/my-holdings/holding-details">Holding details</a>
-        </li>
-        <li class="moj-sub-navigation__item">
-          <a class="moj-sub-navigation__link" aria-current="page" href="/mvp-front-office/v2/my-holdings/animals-on-holding">Animals on holding</a>
-        </li>
-        <li class="moj-sub-navigation__item">
-          <a class="moj-sub-navigation__link" href="/mvp-front-office/v2/my-holdings/animal-error-record">Animal error record</a>
-        </li>
-      </ul>
-    </nav>
+      <div class="govuk-grid-column-three-quarters">
 
+        <h1 class="govuk-heading-l govuk-!-margin-bottom-6">
+          Animals on holding
+        </h1>
 
-    <div class="govuk-warning-text">
+        <div class="govuk-warning-text">
           <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
           <strong class="govuk-warning-text__text">
             <span class="govuk-visually-hidden">Warning</span>
@@ -102,19 +89,18 @@
 
        <!-- {% if search %}
         <p class="govuk-body">
-          <a class="govuk-link" href="/mvp-front-office/v2/my-holdings/animals-on-holding">Clear search</a>
+          <a class="govuk-link" href="/mvp-front-office/v3/my-holdings/animals-on-holding">Clear search</a>
         </p>
         {% endif %}-->
 
         {% if cattle.length %}
         {% from "govuk/components/table/macro.njk" import govukTable %}
-        {% from "govuk/components/pagination/macro.njk" import govukPagination %}
 
         {% set rows = [] %}
         {% for animal in cattle %}
           {% set row = [
             {
-              html: '<a class="govuk-link" href="/mvp-front-office/v2/my-holdings/cattle/' + animal.earTagNumber + '">' + (animal.earTagNumber | formatReference) + '</a>'
+              html: '<a class="govuk-link" href="/mvp-front-office/v3/my-holdings/cattle/' + animal.earTagNumber + '">' + (animal.earTagNumber | formatReference) + '</a>'
             },
             {
               text: animal.dateOfBirth | shortDateFormat,
@@ -169,19 +155,14 @@
           ],
           rows: rows
         }) }}
-
-        <p class="govuk-body">
-          Showing {{ showingFrom }} to {{ showingTo }} of {{ totalCattle }} animals
-        </p>
-
-        {% if pagination %}
-          {{ govukPagination(pagination) }}
-        {% endif %}
         {% else %}
         <div class="govuk-inset-text">
           No cattle records found{% if search %} for "{{ search }}"{% endif %}.
         </div>
         {% endif %}
+
+      </div>
+    </div>
 
   </div>
 </div>
