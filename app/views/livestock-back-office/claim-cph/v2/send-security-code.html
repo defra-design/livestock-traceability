@@ -1,0 +1,37 @@
+{% extends "layouts/main.html" %}
+
+{% set pageHeading = "We’ll send you a security code" %}
+
+{% block pageTitle %}{{ pageHeading }}{% endblock %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+text: "Back",
+href: "/" ~ baseURL ~ "/mobile-phone-access"
+}) }}
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-l">{{ pageHeading }}</h1>
+
+    <p class="govuk-body">
+      We’ll send a text message with a security code to the mobile phone ending in
+      <strong>{{ mobileLast4 }}</strong>.
+    </p>
+
+    <p class="govuk-body">
+      You’ll need to enter the code to confirm you can use this phone.
+    </p>
+
+    <form action="/{{ baseURL }}/send-security-code" method="post">
+      {{ govukButton({
+        text: "Send code"
+      }) }}
+    </form>
+
+
+  </div>
+</div>
+{% endblock %}

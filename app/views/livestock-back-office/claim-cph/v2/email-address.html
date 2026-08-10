@@ -1,0 +1,165 @@
+{% extends "layouts/main.html" %}
+
+{% set pageHeading = "We could not match the holding" %}
+
+{% block pageTitle %}
+  {{ pageHeading }}
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "/" ~ baseURL ~ "/add-holding"
+  }) }}
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<header class="hmrc-page-heading">
+  <h1 class="govuk-heading-l">Your email address</h1>
+  <p class="hmrc-caption govuk-caption-l"><span class="govuk-visually-hidden">This section is </span>Your contact details</p>
+</header>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <form method="POST" novalidate="" action="./email-address-code-sent"  autocomplete="on" id="gf-form">
+            <input type="hidden" name="csrfToken" value="787f1f208acbdca7c29bddb6a2d9cb2f15195688-1785425170257-93a195d335dbae2eaf93947b">
+
+
+
+
+
+
+
+
+
+
+
+
+      <div class="govuk-body govuk-!-font-size-19">
+        <p>We will only use this email address to send you a confirmation after you submit this form.</p>
+      </div>
+
+
+
+
+
+
+
+
+      <div class="govuk-body govuk-!-font-size-19">
+        <p>We will send you a code to confirm your email address.</p>
+      </div>
+
+
+
+
+
+<div class="govuk-form-group">
+
+
+
+
+      <label class="govuk-label govuk-label--s" for="emailAddress">
+        Enter your email address
+      </label>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+       <input class="govuk-input govuk-input--width-30" id="emailAddress" name="emailAddress" type="text" value="">
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <div class="govuk-button-group">
+
+
+
+
+      <button type="submit" class="govuk-button" data-module="govuk-button" data-govuk-button-init="">
+        Save and continue
+           </button>
+  </div>
+
+
+    </form>
+
+
+
+    </div>
+</div>
+{% endblock %}

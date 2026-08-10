@@ -1,0 +1,105 @@
+{% extends "layouts/main.html" %}
+
+{% set numberOfHoldings = holdings.length %}
+{% if numberOfHoldings == 1 %}
+  {% set pageHeading = "You have added 1 CPH" %}
+{% else %}
+  {% set pageHeading = "You have added " ~ numberOfHoldings ~ " CPHs" %}
+{% endif %}
+
+{% block pageTitle %}
+  {% if errors and errors.length %}Error: {% endif %}{{ pageHeading }}
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "/" ~ baseURL ~ "/add-holding"
+  }) }}
+{% endblock %}
+
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      {% if errors and errors.length %}
+        {{ govukErrorSummary({
+          titleText: "There is a problem",
+          errorList: errors
+        }) }}
+      {% endif %}
+
+      <h1 class="govuk-heading-xl">{{ pageHeading }}</h1>
+
+      <dl class="govuk-summary-list">
+        {% for holding in holdings %}
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key govuk-!-font-weight-regular">
+              {{ holding.cphNumber }}
+            </dt>
+            <dd class="govuk-summary-list__value">
+              {% if holding.holdingName %}
+                {{ holding.holdingName }}<br>
+              {% endif %}
+              {{ holding.postcode }}<br>
+              {{ holding.claimedRoleLabel }}
+              {% if holding.linkStatusLabel %}
+                <br>
+                {{ govukTag({
+                  text: holding.linkStatusLabel,
+                  colour: holding.linkStatusTagColour
+                }) }}
+              {% endif %}
+            </dd>
+            <dd class="govuk-summary-list__actions">
+              <ul class="govuk-summary-list__actions-list">
+                <li class="govuk-summary-list__actions-list-item">
+                  <a class="govuk-link" href="/{{ baseURL }}/change-holding/{{ holding.id }}">
+                    <span aria-hidden="true">Change</span>
+                    <span class="govuk-visually-hidden">Change details for CPH {{ holding.cphNumber }}</span>
+                  </a>
+                </li>
+                <li class="govuk-summary-list__actions-list-item">
+                  <a class="govuk-link" href="/{{ baseURL }}/remove-holding/{{ holding.id }}">
+                    <span aria-hidden="true">Remove</span>
+                    <span class="govuk-visually-hidden">Remove CPH {{ holding.cphNumber }} from the list</span>
+                  </a>
+                </li>
+              </ul>
+            </dd>
+          </div>
+        {% endfor %}
+      </dl>
+
+      <form action="/{{ baseURL }}/holdings-added" method="post" novalidate>
+        {{ govukRadios({
+          classes: "govuk-radios--inline",
+          idPrefix: "add-another-holding",
+          name: "add-another-holding",
+          fieldset: {
+            legend: {
+              text: "Do you need to add another CPH?",
+              classes: "govuk-fieldset__legend--m"
+            }
+          },
+          errorMessage: addAnotherError,
+          items: [
+            {
+              value: "yes",
+              text: "Yes",
+              checked: selectedAnswer == "yes"
+            },
+            {
+              value: "no",
+              text: "No",
+              checked: selectedAnswer == "no"
+            }
+          ]
+        }) }}
+
+        {{ govukButton({ text: "Continue" }) }}
+      </form>
+    </div>
+  </div>
+{% endblock %}

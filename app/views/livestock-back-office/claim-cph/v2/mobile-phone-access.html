@@ -1,0 +1,76 @@
+{% extends "layouts/main.html" %}
+
+{% set pageHeading = "We have a mobile phone number on the existing account" %}
+
+{% block pageTitle %}
+  {% if errors and errors.length %}Error: {% endif %}{{ pageHeading }}
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: backLink
+  }) }}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      {% if errors and errors.length %}
+        {{ govukErrorSummary({
+          titleText: "There is a problem",
+          errorList: errors
+        }) }}
+      {% endif %}
+
+      <h1 class="govuk-heading-l">{{ pageHeading }}</h1>
+
+      <p class="govuk-body">
+        On the existing account for this holding, we found a mobile phone number ending in <strong>{{ mobileLast4 }}</strong>.
+      </p>
+
+      <p class="govuk-body">
+        If this is your number and you can use it, we can send you a text message to help confirm it’s you.
+      </p>
+
+      <form action="/{{ baseURL }}/mobile-phone-access" method="post" novalidate>
+        {{ govukRadios({
+          idPrefix: "mobile-phone-access",
+          name: "mobile-phone-access",
+          fieldset: {
+            legend: {
+              text: "Can you use the mobile phone ending in " ~ mobileLast4 ~ "?",
+              classes: "govuk-fieldset__legend--m"
+            }
+          },
+          errorMessage: mobileAccessError,
+          items: [
+            {
+              value: "yes",
+              text: "Yes",
+              checked: selectedAnswer == "yes"
+            },
+            {
+              value: "no",
+              text: "No, I cannot use this phone",
+              checked: selectedAnswer == "no"
+            },
+        {
+      divider: "or"
+    },
+            {
+              value: "not-my-phone",
+              text: "This is not my phone",
+              checked: selectedAnswer == "not-my-phone"
+            }
+          ]
+        }) }}
+
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+      </form>
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,307 @@
+{% extends "layouts/main.html" %}
+
+{% set pageHeading = "We could not match the holding" %}
+
+{% block pageTitle %}
+  {{ pageHeading }}
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "/" ~ baseURL ~ "/add-holding"
+  }) }}
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <p class="govuk-!-margin-top-0 govuk-caption-l hmrc-caption-xl"><span class="govuk-visually-hidden">This section is</span>Your contact details</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <form method="POST" novalidate="" action="/submissions/form/request-authorisation-as-registered-intermediary/-/n23?ff=t&amp;action=SaveAndContinue" class="js-form" autocomplete="on" id="gf-form">
+
+            <input type="hidden" name="csrfToken" value="751940e3a23f5faf042d4f5d19adddba49669555-1785425823401-93a195d335dbae2eaf93947b">
+
+
+
+
+
+
+
+
+
+
+    <div class="govuk-form-group">
+
+
+        <fieldset class="govuk-fieldset" aria-describedby="individualEmail-hint">
+
+
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+
+            <h1 class="govuk-fieldset__heading">
+              Where should we send a confirmation email for this form?
+            </h1>
+
+        </legend>
+
+
+
+
+
+
+
+
+
+<div id="individualEmail-hint" class="govuk-hint">
+  <p>We will only use this email address to send you a confirmation after you submit this form.</p>
+</div>
+
+  <div class="govuk-radios" data-module="govuk-radios" data-govuk-radios-init="">
+
+
+
+
+
+
+
+
+
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="individualEmail0" name="individualEmail" type="radio" value="{{data.auth_email or 'user@test-domain.co.uk'}}" aria-label="To {0}">
+
+
+
+      <label class="govuk-label govuk-radios__label" for="individualEmail0">
+        To {{data.auth_email or 'user@test-domain.co.uk'}}
+      </label>
+
+
+
+
+
+
+                  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="individualEmail1" name="individualEmail" type="radio" value="different" checked="" aria-label="To a different email address">
+
+
+
+      <label class="govuk-label govuk-radios__label" for="individualEmail1">
+        To a different email address
+      </label>
+
+
+
+
+
+
+                  </div>
+
+
+
+
+
+
+  </div>
+
+
+</fieldset>
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <div class="govuk-button-group">
+
+
+
+
+      <button type="submit" class="govuk-button" data-module="govuk-button" data-govuk-button-init="">
+        Save and continue
+           </button>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      <button type="submit" class="govuk-button govuk-button--secondary" data-module="govuk-button" formaction="/submissions/form/request-authorisation-as-registered-intermediary/-/n23?ff=t&amp;action=Save" data-govuk-button-init="">
+        Save and come back later
+           </button>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+
+    </form>
+
+
+
+
+
+
+
+    <script nonce="">
+      window.gform = window.gform || {};
+      window.gform.envelopeId = "78762edc-614d-46a1-bb9f-f534e8efef27";
+      const fileSizePairs = "".slice(1, -1).split(")(");
+      const fileSizeMap = new Map();
+      fileSizePairs.forEach(pair => {
+          const [key, value] = pair.split(",");
+          fileSizeMap.set(key, value);
+      });
+      window.gform.fileUploadMaxSize = fileSizeMap;
+      window.gform.formMaxAttachmentSizeMB = "10";
+      window.gform.contentTypes = "application/pdf, image/jpeg, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.oasis.opendocument.spreadsheet, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.oasis.opendocument.text, application/vnd.openxmlformats-officedocument.presentationml.presentation, application/vnd.oasis.opendocument.presentation";
+      window.gform.restrictedFileExtensions = "jfif, png";
+      function getValue(elementId, isHidden) {
+   var el = document.getElementById(elementId);
+   var isVisible = !isHidden();
+   if (el && isVisible) {
+     return getNumber(el.value.replace(/[£,]/g,''));
+   } else {
+     return 0;
+   };
+};
+
+function getNumber(value) {
+  if (value == ""){
+    return 0;
+  } else {
+    return value.replace(",", "");
+  }
+};
+
+function add(a, b) {
+  return BigNumber(a).plus(BigNumber(b));
+};
+
+function subtract(a, b) {
+  return BigNumber(a).minus(BigNumber(b));
+};
+
+function multiply(a, b) {
+  return BigNumber(a).times(BigNumber(b));
+};
+
+function divide(a, b) {
+  return BigNumber(a).div(BigNumber(b));
+};
+
+function displaySterling(result, precision, rounding) {
+  var r = BigNumber(result).toFormat(precision, rounding);
+  return result < 0 ? r.replace("-", "-£") : '£' + r;
+};
+function isElementHidden(elementId) {
+  var classList = document.getElementById(elementId).parentNode.parentNode.parentNode.parentNode.classList;
+  return classList.contains("govuk-radios__conditional--hidden") || classList.contains("govuk-checkboxes__conditional--hidden");
+}
+
+    </script>
+
+
+  <a lang="en" hreflang="en" class="govuk-link hmrc-report-technical-issue " target="_blank" href="/contact/report-technical-problem?service=GForm%2FRequest%20authorisation%20as%20a%20registered%20intermediary%20%28TC689%29&amp;useServiceNavigation">Is this page not working properly? (opens in new tab)</a>
+
+
+
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,135 @@
+{% extends "layouts/main.html" %}
+
+{% set pageHeading = "Prototype settings" %}
+
+{% block pageTitle %}
+  {% if errors and errors.length %}Error: {% endif %}{{ pageHeading }}
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "/" ~ baseURL ~ "/holdings"
+  }) }}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      {% if errors and errors.length %}
+        {{ govukErrorSummary({
+          titleText: "There is a problem",
+          errorList: errors
+        }) }}
+      {% endif %}
+
+      <h1 class="govuk-heading-l">{{ pageHeading }}</h1>
+
+      <form action="/{{ baseURL }}/prototype-settings" method="post" novalidate>
+        {{ govukRadios({
+          idPrefix: "email-match-scenario",
+          name: "email-match-scenario",
+          fieldset: {
+            legend: {
+              text: "Email matching scenario",
+              classes: "govuk-fieldset__legend--m"
+            }
+          },
+          hint: {
+            text: "Choose where the configured journey starts and how many holdings are associated with the matching email address."
+          },
+          errorMessage: emailMatchScenarioError,
+          items: [
+            {
+              value: "no-match",
+              text: "Email does not match the existing account",
+              hint: { text: "Start by entering a CPH, then complete the holding checks." },
+              checked: emailMatchScenario == "no-match"
+            },
+            {
+              value: "one-holding",
+              text: "Email matches 1 holding",
+              hint: { text: "Show 1 holding that is available to link." },
+              checked: emailMatchScenario == "one-holding"
+            },
+            {
+              value: "three-holdings",
+              text: "Email matches 3 holdings",
+              hint: { text: "Show 3 holdings that are available to link." },
+              checked: emailMatchScenario == "three-holdings"
+            }
+          ]
+        }) }}
+
+        {{ govukCheckboxes({
+          idPrefix: "verification-questions",
+          name: "verification-questions",
+          fieldset: {
+            legend: {
+              text: "Holding verification questions",
+              classes: "govuk-fieldset__legend--m"
+            }
+          },
+          hint: {
+            text: "Select exactly 3 questions for the non-matching email journey."
+          },
+          errorMessage: questionsError,
+          items: [
+            {
+              value: "sbi",
+              text: "SBI",
+              hint: { text: "Higher confidence" },
+              checked: selectedQuestionFlags.sbi
+            },
+            {
+              value: "lastBirthEarTag",
+              text: "Last 4 digits of the ear tag number of the last recorded calf birth",
+              hint: { text: "Higher confidence" },
+              checked: selectedQuestionFlags.lastBirthEarTag
+            },
+            {
+              value: "lastMovementOn",
+              text: "Last movement onto the holding",
+              hint: { text: "Date and last 4 digits of the ear tag number" },
+              checked: selectedQuestionFlags.lastMovementOn
+            },
+            {
+              value: "lastMovementOff",
+              text: "Last movement off the holding",
+              hint: { text: "Date and last 4 digits of the ear tag number" },
+              checked: selectedQuestionFlags.lastMovementOff
+            },
+            {
+              value: "memorableWord",
+              text: "Memorable word",
+              hint: { text: "Medium confidence" },
+              checked: selectedQuestionFlags.memorableWord
+            },
+            {
+              value: "herdMark",
+              text: "Cattle herd mark",
+              hint: { text: "Medium confidence. Some herd marks may be available from other sources." },
+              checked: selectedQuestionFlags.herdMark
+            },
+            {
+              value: "animalCount",
+              text: "Number of cattle shown on the holding",
+              hint: { text: "Medium confidence. The total may differ if recent records have not been processed." },
+              checked: selectedQuestionFlags.animalCount
+            }
+          ]
+        }) }}
+
+        {{ govukDetails({
+          summaryText: "Prototype answer key",
+          html: "<p class=\"govuk-body\">These answers are used when a holding record does not contain its own <code>verificationAnswers</code>.</p><ul class=\"govuk-list govuk-list--bullet\"><li>SBI: 123456789</li><li>Last calf birth, tag ending: 3456</li><li>Last movement on: 15 June 2026, tag ending 3456</li><li>Last movement off: 20 June 2026, tag ending 7890</li><li>Memorable word: bluebell</li><li>Herd mark: 123456</li><li>Number of cattle: 42</li></ul>"
+        }) }}
+
+        {{ govukButton({
+          text: "Start Journey"
+        }) }}
+      </form>
+    </div>
+  </div>
+{% endblock %}

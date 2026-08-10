@@ -1,0 +1,76 @@
+{% extends "layouts/main.html" %}
+
+{% set pageHeading = "Check the holding details" %}
+
+{% block pageTitle %}
+  {% if errors and errors.length %}Error: {% endif %}{{ pageHeading }}
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: backLink
+  }) }}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds-from-desktop">
+
+      {% if errors and errors.length %}
+        {{ govukErrorSummary({
+          titleText: "There is a problem",
+          errorList: errors
+        }) }}
+      {% endif %}
+
+      <h1 class="govuk-heading-l">{{ pageHeading }}</h1>
+
+      {{ govukSummaryList({
+        rows: [
+          {
+            key: { text: "CPH number" },
+            value: { text: pendingHolding.cphNumber }
+          },
+          {
+            key: { text: "Holding name" },
+            value: { text: pendingHolding.holdingName }
+          },
+          {
+            key: { text: "Address" },
+            value: { html: pendingHolding.addressLines | join("<br>") }
+          }
+        ]
+      }) }}
+
+      <form action="/{{ baseURL }}/confirm-holding" method="post" novalidate>
+        {{ govukRadios({
+          idPrefix: "confirm-holding",
+          name: "confirm-holding",
+          value: selectedAnswer,
+          fieldset: {
+            legend: {
+              text: "Is this the holding you want to link?",
+              classes: "govuk-fieldset__legend--m"
+            }
+          },
+          errorMessage: confirmHoldingError,
+          items: [
+            {
+              value: "yes",
+              text: "Yes"
+            },
+            {
+              value: "no",
+              text: "No"
+            }
+          ]
+        }) }}
+
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+      </form>
+    </div>
+  </div>
+{% endblock %}

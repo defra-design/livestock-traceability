@@ -1,0 +1,40 @@
+{% extends "layouts/main.html" %}
+
+{% set pageHeading = "We could not find that CPH" %}
+
+{% block pageTitle %}
+  {{ pageHeading }}
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "/" ~ baseURL ~ "/add-holding"
+  }) }}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <h1 class="govuk-heading-l">{{ pageHeading }}</h1>
+
+      <p class="govuk-body">
+        The CPH number you entered does not match our records.
+      </p>
+
+      <p class="govuk-body">
+        Check the CPH number in the existing service or in your records, then try again.
+      </p>
+
+      <p class="govuk-body govuk-!-margin-bottom-6">
+        If you cannot find the holding, you’ll need to
+        <a class="govuk-link" href="/contact-bcms">contact the British Cattle Movement Service (BCMS)</a>.
+      </p>
+
+      {{ govukButton({
+        text: "Try again",
+        href: "/" ~ baseURL ~ "/add-holding"
+      }) }}
+    </div>
+  </div>
+{% endblock %}

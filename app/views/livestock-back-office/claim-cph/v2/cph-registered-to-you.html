@@ -1,0 +1,64 @@
+{% extends "layouts/main.html" %}
+
+{% set pageHeading = "Is this CPH registered to you or your business?" %}
+{% block pageTitle %}
+{% if registeredToUserError %}Error: {% endif %}{{ pageHeading }}
+{% endblock %}
+
+{% block header %}
+{% include "./components/_header.html" %}
+{% endblock %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+text: "Back",
+href: backLink
+}) }}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      {% if errors.length %}
+        {{ govukErrorSummary({
+          titleText: "There is a problem",
+          errorList: errors
+        }) }}
+      {% endif %}
+
+      <form method="post" novalidate>
+        {{ govukRadios({
+          name: "is-cph-registered-to-user",
+          idPrefix: "is-cph-registered-to-user",
+          value: selectedRegisteredToUser,
+          fieldset: {
+            legend: {
+              text: pageHeading,
+              classes: "govuk-fieldset__legend--l",
+              isPageHeading: true
+            }
+          },
+          hint: {
+            text: "This means your name, or the name of a business you are legally responsible for, is recorded against CPH " + pendingHolding.cphNumber + "."
+          },
+          errorMessage: registeredToUserError,
+          items: [
+            {
+              value: "yes",
+              text: "Yes"
+            },
+            {
+              value: "no",
+              text: "No"
+            }
+          ]
+        }) }}
+
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+      </form>
+    </div>
+  </div>
+{% endblock %}

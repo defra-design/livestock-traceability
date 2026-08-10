@@ -1,0 +1,47 @@
+{% extends "layouts/main.html" %}
+
+{% set pageHeading = "Request a new security code" %}
+
+{% block pageTitle %}{{ pageHeading }}{% endblock %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+text: "Back",
+href: "/" ~ baseURL ~ "/check-security-code"
+}) }}
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <h1 class="govuk-heading-l">{{ pageHeading }}</h1>
+
+    <p class="govuk-body">
+      Text messages sometimes take a few minutes to arrive.
+      If you do not receive the text message, you can request a new one.
+    </p>
+
+    {% call govukDetails({
+      summaryText: "I cannot use this phone"
+    }) %}
+      <p class="govuk-body">
+        You can answer questions about the holding instead.
+      </p>
+
+      <p class="govuk-body">
+        <a class="govuk-link" href="/{{ baseURL }}/before-holding-checks">
+          Answer questions about the holding
+        </a>
+      </p>
+    {% endcall %}
+
+    <form action="/{{ baseURL }}/request-new-security-code" method="post">
+      {{ govukButton({
+        text: "Request a new code"
+      }) }}
+    </form>
+
+  </div>
+</div>
+{% endblock %}
