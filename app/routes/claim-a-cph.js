@@ -17,10 +17,11 @@ const VERIFICATION_QUESTIONS = {
   lastBirthEarTag: {
     key: 'lastBirthEarTag',
     type: 'single',
-    heading: 'What is the full ear tag number of the last calf birth recorded for this holding?',
+    heading: 'What are the last 4 digits of the ear tag number of the last calf birth recorded for this holding?',
     shortLabel: 'Last recorded calf birth',
-    hint: 'Enter the full ear tag number, including UK. For example, UK 123456 123456.',
-    classes: 'govuk-input--width-20',
+    hint: 'For example, 3456.',
+    inputMode: 'numeric',
+    classes: 'govuk-input--width-4',
     riskLabel: 'Higher confidence'
   },
   lastMovementOn: {
@@ -102,7 +103,7 @@ const DEFAULT_EMAIL_MATCH_SCENARIO = 'no-match'
 // holdings fixture has verificationAnswers added to each holding record.
 const DEFAULT_DEMO_VERIFICATION_ANSWERS = {
   sbi: '123456789',
-  lastBirthEarTag: 'UK123456123456',
+  lastBirthEarTag: '3456',
   lastMovementOn: {
     date: '2026-06-15',
     earTagLast4: '3456'
@@ -282,6 +283,14 @@ function normaliseLast4 (value = '') {
   return /^\d{4}$/.test(compact) ? compact : null
 }
 
+function normaliseBirthEarTagLast4 (value = '') {
+  const last4 = normaliseLast4(value)
+  if (last4) return last4
+
+  const fullEarTag = normaliseEarTag(value)
+  return fullEarTag ? fullEarTag.slice(-4) : null
+}
+
 function normaliseAnimalCount (value = '') {
   const compact = String(value).trim()
   if (!/^\d+$/.test(compact)) return null
@@ -370,7 +379,7 @@ function answerMatchesExpected (questionKey, submittedAnswer, expectedAnswers) {
     case 'sbi':
       return submittedAnswer.normalised === normaliseSbi(expected)
     case 'lastBirthEarTag':
-      return submittedAnswer.normalised === normaliseEarTag(expected)
+      return submittedAnswer.normalised === normaliseBirthEarTagLast4(expected)
     case 'lastMovementOn':
     case 'lastMovementOff':
       return submittedAnswer.date === expected.date &&
@@ -1004,8 +1013,8 @@ router.post(`/${baseURL}/verification-question/:number`, function (request, resp
           if (!normalised) answerError = { text: 'Enter a 9-digit SBI' }
           break
         case 'lastBirthEarTag':
-          normalised = normaliseEarTag(rawAnswer)
-          if (!normalised) answerError = { text: 'Enter a full cattle ear tag number in the correct format' }
+          normalised = normaliseLast4(rawAnswer)
+          if (!normalised) answerError = { text: 'Enter exactly 4 digits from the end of the ear tag number' }
           break
         case 'memorableWord':
           normalised = normaliseMemorableWord(rawAnswer)
@@ -1028,7 +1037,7 @@ router.post(`/${baseURL}/verification-question/:number`, function (request, resp
         raw: rawAnswer,
         normalised,
         display: questionKey === 'lastBirthEarTag'
-          ? formatEarTag(normalised)
+          ? normalised
           : questionKey === 'herdMark'
             ? normalised
             : questionKey === 'animalCount'
