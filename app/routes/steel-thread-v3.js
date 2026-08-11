@@ -158,17 +158,9 @@ router.get('/steel-thread/v3/animals-on-holding', (req, res) => {
     .filter((animal) => {
       if (!search) return true
       const searchableValues = [
-        animal.cph,
         animal.earTagNumber,
-        animal.dateOfBirth,
-        animal.sex,
         animal.breed?.name,
-        animal.breed?.code,
-        animal.status,
-        animal.dam?.geneticDam?.earTagNumber,
-        animal.dam?.surrogateDam?.earTagNumber,
-        animal.sire?.earTagNumber,
-        animal.sire?.name
+        animal.breed?.code
       ]
       return searchableValues.some((value) =>
         String(value || '').toLowerCase().includes(search)
@@ -215,26 +207,82 @@ router.get('/steel-thread/v3/animals-on-holding', (req, res) => {
 router.get('/steel-thread/v3/animal-error-record', (req, res) => {
   const errorRecords = [
     {
+      referenceNumber: 'ERR-000123',
       earTagNumber: 'UK324537467886',
       dateOfBirth: '09-07-2025',
       dateOfRegistration: '10-08-2025',
-      reason: 'The date of birth you have entered is over the 27-day deadline to report a calf birth.'
+      reason: 'The date of birth you have entered is over the 27-day deadline to report a calf birth.',
+      evidence: 'You may be required to provide a written explanation describing why the birth could not be reported within the allotted time.',
+      status: 'Pending'
     },
     {
+      referenceNumber: 'ERR-000124',
       earTagNumber: 'UK324537467887',
       dateOfBirth: '29-07-2025',
       dateOfRegistration: '10-08-2025',
-      reason: 'The genetic dam you have entered has given birth in the last 240 days.'
+      reason: 'The genetic dam you have entered has given birth in the last 240 days.',
+      evidence: 'You may be required to provide documentary evidence or DNA parentage testing.',
+      status: 'Resolved'
     },
     {
-      earTagNumber: 'UK324537467888',
-      dateOfBirth: '29-07-2025',
+      referenceNumber: 'ERR-000125',
+      earTagNumber: 'UK324537467886',
+      dateOfBirth: '09-07-2025',
       dateOfRegistration: '10-08-2025',
-      reason: 'The genetic dam you have entered is over 20 years old.'
+      reason: 'The genetic dam you have entered is over 20 years old.',
+      evidence: 'You may be required to provide a signed declaration from your veterinarian or breed society.',
+      status: 'Pending'
     }
   ]
 
-  res.render('steel-thread/v3/animal-error-record', { errorRecords })
+  const toDate = (value) => {
+    const [day, month, year] = value.split('-')
+    return new Date(`${year}-${month}-${day}`)
+  }
+
+  const sort = ['oldest', 'newest', 'earTag'].includes(req.query.sort) ? req.query.sort : 'oldest'
+
+  const sortedErrors = [...errorRecords].sort((a, b) => {
+    if (sort === 'newest') return toDate(b.dateOfBirth) - toDate(a.dateOfBirth)
+    if (sort === 'earTag') return a.earTagNumber.localeCompare(b.earTagNumber)
+    return toDate(a.dateOfBirth) - toDate(b.dateOfBirth)
+  })
+
+  const pageSize = 25
+  const totalPages = Math.max(1, Math.ceil(sortedErrors.length / pageSize))
+  const requestedPage = parseInt(req.query.page, 10) || 1
+  const page = Math.min(Math.max(requestedPage, 1), totalPages)
+
+  const pagedErrors = sortedErrors.slice((page - 1) * pageSize, page * pageSize)
+
+  const pageHref = (pageNumber) => {
+    const params = new URLSearchParams()
+    params.set('sort', sort)
+    params.set('page', pageNumber)
+    return `/steel-thread/v3/animal-error-record?${params.toString()}`
+  }
+
+  const pagination = totalPages > 1 ? {
+    previous: page > 1 ? { href: pageHref(page - 1) } : undefined,
+    next: page < totalPages ? { href: pageHref(page + 1) } : undefined,
+    items: Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNumber) => ({
+      number: pageNumber,
+      current: pageNumber === page,
+      href: pageHref(pageNumber)
+    }))
+  } : null
+
+  const showingFrom = sortedErrors.length === 0 ? 0 : (page - 1) * pageSize + 1
+  const showingTo = Math.min(page * pageSize, sortedErrors.length)
+
+  res.render('steel-thread/v3/animal-error-record', {
+    errors: pagedErrors,
+    sort,
+    pagination,
+    showingFrom,
+    showingTo,
+    totalErrors: sortedErrors.length
+  })
 })
 
 router.get('/steel-thread/v3/cattle/:earTagNumber', (req, res) => {

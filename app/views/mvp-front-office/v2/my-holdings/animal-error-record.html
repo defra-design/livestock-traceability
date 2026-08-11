@@ -1,7 +1,6 @@
 {% extends "layouts/main.html" %}
 
 {% set pageName="Animal Error Record" %}
-{% set activeNavItem = "my-holdings" %}
 {% set sideNavActive = "animal-error-record" %}
 
 {% block header %}
@@ -36,26 +35,9 @@
     Animal error record
   </h1>
 
-  <nav class="moj-sub-navigation" aria-label="Sub navigation">
-    <ul class="moj-sub-navigation__list">
-      <li class="moj-sub-navigation__item">
-        <a class="moj-sub-navigation__link" href="/mvp-front-office/v2/my-holdings/holding-overview">
-          Overview
-        </a>
-      </li>
-      <li class="moj-sub-navigation__item">
-        <a class="moj-sub-navigation__link" href="/mvp-front-office/v2/my-holdings/holding-details">Holding details</a>
-      </li>
-      <li class="moj-sub-navigation__item">
-        <a class="moj-sub-navigation__link" href="/mvp-front-office/v2/my-holdings/animals-on-holding">Animals on holding</a>
-      </li>
-      <li class="moj-sub-navigation__item">
-        <a class="moj-sub-navigation__link" aria-current="page" href="/mvp-front-office/v2/my-holdings/animal-error-record">Animal error record</a>
-      </li>
-    </ul>
-  </nav>
+  {% include "mvp-front-office/v2/partials/subnavigation.html" %}
 
-    <div class="govuk-inset-text">
+    <!--<div class="govuk-inset-text">
 
       <h2 class="govuk-heading-m">
         How to fix animal error records
@@ -73,9 +55,84 @@
       <p class="govuk-body">
         <a href="https://www.gov.uk/call-charges" target="_blank">Find out about call charges</a>
       </p>
-    </div>
+    </div>-->
 
-    <hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible">
+    {% from "govuk/components/table/macro.njk" import govukTable %}
+
+    <h2 class="govuk-heading-m govuk-!-static-margin-bottom-6">
+      You have {{ errorRecords.length }} outstanding animal error record{{ "s" if errorRecords.length != 1 }}
+    </h2>
+
+    {% set statusTagClasses = {
+      "Rejected": "govuk-tag--red",
+      "Pending": "govuk-tag--yellow",
+      "In review": "govuk-tag--blue"
+    } %}
+
+    {% set rows = [] %}
+    {% for record in errorRecords %}
+      {% set row = [
+        {
+          html: '<a class="govuk-link" href="/mvp-front-office/v2/my-holdings/animal-error-record/' + record.id + '">' + record.id + '</a>',
+          attributes: { style: "white-space: nowrap;" }
+        },
+        {
+          text: record.earTagNumber | formatReference,
+          attributes: { style: "white-space: nowrap;" }
+        },
+        {
+          text: record.date | shortDateFormat,
+          attributes: {
+            "data-sort-value": record.date.slice(6,10) + record.date.slice(3,5) + record.date.slice(0,2),
+            style: "white-space: nowrap;"
+          }
+        },
+        {
+          text: record.category
+        },
+        {
+          html: '<strong class="govuk-tag ' + statusTagClasses[record.status] + '">' + record.status + '</strong>',
+          attributes: {
+            "data-sort-value": record.status,
+            style: "white-space: nowrap;"
+          }
+        }
+      ] %}
+      {% set rows = (rows.push(row), rows) %}
+    {% endfor %}
+
+    {{ govukTable({
+      attributes: {
+        "data-module": "moj-sortable-table"
+      },
+      caption: "Animal error records",
+      captionClasses: "govuk-visually-hidden",
+      head: [
+        {
+          text: "Reference",
+          attributes: { "aria-sort": "ascending", style: "white-space: nowrap;" }
+        },
+        {
+          text: "Ear tag number",
+          attributes: { "aria-sort": "none", style: "white-space: nowrap;" }
+        },
+        {
+          text: "Date",
+          attributes: { "aria-sort": "none", style: "white-space: nowrap;" }
+        },
+        {
+          text: "Category",
+          attributes: { "aria-sort": "none" }
+        },
+        {
+          text: "Status",
+          attributes: { "aria-sort": "none", style: "white-space: nowrap;" }
+        }
+      ],
+      rows: rows
+    }) }}
+
+   <!-- <hr class="govuk-section-break govuk-section-break&#45;&#45;xl govuk-section-break&#45;&#45;visible">
 
     <h2 class="govuk-heading-m govuk-!-static-margin-bottom-6">
       You have 3 outstanding animal error records
@@ -125,7 +182,7 @@
         </dl>
       </div>
     </div>
-    {% endfor %}
+    {% endfor %}-->
 
 </div>
 

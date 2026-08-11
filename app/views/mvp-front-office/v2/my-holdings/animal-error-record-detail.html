@@ -1,0 +1,124 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName = "Animal error record - " + (record.earTagNumber | formatReference) %}
+
+{% block header %}
+  {% include "mvp-front-office/v2/partials/header.html" %}
+{% endblock %}
+
+{% block beforeContent %}
+
+{{ govukBackLink({
+  text: "Back",
+  href: "/mvp-front-office/v2/my-holdings/animal-error-record"
+}) }}
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    {% set statusTagClasses = {
+      "Rejected": "govuk-tag--red",
+      "Pending": "govuk-tag--yellow",
+      "In review": "govuk-tag--blue"
+    } %}
+
+    <span class="govuk-caption-l">Error ID: {{ record.id }}</span>
+    <h1 class="govuk-heading-l">
+      {{ record.earTagNumber | formatReference }}
+    </h1>
+
+    <dl class="govuk-summary-list">
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Status
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <strong class="govuk-tag {{ statusTagClasses[record.status] }}">{{ record.status }}</strong>
+        </dd>
+      </div>
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Date raised
+        </dt>
+        <dd class="govuk-summary-list__value">
+          {{ record.date | shortDateFormat }}
+        </dd>
+      </div>
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Category
+        </dt>
+        <dd class="govuk-summary-list__value">
+          {{ record.category }}
+        </dd>
+      </div>
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Date of birth
+        </dt>
+        <dd class="govuk-summary-list__value">
+          {{ record.dateOfBirth | shortDateFormat }}
+        </dd>
+      </div>
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Date of registration
+        </dt>
+        <dd class="govuk-summary-list__value">
+          {{ record.dateOfRegistration | shortDateFormat }}
+        </dd>
+      </div>
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Reason for error
+        </dt>
+        <dd class="govuk-summary-list__value">
+          {{ record.reason }}
+        </dd>
+      </div>
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Providing evidence
+        </dt>
+        <dd class="govuk-summary-list__value">
+          {{ record.evidence }}
+        </dd>
+      </div>
+
+    </dl>
+
+   <div class="govuk-inset-text">
+
+  <h2 class="govuk-heading-m">
+    How to fix animal error records
+  </h2>
+
+  <p class="govuk-body">
+    You need to contact BCMS to fix the errors related to your animals.
+  </p>
+
+  <ul class="govuk-list">
+    <li>BCMS phone: 0345 050 1234</li>
+    <li>Helpline for cattle keepers in Wales: 0345 050 3456</li>
+    <li>Monday to Friday, 8:30am to 5pm</li>
+  </ul>
+  <p class="govuk-body">
+    <a href="https://www.gov.uk/call-charges" target="_blank">Find out about call charges</a>
+  </p>
+</div>
+
+  </div>
+</div>
+
+{% endblock %}
