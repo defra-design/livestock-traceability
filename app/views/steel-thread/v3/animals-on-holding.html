@@ -22,7 +22,7 @@
 
 {% block content %}
 
-<!--
+
 <div class="govuk-notification-banner" role="region" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
   <div class="govuk-notification-banner__header">
     <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
@@ -39,7 +39,6 @@
     </p>
   </div>
 </div>
--->
 
 <span class="govuk-caption-l">CPH number: 12/345/0001</span>
 <h1 class="govuk-heading-l">
@@ -65,38 +64,21 @@
  <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
 
-    <!--  <div class="govuk-warning-text">
-        <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-        <strong class="govuk-warning-text__text">
-          <span class="govuk-visually-hidden">Warning</span>
-          Recent changes such as new registrations may take up to 24 hours to appear in your list.
-        </strong>
-      </div>-->
-
-     <!-- <div class="govuk-inset-text govuk-!-margin-top-0 govuk-!-margin-bottom-8">
-        <h2 class="govuk-heading-m govuk-!-margin-top-0 govuk-!-margin-bottom-2">
-          Important notice
-        </h2>
-        <p class="govuk-body">
-          These are the cattle currently recorded by CTS as being on this holding. Recent changes may not appear straight away.
-        </p>
-      </div>-->
-
-      <!--<form method="GET" >
+     <form method="GET" >
         <div class="search-wrapper govuk-form-group">
           <h2 class="govuk-label-wrapper">
             <label class="govuk-label govuk-label&#45;&#45;m" for="search-reservations">
-              Search by animal ear tag number or breed
+              Search by partial animal ear tag number or breed
             </label>
           </h2>
           <div class="search-input-wrapper">
-            <input type="search" value="" id="search-reservations" name="search" title="Search" class="govuk-input">
+            <input type="search" value="{{ search }}" id="search-reservations" name="search" title="Search" class="govuk-input">
             <div class="search-input-submit-wrapper">
               <button type="submit" class="search-submit">Search</button>
             </div>
           </div>
         </div>
-      </form>-->
+      </form>
     </div>
   </div>
 
@@ -111,7 +93,7 @@
       </strong>
     </div>
 
-<!-- <p class="govuk-body" aria-live="polite">
+ <p class="govuk-body" aria-live="polite">
       {% if search %}
         {{ cattle.length }}
         {% if cattle.length === 1 %}
@@ -123,7 +105,7 @@
       {% else %}
         {{ cattle.length }} registered cattle
       {% endif %}
-    </p>-->
+    </p>
 
   {% if search %}
     <p class="govuk-body">
@@ -148,13 +130,19 @@
           }
         },
         {
+          text: animal.dateOfBirth | animalAge,
+          attributes: {
+            "data-sort-value": animal.dateOfBirth.slice(6,10) + animal.dateOfBirth.slice(3,5) + animal.dateOfBirth.slice(0,2)
+          }
+        },
+        {
           text: animal.dateOfRegistration | shortDateFormat,
           attributes: {
             "data-sort-value": animal.dateOfRegistration.slice(6,10) + animal.dateOfRegistration.slice(3,5) + animal.dateOfRegistration.slice(0,2)
           }
         },
         {
-          text: animal.sex | sexInitial
+          text: animal.sex
         },
         {
           text: animal.breed.name + (" (" + animal.breed.code + ")" if animal.breed.code else "")
@@ -183,7 +171,13 @@
           }
         },
         {
-          text: "Date registered",
+          text: "Age",
+          attributes: {
+            "aria-sort": "none"
+          }
+        },
+        {
+          text: "Date on holding",
           attributes: {
             "aria-sort": "none"
           }

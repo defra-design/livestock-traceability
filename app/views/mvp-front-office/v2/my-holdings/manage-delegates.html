@@ -36,16 +36,11 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
 
-    <div class="govuk-grid-row">
-      <div class="govuk-grid-column-one-quarter">
-        {% include "mvp-front-office/v2/partials/my-holdings-sidebar.html" %}
-      </div>
-
-      <div class="govuk-grid-column-three-quarters">
-
         <h1 class="govuk-heading-l govuk-!-static-margin-bottom-4">
           Manage delegates
         </h1>
+
+        {% include "mvp-front-office/v2/partials/subnavigation.html" %}
 
         <p class="govuk-body">
           Add new or remove existing delegates who can manage your holding. If you remove a delegate, they will no longer be able to access your holding details.
@@ -74,9 +69,6 @@
             {% endfor %}
           </tbody>
         </table>
-
-      </div>
-    </div>
 
   </div>
 </div>

@@ -7,6 +7,46 @@ function getSelectedHolding(req) {
   return holdingsData.holdings.find((h) => h.id === holdingId) || holdingsData.holdings[0]
 }
 
+// Dummy data for now - a real animal error record data source will
+// replace this once the JSON is built.
+function getErrorRecords() {
+  return [
+    {
+      id: 'AER-48213',
+      earTagNumber: 'UK324537467886',
+      date: '11-08-2025',
+      dateOfBirth: '09-07-2025',
+      dateOfRegistration: '10-08-2025',
+      category: 'Late birth registration',
+      reason: 'The date of birth you have entered is over the 27-day deadline to report a calf birth.',
+      evidence: 'You may be required to provide a written explanation describing why the birth could not be reported within the allotted time.',
+      status: 'Rejected'
+    },
+    {
+      id: 'AER-59027',
+      earTagNumber: 'UK324537467887',
+      date: '12-08-2025',
+      dateOfBirth: '29-07-2025',
+      dateOfRegistration: '10-08-2025',
+      category: 'Dam calving interval',
+      reason: 'The genetic dam you have entered has given birth in the last 240 days.',
+      evidence: 'You may be required to provide documentary evidence or DNA parentage testing.',
+      status: 'Pending'
+    },
+    {
+      id: 'AER-61984',
+      earTagNumber: 'UK324537467888',
+      date: '13-08-2025',
+      dateOfBirth: '29-07-2025',
+      dateOfRegistration: '10-08-2025',
+      category: 'Dam age',
+      reason: 'The genetic dam you have entered is over 20 years old.',
+      evidence: 'You may be required to provide a signed declaration from your veterinarian or breed society.',
+      status: 'In review'
+    }
+  ]
+}
+
 router.post('/mvp-front-office/v2/auth/one-login-email', (req, res) => {
   res.redirect('/mvp-front-office/v2/auth/one-login-password')
 })
@@ -151,32 +191,23 @@ router.post('/mvp-front-office/v2/my-holdings/export-animals', (req, res) => {
 
 router.get('/mvp-front-office/v2/my-holdings/animal-error-record', (req, res) => {
   const holding = getSelectedHolding(req)
-
-  const errorRecords = [
-    {
-      earTagNumber: 'UK324537467886',
-      dateOfBirth: '09-07-2025',
-      dateOfRegistration: '10-08-2025',
-      reason: 'The date of birth you have entered is over the 27-day deadline to report a calf birth.',
-      evidence: 'You may be required to provide a written explanation describing why the birth could not be reported within the allotted time.'
-    },
-    {
-      earTagNumber: 'UK324537467887',
-      dateOfBirth: '29-07-2025',
-      dateOfRegistration: '10-08-2025',
-      reason: 'The genetic dam you have entered has given birth in the last 240 days.',
-      evidence: 'You may be required to provide documentary evidence or DNA parentage testing.'
-    },
-    {
-      earTagNumber: 'UK324537467888',
-      dateOfBirth: '29-07-2025',
-      dateOfRegistration: '10-08-2025',
-      reason: 'The genetic dam you have entered is over 20 years old.',
-      evidence: 'You may be required to provide a signed declaration from your veterinarian or breed society.'
-    }
-  ]
+  const errorRecords = getErrorRecords()
 
   res.render('mvp-front-office/v2/my-holdings/animal-error-record', { errorRecords, holding })
+})
+
+router.get('/mvp-front-office/v2/my-holdings/animal-error-record/:id', (req, res) => {
+  const holding = getSelectedHolding(req)
+
+  const record = getErrorRecords().find(
+    (r) => r.id.toLowerCase() === req.params.id.toLowerCase()
+  )
+
+  if (!record) {
+    return res.status(404).send('Animal error record not found')
+  }
+
+  res.render('mvp-front-office/v2/my-holdings/animal-error-record-detail', { record, holding })
 })
 
 router.get('/mvp-front-office/v2/my-holdings/activity-history', (req, res) => {
