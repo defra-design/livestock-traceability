@@ -6,6 +6,26 @@ const baseURL = 'livestock-back-office/claim-cph/v2'
 const DEMO_SECURITY_CODE = '12345'
 
 const VERIFICATION_QUESTIONS = {
+  ctsOnlineReference: {
+    key: 'ctsOnlineReference',
+    type: 'single',
+    heading: 'What is your CTS Online Reference Number?',
+    shortLabel: 'CTS Online Reference Number',
+    hint: 'This is a 9-digit reference number. For example, 987654321.',
+    inputMode: 'numeric',
+    classes: 'govuk-input--width-10',
+    riskLabel: 'Higher confidence'
+  },
+  animalsMovedLast12Months: {
+    key: 'animalsMovedLast12Months',
+    type: 'single',
+    heading: 'How many animals were moved in the last 12 months?',
+    shortLabel: 'Animals moved in the last 12 months',
+    hint: 'Enter the total number of animals moved in the last 12 months.',
+    inputMode: 'numeric',
+    classes: 'govuk-input--width-5',
+    riskLabel: 'Higher confidence'
+  },
   sbi: {
     key: 'sbi',
     type: 'single',
@@ -78,6 +98,8 @@ const VERIFICATION_QUESTIONS = {
 }
 
 const VERIFICATION_QUESTION_ORDER = [
+  'ctsOnlineReference',
+  'animalsMovedLast12Months',
   'sbi',
   'lastBirthEarTag',
   'lastMovementOn',
@@ -88,7 +110,7 @@ const VERIFICATION_QUESTION_ORDER = [
 ]
 
 const DEFAULT_VERIFICATION_QUESTION_KEYS = [
-  'sbi',
+  'ctsOnlineReference',
   'lastBirthEarTag',
   'lastMovementOff'
 ]
@@ -104,6 +126,8 @@ const DEFAULT_EMAIL_MATCH_SCENARIO = 'no-match'
 // These values let the prototype demonstrate all 3 outcomes before the
 // holdings fixture has verificationAnswers added to each holding record.
 const DEFAULT_DEMO_VERIFICATION_ANSWERS = {
+  ctsOnlineReference: '987654321',
+  animalsMovedLast12Months: '18',
   sbi: '123456789',
   lastBirthEarTag: '3456',
   lastMovementOn: {
@@ -392,6 +416,10 @@ function answerMatchesExpected (questionKey, submittedAnswer, expectedAnswers) {
   }
 
   switch (questionKey) {
+    case 'ctsOnlineReference':
+      return submittedAnswer.normalised === normaliseSbi(expected)
+    case 'animalsMovedLast12Months':
+      return submittedAnswer.normalised === normaliseAnimalCount(expected)
     case 'sbi':
       return submittedAnswer.normalised === normaliseSbi(expected)
     case 'lastBirthEarTag': {
@@ -1315,6 +1343,14 @@ router.post(`/${baseURL}/verification-question/:number`, function (request, resp
       answerError = { text: `Enter ${question.shortLabel.toLowerCase()}` }
     } else {
       switch (questionKey) {
+        case 'ctsOnlineReference':
+          normalised = normaliseSbi(rawAnswer)
+          if (!normalised) answerError = { text: 'Enter a 9-digit CTS Online Reference Number' }
+          break
+        case 'animalsMovedLast12Months':
+          normalised = normaliseAnimalCount(rawAnswer)
+          if (!normalised) answerError = { text: 'Enter the number of animals moved as a whole number' }
+          break
         case 'sbi':
           normalised = normaliseSbi(rawAnswer)
           if (!normalised) answerError = { text: 'Enter a 9-digit SBI' }
@@ -1347,8 +1383,10 @@ router.post(`/${baseURL}/verification-question/:number`, function (request, resp
           ? normalised
           : questionKey === 'herdMark'
             ? normalised
-            : questionKey === 'animalCount'
+            : questionKey === 'animalsMovedLast12Months'
               ? normalised
+              : questionKey === 'animalCount'
+                ? normalised
               : rawAnswer
       }
     }

@@ -77,6 +77,18 @@
           errorMessage: questionsError,
           items: [
             {
+              value: "ctsOnlineReference",
+              text: "CTS Online Reference Number",
+              hint: { text: "Higher confidence. 9-digit reference number." },
+              checked: selectedQuestionFlags.ctsOnlineReference
+            },
+            {
+              value: "animalsMovedLast12Months",
+              text: "Number of animals moved in the last 12 months",
+              hint: { text: "Higher confidence" },
+              checked: selectedQuestionFlags.animalsMovedLast12Months
+            },
+            {
               value: "sbi",
               text: "SBI",
               hint: { text: "Higher confidence" },
@@ -123,7 +135,7 @@
 
         {{ govukDetails({
           summaryText: "Prototype answer key",
-          html: "<p class=\"govuk-body\">These answers are used when a holding record does not contain its own <code>verificationAnswers</code>.</p><ul class=\"govuk-list govuk-list--bullet\"><li>SBI: 123456789</li><li>Last calf birth, tag ending: 3456</li><li>Last movement on: 15 June 2026, tag ending 3456</li><li>Last movement off: 20 June 2026, tag ending 7890</li><li>Memorable word: bluebell</li><li>Herd mark: 123456</li><li>Number of cattle: 42</li></ul>"
+          html: "<p class=\"govuk-body\">These answers are used when a holding record does not contain its own <code>verificationAnswers</code>.</p><ul class=\"govuk-list govuk-list--bullet\"><li>CTS Online Reference Number: 987654321</li><li>Animals moved in the last 12 months: 18</li><li>SBI: 123456789</li><li>Last calf birth, tag ending: 3456</li><li>Last movement on: 15 June 2026, tag ending 3456</li><li>Last movement off: 20 June 2026, tag ending 7890</li><li>Memorable word: bluebell</li><li>Herd mark: 123456</li><li>Number of cattle: 42</li></ul>"
         }) }}
 
         {{ govukButton({
