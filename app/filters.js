@@ -181,18 +181,14 @@ addFilter('sexToLetter', function(value) {
       return `${days} day${days === 1 ? '' : 's'}`;
     }
 
-    if (months < 24) {
+    if (months < 12) {
       return `${months} month${months === 1 ? '' : 's'}`;
     }
 
     const years = Math.floor(months / 12);
     const remainingMonths = months % 12;
 
-    if (remainingMonths > 0) {
-      return `${years} year${years === 1 ? '' : 's'} ${remainingMonths} month${remainingMonths === 1 ? '' : 's'}`;
-    }
-
-    return `${years} year${years === 1 ? '' : 's'}`;
+    return `${years} year${years === 1 ? '' : 's'} ${remainingMonths} month${remainingMonths === 1 ? '' : 's'}`;
   });
 
   addFilter('sexInitial', function (value) {

@@ -36,13 +36,18 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
 
-      <h1 class="govuk-heading-l">
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-one-quarter">
+        {% include "mvp-front-office/v2/partials/my-holdings-sidebar.html" %}
+      </div>
+
+      <div class="govuk-grid-column-three-quarters">
+
+        <h1 class="govuk-heading-l">
           Holding details
-      </h1>
+        </h1>
 
-    {% include "mvp-front-office/v2/partials/subnavigation.html" %}
-
-    <dl class="govuk-summary-list">
+        <dl class="govuk-summary-list">
 
         <div class="govuk-summary-list__row">
           <dt class="govuk-summary-list__key">CPH number</dt>
@@ -89,6 +94,9 @@
         </div>
 
       </dl>
+      </div>
+    </div>
+
   </div>
 </div>
 

@@ -62,15 +62,21 @@
 <div>
 
  <div class="govuk-grid-row">
+
     <div class="govuk-grid-column-two-thirds">
 
      <form method="GET" >
         <div class="search-wrapper govuk-form-group">
           <h2 class="govuk-label-wrapper">
             <label class="govuk-label govuk-label&#45;&#45;m" for="search-reservations">
-              Search by partial animal ear tag number or breed
+              Search animals on your holding
             </label>
           </h2>
+
+          <p class="govuk-body">
+            You can use all or part of the animal ear tag number, or search by date of birth, date on holding, sex or breed.
+          </p>
+
           <div class="search-input-wrapper">
             <input type="search" value="{{ search }}" id="search-reservations" name="search" title="Search" class="govuk-input">
             <div class="search-input-submit-wrapper">
@@ -82,16 +88,15 @@
     </div>
   </div>
 
+  <div class="govuk-warning-text">
+    <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+    <strong class="govuk-warning-text__text">
+      <span class="govuk-visually-hidden">Warning</span>
+      Recent changes such as new registrations may take up to 24 hours to appear in your list.
+    </strong>
+  </div>
+
   <div>
-
-
-    <div class="govuk-warning-text">
-      <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-      <strong class="govuk-warning-text__text">
-        <span class="govuk-visually-hidden">Warning</span>
-        Recent changes such as new registrations may take up to 24 hours to appear in your list.
-      </strong>
-    </div>
 
  <p class="govuk-body" aria-live="polite">
       {% if search %}
@@ -121,82 +126,96 @@
     {% for animal in cattle %}
       {% set row = [
         {
-          html: '<a class="govuk-link" href="/steel-thread/v3/cattle/' + animal.earTagNumber + '">' + (animal.earTagNumber | formatReference) + '</a>'
+          html: '<a class="govuk-link" href="/steel-thread/v3/cattle/' + animal.earTagNumber + '">' + (animal.earTagNumber | formatReference) + '</a>',
+          classes: "app-table__cell--no-wrap"
         },
         {
           text: animal.dateOfBirth | shortDateFormat,
+          classes: "app-table__cell--no-wrap",
           attributes: {
             "data-sort-value": animal.dateOfBirth.slice(6,10) + animal.dateOfBirth.slice(3,5) + animal.dateOfBirth.slice(0,2)
           }
         },
         {
           text: animal.dateOfBirth | animalAge,
+          classes: "app-table__cell--no-wrap",
           attributes: {
             "data-sort-value": animal.dateOfBirth.slice(6,10) + animal.dateOfBirth.slice(3,5) + animal.dateOfBirth.slice(0,2)
           }
         },
         {
           text: animal.dateOfRegistration | shortDateFormat,
+          classes: "app-table__cell--no-wrap",
           attributes: {
             "data-sort-value": animal.dateOfRegistration.slice(6,10) + animal.dateOfRegistration.slice(3,5) + animal.dateOfRegistration.slice(0,2)
           }
         },
         {
-          text: animal.sex
+          text: animal.sex,
+          classes: "app-table__cell--no-wrap"
         },
         {
-          text: animal.breed.name + (" (" + animal.breed.code + ")" if animal.breed.code else "")
+          text: animal.breed.code,
+          classes: "app-table__cell--no-wrap"
         }
       ] %}
       {% set rows = (rows.push(row), rows) %}
     {% endfor %}
 
-    {{ govukTable({
-      attributes: {
-        "data-module": "moj-sortable-table"
-      },
-      caption: "Animals on holding",
-      captionClasses: "govuk-visually-hidden",
-      head: [
-        {
-          text: "Ear tag number",
-          attributes: {
-            "aria-sort": "ascending"
-          }
+    <div class="app-dashboard-table-wrapper">
+      {{ govukTable({
+        attributes: {
+          "data-module": "moj-sortable-table"
         },
-        {
-          text: "Date of birth",
-          attributes: {
-            "aria-sort": "none"
+        caption: "Animals on holding",
+        captionClasses: "govuk-visually-hidden",
+        head: [
+          {
+            text: "Ear tag number",
+            classes: "app-table__cell--no-wrap",
+            attributes: {
+              "aria-sort": "ascending"
+            }
+          },
+          {
+            text: "Date of birth",
+            classes: "app-table__cell--no-wrap",
+            attributes: {
+              "aria-sort": "none"
+            }
+          },
+          {
+            text: "Age",
+            classes: "app-table__cell--no-wrap",
+            attributes: {
+              "aria-sort": "none"
+            }
+          },
+          {
+            text: "Date on holding",
+            classes: "app-table__cell--no-wrap",
+            attributes: {
+              "aria-sort": "none"
+            }
+          },
+          {
+            text: "Sex",
+            classes: "app-table__cell--no-wrap",
+            attributes: {
+              "aria-sort": "none"
+            }
+          },
+          {
+            text: "Breed",
+            classes: "app-table__cell--no-wrap",
+            attributes: {
+              "aria-sort": "none"
+            }
           }
-        },
-        {
-          text: "Age",
-          attributes: {
-            "aria-sort": "none"
-          }
-        },
-        {
-          text: "Date on holding",
-          attributes: {
-            "aria-sort": "none"
-          }
-        },
-        {
-          text: "Sex",
-          attributes: {
-            "aria-sort": "none"
-          }
-        },
-        {
-          text: "Breed",
-          attributes: {
-            "aria-sort": "none"
-          }
-        }
-      ],
-      rows: rows
-    }) }}
+        ],
+        rows: rows
+      }) }}
+    </div>
 
     <p class="govuk-body">
       Showing {{ showingFrom }} to {{ showingTo }} of {{ totalCattle }} animals
