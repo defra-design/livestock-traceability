@@ -36,12 +36,16 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
 
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-one-quarter">
+        {% include "mvp-front-office/v2/partials/my-holdings-sidebar.html" %}
+      </div>
+
+      <div class="govuk-grid-column-three-quarters">
+
     <h1 class="govuk-heading-l">
       Animals on holding
     </h1>
-
-    {% include "mvp-front-office/v2/partials/subnavigation.html" %}
-
 
     <div class="govuk-warning-text">
           <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
@@ -165,6 +169,9 @@
           No cattle records found{% if search %} for "{{ search }}"{% endif %}.
         </div>
         {% endif %}
+
+      </div>
+    </div>
 
   </div>
 </div>
