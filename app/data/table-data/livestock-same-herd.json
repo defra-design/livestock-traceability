@@ -13,7 +13,7 @@
         "name": "Holstein Friesian",
         "code": "HO"
       },
-      "status": "Active",
+      "status": "Restricted",
       "dam": {
         "type": "Genetic",
         "surrogateDam": null,
@@ -34,7 +34,7 @@
         "name": "Holstein Friesian Cross",
         "code": "HOX"
       },
-      "status": "Active",
+      "status": "Alive",
       "dam": {
         "type": "Surrogate",
         "surrogateDam": {
@@ -57,7 +57,7 @@
         "name": "Holstein Friesian",
         "code": "HO"
       },
-      "status": "Active",
+      "status": "Alive",
       "dam": {
         "type": "Genetic",
         "surrogateDam": null,
@@ -81,7 +81,7 @@
         "name": "Holstein Friesian Cross",
         "code": "HOX"
       },
-      "status": "Active",
+      "status": "Alive",
       "dam": {
         "type": "Genetic",
         "surrogateDam": null,
@@ -102,7 +102,7 @@
         "name": "Holstein Friesian",
         "code": "HO"
       },
-      "status": "Active",
+      "status": "Alive",
       "dam": {
         "type": "Surrogate",
         "surrogateDam": {
@@ -128,7 +128,7 @@
         "name": "Holstein Friesian Cross",
         "code": "HOX"
       },
-      "status": "Active",
+      "status": "Alive",
       "dam": {
         "type": "Genetic",
         "surrogateDam": null,
@@ -149,7 +149,7 @@
         "name": "Holstein Friesian",
         "code": "HO"
       },
-      "status": "Active",
+      "status": "Alive",
       "dam": {
         "type": "Genetic",
         "surrogateDam": null,
@@ -170,7 +170,7 @@
         "name": "Holstein Friesian Cross",
         "code": "HOX"
       },
-      "status": "Active",
+      "status": "Alive",
       "dam": {
         "type": "Genetic",
         "surrogateDam": null,
@@ -191,7 +191,7 @@
         "name": "Holstein Friesian",
         "code": "HO"
       },
-      "status": "Active",
+      "status": "Alive",
       "dam": {
         "type": "Genetic",
         "surrogateDam": null,
@@ -212,7 +212,7 @@
         "name": "Holstein Friesian Cross",
         "code": "HOX"
       },
-      "status": "Active",
+      "status": "Alive",
       "dam": {
         "type": "Surrogate",
         "surrogateDam": {
@@ -235,7 +235,7 @@
         "name": "Holstein Friesian",
         "code": "HO"
       },
-      "status": "Active",
+      "status": "Alive",
       "dam": {
         "type": "Genetic",
         "surrogateDam": null,
@@ -256,7 +256,7 @@
         "name": "Holstein Friesian Cross",
         "code": "HOX"
       },
-      "status": "Active",
+      "status": "Alive",
       "dam": {
         "type": "Genetic",
         "surrogateDam": null,
@@ -277,7 +277,7 @@
         "name": "Holstein Friesian",
         "code": "HO"
       },
-      "status": "Active",
+      "status": "Alive",
       "dam": {
         "type": "Surrogate",
         "surrogateDam": {
@@ -321,7 +321,7 @@
         "name": "Holstein Friesian",
         "code": "HO"
       },
-      "status": "Active",
+      "status": "Alive",
       "dam": {
         "type": "Genetic",
         "surrogateDam": null,
@@ -342,7 +342,7 @@
         "name": "Holstein Friesian Cross",
         "code": "HOX"
       },
-      "status": "Active",
+      "status": "Alive",
       "dam": {
         "type": "Genetic",
         "surrogateDam": null,
@@ -366,7 +366,7 @@
         "name": "Holstein Friesian",
         "code": "HO"
       },
-      "status": "Active",
+      "status": "Alive",
       "dam": {
         "type": "Genetic",
         "surrogateDam": null,
@@ -387,7 +387,7 @@
         "name": "Holstein Friesian Cross",
         "code": "HOX"
       },
-      "status": "Active",
+      "status": "Alive",
       "dam": {
         "type": "Surrogate",
         "surrogateDam": {
@@ -434,7 +434,7 @@
         "name": "Holstein Friesian Cross",
         "code": "HOX"
       },
-      "status": "Active",
+      "status": "Alive",
       "dam": {
         "type": "Genetic",
         "surrogateDam": null,
@@ -455,7 +455,7 @@
         "name": "Holstein Friesian",
         "code": "HO"
       },
-      "status": "Active",
+      "status": "Alive",
       "dam": {
         "type": "Genetic",
         "surrogateDam": null,
@@ -476,7 +476,7 @@
         "name": "Holstein Friesian Cross",
         "code": "HOX"
       },
-      "status": "Active",
+      "status": "Alive",
       "dam": {
         "type": "Surrogate",
         "surrogateDam": {
@@ -499,7 +499,7 @@
         "name": "Holstein Friesian",
         "code": "HO"
       },
-      "status": "Active",
+      "status": "Alive",
       "dam": {
         "type": "Genetic",
         "surrogateDam": null,
@@ -523,7 +523,7 @@
         "name": "Holstein Friesian Cross",
         "code": "HOX"
       },
-      "status": "Active",
+      "status": "Alive",
       "dam": {
         "type": "Genetic",
         "surrogateDam": null,
@@ -544,7 +544,7 @@
         "name": "Holstein Friesian",
         "code": "HO"
       },
-      "status": "Active",
+      "status": "Alive",
       "dam": {
         "type": "Surrogate",
         "surrogateDam": {
@@ -567,7 +567,7 @@
         "name": "Holstein Friesian",
         "code": "HO"
       },
-      "status": "Active",
+      "status": "Alive",
       "dam": {
         "type": "Genetic",
         "surrogateDam": null,
@@ -588,7 +588,7 @@
         "name": "Holstein Friesian Cross",
         "code": "HOX"
       },
-      "status": "Active",
+      "status": "Alive",
       "dam": {
         "type": "Genetic",
         "surrogateDam": null,
@@ -612,7 +612,7 @@
         "name": "Holstein Friesian",
         "code": "HO"
       },
-      "status": "Active",
+      "status": "Alive",
       "dam": {
         "type": "Genetic",
         "surrogateDam": null,
@@ -633,7 +633,7 @@
         "name": "Holstein Friesian",
         "code": "HO"
       },
-      "status": "Active",
+      "status": "Alive",
       "dam": {
         "type": "Genetic",
         "surrogateDam": null,
@@ -654,7 +654,7 @@
         "name": "Holstein Friesian Cross",
         "code": "HOX"
       },
-      "status": "Active",
+      "status": "Alive",
       "dam": {
         "type": "Surrogate",
         "surrogateDam": {
@@ -677,7 +677,7 @@
         "name": "Holstein Friesian",
         "code": "HO"
       },
-      "status": "Active",
+      "status": "Alive",
       "dam": {
         "type": "Genetic",
         "surrogateDam": null,
@@ -701,7 +701,7 @@
         "name": "Holstein Friesian Cross",
         "code": "HOX"
       },
-      "status": "Active",
+      "status": "Alive",
       "dam": {
         "type": "Genetic",
         "surrogateDam": null,
@@ -722,7 +722,7 @@
         "name": "Holstein Friesian",
         "code": "HO"
       },
-      "status": "Active",
+      "status": "Alive",
       "dam": {
         "type": "Surrogate",
         "surrogateDam": {
@@ -745,7 +745,7 @@
         "name": "Holstein Friesian Cross",
         "code": "HOX"
       },
-      "status": "Active",
+      "status": "Alive",
       "dam": {
         "type": "Genetic",
         "surrogateDam": null,
@@ -766,7 +766,7 @@
         "name": "Holstein Friesian",
         "code": "HO"
       },
-      "status": "Active",
+      "status": "Alive",
       "dam": {
         "type": "Genetic",
         "surrogateDam": null,
@@ -790,7 +790,7 @@
         "name": "Holstein Friesian Cross",
         "code": "HOX"
       },
-      "status": "Active",
+      "status": "Alive",
       "dam": {
         "type": "Genetic",
         "surrogateDam": null,
