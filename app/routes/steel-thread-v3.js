@@ -157,6 +157,9 @@ router.get('/steel-thread/v3/animals-on-holding', (req, res) => {
     .filter((animal) => animal.status !== 'Deceased' && animal.status !== 'Sold')
     .filter((animal) => {
       if (!search) return true
+      if (search === 'male' || search === 'female') {
+        return String(animal.sex || '').toLowerCase() === search
+      }
       const searchableValues = [
         animal.earTagNumber,
         animal.breed?.name,
