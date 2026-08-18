@@ -1,0 +1,247 @@
+{% extends "layouts/main.html" %}
+
+{% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
+
+{% set pageName = "Holding details" %}
+{% set activeNav = "holdings" %}
+
+{% block header %}
+
+{% block navBar %}{% include "./components/_navigation.html" %}{% endblock %}
+
+{% endblock %}
+
+{% block beforeContent %}
+{% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
+{% set pathParts = currentPath.split('/') %}
+{% set currentBaseUrl = '/' + pathParts[1] + '/' + pathParts[2] + '/' + pathParts[3] + '/' %}
+{{ govukBreadcrumbs({
+items: [
+{
+text: "Home",
+href: currentBaseUrl+"home"
+},
+{
+text: "Holdings",
+href: currentBaseUrl+"cattle"
+}
+]
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<span class="govuk-caption-l">CPH number: 12/345/0001</span>
+<h1 class="govuk-heading-l">
+  Oakfield Farm
+</h1>
+
+<nav class="moj-sub-navigation" aria-label="Sub navigation">
+            <ul class="moj-sub-navigation__list">
+                <li class="moj-sub-navigation__item">
+                    <a class="moj-sub-navigation__link"   href="./holdings/{{query.id or 'holding-001'}}">Holding details</a>
+                </li>
+                <li class="moj-sub-navigation__item">
+                    <a class="moj-sub-navigation__link"  href="./holdings/cattle-register">Animals on holding</a>
+                </li>
+                <li class="moj-sub-navigation__item">
+                    <a class="moj-sub-navigation__link"  aria-current="page"  href="#">Animal error record</a>
+                </li>
+            </ul>
+        </nav>
+
+<div>
+
+
+
+    <h2 class="govuk-heading-m govuk-!-static-margin-bottom-6">
+      3 animal error records
+    </h2>
+
+
+
+
+    <div class="govuk-summary-card">
+      <div class="govuk-summary-card__title-wrapper">
+        <h2 class="govuk-summary-card__title">
+          ERR-000123
+        </h2>
+        <ul class="govuk-summary-card__actions">
+          <li class="govuk-summary-card__action">
+            <strong class="govuk-tag govuk-tag--yellow">Pending</strong>
+          </li>
+        </ul>
+      </div>
+      <div class="govuk-summary-card__content">
+        <dl class="govuk-summary-list">
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Ear tag number
+            </dt>
+            <dd class="govuk-summary-list__value">
+              UK 324537 467886
+            </dd>
+          </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Date of birth
+            </dt>
+            <dd class="govuk-summary-list__value">
+              9 Jul 2025
+            </dd>
+          </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Date of registration
+            </dt>
+            <dd class="govuk-summary-list__value">
+              10 Aug 2025
+            </dd>
+          </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Reason for error
+            </dt>
+            <dd class="govuk-summary-list__value">
+              The date of birth you have entered is over the 27-day deadline to report a calf birth.
+            </dd>
+          </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Providing evidence
+            </dt>
+            <dd class="govuk-summary-list__value">
+              You may be required to provide a written explanation describing why the birth could not be reported within the allotted time.
+            </dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+
+    <div class="govuk-summary-card">
+      <div class="govuk-summary-card__title-wrapper">
+        <h2 class="govuk-summary-card__title">
+          ERR-000125
+        </h2>
+        <ul class="govuk-summary-card__actions">
+          <li class="govuk-summary-card__action">
+            <strong class="govuk-tag govuk-tag--yellow">Pending</strong>
+          </li>
+        </ul>
+      </div>
+      <div class="govuk-summary-card__content">
+        <dl class="govuk-summary-list">
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Ear tag number
+            </dt>
+            <dd class="govuk-summary-list__value">
+              UK 324537 467886
+            </dd>
+          </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Date of birth
+            </dt>
+            <dd class="govuk-summary-list__value">
+              9 Jul 2025
+            </dd>
+          </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Date of registration
+            </dt>
+            <dd class="govuk-summary-list__value">
+              10 Aug 2025
+            </dd>
+          </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Reason for error
+            </dt>
+            <dd class="govuk-summary-list__value">
+              The genetic dam you have entered is over 20 years old.
+            </dd>
+          </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Providing evidence
+            </dt>
+            <dd class="govuk-summary-list__value">
+              You may be required to provide a signed declaration from your veterinarian or breed society.
+            </dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+
+    <div class="govuk-summary-card">
+      <div class="govuk-summary-card__title-wrapper">
+        <h2 class="govuk-summary-card__title">
+          ERR-000124
+        </h2>
+        <ul class="govuk-summary-card__actions">
+          <li class="govuk-summary-card__action">
+            <strong class="govuk-tag govuk-tag--green">Resolved</strong>
+          </li>
+        </ul>
+      </div>
+      <div class="govuk-summary-card__content">
+        <dl class="govuk-summary-list">
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Ear tag number
+            </dt>
+            <dd class="govuk-summary-list__value">
+              UK 324537 467887
+            </dd>
+          </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Date of birth
+            </dt>
+            <dd class="govuk-summary-list__value">
+              29 Jul 2025
+            </dd>
+          </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Date of registration
+            </dt>
+            <dd class="govuk-summary-list__value">
+              10 Aug 2025
+            </dd>
+          </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Reason for error
+            </dt>
+            <dd class="govuk-summary-list__value">
+              The genetic dam you have entered has given birth in the last 240 days.
+            </dd>
+          </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Providing evidence
+            </dt>
+            <dd class="govuk-summary-list__value">
+              You may be required to provide documentary evidence or DNA parentage testing.
+            </dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+
+
+    <p class="govuk-body">
+      Showing 1 to 3 of 3 error records
+    </p>
+
+
+
+
+
+  </div>
+</div>
+
+{% endblock %}

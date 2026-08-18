@@ -4,7 +4,7 @@
 
 {% set pageName="Holdings" %}
 
-{% set activeNav = "my-holdings" %}
+{% set activeNav = "holdings" %}
 
 {% block header %}
 
@@ -13,6 +13,18 @@
 {% endblock %}
 
 
+{% block beforeContent %}
+{% set pathParts = currentPath.split('/') %}
+{% set currentBaseUrl = '/' + pathParts[1] + '/' + pathParts[2] + '/' + pathParts[3] + '/' %}
+{{ govukBreadcrumbs({
+items: [
+{
+text: "Home",
+href: "home"
+}
+]
+}) }}
+{% endblock %}
 
 {% block content %}
 
@@ -22,21 +34,53 @@
 
 
 
-<div>
-  <h1 class="govuk-heading-l">
-    Holdings
-  </h1>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <form method="GET">
+      <div class="search-wrapper govuk-form-group">
+        <h1 class="govuk-label-wrapper">
+          <label
+                  for="search-holdings"
+                  class="govuk-label govuk-label--l"
+          >
+            Find a holding
+          </label>
+        </h1>
+
+        <div
+                id="search-holdings-hint"
+                class="govuk-hint"
+        >
+          Enter a CPH number, holding name, herd number, town, county or postcode
+        </div>
+
+        <div class="search-input-wrapper">
+          <input
+                  type="search"
+                  value="{{ search }}"
+                  id="search-holdings"
+                  name="search"
+                  title="Search"
+                  class="govuk-input"
+                  aria-describedby="search-holdings-hint"
+                  spellcheck="false"
+          >
+          <div class="search-input-submit-wrapper">
+            <button
+                    type="submit"
+                    class="search-submit"
+            >
+              Search
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
 </div>
 
 
-
-  <div>
-    {% set filterHint = 'Search by CHP number, holding name or postcode' %}
-    {% block filterBar %}{% include "./components/_filter-bar.html" %}{% endblock %}
-  <div>
-
-
-      {% if not search %}
+{% if not search %}
 
       <div class="govuk-grid-row">
           <div class="govuk-grid-column-two-thirds">
@@ -54,7 +98,7 @@
           </div>
       </div>
 
-      {% else %}
+{% else %}
 
       <p class="govuk-body" aria-live="polite">
           {{ holdings.length }}
@@ -72,7 +116,8 @@
           </a>
       </p>
 
-      {% if holdings.length %}
+{% if holdings.length %}
+<div class="app-dashboard-table-wrapper">
       <table class="govuk-table">
           <caption class="govuk-table__caption govuk-visually-hidden">
               Holdings search results
@@ -90,7 +135,7 @@
                   Location
               </th>
               <th scope="col" class="govuk-table__header">
-                  Status
+                  Type
               </th>
           </tr>
           </thead>
@@ -98,14 +143,14 @@
           <tbody class="govuk-table__body">
           {% for holding in holdings %}
           <tr class="govuk-table__row">
-              <td class="govuk-table__cell">
+              <th scope="col" class="govuk-table__header app-table__cell--no-wrap">
                   <a
                           class="govuk-link"
                           href="./holdings/{{ holding.id }}"
                   >
                       {{ holding.cph }}
                   </a>
-              </td>
+              </th>
 
               <td class="govuk-table__cell">
                   {{ holding.holdingName }}
@@ -118,35 +163,23 @@
 
 
 
-              <td class="govuk-table__cell">
-                  {% if holding.status === "Active" %}
-                  <strong class="govuk-tag govuk-tag--green">
-                      Active
-                  </strong>
-                  {% elseif holding.status === "Inactive" %}
-                  <strong class="govuk-tag govuk-tag--yellow">
-                      Inactive
-                  </strong>
-                  {% elseif holding.status === "Closed" %}
-                  <strong class="govuk-tag govuk-tag--grey">
-                      Closed
-                  </strong>
-                  {% else %}
-                  {{ holding.status }}
-                  {% endif %}
-              </td>
+             <td class="govuk-table__cell">
+  <abbr title="{{ holding.holdingType }}">
+    {{ holding.holdingTypeCode }}
+  </abbr>
+  <span class="govuk-visually-hidden">
+    , {{ holding.holdingType }}
+  </span>
+</td>
           </tr>
           {% endfor %}
           </tbody>
       </table>
-      {% else %}
-      <p class="govuk-body">
-          No holdings found.
-      </p>
-      {% endif %}
+</div>
+{% endif %}
 
-      {% endif %}
-      {% if search and holdings.length >= 16 %}
+{% endif %}
+{% if search and holdings.length >= 16 %}
       <div class="govuk-grid-row govuk-!-margin-top-6">
           <div class="govuk-grid-column-two-thirds">
               {{ govukPagination({
@@ -184,8 +217,8 @@
               </p>
           </div>
       </div>
-      {% endif %}
+{% endif %}
 </div>
-  </div>
+</div>
 
 {% endblock %}

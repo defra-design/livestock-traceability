@@ -2,27 +2,36 @@
 
 {% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
 
-{% set pageName = "Holding details" %}
-{% set activeNav = "my-holdings" %}
+{% set pageName="Cattle register" %}
+
+{% set activeNav = "keepers" %}
 
 {% block header %}
 
-{% block NavBar %}{% include "./components/_navigation.html" %}{% endblock %}
+{% block navBar %}{% include "./components/_navigation.html" %}{% endblock %}
 
 {% endblock %}
 
 {% block beforeContent %}
-
-{{ govukBackLink({
-text: "Back",
-href: "javascript:window.history.back()"
+{% set pathParts = currentPath.split('/') %}
+{% set currentBaseUrl = '/' + pathParts[1] + '/' + pathParts[2] + '/' + pathParts[3] + '/' %}
+{{ govukBreadcrumbs({
+items: [
+{
+text: "Home",
+href: currentBaseUrl+"home"
+},
+{
+text: "Keepers",
+href: currentBaseUrl+"users"
+}
+]
 }) }}
-
 {% endblock %}
 
 {% block content %}
 
-<span class="govuk-caption-l">User</span>
+<span class="govuk-caption-l">Keeper</span>
 <h1 class="govuk-heading-l">{{ user.name }}</h1>
 
 <div class="govuk-tabs" data-module="govuk-tabs">

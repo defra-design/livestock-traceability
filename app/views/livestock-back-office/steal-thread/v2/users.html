@@ -4,7 +4,7 @@
 
 {% set pageName="Cattle register" %}
 
-{% set activeNav = "my-holdings" %}
+{% set activeNav = "keepers" %}
 
 {% block header %}
 
@@ -13,9 +13,15 @@
 {% endblock %}
 
 {% block beforeContent %}
-{{ govukBackLink({
-  text: "Back",
-  href: "javascript:window.history.back()"
+{% set pathParts = currentPath.split('/') %}
+{% set currentBaseUrl = '/' + pathParts[1] + '/' + pathParts[2] + '/' + pathParts[3] + '/' %}
+{{ govukBreadcrumbs({
+items: [
+{
+text: "Home",
+href: currentBaseUrl+"home"
+}
+]
 }) }}
 {% endblock %}
 
@@ -27,17 +33,51 @@
 
 
 
-<div>
-  <h1 class="govuk-heading-l">
-    Customers
-  </h1>
-</div>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <form method="GET">
+      <div class="search-wrapper govuk-form-group">
 
+        <h1 class="govuk-label-wrapper">
+          <label
+                  for="search-keepers"
+                  class="govuk-label govuk-label--l"
+          >
+            Find a keeper
+          </label>
+        </h1>
 
+        <div
+                id="search-keepers-hint"
+                class="govuk-hint"
+        >
+          Enter a name, postcode, email address, phone number or security word
+        </div>
 
-<div>
-    {% set filterHint = 'Search by name, postcode, email, phone or security word' %}
-    {% block filterBar %}{% include "./components/_filter-bar.html" %}{% endblock %}
+        <div class="search-input-wrapper">
+          <input
+                  type="search"
+                  value="{{ search }}"
+                  id="search-keepers"
+                  name="search"
+                  title="Search"
+                  class="govuk-input"
+                  aria-describedby="search-keepers-hint"
+                  spellcheck="false"
+          >
+
+          <div class="search-input-submit-wrapper">
+            <button
+                    type="submit"
+                    class="search-submit"
+            >
+              Search
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
 </div>
 
 
@@ -134,7 +174,7 @@
 
 {% endif %}
 
-  </div>
-  </div>
+</div>
+</div>
 
 {% endblock %}

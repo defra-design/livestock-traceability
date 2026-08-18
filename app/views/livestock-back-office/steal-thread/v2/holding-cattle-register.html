@@ -1,10 +1,10 @@
-{% extends "layouts/main.html" %}
+    {% extends "layouts/main.html" %}
 
 {% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
 
 {% set pageName="Cattle register" %}
 
-{% set activeNav = "my-holdings" %}
+{% set activeNav = "holdings" %}
 
 {% block header %}
 
@@ -44,21 +44,55 @@ href: "../holdings"
 </h1>
 
 <nav class="moj-sub-navigation" aria-label="Sub navigation">
-    <ul class="moj-sub-navigation__list">
-        <li class="moj-sub-navigation__item">
-            <a class="moj-sub-navigation__link"  href="./{{currentID}}">Holding details</a>
-        </li>
-        <li class="moj-sub-navigation__item">
-            <a class="moj-sub-navigation__link" aria-current="page" href="./cattle-register">Livestock information</a>
-        </li>
-    </ul>
-</nav>
+            <ul class="moj-sub-navigation__list">
+                <li class="moj-sub-navigation__item">
+                    <a class="moj-sub-navigation__link"   href="./{{currentID}}">Holding details</a>
+                </li>
+                <li class="moj-sub-navigation__item">
+                    <a class="moj-sub-navigation__link"  aria-current="page" href="./cattle-register">Animals on holding</a>
+                </li>
+                <li class="moj-sub-navigation__item">
+                    <a class="moj-sub-navigation__link"  href="../animal-error-record?id={{currentID}}">Animal error record</a>
+                </li>
+            </ul>
+        </nav>
 
-  <div>
-      {% set filterHint = "Search by ear tag number, herd number, breed or status" %}
-    {% block filterBar %}{% include "./components/_filter-bar.html" %}{% endblock %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+<form
+        class="app-search-form govuk-!-margin-bottom-6"
+        method="get"
+        action="{{ currentBaseUrl }}cattle"
+>
+  <div class="govuk-form-group">
+    <h2class="govuk-label-wrapper">
+      <label
+              class="govuk-label govuk-label--m"
+              for="search"
+      >
+        Search animals on holding
+      </label>
+    </h2>
 
-  <div>
+     <div class="search-wrapper govuk-form-group">
+         <div
+                 id="search-hint"
+                 class="govuk-hint"
+         >
+      You can use all or part of the animal ear tag number, or search by sex or breed.
+    </div>
+        <div class="search-input-wrapper">
+          <input type="search" value="{{search}}" id="search" name="search" title="Search" class="govuk-input" aria-describedby="search-hint"
+                 autocomplete="off" spellcheck="false" >
+          <div class="search-input-submit-wrapper">
+            <button type="submit" class="search-submit">Search</button>
+          </div>
+        </div>
+    </div>
+  </div>
+</form>
+
+
 
     <p class="govuk-body" aria-live="polite">
       {% if search %}
@@ -81,72 +115,67 @@ href: "../holdings"
           </a>
         </p>
         {% endif %}
-
+</div>
+    </div>
 
     {% if cattle.length %}
-    <table class="govuk-table">
+    <div class="app-dashboard-table-wrapper">
+<table class="govuk-table"  {% if cattle.length > 4 %}data-module="moj-sortable-table"{% endif %}>
+    <caption class="govuk-table__caption govuk-visually-hidden">
+        Cattle search results
+    </caption>
 
-      <thead class="govuk-table__head">
-      <tr class="govuk-table__row">
-<!--        <th scope="col" class="govuk-table__header">-->
-<!--          CPH-->
-<!--        </th>-->
+    <thead class="govuk-table__head">
+    <tr class="govuk-table__row">
+        <th aria-sort="ascending" scope="col" class="govuk-table__header app-table__cell--no-wrap " >Ear tag</th>
+        <th aria-sort="none"  scope="col" class="govuk-table__header app-table__cell--no-wrap">Date of birth</th>
+        <th aria-sort="none"  scope="col" class="govuk-table__header app-table__cell--no-wrap">Age</th>
+        <th aria-sort="none"  scope="col" class="govuk-table__header app-table__cell--no-wrap">Date on holding</th>
+        <th aria-sort="none"  scope="col" class="govuk-table__header app-table__cell--no-wrap">Sex</th>
+        <th aria-sort="none"  scope="col" class="govuk-table__header app-table__cell--no-wrap">Breed</th>
 
-        <th scope="col" class="govuk-table__header">
-          Ear tag number
-        </th>
+    </tr>
+    </thead>
 
-        <th scope="col" class="govuk-table__header">
-          Date of birth
-        </th>
-          <th scope="col" class="govuk-table__header">
-              Date of registration
-          </th>
-
-        <th scope="col" class="govuk-table__header">
-          Sex
-        </th>
-
-        <th scope="col" class="govuk-table__header">
-          Breed
-        </th>
-
-      </tr>
-      </thead>
-
-      <tbody class="govuk-table__body">
-      {% for animal in cattle %}
-      <tr class="govuk-table__row">
-
-<!--        <td class="govuk-table__cell">-->
-<!--          {{ animal.cph }}-->
-<!--        </td>-->
-
-          <th scope="row" class="govuk-table__header">
-         <a href="./cattle/{{ animal.earTagNumber }}">{{ animal.earTagNumber | formatReference }}</a>
+    <tbody class="govuk-table__body">
+    {% for animal in cattle %}
+    <tr class="govuk-table__row">
+        <th scope="row" class="govuk-table__header app-table__cell--no-wrap ">
+            <a class="govuk-link" href="./cattle/{{ animal.earTagNumber }}">
+                {{ animal.earTagNumber | formatReference }}
+            </a>
         </th>
 
         <td class="govuk-table__cell">
-          {{ animal.dateOfBirth | shortDateFormat}}
+            {{ animal.dateOfBirth | shortDateFormat }}
         </td>
-          <td class="govuk-table__cell">
-              {{ animal.dateOfRegistration | shortDateFormat}}
-          </td>
-
-        <td class="govuk-table__cell">
-            {{ animal.sex | sexToLetter}}
+        <td class="govuk-table__cell app-table__cell--no-wrap">
+            {{ animal.dateOfBirth | animalAge }}
         </td>
 
         <td class="govuk-table__cell">
-          {{ animal.breed.name }}
-          {% if animal.breed.code %}
-          ({{ animal.breed.code }})
-          {% endif %}
+            {{ animal.dateOfRegistration | shortDateFormat}}
         </td>
-      </tr>
-      {% endfor %}
-      </tbody>
-    </table>
+
+        <td class="govuk-table__cell">
+            {{ animal.sex}}
+        </td>
+
+        <td class="govuk-table__cell">
+            <abbr title="{{ animal.breed.name }}">
+                {{ animal.breed.code }}
+            </abbr>
+            <span class="govuk-visually-hidden">
+                , {{ animal.breed.name }}
+            </span>
+        </td>
+
+
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+    </div>
     {% else %}
     <div class="govuk-inset-text">
       No cattle records found

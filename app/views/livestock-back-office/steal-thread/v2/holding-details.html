@@ -13,12 +13,17 @@
 
 {% block beforeContent %}
 {% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
-
+{% set pathParts = currentPath.split('/') %}
+{% set currentBaseUrl = '/' + pathParts[1] + '/' + pathParts[2] + '/' + pathParts[3] + '/' %}
 {{ govukBreadcrumbs({
 items: [
 {
+text: "Home",
+href: currentBaseUrl+"home"
+},
+{
 text: "Holdings",
-href: "../holdings"
+href: currentBaseUrl+"cattle"
 }
 ]
 }) }}
@@ -44,7 +49,10 @@ href: "../holdings"
                     <a class="moj-sub-navigation__link"  aria-current="page" href="./{{currentID}}">Holding details</a>
                 </li>
                 <li class="moj-sub-navigation__item">
-                    <a class="moj-sub-navigation__link"  href="./cattle-register">Livestock information</a>
+                    <a class="moj-sub-navigation__link"  href="./cattle-register">Animals on holding</a>
+                </li>
+                <li class="moj-sub-navigation__item">
+                    <a class="moj-sub-navigation__link"  href="../animal-error-record?id={{currentID}}">Animal error record</a>
                 </li>
             </ul>
         </nav>
@@ -63,27 +71,20 @@ href: "../holdings"
                     {{ holding.cph }}
                 </dd>
             </div>
-
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Holding type
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {{ holding.holdingType }}
+                </dd>
+            </div>
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
                     Status
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    {% if holding.status === "Active" %}
-                    <strong class="govuk-tag govuk-tag--green">
-                        Active
-                    </strong>
-                    {% elseif holding.status === "Inactive" %}
-                    <strong class="govuk-tag govuk-tag--yellow">
-                        Inactive
-                    </strong>
-                    {% elseif holding.status === "Closed" %}
-                    <strong class="govuk-tag govuk-tag--grey">
-                        Closed
-                    </strong>
-                    {% else %}
-                    {{ holding.status }}
-                    {% endif %}
+                        {{ holding.status }}
                 </dd>
             </div>
 
@@ -137,14 +138,7 @@ href: "../holdings"
                     {% endif %}
                 </dd>
             </div>
-            <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                    Holding type
-                </dt>
-                <dd class="govuk-summary-list__value">
-                    {{ holding.holdingType }}
-                </dd>
-            </div>
+
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">Registered keeper</dt>
                 <dd class="govuk-summary-list__value">James Williams</dd>
@@ -163,9 +157,35 @@ href: "../holdings"
             {% endif %}
         </dl>
 
-
+         <h2 class="govuk-heading-m">Holding contact details</h2>
         <dl class="govuk-summary-list">
+<div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Email address
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  james.williams@holdingName.co.uk
 
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Telephone
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  01743 7363233
+
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Mobile
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  0766 7363 233
+
+                </dd>
+            </div>
 
         </dl>
 

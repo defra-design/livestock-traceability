@@ -15,7 +15,8 @@
         "country": "England"
       },
       "status": "Active",
-      "holdingType": "Permanent",
+      "holdingType": "Agricultural Holdings (AH)",
+      "holdingTypeCode": "AH",
       "species": [
         "Cattle",
         "Sheep"
@@ -45,7 +46,8 @@
         "country": "England"
       },
       "status": "Active",
-      "holdingType": "Permanent",
+      "holdingType": "Agricultural Holdings (AH)",
+      "holdingTypeCode": "AH",
       "species": [
         "Cattle"
       ],
@@ -74,7 +76,8 @@
         "country": "England"
       },
       "status": "Inactive",
-      "holdingType": "Permanent",
+      "holdingType": "Agricultural Holdings (AH)",
+      "holdingTypeCode": "AH",
       "species": [
         "Cattle",
         "Goats"
@@ -104,7 +107,8 @@
         "country": "Wales"
       },
       "status": "Active",
-      "holdingType": "Permanent",
+      "holdingType": "Agricultural Holdings (AH)",
+      "holdingTypeCode": "AH",
       "species": [
         "Cattle",
         "Sheep"
@@ -134,7 +138,8 @@
         "country": "England"
       },
       "status": "Active",
-      "holdingType": "Permanent",
+      "holdingType": "Agricultural Holdings (AH)",
+      "holdingTypeCode": "AH",
       "species": [
         "Cattle",
         "Goats"
@@ -164,7 +169,8 @@
         "country": "England"
       },
       "status": "Active",
-      "holdingType": "Permanent",
+      "holdingType": "Markets (MA)",
+      "holdingTypeCode": "MA",
       "species": [
         "Cattle",
         "Pigs"
@@ -194,7 +200,8 @@
         "country": "England"
       },
       "status": "Active",
-      "holdingType": "Permanent",
+      "holdingType": "Agricultural Holdings (AH)",
+      "holdingTypeCode": "AH",
       "species": [
         "Cattle",
         "Sheep"
@@ -224,7 +231,8 @@
         "country": "England"
       },
       "status": "Active",
-      "holdingType": "Permanent",
+      "holdingType": "Agricultural Holdings (AH)",
+      "holdingTypeCode": "AH",
       "species": [
         "Cattle"
       ],
@@ -249,7 +257,8 @@
         "country": "England"
       },
       "status": "Closed",
-      "holdingType": "Permanent",
+      "holdingType": "Agricultural Holdings (AH)",
+      "holdingTypeCode": "AH",
       "species": [
         "Cattle"
       ],
@@ -274,7 +283,8 @@
         "country": "England"
       },
       "status": "Active",
-      "holdingType": "Permanent",
+      "holdingType": "Slaughterhouses / Abattoirs (SL)",
+      "holdingTypeCode": "SL",
       "species": [
         "Cattle"
       ],
@@ -299,7 +309,8 @@
         "country": "England"
       },
       "status": "Active",
-      "holdingType": "Permanent",
+      "holdingType": "Agricultural Holdings (AH)",
+      "holdingTypeCode": "AH",
       "species": [
         "Cattle",
         "Poultry"
@@ -325,7 +336,8 @@
         "country": "Wales"
       },
       "status": "Active",
-      "holdingType": "Permanent",
+      "holdingType": "Agricultural Holdings (AH)",
+      "holdingTypeCode": "AH",
       "species": [
         "Cattle",
         "Sheep",
@@ -360,7 +372,8 @@
         "country": "England"
       },
       "status": "Inactive",
-      "holdingType": "Permanent",
+      "holdingType": "Agricultural Holdings (AH)",
+      "holdingTypeCode": "AH",
       "species": [
         "Cattle",
         "Sheep"
@@ -390,7 +403,8 @@
         "country": "England"
       },
       "status": "Active",
-      "holdingType": "Permanent",
+      "holdingType": "Agricultural Holdings (AH)",
+      "holdingTypeCode": "AH",
       "species": [
         "Cattle",
         "Pigs"
@@ -420,7 +434,8 @@
         "country": "England"
       },
       "status": "Active",
-      "holdingType": "Permanent",
+      "holdingType": "Agricultural Holdings (AH)",
+      "holdingTypeCode": "AH",
       "species": [
         "Cattle",
         "Sheep"
@@ -450,7 +465,8 @@
         "country": "England"
       },
       "status": "Active",
-      "holdingType": "Permanent",
+      "holdingType": "Agricultural Holdings (AH)",
+      "holdingTypeCode": "AH",
       "species": [
         "Cattle"
       ],
@@ -475,7 +491,8 @@
         "country": "England"
       },
       "status": "Closed",
-      "holdingType": "Temporary CPH",
+      "holdingType": "Showgrounds and Temporary Holdings (CC)",
+      "holdingTypeCode": "CC",
       "species": [
         "Cattle"
       ],
@@ -500,7 +517,8 @@
         "country": "Wales"
       },
       "status": "Active",
-      "holdingType": "Permanent",
+      "holdingType": "Agricultural Holdings (AH)",
+      "holdingTypeCode": "AH",
       "species": [
         "Cattle",
         "Sheep"
@@ -530,7 +548,8 @@
         "country": "England"
       },
       "status": "Active",
-      "holdingType": "Permanent",
+      "holdingType": "Collection / Assembly Centres (CA)",
+      "holdingTypeCode": "CA",
       "species": [
         "Cattle",
         "Pigs",
@@ -561,7 +580,8 @@
         "country": "England"
       },
       "status": "Active",
-      "holdingType": "Permanent",
+      "holdingType": "Agricultural Holdings (AH)",
+      "holdingTypeCode": "AH",
       "species": [
         "Cattle",
         "Sheep"
@@ -591,7 +611,8 @@
         "country": "England"
       },
       "status": "Active",
-      "holdingType": "Permanent",
+      "holdingType": "Agricultural Holdings (AH)",
+      "holdingTypeCode": "AH",
       "species": [
         "Cattle"
       ],
@@ -616,7 +637,8 @@
         "country": "England"
       },
       "status": "Active",
-      "holdingType": "Permanent",
+      "holdingType": "Agricultural Holdings (AH)",
+      "holdingTypeCode": "AH",
       "species": [
         "Cattle"
       ],
@@ -641,7 +663,8 @@
         "country": "England"
       },
       "status": "Active",
-      "holdingType": "Permanent",
+      "holdingType": "Agricultural Holdings (AH)",
+      "holdingTypeCode": "AH",
       "species": [
         "Cattle"
       ],
@@ -666,7 +689,8 @@
         "country": "Wales"
       },
       "status": "Active",
-      "holdingType": "Permanent",
+      "holdingType": "Agricultural Holdings (AH)",
+      "holdingTypeCode": "AH",
       "species": [
         "Cattle"
       ],
@@ -691,7 +715,8 @@
         "country": "England"
       },
       "status": "Active",
-      "holdingType": "Permanent",
+      "holdingType": "Agricultural Holdings (AH)",
+      "holdingTypeCode": "AH",
       "species": [
         "Cattle"
       ],
@@ -716,7 +741,8 @@
         "country": "England"
       },
       "status": "Active",
-      "holdingType": "Permanent",
+      "holdingType": "Agricultural Holdings (AH)",
+      "holdingTypeCode": "AH",
       "species": [
         "Cattle"
       ],
@@ -741,7 +767,8 @@
         "country": "England"
       },
       "status": "Active",
-      "holdingType": "Permanent",
+      "holdingType": "Agricultural Holdings (AH)",
+      "holdingTypeCode": "AH",
       "species": [
         "Cattle"
       ],
@@ -766,7 +793,8 @@
         "country": "England"
       },
       "status": "Active",
-      "holdingType": "Permanent",
+      "holdingType": "Agricultural Holdings (AH)",
+      "holdingTypeCode": "AH",
       "species": [
         "Cattle"
       ],
@@ -791,7 +819,8 @@
         "country": "England"
       },
       "status": "Active",
-      "holdingType": "Permanent",
+      "holdingType": "Agricultural Holdings (AH)",
+      "holdingTypeCode": "AH",
       "species": [
         "Cattle"
       ],
@@ -816,7 +845,8 @@
         "country": "England"
       },
       "status": "Active",
-      "holdingType": "Permanent",
+      "holdingType": "Agricultural Holdings (AH)",
+      "holdingTypeCode": "AH",
       "species": [
         "Cattle"
       ],
@@ -841,7 +871,8 @@
         "country": "Wales"
       },
       "status": "Active",
-      "holdingType": "Permanent",
+      "holdingType": "Agricultural Holdings (AH)",
+      "holdingTypeCode": "AH",
       "species": [
         "Cattle"
       ],
@@ -866,7 +897,8 @@
         "country": "England"
       },
       "status": "Active",
-      "holdingType": "Permanent",
+      "holdingType": "Agricultural Holdings (AH)",
+      "holdingTypeCode": "AH",
       "species": [
         "Cattle"
       ],
@@ -891,7 +923,8 @@
         "country": "England"
       },
       "status": "Active",
-      "holdingType": "Permanent",
+      "holdingType": "Agricultural Holdings (AH)",
+      "holdingTypeCode": "AH",
       "species": [
         "Cattle"
       ],
@@ -916,7 +949,8 @@
         "country": "England"
       },
       "status": "Active",
-      "holdingType": "Permanent",
+      "holdingType": "Agricultural Holdings (AH)",
+      "holdingTypeCode": "AH",
       "species": [
         "Cattle"
       ],
@@ -941,7 +975,8 @@
         "country": "England"
       },
       "status": "Active",
-      "holdingType": "Permanent",
+      "holdingType": "Agricultural Holdings (AH)",
+      "holdingTypeCode": "AH",
       "species": [
         "Cattle"
       ],
@@ -966,7 +1001,8 @@
         "country": "England"
       },
       "status": "Active",
-      "holdingType": "Permanent",
+      "holdingType": "Agricultural Holdings (AH)",
+      "holdingTypeCode": "AH",
       "species": [
         "Cattle"
       ],
@@ -991,7 +1027,8 @@
         "country": "Wales"
       },
       "status": "Active",
-      "holdingType": "Permanent",
+      "holdingType": "Agricultural Holdings (AH)",
+      "holdingTypeCode": "AH",
       "species": [
         "Cattle"
       ],
@@ -1016,7 +1053,8 @@
         "country": "England"
       },
       "status": "Active",
-      "holdingType": "Permanent",
+      "holdingType": "Agricultural Holdings (AH)",
+      "holdingTypeCode": "AH",
       "species": [
         "Cattle"
       ],
@@ -1041,7 +1079,8 @@
         "country": "England"
       },
       "status": "Active",
-      "holdingType": "Permanent",
+      "holdingType": "Agricultural Holdings (AH)",
+      "holdingTypeCode": "AH",
       "species": [
         "Cattle"
       ],
@@ -1066,7 +1105,8 @@
         "country": "England"
       },
       "status": "Active",
-      "holdingType": "Permanent",
+      "holdingType": "Agricultural Holdings (AH)",
+      "holdingTypeCode": "AH",
       "species": [
         "Cattle"
       ],
