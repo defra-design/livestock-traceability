@@ -65,16 +65,6 @@
         </dd>
       </div>
 
-
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-          Animal status
-        </dt>
-        <dd class="govuk-summary-list__value">
-          {{ animal.status }}
-        </dd>
-      </div>
-
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">Sex</dt>
         <dd class="govuk-summary-list__value">{{ animal.sex }}</dd>
@@ -86,6 +76,26 @@
           {{ animal.breed.name }}{% if animal.breed.code %} ({{ animal.breed.code }}){% endif %}
         </dd>
       </div>
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Animal status
+        </dt>
+        <dd class="govuk-summary-list__value">
+          {{ animal.status }}
+        </dd>
+      </div>
+
+  <!--    <details class="govuk-details govuk-!-margin-top-6">
+        <summary class="govuk-details__summary">
+          <span class="govuk-details__summary-text">
+            What does 'restricted' mean?
+          </span>
+              </summary>
+              <div class="govuk-details__text">
+                Quisque nisl felis, viverra convallis enim scelerisque, sollicitudin malesuada dui. Aenean quis mauris sagittis, consectetur ex at, commodo nulla. Aliquam a nunc erat. Phasellus quis augue a est auctor auctor.
+              </div>
+      </details>-->
 
     </dl>
 
