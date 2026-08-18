@@ -1,0 +1,89 @@
+{% extends "layouts/main.html" %}
+
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+
+{% set pageName="Check delegate details" if isUpdate else "Check details before sending your invitation" %}
+
+{% block header %}
+
+  {% include "mvp-front-office/v4/partials/header.html" %}
+
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <h1 class="govuk-heading-l">{{ "Check delegate details" if isUpdate else "Check details before sending your invitation" }}</h1>
+
+    {{ govukSummaryList({
+      classes: "govuk-!-margin-bottom-9",
+      rows: [
+        {
+          key: {
+            text: "Email address"
+          },
+          value: {
+            text: data['delegate-email']
+          },
+          actions: {
+            items: [
+              {
+                href: "/mvp-front-office/v4/manage-delegates/add-email?change=true",
+                text: "Change",
+                visuallyHiddenText: "email address"
+              }
+            ]
+          }
+        },
+        {
+          key: {
+            text: "Role"
+          },
+          value: {
+            text: data['delegate-role']
+          },
+          actions: {
+            items: [
+              {
+                href: "/mvp-front-office/v4/manage-delegates/add-role?change=true",
+                text: "Change",
+                visuallyHiddenText: "role"
+              }
+            ]
+          }
+        },
+        {
+          key: {
+            text: "Delegated holdings"
+          },
+          value: {
+            text: holding.cph
+          }
+        }
+      ]
+    }) }}
+
+    <div>
+      <form action="/mvp-front-office/v4/manage-delegates/check-details" method="post" novalidate>
+        <button type="submit" class="govuk-button" data-module="govuk-button">
+          {{ "Save changes" if isUpdate else "Continue" }}
+        </button>
+      </form>
+      <a href="/mvp-front-office/v4/manage-delegates/remove-delegate" role="button" draggable="false" class="govuk-button govuk-button--secondary" data-module="govuk-button">
+        Remove delegate
+      </a>
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}

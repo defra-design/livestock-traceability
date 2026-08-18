@@ -1,0 +1,117 @@
+{% extends "layouts/main.html" %}
+
+
+{% block header %}
+
+  {% include "mvp-front-office/v4/partials/header.html" %}
+
+{% endblock %}
+
+{% set pageName="Submission details" %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <span class="govuk-caption-l">CB-143887</span>
+    <h1 class="govuk-heading-l">Submission details</h1>
+  </div>
+</div>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Submission date</dt>
+        <dd class="govuk-summary-list__value">5 May 2026</dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Total animals</dt>
+        <dd class="govuk-summary-list__value">4</dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Type</dt>
+        <dd class="govuk-summary-list__value">Cattle birth registration</dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Status</dt>
+        <dd class="govuk-summary-list__value"><strong class="govuk-tag govuk-tag--yellow">Pending</strong></dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Outstanding errors</dt>
+        <dd class="govuk-summary-list__value">–</dd>
+      </div>
+    </dl>
+
+  </div>
+</div>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+
+    <h2 class="govuk-heading-m">Animals registered</h2>
+
+    <table class="govuk-table">
+      <thead class="govuk-table__head">
+        <tr class="govuk-table__row">
+          <th scope="col" class="govuk-table__header">Ear tag number</th>
+          <th scope="col" class="govuk-table__header">Date of birth</th>
+          <th scope="col" class="govuk-table__header">Age</th>
+          <th scope="col" class="govuk-table__header">Date on holding</th>
+          <th scope="col" class="govuk-table__header">Sex</th>
+          <th scope="col" class="govuk-table__header">Breed</th>
+          <th scope="col" class="govuk-table__header">Errors</th>
+        </tr>
+      </thead>
+      <tbody class="govuk-table__body">
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell"><a class="govuk-link" href="#">UK 123456 301550</a></td>
+          <td class="govuk-table__cell">2 May 2026</td>
+          <td class="govuk-table__cell">3 months</td>
+          <td class="govuk-table__cell">2 May 2026</td>
+          <td class="govuk-table__cell">Male</td>
+          <td class="govuk-table__cell">Hereford</td>
+          <td class="govuk-table__cell">–</td>
+        </tr>
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell"><a class="govuk-link" href="#">UK 123456 301551</a></td>
+          <td class="govuk-table__cell">2 May 2026</td>
+          <td class="govuk-table__cell">3 months</td>
+          <td class="govuk-table__cell">2 May 2026</td>
+          <td class="govuk-table__cell">Female</td>
+          <td class="govuk-table__cell">Hereford</td>
+          <td class="govuk-table__cell">–</td>
+        </tr>
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell"><a class="govuk-link" href="#">UK 123456 301552</a></td>
+          <td class="govuk-table__cell">3 May 2026</td>
+          <td class="govuk-table__cell">3 months</td>
+          <td class="govuk-table__cell">3 May 2026</td>
+          <td class="govuk-table__cell">Male</td>
+          <td class="govuk-table__cell">Hereford</td>
+          <td class="govuk-table__cell">–</td>
+        </tr>
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell"><a class="govuk-link" href="#">UK 123456 301553</a></td>
+          <td class="govuk-table__cell">3 May 2026</td>
+          <td class="govuk-table__cell">3 months</td>
+          <td class="govuk-table__cell">3 May 2026</td>
+          <td class="govuk-table__cell">Female</td>
+          <td class="govuk-table__cell">Hereford</td>
+          <td class="govuk-table__cell">–</td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+</div>
+
+{% endblock %}
