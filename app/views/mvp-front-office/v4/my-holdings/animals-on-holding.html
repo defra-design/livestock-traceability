@@ -36,6 +36,7 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
 
+    <span class="govuk-caption-l">{{ holding.holdingName if holding.holdingName else holding.cph }}</span>
     <h1 class="govuk-heading-l">
       Animals on holding
     </h1>
@@ -153,7 +154,7 @@
           classes: "app-table__cell--no-wrap"
           },
           {
-          text: animal.breed.code,
+          html: '<abbr title="' + animal.breed.name + '">' + animal.breed.code + '</abbr><span class="govuk-visually-hidden">, ' + animal.breed.name + '</span>',
           classes: "app-table__cell--no-wrap"
           }
           ] %}

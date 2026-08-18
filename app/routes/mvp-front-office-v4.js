@@ -312,7 +312,6 @@ router.get('/mvp-front-office/v4/my-holdings/cattle/:earTagNumber/activity-recor
   // Dummy data for now - a real transaction/movement history data source
   // will replace this once the JSON is built.
   const transactions = [
-    { date: '10 March 2023', event: 'Birth registered', location: holding.holdingName || holding.cph, recordedBy: 'System' },
     { date: '14 March 2023', event: 'Ear tag applied', location: holding.holdingName || holding.cph, recordedBy: 'James Williams' },
     { date: '02 June 2023', event: 'TB test - clear', location: holding.holdingName || holding.cph, recordedBy: 'Dr. A. Fenwick' },
     { date: '18 September 2023', event: 'Weighed', location: holding.holdingName || holding.cph, recordedBy: 'Sheila Jones' },
