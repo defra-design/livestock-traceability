@@ -1,0 +1,69 @@
+{% extends "layouts/main.html" %}
+
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% set pageName="What role should your delegate have?" %}
+
+{% block header %}
+
+  {% include "mvp-front-office/v4/partials/header.html" %}
+
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    {% if errors %}
+    <div class="govuk-error-summary" data-module="govuk-error-summary">
+      <div role="alert">
+        <h2 class="govuk-error-summary__title">There is a problem</h2>
+        <div class="govuk-error-summary__body">
+          <ul class="govuk-list govuk-error-summary__list">
+            {% if errors['delegate-role'] %}
+            <li><a href="#delegate-role">{{ errors['delegate-role'] }}</a></li>
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
+    <form action="/mvp-front-office/v4/manage-delegates/add-role" method="post" novalidate>
+
+      {{ govukRadios({
+        name: "delegate-role",
+        fieldset: {
+          legend: {
+            text: "What role should your delegate have?",
+            isPageHeading: true,
+            classes: "govuk-fieldset__legend--l"
+          }
+        },
+        errorMessage: errors['delegate-role'] and { text: errors['delegate-role'] },
+        items: [
+          { value: "Agent", text: "Agent", checked: data['delegate-role'] === 'Agent' },
+          { value: "Keeper", text: "Keeper", checked: data['delegate-role'] === 'Keeper' },
+          { value: "Owner", text: "Owner", checked: data['delegate-role'] === 'Owner' }
+        ]
+      }) }}
+
+      {{ govukButton({
+        text: "Continue"
+      }) }}
+
+    </form>
+
+  </div>
+</div>
+
+{% endblock %}

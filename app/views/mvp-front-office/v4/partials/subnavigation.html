@@ -1,0 +1,20 @@
+{% set subNavItems = [
+  { key: "holding-details", label: "Overview" },
+  { key: "holding-details", label: "Holding details" },
+  { key: "submissions", label: "Submissions" },
+  { key: "animals-on-holding", label: "Animals on holding" },
+  { key: "activity-history", label: "Activity history" },
+  { key: "animal-error-record", label: "Animal error record" }
+] %}
+
+<nav class="moj-sub-navigation" aria-label="Sub navigation">
+  <ul class="moj-sub-navigation__list">
+    {% for item in subNavItems %}
+    <li class="moj-sub-navigation__item">
+      <a class="moj-sub-navigation__link"{% if sideNavActive == item.key %} aria-current="page"{% endif %} href="/mvp-front-office/v4/my-holdings/{{ item.key }}">
+        {{ item.label }}
+      </a>
+    </li>
+    {% endfor %}
+  </ul>
+</nav>

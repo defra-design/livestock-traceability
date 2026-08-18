@@ -1,0 +1,182 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Animal Error Record" %}
+{% set sideNavActive = "animal-error-record" %}
+
+{% block header %}
+  {% include "mvp-front-office/v4/partials/header.html" %}
+{% endblock %}
+
+{% block beforeContent %}
+
+<nav class="govuk-breadcrumbs" aria-label="Breadcrumb">
+  <ol class="govuk-breadcrumbs__list">
+    <li class="govuk-breadcrumbs__list-item">
+      <a class="govuk-breadcrumbs__link" href="/mvp-front-office/v4/overview">Home</a>
+    </li>
+    <li class="govuk-breadcrumbs__list-item">
+      <a class="govuk-breadcrumbs__link" href="/mvp-front-office/v4/my-holdings">My holdings</a>
+    </li>
+    <li class="govuk-breadcrumbs__list-item">
+      <a class="govuk-breadcrumbs__link" href="/mvp-front-office/v4/my-holdings/holding-details">
+        {{ holding.holdingName if holding.holdingName else holding.cph }}
+      </a>
+    </li>
+  </ol>
+</nav>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+
+    <span class="govuk-caption-l">{{ holding.holdingName if holding.holdingName else holding.cph }}</span>
+    <h1 class="govuk-heading-l">
+      Animal error record
+    </h1>
+
+    <nav class="moj-sub-navigation" aria-label="Sub navigation">
+              <ul class="moj-sub-navigation__list">
+                <li class="moj-sub-navigation__item">
+                  <a class="moj-sub-navigation__link" href="/mvp-front-office/v4/my-holdings/holding-details">Holding details</a>
+                </li>
+                <li class="moj-sub-navigation__item">
+                  <a class="moj-sub-navigation__link" href="/mvp-front-office/v4/my-holdings/animals-on-holding">
+                    Animals on holding
+                  </a>
+                </li>
+                <li class="moj-sub-navigation__item">
+                  <a class="moj-sub-navigation__link" href="/mvp-front-office/v4/my-holdings/submissions">
+                    Submissions
+                  </a>
+                </li>
+                <li class="moj-sub-navigation__item">
+                  <a class="moj-sub-navigation__link" aria-current="page" href="/mvp-front-office/v4/my-holdings/animal-error-record">
+                    Animal error record
+                  </a>
+                </li>
+              </ul>
+            </nav>
+
+
+          <div class="govuk-inset-text">
+
+            <h2 class="govuk-heading-m">
+              How to fix animal error records
+            </h2>
+
+            <p class="govuk-body">
+              You need to contact BCMS to fix the errors related to your animals.
+            </p>
+
+            <ul class="govuk-list">
+              <li>BCMS phone: 0345 050 1234</li>
+              <li>Helpline for cattle keepers in Wales: 0345 050 3456</li>
+              <li>Monday to Friday, 8:30am to 5pm</li>
+            </ul>
+            <p class="govuk-body">
+              <a href="https://www.gov.uk/call-charges" target="_blank">Find out about call charges</a>
+            </p>
+          </div>
+
+          <h2 class="govuk-heading-m govuk-!-static-margin-bottom-6">
+            {{ totalErrors }} animal error record{{ 's' if totalErrors != 1 else '' }}
+          </h2>
+
+          {#
+          <div class="govuk-grid-row">
+            <div class="govuk-grid-column-one-third">
+              <form method="GET" style="display: flex; align-items: flex-end; gap: 10px;">
+                <div style="flex-grow: 1;">
+                  {{ govukSelect({
+                  id: "sort",
+                  name: "sort",
+                  label: { text: "Sort by" },
+                  classes: "govuk-!-margin-bottom-0",
+                  items: [
+                  { value: "oldest", text: "Oldest first", selected: sort === "oldest" },
+                  { value: "newest", text: "Newest first", selected: sort === "newest" },
+                  { value: "earTag", text: "Ear tag number", selected: sort === "earTag" }
+                  ]
+                  }) }}
+                </div>
+                <button type="submit" class="govuk-button govuk-button--secondary govuk-!-margin-bottom-0">Apply</button>
+              </form>
+            </div>
+          </div>
+          #}
+
+          {% for error in errors %}
+          <div class="govuk-summary-card">
+            <div class="govuk-summary-card__title-wrapper">
+              <h2 class="govuk-summary-card__title">
+                {{ error.referenceNumber }}
+              </h2>
+              <ul class="govuk-summary-card__actions">
+                <li class="govuk-summary-card__action">
+                  <strong class="govuk-tag {{ 'govuk-tag--green' if error.status === 'Resolved' else 'govuk-tag--yellow' }}">{{ error.status }}</strong>
+                </li>
+              </ul>
+            </div>
+            <div class="govuk-summary-card__content">
+              <dl class="govuk-summary-list">
+                <div class="govuk-summary-list__row">
+                  <dt class="govuk-summary-list__key">
+                    Ear tag number
+                  </dt>
+                  <dd class="govuk-summary-list__value">
+                    {{ error.earTagNumber | formatReference }}
+                  </dd>
+                </div>
+                <div class="govuk-summary-list__row">
+                  <dt class="govuk-summary-list__key">
+                    Date of birth
+                  </dt>
+                  <dd class="govuk-summary-list__value">
+                    {{ error.dateOfBirth | shortDateFormat }}
+                  </dd>
+                </div>
+                <div class="govuk-summary-list__row">
+                  <dt class="govuk-summary-list__key">
+                    Date of registration
+                  </dt>
+                  <dd class="govuk-summary-list__value">
+                    {{ error.dateOfRegistration | shortDateFormat }}
+                  </dd>
+                </div>
+                <div class="govuk-summary-list__row">
+                  <dt class="govuk-summary-list__key">
+                    Reason for error
+                  </dt>
+                  <dd class="govuk-summary-list__value">
+                    {{ error.reason }}
+                  </dd>
+                </div>
+                <div class="govuk-summary-list__row">
+                  <dt class="govuk-summary-list__key">
+                    Providing evidence
+                  </dt>
+                  <dd class="govuk-summary-list__value">
+                    {{ error.evidence }}
+                  </dd>
+                </div>
+              </dl>
+            </div>
+          </div>
+          {% endfor %}
+
+          <p class="govuk-body">
+            Showing {{ showingFrom }} to {{ showingTo }} of {{ totalErrors }} error records
+          </p>
+
+          {% if pagination %}
+          {{ govukPagination(pagination) }}
+          {% endif %}
+
+  </div>
+</div>
+
+
+{% endblock %}
