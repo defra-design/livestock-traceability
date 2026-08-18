@@ -12,7 +12,16 @@
 @import "components/timeline";
 @import "components/wide-layout";
 
+abbr[title] {
+  /* 1. Remove the default browser underline */
+  text-decoration: none;
 
+  /* 2. Create a custom dashed line below the text */
+  border-bottom: 1px dashed #484949;
+
+  /* 3. Push the dashed line down away from the letters */
+  padding-bottom: 1px;
+}
 .app-layout--wide {
   .govuk-header__container,
   .govuk-service-navigation > .govuk-width-container,

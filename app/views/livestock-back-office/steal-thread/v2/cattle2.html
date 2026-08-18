@@ -1,0 +1,177 @@
+{% extends "layouts/main.html" %}
+
+{% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
+
+{% set pageName="Cattle register" %}
+
+{% set activeNav = "my-holdings" %}
+
+{% block header %}
+
+{% block navBar %}{% include "./components/_navigation.html" %}{% endblock %}
+
+{% endblock %}
+
+{% block beforeContent %}
+{% set pathParts = currentPath.split('/') %}
+{% set currentBaseUrl = '/' + pathParts[1] + '/' + pathParts[2] + '/' + pathParts[3] + '/' %}
+{{ govukBreadcrumbs({
+items: [
+{
+text: "Home",
+href: currentBaseUrl+"home"
+}
+]
+}) }}
+{% endblock %}
+
+
+{% block content %}
+
+{%- from "govuk/components/checkboxes/macro.njk" import govukCheckboxes -%}
+{%- from "govuk/components/input/macro.njk" import govukInput -%}
+{%- from "govuk/components/table/macro.njk" import govukTable -%}
+
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+<form
+        class="app-search-form govuk-!-margin-bottom-6"
+        method="get"
+        action="{{ currentBaseUrl }}cattle"
+>
+  <div class="govuk-form-group">
+    <h1 class="govuk-label-wrapper">
+      <label
+              class="govuk-label govuk-label--l"
+              for="search"
+      >
+        Search cattle register
+      </label>
+    </h1>
+
+     <div class="search-wrapper govuk-form-group">
+         <div
+                 id="search-hint"
+                 class="govuk-hint"
+         >
+      Enter all or part of an ear tag number, or a CPH number
+    </div>
+        <div class="search-input-wrapper">
+          <input type="search" value="{{search}}" id="search" name="search" title="Search" class="govuk-input" aria-describedby="search-hint"
+                 autocomplete="off" spellcheck="false" >
+          <div class="search-input-submit-wrapper">
+            <button type="submit" class="search-submit">Search</button>
+          </div>
+        </div>
+    </div>
+  </div>
+</form>
+        </div>
+</div>
+
+{% if not search %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <ul class="govuk-list govuk-list--bullet">
+  <li>the full official ear tag number, for example UK 052474 911920</li>
+  <li>the last 6 digits, for example 911920</li>
+  <li>a CPH number, for example 12/345/0001</li>
+</ul>
+    </div>
+</div>
+
+{% else %}
+
+<p class="govuk-body" aria-live="polite">
+    {{ cattle.length }}
+    {% if cattle.length === 1 %}
+    cattle record matches
+    {% else %}
+    cattle records match
+    {% endif %}
+    <strong>‘{{ search }}’</strong>
+</p>
+
+<p class="govuk-body">
+    <a class="govuk-link" href="./cattle">
+        Clear search
+    </a>
+</p>
+
+{% if cattle.length %}
+<div class="app-dashboard-table-wrapper">
+<table class="govuk-table app-table--compact"  {% if cattle.length > 4 %}data-module="moj-sortable-table"{% endif %}>
+    <caption class="govuk-table__caption govuk-visually-hidden">
+        Cattle search results
+    </caption>
+
+    <thead class="govuk-table__head">
+    <tr class="govuk-table__row">
+        <th aria-sort="ascending" scope="col" class="govuk-table__header app-table__cell--no-wrap " >Ear tag</th>
+        <th  aria-sort="none" scope="col" class="govuk-table__header app-table__cell--no-wrap">CPH</th>
+        <th aria-sort="none"  scope="col" class="govuk-table__header app-table__cell--no-wrap">Date of birth</th>
+        <th aria-sort="none"  scope="col" class="govuk-table__header app-table__cell--no-wrap">Age</th>
+        <th aria-sort="none"  scope="col" class="govuk-table__header app-table__cell--no-wrap">Date on holding</th>
+        <th aria-sort="none"  scope="col" class="govuk-table__header app-table__cell--no-wrap">Sex</th>
+        <th aria-sort="none"  scope="col" class="govuk-table__header app-table__cell--no-wrap">Breed</th>
+        <th aria-sort="none"  scope="col" class="govuk-table__header app-table__cell--no-wrap">Status</th>
+    </tr>
+    </thead>
+
+    <tbody class="govuk-table__body">
+    {% for animal in cattle %}
+    <tr class="govuk-table__row">
+        <th scope="row" class="govuk-table__header app-table__cell--no-wrap ">
+            <a class="govuk-link" href="./cattle/{{ animal.earTagNumber }}">
+                {{ animal.earTagNumber | formatReference }}
+            </a>
+        </th>
+
+        <td class="govuk-table__cell">
+            {{ animal.cph }}
+        </td>
+        <td class="govuk-table__cell">
+            {{ animal.dateOfBirth | shortDateFormat }}
+        </td>
+        <td class="govuk-table__cell app-table__cell--no-wrap">
+            {{ animal.dateOfBirth | animalAge }}
+        </td>
+
+        <td class="govuk-table__cell">
+            {{ animal.dateOfRegistration | shortDateFormat}}
+        </td>
+
+        <td class="govuk-table__cell">
+            {{ animal.sex}}
+        </td>
+
+        <td class="govuk-table__cell">
+            <abbr title="{{ animal.breed.name }}">
+                {{ animal.breed.code }}
+            </abbr>
+            <span class="govuk-visually-hidden">
+                , {{ animal.breed.name }}
+            </span>
+        </td>
+
+        <td class="govuk-table__cell">
+            {{ animal.status }}
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+    </div>
+{% else %}
+<p class="govuk-body">
+    No cattle records found.
+</p>
+{% endif %}
+
+{% endif %}
+</div>
+</div>
+
+{% endblock %}

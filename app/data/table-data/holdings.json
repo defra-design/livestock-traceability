@@ -1,5 +1,5 @@
 {
-  "recordCount": 20,
+  "recordCount": 40,
   "holdings": [
     {
       "id": "holding-001",
@@ -650,6 +650,586 @@
         {
           "species": "Sheep",
           "mark": "UK101113"
+        }
+      ]
+    },
+    {
+      "id": "holding-021",
+      "cph": "91/214/0410",
+      "holdingName": "Northfield Farm",
+      "businessName": "Northfield Livestock Ltd",
+      "role": "Keeper",
+      "address": {
+        "addressLine1": "Northfield Farm",
+        "addressLine2": "Market Lane",
+        "town": "Ripon",
+        "county": "North Yorkshire",
+        "postcode": "HG4 3AA",
+        "country": "England"
+      },
+      "status": "Active",
+      "holdingType": "Permanent",
+      "species": [
+        "Cattle"
+      ],
+      "keeper": {
+        "name": "David Cooper"
+      },
+      "herdAndFlockMarks": [
+        {
+          "species": "Cattle",
+          "mark": "UK864202"
+        }
+      ]
+    },
+    {
+      "id": "holding-022",
+      "cph": "23/792/8936",
+      "holdingName": "Bramble Hill Farm",
+      "businessName": "Bramble Hill Farming",
+      "role": "Keeper",
+      "address": {
+        "addressLine1": "Bramble Hill Farm",
+        "addressLine2": "Bramble Road",
+        "town": "Ludlow",
+        "county": "Shropshire",
+        "postcode": "SY8 4DL",
+        "country": "England"
+      },
+      "status": "Active",
+      "holdingType": "Permanent",
+      "species": [
+        "Cattle"
+      ],
+      "keeper": {
+        "name": "Rachel Davies"
+      },
+      "herdAndFlockMarks": [
+        {
+          "species": "Cattle",
+          "mark": "UK522634"
+        }
+      ]
+    },
+    {
+      "id": "holding-023",
+      "cph": "37/338/8280",
+      "holdingName": "White House Farm",
+      "businessName": "White House Cattle Co",
+      "role": "Keeper",
+      "address": {
+        "addressLine1": "White House Farm",
+        "addressLine2": "Mill Lane",
+        "town": "Lincoln",
+        "county": "Lincolnshire",
+        "postcode": "LN4 2PT",
+        "country": "England"
+      },
+      "status": "Active",
+      "holdingType": "Permanent",
+      "species": [
+        "Cattle"
+      ],
+      "keeper": {
+        "name": "Thomas Ward"
+      },
+      "herdAndFlockMarks": [
+        {
+          "species": "Cattle",
+          "mark": "UK159517"
+        }
+      ]
+    },
+    {
+      "id": "holding-024",
+      "cph": "67/703/4558",
+      "holdingName": "Penrhos Farm",
+      "businessName": "Penrhos Livestock",
+      "role": "Keeper",
+      "address": {
+        "addressLine1": "Penrhos Farm",
+        "addressLine2": "Ffordd y Bryn",
+        "town": "Brecon",
+        "county": "Powys",
+        "postcode": "LD3 9AP",
+        "country": "Wales"
+      },
+      "status": "Active",
+      "holdingType": "Permanent",
+      "species": [
+        "Cattle"
+      ],
+      "keeper": {
+        "name": "Gareth Evans"
+      },
+      "herdAndFlockMarks": [
+        {
+          "species": "Cattle",
+          "mark": "UK132588"
+        }
+      ]
+    },
+    {
+      "id": "holding-025",
+      "cph": "45/259/3528",
+      "holdingName": "Lower Moor Farm",
+      "businessName": "Lower Moor Agriculture",
+      "role": "Keeper",
+      "address": {
+        "addressLine1": "Lower Moor Farm",
+        "addressLine2": "Moor Road",
+        "town": "Taunton",
+        "county": "Somerset",
+        "postcode": "TA4 6QJ",
+        "country": "England"
+      },
+      "status": "Active",
+      "holdingType": "Permanent",
+      "species": [
+        "Cattle"
+      ],
+      "keeper": {
+        "name": "Emily Harris"
+      },
+      "herdAndFlockMarks": [
+        {
+          "species": "Cattle",
+          "mark": "UK551643"
+        }
+      ]
+    },
+    {
+      "id": "holding-026",
+      "cph": "55/967/5636",
+      "holdingName": "Hawthorn Farm",
+      "businessName": "Hawthorn Beef Ltd",
+      "role": "Keeper",
+      "address": {
+        "addressLine1": "Hawthorn Farm",
+        "addressLine2": "Church Road",
+        "town": "Kendal",
+        "county": "Cumbria",
+        "postcode": "LA9 7PH",
+        "country": "England"
+      },
+      "status": "Active",
+      "holdingType": "Permanent",
+      "species": [
+        "Cattle"
+      ],
+      "keeper": {
+        "name": "Andrew Scott"
+      },
+      "herdAndFlockMarks": [
+        {
+          "species": "Cattle",
+          "mark": "UK310588"
+        }
+      ]
+    },
+    {
+      "id": "holding-027",
+      "cph": "20/665/4804",
+      "holdingName": "Brook Farm",
+      "businessName": "Brook Farm Partnership",
+      "role": "Keeper",
+      "address": {
+        "addressLine1": "Brook Farm",
+        "addressLine2": "Water Lane",
+        "town": "Chester",
+        "county": "Cheshire",
+        "postcode": "CH3 8NE",
+        "country": "England"
+      },
+      "status": "Active",
+      "holdingType": "Permanent",
+      "species": [
+        "Cattle"
+      ],
+      "keeper": {
+        "name": "Sophie Walker"
+      },
+      "herdAndFlockMarks": [
+        {
+          "species": "Cattle",
+          "mark": "UK946914"
+        }
+      ]
+    },
+    {
+      "id": "holding-028",
+      "cph": "18/146/3734",
+      "holdingName": "Woodside Farm",
+      "businessName": "Woodside Livestock",
+      "role": "Keeper",
+      "address": {
+        "addressLine1": "Woodside Farm",
+        "addressLine2": "Wood Lane",
+        "town": "York",
+        "county": "North Yorkshire",
+        "postcode": "YO41 4RT",
+        "country": "England"
+      },
+      "status": "Active",
+      "holdingType": "Permanent",
+      "species": [
+        "Cattle"
+      ],
+      "keeper": {
+        "name": "Mark Foster"
+      },
+      "herdAndFlockMarks": [
+        {
+          "species": "Cattle",
+          "mark": "UK052474"
+        }
+      ]
+    },
+    {
+      "id": "holding-029",
+      "cph": "45/564/5978",
+      "holdingName": "Mill House Farm",
+      "businessName": "Mill House Agriculture",
+      "role": "Keeper",
+      "address": {
+        "addressLine1": "Mill House Farm",
+        "addressLine2": "Station Road",
+        "town": "Norwich",
+        "county": "Norfolk",
+        "postcode": "NR15 2HT",
+        "country": "England"
+      },
+      "status": "Active",
+      "holdingType": "Permanent",
+      "species": [
+        "Cattle"
+      ],
+      "keeper": {
+        "name": "Laura King"
+      },
+      "herdAndFlockMarks": [
+        {
+          "species": "Cattle",
+          "mark": "UK859075"
+        }
+      ]
+    },
+    {
+      "id": "holding-030",
+      "cph": "97/763/1170",
+      "holdingName": "Cedar Farm",
+      "businessName": "Cedar Rural Ltd",
+      "role": "Keeper",
+      "address": {
+        "addressLine1": "Cedar Farm",
+        "addressLine2": "Cedar Lane",
+        "town": "Exeter",
+        "county": "Devon",
+        "postcode": "EX6 6LP",
+        "country": "England"
+      },
+      "status": "Active",
+      "holdingType": "Permanent",
+      "species": [
+        "Cattle"
+      ],
+      "keeper": {
+        "name": "James Parker"
+      },
+      "herdAndFlockMarks": [
+        {
+          "species": "Cattle",
+          "mark": "UK457586"
+        }
+      ]
+    },
+    {
+      "id": "holding-031",
+      "cph": "69/488/4423",
+      "holdingName": "Glan Afon Farm",
+      "businessName": "Glan Afon Farming",
+      "role": "Keeper",
+      "address": {
+        "addressLine1": "Glan Afon Farm",
+        "addressLine2": "Riverside Road",
+        "town": "Carmarthen",
+        "county": "Carmarthenshire",
+        "postcode": "SA32 8BQ",
+        "country": "Wales"
+      },
+      "status": "Active",
+      "holdingType": "Permanent",
+      "species": [
+        "Cattle"
+      ],
+      "keeper": {
+        "name": "Ceri Morgan"
+      },
+      "herdAndFlockMarks": [
+        {
+          "species": "Cattle",
+          "mark": "UK017373"
+        }
+      ]
+    },
+    {
+      "id": "holding-032",
+      "cph": "39/941/0526",
+      "holdingName": "Higher West Farm",
+      "businessName": "Higher West Organics",
+      "role": "Keeper",
+      "address": {
+        "addressLine1": "Higher West Farm",
+        "addressLine2": "West Lane",
+        "town": "Plymouth",
+        "county": "Devon",
+        "postcode": "PL7 7RD",
+        "country": "England"
+      },
+      "status": "Active",
+      "holdingType": "Permanent",
+      "species": [
+        "Cattle"
+      ],
+      "keeper": {
+        "name": "George Reed"
+      },
+      "herdAndFlockMarks": [
+        {
+          "species": "Cattle",
+          "mark": "UK439125"
+        }
+      ]
+    },
+    {
+      "id": "holding-033",
+      "cph": "82/997/5156",
+      "holdingName": "Old Rectory Farm",
+      "businessName": "Old Rectory Livestock",
+      "role": "Keeper",
+      "address": {
+        "addressLine1": "Old Rectory Farm",
+        "addressLine2": "Rectory Lane",
+        "town": "Gloucester",
+        "county": "Gloucestershire",
+        "postcode": "GL4 8SA",
+        "country": "England"
+      },
+      "status": "Active",
+      "holdingType": "Permanent",
+      "species": [
+        "Cattle"
+      ],
+      "keeper": {
+        "name": "Hannah Carter"
+      },
+      "herdAndFlockMarks": [
+        {
+          "species": "Cattle",
+          "mark": "UK755898"
+        }
+      ]
+    },
+    {
+      "id": "holding-034",
+      "cph": "43/242/4041",
+      "holdingName": "Bridge Farm",
+      "businessName": "Bridge Farm Cattle",
+      "role": "Keeper",
+      "address": {
+        "addressLine1": "Bridge Farm",
+        "addressLine2": "Bridge Lane",
+        "town": "Derby",
+        "county": "Derbyshire",
+        "postcode": "DE6 5PA",
+        "country": "England"
+      },
+      "status": "Active",
+      "holdingType": "Permanent",
+      "species": [
+        "Cattle"
+      ],
+      "keeper": {
+        "name": "Henry Taylor"
+      },
+      "herdAndFlockMarks": [
+        {
+          "species": "Cattle",
+          "mark": "UK939086"
+        }
+      ]
+    },
+    {
+      "id": "holding-035",
+      "cph": "61/470/3594",
+      "holdingName": "Moss Bank Farm",
+      "businessName": "Moss Bank Farming",
+      "role": "Keeper",
+      "address": {
+        "addressLine1": "Moss Bank Farm",
+        "addressLine2": "Moss Road",
+        "town": "Lancaster",
+        "county": "Lancashire",
+        "postcode": "LA2 9DX",
+        "country": "England"
+      },
+      "status": "Active",
+      "holdingType": "Permanent",
+      "species": [
+        "Cattle"
+      ],
+      "keeper": {
+        "name": "Emma Collins"
+      },
+      "herdAndFlockMarks": [
+        {
+          "species": "Cattle",
+          "mark": "UK251278"
+        }
+      ]
+    },
+    {
+      "id": "holding-036",
+      "cph": "29/742/2622",
+      "holdingName": "Green Lane Farm",
+      "businessName": "Green Lane Livestock",
+      "role": "Keeper",
+      "address": {
+        "addressLine1": "Green Lane Farm",
+        "addressLine2": "Green Lane",
+        "town": "Carlisle",
+        "county": "Cumbria",
+        "postcode": "CA5 8LD",
+        "country": "England"
+      },
+      "status": "Active",
+      "holdingType": "Permanent",
+      "species": [
+        "Cattle"
+      ],
+      "keeper": {
+        "name": "Jack Wilson"
+      },
+      "herdAndFlockMarks": [
+        {
+          "species": "Cattle",
+          "mark": "UK414344"
+        }
+      ]
+    },
+    {
+      "id": "holding-037",
+      "cph": "58/710/7669",
+      "holdingName": "Bryn Glas Farm",
+      "businessName": "Bryn Glas Partnership",
+      "role": "Keeper",
+      "address": {
+        "addressLine1": "Bryn Glas Farm",
+        "addressLine2": "Bryn Road",
+        "town": "Aberystwyth",
+        "county": "Ceredigion",
+        "postcode": "SY23 5NB",
+        "country": "Wales"
+      },
+      "status": "Active",
+      "holdingType": "Permanent",
+      "species": [
+        "Cattle"
+      ],
+      "keeper": {
+        "name": "Owain Jones"
+      },
+      "herdAndFlockMarks": [
+        {
+          "species": "Cattle",
+          "mark": "UK925327"
+        }
+      ]
+    },
+    {
+      "id": "holding-038",
+      "cph": "78/868/4372",
+      "holdingName": "Home Farm",
+      "businessName": "Home Farm Agricultural Services",
+      "role": "Keeper",
+      "address": {
+        "addressLine1": "Home Farm",
+        "addressLine2": "Home Lane",
+        "town": "Leicester",
+        "county": "Leicestershire",
+        "postcode": "LE8 8UJ",
+        "country": "England"
+      },
+      "status": "Active",
+      "holdingType": "Permanent",
+      "species": [
+        "Cattle"
+      ],
+      "keeper": {
+        "name": "Anna Brown"
+      },
+      "herdAndFlockMarks": [
+        {
+          "species": "Cattle",
+          "mark": "UK321512"
+        }
+      ]
+    },
+    {
+      "id": "holding-039",
+      "cph": "30/564/0054",
+      "holdingName": "East View Farm",
+      "businessName": "East View Livestock Ltd",
+      "role": "Keeper",
+      "address": {
+        "addressLine1": "East View Farm",
+        "addressLine2": "East Road",
+        "town": "Durham",
+        "county": "County Durham",
+        "postcode": "DH7 5RE",
+        "country": "England"
+      },
+      "status": "Active",
+      "holdingType": "Permanent",
+      "species": [
+        "Cattle"
+      ],
+      "keeper": {
+        "name": "Michael Green"
+      },
+      "herdAndFlockMarks": [
+        {
+          "species": "Cattle",
+          "mark": "UK113048"
+        }
+      ]
+    },
+    {
+      "id": "holding-040",
+      "cph": "23/991/4890",
+      "holdingName": "Maple Farm",
+      "businessName": "Maple Farm Partnership",
+      "role": "Keeper",
+      "address": {
+        "addressLine1": "Maple Farm",
+        "addressLine2": "Maple Lane",
+        "town": "Hereford",
+        "county": "Herefordshire",
+        "postcode": "HR2 6JL",
+        "country": "England"
+      },
+      "status": "Active",
+      "holdingType": "Permanent",
+      "species": [
+        "Cattle"
+      ],
+      "keeper": {
+        "name": "Sarah Price"
+      },
+      "herdAndFlockMarks": [
+        {
+          "species": "Cattle",
+          "mark": "UK765131"
         }
       ]
     }
