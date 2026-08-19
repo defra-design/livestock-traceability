@@ -16,7 +16,7 @@
     serviceName: "Livestock Information",
     serviceUrl: "/steel-thread/v3/holding-details",
     slots: {
-      navigationEnd: '<li class="govuk-service-navigation__item app-service-navigation__item--right"><a class="govuk-service-navigation__link" href="/steel-thread/v3/one-login">Sign out</a></li>'
+      navigationEnd: '<li class="govuk-service-navigation__item app-service-navigation__item--right"><a class="govuk-service-navigation__link" href="#">Sign out</a></li>'
     }
   }) }}
 
@@ -24,9 +24,9 @@
 
 {% block content %}
 
-<span class="govuk-caption-l">CPH number: 12/345/0001</span>
+<span class="govuk-caption-l">{{ holding.holdingName if holding.holdingName else holding.cph }}</span>
 <h1 class="govuk-heading-l">
-  Oakfield Farm
+  Animal error record
 </h1>
 
 <nav class="moj-sub-navigation" aria-label="Sub navigation">
@@ -54,7 +54,7 @@
         </h2>
 
         <p class="govuk-body">
-          You need to contact BCMS to fix the errors related to your animals.
+          Contact BCMS to fix errors related to animals on your holding.
         </p>
 
         <ul class="govuk-list">
@@ -68,7 +68,7 @@
     </div>
 
     <h2 class="govuk-heading-m govuk-!-static-margin-bottom-6">
-      {{ totalErrors }} animal error record{{ 's' if totalErrors != 1 else '' }}
+      {{ totalErrors }} animal{{ 's' if totalErrors != 1 else '' }} with errors
     </h2>
 
     {#
@@ -94,6 +94,12 @@
     </div>
     #}
 
+    {% set statusTagClasses = {
+      "Pending": "govuk-tag--yellow",
+      "Resolved": "govuk-tag--green",
+      "Rejected": "govuk-tag--red"
+    } %}
+
     {% for error in errors %}
     <div class="govuk-summary-card">
       <div class="govuk-summary-card__title-wrapper">
@@ -102,7 +108,7 @@
         </h2>
         <ul class="govuk-summary-card__actions">
           <li class="govuk-summary-card__action">
-            <strong class="govuk-tag {{ 'govuk-tag--green' if error.status === 'Resolved' else 'govuk-tag--yellow' }}">{{ error.status }}</strong>
+            <strong class="govuk-tag {{ statusTagClasses[error.status] or 'govuk-tag--grey' }}">{{ error.status }}</strong>
           </li>
         </ul>
       </div>
@@ -142,7 +148,7 @@
           </div>
           <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
-              Providing evidence
+              Information needed
             </dt>
             <dd class="govuk-summary-list__value">
               {{ error.evidence }}

@@ -14,7 +14,7 @@
     serviceName: "Livestock Information",
     serviceUrl: "/steel-thread/v3/holding-details",
     slots: {
-      navigationEnd: '<li class="govuk-service-navigation__item app-service-navigation__item--right"><a class="govuk-service-navigation__link" href="/steel-thread/v3/one-login">Sign out</a></li>'
+      navigationEnd: '<li class="govuk-service-navigation__item app-service-navigation__item--right"><a class="govuk-service-navigation__link" href="#">Sign out</a></li>'
     }
   }) }}
 
@@ -42,9 +42,9 @@
       </div>
     </div>
 
-    <span class="govuk-caption-l">CPH number: 12/345/0001</span>
+    <span class="govuk-caption-l">{{ holding.holdingName if holding.holdingName else holding.cph }}</span>
     <h1 class="govuk-heading-l">
-      Oakfield Farm
+      Holding details
     </h1>
 
     <nav class="moj-sub-navigation" aria-label="Sub navigation">

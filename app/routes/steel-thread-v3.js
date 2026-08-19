@@ -152,6 +152,8 @@ router.get('/steel-thread/v3/holding-details', (req, res) => {
 router.get('/steel-thread/v3/animals-on-holding', (req, res) => {
   const search = String(req.query.search || '').trim().toLowerCase()
   const cattleData = req.session.data.livestockSameHerd
+  const holdingsData = req.session.data.holdingsSingleCph
+  const holding = holdingsData.holdings.find((h) => h.id === 'holding-001')
 
   const cattle = cattleData.animals
     .filter((animal) => animal.status !== 'Deceased' && animal.status !== 'Sold')
@@ -200,6 +202,7 @@ router.get('/steel-thread/v3/animals-on-holding', (req, res) => {
   res.render('steel-thread/v3/animals-on-holding', {
     cattle: pagedCattle,
     search,
+    holding,
     pagination,
     showingFrom,
     showingTo,
@@ -208,6 +211,9 @@ router.get('/steel-thread/v3/animals-on-holding', (req, res) => {
 })
 
 router.get('/steel-thread/v3/animal-error-record', (req, res) => {
+  const holdingsData = req.session.data.holdingsSingleCph
+  const holding = holdingsData.holdings.find((h) => h.id === 'holding-001')
+
   const errorRecords = [
     {
       referenceNumber: 'ERR-000123',
@@ -216,7 +222,7 @@ router.get('/steel-thread/v3/animal-error-record', (req, res) => {
       dateOfRegistration: '10-08-2025',
       reason: 'The date of birth you have entered is over the 27-day deadline to report a calf birth.',
       evidence: 'You may be required to provide a written explanation describing why the birth could not be reported within the allotted time.',
-      status: 'Pending'
+      status: 'Rejected'
     },
     {
       referenceNumber: 'ERR-000124',
@@ -284,7 +290,8 @@ router.get('/steel-thread/v3/animal-error-record', (req, res) => {
     pagination,
     showingFrom,
     showingTo,
-    totalErrors: sortedErrors.length
+    totalErrors: sortedErrors.length,
+    holding
   })
 })
 

@@ -3,7 +3,7 @@
 {% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
 {% from "govuk/components/tabs/macro.njk" import govukTabs %}
 
-{% set pageName = "Cattle details" %}
+{% set pageName = animal.earTagNumber | formatReference %}
 
 {% block header %}
 
@@ -15,7 +15,7 @@
     serviceName: "Livestock Information",
     serviceUrl: "/steel-thread/v3/holding-details",
     slots: {
-      navigationEnd: '<li class="govuk-service-navigation__item app-service-navigation__item--right"><a class="govuk-service-navigation__link" href="/steel-thread/v3/one-login">Sign out</a></li>'
+      navigationEnd: '<li class="govuk-service-navigation__item app-service-navigation__item--right"><a class="govuk-service-navigation__link" href="#">Sign out</a></li>'
     }
   }) }}
 
@@ -33,11 +33,10 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
 
-    <span class="govuk-caption-l">County Parish Holding: 12/345/0001</span>
-    <h1 class="govuk-heading-l">{{ animal.earTagNumber | formatReference }}</h1>
-
-
-    <h2 class="govuk-heading-m">Cattle details</h2>
+    <span class="govuk-caption-l">{{ animal.earTagNumber | formatReference }}</span>
+    <h1 class="govuk-heading-l">
+      Cattle details
+    </h1>
 
     <dl class="govuk-summary-list">
 

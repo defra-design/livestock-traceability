@@ -46,22 +46,13 @@
 
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
-          On-location date
+          Date on holding
         </dt>
         <dd class="govuk-summary-list__value">
           {{ animal.onHoldingDate | shortDateFormat }}
         </dd>
       </div>
 
-
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-          Animal status
-        </dt>
-        <dd class="govuk-summary-list__value">
-          {{ animal.status }}
-        </dd>
-      </div>
 
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">Sex</dt>
@@ -72,6 +63,15 @@
         <dt class="govuk-summary-list__key">Breed</dt>
         <dd class="govuk-summary-list__value">
           {{ animal.breed.name }}{% if animal.breed.code %} ({{ animal.breed.code }}){% endif %}
+        </dd>
+      </div>
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Animal status
+        </dt>
+        <dd class="govuk-summary-list__value">
+          {{ animal.status }}
         </dd>
       </div>
 

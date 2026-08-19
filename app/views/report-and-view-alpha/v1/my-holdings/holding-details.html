@@ -14,10 +14,27 @@
 
 {% block content %}
 
+<div class="govuk-notification-banner" role="region" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
+  <div class="govuk-notification-banner__header">
+    <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+      Important
+    </h2>
+  </div>
+
+  <div class="govuk-notification-banner__content">
+    <p class="govuk-notification-banner__heading">
+      You have 3 animals that need your attention.
+      <a class="govuk-notification-banner__link"
+         href="/report-and-view-alpha/v1/my-holdings/animal-error-record">
+        View animal error record</a>.
+    </p>
+  </div>
+</div>
+
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
 
-      <span class="govuk-caption-l">Oakfield Farm</span>
+      <span class="govuk-caption-l">{{ holding.holdingName if holding.holdingName else holding.cph }}</span>
       <h1 class="govuk-heading-l">Holding details</h1>
 
         <nav class="moj-sub-navigation" aria-label="Sub navigation">
@@ -74,10 +91,10 @@
           <dd class="govuk-summary-list__value">{{ holding.holdingType }}</dd>
         </div>-->
 
-        <div class="govuk-summary-list__row">
+       <!-- <div class="govuk-summary-list__row">
           <dt class="govuk-summary-list__key">Registered keeper</dt>
           <dd class="govuk-summary-list__value">{{ holding.keeper.name }}</dd>
-        </div>
+        </div>-->
 
         <div class="govuk-summary-list__row">
           <dt class="govuk-summary-list__key">Herd mark</dt>
