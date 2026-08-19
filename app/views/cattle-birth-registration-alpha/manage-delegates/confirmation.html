@@ -1,0 +1,42 @@
+{% extends "layouts/main.html" %}
+
+
+{% set pageName="Invite sent" %}
+
+{% block header %}
+
+  {% include "cattle-birth-registration-alpha/partials/header.html" %}
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <div class="govuk-panel govuk-panel--confirmation">
+      <h1 class="govuk-panel__title">
+        Invite sent
+      </h1>
+    </div>
+
+    <p class="govuk-body">
+      An invite was sent to your new delegate at {{ data['delegate-email'] }}.
+    </p>
+
+    <h2 class="govuk-heading-m">What happens next</h2>
+
+    <p class="govuk-body">
+      The delegate will have 7 days to reply using the invite link sent to their email address.
+    </p>
+
+    <form action="/cattle-birth-registration-alpha/manage-delegates/confirmation" method="post" novalidate>
+      <button type="submit" class="govuk-button" data-module="govuk-button">
+        Continue
+      </button>
+    </form>
+
+  </div>
+</div>
+
+{% endblock %}

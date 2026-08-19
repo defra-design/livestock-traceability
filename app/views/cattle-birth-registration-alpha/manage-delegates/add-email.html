@@ -1,0 +1,70 @@
+{% extends "layouts/main.html" %}
+
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% set pageName="What is your delegate's email address?" %}
+
+{% block header %}
+
+  {% include "cattle-birth-registration-alpha/partials/header.html" %}
+
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    {% if errors %}
+    <div class="govuk-error-summary" data-module="govuk-error-summary">
+      <div role="alert">
+        <h2 class="govuk-error-summary__title">There is a problem</h2>
+        <div class="govuk-error-summary__body">
+          <ul class="govuk-list govuk-error-summary__list">
+            {% if errors['delegate-email'] %}
+            <li><a href="#delegate-email">{{ errors['delegate-email'] }}</a></li>
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
+    <form action="/cattle-birth-registration-alpha/manage-delegates/add-email" method="post" novalidate>
+
+      {{ govukInput({
+        label: {
+          text: "What is your delegate's email address?",
+          isPageHeading: true,
+          classes: "govuk-label--l"
+        },
+        hint: {
+          text: "Your delegate will receive an email invitation from the Livestock Information Service after you submit the form."
+        },
+        errorMessage: errors['delegate-email'] and { text: errors['delegate-email'] },
+        id: "delegate-email",
+        name: "delegate-email",
+        value: data['delegate-email'],
+        type: "email",
+        autocomplete: "email",
+        spellcheck: false
+      }) }}
+
+      {{ govukButton({
+        text: "Continue"
+      }) }}
+
+    </form>
+
+  </div>
+</div>
+
+{% endblock %}

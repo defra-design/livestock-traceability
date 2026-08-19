@@ -96,7 +96,7 @@ router.post(`${BASE}/dam-details`, (req, res) => {
 
   if (!data['dam-type']) {
     return res.render('mvp-front-office/v4/register-animal/dam-details', {
-      errors: { 'dam-type': 'Select if the calf was born to a genetic or surrogate dam' }
+      errors: { 'dam-type': 'Select if the calf was born via a genetic or surrogate dam' }
     })
   }
 
@@ -119,8 +119,27 @@ router.post(`${BASE}/surrogate-dam`, (req, res) => {
     errors['genetic-dam-number'] = 'Enter the ear tag number of the genetic dam'
   }
 
-  if (!data['surrogate-dam-number']) {
-    errors['surrogate-dam-number'] = 'Enter the ear tag number of the surrogate dam'
+  const surrogateDamNumber = data['surrogate-dam-number']
+
+  const knownSurrogateTags = [
+    'UK123456601200', 'UK123456601201', 'UK123456601202', 'UK123456601203',
+    'UK123456601204', 'UK123456601205', 'UK123456601206', 'UK123456601207',
+    'UK123456601208', 'UK123456601209'
+  ]
+  const recentlyCalvedTags = ['UK123456601205']
+  const tooYoungTags = ['UK123456601206']
+  const tooOldTags = ['UK123456601207']
+
+  if (!surrogateDamNumber || !surrogateDamNumber.trim()) {
+    errors['surrogate-dam-number'] = 'Enter all or part of the surrogate dam ear tag number and select from the list'
+  } else if (!knownSurrogateTags.includes(surrogateDamNumber)) {
+    errors['surrogate-dam-number'] = 'The surrogate dam ear tag number is not registered on your holding'
+  } else if (recentlyCalvedTags.includes(surrogateDamNumber)) {
+    errors['surrogate-dam-number'] = 'The surrogate dam appears to have given birth in the past 240 days'
+  } else if (tooYoungTags.includes(surrogateDamNumber)) {
+    errors['surrogate-dam-number'] = 'The surrogate dam appears to be under 15 months old'
+  } else if (tooOldTags.includes(surrogateDamNumber)) {
+    errors['surrogate-dam-number'] = 'The surrogate dam appears to be over 20 years old'
   }
 
   if (Object.keys(errors).length > 0) {
@@ -136,11 +155,37 @@ router.get(`${BASE}/genetic-dam`, (req, res) => {
 
 router.post(`${BASE}/genetic-dam`, (req, res) => {
   const data = req.session.data
-  if (!data['genetic-dam-number']) {
+  const geneticDamNumber = data['genetic-dam-number']
+
+  const knownTags = [
+    'UK123456501100', 'UK123456501101', 'UK123456501102', 'UK123456501103',
+    'UK123456501104', 'UK123456501105', 'UK123456501106', 'UK123456501107',
+    'UK123456501108', 'UK123456501109'
+  ]
+  const recentlyCalvedTags = ['UK123456501105']
+  const tooYoungTags = ['UK123456501106']
+  const tooOldTags = ['UK123456501107']
+
+  let error
+
+  if (!geneticDamNumber || !geneticDamNumber.trim()) {
+    error = 'Enter all or part of the genetic dam ear tag number and select from the list'
+  } else if (!knownTags.includes(geneticDamNumber)) {
+    error = 'The genetic dam ear tag number is not registered on your holding'
+  } else if (recentlyCalvedTags.includes(geneticDamNumber)) {
+    error = 'The genetic dam appears to have given birth in the past 240 days'
+  } else if (tooYoungTags.includes(geneticDamNumber)) {
+    error = 'The genetic dam appears to be under 15 months old'
+  } else if (tooOldTags.includes(geneticDamNumber)) {
+    error = 'The genetic dam appears to be over 20 years old'
+  }
+
+  if (error) {
     return res.render('mvp-front-office/v4/register-animal/genetic-dam', {
-      errors: { 'genetic-dam-number': 'Enter the ear tag number of the genetic dam' }
+      errors: { 'genetic-dam-number': error }
     })
   }
+
   returnToCheck(req, res, `${BASE}/sire-details`)
 })
 

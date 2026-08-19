@@ -1,0 +1,32 @@
+{% set sideNavItems = [
+  { key: "holding-details", label: "Holding details" },
+  { key: "animals-on-holding", label: "Animals on holding" },
+  { key: "submissions", label: "Submissions" },
+  { key: "animal-error-record", label: "Animal error record" }
+] %}
+
+<div class="dwp-ds-render">
+
+  <button class="dwp-side-navigation__button" data-module="dwp-side-navigation" data-target="dwp-side-navigation-panel" data-label-hide="Hide navigation" data-label-show="Show navigation" aria-expanded="false">
+
+    <span class="dwp-side-navigation__section-toggle-focus">
+        <span class="dwp-side-navigation__chevron dwp-side-navigation__chevron--down"></span>
+        <span class="dwp-side-navigation__section-toggle-text">Show navigation</span>
+    </span>
+  </button>
+
+  <nav data-module="dwp-side-navigation-panel" class="dwp-side-navigation dwp-side-navigation--mobile" aria-label="Side" role="navigation">
+    <ul class="dwp-side-navigation__list">
+
+      {% for item in sideNavItems %}
+      <li class="dwp-side-navigation__item{% if sideNavActive == item.key %} dwp-side-navigation__item--selected{% endif %}">
+        <a id="s-item-{{ loop.index }}" href="/report-and-view-alpha/v1/my-holdings/{{ item.key }}" class="dwp-side-navigation__link{% if sideNavActive == item.key %} dwp-side-navigation__link--selected{% endif %}"{% if sideNavActive == item.key %} aria-current="true"{% endif %}>
+          {{ item.label }}
+        </a>
+      </li>
+
+      {% endfor %}
+    </ul>
+  </nav>
+
+</div>
