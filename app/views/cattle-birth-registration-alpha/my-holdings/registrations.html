@@ -1,0 +1,71 @@
+{% extends "layouts/main.html" %}
+
+
+{% set pageName="Submissions" %}
+{% set activeNavItem = "my-holdings" %}
+{% set sideNavActive = "submissions" %}
+
+{% block header %}
+
+  {% include "cattle-birth-registration-alpha/partials/header.html" %}
+  {% include "report-and-view-alpha/v1/partials/phase-banner.html" %}
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+
+        <span class="govuk-caption-l">{{ holding.holdingName if holding.holdingName else holding.cph }}</span>
+        <h1 class="govuk-heading-l">
+          Register a cattle birth
+        </h1>
+
+        <a href="/cattle-birth-registration-alpha/register-animal/calf-details" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+          Start new registration
+        </a>
+
+        <table class="govuk-table">
+          <thead class="govuk-table__head">
+            <tr class="govuk-table__row">
+              <th scope="col" class="govuk-table__header">Reference</th>
+              <th scope="col" class="govuk-table__header">Submission date</th>
+              <th scope="col" class="govuk-table__header">Type</th>
+              <th scope="col" class="govuk-table__header">Total animals</th>
+              <th scope="col" class="govuk-table__header">Error count</th>
+              <th scope="col" class="govuk-table__header">Status</th>
+            </tr>
+          </thead>
+          <tbody class="govuk-table__body">
+            <tr class="govuk-table__row">
+              <td class="govuk-table__cell"><a class="govuk-link" href="/cattle-birth-registration-alpha/register-animal/submission-detail-draft">CB-143466</a></td>
+              <td class="govuk-table__cell">–</td>
+              <td class="govuk-table__cell">Cattle birth registration</td>
+              <td class="govuk-table__cell">2</td>
+              <td class="govuk-table__cell">–</td>
+              <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--blue">Draft</strong></td>
+            </tr>
+            <tr class="govuk-table__row">
+              <td class="govuk-table__cell"><a class="govuk-link" href="/cattle-birth-registration-alpha/register-animal/submission-detail-pending">CB-143887</a></td>
+              <td class="govuk-table__cell">5 May 2026</td>
+              <td class="govuk-table__cell">Cattle birth registration</td>
+              <td class="govuk-table__cell">4</td>
+              <td class="govuk-table__cell">–</td>
+              <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--yellow">Processing</strong></td>
+            </tr>
+            <tr class="govuk-table__row">
+              <td class="govuk-table__cell"><a class="govuk-link" href="/cattle-birth-registration-alpha/register-animal/submission-detail-sent">CB-143856</a></td>
+              <td class="govuk-table__cell">8 May 2026</td>
+              <td class="govuk-table__cell">Cattle birth registration</td>
+              <td class="govuk-table__cell">12</td>
+              <td class="govuk-table__cell">1</td>
+              <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--green">Sent</strong></td>
+            </tr>
+          </tbody>
+        </table>
+
+  </div>
+</div>
+
+{% endblock %}

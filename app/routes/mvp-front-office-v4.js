@@ -18,7 +18,7 @@ function getErrorRecords() {
       dateOfBirth: '09-07-2025',
       dateOfRegistration: '10-08-2025',
       category: 'Late birth registration',
-      reason: 'The date of birth you have entered is over the 27-day deadline to report a calf birth.',
+      reason: 'Date of birth appears to be over the 27-day deadline to report a calf birth.',
       evidence: 'You may be required to provide a written explanation describing why the birth could not be reported within the allotted time.',
       status: 'Rejected'
     },
@@ -29,9 +29,9 @@ function getErrorRecords() {
       dateOfBirth: '29-07-2025',
       dateOfRegistration: '10-08-2025',
       category: 'Dam calving interval',
-      reason: 'The genetic dam you have entered has given birth in the last 240 days.',
+      reason: 'The genetic dam appears to have given birth in the past 240 days.',
       evidence: 'You may be required to provide documentary evidence or DNA parentage testing.',
-      status: 'Pending'
+      status: 'In review'
     },
     {
       id: 'AER-61984',
@@ -40,9 +40,9 @@ function getErrorRecords() {
       dateOfBirth: '29-07-2025',
       dateOfRegistration: '10-08-2025',
       category: 'Dam age',
-      reason: 'The genetic dam you have entered is over 20 years old.',
+      reason: 'The genetic dam appears to be under 15-months old',
       evidence: 'You may be required to provide a signed declaration from your veterinarian or breed society.',
-      status: 'In review'
+      status: 'Approved'
     }
   ]
 }

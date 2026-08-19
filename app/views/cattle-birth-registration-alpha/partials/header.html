@@ -1,0 +1,13 @@
+{% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
+
+{{ govukHeader({
+  homepageUrl: '/index.html'
+}) }}
+
+{{ govukServiceNavigation({
+  serviceName: "Report and view livestock information",
+  serviceUrl: "/cattle-birth-registration-alpha/overview",
+  slots: {
+    navigationEnd: '<li class="govuk-service-navigation__item app-service-navigation__item--right"><a class="govuk-service-navigation__link" href="/cattle-birth-registration-alpha/auth/one-login">Sign out</a></li>'
+  }
+}) }}

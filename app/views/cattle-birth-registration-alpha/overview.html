@@ -1,0 +1,63 @@
+{% extends "layouts/main.html" %}
+
+
+{% set pageName="Report and view livestock information" %}
+
+{% block header %}
+  {% include "cattle-birth-registration-alpha/partials/header.html" %}
+  {% include "report-and-view-alpha/v1/partials/phase-banner.html" %}
+{% endblock %}
+
+{% block content %}
+
+  <header id="page-title" class="page-heading">
+
+    <h1 class="govuk-heading-xl govuk-!-margin-bottom-8">
+      Report and view livestock information
+    </h1>
+  <!--  <p class="govuk-caption-l" id="sub-heading">View and access your livestock information in one place</p>
+-->
+  </header>
+
+
+<ul class="govuk-grid-row card-group">
+  <li class="govuk-grid-column-one-third card-group__item">
+    <div class="card card--clickable" data-test="global-search">
+      <h2 class="govuk-heading-m card__heading">
+        <a class="govuk-link card__link govuk-link--no-visited-state"
+           href="/cattle-birth-registration-alpha/my-holdings/registrations">
+          Register a cattle birth
+        </a>
+      </h2>
+      <p class="govuk-body card__description">
+        Register cattle births on your holding.
+      </p>
+    </div>
+  </li>
+  <li class="govuk-grid-column-one-third card-group__item">
+    <div class="card card--clickable" data-test="manage-prisoner-whereabouts">
+      <h2 class="govuk-heading-m card__heading">
+        <a class="govuk-link card__link govuk-link--no-visited-state" href="#">
+          Report an animal movement
+        </a>
+      </h2>
+      <p class="govuk-body card__description">
+        Report movements on and off your holding.
+      </p>
+    </div>
+  </li>
+  <li class="govuk-grid-column-one-third card-group__item">
+    <div class="card card--clickable" data-test="use-of-force">
+      <h2 class="govuk-heading-m card__heading">
+        <a class="govuk-link card__link govuk-link--no-visited-state" href="#">
+          Report an animal death
+        </a>
+      </h2>
+      <p class="govuk-body card__description">
+        Report a death of registered and unregistered animals on your holding.
+      </p>
+    </div>
+  </li>
+</ul>
+
+{% endblock %}

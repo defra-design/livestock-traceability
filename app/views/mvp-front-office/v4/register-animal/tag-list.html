@@ -82,11 +82,11 @@
       <div class="govuk-form-group {% if errors['add-another'] %}govuk-form-group--error{% endif %}">
         <fieldset class="govuk-fieldset" aria-describedby="add-another-hint{% if errors['add-another'] %} add-another-error{% endif %}">
           <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
-            Do you need to add additional animals?
+            Add more animals
           </legend>
-          <!--<div id="add-another-hint" class="govuk-hint">
-            Additional animals can include calves from different dams, or siblings from a multiple birth.
-          </div>-->
+          <div id="add-another-hint" class="govuk-hint">
+            You can add calves from different dams or siblings from a multiple birth.
+          </div>
           {% if errors['add-another'] %}
           <p id="add-another-error" class="govuk-error-message">
             <span class="govuk-visually-hidden">Error:</span> {{ errors['add-another'] }}
