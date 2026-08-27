@@ -65,7 +65,7 @@ router.post(`${BASE}/calf-details`, (req, res) => {
   const errors = {}
 
   if (!data['ear-tag-number']) {
-    errors['ear-tag-number'] = 'Enter the last 6 digits of the animal ear tag number you are registering'
+    errors['ear-tag-number'] = 'Enter the animal ear tag number you are registering'
   }
 
   if (!data['dob-day'] || !data['dob-month'] || !data['dob-year']) {
@@ -77,7 +77,7 @@ router.post(`${BASE}/calf-details`, (req, res) => {
   }
 
   if (!data['breed']) {
-    errors['breed'] = 'Enter the animal breed or breed code into the text box and select the correct one from the suggested options'
+    errors['breed'] = 'Enter the breed name or breed code of the animal you are registering'
   }
 
   if (Object.keys(errors).length > 0) {
