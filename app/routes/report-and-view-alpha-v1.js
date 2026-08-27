@@ -19,7 +19,7 @@ function getErrorRecords() {
       dateOfRegistration: '10-08-2025',
       category: 'Late birth registration',
       reason: 'Date of birth appears to be over the 27-day deadline to report a calf birth.',
-      evidence: 'You may be required to provide a written explanation describing why the birth could not be reported within the allotted time.',
+      evidence: 'You may need to provide a written explanation for why the birth could not be reported within the 27-day registration deadline.',
       status: 'Rejected'
     },
     {
@@ -30,7 +30,7 @@ function getErrorRecords() {
       dateOfRegistration: '10-08-2025',
       category: 'Dam calving interval',
       reason: 'The genetic dam appears to have given birth in the past 240 days.',
-      evidence: 'You may be required to provide documentary evidence or DNA parentage testing.',
+      evidence: 'You may need to provide documents or DNA parentage testing.',
       status: 'In review'
     },
     {
@@ -41,7 +41,7 @@ function getErrorRecords() {
       dateOfRegistration: '10-08-2025',
       category: 'Dam age',
       reason: 'The genetic dam appears to be under 15-months old',
-      evidence: 'You may be required to provide a signed declaration from your veterinarian or breed society.',
+      evidence: 'You may need to provide a signed declaration from your veterinarian or breed society.',
       status: 'Approved'
     }
   ]
