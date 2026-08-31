@@ -74,7 +74,10 @@ href: currentBaseUrl+"home"
 
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
-  <p>You can search by the whole number or at least 5 digits.</p>
+  <p>Enter the whole number. For example, UK 017373 777279.</p>
+
+<p>You do not need to include 'UK'.
+</p>
 </ul>
     </div>
 </div>
@@ -84,9 +87,9 @@ href: currentBaseUrl+"home"
 <p class="govuk-body" aria-live="polite">
     {{ cattle.length }}
     {% if cattle.length === 1 %}
-    cattle record matches
+    animal record matches
     {% else %}
-    cattle records match
+    animal records match
     {% endif %}
     <strong>‘{{ search }}’</strong>
 </p>
@@ -113,17 +116,17 @@ href: currentBaseUrl+"home"
         CPH
       </th>
       <th aria-sort="none" scope="col" class="govuk-table__header app-table__cell--no-wrap">
-        Holding name
-      </th>
-      <th aria-sort="none" scope="col" class="govuk-table__header app-table__cell--no-wrap">
-        County
-      </th>
-      <th aria-sort="none" scope="col" class="govuk-table__header app-table__cell--no-wrap">
-        Postcode
+        Location
       </th>
 <!--      <th aria-sort="none" scope="col" class="govuk-table__header app-table__cell&#45;&#45;no-wrap">-->
-<!--        Status-->
+<!--        County-->
 <!--      </th>-->
+<!--      <th aria-sort="none" scope="col" class="govuk-table__header app-table__cell&#45;&#45;no-wrap">-->
+<!--        Postcode-->
+<!--      </th>-->
+      <th aria-sort="none" scope="col" class="govuk-table__header app-table__cell--no-wrap">
+        Status
+      </th>
     </tr>
   </thead>
 
@@ -150,24 +153,25 @@ href: currentBaseUrl+"home"
       <td class="govuk-table__cell">
         {% if animal.holding %}
 
-            {{ animal.holding.holdingName }}
+            {{ animal.holding.holdingName }}, {{ animal.holding.address.town }}, {{ animal.holding.address.county }}, {{ animal.holding.address.postcode }}
 
-        {% endif %}
-      </td>
-
-      <td class="govuk-table__cell">
-        {% if animal.holding %}
-          {{ animal.holding.address.county }}
-        {% endif %}
-      <td class="govuk-table__cell app-table__cell--no-wrap">
-        {% if animal.holding %}
-          {{ animal.holding.address.postcode }}
         {% endif %}
       </td>
 
 <!--      <td class="govuk-table__cell">-->
-<!--        {{ animal.status }}-->
+<!--        {% if animal.holding %}-->
+<!--          {{ animal.holding.address.county }}-->
+<!--        {% endif %}
+        </td>-->
+<!--      <td class="govuk-table__cell app-table__cell&#45;&#45;no-wrap">-->
+<!--        {% if animal.holding %}-->
+<!--          {{ animal.holding.address.postcode }}-->
+<!--        {% endif %}-->
 <!--      </td>-->
+
+      <td class="govuk-table__cell">
+        {{ animal.status }}
+      </td>
 
     </tr>
     {% endfor %}

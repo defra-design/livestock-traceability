@@ -1,0 +1,171 @@
+{% extends "layouts/main.html" %}
+
+{% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
+
+{% set pageName = "Find a record" %}
+{% set activeNav = "search" %}
+
+{% block header %}
+{% block navBar %}{% include "./components/_navigation.html" %}{% endblock %}
+{% endblock %}
+
+{% block beforeContent %}
+{% set pathParts = currentPath.split('/') %}
+{% set currentBaseUrl = '/' + pathParts[1] + '/' + pathParts[2] + '/' + pathParts[3] + '/' %}
+
+{{ govukBreadcrumbs({
+  items: [
+    {
+      text: "Home",
+      href: currentBaseUrl + "home"
+    }
+  ]
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <form method="GET">
+      <div class="search-wrapper govuk-form-group">
+
+        <h1 class="govuk-label-wrapper">
+          <label for="search-records" class="govuk-label govuk-label--l">
+            Find a record
+          </label>
+        </h1>
+
+        <div id="search-records-hint" class="govuk-hint">
+          Search for an animal, holding or keeper
+        </div>
+
+        <div class="search-input-wrapper">
+          <input
+            type="search"
+            value="{{ search }}"
+            id="search-records"
+            name="search"
+            title="Search"
+            class="govuk-input"
+            aria-describedby="search-records-hint"
+            spellcheck="false"
+          >
+
+          <div class="search-input-submit-wrapper">
+            <button type="submit" class="search-submit">
+              Search
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </form>
+
+  </div>
+</div>
+
+{% if not search %}
+
+<h2 class="govuk-heading-m govuk-!-margin-top-6">
+  What you can search for
+</h2>
+
+<div class="govuk-grid-row">
+
+  <div class="govuk-grid-column-one-third">
+    <h3 class="govuk-heading-s">Animals</h3>
+
+    <p class="govuk-body">You can search using:</p>
+
+    <ul class="govuk-list govuk-list--bullet">
+      <li>official ear tag number, for example UK 666666 500046</li>
+      <li>last 6 digits of an ear tag, for example 500046</li>
+      <li>CPH number, for example 12/345/0001</li>
+    </ul>
+
+    <p class="govuk-body">
+      <a class="govuk-link" href="{{ currentBaseUrl }}cattle">
+        Search cattle
+      </a>
+    </p>
+  </div>
+
+  <div class="govuk-grid-column-one-third">
+    <h3 class="govuk-heading-s">Holdings</h3>
+
+    <p class="govuk-body">You can search using:</p>
+
+    <ul class="govuk-list govuk-list--bullet">
+      <li>CPH number, for example 12/345/0001</li>
+      <li>holding name, for example Oakfield Farm</li>
+      <li>herd number, for example UK 123456</li>
+      <li>town or county, for example Cumbria</li>
+      <li>postcode, for example SY4 1AB</li>
+    </ul>
+
+    <p class="govuk-body">
+      <a class="govuk-link" href="{{ currentBaseUrl }}holdings">
+        Search holdings
+      </a>
+    </p>
+  </div>
+
+  <div class="govuk-grid-column-one-third">
+    <h3 class="govuk-heading-s">Keepers</h3>
+
+    <p class="govuk-body">You can search using:</p>
+
+    <ul class="govuk-list govuk-list--bullet">
+      <li>name, for example James Williams</li>
+      <li>postcode, for example SY4 1AB</li>
+      <li>email address, for example james.williams@example.com</li>
+      <li>phone number, for example 07700 900001</li>
+    </ul>
+
+    <p class="govuk-body">
+      <a class="govuk-link" href="{{ currentBaseUrl }}users">
+        Find a keeper
+      </a>
+    </p>
+  </div>
+
+</div>
+
+{% else %}
+
+<h2 class="govuk-heading-m">
+  Search results
+</h2>
+
+<p class="govuk-body" aria-live="polite">
+  {% if totalResults === 1 %}
+    1 result found for
+  {% else %}
+    {{ totalResults }} results found for
+  {% endif %}
+  <strong>‘{{ search }}’</strong>
+</p>
+
+<p class="govuk-body">
+  <a class="govuk-link" href="{{ currentBaseUrl }}search">
+    Clear search
+  </a>
+</p>
+
+{#
+  Grouped results will go here.
+
+  Suggested order:
+  1. Animals
+  2. Holdings
+  3. Keepers
+
+  Show up to 5 results per group and use a "View all X results" link
+  to the existing specialist search with the query carried through.
+#}
+
+{% endif %}
+
+{% endblock %}

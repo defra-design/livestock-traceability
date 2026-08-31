@@ -1,0 +1,171 @@
+{% extends "layouts/main.html" %}
+
+{% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
+
+{% set pageName="Keeper details" %}
+
+{% set activeNav = "keepers" %}
+
+{% block header %}
+
+{% block navBar %}{% include "./components/_navigation.html" %}{% endblock %}
+
+{% endblock %}
+
+{% block beforeContent %}
+{% set pathParts = currentPath.split('/') %}
+{% set currentBaseUrl = '/' + pathParts[1] + '/' + pathParts[2] + '/' + pathParts[3] + '/' %}
+{{ govukBreadcrumbs({
+items: [
+{
+text: "Home",
+href: currentBaseUrl+"home"
+},
+{
+text: "Keepers",
+href: currentBaseUrl+"users"
+}
+]
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<span class="govuk-caption-l">Keeper</span>
+<h1 class="govuk-heading-l">{{ user.name }}</h1>
+
+<nav class="moj-sub-navigation" aria-label="Sub navigation">
+  <ul class="moj-sub-navigation__list">
+    <li class="moj-sub-navigation__item">
+      <a
+        class="moj-sub-navigation__link"
+        href="../{{ user.id }}"
+      >
+        Details
+      </a>
+    </li>
+
+    <li class="moj-sub-navigation__item">
+      <a
+        class="moj-sub-navigation__link"
+        href="{{ currentBaseUrl }}holdings"
+      >
+        Holdings
+      </a>
+    </li>
+
+    <li class="moj-sub-navigation__item">
+      <a
+        class="moj-sub-navigation__link"
+        aria-current="page"
+        href="{{ currentBaseUrl }}activity"
+      >
+        Activity
+      </a>
+    </li>
+  </ul>
+</nav>
+
+<h2 class="govuk-heading-m">Activity</h2>
+
+<table class="govuk-table">
+    <caption class="govuk-table__caption govuk-table__caption--s">
+        Recent activity for {{ user.name }}
+    </caption>
+
+    <thead class="govuk-table__head">
+    <tr class="govuk-table__row">
+        <th scope="col" class="govuk-table__header">Date and time</th>
+        <th scope="col" class="govuk-table__header">Activity</th>
+        <th scope="col" class="govuk-table__header">Holding</th>
+        <th scope="col" class="govuk-table__header">Species</th>
+        <th scope="col" class="govuk-table__header">
+            <span class="govuk-visually-hidden">Action</span>
+        </th>
+    </tr>
+    </thead>
+
+    <tbody class="govuk-table__body">
+    <tr class="govuk-table__row">
+        <td class="govuk-table__cell">18 January 2026 at 09:42</td>
+        <td class="govuk-table__cell">Birth reported</td>
+        <td class="govuk-table__cell">
+            <a class="govuk-link" href="{{ currentBaseUrl }}holdings/holding-001">Oakfield Farm</a>
+            <br>
+            <span class="govuk-hint govuk-!-margin-bottom-0">12/345/0001</span>
+        </td>
+        <td class="govuk-table__cell">Cattle</td>
+        <td class="govuk-table__cell">
+            <a class="govuk-link" href="{{ currentBaseUrl }}activity/activity-001">
+                View<span class="govuk-visually-hidden"> birth reported activity</span>
+            </a>
+        </td>
+    </tr>
+
+    <tr class="govuk-table__row">
+        <td class="govuk-table__cell">15 January 2026 at 14:10</td>
+        <td class="govuk-table__cell">Movement reported</td>
+        <td class="govuk-table__cell">
+            <a class="govuk-link" href="{{ currentBaseUrl }}holdings/holding-001">Oakfield Farm</a>
+            <br>
+            <span class="govuk-hint govuk-!-margin-bottom-0">12/345/0001</span>
+        </td>
+        <td class="govuk-table__cell">Cattle</td>
+        <td class="govuk-table__cell">
+            <a class="govuk-link" href="{{ currentBaseUrl }}activity/activity-002">
+                View<span class="govuk-visually-hidden"> movement reported activity</span>
+            </a>
+        </td>
+    </tr>
+
+    <tr class="govuk-table__row">
+        <td class="govuk-table__cell">12 January 2026 at 11:05</td>
+        <td class="govuk-table__cell">Death reported</td>
+        <td class="govuk-table__cell">
+            <a class="govuk-link" href="{{ currentBaseUrl }}holdings/holding-002">Willow Brook Farm</a>
+            <br>
+            <span class="govuk-hint govuk-!-margin-bottom-0">24/118/0042</span>
+        </td>
+        <td class="govuk-table__cell">Cattle</td>
+        <td class="govuk-table__cell">
+            <a class="govuk-link" href="{{ currentBaseUrl }}activity/activity-003">
+                View<span class="govuk-visually-hidden"> death reported activity</span>
+            </a>
+        </td>
+    </tr>
+
+    <tr class="govuk-table__row">
+        <td class="govuk-table__cell">18 December 2025 at 08:55</td>
+        <td class="govuk-table__cell">Movement reported</td>
+        <td class="govuk-table__cell">
+            <a class="govuk-link" href="{{ currentBaseUrl }}holdings/holding-004">Cwm Valley Farm</a>
+            <br>
+            <span class="govuk-hint govuk-!-margin-bottom-0">44/209/0317</span>
+        </td>
+        <td class="govuk-table__cell">Sheep</td>
+        <td class="govuk-table__cell">
+            <a class="govuk-link" href="{{ currentBaseUrl }}activity/activity-004">
+                View<span class="govuk-visually-hidden"> movement reported activity</span>
+            </a>
+        </td>
+    </tr>
+
+    <tr class="govuk-table__row">
+        <td class="govuk-table__cell">12 December 2025 at 17:06</td>
+        <td class="govuk-table__cell">User role updated</td>
+        <td class="govuk-table__cell">
+            <a class="govuk-link" href="{{ currentBaseUrl }}holdings/holding-012">Ty Mawr</a>
+            <br>
+            <span class="govuk-hint govuk-!-margin-bottom-0">48/952/0205</span>
+        </td>
+        <td class="govuk-table__cell">Cattle, sheep and goats</td>
+        <td class="govuk-table__cell">
+            <a class="govuk-link" href="{{ currentBaseUrl }}activity/activity-005">
+                View<span class="govuk-visually-hidden"> user role updated activity</span>
+            </a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+{% endblock %}

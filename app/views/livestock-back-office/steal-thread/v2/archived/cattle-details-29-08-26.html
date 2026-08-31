@@ -36,13 +36,27 @@ href: currentBaseUrl+"cattle"
             Registered cattle
           </span>
 
-      <h1 class="govuk-heading-l govuk-!-margin-bottom-2">
-        {{ animal.earTagNumber | formatReference }}
+      <h1 class="govuk-heading-l">
+        {{ animal.earTagNumber  | formatReference }}
+          {% if animal.status === "Active" %}
+                <strong class="govuk-tag govuk-tag--green">
+                  Active
+                </strong>
+                {% elseif animal.status === "Sold" %}
+                <strong class="govuk-tag govuk-tag--blue">
+                  Sold
+                </strong>
+                {% elseif animal.status === "Deceased" %}
+                <strong class="govuk-tag govuk-tag--grey">
+                  Deceased
+                </strong>
+                {% else %}
+                {{ animal.status }}
+                {% endif %}
       </h1>
+        <p>
 
-      <p class="govuk-body-l govuk-!-margin-top-0 govuk-!-margin-bottom-6">
-        <strong>Status:</strong> {{ animal.status }}
-      </p>
+</p>
       <nav class="moj-sub-navigation" aria-label="Sub navigation">
         <ul class="moj-sub-navigation__list">
           <li class="moj-sub-navigation__item">
@@ -67,9 +81,9 @@ href: currentBaseUrl+"cattle"
 
 
           <div class="govuk-grid-row">
-            <div class="govuk-grid-column-three-quarters">
+            <div class="govuk-grid-column-two-thirds">
           <h2 class="govuk-heading-m">
-            Animal details
+            Cattle details
           </h2>
 
           <dl class="govuk-summary-list govuk-!-margin-bottom-8">
@@ -90,32 +104,13 @@ href: currentBaseUrl+"cattle"
                 {{ animal.dateOfBirth | fullDateFormat }}
               </dd>
             </div>
-
-            {% if animal.status === "Deceased" and animal.dateOfDeath %}
-            <div class="govuk-summary-list__row">
+             <div class="govuk-summary-list__row">
               <dt class="govuk-summary-list__key">
-                Date of death
+                Age
               </dt>
               <dd class="govuk-summary-list__value">
-                {{ animal.dateOfDeath | fullDateFormat }}
-              </dd>
-            </div>
-            {% endif %}
+                {{ animal.dateOfBirth | animalAge }}
 
-            <div class="govuk-summary-list__row">
-              <dt class="govuk-summary-list__key">
-                {% if animal.status === "Deceased" %}
-                  Age at death
-                {% else %}
-                  Age
-                {% endif %}
-              </dt>
-              <dd class="govuk-summary-list__value">
-                {% if animal.status === "Deceased" and animal.dateOfDeath %}
-                  {{ animal.dateOfBirth | animalAge(animal.dateOfDeath) }}
-                {% else %}
-                  {{ animal.dateOfBirth | animalAge }}
-                {% endif %}
               </dd>
             </div>
             <div class="govuk-summary-list__row">
@@ -148,6 +143,29 @@ href: currentBaseUrl+"cattle"
                  {{ animal.dateOfRegistration | fullDateFormat}}
 
 
+              </dd>
+            </div>
+
+            <div class="govuk-summary-list__row">
+              <dt class="govuk-summary-list__key">
+                Status
+              </dt>
+              <dd class="govuk-summary-list__value">
+                {% if animal.status === "Active" %}
+                <strong class="govuk-tag govuk-tag--green">
+                  Active
+                </strong>
+                {% elseif animal.status === "Sold" %}
+                <strong class="govuk-tag govuk-tag--blue">
+                  Sold
+                </strong>
+                {% elseif animal.status === "Deceased" %}
+                <strong class="govuk-tag govuk-tag--grey">
+                  Deceased
+                </strong>
+                {% else %}
+                {{ animal.status }}
+                {% endif %}
               </dd>
             </div>
 

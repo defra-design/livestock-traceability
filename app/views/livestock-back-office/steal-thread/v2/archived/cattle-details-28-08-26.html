@@ -36,40 +36,33 @@ href: currentBaseUrl+"cattle"
             Registered cattle
           </span>
 
-      <h1 class="govuk-heading-l govuk-!-margin-bottom-2">
-        {{ animal.earTagNumber | formatReference }}
+      <h1 class="govuk-heading-l">
+        {{ animal.earTagNumber  | formatReference }}
       </h1>
 
-      <p class="govuk-body-l govuk-!-margin-top-0 govuk-!-margin-bottom-6">
-        <strong>Status:</strong> {{ animal.status }}
-      </p>
-      <nav class="moj-sub-navigation" aria-label="Sub navigation">
-        <ul class="moj-sub-navigation__list">
-          <li class="moj-sub-navigation__item">
-            <a
-              class="moj-sub-navigation__link"
-              aria-current="page"
-              href="{{ currentBaseUrl }}{{ animal.earTagNumber }}"
-            >
-              Animal details
+      <div class="govuk-tabs" data-module="govuk-tabs">
+        <h2 class="govuk-tabs__title">
+          Contents
+        </h2>
+
+        <ul class="govuk-tabs__list">
+          <li class="govuk-tabs__list-item govuk-tabs__list-item--selected">
+            <a class="govuk-tabs__tab" href="#details">
+              Details
             </a>
           </li>
-          <li class="moj-sub-navigation__item">
-            <a
-              class="moj-sub-navigation__link"
-              href="{{ currentBaseUrl }}{{ animal.earTagNumber }}/cattle-history"
-            >
+<li class="govuk-tabs__list-item">
+            <a class="govuk-tabs__tab" href="#history">
               History
             </a>
           </li>
         </ul>
-      </nav>
 
-
+        <div class="govuk-tabs__panel" id="details">
           <div class="govuk-grid-row">
-            <div class="govuk-grid-column-three-quarters">
+            <div class="govuk-grid-column-two-thirds">
           <h2 class="govuk-heading-m">
-            Animal details
+            Cattle details
           </h2>
 
           <dl class="govuk-summary-list govuk-!-margin-bottom-8">
@@ -90,32 +83,13 @@ href: currentBaseUrl+"cattle"
                 {{ animal.dateOfBirth | fullDateFormat }}
               </dd>
             </div>
-
-            {% if animal.status === "Deceased" and animal.dateOfDeath %}
-            <div class="govuk-summary-list__row">
+             <div class="govuk-summary-list__row">
               <dt class="govuk-summary-list__key">
-                Date of death
+                Age
               </dt>
               <dd class="govuk-summary-list__value">
-                {{ animal.dateOfDeath | fullDateFormat }}
-              </dd>
-            </div>
-            {% endif %}
+                {{ animal.dateOfBirth | animalAge }}
 
-            <div class="govuk-summary-list__row">
-              <dt class="govuk-summary-list__key">
-                {% if animal.status === "Deceased" %}
-                  Age at death
-                {% else %}
-                  Age
-                {% endif %}
-              </dt>
-              <dd class="govuk-summary-list__value">
-                {% if animal.status === "Deceased" and animal.dateOfDeath %}
-                  {{ animal.dateOfBirth | animalAge(animal.dateOfDeath) }}
-                {% else %}
-                  {{ animal.dateOfBirth | animalAge }}
-                {% endif %}
               </dd>
             </div>
             <div class="govuk-summary-list__row">
@@ -148,6 +122,29 @@ href: currentBaseUrl+"cattle"
                  {{ animal.dateOfRegistration | fullDateFormat}}
 
 
+              </dd>
+            </div>
+
+            <div class="govuk-summary-list__row">
+              <dt class="govuk-summary-list__key">
+                Status
+              </dt>
+              <dd class="govuk-summary-list__value">
+                {% if animal.status === "Active" %}
+                <strong class="govuk-tag govuk-tag--green">
+                  Active
+                </strong>
+                {% elseif animal.status === "Sold" %}
+                <strong class="govuk-tag govuk-tag--blue">
+                  Sold
+                </strong>
+                {% elseif animal.status === "Deceased" %}
+                <strong class="govuk-tag govuk-tag--grey">
+                  Deceased
+                </strong>
+                {% else %}
+                {{ animal.status }}
+                {% endif %}
               </dd>
             </div>
 
@@ -204,7 +201,7 @@ href: currentBaseUrl+"cattle"
           </dl>
 
           <h2 class="govuk-heading-m">
-            {{ locationHeading }}
+            Current location
           </h2>
 
           <dl class="govuk-summary-list govuk-!-margin-bottom-8">
@@ -396,8 +393,215 @@ href: currentBaseUrl+"cattle"
           {% endif %}
             </div>
           </div>
+        </div>
 
+        <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="history">
+          <h2 class="govuk-heading-m">
+            Animal history
+          </h2>
+
+          {% if animalEvents.length %}
+          <ol class="app-timeline">
+            {% for event in animalEvents %}
+            <li class="app-timeline__item">
+              <time class="app-timeline__datetime" datetime="{{ event.event_date }}">
+                {{ event.event_date | fullDateFormat}}
+              </time>
+
+              <h3 class="app-timeline__heading">
+                {% if event.event_type === "birth" %}
+                Birth reported
+                {% elseif event.event_type === "movement" %}
+                Movement reported
+                {% elseif event.event_type === "death" %}
+                Death recorded
+                {% else %}
+                {{ event.event_type | capitalize }}
+                {% endif %}
+              </h3>
+
+              <p class="app-timeline__byline">
+                Reported by {{ event.reported_by }}
+              </p>
+
+              <div class="app-timeline__content">
+                {% if event.event_type === "birth" %}
+                <p class="app-timeline__description">
+                  Animal born at holding
+                  {% if event.holdings.location.id %}
+                  <a
+                          class="govuk-link"
+                          href="../holdings/{{ event.holdings.location.id }}"
+                  >
+                    {{ event.details.holding_cph }}
+                  </a>.
+                  {% else %}
+                  <a
+                          class="govuk-link"
+                          href="../holdings?search={{ event.details.holding_cph | urlencode }}"
+                  >
+                    {{ event.details.holding_cph }}
+                  </a>.
+                  {% endif %}
+                </p>
+
+                <ul class="app-timeline__meta">
+                  {% if event.details.dam_id %}
+                  <li class="app-timeline__meta-item">
+                    Genetic dam:
+                    <a
+                            class="govuk-link"
+                            href="../cattle/{{ event.details.dam_id }}"
+                    >
+                      {{ event.details.dam_id | formatReference }}
+                    </a>
+                  </li>
+                  {% endif %}
+
+                  {% if event.details.surrogate_dam_id %}
+                  <li class="app-timeline__meta-item">
+                    Surrogate dam:
+                    <a
+                            class="govuk-link"
+                            href="../cattle/{{ event.details.surrogate_dam_id }}"
+                    >
+                      {{ event.details.surrogate_dam_id | formatReference }}
+                    </a>
+                  </li>
+                  {% endif %}
+
+                  {% if event.details.sire_id %}
+                  <li class="app-timeline__meta-item">
+                    Sire:
+                    <a
+                            class="govuk-link"
+                            href="../cattle/{{ event.details.sire_id }}"
+                    >
+                      {{ event.details.sire_id | formatReference }}
+                    </a>
+                  </li>
+                  {% endif %}
+
+                  {% if event.details.registration %}
+                  <li class="app-timeline__meta-item">
+                    Registration status: {{ event.details.registration.status }}
+                  </li>
+
+                  <li class="app-timeline__meta-item">
+                    Registered date: {{ event.details.registration.registered_date }}
+                  </li>
+
+                  <li class="app-timeline__meta-item">
+                    DEFRA reference: {{ event.details.registration.defra_reference }}
+                  </li>
+                  {% endif %}
+                </ul>
+                {% endif %}
+
+                {% if event.event_type === "movement" %}
+                <p class="app-timeline__description">
+                  Moved from
+                  {% if event.holdings.from.id %}
+                  <a
+                          class="govuk-link"
+                          href="{{ currentBaseUrl }}holdings/{{ event.holdings.from.id }}"
+                  >
+                    {{ event.details.from_cph }}
+                  </a>
+                  {% else %}
+                  <a
+                          class="govuk-link"
+                          href="{{ currentBaseUrl }}holdings?search={{ event.details.from_cph | urlencode }}"
+                  >
+                    {{ event.details.from_cph }}
+                  </a>
+                  {% endif %}
+                  to
+                  {% if event.holdings.to.id %}
+                  <a
+                          class="govuk-link"
+                          href="{{ currentBaseUrl }}holdings/{{ event.holdings.to.id }}"
+                  >
+                    {{ event.details.to_cph }}
+                  </a>.
+                  {% else %}
+                  <a
+                          class="govuk-link"
+                          href="{{ currentBaseUrl }}holdings?search={{ event.details.to_cph | urlencode }}"
+                  >
+                    {{ event.details.to_cph }}
+                  </a>.
+                  {% endif %}
+                </p>
+
+                <ul class="app-timeline__meta">
+                  {% if event.details.reason %}
+                  <li class="app-timeline__meta-item">
+                    Reason: {{ event.details.reason }}
+                  </li>
+                  {% endif %}
+
+                  {% if event.details.to_holding_type %}
+                  <li class="app-timeline__meta-item">
+                    Destination type: {{ event.details.to_holding_type }}
+                  </li>
+                  {% endif %}
+                </ul>
+                {% endif %}
+
+                {% if event.event_type === "death" %}
+                <p class="app-timeline__description">
+                  Death recorded at holding
+                  {% if event.holdings.location.id %}
+                  <a
+                          class="govuk-link"
+                          href="{{ currentBaseUrl }}holdings/{{ event.holdings.location.id }}"
+                  >
+                    {{ event.details.holding_cph }}
+                  </a>.
+                  {% else %}
+                  <a
+                          class="govuk-link"
+                          href="{{ currentBaseUrl }}holdings?search={{ event.details.holding_cph | urlencode }}"
+                  >
+                    {{ event.details.holding_cph }}
+                  </a>.
+                  {% endif %}
+                </p>
+
+                <ul class="app-timeline__meta">
+                  {% if event.details.cause %}
+                  <li class="app-timeline__meta-item">
+                    Cause: {{ event.details.cause }}
+                  </li>
+                  {% endif %}
+
+                  {% if event.details.linked_movement_id %}
+                  <li class="app-timeline__meta-item">
+                    Linked movement: {{ event.details.linked_movement_id }}
+                  </li>
+                  {% endif %}
+
+                  {% if event.details.disposal_method %}
+                  <li class="app-timeline__meta-item">
+                    Disposal method: {{ event.details.disposal_method }}
+                  </li>
+                  {% endif %}
+                </ul>
+                {% endif %}
+              </div>
+            </li>
+            {% endfor %}
+          </ol>
+          {% else %}
+          <p class="govuk-body">
+            No history events are recorded for this animal.
+          </p>
+          {% endif %}
+        </div>
+      </div>
     </div>
   </div>
+
 
 {% endblock %}

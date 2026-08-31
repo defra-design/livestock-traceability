@@ -1,9 +1,12 @@
 const govukPrototypeKit = require('govuk-prototype-kit');
 const router = govukPrototypeKit.requests.setupRouter();
 
-const baseURL = 'livestock-back-office/steal-thread/v2';
+const baseURL = 'livestock-back-office/exploratory/v2';
 
-
+// permanent redirect from old folder structure
+router.use('/livestock-back-office/v2', (req, res) => {
+  res.redirect(301, `/livestock-back-office/exploratory/v2${req.url}`);
+});
 
 module.exports = router;
 
@@ -51,37 +54,6 @@ function getAnimalByEarTag(req, earTagNumber) {
   });
 }
 
-function getHoldingLocationDetails(req, cph) {
-  const holding = getHoldingByCph(req, cph);
-
-  if (!holding) {
-    return {
-      cph: cph || '',
-      id: null,
-      name: '',
-      address: ''
-    };
-  }
-
-  const address = holding.address || {};
-
-  const addressParts = [
-    address.addressLine1,
-    address.addressLine2,
-    address.town,
-    address.county,
-    address.postcode,
-    address.country
-  ].filter(Boolean);
-
-  return {
-    cph: holding.cph,
-    id: holding.id,
-    name: holding.holdingName || holding.businessName || '',
-    address: addressParts.join(', ')
-  };
-}
-
 function getOffspring(req, animal) {
   const cattleData = getCattleData(req);
 
@@ -98,54 +70,20 @@ function getOffspring(req, animal) {
 function enrichEvent(req, event) {
   const enrichedEvent = {
     ...event,
-    animal: getAnimalByEarTag(req, event.animal_id),
-    holdings: {}
+    animal: getAnimalByEarTag(req, event.animal_id)
   };
 
   if (event.event_type === 'birth') {
-    enrichedEvent.holding = getHoldingByCph(
-      req,
-      event.details?.holding_cph
-    );
-
-    enrichedEvent.holdings.location = getHoldingLocationDetails(
-      req,
-      event.details?.holding_cph
-    );
+    enrichedEvent.holding = getHoldingByCph(req, event.details?.holding_cph);
   }
 
   if (event.event_type === 'movement') {
-    enrichedEvent.fromHolding = getHoldingByCph(
-      req,
-      event.details?.from_cph
-    );
-
-    enrichedEvent.toHolding = getHoldingByCph(
-      req,
-      event.details?.to_cph
-    );
-
-    enrichedEvent.holdings.from = getHoldingLocationDetails(
-      req,
-      event.details?.from_cph
-    );
-
-    enrichedEvent.holdings.to = getHoldingLocationDetails(
-      req,
-      event.details?.to_cph
-    );
+    enrichedEvent.fromHolding = getHoldingByCph(req, event.details?.from_cph);
+    enrichedEvent.toHolding = getHoldingByCph(req, event.details?.to_cph);
   }
 
   if (event.event_type === 'death') {
-    enrichedEvent.holding = getHoldingByCph(
-      req,
-      event.details?.holding_cph
-    );
-
-    enrichedEvent.holdings.location = getHoldingLocationDetails(
-      req,
-      event.details?.holding_cph
-    );
+    enrichedEvent.holding = getHoldingByCph(req, event.details?.holding_cph);
   }
 
   return enrichedEvent;
@@ -196,46 +134,6 @@ function getCurrentLocation(req, animal, animalEvents) {
   return {
     cph: currentCph,
     holding: getHoldingByCph(req, currentCph)
-  };
-}
-
-function getAnimalLocations(req, animal, animalEvents) {
-  const birthEvent = animalEvents.find((event) => {
-    return (
-      event.event_type === 'birth'
-      && event.details?.holding_cph
-    );
-  });
-
-  const birthCph = birthEvent?.details?.holding_cph || animal.cph;
-
-  const latestLocationEvent = [...animalEvents]
-    .reverse()
-    .find((event) => {
-      return getEventLocationCph(event);
-    });
-
-  const currentCph = latestLocationEvent
-    ? getEventLocationCph(latestLocationEvent)
-    : animal.cph;
-
-  const latestMovementToCurrent = [...animalEvents]
-    .reverse()
-    .find((event) => {
-      return (
-        event.event_type === 'movement'
-        && event.details?.to_cph === currentCph
-      );
-    });
-
-  return {
-    current: {
-      ...getHoldingLocationDetails(req, currentCph),
-      movementDate: latestMovementToCurrent
-        ? latestMovementToCurrent.event_date
-        : null
-    },
-    birth: getHoldingLocationDetails(req, birthCph)
   };
 }
 
@@ -687,44 +585,34 @@ function registerEventsExportRoute() {
 /**
  * Cattle search
  */
-function getHoldingForAnimal(req, animal) {
-  const holdingsData = getHoldingsData(req);
 
-  return holdingsData.holdings.find((holding) => {
-    return normalise(holding.cph) === normalise(animal.cph);
-  });
-}
 function getFilteredCattle(req) {
   const search = String(req.query.search || '').trim();
   const cattleData = getCattleData(req);
-  const searchTerm = normalise(search);
 
-  const cattle = cattleData.animals
-    .map((animal) => {
-      const holding = getHoldingForAnimal(req, animal);
+  const cattle = cattleData.animals.filter((animal) => {
+    if (!search) return true;
 
-      return {
-        ...animal,
-        holding
-      };
-    })
-    .filter((animal) => {
-      if (!search) return true;
+    const searchableValues = [
+      animal.cph,
+      animal.earTagNumber,
+      animal.dateOfBirth,
+      animal.dateOfRegistration,
+      animal.sex,
+      animal.breed?.name,
+      animal.breed?.code,
+      animal.status,
+      animal.dam?.type,
+      animal.dam?.geneticDam?.earTagNumber,
+      animal.dam?.surrogateDam?.earTagNumber,
+      animal.sire?.earTagNumber,
+      animal.sire?.name
+    ];
 
-      const earTagMatches = normalise(
-        animal.earTagNumber
-      ).includes(searchTerm);
-
-      const cphMatches = normalise(
-        animal.cph
-      ) === searchTerm;
-      // just so I can see all
-       const statusMatches = normalise(
-          animal.status
-       ) === searchTerm;
-
-      return earTagMatches || cphMatches || statusMatches;
+    return searchableValues.some((value) => {
+      return normalise(value).includes(normalise(search));
     });
+  });
 
   return {
     cattle,
@@ -759,37 +647,12 @@ function getCattleDetails(req, earTagNumber) {
   const offspring = getOffspring(req, animal);
   const animalEvents = getAnimalEvents(req, animal);
   const currentLocation = getCurrentLocation(req, animal, animalEvents);
-  const animalLocations = getAnimalLocations(
-    req,
-    animal,
-    animalEvents
-  );
-
-  const hasRecordedDeathLocation = animalEvents.some((event) => {
-    return (
-      event.event_type === 'death'
-      && event.details?.holding_cph
-    );
-  });
-
-  let locationHeading = 'Last known location';
-
-  if (animal.status === 'Alive') {
-    locationHeading = 'Current location';
-  } else if (
-    animal.status === 'Deceased'
-    && hasRecordedDeathLocation
-  ) {
-    locationHeading = 'Location at death';
-  }
 
   return {
     animal,
     offspring,
     animalEvents,
-    currentLocation,
-    animalLocations,
-    locationHeading
+    currentLocation
   };
 }
 
@@ -808,35 +671,9 @@ function registerCattleDetailsRoute(urlPath, viewPath) {
       offspring: cattleDetails.offspring,
       animalEvents: cattleDetails.animalEvents,
       currentLocation: cattleDetails.currentLocation,
-      animalLocations: cattleDetails.animalLocations,
-      locationHeading: cattleDetails.locationHeading,
       baseURL
     });
   });
-}
-
-function registerCattleHistoryRoute(urlPath, viewPath) {
-  router.get(
-    '/' + baseURL + '/' + urlPath + '/:earTagNumber/cattle-history',
-    (req, res) => {
-      const cattleDetails = getCattleDetails(
-        req,
-        req.params.earTagNumber
-      );
-
-      if (!cattleDetails) {
-        return res.status(404).render(baseURL + '/404', {
-          pageTitle: 'Cattle record not found'
-        });
-      }
-
-      return res.render(baseURL + '/' + viewPath, {
-        animal: cattleDetails.animal,
-        animalEvents: cattleDetails.animalEvents,
-        baseURL
-      });
-    }
-  );
 }
 
 
@@ -943,125 +780,6 @@ function registerUsersRoute(urlPath, viewPath) {
 
 
 /**
- * Global search
- */
-function getGlobalSearchResults(req) {
-  const search = String(req.query.search || '').trim();
-  const searchTerm = normalise(search);
-  const previewLimit = 5;
-
-  if (!search) {
-    return {
-      search,
-      animals: [],
-      holdings: [],
-      keepers: [],
-      animalCount: 0,
-      holdingCount: 0,
-      keeperCount: 0,
-      totalResults: 0,
-      previewLimit
-    };
-  }
-
-  const cattleData = getCattleData(req);
-  const holdingsData = getHoldingsData(req);
-  const usersData = getUsersData(req);
-
-  const animalResults = cattleData.animals
-    .map((animal) => {
-      return {
-        ...animal,
-        holding: getHoldingForAnimal(req, animal)
-      };
-    })
-    .filter((animal) => {
-      const earTagMatches = normalise(
-        animal.earTagNumber
-      ).includes(searchTerm);
-
-      const cphMatches = normalise(
-        animal.cph
-      ) === searchTerm;
-
-      return earTagMatches || cphMatches;
-    });
-
-  const holdingResults = holdingsData.holdings.filter((holding) => {
-    const herdAndFlockMarks = (holding.herdAndFlockMarks || []).map((item) => {
-      return item.mark;
-    });
-
-    const searchableValues = [
-      holding.cph,
-      holding.holdingName,
-      holding.businessName,
-      holding.address?.town,
-      holding.address?.county,
-      holding.address?.postcode,
-      ...herdAndFlockMarks
-    ];
-
-    return searchableValues.some((value) => {
-      return normalise(value).includes(searchTerm);
-    });
-  });
-
-  const keeperResults = usersData.users.filter((user) => {
-    const searchableValues = [
-      user.name,
-      user.firstName,
-      user.lastName,
-      user.email,
-      user.phone,
-      user.address?.postcode,
-      user.postcode
-    ];
-
-    return searchableValues.some((value) => {
-      return normalise(value).includes(searchTerm);
-    });
-  });
-
-  return {
-    search,
-    animals: animalResults.slice(0, previewLimit),
-    holdings: holdingResults.slice(0, previewLimit),
-    keepers: keeperResults.slice(0, previewLimit),
-    animalCount: animalResults.length,
-    holdingCount: holdingResults.length,
-    keeperCount: keeperResults.length,
-    totalResults: (
-      animalResults.length
-      + holdingResults.length
-      + keeperResults.length
-    ),
-    previewLimit
-  };
-}
-
-function registerGlobalSearchRoute() {
-  router.get('/' + baseURL + '/search', (req, res) => {
-    const results = getGlobalSearchResults(req);
-
-    return res.render(baseURL + '/global-search', {
-      search: results.search,
-      animals: results.animals,
-      holdings: results.holdings,
-      keepers: results.keepers,
-      animalCount: results.animalCount,
-      holdingCount: results.holdingCount,
-      keeperCount: results.keeperCount,
-      totalResults: results.totalResults,
-      previewLimit: results.previewLimit,
-      encodedSearch: encodeURIComponent(results.search),
-      baseURL
-    });
-  });
-}
-
-
-/**
  * Register list/search routes first
  */
 
@@ -1079,7 +797,6 @@ registerHoldingsRoute('holdings', 'holdings');
 registerHoldingsRoute('holding-search', 'holding-search');
 
 registerUsersRoute('users', 'users');
-registerGlobalSearchRoute();
 
 
 /**
@@ -1127,8 +844,6 @@ router.get('/' + baseURL + '/events/:id', (req, res) => {
  */
 
 registerCattleDetailsRoute('cattle', 'cattle-details');
-registerCattleHistoryRoute('cattle', 'cattle-history');
-
 registerCattleDetailsRoute('holdings/cattle', 'holding-cattle-details');
 
 
@@ -1217,63 +932,3 @@ router.get('/' + baseURL + '/users/:id', (req, res) => {
     baseURL
   });
 });
-
-
-/**
- * Keeper holdings
- */
-router.get('/' + baseURL + '/users/:id/holdings', (req, res) => {
-  const usersData = getUsersData(req);
-  const holdingsData = getHoldingsData(req);
-
-  const user = usersData.users.find((user) => {
-    return user.id === req.params.id;
-  });
-
-  if (!user) {
-    return res.status(404).render(baseURL + '/404', {
-      pageName: 'User not found'
-    });
-  }
-
-  const userHoldings = (user.holdings || []).map((membership) => {
-    const holding = holdingsData.holdings.find((holding) => {
-      return holding.id === membership.holdingId;
-    });
-
-    return {
-      ...membership,
-      holding
-    };
-  });
-
-  return res.render(baseURL + '/user-holdings', {
-    user,
-    userHoldings,
-    baseURL
-  });
-});
-
-
-/**
- * Keeper activity
- */
-router.get('/' + baseURL + '/users/:id/activity', (req, res) => {
-  const usersData = getUsersData(req);
-
-  const user = usersData.users.find((user) => {
-    return user.id === req.params.id;
-  });
-
-  if (!user) {
-    return res.status(404).render(baseURL + '/404', {
-      pageName: 'User not found'
-    });
-  }
-
-  return res.render(baseURL + '/user-activity', {
-    user,
-    baseURL
-  });
-});
-

@@ -6,12 +6,19 @@
       "cph": "91/214/0410",
       "earTagNumber": "UK864202917556",
       "dateOfBirth": "17-05-2023",
+      "dateOfDeath": "13-10-2025",
       "sex": "Female",
       "breed": {
         "name": "Shorthorn",
         "code": "SHO"
       },
       "status": "Deceased",
+      "administrativeStatus": {
+        "passportStatus": "Passport issued",
+        "movementStatus": "Unrestricted",
+        "passportLastIssued": "17-05-2023",
+        "passportVersion": 1
+      },
       "dam": {
         "type": "Generic",
         "surrogateDam": null,
@@ -31,7 +38,13 @@
         "name": "Hereford",
         "code": "HER"
       },
-      "status": "Active",
+      "status": "Lost",
+      "administrativeStatus": {
+        "passportStatus": "Passport issued",
+        "movementStatus": "Unrestricted",
+        "passportLastIssued": "15-05-2024",
+        "passportVersion": 1
+      },
       "dam": {
         "type": "Surrogate",
         "surrogateDam": {
@@ -53,7 +66,13 @@
         "name": "British Blue",
         "code": "BRB"
       },
-      "status": "Active",
+      "status": "Stolen",
+      "administrativeStatus": {
+        "passportStatus": "Passport issued",
+        "movementStatus": "Unrestricted",
+        "passportLastIssued": "25-02-2025",
+        "passportVersion": 1
+      },
       "dam": {
         "type": "Generic",
         "surrogateDam": {
@@ -78,7 +97,13 @@
         "name": "Belgian Blue",
         "code": "BB"
       },
-      "status": "Active",
+      "status": "Alive",
+      "administrativeStatus": {
+        "passportStatus": "Passport issued",
+        "movementStatus": "Unrestricted",
+        "passportLastIssued": "07-04-2026",
+        "passportVersion": 1
+      },
       "dam": {
         "type": "Generic",
         "surrogateDam": null,
@@ -98,7 +123,13 @@
         "name": "Charolais",
         "code": "CHA"
       },
-      "status": "Active",
+      "status": "Alive",
+      "administrativeStatus": {
+        "passportStatus": "Passport issued",
+        "movementStatus": "Unrestricted",
+        "passportLastIssued": "25-01-2024",
+        "passportVersion": 3
+      },
       "dam": {
         "type": "Surrogate",
         "surrogateDam": {
@@ -123,7 +154,13 @@
         "name": "Welsh Black",
         "code": "WB"
       },
-      "status": "Active",
+      "status": "Alive",
+      "administrativeStatus": {
+        "passportStatus": "Passport issued",
+        "movementStatus": "Unrestricted",
+        "passportLastIssued": "06-04-2022",
+        "passportVersion": 1
+      },
       "dam": {
         "type": "Generic",
         "surrogateDam": null,
@@ -138,12 +175,19 @@
       "cph": "20/665/4804",
       "earTagNumber": "UK946914377354",
       "dateOfBirth": "20-06-2025",
+      "dateOfDeath": "02-09-2025",
       "sex": "Female",
       "breed": {
         "name": "Highland",
         "code": "HIG"
       },
       "status": "Deceased",
+      "administrativeStatus": {
+        "passportStatus": "Passport issued",
+        "movementStatus": "Unrestricted",
+        "passportLastIssued": "30-06-2025",
+        "passportVersion": 1
+      },
       "dam": {
         "type": "Generic",
         "surrogateDam": null,
@@ -163,7 +207,13 @@
         "name": "Shorthorn",
         "code": "SHO"
       },
-      "status": "Active",
+      "status": "Alive",
+      "administrativeStatus": {
+        "passportStatus": "Passport refused",
+        "movementStatus": "Restricted",
+        "passportLastIssued": null,
+        "passportVersion": null
+      },
       "dam": {
         "type": "Generic",
         "surrogateDam": null,
@@ -183,7 +233,13 @@
         "name": "British Blue",
         "code": "BRB"
       },
-      "status": "Deceased",
+      "status": "Alive",
+      "administrativeStatus": {
+        "passportStatus": "Passport issued",
+        "movementStatus": "Unrestricted",
+        "passportLastIssued": "19-01-2024",
+        "passportVersion": 1
+      },
       "dam": {
         "type": "Generic",
         "surrogateDam": null,
@@ -203,7 +259,13 @@
         "name": "Lincoln Red",
         "code": "LR"
       },
-      "status": "Active",
+      "status": "Alive",
+      "administrativeStatus": {
+        "passportStatus": "Passport issued",
+        "movementStatus": "Restricted",
+        "passportLastIssued": "09-07-2023",
+        "passportVersion": 2
+      },
       "dam": {
         "type": "Surrogate",
         "surrogateDam": {
@@ -225,7 +287,13 @@
         "name": "Shorthorn",
         "code": "SHO"
       },
-      "status": "Active",
+      "status": "Alive",
+      "administrativeStatus": {
+        "passportStatus": "Passport issued",
+        "movementStatus": "Unrestricted",
+        "passportLastIssued": "14-02-2025",
+        "passportVersion": 1
+      },
       "dam": {
         "type": "Generic",
         "surrogateDam": null,
@@ -245,7 +313,13 @@
         "name": "Beef Shorthorn",
         "code": "BSH"
       },
-      "status": "Active",
+      "status": "Alive",
+      "administrativeStatus": {
+        "passportStatus": "Passport issued",
+        "movementStatus": "Unrestricted",
+        "passportLastIssued": "02-04-2024",
+        "passportVersion": 1
+      },
       "dam": {
         "type": "Generic",
         "surrogateDam": null,
@@ -265,7 +339,13 @@
         "name": "Galloway",
         "code": "GAL"
       },
-      "status": "Active",
+      "status": "Alive",
+      "administrativeStatus": {
+        "passportStatus": "Passport issued",
+        "movementStatus": "Unrestricted",
+        "passportLastIssued": "18-02-2025",
+        "passportVersion": 2
+      },
       "dam": {
         "type": "Surrogate",
         "surrogateDam": {
@@ -287,7 +367,13 @@
         "name": "Beef Shorthorn",
         "code": "BSH"
       },
-      "status": "Sold",
+      "status": "Alive",
+      "administrativeStatus": {
+        "passportStatus": "Passport issued",
+        "movementStatus": "Unrestricted",
+        "passportLastIssued": "11-01-2025",
+        "passportVersion": 1
+      },
       "dam": {
         "type": "Generic",
         "surrogateDam": null,
@@ -307,7 +393,13 @@
         "name": "Charolais",
         "code": "CHA"
       },
-      "status": "Active",
+      "status": "Alive",
+      "administrativeStatus": {
+        "passportStatus": "Passport issued",
+        "movementStatus": "Unrestricted",
+        "passportLastIssued": "12-10-2024",
+        "passportVersion": 1
+      },
       "dam": {
         "type": "Generic",
         "surrogateDam": null,
@@ -327,7 +419,13 @@
         "name": "Piedmontese",
         "code": "PIE"
       },
-      "status": "Active",
+      "status": "Alive",
+      "administrativeStatus": {
+        "passportStatus": "Passport issued",
+        "movementStatus": "Unrestricted",
+        "passportLastIssued": "21-05-2024",
+        "passportVersion": 1
+      },
       "dam": {
         "type": "Generic",
         "surrogateDam": null,
@@ -350,7 +448,13 @@
         "name": "Aberdeen Angus",
         "code": "AA"
       },
-      "status": "Deceased",
+      "status": "Alive",
+      "administrativeStatus": {
+        "passportStatus": "Passport issued",
+        "movementStatus": "Unrestricted",
+        "passportLastIssued": "17-02-2025",
+        "passportVersion": 1
+      },
       "dam": {
         "type": "Generic",
         "surrogateDam": null,
@@ -370,7 +474,13 @@
         "name": "Limousin",
         "code": "LIM"
       },
-      "status": "Active",
+      "status": "Alive",
+      "administrativeStatus": {
+        "passportStatus": "Passport issued",
+        "movementStatus": "Restricted",
+        "passportLastIssued": "11-12-2024",
+        "passportVersion": 2
+      },
       "dam": {
         "type": "Surrogate",
         "surrogateDam": {
@@ -392,7 +502,13 @@
         "name": "Blonde d'Aquitaine",
         "code": "BDA"
       },
-      "status": "Sold",
+      "status": "Alive",
+      "administrativeStatus": {
+        "passportStatus": "Passport issued",
+        "movementStatus": "Unrestricted",
+        "passportLastIssued": "15-07-2023",
+        "passportVersion": 1
+      },
       "dam": {
         "type": "Generic",
         "surrogateDam": null,
@@ -415,7 +531,13 @@
         "name": "Piedmontese",
         "code": "PIE"
       },
-      "status": "Active",
+      "status": "Alive",
+      "administrativeStatus": {
+        "passportStatus": "Passport issued",
+        "movementStatus": "Unrestricted",
+        "passportLastIssued": "29-11-2024",
+        "passportVersion": 1
+      },
       "dam": {
         "type": "Generic",
         "surrogateDam": null,
