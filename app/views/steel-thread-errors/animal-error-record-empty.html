@@ -1,0 +1,68 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Animal Error Record" %}
+{% set sideNavActive = "animal-error-record" %}
+
+{% block header %}
+  {% include "report-and-view-alpha/v1/partials/header.html" %}
+  {% include "report-and-view-alpha/v1/partials/phase-banner.html" %}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+
+    <span class="govuk-caption-l">{{ holding.holdingName if holding.holdingName else holding.cph }}</span>
+    <h1 class="govuk-heading-l">
+      Animal error record
+    </h1>
+
+    <nav class="moj-sub-navigation" aria-label="Sub navigation">
+      <ul class="moj-sub-navigation__list">
+        <li class="moj-sub-navigation__item">
+          <a class="moj-sub-navigation__link" href="/report-and-view-alpha/v1/my-holdings/holding-details">Holding details</a>
+        </li>
+        <li class="moj-sub-navigation__item">
+          <a class="moj-sub-navigation__link" href="/report-and-view-alpha/v1/my-holdings/animals-on-holding">
+            Animals on holding
+          </a>
+        </li>
+        <li class="moj-sub-navigation__item">
+          <a class="moj-sub-navigation__link" aria-current="page" href="/report-and-view-alpha/v1/my-holdings/animal-error-record">
+            Animal error record
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+     <!--     <div class="govuk-inset-text">
+
+            <h2 class="govuk-heading-m">
+              How to fix animal error records
+            </h2>
+
+            <p class="govuk-body">
+              Contact BCMS to fix errors related to animals on your holding.
+            </p>
+
+            <ul class="govuk-list">
+              <li>BCMS phone: 0345 050 1234</li>
+              <li>Helpline for cattle keepers in Wales: 0345 050 3456</li>
+              <li>Monday to Friday, 8:30am to 5pm</li>
+            </ul>
+            <p class="govuk-body">
+              <a href="https://www.gov.uk/call-charges" target="_blank">Find out about call charges</a>
+            </p>
+          </div>
+-->
+
+    <p class="govuk-body">
+      There are no animal error records on your holding.
+    </p>
+
+  </div>
+</div>
+
+
+{% endblock %}
