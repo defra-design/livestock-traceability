@@ -129,14 +129,15 @@ href: "home"
                   CPH
               </th>
               <th scope="col" class="govuk-table__header">
-                  Holding name
+                  Type
               </th>
+<!--              <th scope="col" class="govuk-table__header">-->
+<!--                  Holding name-->
+<!--              </th>-->
               <th scope="col" class="govuk-table__header">
                   Location
               </th>
-              <th scope="col" class="govuk-table__header">
-                  Type
-              </th>
+
           </tr>
           </thead>
 
@@ -151,19 +152,7 @@ href: "home"
                       {{ holding.cph }}
                   </a>
               </th>
-
-              <td class="govuk-table__cell">
-                  {{ holding.holdingName }}
-              </td>
-
-              <td class="govuk-table__cell">
-                  {{ holding.address.town }}, {{ holding.address.county }},  {{ holding.address.postcode }}
-
-              </td>
-
-
-
-             <td class="govuk-table__cell">
+                             <td class="govuk-table__cell">
   <abbr title="{{ holding.holdingType }}">
     {{ holding.holdingTypeCode }}
   </abbr>
@@ -171,6 +160,16 @@ href: "home"
     , {{ holding.holdingType }}
   </span>
 </td>
+
+
+              <td class="govuk-table__cell">
+                  {{ holding.holdingName }}, {{ holding.address.town }}, {{ holding.address.county }},  {{ holding.address.postcode }}
+
+              </td>
+
+
+
+
           </tr>
           {% endfor %}
           </tbody>

@@ -1040,11 +1040,11 @@ function getGlobalSearchResults(req) {
   };
 }
 
-function registerGlobalSearchRoute() {
-  router.get('/' + baseURL + '/search', (req, res) => {
+function registerGlobalSearchRoute(urlPath, viewPath) {
+  router.get('/' + baseURL + '/' + urlPath, (req, res) => {
     const results = getGlobalSearchResults(req);
 
-    return res.render(baseURL + '/global-search', {
+    return res.render(baseURL + '/' + viewPath, {
       search: results.search,
       animals: results.animals,
       holdings: results.holdings,
@@ -1079,7 +1079,7 @@ registerHoldingsRoute('holdings', 'holdings');
 registerHoldingsRoute('holding-search', 'holding-search');
 
 registerUsersRoute('users', 'users');
-registerGlobalSearchRoute();
+registerGlobalSearchRoute('search','global-search');
 
 
 /**
