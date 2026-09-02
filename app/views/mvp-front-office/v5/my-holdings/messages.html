@@ -1,0 +1,96 @@
+{% extends "layouts/main.html" %}
+
+
+{% set pageName="Messages" %}
+{% set activeNavItem = "my-holdings" %}
+{% set sideNavActive = "messages" %}
+
+{% block header %}
+
+  {% include "mvp-front-office/v5/partials/header.html" %}
+
+{% endblock %}
+
+{% block beforeContent %}
+
+<nav class="govuk-breadcrumbs" aria-label="Breadcrumb">
+  <ol class="govuk-breadcrumbs__list">
+    <li class="govuk-breadcrumbs__list-item">
+      <a class="govuk-breadcrumbs__link" href="/mvp-front-office/v5/overview">Home</a>
+    </li>
+    <li class="govuk-breadcrumbs__list-item">
+      <a class="govuk-breadcrumbs__link" href="/mvp-front-office/v5/my-holdings">My holdings</a>
+    </li>
+    <li class="govuk-breadcrumbs__list-item">
+      <a class="govuk-breadcrumbs__link" href="/mvp-front-office/v5/my-holdings/holding-details">
+        {{ holding.holdingName if holding.holdingName else holding.cph }}
+      </a>
+    </li>
+  </ol>
+</nav>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-one-quarter">
+        {% include "mvp-front-office/v5/partials/my-holdings-sidebar.html" %}
+      </div>
+
+      <div class="govuk-grid-column-three-quarters">
+
+        <h1 class="govuk-heading-l govuk-!-margin-bottom-4">
+          Messages
+        </h1>
+
+        <h2 class="govuk-heading-m">Inboxes</h2>
+
+        <dl class="govuk-summary-list">
+
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__value govuk-!-width-two-thirds govuk-!-padding-top-2">
+              <p class="govuk-body">
+                <a class="govuk-link govuk-link--no-visited-state" id="vat-messages" target="_blank" rel="external noopener" href="/communication-messages/messages">
+                  Delegation service messages
+                </a>
+              </p>
+            </dt>
+            <dd class="govuk-summary-list__value govuk-!-width-one-third govuk-!-padding-bottom-4">
+
+              <span class="govuk-body unread-messages-count" aria-describedby="vat-messages" id="count_vat_messages" data-count-status="count_vat_success">
+                You have <strong>1</strong> message
+              </span>
+
+            </dd>
+          </div>
+
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__value govuk-!-width-two-thirds govuk-!-padding-top-4">
+              <p class="govuk-body">
+                <a class="govuk-link govuk-link--no-visited-state" id="mtdvat-messages" href="/business-account/messages/inbox">
+                  Livestock Registration messages
+                </a>
+              </p>
+            </dt>
+            <dd class="govuk-summary-list__value govuk-!-width-one-third govuk-!-padding-bottom-4">
+
+              <span class="govuk-body unread-messages-count" aria-describedby="mtdvat-messages" id="count_mtdvat_messages" data-count-status="count_mtdvat_success">
+                You have <strong>2</strong> messages
+              </span>
+
+            </dd>
+          </div>
+
+        </dl>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}

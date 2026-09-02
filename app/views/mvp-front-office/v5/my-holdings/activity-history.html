@@ -1,0 +1,88 @@
+{% extends "layouts/main.html" %}
+
+
+{% set pageName="Activity history" %}
+{% set activeNavItem = "my-holdings" %}
+{% set sideNavActive = "activity-history" %}
+
+{% block header %}
+
+  {% include "mvp-front-office/v5/partials/header.html" %}
+
+{% endblock %}
+
+{% block beforeContent %}
+
+<nav class="govuk-breadcrumbs" aria-label="Breadcrumb">
+  <ol class="govuk-breadcrumbs__list">
+    <li class="govuk-breadcrumbs__list-item">
+      <a class="govuk-breadcrumbs__link" href="/mvp-front-office/v5/overview">Home</a>
+    </li>
+    <li class="govuk-breadcrumbs__list-item">
+      <a class="govuk-breadcrumbs__link" href="/mvp-front-office/v5/my-holdings">My holdings</a>
+    </li>
+    <li class="govuk-breadcrumbs__list-item">
+      <a class="govuk-breadcrumbs__link" href="/mvp-front-office/v5/my-holdings/holding-details">
+        {{ holding.holdingName if holding.holdingName else holding.cph }}
+      </a>
+    </li>
+  </ol>
+</nav>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-one-quarter">
+        {% include "mvp-front-office/v5/partials/my-holdings-sidebar.html" %}
+      </div>
+
+      <div class="govuk-grid-column-three-quarters">
+
+        <h1 class="govuk-heading-l">
+          Activity history
+        </h1>
+
+    <table class="govuk-table">
+          <thead class="govuk-table__head">
+          <tr class="govuk-table__row">
+            <th scope="col" class="govuk-table__header">Date</th>
+            <th scope="col" class="govuk-table__header">Activity</th>
+            <th scope="col" class="govuk-table__header">Reporter</th>
+          </tr>
+          </thead>
+          <tbody class="govuk-table__body">
+          <tr class="govuk-table__row">
+            <td class="govuk-table__cell">27 Mar 2026</td>
+            <td class="govuk-table__cell">Registered a cattle birth</td>
+            <td class="govuk-table__cell">James Williams</td>
+          </tr>
+          <tr class="govuk-table__row">
+            <td class="govuk-table__cell">20 Mar 2026</td>
+            <td class="govuk-table__cell">Reported a cattle death</td>
+            <td class="govuk-table__cell">Sheila Jones</td>
+          </tr>
+          <tr class="govuk-table__row">
+            <td class="govuk-table__cell">14 Mar 2026</td>
+            <td class="govuk-table__cell">Reported a cattle movement</td>
+            <td class="govuk-table__cell">James Williams</td>
+          </tr>
+          <tr class="govuk-table__row">
+            <td class="govuk-table__cell">10 Mar 2026</td>
+            <td class="govuk-table__cell">Added Sheila Jones as an agent delegate</td>
+            <td class="govuk-table__cell">James Williams</td>
+          </tr>
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}
