@@ -1,0 +1,127 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Home" %}
+
+{% block beforeContent %}
+{% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
+
+{{ govukPhaseBanner({
+tag: {
+text: "Alpha"
+},
+text: "This is a new service. We're still working on ways to improve it."
+}) }}
+{% endblock %}
+
+{% block content %}
+
+
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+
+
+<h1 class="govuk-heading-xl">
+          Livestock Service Prototypes
+      </h1>
+<nav class="moj-sub-navigation" aria-label="Sub navigation">
+  <ul class="moj-sub-navigation__list">
+    <li class="moj-sub-navigation__item">
+      <a class="moj-sub-navigation__link" href="/">Front office</a>
+    </li>
+    <li class="moj-sub-navigation__item">
+      <a class="moj-sub-navigation__link" aria-current="page" href="/back-office">Back office</a>
+    </li>
+    <li class="moj-sub-navigation__item">
+      <a class="moj-sub-navigation__link" href="/archive">Archive</a>
+    </li>
+  </ul>
+</nav>
+    </div>
+  </div>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+<h2 class="govuk-heading-l">Back office prototype</h2>
+<p class="govuk-!-margin-bottom-0">August 2026</p>
+
+<h3 class="govuk-heading-m">
+  <a href="livestock-back-office/steal-thread/v2/" class="govuk-link">
+    Steal thread – version 2
+  </a>
+</h3>
+
+
+
+<p class="govuk-body">
+  Full initial version to find records, designed after initial session at the BCMS office. It is a foundation version that includes:</p>
+    <ul class="govuk-list govuk-list--bullet">
+      <li>animals search and animal details</li>
+      <li>animal history (experimental)</li>
+      <li>holding search and details based on front office</li>
+      <li>keepers search</li>
+    </ul>
+    <p><strong>Awaiting usability test</strong> </p>
+</p>
+
+<hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+
+
+<p class="govuk-!-margin-bottom-0">July 2026</p>
+
+<h2 class="govuk-heading-m govuk-!-margin-bottom-2">
+  <a href="livestock-back-office/steal-thread/v1/" class="govuk-link">
+    Steal thread – version 1
+  </a>
+</h2>
+
+<p class="govuk-body">
+  Basic version. Adding a search around the front office steal thread v1.
+</p>
+    <ul class="govuk-list govuk-list--bullet">
+      <li>holding search (new)</li>
+      <li>Holding details based on front office</li>
+      <li>Animal details</li>
+    </ul>
+<p><strong>Not tested</strong> </p>
+<hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+
+
+<p class="govuk-!-margin-bottom-0">July 2026</p>
+
+<h3 class="govuk-heading-m">
+  <a href="livestock-back-office/exploratory/v2/" class="govuk-link">
+    Exploratory – version 2
+  </a>
+</h3>
+
+<p class="govuk-body">
+  Various exploratory designs mainly around searching, viewing and filtering records. This includes:
+</p>
+    <ul class="govuk-list govuk-list--bullet">
+      <li>Searching records</li>
+      <li>Filters</li>
+      <li>Issues</li>
+      <li>Activity</li>
+    </ul>
+<hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+
+
+<p class="govuk-!-margin-bottom-0">June 2026</p>
+
+<h3 class="govuk-heading-m">
+  <a href="/livestock-back-office/exploratory/v1/" class="govuk-link">
+    Exploratory – version 1
+  </a>
+</h3>
+
+<p class="govuk-body">
+  Initial look at search.
+</p>
+
+<hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+
+  </div>
+</div>
+
+{% endblock %}
