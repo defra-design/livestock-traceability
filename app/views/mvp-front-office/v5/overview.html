@@ -1,0 +1,52 @@
+{% extends "layouts/main.html" %}
+
+
+{% set pageName="Livestock Information Service" %}
+
+{% block header %}
+
+  {% include "mvp-front-office/v5/partials/header.html" %}
+
+{% endblock %}
+
+{% block content %}
+
+  <header id="page-title" class="page-heading">
+
+    <h1 class="govuk-heading-xl govuk-!-margin-bottom-2">
+      Livestock Information Service
+    </h1>
+    <p class="govuk-caption-l" id="sub-heading">View and access your livestock information in one place</p>
+
+  </header>
+
+<hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+
+<ul class="govuk-grid-row card-group">
+  <li class="govuk-grid-column-one-third card-group__item">
+    <div class="card card--clickable" data-test="global-search">
+      <h2 class="govuk-heading-m card__heading">
+        <a class="govuk-link card__link govuk-link--no-visited-state" href="/mvp-front-office/v5/my-holdings">
+          My holdings
+        </a>
+      </h2>
+      <p class="govuk-body card__description">
+        Access the livestock information for your claimed holdings
+      </p>
+    </div>
+  </li>
+  <li class="govuk-grid-column-one-third card-group__item">
+    <div class="card card--clickable" data-test="manage-prisoner-whereabouts">
+      <h2 class="govuk-heading-m card__heading">
+        <a class="govuk-link card__link govuk-link--no-visited-state" href="#">
+          Claim a holding
+        </a>
+      </h2>
+      <p class="govuk-body card__description">
+        Verify your CPH number to claim access to a holding
+      </p>
+    </div>
+  </li>
+</ul>
+
+{% endblock %}

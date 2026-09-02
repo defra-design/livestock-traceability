@@ -1,0 +1,113 @@
+{% extends "layouts/main.html" %}
+
+
+{% set pageName="Submissions" %}
+{% set activeNavItem = "my-holdings" %}
+{% set sideNavActive = "submissions" %}
+
+{% block header %}
+
+  {% include "mvp-front-office/v5/partials/header.html" %}
+
+{% endblock %}
+
+{% block beforeContent %}
+
+<nav class="govuk-breadcrumbs" aria-label="Breadcrumb">
+  <ol class="govuk-breadcrumbs__list">
+    <li class="govuk-breadcrumbs__list-item">
+      <a class="govuk-breadcrumbs__link" href="/mvp-front-office/v5/overview">Home</a>
+    </li>
+    <li class="govuk-breadcrumbs__list-item">
+      <a class="govuk-breadcrumbs__link" href="/mvp-front-office/v5/my-holdings">My holdings</a>
+    </li>
+    <li class="govuk-breadcrumbs__list-item">
+      <a class="govuk-breadcrumbs__link" href="/mvp-front-office/v5/my-holdings/holding-details">
+        {{ holding.holdingName if holding.holdingName else holding.cph }}
+      </a>
+    </li>
+  </ol>
+</nav>
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+
+        <span class="govuk-caption-l">{{ holding.holdingName if holding.holdingName else holding.cph }}</span>
+        <h1 class="govuk-heading-l">
+          Registrations
+        </h1>
+
+        <nav class="moj-sub-navigation" aria-label="Sub navigation">
+          <ul class="moj-sub-navigation__list">
+            <li class="moj-sub-navigation__item">
+              <a class="moj-sub-navigation__link" href="/mvp-front-office/v5/my-holdings/holding-details">Holding details</a>
+            </li>
+            <li class="moj-sub-navigation__item">
+              <a class="moj-sub-navigation__link" href="/mvp-front-office/v5/my-holdings/animals-on-holding">
+                Animals on holding
+              </a>
+            </li>
+            <li class="moj-sub-navigation__item">
+              <a class="moj-sub-navigation__link" aria-current="page" href="/mvp-front-office/v5/my-holdings/submissions">
+                Registrations
+              </a>
+            </li>
+            <li class="moj-sub-navigation__item">
+              <a class="moj-sub-navigation__link" href="/mvp-front-office/v5/my-holdings/animal-error-record">
+                Animal error record
+              </a>
+            </li>
+          </ul>
+        </nav>
+
+
+        <a href="/mvp-front-office/v5/register-animal/calf-details" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+          Register a cattle birth
+        </a>
+
+        <table class="govuk-table">
+          <thead class="govuk-table__head">
+            <tr class="govuk-table__row">
+              <th scope="col" class="govuk-table__header">Reference</th>
+              <th scope="col" class="govuk-table__header">Submission date</th>
+              <th scope="col" class="govuk-table__header">Type</th>
+              <th scope="col" class="govuk-table__header">Total animals</th>
+              <th scope="col" class="govuk-table__header">Error count</th>
+              <th scope="col" class="govuk-table__header">Status</th>
+            </tr>
+          </thead>
+          <tbody class="govuk-table__body">
+            <tr class="govuk-table__row">
+              <td class="govuk-table__cell"><a class="govuk-link" href="/mvp-front-office/v5/register-animal/submission-detail-draft">CB-143466</a></td>
+              <td class="govuk-table__cell">–</td>
+              <td class="govuk-table__cell">Cattle birth registration</td>
+              <td class="govuk-table__cell">2</td>
+              <td class="govuk-table__cell">–</td>
+              <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--blue">Draft</strong></td>
+            </tr>
+            <tr class="govuk-table__row">
+              <td class="govuk-table__cell"><a class="govuk-link" href="/mvp-front-office/v5/register-animal/submission-detail-pending">CB-143887</a></td>
+              <td class="govuk-table__cell">5 May 2026</td>
+              <td class="govuk-table__cell">Cattle birth registration</td>
+              <td class="govuk-table__cell">4</td>
+              <td class="govuk-table__cell">–</td>
+              <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--yellow">Pending</strong></td>
+            </tr>
+            <tr class="govuk-table__row">
+              <td class="govuk-table__cell"><a class="govuk-link" href="/mvp-front-office/v5/register-animal/submission-detail-sent">CB-143856</a></td>
+              <td class="govuk-table__cell">8 May 2026</td>
+              <td class="govuk-table__cell">Cattle birth registration</td>
+              <td class="govuk-table__cell">12</td>
+              <td class="govuk-table__cell">1</td>
+              <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--green">Sent</strong></td>
+            </tr>
+          </tbody>
+        </table>
+
+  </div>
+</div>
+
+{% endblock %}

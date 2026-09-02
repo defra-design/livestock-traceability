@@ -4,8 +4,19 @@
 {% set sideNavActive = "animal-error-record" %}
 
 {% block header %}
-  {% include "report-and-view-alpha/v1/partials/header.html" %}
-  {% include "report-and-view-alpha/v1/partials/phase-banner.html" %}
+
+{{ govukHeader({
+homepageUrl: '/index.html'
+}) }}
+
+{{ govukServiceNavigation({
+serviceName: "Livestock Information",
+serviceUrl: "/steel-thread/v3/holding-details",
+slots: {
+navigationEnd: '<li class="govuk-service-navigation__item app-service-navigation__item--right"><a class="govuk-service-navigation__link" href="#">Sign out</a></li>'
+}
+}) }}
+
 {% endblock %}
 
 {% block content %}
@@ -13,7 +24,9 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
 
-    <span class="govuk-caption-l">{{ holding.holdingName if holding.holdingName else holding.cph }}</span>
+    <span class="govuk-caption-l">
+         Oakfield Farm
+    </span>
     <h1 class="govuk-heading-l">
       Animal error record
     </h1>
@@ -58,7 +71,7 @@
 -->
 
     <p class="govuk-body">
-      There are no animal error records on your holding.
+      There are no animal errors on your holding.
     </p>
 
   </div>
