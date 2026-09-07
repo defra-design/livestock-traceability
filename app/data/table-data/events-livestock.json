@@ -6,6 +6,7 @@
       "animal_id": "UK864202917556",
       "event_type": "birth",
       "event_date": "17-05-2023",
+      "event_time": "07:42",
       "reported_by": "keeper",
       "details": {
         "holding_cph": "12/345/0001",
@@ -25,6 +26,7 @@
       "animal_id": "UK864202917556",
       "event_type": "movement",
       "event_date": "11-10-2025",
+      "event_time": "09:12",
       "reported_by": "keeper",
       "details": {
         "direction": "off",
@@ -38,6 +40,7 @@
       "animal_id": "UK864202917556",
       "event_type": "movement",
       "event_date": "11-10-2025",
+      "event_time": "11:24",
       "reported_by": "keeper",
       "details": {
         "direction": "on",
@@ -52,6 +55,7 @@
       "animal_id": "UK864202917556",
       "event_type": "death",
       "event_date": "13-10-2025",
+      "event_time": "16:11",
       "reported_by": "abattoir",
       "details": {
         "cause": "slaughter",
@@ -66,6 +70,7 @@
       "animal_id": "UK522634146510",
       "event_type": "birth",
       "event_date": "14-05-2024",
+      "event_time": "07:37",
       "reported_by": "keeper",
       "details": {
         "holding_cph": "24/118/0042",
@@ -85,6 +90,7 @@
       "animal_id": "UK522634146510",
       "event_type": "movement",
       "event_date": "22-09-2024",
+      "event_time": "09:15",
       "reported_by": "keeper",
       "details": {
         "direction": "off",
@@ -99,6 +105,7 @@
       "animal_id": "UK522634146510",
       "event_type": "movement",
       "event_date": "22-09-2024",
+      "event_time": "11:27",
       "reported_by": "keeper",
       "details": {
         "direction": "on",
@@ -113,6 +120,7 @@
       "animal_id": "UK522634146510",
       "event_type": "animal_status",
       "event_date": "12-08-2026",
+      "event_time": "14:10",
       "reported_by": "keeper",
       "details": {
         "action": "reported_lost",
@@ -125,6 +133,7 @@
       "animal_id": "UK159517919901",
       "event_type": "birth",
       "event_date": "23-02-2025",
+      "event_time": "07:39",
       "reported_by": "keeper",
       "details": {
         "holding_cph": "31/672/0158",
@@ -144,6 +153,7 @@
       "animal_id": "UK159517919901",
       "event_type": "movement",
       "event_date": "15-07-2025",
+      "event_time": "09:17",
       "reported_by": "keeper",
       "details": {
         "direction": "off",
@@ -158,6 +168,7 @@
       "animal_id": "UK159517919901",
       "event_type": "movement",
       "event_date": "15-07-2025",
+      "event_time": "11:21",
       "reported_by": "keeper",
       "details": {
         "direction": "on",
@@ -172,6 +183,7 @@
       "animal_id": "UK159517919901",
       "event_type": "animal_status",
       "event_date": "18-08-2026",
+      "event_time": "14:26",
       "reported_by": "keeper",
       "details": {
         "action": "reported_stolen",
@@ -184,6 +196,7 @@
       "animal_id": "UK132588101360",
       "event_type": "birth",
       "event_date": "04-04-2026",
+      "event_time": "07:41",
       "reported_by": "keeper",
       "details": {
         "holding_cph": "44/209/0317",
@@ -203,6 +216,7 @@
       "animal_id": "UK551643261039",
       "event_type": "birth",
       "event_date": "29-07-2022",
+      "event_time": "07:42",
       "reported_by": "keeper",
       "details": {
         "holding_cph": "18/553/0029",
@@ -222,6 +236,7 @@
       "animal_id": "UK551643261039",
       "event_type": "passport",
       "event_date": "03-08-2022",
+      "event_time": "10:34",
       "reported_by": "BCMS",
       "details": {
         "action": "issued",
@@ -234,6 +249,7 @@
       "animal_id": "UK551643261039",
       "event_type": "passport",
       "event_date": "15-05-2023",
+      "event_time": "09:45",
       "reported_by": "keeper",
       "details": {
         "action": "correction_requested",
@@ -247,6 +263,7 @@
       "animal_id": "UK551643261039",
       "event_type": "passport",
       "event_date": "22-05-2023",
+      "event_time": "10:36",
       "reported_by": "BCMS",
       "details": {
         "action": "reissued",
@@ -260,6 +277,7 @@
       "animal_id": "UK551643261039",
       "event_type": "passport",
       "event_date": "20-01-2024",
+      "event_time": "09:47",
       "reported_by": "keeper",
       "details": {
         "action": "replacement_requested",
@@ -273,6 +291,7 @@
       "animal_id": "UK551643261039",
       "event_type": "passport",
       "event_date": "25-01-2024",
+      "event_time": "10:30",
       "reported_by": "BCMS",
       "details": {
         "action": "reissued",
@@ -286,6 +305,7 @@
       "animal_id": "UK310588087895",
       "event_type": "birth",
       "event_date": "30-03-2022",
+      "event_time": "07:42",
       "reported_by": "keeper",
       "details": {
         "holding_cph": "27/884/0106",
@@ -305,6 +325,7 @@
       "animal_id": "UK310588087895",
       "event_type": "movement",
       "event_date": "21-09-2022",
+      "event_time": "09:12",
       "reported_by": "keeper",
       "details": {
         "direction": "off",
@@ -319,6 +340,7 @@
       "animal_id": "UK310588087895",
       "event_type": "movement",
       "event_date": "21-09-2022",
+      "event_time": "11:24",
       "reported_by": "keeper",
       "details": {
         "direction": "on",
@@ -333,6 +355,7 @@
       "animal_id": "UK946914377354",
       "event_type": "birth",
       "event_date": "20-06-2025",
+      "event_time": "07:36",
       "reported_by": "keeper",
       "details": {
         "holding_cph": "53/417/0088",
@@ -352,6 +375,7 @@
       "animal_id": "UK946914377354",
       "event_type": "death",
       "event_date": "02-09-2025",
+      "event_time": "16:12",
       "reported_by": "keeper",
       "details": {
         "cause": "natural",
@@ -366,6 +390,7 @@
       "animal_id": "UK052474911920",
       "event_type": "birth",
       "event_date": "13-06-2022",
+      "event_time": "07:38",
       "reported_by": "keeper",
       "details": {
         "holding_cph": "66/204/0141",
@@ -385,6 +410,7 @@
       "animal_id": "UK052474911920",
       "event_type": "passport",
       "event_date": "28-06-2022",
+      "event_time": "10:30",
       "reported_by": "BCMS",
       "details": {
         "action": "refused",
@@ -398,6 +424,7 @@
       "animal_id": "UK052474911920",
       "event_type": "movement_restriction",
       "event_date": "29-06-2022",
+      "event_time": "15:06",
       "reported_by": "BCMS",
       "details": {
         "action": "applied",
@@ -409,6 +436,7 @@
       "animal_id": "UK859075323231",
       "event_type": "birth",
       "event_date": "29-12-2023",
+      "event_time": "07:39",
       "reported_by": "keeper",
       "details": {
         "holding_cph": "72/391/0254",
@@ -428,6 +456,7 @@
       "animal_id": "UK457586378257",
       "event_type": "birth",
       "event_date": "17-12-2022",
+      "event_time": "07:41",
       "reported_by": "keeper",
       "details": {
         "holding_cph": "39/740/0193",
@@ -447,6 +476,7 @@
       "animal_id": "UK457586378257",
       "event_type": "passport",
       "event_date": "10-01-2023",
+      "event_time": "10:32",
       "reported_by": "BCMS",
       "details": {
         "action": "issued",
@@ -459,6 +489,7 @@
       "animal_id": "UK457586378257",
       "event_type": "passport",
       "event_date": "09-07-2023",
+      "event_time": "10:33",
       "reported_by": "BCMS",
       "details": {
         "action": "reissued",
@@ -472,6 +503,7 @@
       "animal_id": "UK457586378257",
       "event_type": "movement",
       "event_date": "24-07-2023",
+      "event_time": "09:11",
       "reported_by": "keeper",
       "details": {
         "direction": "off",
@@ -486,6 +518,7 @@
       "animal_id": "UK457586378257",
       "event_type": "movement",
       "event_date": "24-07-2023",
+      "event_time": "11:23",
       "reported_by": "keeper",
       "details": {
         "direction": "on",
@@ -500,6 +533,7 @@
       "animal_id": "UK457586378257",
       "event_type": "movement_restriction",
       "event_date": "20-08-2026",
+      "event_time": "15:09",
       "reported_by": "BCMS",
       "details": {
         "action": "applied",
@@ -511,6 +545,7 @@
       "animal_id": "UK017373777279",
       "event_type": "birth",
       "event_date": "14-02-2025",
+      "event_time": "07:35",
       "reported_by": "keeper",
       "details": {
         "holding_cph": "15/628/0067",
@@ -530,6 +565,7 @@
       "animal_id": "UK017373777279",
       "event_type": "movement",
       "event_date": "02-10-2025",
+      "event_time": "09:12",
       "reported_by": "keeper",
       "details": {
         "direction": "off",
@@ -544,6 +580,7 @@
       "animal_id": "UK017373777279",
       "event_type": "movement",
       "event_date": "02-10-2025",
+      "event_time": "11:24",
       "reported_by": "keeper",
       "details": {
         "direction": "on",
@@ -558,6 +595,7 @@
       "animal_id": "UK017373777279",
       "event_type": "animal_status",
       "event_date": "05-08-2026",
+      "event_time": "14:12",
       "reported_by": "keeper",
       "details": {
         "action": "reported_lost",
@@ -570,6 +608,7 @@
       "animal_id": "UK017373777279",
       "event_type": "animal_status",
       "event_date": "09-08-2026",
+      "event_time": "14:43",
       "reported_by": "keeper",
       "details": {
         "action": "reported_found",
@@ -582,6 +621,7 @@
       "animal_id": "UK439125972228",
       "event_type": "birth",
       "event_date": "01-04-2024",
+      "event_time": "07:36",
       "reported_by": "keeper",
       "details": {
         "holding_cph": "48/952/0205",
@@ -601,6 +641,7 @@
       "animal_id": "UK755898557811",
       "event_type": "birth",
       "event_date": "19-10-2024",
+      "event_time": "07:37",
       "reported_by": "keeper",
       "details": {
         "holding_cph": "21/366/0094",
@@ -620,6 +661,7 @@
       "animal_id": "UK939086457859",
       "event_type": "birth",
       "event_date": "08-01-2025",
+      "event_time": "07:39",
       "reported_by": "keeper",
       "details": {
         "holding_cph": "58/103/0122",
@@ -639,6 +681,7 @@
       "animal_id": "UK939086457859",
       "event_type": "movement",
       "event_date": "31-01-2026",
+      "event_time": "09:17",
       "reported_by": "keeper",
       "details": {
         "direction": "off",
@@ -653,6 +696,7 @@
       "animal_id": "UK939086457859",
       "event_type": "movement",
       "event_date": "31-01-2026",
+      "event_time": "11:21",
       "reported_by": "keeper",
       "details": {
         "direction": "on",
@@ -667,6 +711,7 @@
       "animal_id": "UK251278289382",
       "event_type": "birth",
       "event_date": "07-10-2024",
+      "event_time": "07:42",
       "reported_by": "keeper",
       "details": {
         "holding_cph": "63/829/0276",
@@ -686,6 +731,7 @@
       "animal_id": "UK251278289382",
       "event_type": "movement",
       "event_date": "08-07-2025",
+      "event_time": "09:12",
       "reported_by": "keeper",
       "details": {
         "direction": "off",
@@ -700,6 +746,7 @@
       "animal_id": "UK251278289382",
       "event_type": "movement",
       "event_date": "08-07-2025",
+      "event_time": "11:24",
       "reported_by": "keeper",
       "details": {
         "direction": "on",
@@ -714,6 +761,7 @@
       "animal_id": "UK414344010875",
       "event_type": "birth",
       "event_date": "14-05-2024",
+      "event_time": "07:36",
       "reported_by": "keeper",
       "details": {
         "holding_cph": "34/547/0031",
@@ -733,6 +781,7 @@
       "animal_id": "UK925327299633",
       "event_type": "birth",
       "event_date": "07-02-2025",
+      "event_time": "07:36",
       "reported_by": "keeper",
       "details": {
         "holding_cph": "47/215/0169",
@@ -752,6 +801,7 @@
       "animal_id": "UK321512605679",
       "event_type": "birth",
       "event_date": "28-11-2023",
+      "event_time": "07:38",
       "reported_by": "keeper",
       "details": {
         "holding_cph": "69/438/0114",
@@ -771,6 +821,7 @@
       "animal_id": "UK321512605679",
       "event_type": "passport",
       "event_date": "12-12-2023",
+      "event_time": "10:35",
       "reported_by": "BCMS",
       "details": {
         "action": "issued",
@@ -783,6 +834,7 @@
       "animal_id": "UK321512605679",
       "event_type": "movement",
       "event_date": "30-09-2024",
+      "event_time": "09:16",
       "reported_by": "keeper",
       "details": {
         "direction": "off",
@@ -797,6 +849,7 @@
       "animal_id": "UK321512605679",
       "event_type": "movement",
       "event_date": "30-09-2024",
+      "event_time": "11:20",
       "reported_by": "keeper",
       "details": {
         "direction": "on",
@@ -811,6 +864,7 @@
       "animal_id": "UK321512605679",
       "event_type": "passport",
       "event_date": "11-12-2024",
+      "event_time": "10:36",
       "reported_by": "BCMS",
       "details": {
         "action": "reissued",
@@ -824,6 +878,7 @@
       "animal_id": "UK321512605679",
       "event_type": "movement_issue",
       "event_date": "14-08-2026",
+      "event_time": "13:37",
       "reported_by": "BCMS",
       "details": {
         "issue_type": "missing_movement",
@@ -836,6 +891,7 @@
       "animal_id": "UK321512605679",
       "event_type": "movement_restriction",
       "event_date": "15-08-2026",
+      "event_time": "15:05",
       "reported_by": "BCMS",
       "details": {
         "action": "applied",
@@ -847,6 +903,7 @@
       "animal_id": "UK113048202347",
       "event_type": "birth",
       "event_date": "24-06-2023",
+      "event_time": "07:40",
       "reported_by": "keeper",
       "details": {
         "holding_cph": "25/701/0238",
@@ -866,6 +923,7 @@
       "animal_id": "UK765131516511",
       "event_type": "birth",
       "event_date": "05-11-2024",
+      "event_time": "07:42",
       "reported_by": "keeper",
       "details": {
         "holding_cph": "56/312/0056",

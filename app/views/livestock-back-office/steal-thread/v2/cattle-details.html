@@ -13,20 +13,10 @@
 {% endblock %}
 
 {% block beforeContent %}
-{% set pathParts = currentPath.split('/') %}
-{% set currentBaseUrl = '/' + pathParts[1] + '/' + pathParts[2] + '/' + pathParts[3] + '/' %}
-{{ govukBreadcrumbs({
-items: [
-{
-text: "Home",
-href: currentBaseUrl+"home"
-},
-{
-text: "Animals",
-href: currentBaseUrl+"cattle"
-}
-]
-}) }}
+{% set currentBaseUrl = '/' + baseUrl + '/' %}
+
+{% block returnLink %}{% include "./components/_return-link-animal.html" %}{% endblock %}
+
 {% endblock %}
 {% block content %}
   <div class="govuk-grid-row">
@@ -49,7 +39,7 @@ href: currentBaseUrl+"cattle"
             <a
               class="moj-sub-navigation__link"
               aria-current="page"
-              href="{{ currentBaseUrl }}{{ animal.earTagNumber }}"
+              href="{{ currentBaseUrl }}{{ animal.earTagNumber }}{{ contextQuery }}"
             >
               Animal details
             </a>
@@ -57,7 +47,7 @@ href: currentBaseUrl+"cattle"
           <li class="moj-sub-navigation__item">
             <a
               class="moj-sub-navigation__link"
-              href="{{ currentBaseUrl }}{{ animal.earTagNumber }}/cattle-history"
+              href="{{ currentBaseUrl }}{{ animal.earTagNumber }}/cattle-history{{ contextQuery }}"
             >
               History
             </a>
@@ -210,21 +200,21 @@ href: currentBaseUrl+"cattle"
           <dl class="govuk-summary-list govuk-!-margin-bottom-8">
              <div class="govuk-summary-list__row">
               <dt class="govuk-summary-list__key">
-                CPH
+                County parish holding (CPH) number
               </dt>
               <dd class="govuk-summary-list__value">
                 <p class="govuk-body govuk-!-margin-bottom-1">
                  {% if animalLocations.current.movementDate %}
                   <a
                           class="govuk-link"
-                          href="../holdings/{{ animalLocations.current.id }}"
+                          href="/{{baseURL}}/holdings/{{ animalLocations.current.id }}"
                   >
                     {{ animalLocations.current.cph }}
                   </a>
                   {% else %}
                   <a
                           class="govuk-link"
-                          href="../holdings?search={{ animalLocations.current.cph | urlencode }}"
+                          href="/{{baseURL}}/holdings/{{ animalLocations.current.id  }}"
                   >
                     {{ animalLocations.current.cph }}
                   
@@ -253,6 +243,7 @@ href: currentBaseUrl+"cattle"
                   {{ animalLocations.current.address }}
                 </p>
                 {% endif %}
+                <p><a href="google.com/maps/place/51°48'27.0"N+0°50'09.0"E/@51.8079676,0.8299147,998m/data=!3m1!1e3!4m4!3m3!8m2!3d51.807509!4d0.8358453?entry=ttu&g_ep=EgoyMDI2MDkwMS4wIKXMDSoASAFQAw%3D%3D" target='_blank'>View on map (opens in new tab)</a></p>
 
 
               </dd>
@@ -336,7 +327,7 @@ href: currentBaseUrl+"cattle"
               <dd class="govuk-summary-list__value">
                 <a
                         class="govuk-link"
-                        href="../cattle/{{ animal.dam.geneticDam.earTagNumber }}"
+                        href="{{ currentBaseUrl }}cattle/{{ animal.dam.geneticDam.earTagNumber }}?returnUrl={{ (currentBaseUrl+'cattle/'+animal.earTagNumber) | urlencode }}"
                 >
                   {{ animal.dam.geneticDam.earTagNumber | formatReference }}
                 </a>

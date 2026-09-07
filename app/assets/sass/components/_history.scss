@@ -1,0 +1,167 @@
+// Animal history: timeline rail, summary and contextual record issues.
+//
+// The rail and dots are decorative CSS. The HTML remains an ordered list so
+// assistive technology gets a simple chronological sequence of records.
+
+.app-history-summary {
+  max-width: 800px;
+  margin-bottom: govuk-spacing(7);
+  padding-bottom: govuk-spacing(5);
+  border-bottom: 1px solid $govuk-border-colour;
+}
+
+.app-history-summary__counts {
+  margin-bottom: govuk-spacing(4);
+
+  li {
+    margin-bottom: govuk-spacing(1);
+  }
+}
+
+.app-history-summary__issues {
+  margin-bottom: 0;
+
+  li:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.app-history {
+  max-width: 800px;
+  margin: 0;
+  margin-left: govuk-spacing(1);
+  padding: 0;
+  list-style: none;
+}
+
+.app-history__item,
+.app-history__gap {
+  position: relative;
+  margin: 0;
+  padding: 0 0 govuk-spacing(6) govuk-spacing(5);
+  border-left: 4px solid $govuk-border-colour;
+}
+
+.app-history__item::before {
+  content: "";
+  position: absolute;
+  // Align the centre of the marker with the first line of date/time text.
+  top: 3px;
+  left: -10px;
+  width: 16px;
+  height: 16px;
+  box-sizing: border-box;
+  border: 4px solid $govuk-border-colour;
+  border-radius: 50%;
+  background: govuk-colour("white");
+}
+
+.app-history__item:last-child,
+.app-history__gap:last-child {
+  padding-bottom: 0;
+}
+
+.app-history__content {
+  min-width: 0;
+}
+
+.app-history__datetime {
+  display: block;
+  margin: 0 0 govuk-spacing(2);
+  color: $govuk-secondary-text-colour;
+  @include govuk-font($size: 16, $weight: bold);
+}
+
+// Recorded events use cards. The date/time stays outside the card so it remains
+// part of the chronological scaffolding rather than becoming card metadata.
+.app-history .app-event-card {
+  margin: 0;
+  padding: govuk-spacing(4);
+  border: 1px solid $govuk-border-colour;
+  background: govuk-colour("white");
+}
+
+.app-history .app-event-card__content {
+  max-width: 760px;
+
+  > :last-child {
+    margin-bottom: 0;
+  }
+}
+
+.app-history .app-event-card__heading {
+  margin: 0 0 govuk-spacing(2);
+  @include govuk-font($size: 19, $weight: bold);
+}
+
+.app-history .app-event-card__details {
+  margin: govuk-spacing(2) 0 0;
+  padding: 0;
+  list-style: none;
+  color: $govuk-secondary-text-colour;
+  @include govuk-font($size: 16);
+}
+
+.app-history .app-event-card__details li {
+  margin-bottom: govuk-spacing(1);
+}
+
+.app-history .app-event-card__details li:last-child {
+  margin-bottom: 0;
+}
+
+.app-history .app-event-card__details-key {
+  font-weight: bold;
+}
+
+// Current issue attached to an existing recorded event, for example an
+// incomplete birth registration. The issue gets the red treatment rather than
+// changing the timeline marker itself.
+.app-history .app-event-card__notice--error {
+  margin-top: govuk-spacing(4);
+  padding: govuk-spacing(3);
+  border-left: 5px solid $govuk-error-colour;
+  background: govuk-colour("light-grey");
+}
+
+.app-history .app-event-card__notice-heading--error {
+  margin-top: 0;
+  color: $govuk-error-colour;
+}
+
+// A missing movement is not a recorded event, so it does not get a timeline
+// dot or date. It interrupts the rail between the two known records that expose
+// the gap.
+.app-history__gap {
+  padding-top: govuk-spacing(1);
+}
+
+.app-history__gap-panel {
+  padding: govuk-spacing(3);
+  border-left: 5px solid $govuk-error-colour;
+  background: govuk-colour("light-grey");
+}
+
+.app-history__gap-heading {
+  margin: 0 0 govuk-spacing(1);
+  color: $govuk-error-colour;
+  @include govuk-font($size: 19, $weight: bold);
+}
+
+.app-history__gap-panel > :last-child {
+  margin-bottom: 0;
+}
+
+// Keep the same rail + content rhythm at narrow widths and high zoom. Only the
+// gutter and card padding tighten; the information is not rearranged.
+@include govuk-media-query($until: tablet) {
+  .app-history__item,
+  .app-history__gap {
+    padding-left: govuk-spacing(4);
+    padding-bottom: govuk-spacing(5);
+  }
+
+  .app-history .app-event-card {
+    padding: govuk-spacing(3);
+  }
+}

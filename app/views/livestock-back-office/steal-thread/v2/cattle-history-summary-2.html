@@ -1,0 +1,150 @@
+{% extends "layouts/main.html" %}
+
+{% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
+
+{% set pageName="Animal history" %}
+{% set activeNav = "animals" %}
+
+{% block header %}
+  {% block navBar %}{% include "./components/_navigation.html" %}{% endblock %}
+{% endblock %}
+
+{% block beforeContent %}
+  {% set pathParts = currentPath.split('/') %}
+  {% set currentBaseUrl = '/' + pathParts[1] + '/' + pathParts[2] + '/' + pathParts[3] + '/' %}
+
+  {{ govukBreadcrumbs({
+    items: [
+      {
+        text: "Home",
+        href: currentBaseUrl + "home"
+      },
+      {
+        text: "Animals",
+        href: currentBaseUrl + "cattle"
+      }
+    ]
+  }) }}
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+
+    <span class="govuk-caption-l">
+      Registered cattle
+    </span>
+
+    <h1 class="govuk-heading-l">
+      {{ "UK123456789099" | formatReference }}
+    </h1>
+
+    <nav class="moj-sub-navigation" aria-label="Sub navigation">
+      <ul class="moj-sub-navigation__list">
+        <li class="moj-sub-navigation__item">
+          <a
+            class="moj-sub-navigation__link"
+            href="../{{ animal.earTagNumber }}"
+          >
+            Animal details
+          </a>
+        </li>
+        <li class="moj-sub-navigation__item">
+          <a
+            class="moj-sub-navigation__link"
+            aria-current="page"
+            href="{{ currentBaseUrl }}{{ animal.earTagNumber }}/cattle-history"
+          >
+            History
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <section aria-labelledby="animal-history-heading">
+      <h2 class="govuk-heading-m" id="animal-history-heading">
+        Animal history
+      </h2>
+
+      <div class="app-history-summary" aria-labelledby="history-summary-heading">
+        <h3 class="govuk-heading-s" id="history-summary-heading">
+          History summary
+        </h3>
+
+        <ul class="govuk-list app-history-summary__counts">
+          <li><strong>0</strong> movement records</li>
+        </ul>
+
+        <h4 class="govuk-heading-s govuk-!-margin-bottom-2">
+          Issues requiring attention (1)
+        </h4>
+
+        <ul class="govuk-list govuk-list--bullet app-history-summary__issues">
+          <li>
+            <a class="govuk-link" href="#birth-registration-issue">
+              Genetic dam not recorded on birth registration
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <ol class="app-history">
+
+        <li class="app-history__item" id="birth-registration-issue">
+          <div class="app-history__content">
+            <time class="app-history__datetime" datetime="2026-08-31T08:43:00">
+              31 August 2026 at 8:43am
+            </time>
+
+            <article class="app-event-card">
+              <div class="app-event-card__content">
+                <h3 class="govuk-heading-s app-event-card__heading">
+                  <a class="govuk-link" href="#">
+                    Birth reported
+                  </a>
+                </h3>
+
+                <ul class="govuk-list app-event-card__details">
+                  <li>
+                    <span class="app-event-card__details-key">Animal born at holding:</span>
+                    <a class="govuk-link" href="#">67/703/4558</a>
+                    Penrhos Farm
+                  </li>
+                  <li>
+                    <span class="app-event-card__details-key">Genetic dam:</span>
+                    Not recorded
+                  </li>
+                  <li>
+                    <span class="app-event-card__details-key">Registration status:</span>
+                    Awaiting information
+                  </li>
+                  <li>
+                    <span class="app-event-card__details-key">Registration reference:</span>
+                    REG-2026-0184
+                  </li>
+                  <li>
+                    <span class="app-event-card__details-key">Created by:</span>
+                    Keeper
+                  </li>
+                </ul>
+
+                <div class="app-event-card__notice--error">
+                  <h4 class="govuk-heading-s govuk-!-margin-bottom-1 app-event-card__notice-heading--error">
+                    Genetic dam details are missing
+                  </h4>
+
+                  <p class="govuk-body-s govuk-!-margin-bottom-0">
+                    Genetic dam details were not provided with the birth registration and are required before the registration can be completed.
+                  </p>
+                </div>
+              </div>
+            </article>
+          </div>
+        </li>
+
+      </ol>
+    </section>
+
+  </div>
+</div>
+{% endblock %}

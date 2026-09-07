@@ -16,13 +16,10 @@
 {% block beforeContent %}
 {% set pathParts = currentPath.split('/') %}
 {% set currentBaseUrl = '/' + pathParts[1] + '/' + pathParts[2] + '/' + pathParts[3] + '/' %}
-{{ govukBreadcrumbs({
-items: [
-{
-text: "Home",
-href: "home"
-}
-]
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{{ govukBackLink({
+text: "Return to home",
+href: "./home"
 }) }}
 {% endblock %}
 
@@ -51,7 +48,7 @@ href: "home"
                 id="search-holdings-hint"
                 class="govuk-hint"
         >
-          Enter a CPH number, holding name, herd number, town, county or postcode
+          Enter a county parish holding (CPH) number, holding name, postcode or herd number
         </div>
 
         <div class="search-input-wrapper">
@@ -147,7 +144,7 @@ href: "home"
               <th scope="col" class="govuk-table__header app-table__cell--no-wrap">
                   <a
                           class="govuk-link"
-                          href="./holdings/{{ holding.id }}"
+                          href="/{{ baseURL }}/holdings/{{ holding.id }}?fromSearch={{ query.search | urlencode }}"
                   >
                       {{ holding.cph }}
                   </a>
@@ -164,12 +161,7 @@ href: "home"
 
               <td class="govuk-table__cell">
                   {{ holding.holdingName }}, {{ holding.address.town }}, {{ holding.address.county }},  {{ holding.address.postcode }}
-
               </td>
-
-
-
-
           </tr>
           {% endfor %}
           </tbody>

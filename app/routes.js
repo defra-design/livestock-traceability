@@ -11,25 +11,53 @@ const router = govukPrototypeKit.requests.setupRouter();
 const fs = require('fs');
 const path = require('path');
 
-//Add middleware to include query to all pages
+function getContextQuery(req) {
+    const params = new URLSearchParams();
+
+    if (req.query.fromSearch) {
+        params.set('fromSearch', req.query.fromSearch);
+    }
+
+    if (req.query.fromHolding) {
+        params.set('fromHolding', req.query.fromHolding);
+    }
+
+    if (req.query.earTag) {
+        params.set('fromEarTag', req.query.earTag);
+    }
+
+    const queryString = params.toString();
+
+    return queryString
+        ? '?' + queryString
+        : '';
+}
+
+
+// Add middleware to include common values on all pages
 router.use(function(req, res, next) {
-    //
-   if (req.query.cleardata === 'true') {
-           return req.session.destroy(function(err) {
-               if (err) {
-                   return next(err);
-               }
 
-               return res.redirect(req.path);
-           });
-   }
+    if (req.query.cleardata === 'true') {
+        return req.session.destroy(function(err) {
+            if (err) {
+                return next(err);
+            }
 
-   res.locals.query = req.query;
-   res.locals.host = req.headers.host;
-   res.locals.currentPath = req.path;
-   next();
+            return res.redirect(req.path);
+        });
+    }
+
+    res.locals.query = req.query;
+    res.locals.host = req.headers.host;
+    res.locals.currentPath = req.path;
+
+
+    // Keeps the user's wider journey context when moving
+    // between pages within the same record.
+    res.locals.contextQuery = getContextQuery(req);
+
+    next();
 });
-
 //Add middleware to include radio redirects, This is taken from
 //https://github.com/abbott567/radio-button-redirect/tree/master
 router.use((req, res, next) => {

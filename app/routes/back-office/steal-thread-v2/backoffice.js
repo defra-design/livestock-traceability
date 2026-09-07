@@ -89,15 +89,124 @@ function getOffspring(req, animal) {
     return record.dam?.geneticDam?.earTagNumber === animal.earTagNumber;
   });
 }
+function getPrototypeHoldingCattle(req, holding) {
+    const livestockData = req.session.data.oakfieldLivestock || {
+        animals: []
+    };
 
+    const cattleHerdMark = (holding.herdAndFlockMarks || []).find((item) => {
+        return item.species === 'Cattle';
+    });
+
+    const herdMark = cattleHerdMark
+        ? cattleHerdMark.mark
+        : '';
+
+    return livestockData.animals.map((animal) => {
+        let earTagNumber = animal.earTagNumber;
+
+        // These are the 40 animals originally generated as
+        // being born into the Oakfield herd.
+        if (
+            herdMark
+            && earTagNumber.startsWith('UK654322')
+        ) {
+            earTagNumber = herdMark + earTagNumber.slice(8);
+        }
+
+        return {
+            ...animal,
+            cph: holding.cph,
+            earTagNumber
+        };
+    });
+}
 
 /**
  * Event helpers
  */
 
+function getEventTimestamp(event) {
+  const eventDate = String(event.event_date || '').trim();
+  const eventTime = String(event.event_time || '00:00').trim();
+  const dateMatch = eventDate.match(/^(\d{1,2})-(\d{1,2})-(\d{4})$/);
+  const timeMatch = eventTime.match(/^(\d{1,2}):(\d{2})$/);
+
+  if (!dateMatch) return 0;
+
+  const day = Number(dateMatch[1]);
+  const month = Number(dateMatch[2]);
+  const year = Number(dateMatch[3]);
+  const hours = timeMatch ? Number(timeMatch[1]) : 0;
+  const minutes = timeMatch ? Number(timeMatch[2]) : 0;
+
+  const timestamp = new Date(
+    year,
+    month - 1,
+    day,
+    hours,
+    minutes
+  ).getTime();
+
+  return Number.isNaN(timestamp) ? 0 : timestamp;
+}
+
+function getEventDateTimeAttribute(event) {
+  const eventDate = String(event.event_date || '').trim();
+  const eventTime = String(event.event_time || '00:00').trim();
+  const dateMatch = eventDate.match(/^(\d{1,2})-(\d{1,2})-(\d{4})$/);
+
+  if (!dateMatch) return '';
+
+  const day = String(dateMatch[1]).padStart(2, '0');
+  const month = String(dateMatch[2]).padStart(2, '0');
+  const year = dateMatch[3];
+
+  return (
+    year
+    + '-' + month
+    + '-' + day
+    + 'T' + eventTime
+    + ':00'
+  );
+}
+
+function getEventTimeDisplay(event) {
+  const eventTime = String(event.event_time || '').trim();
+  const timeMatch = eventTime.match(/^(\d{1,2}):(\d{2})$/);
+
+  if (!timeMatch) return eventTime;
+
+  const hours = Number(timeMatch[1]);
+  const minutes = timeMatch[2];
+  const suffix = hours >= 12 ? 'pm' : 'am';
+  const displayHours = hours % 12 || 12;
+
+  return displayHours + ':' + minutes + suffix;
+}
+
+function getAnimalHistorySummary(animalEvents) {
+  return {
+    movementRecords: animalEvents.filter((event) => {
+      return event.event_type === 'movement';
+    }).length,
+    passportEvents: animalEvents.filter((event) => {
+      return event.event_type === 'passport';
+    }).length,
+    registrationChanges: animalEvents.filter((event) => {
+      return (
+        event.event_type === 'registration_change'
+        || event.event_type === 'registration_amendment'
+      );
+    }).length
+  };
+}
+
 function enrichEvent(req, event) {
   const enrichedEvent = {
     ...event,
+    event_datetime: getEventDateTimeAttribute(event),
+    event_time_display: getEventTimeDisplay(event),
     animal: getAnimalByEarTag(req, event.animal_id),
     holdings: {}
   };
@@ -159,7 +268,7 @@ function getAnimalEvents(req, animal) {
       return event.animal_id === animal.earTagNumber;
     })
     .sort((a, b) => {
-      return new Date(a.event_date) - new Date(b.event_date);
+      return getEventTimestamp(a) - getEventTimestamp(b);
     })
     .map((event) => {
       return enrichEvent(req, event);
@@ -830,9 +939,17 @@ function registerCattleHistoryRoute(urlPath, viewPath) {
         });
       }
 
+      const animalEvents = [...cattleDetails.animalEvents]
+        .sort((a, b) => {
+          return getEventTimestamp(b) - getEventTimestamp(a);
+        });
+
+      const historySummary = getAnimalHistorySummary(animalEvents);
+
       return res.render(baseURL + '/' + viewPath, {
         animal: cattleDetails.animal,
-        animalEvents: cattleDetails.animalEvents,
+        animalEvents,
+        historySummary,
         baseURL
       });
     }
@@ -940,7 +1057,27 @@ function registerUsersRoute(urlPath, viewPath) {
     });
   });
 }
+function getPageHref(pageNumber) {
+    const params = new URLSearchParams();
 
+    if (search) {
+        params.set('search', search);
+    }
+
+    if (req.query.fromSearch) {
+        params.set('fromSearch', req.query.fromSearch);
+    }
+
+    params.set('page', pageNumber);
+
+    return (
+        '/' + baseURL
+        + '/holdings/'
+        + holding.id
+        + '/cattle-register?'
+        + params.toString()
+    );
+}
 
 /**
  * Global search
@@ -1121,7 +1258,147 @@ router.get('/' + baseURL + '/events/:id', (req, res) => {
   });
 });
 
+/**
+ * Cattle register for a holding
+ */
+router.get('/' + baseURL + '/holdings/:id/cattle-register', (req, res) => {
+    const holdingsData = getHoldingsData(req);
 
+    const holding = holdingsData.holdings.find((holding) => {
+        return holding.id === req.params.id;
+    });
+
+    if (!holding) {
+        return res.status(404).render(baseURL + '/404', {
+            pageTitle: 'Holding not found'
+        });
+    }
+
+    const search = String(req.query.search || '').trim();
+    const searchTerm = normalise(search);
+
+    let cattle = getPrototypeHoldingCattle(req, holding);
+
+    if (search) {
+        cattle = cattle.filter((animal) => {
+            const searchableValues = [
+                animal.earTagNumber,
+                animal.sex,
+                animal.breed?.name,
+                animal.breed?.code
+            ];
+
+            return searchableValues.some((value) => {
+                return normalise(value).includes(searchTerm);
+            });
+        });
+    }
+
+    const totalResults = cattle.length;
+    const pageSize = 25;
+    const totalPages = Math.ceil(totalResults / pageSize);
+
+    const requestedPage = Number(req.query.page) || 1;
+
+    const page = Math.min(
+        Math.max(1, requestedPage),
+        Math.max(1, totalPages)
+    );
+
+    const startIndex = (page - 1) * pageSize;
+    const endIndex = startIndex + pageSize;
+
+    const pageStart = totalResults
+        ? startIndex + 1
+        : 0;
+
+    const pageEnd = Math.min(
+        endIndex,
+        totalResults
+    );
+
+    cattle = cattle.slice(startIndex, endIndex);
+
+    function getPageHref(pageNumber) {
+        const params = new URLSearchParams();
+
+        if (search) {
+            params.set('search', search);
+        }
+
+        if (req.query.fromSearch) {
+            params.set('fromSearch', req.query.fromSearch);
+        }
+
+        params.set('page', pageNumber);
+
+        return (
+            '/' + baseURL
+            + '/holdings/'
+            + holding.id
+            + '/cattle-register?'
+            + params.toString()
+        );
+    }
+
+    const pagination = {
+        items: []
+    };
+
+    for (let pageNumber = 1; pageNumber <= totalPages; pageNumber++) {
+        pagination.items.push({
+            number: pageNumber,
+            href: getPageHref(pageNumber),
+            current: pageNumber === page
+        });
+    }
+
+    if (page > 1) {
+        pagination.previous = {
+            href: getPageHref(page - 1)
+        };
+    }
+
+    if (page < totalPages) {
+        pagination.next = {
+            href: getPageHref(page + 1)
+        };
+    }
+
+    return res.render(baseURL + '/holding-cattle-register', {
+        holding,
+        cattle,
+        search,
+        totalResults,
+        page,
+        pageSize,
+        pageStart,
+        pageEnd,
+        pagination,
+        baseURL
+    });
+});
+/**
+ * Animal error record
+ */
+router.get('/' + baseURL + '/holdings/:id/animal-error-record', (req, res) => {
+    const holdingsData = getHoldingsData(req);
+
+    const holding = holdingsData.holdings.find((holding) => {
+        return holding.id === req.params.id;
+    });
+
+    if (!holding) {
+        return res.status(404).render(baseURL + '/404', {
+            pageTitle: 'Holding not found'
+        });
+    }
+
+    return res.render(baseURL + '/holding-error-record', {
+        holding,
+        baseURL
+    });
+});
 /**
  * Register cattle detail routes
  */

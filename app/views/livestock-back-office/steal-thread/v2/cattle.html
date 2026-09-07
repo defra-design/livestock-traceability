@@ -15,16 +15,12 @@
 {% block beforeContent %}
 {% set pathParts = currentPath.split('/') %}
 {% set currentBaseUrl = '/' + pathParts[1] + '/' + pathParts[2] + '/' + pathParts[3] + '/' %}
-{{ govukBreadcrumbs({
-items: [
-{
-text: "Home",
-href: currentBaseUrl+"home"
-}
-]
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{{ govukBackLink({
+text: "Return to home",
+href: "./home"
 }) }}
 {% endblock %}
-
 
 {% block content %}
 
@@ -140,7 +136,7 @@ href: currentBaseUrl+"home"
       >
         <a
                 class="govuk-link"
-                href="./cattle/{{ animal.earTagNumber }}"
+                href="/{{baseURL}}/cattle/{{ animal.earTagNumber }}?fromSearch={{query.search | urlencode}}"
         >
           {{ animal.earTagNumber | formatReference }}
         </a>

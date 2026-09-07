@@ -1,0 +1,1322 @@
+{
+  "species": "cattle",
+  "recordCount": 50,
+  "animals": [
+    {
+      "cph": "12/345/0001",
+      "earTagNumber": "UK654322100001",
+      "dateOfBirth": "02-02-2021",
+      "sex": "Female",
+      "breed": {
+        "name": "Aberdeen Angus",
+        "code": "AA"
+      },
+      "status": "Alive",
+      "administrativeStatus": {
+        "passportStatus": "Passport issued",
+        "movementStatus": "Unrestricted",
+        "passportLastIssued": "14-02-2021",
+        "passportVersion": 1
+      },
+      "dam": {
+        "type": "Genetic",
+        "surrogateDam": null,
+        "geneticDam": null
+      },
+      "sire": null,
+      "dateOfRegistration": "14-02-2021"
+    },
+    {
+      "cph": "12/345/0001",
+      "earTagNumber": "UK654322100002",
+      "dateOfBirth": "18-03-2021",
+      "sex": "Male",
+      "breed": {
+        "name": "Hereford",
+        "code": "HER"
+      },
+      "status": "Alive",
+      "administrativeStatus": {
+        "passportStatus": "Passport issued",
+        "movementStatus": "Unrestricted",
+        "passportLastIssued": "31-03-2021",
+        "passportVersion": 1
+      },
+      "dam": {
+        "type": "Genetic",
+        "surrogateDam": null,
+        "geneticDam": null
+      },
+      "sire": null,
+      "dateOfRegistration": "31-03-2021"
+    },
+    {
+      "cph": "12/345/0001",
+      "earTagNumber": "UK654322100003",
+      "dateOfBirth": "01-05-2021",
+      "sex": "Female",
+      "breed": {
+        "name": "Shorthorn",
+        "code": "SHO"
+      },
+      "status": "Alive",
+      "administrativeStatus": {
+        "passportStatus": "Passport issued",
+        "movementStatus": "Unrestricted",
+        "passportLastIssued": "14-05-2021",
+        "passportVersion": 1
+      },
+      "dam": {
+        "type": "Genetic",
+        "surrogateDam": null,
+        "geneticDam": null
+      },
+      "sire": null,
+      "dateOfRegistration": "14-05-2021"
+    },
+    {
+      "cph": "12/345/0001",
+      "earTagNumber": "UK859075323231",
+      "dateOfBirth": "29-12-2023",
+      "sex": "Male",
+      "breed": {
+        "name": "British Blue",
+        "code": "BRB"
+      },
+      "status": "Alive",
+      "administrativeStatus": {
+        "passportStatus": "Passport issued",
+        "movementStatus": "Unrestricted",
+        "passportLastIssued": "19-01-2024",
+        "passportVersion": 1
+      },
+      "dam": {
+        "type": "Genetic",
+        "surrogateDam": null,
+        "geneticDam": {
+          "earTagNumber": "UK193908645785"
+        }
+      },
+      "sire": null,
+      "dateOfRegistration": "19-01-2024"
+    },
+    {
+      "cph": "12/345/0001",
+      "earTagNumber": "UK457586378257",
+      "dateOfBirth": "17-12-2022",
+      "sex": "Female",
+      "breed": {
+        "name": "Lincoln Red",
+        "code": "LR"
+      },
+      "status": "Alive",
+      "administrativeStatus": {
+        "passportStatus": "Passport issued",
+        "movementStatus": "Restricted",
+        "passportLastIssued": "09-07-2023",
+        "passportVersion": 2
+      },
+      "dam": {
+        "type": "Surrogate",
+        "surrogateDam": {
+          "earTagNumber": "UK241434401087"
+        },
+        "geneticDam": {
+          "earTagNumber": "UK925127828938"
+        }
+      },
+      "sire": null,
+      "dateOfRegistration": "10-01-2023"
+    },
+    {
+      "cph": "12/345/0001",
+      "earTagNumber": "UK017373777279",
+      "dateOfBirth": "14-02-2025",
+      "sex": "Male",
+      "breed": {
+        "name": "Shorthorn",
+        "code": "SHO"
+      },
+      "status": "Alive",
+      "administrativeStatus": {
+        "passportStatus": "Passport issued",
+        "movementStatus": "Unrestricted",
+        "passportLastIssued": "14-02-2025",
+        "passportVersion": 1
+      },
+      "dam": {
+        "type": "Genetic",
+        "surrogateDam": null,
+        "geneticDam": {
+          "earTagNumber": "UK592532729963"
+        }
+      },
+      "sire": null,
+      "dateOfRegistration": "14-02-2025"
+    },
+    {
+      "cph": "12/345/0001",
+      "earTagNumber": "UK439125972228",
+      "dateOfBirth": "01-04-2024",
+      "sex": "Female",
+      "breed": {
+        "name": "Beef Shorthorn",
+        "code": "BSH"
+      },
+      "status": "Alive",
+      "administrativeStatus": {
+        "passportStatus": "Passport issued",
+        "movementStatus": "Unrestricted",
+        "passportLastIssued": "02-04-2024",
+        "passportVersion": 1
+      },
+      "dam": {
+        "type": "Genetic",
+        "surrogateDam": null,
+        "geneticDam": {
+          "earTagNumber": "UK332151260567"
+        }
+      },
+      "sire": null,
+      "dateOfRegistration": "02-04-2024"
+    },
+    {
+      "cph": "12/345/0001",
+      "earTagNumber": "UK755898557811",
+      "dateOfBirth": "19-10-2024",
+      "sex": "Male",
+      "breed": {
+        "name": "Galloway",
+        "code": "GAL"
+      },
+      "status": "Alive",
+      "administrativeStatus": {
+        "passportStatus": "Passport issued",
+        "movementStatus": "Unrestricted",
+        "passportLastIssued": "18-02-2025",
+        "passportVersion": 2
+      },
+      "dam": {
+        "type": "Surrogate",
+        "surrogateDam": {
+          "earTagNumber": "UK776513151651"
+        },
+        "geneticDam": {
+          "earTagNumber": "UK911304820234"
+        }
+      },
+      "sire": null,
+      "dateOfRegistration": "21-10-2024"
+    },
+    {
+      "cph": "12/345/0001",
+      "earTagNumber": "UK939086457859",
+      "dateOfBirth": "08-01-2025",
+      "sex": "Male",
+      "breed": {
+        "name": "Beef Shorthorn",
+        "code": "BSH"
+      },
+      "status": "Alive",
+      "administrativeStatus": {
+        "passportStatus": "Passport issued",
+        "movementStatus": "Unrestricted",
+        "passportLastIssued": "11-01-2025",
+        "passportVersion": 1
+      },
+      "dam": {
+        "type": "Genetic",
+        "surrogateDam": null,
+        "geneticDam": {
+          "earTagNumber": "UK197618642125"
+        }
+      },
+      "sire": null,
+      "dateOfRegistration": "11-01-2025"
+    },
+    {
+      "cph": "12/345/0001",
+      "earTagNumber": "UK654322100004",
+      "dateOfBirth": "24-05-2021",
+      "sex": "Male",
+      "breed": {
+        "name": "British Blue",
+        "code": "BRB"
+      },
+      "status": "Alive",
+      "administrativeStatus": {
+        "passportStatus": "Passport issued",
+        "movementStatus": "Unrestricted",
+        "passportLastIssued": "27-05-2021",
+        "passportVersion": 1
+      },
+      "dam": {
+        "type": "Genetic",
+        "surrogateDam": null,
+        "geneticDam": null
+      },
+      "sire": null,
+      "dateOfRegistration": "27-05-2021"
+    },
+    {
+      "cph": "12/345/0001",
+      "earTagNumber": "UK654322100005",
+      "dateOfBirth": "17-07-2021",
+      "sex": "Female",
+      "breed": {
+        "name": "Charolais",
+        "code": "CHA"
+      },
+      "status": "Alive",
+      "administrativeStatus": {
+        "passportStatus": "Passport issued",
+        "movementStatus": "Unrestricted",
+        "passportLastIssued": "27-07-2021",
+        "passportVersion": 1
+      },
+      "dam": {
+        "type": "Genetic",
+        "surrogateDam": null,
+        "geneticDam": {
+          "earTagNumber": "UK654322100001"
+        }
+      },
+      "sire": null,
+      "dateOfRegistration": "27-07-2021"
+    },
+    {
+      "cph": "12/345/0001",
+      "earTagNumber": "UK654322100006",
+      "dateOfBirth": "23-08-2021",
+      "sex": "Male",
+      "breed": {
+        "name": "Limousin",
+        "code": "LIM"
+      },
+      "status": "Alive",
+      "administrativeStatus": {
+        "passportStatus": "Passport issued",
+        "movementStatus": "Unrestricted",
+        "passportLastIssued": "31-08-2021",
+        "passportVersion": 1
+      },
+      "dam": {
+        "type": "Genetic",
+        "surrogateDam": null,
+        "geneticDam": {
+          "earTagNumber": "UK654322100001"
+        }
+      },
+      "sire": null,
+      "dateOfRegistration": "31-08-2021"
+    },
+    {
+      "cph": "12/345/0001",
+      "earTagNumber": "UK654322100007",
+      "dateOfBirth": "29-09-2021",
+      "sex": "Female",
+      "breed": {
+        "name": "Beef Shorthorn",
+        "code": "BSH"
+      },
+      "status": "Alive",
+      "administrativeStatus": {
+        "passportStatus": "Passport issued",
+        "movementStatus": "Unrestricted",
+        "passportLastIssued": "13-10-2021",
+        "passportVersion": 1
+      },
+      "dam": {
+        "type": "Genetic",
+        "surrogateDam": null,
+        "geneticDam": {
+          "earTagNumber": "UK654322100003"
+        }
+      },
+      "sire": null,
+      "dateOfRegistration": "13-10-2021"
+    },
+    {
+      "cph": "12/345/0001",
+      "earTagNumber": "UK654322100008",
+      "dateOfBirth": "01-11-2021",
+      "sex": "Male",
+      "breed": {
+        "name": "Welsh Black",
+        "code": "WB"
+      },
+      "status": "Alive",
+      "administrativeStatus": {
+        "passportStatus": "Passport issued",
+        "movementStatus": "Unrestricted",
+        "passportLastIssued": "05-11-2021",
+        "passportVersion": 1
+      },
+      "dam": {
+        "type": "Genetic",
+        "surrogateDam": null,
+        "geneticDam": {
+          "earTagNumber": "UK654322100003"
+        }
+      },
+      "sire": {
+        "earTagNumber": "UK234567900007",
+        "name": ""
+      },
+      "dateOfRegistration": "05-11-2021"
+    },
+    {
+      "cph": "12/345/0001",
+      "earTagNumber": "UK654322100009",
+      "dateOfBirth": "30-11-2021",
+      "sex": "Female",
+      "breed": {
+        "name": "Aberdeen Angus",
+        "code": "AA"
+      },
+      "status": "Alive",
+      "administrativeStatus": {
+        "passportStatus": "Passport issued",
+        "movementStatus": "Unrestricted",
+        "passportLastIssued": "12-12-2021",
+        "passportVersion": 1
+      },
+      "dam": {
+        "type": "Genetic",
+        "surrogateDam": null,
+        "geneticDam": {
+          "earTagNumber": "UK654322100005"
+        }
+      },
+      "sire": null,
+      "dateOfRegistration": "12-12-2021"
+    },
+    {
+      "cph": "12/345/0001",
+      "earTagNumber": "UK654322100010",
+      "dateOfBirth": "31-12-2021",
+      "sex": "Male",
+      "breed": {
+        "name": "Hereford",
+        "code": "HER"
+      },
+      "status": "Alive",
+      "administrativeStatus": {
+        "passportStatus": "Passport issued",
+        "movementStatus": "Unrestricted",
+        "passportLastIssued": "13-01-2022",
+        "passportVersion": 1
+      },
+      "dam": {
+        "type": "Genetic",
+        "surrogateDam": null,
+        "geneticDam": {
+          "earTagNumber": "UK654322100005"
+        }
+      },
+      "sire": null,
+      "dateOfRegistration": "13-01-2022"
+    },
+    {
+      "cph": "12/345/0001",
+      "earTagNumber": "UK654322100011",
+      "dateOfBirth": "26-02-2022",
+      "sex": "Female",
+      "breed": {
+        "name": "Shorthorn",
+        "code": "SHO"
+      },
+      "status": "Alive",
+      "administrativeStatus": {
+        "passportStatus": "Passport issued",
+        "movementStatus": "Unrestricted",
+        "passportLastIssued": "07-03-2022",
+        "passportVersion": 1
+      },
+      "dam": {
+        "type": "Genetic",
+        "surrogateDam": null,
+        "geneticDam": {
+          "earTagNumber": "UK654322100007"
+        }
+      },
+      "sire": null,
+      "dateOfRegistration": "07-03-2022"
+    },
+    {
+      "cph": "12/345/0001",
+      "earTagNumber": "UK654322100012",
+      "dateOfBirth": "18-03-2022",
+      "sex": "Male",
+      "breed": {
+        "name": "British Blue",
+        "code": "BRB"
+      },
+      "status": "Alive",
+      "administrativeStatus": {
+        "passportStatus": "Passport issued",
+        "movementStatus": "Unrestricted",
+        "passportLastIssued": "30-03-2022",
+        "passportVersion": 1
+      },
+      "dam": {
+        "type": "Genetic",
+        "surrogateDam": null,
+        "geneticDam": {
+          "earTagNumber": "UK654322100007"
+        }
+      },
+      "sire": null,
+      "dateOfRegistration": "30-03-2022"
+    },
+    {
+      "cph": "12/345/0001",
+      "earTagNumber": "UK654322100013",
+      "dateOfBirth": "07-05-2022",
+      "sex": "Female",
+      "breed": {
+        "name": "Charolais",
+        "code": "CHA"
+      },
+      "status": "Alive",
+      "administrativeStatus": {
+        "passportStatus": "Passport issued",
+        "movementStatus": "Unrestricted",
+        "passportLastIssued": "21-05-2022",
+        "passportVersion": 1
+      },
+      "dam": {
+        "type": "Genetic",
+        "surrogateDam": null,
+        "geneticDam": {
+          "earTagNumber": "UK654322100009"
+        }
+      },
+      "sire": null,
+      "dateOfRegistration": "21-05-2022"
+    },
+    {
+      "cph": "12/345/0001",
+      "earTagNumber": "UK654322100014",
+      "dateOfBirth": "10-06-2022",
+      "sex": "Male",
+      "breed": {
+        "name": "Limousin",
+        "code": "LIM"
+      },
+      "status": "Alive",
+      "administrativeStatus": {
+        "passportStatus": "Passport issued",
+        "movementStatus": "Unrestricted",
+        "passportLastIssued": "17-06-2022",
+        "passportVersion": 1
+      },
+      "dam": {
+        "type": "Genetic",
+        "surrogateDam": null,
+        "geneticDam": {
+          "earTagNumber": "UK654322100009"
+        }
+      },
+      "sire": null,
+      "dateOfRegistration": "17-06-2022"
+    },
+    {
+      "cph": "12/345/0001",
+      "earTagNumber": "UK654322100015",
+      "dateOfBirth": "22-07-2022",
+      "sex": "Female",
+      "breed": {
+        "name": "Beef Shorthorn",
+        "code": "BSH"
+      },
+      "status": "Alive",
+      "administrativeStatus": {
+        "passportStatus": "Passport issued",
+        "movementStatus": "Unrestricted",
+        "passportLastIssued": "23-07-2022",
+        "passportVersion": 1
+      },
+      "dam": {
+        "type": "Genetic",
+        "surrogateDam": null,
+        "geneticDam": {
+          "earTagNumber": "UK654322100011"
+        }
+      },
+      "sire": {
+        "earTagNumber": "UK234567900014",
+        "name": ""
+      },
+      "dateOfRegistration": "23-07-2022"
+    },
+    {
+      "cph": "12/345/0001",
+      "earTagNumber": "UK654322100016",
+      "dateOfBirth": "10-08-2022",
+      "sex": "Male",
+      "breed": {
+        "name": "Welsh Black",
+        "code": "WB"
+      },
+      "status": "Alive",
+      "administrativeStatus": {
+        "passportStatus": "Passport issued",
+        "movementStatus": "Unrestricted",
+        "passportLastIssued": "15-08-2022",
+        "passportVersion": 1
+      },
+      "dam": {
+        "type": "Genetic",
+        "surrogateDam": null,
+        "geneticDam": {
+          "earTagNumber": "UK654322100011"
+        }
+      },
+      "sire": null,
+      "dateOfRegistration": "15-08-2022"
+    },
+    {
+      "cph": "12/345/0001",
+      "earTagNumber": "UK654322100017",
+      "dateOfBirth": "25-09-2022",
+      "sex": "Female",
+      "breed": {
+        "name": "Aberdeen Angus",
+        "code": "AA"
+      },
+      "status": "Alive",
+      "administrativeStatus": {
+        "passportStatus": "Passport issued",
+        "movementStatus": "Unrestricted",
+        "passportLastIssued": "27-09-2022",
+        "passportVersion": 1
+      },
+      "dam": {
+        "type": "Genetic",
+        "surrogateDam": null,
+        "geneticDam": {
+          "earTagNumber": "UK654322100013"
+        }
+      },
+      "sire": null,
+      "dateOfRegistration": "27-09-2022"
+    },
+    {
+      "cph": "12/345/0001",
+      "earTagNumber": "UK654322100018",
+      "dateOfBirth": "27-10-2022",
+      "sex": "Male",
+      "breed": {
+        "name": "Hereford",
+        "code": "HER"
+      },
+      "status": "Alive",
+      "administrativeStatus": {
+        "passportStatus": "Passport issued",
+        "movementStatus": "Unrestricted",
+        "passportLastIssued": "09-11-2022",
+        "passportVersion": 1
+      },
+      "dam": {
+        "type": "Genetic",
+        "surrogateDam": null,
+        "geneticDam": {
+          "earTagNumber": "UK654322100013"
+        }
+      },
+      "sire": null,
+      "dateOfRegistration": "09-11-2022"
+    },
+    {
+      "cph": "12/345/0001",
+      "earTagNumber": "UK654322100019",
+      "dateOfBirth": "15-12-2022",
+      "sex": "Female",
+      "breed": {
+        "name": "Shorthorn",
+        "code": "SHO"
+      },
+      "status": "Alive",
+      "administrativeStatus": {
+        "passportStatus": "Passport issued",
+        "movementStatus": "Unrestricted",
+        "passportLastIssued": "24-12-2022",
+        "passportVersion": 1
+      },
+      "dam": {
+        "type": "Genetic",
+        "surrogateDam": null,
+        "geneticDam": {
+          "earTagNumber": "UK654322100015"
+        }
+      },
+      "sire": null,
+      "dateOfRegistration": "24-12-2022"
+    },
+    {
+      "cph": "12/345/0001",
+      "earTagNumber": "UK654322100020",
+      "dateOfBirth": "25-01-2023",
+      "sex": "Male",
+      "breed": {
+        "name": "British Blue",
+        "code": "BRB"
+      },
+      "status": "Alive",
+      "administrativeStatus": {
+        "passportStatus": "Passport issued",
+        "movementStatus": "Unrestricted",
+        "passportLastIssued": "28-01-2023",
+        "passportVersion": 1
+      },
+      "dam": {
+        "type": "Genetic",
+        "surrogateDam": null,
+        "geneticDam": {
+          "earTagNumber": "UK654322100015"
+        }
+      },
+      "sire": null,
+      "dateOfRegistration": "28-01-2023"
+    },
+    {
+      "cph": "12/345/0001",
+      "earTagNumber": "UK654322100021",
+      "dateOfBirth": "18-02-2023",
+      "sex": "Female",
+      "breed": {
+        "name": "Charolais",
+        "code": "CHA"
+      },
+      "status": "Alive",
+      "administrativeStatus": {
+        "passportStatus": "Passport issued",
+        "movementStatus": "Unrestricted",
+        "passportLastIssued": "28-02-2023",
+        "passportVersion": 1
+      },
+      "dam": {
+        "type": "Genetic",
+        "surrogateDam": null,
+        "geneticDam": {
+          "earTagNumber": "UK654322100017"
+        }
+      },
+      "sire": null,
+      "dateOfRegistration": "28-02-2023"
+    },
+    {
+      "cph": "12/345/0001",
+      "earTagNumber": "UK654322100022",
+      "dateOfBirth": "29-03-2023",
+      "sex": "Male",
+      "breed": {
+        "name": "Limousin",
+        "code": "LIM"
+      },
+      "status": "Alive",
+      "administrativeStatus": {
+        "passportStatus": "Passport issued",
+        "movementStatus": "Unrestricted",
+        "passportLastIssued": "02-04-2023",
+        "passportVersion": 1
+      },
+      "dam": {
+        "type": "Genetic",
+        "surrogateDam": null,
+        "geneticDam": {
+          "earTagNumber": "UK654322100017"
+        }
+      },
+      "sire": {
+        "earTagNumber": "UK234567900021",
+        "name": ""
+      },
+      "dateOfRegistration": "02-04-2023"
+    },
+    {
+      "cph": "12/345/0001",
+      "earTagNumber": "UK654322100023",
+      "dateOfBirth": "04-05-2023",
+      "sex": "Female",
+      "breed": {
+        "name": "Beef Shorthorn",
+        "code": "BSH"
+      },
+      "status": "Alive",
+      "administrativeStatus": {
+        "passportStatus": "Passport issued",
+        "movementStatus": "Unrestricted",
+        "passportLastIssued": "15-05-2023",
+        "passportVersion": 1
+      },
+      "dam": {
+        "type": "Genetic",
+        "surrogateDam": null,
+        "geneticDam": {
+          "earTagNumber": "UK654322100019"
+        }
+      },
+      "sire": null,
+      "dateOfRegistration": "15-05-2023"
+    },
+    {
+      "cph": "12/345/0001",
+      "earTagNumber": "UK654322100024",
+      "dateOfBirth": "19-06-2023",
+      "sex": "Male",
+      "breed": {
+        "name": "Welsh Black",
+        "code": "WB"
+      },
+      "status": "Alive",
+      "administrativeStatus": {
+        "passportStatus": "Passport issued",
+        "movementStatus": "Unrestricted",
+        "passportLastIssued": "02-07-2023",
+        "passportVersion": 1
+      },
+      "dam": {
+        "type": "Genetic",
+        "surrogateDam": null,
+        "geneticDam": {
+          "earTagNumber": "UK654322100019"
+        }
+      },
+      "sire": null,
+      "dateOfRegistration": "02-07-2023"
+    },
+    {
+      "cph": "12/345/0001",
+      "earTagNumber": "UK654322100025",
+      "dateOfBirth": "29-07-2023",
+      "sex": "Female",
+      "breed": {
+        "name": "Aberdeen Angus",
+        "code": "AA"
+      },
+      "status": "Alive",
+      "administrativeStatus": {
+        "passportStatus": "Passport issued",
+        "movementStatus": "Unrestricted",
+        "passportLastIssued": "10-08-2023",
+        "passportVersion": 1
+      },
+      "dam": {
+        "type": "Genetic",
+        "surrogateDam": null,
+        "geneticDam": {
+          "earTagNumber": "UK654322100021"
+        }
+      },
+      "sire": null,
+      "dateOfRegistration": "10-08-2023"
+    },
+    {
+      "cph": "12/345/0001",
+      "earTagNumber": "UK654322100026",
+      "dateOfBirth": "02-09-2023",
+      "sex": "Male",
+      "breed": {
+        "name": "Hereford",
+        "code": "HER"
+      },
+      "status": "Alive",
+      "administrativeStatus": {
+        "passportStatus": "Passport issued",
+        "movementStatus": "Unrestricted",
+        "passportLastIssued": "11-09-2023",
+        "passportVersion": 1
+      },
+      "dam": {
+        "type": "Genetic",
+        "surrogateDam": null,
+        "geneticDam": {
+          "earTagNumber": "UK654322100021"
+        }
+      },
+      "sire": null,
+      "dateOfRegistration": "11-09-2023"
+    },
+    {
+      "cph": "12/345/0001",
+      "earTagNumber": "UK654322100027",
+      "dateOfBirth": "30-09-2023",
+      "sex": "Female",
+      "breed": {
+        "name": "Shorthorn",
+        "code": "SHO"
+      },
+      "status": "Alive",
+      "administrativeStatus": {
+        "passportStatus": "Passport issued",
+        "movementStatus": "Unrestricted",
+        "passportLastIssued": "05-10-2023",
+        "passportVersion": 1
+      },
+      "dam": {
+        "type": "Genetic",
+        "surrogateDam": null,
+        "geneticDam": {
+          "earTagNumber": "UK654322100023"
+        }
+      },
+      "sire": null,
+      "dateOfRegistration": "05-10-2023"
+    },
+    {
+      "cph": "12/345/0001",
+      "earTagNumber": "UK654322100028",
+      "dateOfBirth": "04-11-2023",
+      "sex": "Male",
+      "breed": {
+        "name": "British Blue",
+        "code": "BRB"
+      },
+      "status": "Alive",
+      "administrativeStatus": {
+        "passportStatus": "Passport issued",
+        "movementStatus": "Unrestricted",
+        "passportLastIssued": "11-11-2023",
+        "passportVersion": 1
+      },
+      "dam": {
+        "type": "Genetic",
+        "surrogateDam": null,
+        "geneticDam": {
+          "earTagNumber": "UK654322100023"
+        }
+      },
+      "sire": null,
+      "dateOfRegistration": "11-11-2023"
+    },
+    {
+      "cph": "12/345/0001",
+      "earTagNumber": "UK654322100029",
+      "dateOfBirth": "04-12-2023",
+      "sex": "Female",
+      "breed": {
+        "name": "Charolais",
+        "code": "CHA"
+      },
+      "status": "Alive",
+      "administrativeStatus": {
+        "passportStatus": "Passport issued",
+        "movementStatus": "Unrestricted",
+        "passportLastIssued": "13-12-2023",
+        "passportVersion": 1
+      },
+      "dam": {
+        "type": "Genetic",
+        "surrogateDam": null,
+        "geneticDam": {
+          "earTagNumber": "UK654322100025"
+        }
+      },
+      "sire": {
+        "earTagNumber": "UK234567900028",
+        "name": ""
+      },
+      "dateOfRegistration": "13-12-2023"
+    },
+    {
+      "cph": "12/345/0001",
+      "earTagNumber": "UK654322100030",
+      "dateOfBirth": "24-01-2024",
+      "sex": "Male",
+      "breed": {
+        "name": "Limousin",
+        "code": "LIM"
+      },
+      "status": "Alive",
+      "administrativeStatus": {
+        "passportStatus": "Passport issued",
+        "movementStatus": "Unrestricted",
+        "passportLastIssued": "30-01-2024",
+        "passportVersion": 1
+      },
+      "dam": {
+        "type": "Genetic",
+        "surrogateDam": null,
+        "geneticDam": {
+          "earTagNumber": "UK654322100025"
+        }
+      },
+      "sire": null,
+      "dateOfRegistration": "30-01-2024"
+    },
+    {
+      "cph": "12/345/0001",
+      "earTagNumber": "UK654322100031",
+      "dateOfBirth": "23-02-2024",
+      "sex": "Female",
+      "breed": {
+        "name": "Beef Shorthorn",
+        "code": "BSH"
+      },
+      "status": "Alive",
+      "administrativeStatus": {
+        "passportStatus": "Passport issued",
+        "movementStatus": "Unrestricted",
+        "passportLastIssued": "29-02-2024",
+        "passportVersion": 1
+      },
+      "dam": {
+        "type": "Genetic",
+        "surrogateDam": null,
+        "geneticDam": {
+          "earTagNumber": "UK654322100027"
+        }
+      },
+      "sire": null,
+      "dateOfRegistration": "29-02-2024"
+    },
+    {
+      "cph": "12/345/0001",
+      "earTagNumber": "UK654322100032",
+      "dateOfBirth": "28-03-2024",
+      "sex": "Male",
+      "breed": {
+        "name": "Welsh Black",
+        "code": "WB"
+      },
+      "status": "Alive",
+      "administrativeStatus": {
+        "passportStatus": "Passport issued",
+        "movementStatus": "Unrestricted",
+        "passportLastIssued": "29-03-2024",
+        "passportVersion": 1
+      },
+      "dam": {
+        "type": "Genetic",
+        "surrogateDam": null,
+        "geneticDam": {
+          "earTagNumber": "UK654322100027"
+        }
+      },
+      "sire": null,
+      "dateOfRegistration": "29-03-2024"
+    },
+    {
+      "cph": "12/345/0001",
+      "earTagNumber": "UK654322100033",
+      "dateOfBirth": "09-05-2024",
+      "sex": "Female",
+      "breed": {
+        "name": "Aberdeen Angus",
+        "code": "AA"
+      },
+      "status": "Alive",
+      "administrativeStatus": {
+        "passportStatus": "Passport issued",
+        "movementStatus": "Unrestricted",
+        "passportLastIssued": "21-05-2024",
+        "passportVersion": 1
+      },
+      "dam": {
+        "type": "Genetic",
+        "surrogateDam": null,
+        "geneticDam": {
+          "earTagNumber": "UK654322100029"
+        }
+      },
+      "sire": null,
+      "dateOfRegistration": "21-05-2024"
+    },
+    {
+      "cph": "12/345/0001",
+      "earTagNumber": "UK654322100034",
+      "dateOfBirth": "06-06-2024",
+      "sex": "Male",
+      "breed": {
+        "name": "Hereford",
+        "code": "HER"
+      },
+      "status": "Alive",
+      "administrativeStatus": {
+        "passportStatus": "Passport issued",
+        "movementStatus": "Unrestricted",
+        "passportLastIssued": "12-06-2024",
+        "passportVersion": 1
+      },
+      "dam": {
+        "type": "Genetic",
+        "surrogateDam": null,
+        "geneticDam": {
+          "earTagNumber": "UK654322100029"
+        }
+      },
+      "sire": null,
+      "dateOfRegistration": "12-06-2024"
+    },
+    {
+      "cph": "12/345/0001",
+      "earTagNumber": "UK654322100035",
+      "dateOfBirth": "19-07-2024",
+      "sex": "Female",
+      "breed": {
+        "name": "Shorthorn",
+        "code": "SHO"
+      },
+      "status": "Alive",
+      "administrativeStatus": {
+        "passportStatus": "Passport issued",
+        "movementStatus": "Unrestricted",
+        "passportLastIssued": "31-07-2024",
+        "passportVersion": 1
+      },
+      "dam": {
+        "type": "Genetic",
+        "surrogateDam": null,
+        "geneticDam": {
+          "earTagNumber": "UK654322100031"
+        }
+      },
+      "sire": null,
+      "dateOfRegistration": "31-07-2024"
+    },
+    {
+      "cph": "12/345/0001",
+      "earTagNumber": "UK654322100036",
+      "dateOfBirth": "02-09-2024",
+      "sex": "Male",
+      "breed": {
+        "name": "British Blue",
+        "code": "BRB"
+      },
+      "status": "Alive",
+      "administrativeStatus": {
+        "passportStatus": "Passport issued",
+        "movementStatus": "Unrestricted",
+        "passportLastIssued": "11-09-2024",
+        "passportVersion": 1
+      },
+      "dam": {
+        "type": "Genetic",
+        "surrogateDam": null,
+        "geneticDam": {
+          "earTagNumber": "UK654322100031"
+        }
+      },
+      "sire": {
+        "earTagNumber": "UK234567900035",
+        "name": ""
+      },
+      "dateOfRegistration": "11-09-2024"
+    },
+    {
+      "cph": "12/345/0001",
+      "earTagNumber": "UK654322100037",
+      "dateOfBirth": "07-10-2024",
+      "sex": "Female",
+      "breed": {
+        "name": "Charolais",
+        "code": "CHA"
+      },
+      "status": "Alive",
+      "administrativeStatus": {
+        "passportStatus": "Passport issued",
+        "movementStatus": "Unrestricted",
+        "passportLastIssued": "12-10-2024",
+        "passportVersion": 1
+      },
+      "dam": {
+        "type": "Genetic",
+        "surrogateDam": null,
+        "geneticDam": {
+          "earTagNumber": "UK654322100033"
+        }
+      },
+      "sire": null,
+      "dateOfRegistration": "12-10-2024"
+    },
+    {
+      "cph": "12/345/0001",
+      "earTagNumber": "UK654322100038",
+      "dateOfBirth": "05-11-2024",
+      "sex": "Male",
+      "breed": {
+        "name": "Limousin",
+        "code": "LIM"
+      },
+      "status": "Alive",
+      "administrativeStatus": {
+        "passportStatus": "Passport issued",
+        "movementStatus": "Unrestricted",
+        "passportLastIssued": "17-11-2024",
+        "passportVersion": 1
+      },
+      "dam": {
+        "type": "Genetic",
+        "surrogateDam": null,
+        "geneticDam": {
+          "earTagNumber": "UK654322100033"
+        }
+      },
+      "sire": null,
+      "dateOfRegistration": "17-11-2024"
+    },
+    {
+      "cph": "12/345/0001",
+      "earTagNumber": "UK654322100039",
+      "dateOfBirth": "11-12-2024",
+      "sex": "Female",
+      "breed": {
+        "name": "Beef Shorthorn",
+        "code": "BSH"
+      },
+      "status": "Alive",
+      "administrativeStatus": {
+        "passportStatus": "Passport issued",
+        "movementStatus": "Unrestricted",
+        "passportLastIssued": "19-12-2024",
+        "passportVersion": 1
+      },
+      "dam": {
+        "type": "Genetic",
+        "surrogateDam": null,
+        "geneticDam": {
+          "earTagNumber": "UK654322100035"
+        }
+      },
+      "sire": null,
+      "dateOfRegistration": "19-12-2024"
+    },
+    {
+      "cph": "12/345/0001",
+      "earTagNumber": "UK654322100040",
+      "dateOfBirth": "02-02-2025",
+      "sex": "Male",
+      "breed": {
+        "name": "Welsh Black",
+        "code": "WB"
+      },
+      "status": "Alive",
+      "administrativeStatus": {
+        "passportStatus": "Passport issued",
+        "movementStatus": "Unrestricted",
+        "passportLastIssued": "05-02-2025",
+        "passportVersion": 1
+      },
+      "dam": {
+        "type": "Genetic",
+        "surrogateDam": null,
+        "geneticDam": {
+          "earTagNumber": "UK654322100035"
+        }
+      },
+      "sire": null,
+      "dateOfRegistration": "05-02-2025"
+    },
+    {
+      "cph": "12/345/0001",
+      "earTagNumber": "UK132588101360",
+      "dateOfBirth": "04-04-2026",
+      "sex": "Male",
+      "breed": {
+        "name": "Belgian Blue",
+        "code": "BB"
+      },
+      "status": "Alive",
+      "administrativeStatus": {
+        "passportStatus": "Passport issued",
+        "movementStatus": "Unrestricted",
+        "passportLastIssued": "07-04-2026",
+        "passportVersion": 1
+      },
+      "dam": {
+        "type": "Genetic",
+        "surrogateDam": null,
+        "geneticDam": {
+          "earTagNumber": "UK765131516511"
+        }
+      },
+      "sire": null,
+      "dateOfRegistration": "07-04-2026"
+    },
+    {
+      "cph": "12/345/0001",
+      "earTagNumber": "UK551643261039",
+      "dateOfBirth": "29-07-2022",
+      "sex": "Male",
+      "breed": {
+        "name": "Charolais",
+        "code": "CHA"
+      },
+      "status": "Alive",
+      "administrativeStatus": {
+        "passportStatus": "Passport issued",
+        "movementStatus": "Unrestricted",
+        "passportLastIssued": "25-01-2024",
+        "passportVersion": 3
+      },
+      "dam": {
+        "type": "Surrogate",
+        "surrogateDam": {
+          "earTagNumber": "UK208590753232"
+        },
+        "geneticDam": {
+          "earTagNumber": "UK052474911920"
+        }
+      },
+      "sire": {
+        "earTagNumber": "UK314575863782",
+        "name": ""
+      },
+      "dateOfRegistration": "03-08-2022"
+    },
+    {
+      "cph": "12/345/0001",
+      "earTagNumber": "UK310588087895",
+      "dateOfBirth": "30-03-2022",
+      "sex": "Female",
+      "breed": {
+        "name": "Welsh Black",
+        "code": "WB"
+      },
+      "status": "Alive",
+      "administrativeStatus": {
+        "passportStatus": "Passport issued",
+        "movementStatus": "Unrestricted",
+        "passportLastIssued": "06-04-2022",
+        "passportVersion": 1
+      },
+      "dam": {
+        "type": "Genetic",
+        "surrogateDam": null,
+        "geneticDam": {
+          "earTagNumber": "UK701737377727"
+        }
+      },
+      "sire": null,
+      "dateOfRegistration": "06-04-2022"
+    },
+    {
+      "cph": "12/345/0001",
+      "earTagNumber": "UK052474911920",
+      "dateOfBirth": "13-06-2022",
+      "sex": "Female",
+      "breed": {
+        "name": "Shorthorn",
+        "code": "SHO"
+      },
+      "status": "Alive",
+      "administrativeStatus": {
+        "passportStatus": "Passport refused",
+        "movementStatus": "Restricted",
+        "passportLastIssued": null,
+        "passportVersion": null
+      },
+      "dam": {
+        "type": "Genetic",
+        "surrogateDam": null,
+        "geneticDam": {
+          "earTagNumber": "UK310588087895"
+        }
+      },
+      "sire": null,
+      "dateOfRegistration": "27-06-2022"
+    }
+  ]
+}

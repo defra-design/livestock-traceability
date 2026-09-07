@@ -13,20 +13,8 @@
 {% endblock %}
 
 {% block beforeContent %}
-{% set pathParts = currentPath.split('/') %}
-{% set currentBaseUrl = '/' + pathParts[1] + '/' + pathParts[2] + '/' + pathParts[3] + '/' %}
-{{ govukBreadcrumbs({
-items: [
-{
-text: "Home",
-href: currentBaseUrl+"home"
-},
-{
-text: "Animals",
-href: currentBaseUrl+"cattle"
-}
-]
-}) }}
+{% set currentBaseUrl = '/' + baseURL + '/' %}
+{% block returnLink %}{% include "./components/_return-link-animal.html" %}{% endblock %}
 {% endblock %}
 {% block content %}
   <div class="govuk-grid-row">
@@ -41,12 +29,12 @@ href: currentBaseUrl+"cattle"
       </h1>
 
 
-      <nav class="moj-sub-navigation" aria-label="Sub navigation">
+            <nav class="moj-sub-navigation" aria-label="Sub navigation">
         <ul class="moj-sub-navigation__list">
           <li class="moj-sub-navigation__item">
             <a
                     class="moj-sub-navigation__link"
-                    href="../{{ animal.earTagNumber }}"
+                    href="/{{baseURL}}/cattle/{{ animal.earTagNumber }}{{ contextQuery }}"
             >
               Animal details
             </a>
@@ -55,7 +43,7 @@ href: currentBaseUrl+"cattle"
             <a
                     class="moj-sub-navigation__link"
                     aria-current="page"
-                    href="{{ currentBaseUrl }}{{ animal.earTagNumber }}/cattle-history"
+                    href="/{{baseURL}}/cattle/{{ animal.earTagNumber }}/cattle-history{{ contextQuery }}"
             >
               History
             </a>
@@ -64,22 +52,49 @@ href: currentBaseUrl+"cattle"
       </nav>
 
 
-          <h2 class="govuk-heading-m">
-            Animal history
-          </h2>
+          <section aria-labelledby="animal-history-heading">
+            <h2 class="govuk-heading-m" id="animal-history-heading">
+              Animal history
+            </h2>
 
-          {% if animalEvents.length %}
-          <ol class="govuk-list app-event-results">
-            {% for event in animalEvents %}
-            <li class="app-event-card">
-              <article class="app-event-card__content">
+            {% if animalEvents.length %}
+            <section class="app-history-summary" aria-labelledby="history-summary-heading">
+              <h3 class="govuk-heading-s" id="history-summary-heading">
+                History summary
+              </h3>
 
-                <time
-                        class="govuk-body-s app-event-card__date"
-                        datetime="{{ event.event_date }}"
-                >
-                  {{ event.event_date | fullDateFormat }}
-                </time>
+              <ul class="govuk-list app-history-summary__counts">
+                <li>
+                  <strong>{{ historySummary.movementRecords }}</strong>
+                  movement record{% if historySummary.movementRecords != 1 %}s{% endif %}
+                </li>
+                {% if historySummary.passportEvents %}
+                <li>
+                  <strong>{{ historySummary.passportEvents }}</strong>
+                  passport event{% if historySummary.passportEvents != 1 %}s{% endif %}
+                </li>
+                {% endif %}
+                {% if historySummary.registrationChanges %}
+                <li>
+                  <strong>{{ historySummary.registrationChanges }}</strong>
+                  registration change{% if historySummary.registrationChanges != 1 %}s{% endif %}
+                </li>
+                {% endif %}
+              </ul>
+            </section>
+
+            <ol class="app-history">
+              {% for event in animalEvents %}
+              <li class="app-history__item">
+                <div class="app-history__content">
+                  <time
+                    class="app-history__datetime"
+                    datetime="{{ event.event_datetime }}"
+                  >
+                    {{ event.event_date | fullDateFormat }} at {{ event.event_time_display }}
+                  </time>
+
+                  <article class="app-event-card app-event-card__content">
 
                 <h3 class="govuk-heading-s app-event-card__heading">
                   <a
@@ -281,7 +296,7 @@ href: currentBaseUrl+"cattle"
 
                         Holding type:
 
-                      Agricultural Holdings (AH)
+                      Agricultural Holding (AH)
                     </li>
                     {% elseif event.details.to_holding_type === "abattoir" %}
                     <li>
@@ -321,7 +336,7 @@ href: currentBaseUrl+"cattle"
                     {% elseif event.details.off_holding_type %}
                     Holding type:
 
-                      Agricultural Holdings (AH)
+                      Agricultural Holding (AH)
                     {% endif %}
 
                   {% endif %}
@@ -407,15 +422,17 @@ href: currentBaseUrl+"cattle"
                   </li>
                 </ul>
 
-              </article>
-            </li>
-            {% endfor %}
-          </ol>
-          {% else %}
-          <p class="govuk-body">
-            No history events are recorded for this animal.
-          </p>
-          {% endif %}
+                  </article>
+                </div>
+              </li>
+              {% endfor %}
+            </ol>
+            {% else %}
+            <p class="govuk-body">
+              No history events are recorded for this animal.
+            </p>
+            {% endif %}
+          </section>
 
     </div>
   </div>

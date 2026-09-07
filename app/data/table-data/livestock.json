@@ -20,7 +20,7 @@
         "passportVersion": 1
       },
       "dam": {
-        "type": "Generic",
+        "type": "Genetic",
         "surrogateDam": null,
         "geneticDam": {
           "earTagNumber": "UK457586378257"
@@ -74,7 +74,7 @@
         "passportVersion": 1
       },
       "dam": {
-        "type": "Generic",
+        "type": "Genetic",
         "surrogateDam": {
           "earTagNumber": "UK208590753232"
         },
@@ -105,7 +105,7 @@
         "passportVersion": 1
       },
       "dam": {
-        "type": "Generic",
+        "type": "Genetic",
         "surrogateDam": null,
         "geneticDam": {
           "earTagNumber": "UK765131516511"
@@ -162,7 +162,7 @@
         "passportVersion": 1
       },
       "dam": {
-        "type": "Generic",
+        "type": "Genetic",
         "surrogateDam": null,
         "geneticDam": {
           "earTagNumber": "UK701737377727"
@@ -189,7 +189,7 @@
         "passportVersion": 1
       },
       "dam": {
-        "type": "Generic",
+        "type": "Genetic",
         "surrogateDam": null,
         "geneticDam": {
           "earTagNumber": "UK052474911920"
@@ -215,7 +215,7 @@
         "passportVersion": null
       },
       "dam": {
-        "type": "Generic",
+        "type": "Genetic",
         "surrogateDam": null,
         "geneticDam": {
           "earTagNumber": "UK310588087895"
@@ -241,7 +241,7 @@
         "passportVersion": 1
       },
       "dam": {
-        "type": "Generic",
+        "type": "Genetic",
         "surrogateDam": null,
         "geneticDam": {
           "earTagNumber": "UK193908645785"
@@ -295,7 +295,7 @@
         "passportVersion": 1
       },
       "dam": {
-        "type": "Generic",
+        "type": "Genetic",
         "surrogateDam": null,
         "geneticDam": {
           "earTagNumber": "UK592532729963"
@@ -321,7 +321,7 @@
         "passportVersion": 1
       },
       "dam": {
-        "type": "Generic",
+        "type": "Genetic",
         "surrogateDam": null,
         "geneticDam": {
           "earTagNumber": "UK332151260567"
@@ -375,7 +375,7 @@
         "passportVersion": 1
       },
       "dam": {
-        "type": "Generic",
+        "type": "Genetic",
         "surrogateDam": null,
         "geneticDam": {
           "earTagNumber": "UK197618642125"
@@ -401,7 +401,7 @@
         "passportVersion": 1
       },
       "dam": {
-        "type": "Generic",
+        "type": "Genetic",
         "surrogateDam": null,
         "geneticDam": {
           "earTagNumber": "UK401215635844"
@@ -427,7 +427,7 @@
         "passportVersion": 1
       },
       "dam": {
-        "type": "Generic",
+        "type": "Genetic",
         "surrogateDam": null,
         "geneticDam": {
           "earTagNumber": "UK121040157101"
@@ -456,7 +456,7 @@
         "passportVersion": 1
       },
       "dam": {
-        "type": "Generic",
+        "type": "Genetic",
         "surrogateDam": null,
         "geneticDam": {
           "earTagNumber": "UK447178862431"
@@ -510,7 +510,7 @@
         "passportVersion": 1
       },
       "dam": {
-        "type": "Generic",
+        "type": "Genetic",
         "surrogateDam": null,
         "geneticDam": {
           "earTagNumber": "UK804878885688"
@@ -539,7 +539,7 @@
         "passportVersion": 1
       },
       "dam": {
-        "type": "Generic",
+        "type": "Genetic",
         "surrogateDam": null,
         "geneticDam": {
           "earTagNumber": "UK476245203267"
