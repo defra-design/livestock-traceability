@@ -58,7 +58,7 @@
           </div>
 
           <h2 class="govuk-heading-m govuk-!-static-margin-bottom-6">
-            {{ totalErrors }} animal{{ 's' if totalErrors != 1 else '' }} with errors
+            {{ totalErrors }} animal error{{ 's' if totalErrors != 1 else '' }}
           </h2>
 
           {#
@@ -150,7 +150,7 @@
           {% endfor %}
 
           <p class="govuk-body">
-            Showing {{ showingFrom }} to {{ showingTo }} of {{ totalErrors }} error records
+            Showing {{ showingFrom }} to {{ showingTo }} of {{ totalErrors }} animal error{{ 's' if totalErrors != 1 else '' }}
           </p>
 
           {% if pagination %}
