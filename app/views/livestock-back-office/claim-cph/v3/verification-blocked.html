@@ -1,0 +1,23 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}You cannot link this CPH online{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <h1 class="govuk-heading-l">You cannot link this CPH online</h1>
+
+      <p class="govuk-body">
+        We could not confirm that you have access to the information for CPH {{ verificationResult.holding.cphNumber }}.
+      </p>
+
+      <p class="govuk-body">
+        You cannot try to link this CPH again online. You’ll need to contact the British Cattle Movement Service (BCMS).
+      </p>
+
+      <p class="govuk-body">
+        <a class="govuk-link" href="/contact-bcms">Contact BCMS</a>
+      </p>
+    </div>
+  </div>
+{% endblock %}

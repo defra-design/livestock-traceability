@@ -1,0 +1,55 @@
+{% extends "layouts/main.html" %}
+
+{% set pageHeading = "Check your answers before confirming" %}
+
+{% block pageTitle %}{{ pageHeading }}{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: backLink
+  }) }}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds-from-desktop">
+      <h1 class="govuk-heading-l">{{ pageHeading }}</h1>
+
+      <h2 class="govuk-heading-m">Holding details</h2>
+      {{ govukSummaryList({
+        rows: [
+          {
+            key: { text: "CPH number" },
+            value: { text: pendingHolding.cphNumber }
+          },
+          {
+            key: { text: "Postcode" },
+            value: { text: pendingHolding.postcode }
+          },
+          {
+            key: { text: "CPH registered to you or your business" },
+            value: { text: pendingHolding.registeredToUserLabel }
+          }
+        ]
+      }) }}
+
+      <h2 class="govuk-heading-m">Holding verification answers</h2>
+      {{ govukSummaryList({ rows: rows }) }}
+
+      <h2 class="govuk-heading-m">Declaration</h2>
+
+      <p class="govuk-body">
+        By continuing, you confirm that you are authorised to act for this holding, that you have access to the information you have provided and that your answers are correct to the best of your knowledge.
+      </p>
+
+      <p class="govuk-body">
+        We will email the CPH holder and every email address linked to the existing account to tell them about this request.
+      </p>
+
+      <form action="/{{ baseURL }}/check-verification-answers" method="post">
+        {{ govukButton({ text: "Confirm and continue" }) }}
+      </form>
+    </div>
+  </div>
+{% endblock %}

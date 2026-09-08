@@ -1,0 +1,51 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  Before you link a holding
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "/"
+  }) }}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <h1 class="govuk-heading-l">Before you link a holding</h1>
+
+      <p class="govuk-body">
+        We need to confirm you have access to information about the holding before we can link it to your account.
+      </p>
+
+      <h2 class="govuk-heading-m">What you’ll need</h2>
+
+      <p class="govuk-body">You’ll need:</p>
+
+      <ul class="govuk-list govuk-list--bullet">
+        <li>the county parish holding (CPH) number</li>
+        <li>information about the holding</li>
+      </ul>
+
+      <p class="govuk-body">
+        The questions we ask will depend on the information we hold about the holding. You may need to sign in to the existing service or check your records to find the answers.
+      </p>
+
+      <p class="govuk-body">
+        You can link more than one holding. You must add and confirm each CPH number separately.
+      </p>
+
+      <p class="govuk-body">
+        If we cannot confirm your connection to the holding, you’ll need to
+        <a class="govuk-link" href="/contact-bcms">contact the British Cattle Movement Service (BCMS)</a>.
+      </p>
+
+      {{ govukButton({
+        text: "Continue",
+        href: "/" ~ baseURL ~ "/add-holding"
+      }) }}
+    </div>
+  </div>
+{% endblock %}

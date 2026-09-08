@@ -1,0 +1,63 @@
+{% extends "layouts/main.html" %}
+
+{% set pageHeading = "Check your phone" %}
+
+{% block pageTitle %}
+{% if errors and errors.length %}Error: {% endif %}{{ pageHeading }}
+{% endblock %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+text: "Back",
+href: "/" ~ baseURL ~ "/send-security-code"
+}) }}
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    {% if errors and errors.length %}
+      {{ govukErrorSummary({
+        titleText: "There is a problem",
+        errorList: errors
+      }) }}
+    {% endif %}
+
+    <h1 class="govuk-heading-l">{{ pageHeading }}</h1>
+
+    <p class="govuk-body">
+      We’ve sent you a text message with a security code.
+    </p>
+
+    <form action="/{{ baseURL }}/check-security-code" method="post" novalidate>
+
+      {{ govukInput({
+        label: {
+          text: "Security code"
+        },
+        id: "security-code",
+        name: "security-code",
+        value: securityCode,
+        type: "text",
+        autocomplete: "one-time-code",
+        inputmode: "numeric",
+        classes: "govuk-input--width-4 govuk-input--extra-letter-spacing",
+        errorMessage: securityCodeError
+      }) }}
+
+      {{ govukButton({
+        text: "Continue"
+      }) }}
+
+    </form>
+
+    <p class="govuk-body">
+      <a class="govuk-link" href="/{{ baseURL }}/request-new-security-code">
+        Not received a text message?
+      </a>
+    </p>
+
+  </div>
+</div>
+{% endblock %}
