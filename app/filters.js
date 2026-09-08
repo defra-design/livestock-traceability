@@ -300,10 +300,6 @@ addFilter('sexToLetter', function(value) {
         ? '1 year'
         : years + ' years';
 
-      if (months === 0) {
-        return yearText;
-      }
-
       const monthText = months === 1
         ? '1 month'
         : months + ' months';
