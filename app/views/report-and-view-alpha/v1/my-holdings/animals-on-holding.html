@@ -91,12 +91,13 @@
         </div>
 
           <p class="govuk-body" aria-live="polite">
+
             {% if search %}
             {{ cattle.length }}
             {% if cattle.length === 1 %}
-            registered cattle record matches
+            result for
             {% else %}
-            registered cattle records match
+            results for
             {% endif %}
             <strong>'{{ search }}'</strong>
             {% else %}
@@ -210,7 +211,11 @@
           </div>
 
           <p class="govuk-body">
-            Showing {{ showingFrom }} to {{ showingTo }} of {{ totalCattle }} animals
+            {% if pagination %}
+            Showing {{ showingFrom }} to {{ showingTo }} of {{ totalCattle }} results
+            {% else %}
+            Showing {{ totalCattle }} {% if totalCattle === 1 %}result{% else %}results{% endif %}
+            {% endif %}
           </p>
 
           {% if pagination %}
