@@ -314,6 +314,7 @@ function resetClaimCphJourney (request) {
   delete data['mobile-phone-access']
   delete data['security-code']
   delete data.claimCphPhoneVerification
+  delete data.claimCphHolderApprovalResult
   delete data['confirm-holding']
 }
 
@@ -531,16 +532,43 @@ function addMatchedCphHolderHoldings (request) {
   })
 }
 
+function getHoldingTableAddressLines (holding) {
+  return [
+    holding.holdingName,
+    holding.address?.town,
+    holding.address?.county,
+    normalisePostcode(holding.address?.postcode || holding.postcode) || holding.address?.postcode || holding.postcode
+  ].filter(Boolean)
+}
+
 function renderHoldings (request, response) {
   // V3 CPH-holder path: a holding matched from the existing account contact
   // details is added automatically and the user receives the Keeper admin role.
   addMatchedCphHolderHoldings(request)
 
-  const linkedHoldings = getHoldingsToLink(request)
+  const holdings = getHoldingsToLink(request).map(holding => ({
+    ...holding,
+    tableAddressLines: getHoldingTableAddressLines(holding),
+    displayStatusLabel: holding.linkStatus === 'pending-holder-approval'
+      ? 'Access requested'
+      : holding.linkStatus === 'pending-manual-check'
+        ? 'Under review'
+        : holding.linkStatusLabel,
+    displayStatusTagColour: holding.linkStatus === 'pending-holder-approval' || holding.linkStatus === 'pending-manual-check'
+      ? 'yellow'
+      : holding.linkStatusTagColour
+  }))
+
+  const linkedHoldings = holdings.filter(holding => holding.linkStatus === 'linked')
+  const pendingHoldings = holdings.filter(holding =>
+    ['pending-holder-approval', 'pending-manual-check'].includes(holding.linkStatus)
+  )
 
   response.render(`${baseURL}/holdings`, {
     baseURL,
     linkedHoldings,
+    pendingHoldings,
+    hasPendingAccessRequests: pendingHoldings.some(holding => holding.linkStatus === 'pending-holder-approval'),
     hasAutoLinkedHoldings: linkedHoldings.some(holding => holding.autoLinkedFromContact),
     emailMatchedHoldings: [],
     emailMatchScenario: getVerificationSettings(request).emailMatchScenario
@@ -645,8 +673,14 @@ function finishVerificationJourney (request, outcome) {
   const selectedQuestions = getVerificationSettings(request).verificationQuestions
   if (!pendingHolding) return null
 
+  const claimantRole = CLAIMANT_ROLES[getClaimantRole(request)]
+
   const completedHolding = {
     ...pendingHolding,
+    ...(outcome === 'success' ? {
+      serviceRole: claimantRole.serviceRole,
+      serviceRoleLabel: claimantRole.serviceRoleLabel
+    } : {}),
     verificationOutcome: outcome,
     verificationQuestionKeys: selectedQuestions,
     linkStatus: outcome === 'success'
@@ -691,6 +725,42 @@ function finishVerificationJourney (request, outcome) {
   data['confirm-holding'] = ''
 
   return completedHolding
+}
+
+function createPendingHolderApproval (request) {
+  const data = request.session.data
+  const pendingHolding = data.pendingHoldingToLink
+  if (!pendingHolding) return null
+
+  const role = CLAIMANT_ROLES.delegate
+  const requestedHolding = {
+    ...pendingHolding,
+    registeredToUser: 'no',
+    registeredToUserLabel: 'No',
+    serviceRole: role.serviceRole,
+    serviceRoleLabel: role.serviceRoleLabel,
+    verificationMethod: 'cph-holder-approval',
+    verificationOutcome: 'pending-holder-approval',
+    linkStatus: 'pending-holder-approval',
+    linkStatusLabel: 'Access requested',
+    linkStatusTagColour: 'yellow'
+  }
+
+  addCompletedHolding(request, requestedHolding)
+  data.claimCphHolderApprovalResult = { holding: requestedHolding }
+
+  delete data.pendingHoldingToLink
+  delete data.claimCphVerificationAnswers
+  delete data.claimCphVerificationResult
+  delete data.claimCphPhoneVerification
+  delete data['security-code']
+  delete data['mobile-phone-access']
+  data['cph-number'] = ''
+  data['holding-postcode'] = ''
+  data['is-cph-registered-to-user'] = ''
+  data['confirm-holding'] = ''
+
+  return requestedHolding
 }
 
 function getSelectedQuestionFlags (selectedQuestions = []) {
@@ -1099,7 +1169,7 @@ router.post(`/${baseURL}/cph-registered-to-you`, function (request, response) {
 
   if (!allowedAnswers[selectedAnswer]) {
     const registeredToUserError = {
-      text: 'Select yes if the CPH is registered to you or your business'
+      text: 'Select yes if you are the legally registered owner of this holding'
     }
 
     return renderCphRegisteredToYou(request, response, {
@@ -1126,10 +1196,50 @@ router.post(`/${baseURL}/cph-registered-to-you`, function (request, response) {
   }
 
   if (selectedAnswer === 'yes') {
-    return response.redirect(`/${baseURL}/mobile-phone-access`)
+    // V3: CPH holders now use the holding verification questions.
+    // Keep the phone verification routes in place for possible later reuse,
+    // but do not send users into that branch from this journey.
+    return response.redirect(`/${baseURL}/before-holding-checks`)
   }
 
-  response.redirect(`/${baseURL}/before-holding-checks`)
+  response.redirect(`/${baseURL}/request-cph-access`)
+})
+
+router.get(`/${baseURL}/request-cph-access`, function (request, response) {
+  const pendingHolding = request.session.data.pendingHoldingToLink
+
+  if (!pendingHolding || pendingHolding.registeredToUser !== 'no') {
+    return response.redirect(`/${baseURL}/cph-registered-to-you`)
+  }
+
+  response.render(`${baseURL}/request-cph-access`, {
+    baseURL,
+    holding: pendingHolding
+  })
+})
+
+router.post(`/${baseURL}/request-cph-access`, function (request, response) {
+  const pendingHolding = request.session.data.pendingHoldingToLink
+
+  if (!pendingHolding || pendingHolding.registeredToUser !== 'no') {
+    return response.redirect(`/${baseURL}/cph-registered-to-you`)
+  }
+
+  createPendingHolderApproval(request)
+  response.redirect(`/${baseURL}/cph-holder-contacted`)
+})
+
+router.get(`/${baseURL}/cph-holder-contacted`, function (request, response) {
+  const holderApprovalResult = request.session.data.claimCphHolderApprovalResult
+
+  if (!holderApprovalResult?.holding) {
+    return response.redirect(`/${baseURL}/holdings`)
+  }
+
+  response.render(`${baseURL}/cph-holder-contacted`, {
+    baseURL,
+    holding: holderApprovalResult.holding
+  })
 })
 
 router.post(`/${baseURL}/mobile-phone-access`, function (request, response) {

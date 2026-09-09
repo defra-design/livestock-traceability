@@ -1,6 +1,6 @@
 {% extends "layouts/main.html" %}
 
-{% set pageHeading = "Is this CPH registered to you or your business?" %}
+{% set pageHeading = "Are you the legally registered owner of this holding?" %}
 {% block pageTitle %}
 {% if registeredToUserError %}Error: {% endif %}{{ pageHeading }}
 {% endblock %}
@@ -40,7 +40,7 @@ href: backLink
             }
           },
           hint: {
-            text: "This means your name, or the name of a business you are legally responsible for, is recorded against CPH " + pendingHolding.cphNumber + "."
+            text: "This means you are the person, or legally responsible for the business, registered as the cattle keeper for CPH " + pendingHolding.cphNumber + "."
           },
           errorMessage: registeredToUserError,
           items: [

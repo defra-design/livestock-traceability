@@ -77,7 +77,15 @@
         "to_cph": "18/553/0029",
         "to_holding_type": "farm",
         "reason": "summer grazing"
-      }
+      },
+      "attention": "issue",
+      "issues": [
+        {
+          "code": "movement-location-mismatch",
+          "title": "Movement does not match the animal location record",
+          "description": "Check the movement details and the animal location before resolving the issue."
+        }
+      ]
     },
     {
       "id": "evt_0006",
@@ -328,7 +336,15 @@
         "to_cph": "58/103/0122",
         "to_holding_type": "farm",
         "reason": "summer grazing"
-      }
+      },
+      "attention": "issue",
+      "issues": [
+        {
+          "code": "movement-report-late",
+          "title": "Movement was reported outside the expected reporting period",
+          "description": "Check when the movement took place and when it was reported."
+        }
+      ]
     },
     {
       "id": "evt_0021",
@@ -458,7 +474,15 @@
         "to_cph": "56/312/0056",
         "to_holding_type": "farm",
         "reason": "veterinary treatment"
-      }
+      },
+      "attention": "issue",
+      "issues": [
+        {
+          "code": "movement-destination-mismatch",
+          "title": "Destination holding details need checking",
+          "description": "Check the destination CPH against the movement record."
+        }
+      ]
     },
     {
       "id": "evt_0029",

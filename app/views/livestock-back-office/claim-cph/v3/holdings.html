@@ -34,22 +34,20 @@
 
         {% if hasAutoLinkedHoldings %}
           <p class="govuk-body">
-            We’ve added these holdings based on the email address or phone number on your existing account.
+            We’ve automatically added linked holdings based on the email address or phone number on your existing account.
           </p>
         {% endif %}
 
         <table class="govuk-table" {% if linkedHoldings.length >= 5 %}data-module="moj-sortable-table"{% endif %}>
           <caption class="govuk-table__caption govuk-visually-hidden">
-            Holdings linked to this account and requests being checked
+            Holdings linked to your account
           </caption>
 
           <thead class="govuk-table__head">
             <tr class="govuk-table__row">
               <th scope="col" class="govuk-table__header" aria-sort="none">CPH</th>
-              <th scope="col" class="govuk-table__header" aria-sort="none">Holding name</th>
-              <th scope="col" class="govuk-table__header" aria-sort="none">Postcode</th>
+              <th scope="col" class="govuk-table__header" aria-sort="none">Address</th>
               <th scope="col" class="govuk-table__header" aria-sort="none">Role</th>
-              <th scope="col" class="govuk-table__header" aria-sort="none">Status</th>
             </tr>
           </thead>
 
@@ -57,34 +55,84 @@
             {% for holding in linkedHoldings %}
               <tr class="govuk-table__row">
                 <td class="govuk-table__cell" data-sort-value="{{ holding.cphNumber }}">
-                  {% if holding.linkStatus == "linked" %}
-                    <a class="govuk-link" href="/mvp-front-office/v1/holding-overview?holding-id={{ holding.id }}">
-                      {{ holding.cphNumber }}
-                    </a>
-                  {% else %}
+                  <a class="govuk-link" href="/mvp-front-office/v1/holding-overview?holding-id={{ holding.id }}">
                     {{ holding.cphNumber }}
-                  {% endif %}
+                  </a>
                 </td>
-                <td class="govuk-table__cell">{{ holding.holdingName }}</td>
-                <td class="govuk-table__cell">{{ holding.postcode }}</td>
-                <td class="govuk-table__cell">{{ holding.serviceRoleLabel or holding.claimedRoleLabel or holding.registeredToUserLabel }}</td>
-                <td class="govuk-table__cell" data-sort-value="{{ holding.linkStatusLabel }}">
-                  {{ govukTag({
-                    text: holding.linkStatusLabel,
-                    colour: holding.linkStatusTagColour
-                  }) }}
+                <td class="govuk-table__cell">
+                  {% for line in holding.tableAddressLines %}
+                    {{ line }}{% if not loop.last %},{% endif %}
+                  {% endfor %}
                 </td>
+                <td class="govuk-table__cell">{{ holding.serviceRoleLabel or holding.claimedRoleLabel }}</td>
               </tr>
             {% endfor %}
           </tbody>
         </table>
       {% endif %}
 
-      {% if not linkedHoldings.length %}
+      {% if pendingHoldings.length %}
+        <h2 class="govuk-heading-m {% if linkedHoldings.length %}govuk-!-margin-top-8{% endif %}">Holdings not yet linked to your account</h2>
+
+        <table class="govuk-table" {% if pendingHoldings.length >= 5 %}data-module="moj-sortable-table"{% endif %}>
+          <caption class="govuk-table__caption govuk-visually-hidden">
+            Holdings not yet linked to your account
+          </caption>
+
+          <thead class="govuk-table__head">
+            <tr class="govuk-table__row">
+              <th scope="col" class="govuk-table__header" aria-sort="none">CPH</th>
+              <th scope="col" class="govuk-table__header" aria-sort="none">Address</th>
+              <th scope="col" class="govuk-table__header" aria-sort="none">Status</th>
+            </tr>
+          </thead>
+
+          <tbody class="govuk-table__body">
+            {% for holding in pendingHoldings %}
+              <tr class="govuk-table__row">
+                <td class="govuk-table__cell" data-sort-value="{{ holding.cphNumber }}">{{ holding.cphNumber }}</td>
+                <td class="govuk-table__cell">
+                  {% for line in holding.tableAddressLines %}
+                    {{ line }}{% if not loop.last %},{% endif %}
+                  {% endfor %}
+                </td>
+                <td class="govuk-table__cell" data-sort-value="{{ holding.displayStatusLabel }}">
+                  {{ govukTag({
+                    text: holding.displayStatusLabel,
+                    colour: holding.displayStatusTagColour
+                  }) }}
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+
+        {% if hasPendingAccessRequests %}
+          {% call govukDetails({
+            summaryText: "Contact BCMS if you have been waiting more than 5 weeks"
+          }) %}
+            <p class="govuk-body">
+              If you have not been added to the holding after 5 weeks, contact the British Cattle Movement Service (BCMS).
+            </p>
+
+            <ul class="govuk-list govuk-list--bullet">
+              <li>BCMS phone: 0345 050 1234</li>
+              <li>Helpline for cattle keepers in Wales: 0345 050 3456</li>
+              <li>Monday to Friday, 8:30am to 5pm</li>
+            </ul>
+
+            <p class="govuk-body">
+              <a class="govuk-link" href="https://www.gov.uk/call-charges">Find out about call charges</a>
+            </p>
+          {% endcall %}
+        {% endif %}
+      {% endif %}
+
+      {% if not linkedHoldings.length and not pendingHoldings.length %}
         <p class="govuk-body">There are no holdings to show.</p>
       {% endif %}
 
-      {% if linkedHoldings.length %}
+      {% if linkedHoldings.length or pendingHoldings.length %}
         <h2 class="govuk-heading-m govuk-!-margin-top-8">Add another holding</h2>
         <p class="govuk-body">You can add another holding using its CPH number.</p>
 

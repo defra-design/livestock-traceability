@@ -1,0 +1,43 @@
+{% extends "layouts/main.html" %}
+
+{% set pageHeading = "You will need to request access to this holding" %}
+{% block pageTitle %}{{ pageHeading }}{% endblock %}
+
+{% block header %}
+{% include "./components/_header.html" %}
+{% endblock %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+  text: "Back",
+  href: "/" ~ baseURL ~ "/cph-registered-to-you"
+}) }}
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <h1 class="govuk-heading-l">{{ pageHeading }}</h1>
+
+    <p class="govuk-body">
+      You are not the legally registered owner of the holding CPH: <strong>{{ holding.cphNumber }}</strong>.
+    </p>
+
+    <p class="govuk-body">
+      You will need to ask the CPH holder to add you to this holding. We’ll send them an email with your request.
+    </p>
+
+    <p class="govuk-body govuk-!-margin-bottom-6">
+      They’ll need to approve your access before the holding can be linked to your account.
+    </p>
+
+    <form method="post">
+      {{ govukButton({
+        text: "Send request"
+      }) }}
+    </form>
+
+  </div>
+</div>
+{% endblock %}

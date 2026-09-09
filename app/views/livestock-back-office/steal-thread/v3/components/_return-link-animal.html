@@ -1,0 +1,35 @@
+{% block beforeContent %}
+{% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
+{% set currentBaseUrl = '/' + baseURL + '/' %}
+
+{% if query.fromSearch %}
+  <a
+          class="govuk-back-link"
+          href="/{{baseURL}}/cattle?search={{ query.fromSearch | urlencode }}"
+  >
+    Return to search results
+  </a>
+{% elseif query.fromHolding %}
+  <a
+          class="govuk-back-link"
+          href="/{{baseURL}}/holdings/{{ query.fromHolding }}{% if query.fromSearch %}?fromSearch={{ query.fromSearch | urlencode }}{% endif %}"
+  >
+    Return to holding {{ query.holdingCph }}
+  </a>
+{% elseif query.fromEarTag %}
+  <a
+          class="govuk-back-link"
+          href="/{{baseURL}}/cattle/{{ query.fromEarTag }}"
+  >
+    Return to animal {{ query.fromEarTag }}
+  </a>
+{% else %}
+  <a
+          class="govuk-back-link"
+          href="/{{baseURL}}/cattle"
+  >
+    Find an animal
+  </a>
+{% endif %}
+
+{% endblock %}
