@@ -1,0 +1,378 @@
+{% extends "layouts/main.html" %}
+
+{% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
+
+{% set pageName="Animal detail view" %}
+
+{% set activeNav = "animals" %}
+
+{% block header %}
+
+{% block navBar %}{% include "../components/_navigation.html" %}{% endblock %}
+
+{% endblock %}
+
+{% block beforeContent %}
+{% set currentBaseUrl = '/' + baseURL + '/' %}
+{% block returnLink %}{% include "./components/_return-link-animal.html" %}{% endblock %}
+{% endblock %}
+{% block content %}
+
+<style>
+  :root{
+    --colour-text:#0b0c0c;
+    --colour-link:#1d70b8;
+    --colour-blue:#1d70b8;
+    --colour-green:#00703c;
+    --colour-red:#d4351c;
+    --colour-orange:#f47738;
+    --colour-grey-border:#b1b4b6;
+    --colour-grey-text:#505a5f;
+    --colour-grey-bg:#f3f2f1;
+    --colour-focus:#ffdd00;
+    --colour-white:#fff;
+  }
+  /* details / key */
+  details{margin-bottom:35px;}
+  s    display:inline-block;font-weight:700;font-size:14px;
+    letter-spacing:0.5px;text-transform:none;
+    padding:4px 10px;white-space:nowrap;line-height:1.2;
+  }
+  .tag--green{background:var(--colour-green);color:#fff;}
+  .tag--red{background:var(--colour-red);color:#fff;}
+  .tag--orange{background:var(--colour-orange);color:var(--colour-text);}
+  .tag--grey{background:var(--colour-grey-bg);color:var(--colour-grey-text);}
+
+  /* timeline */
+  ol.timeline{list-style:none;margin:0;padding:0;position:relative;}
+  .timeline__item{
+    position:relative;padding:0 0 40px 56px;
+  }
+  .timeline__item::before{ /* connecting line */
+    content:"";position:absolute;left:19px;top:40px;bottom:0;width:2px;background:var(--colour-grey-border);
+  }
+  .timeline__item:last-child::before{display:none;}
+  .timeline__marker{
+    position:absolute;left:0;top:0;width:40px;height:40px;border-radius:50%;
+    background:#fff;border:2px solid var(--colour-text);
+    display:flex;align-items:center;justify-content:center;
+    font-weight:700;font-size:17px;
+  }
+  .timeline__item--birth .timeline__marker{border-style:dashed;color:var(--colour-grey-text);border-color:var(--colour-grey-text);}
+  .timeline__item--missing .timeline__marker,
+  .timeline__item--inferred .timeline__marker{border-color:var(--colour-red);color:var(--colour-red);}
+  .timeline__item--inferred .timeline__marker{border-style:dashed;}
+
+  .card{border:1px solid var(--colour-grey-border);padding:20px;}
+  .card--flagged{border-color:var(--colour-red);border-width:1px;}
+  .card--inferred{border-style:dashed;border-color:var(--colour-red);background:#fdf6f5;}
+
+  .card__top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px;margin-bottom:16px;}
+  .card__eventtype{font-size:16px;color:var(--colour-grey-text);}
+
+  .legs{display:flex;gap:20px;flex-wrap:wrap;}
+  .leg{flex:1;min-width:230px;padding:14px;background:var(--colour-grey-bg);}
+  .leg--empty{background:transparent;border:2px dashed var(--colour-grey-border);display:flex;align-items:center;justify-content:center;color:var(--colour-grey-text);text-align:center;font-style:normal;}
+  .leg__label{font-size:14px;text-transform:uppercase;letter-spacing:0.5px;color:var(--colour-grey-text);font-weight:700;margin-bottom:6px;}
+  .leg__holding-line{font-size:17px;margin-bottom:10px;line-height:1.35;}
+  .leg__holding-id{font-weight:700;}
+  .leg__holding-name{font-weight:400;color:var(--colour-grey-text);}
+  .leg dl{margin:0;}
+  .leg dl div{display:flex;justify-content:space-between;font-size:16px;padding:3px 0;gap:10px;}
+  .leg dl dt{color:var(--colour-grey-text);}
+  .leg dl dd{margin:0;font-weight:700;text-align:right;}
+
+  .arrow{display:flex;align-items:center;justify-content:center;color:var(--colour-grey-text);font-size:24px;padding:0 4px;}
+
+  .warning-text{display:flex;gap:12px;align-items:flex-start;margin-top:18px;padding-top:16px;border-top:1px solid var(--colour-grey-border);}
+  .warning-text__icon{
+    flex:none;width:32px;height:32px;border-radius:50%;background:var(--colour-text);color:#fff;
+    display:flex;align-items:center;justify-content:center;font-weight:700;font-size:20px;
+  }
+  .warning-text p{margin:0;}
+  .warning-text__action{display:inline-block;margin-top:8px;font-weight:700;}
+
+  @media (max-width:641px){
+    .legs{flex-direction:column;}
+    .arrow{transform:rotate(90deg);padding:6px 0;}
+    .summary-list__key{width:100%;margin-bottom:4px;}
+  }ummary{
+    color:var(--colour-link);cursor:pointer;font-weight:400;
+    display:inline-block;padding-left:1.4em;position:relative;
+  }
+  summary::before{
+    content:"";position:absolute;left:0;top:6px;
+    border-width:5px 0 5px 8px;border-style:solid;
+    border-color:transparent transparent transparent var(--colour-link);
+  }
+  details[open] summary::before{
+    border-width:8px 5px 0 5px;
+    border-color:var(--colour-link) transparent transparent transparent;
+  }
+  .details__content{border-left:4px solid var(--colour-grey-border);padding:5px 0 5px 20px;margin-top:12px;}
+  .key-list{list-style:none;margin:0;padding:0;}
+  .key-list li{display:flex;align-items:flex-start;gap:10px;margin-bottom:12px;}
+  .key-list li:last-child{margin-bottom:0;}
+
+  /* tags */
+  .tag{
+
+</style>
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+
+             <span class="govuk-caption-l">Registered animal</span>
+
+    <h1 class="govuk-heading-xl govuk-!-margin-bottom-2">
+      UK 457586 378257
+    </h1>
+
+   <p class="govuk-body govuk-!-margin-top-4 govuk-!-margin-bottom-1">
+  <strong>Animal status:</strong> Alive &nbsp;&nbsp;|&nbsp;&nbsp; <strong>Passport status:</strong>
+  Refused
+</p>
+
+<section class="govuk-inset-text app-callout app-callout--issue" aria-labelledby="record-issues-heading">
+  <h2 class="govuk-heading-m govuk-!-margin-bottom-2" id="record-issues-heading">
+    3 issues need attention
+  </h2>
+
+  <ul class="govuk-list govuk-!-margin-bottom-0">
+
+    <li class="app-callout__item">
+
+      <a class="govuk-link" href="/livestock-back-office/steal-thread/v3/cattle/UK457586378257/cattle-history?fromSearch=UK457586378257#movement-evt_1020">
+        Missing movement off from 15/628/0067 (AH)
+      </a>
+
+    </li>
+
+    <li class="app-callout__item">
+
+      <a class="govuk-link" href="/livestock-back-office/steal-thread/v3/cattle/UK457586378257/cattle-history?fromSearch=UK457586378257#movement-evt_1021">
+        Missing movement on to 44/209/0317 (AH)
+      </a>
+
+    </li>
+
+    <li class="app-callout__item">
+
+      <a class="govuk-link" href="/livestock-back-office/steal-thread/v3/cattle/UK457586378257/cattle-history?fromSearch=UK457586378257#movement-evt_1022">
+        Missing movement off from 44/209/0317 (AH)
+      </a>
+
+    </li>
+
+  </ul>
+</section>
+
+            <nav class="moj-sub-navigation" aria-label="Sub navigation">
+        <ul class="moj-sub-navigation__list">
+          <li class="moj-sub-navigation__item">
+            <a
+                    class="moj-sub-navigation__link"
+                    href="/{{baseURL}}/cattle/{{ animal.earTagNumber }}{{ contextQuery }}"
+            >
+              Animal details
+            </a>
+          </li>
+          <li class="moj-sub-navigation__item">
+            <a
+                    class="moj-sub-navigation__link"
+                    aria-current="page"
+                    href="/{{baseURL}}/cattle/{{ animal.earTagNumber }}/cattle-history{{ contextQuery }}"
+            >
+              Movement
+            </a>
+          </li>
+          <li class="moj-sub-navigation__item">
+            <a
+                    class="moj-sub-navigation__link"
+
+                    href="/{{baseURL}}/cattle/{{ animal.earTagNumber }}/cattle-history{{ contextQuery }}"
+            >
+              Event history
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+
+          <section aria-labelledby="animal-history-heading">
+            <h2 class="govuk-heading-m" id="animal-history-heading">
+              5 Movements records
+            </h2>
+
+            <section class="app-history-summary" aria-labelledby="history-summary-heading">
+                <ol class="timeline">
+
+    <!-- BIRTH -->
+    <li class="timeline__item timeline__item--birth">
+      <span class="timeline__marker" aria-hidden="true">1</span>
+      <div class="card">
+        <div class="card__top">
+          <h3>Birth registered</h3>
+          <span class="tag tag--grey">Start of history</span>
+        </div>
+        <div class="legs">
+          <div class="leg">
+            <div class="leg__label">Holding</div>
+            <div class="leg__holding">Fell View Farm</div>
+            <div class="leg__holdingid">15/628/0067 (AH)</div>
+            <dl>
+              <div><dt>Date of birth</dt><dd>3 Jan 2023</dd></div>
+              <div><dt>Date reported</dt><dd>5 Jan 2023</dd></div>
+            </dl>
+          </div>
+        </div>
+      </div>
+    </li>
+
+                  <!-- MOVEMENT 1: COMPLETE -->
+    <li class="timeline__item">
+      <span class="timeline__marker" aria-hidden="true">2</span>
+      <div class="card">
+        <div class="card__top">
+          <span class="card__eventtype">Movement</span>
+          <span class="tag tag--green">Complete</span>
+        </div>
+        <div class="legs">
+          <div class="leg">
+            <div class="leg__label">From</div>
+            <div class="leg__holding">Fell View Farm</div>
+            <div class="leg__holdingid">15/628/0067 (AH)</div>
+            <dl>
+              <div><dt>Off — date moved</dt><dd>12 Mar 2024</dd></div>
+              <div><dt>Date reported</dt><dd>12 Mar 2024</dd></div>
+            </dl>
+          </div>
+          <div class="arrow" aria-hidden="true">→</div>
+          <div class="leg">
+            <div class="leg__label">To</div>
+            <div class="leg__holding">Hexham Market</div>
+            <div class="leg__holdingid">23/041/0019 (MA)</div>
+            <dl>
+              <div><dt>On — date moved</dt><dd>12 Mar 2024</dd></div>
+              <div><dt>Date reported</dt><dd>13 Mar 2024</dd></div>
+            </dl>
+          </div>
+        </div>
+      </div>
+    </li>
+
+                  <!-- MOVEMENT 2: OFF MISSING -->
+    <li class="timeline__item timeline__item--missing">
+      <span class="timeline__marker" aria-hidden="true">3</span>
+      <div class="card card--flagged">
+        <div class="card__top">
+          <span class="card__eventtype">Movement</span>
+          <span class="tag tag--red">Off movement missing</span>
+        </div>
+        <div class="legs">
+          <div class="leg">
+            <div class="leg__label">From</div>
+            <div class="leg__holding">Hexham Market</div>
+            <div class="leg__holdingid">23/041/0019 (MA)</div>
+            <dl>
+              <div><dt>Off — date moved</dt><dd>Not recorded</dd></div>
+              <div><dt>Date reported</dt><dd>Not recorded</dd></div>
+            </dl>
+          </div>
+          <div class="arrow" aria-hidden="true">→</div>
+          <div class="leg">
+            <div class="leg__label">To</div>
+            <div class="leg__holding">Marsh Bank Farm</div>
+            <div class="leg__holdingid">23/789/0142 (AH)</div>
+            <dl>
+              <div><dt>On — date moved</dt><dd>18 Mar 2024</dd></div>
+              <div><dt>Date reported</dt><dd>20 Mar 2024</dd></div>
+            </dl>
+          </div>
+        </div>
+        <div class="warning-text">
+          <span class="warning-text__icon" aria-hidden="true">!</span>
+          <p>
+            <span class="govuk-visually-hidden">Warning: </span>
+            Hexham Market has not reported this animal leaving. The only evidence of this movement is Marsh Bank Farm's arrival record.
+            <br>
+            <a href="#" class="warning-text__action">Contact Hexham Market to confirm the off movement</a>
+          </p>
+        </div>
+      </div>
+    </li>
+
+                  <!-- WHOLE MOVEMENT INFERRED -->
+    <li class="timeline__item timeline__item--inferred">
+      <span class="timeline__marker" aria-hidden="true">4</span>
+      <div class="card card--inferred">
+        <div class="card__top">
+          <span class="card__eventtype">Movement</span>
+          <span class="tag tag--orange">Whole movement inferred</span>
+        </div>
+        <div class="legs">
+          <div class="leg leg--empty">
+            No off or on record links Marsh Bank Farm to any other holding after 18 Mar 2024. This holding is inferred as the likely starting point only because it is the last confirmed location.
+          </div>
+          <div class="arrow" aria-hidden="true">?</div>
+          <div class="leg">
+            <div class="leg__label">To (inferred)</div>
+            <div class="leg__holding">Oakdene Collection Centre</div>
+            <div class="leg__holdingid">41/552/0078 (CA)</div>
+            <dl>
+              <div><dt>On — date moved</dt><dd>Not recorded</dd></div>
+              <div><dt>Date reported</dt><dd>Not recorded</dd></div>
+            </dl>
+          </div>
+        </div>
+        <div class="warning-text">
+          <span class="warning-text__icon" aria-hidden="true">!</span>
+          <p>
+            <span class="govuk-visually-hidden">Warning: </span>
+            No record exists of this animal arriving at Oakdene Collection Centre — there is no on record and no birth registration there. This leg has been inferred only because the next movement (below) shows the animal leaving from that holding. It cannot be confirmed from reported data alone.
+            <br>
+            <a href="#" class="warning-text__action">Investigate gap between Marsh Bank Farm and Oakdene Collection Centre</a>
+          </p>
+        </div>
+      </div>
+    </li>
+
+                  <!-- MOVEMENT 3: COMPLETE (FINAL) -->
+    <li class="timeline__item">
+      <span class="timeline__marker" aria-hidden="true">5</span>
+      <div class="card">
+        <div class="card__top">
+          <span class="card__eventtype">Movement</span>
+          <span class="tag tag--green">Complete — final movement</span>
+        </div>
+        <div class="legs">
+          <div class="leg">
+            <div class="leg__label">From</div>
+            <div class="leg__holding">Oakdene Collection Centre</div>
+            <div class="leg__holdingid">41/552/0078 (CA)</div>
+            <dl>
+              <div><dt>Off — date moved</dt><dd>2 Sep 2024</dd></div>
+              <div><dt>Date reported</dt><dd>2 Sep 2024</dd></div>
+            </dl>
+          </div>
+          <div class="arrow" aria-hidden="true">→</div>
+          <div class="leg">
+            <div class="leg__label">To</div>
+            <div class="leg__holding">Borders Abattoir</div>
+            <div class="leg__holdingid">41/998/0004 (SL)</div>
+            <dl>
+              <div><dt>On — date moved</dt><dd>2 Sep 2024</dd></div>
+              <div><dt>Date reported</dt><dd>2 Sep 2024</dd></div>
+            </dl>
+          </div>
+        </div>
+      </div>
+    </li>
+
+  </ol>
+
+          </section>
+
+    </div>
+  </div>
+
+{% endblock %}

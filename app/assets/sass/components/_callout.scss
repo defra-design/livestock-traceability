@@ -1,0 +1,25 @@
+// Record-level issues shown across the animal record journey.
+// This is a bespoke call-out treatment, not the GOV.UK error summary.
+.app-callout {
+  background: govuk-colour("light-grey");
+}
+.app-callout--issue{
+    border-left-color: govuk-colour("red");
+ }
+.app-callout .app-callout__item a{
+    font-weight:700;
+    &:link {
+        color: govuk-functional-colour(link);
+      }
+
+      &:visited {
+        color: govuk-functional-colour(link);
+      }
+    }
+.app-callout__item:first-child {
+    padding-top: govuk-spacing(2)
+}
+
+.app-callout__item:last-child {
+      padding-bottom: govuk-spacing(2)
+}

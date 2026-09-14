@@ -32,7 +32,7 @@ function getCattleData(req) {
 }
 
 function getEventsData(req) {
-  return req.session.data.events_livestock || { events: [] };
+  return req.session.data.events_v2 || { events: [] };
 }
 
 function getHoldingByCph(req, cph) {
@@ -59,7 +59,9 @@ function getHoldingLocationDetails(req, cph) {
       cph: cph || '',
       id: null,
       name: '',
-      address: ''
+      address: '',
+      holdingType: '',
+      holdingTypeCode: ''
     };
   }
 
@@ -78,7 +80,9 @@ function getHoldingLocationDetails(req, cph) {
     cph: holding.cph,
     id: holding.id,
     name: holding.holdingName || holding.businessName || '',
-    address: addressParts.join(', ')
+    address: addressParts.join(', '),
+    holdingType: holding.holdingType || '',
+    holdingTypeCode: holding.holdingTypeCode || ''
   };
 }
 
@@ -89,38 +93,7 @@ function getOffspring(req, animal) {
     return record.dam?.geneticDam?.earTagNumber === animal.earTagNumber;
   });
 }
-function getPrototypeHoldingCattle(req, holding) {
-    const livestockData = req.session.data.oakfieldLivestock || {
-        animals: []
-    };
 
-    const cattleHerdMark = (holding.herdAndFlockMarks || []).find((item) => {
-        return item.species === 'Cattle';
-    });
-
-    const herdMark = cattleHerdMark
-        ? cattleHerdMark.mark
-        : '';
-
-    return livestockData.animals.map((animal) => {
-        let earTagNumber = animal.earTagNumber;
-
-        // These are the 40 animals originally generated as
-        // being born into the Oakfield herd.
-        if (
-            herdMark
-            && earTagNumber.startsWith('UK654322')
-        ) {
-            earTagNumber = herdMark + earTagNumber.slice(8);
-        }
-
-        return {
-            ...animal,
-            cph: holding.cph,
-            earTagNumber
-        };
-    });
-}
 
 /**
  * Event helpers
@@ -200,6 +173,304 @@ function getAnimalHistorySummary(animalEvents) {
       );
     }).length
   };
+}
+
+function getAnimalIssues(animalEvents) {
+  const resolvedStatuses = new Set([
+    'resolved',
+    'closed',
+    'complete',
+    'completed'
+  ]);
+
+  const issues = [];
+
+  animalEvents.forEach((event) => {
+    const eventStatus = String(event.details?.status || '')
+      .trim()
+      .toLowerCase();
+
+    if (
+      event.event_type === 'movement_issue'
+      && !resolvedStatuses.has(eventStatus)
+    ) {
+      const details = event.details || {};
+      const issueType = details.issue_type || 'movement_issue';
+      const direction = details.direction || '';
+      const holdingCph = details.holding_cph || '';
+      const holdingTypeCode = details.holding_type_code || '';
+      const movementPairId = details.movement_pair_id || '';
+      const holdingLabel = holdingCph
+        + (holdingTypeCode ? ' (' + holdingTypeCode + ')' : '');
+
+      let linkText = 'Movement issue';
+
+      if (issueType === 'missing_movement_off') {
+        linkText = 'Missing movement off'
+          + (holdingLabel ? ' from ' + holdingLabel : '');
+      } else if (issueType === 'missing_movement_on') {
+        linkText = 'Missing movement on'
+          + (holdingLabel ? ' to ' + holdingLabel : '');
+      } else if (issueType === 'missing_movement') {
+        linkText = 'Missing movement';
+      } else if (issueType === 'movement_history_gap') {
+        const fromHoldingCph = details.from_holding_cph || '';
+        const fromHoldingTypeCode = details.from_holding_type_code || '';
+        const toHoldingCph = details.to_holding_cph || '';
+        const toHoldingTypeCode = details.to_holding_type_code || '';
+        const fromHoldingLabel = fromHoldingCph
+          + (fromHoldingTypeCode ? ' (' + fromHoldingTypeCode + ')' : '');
+        const toHoldingLabel = toHoldingCph
+          + (toHoldingTypeCode ? ' (' + toHoldingTypeCode + ')' : '');
+
+        linkText = details.label
+          || (fromHoldingLabel && toHoldingLabel
+            ? 'Movement history gap between ' + fromHoldingLabel + ' and ' + toHoldingLabel
+            : 'Movement history gap');
+      }
+
+      issues.push({
+        id: event.id,
+        eventId: event.id,
+        area: 'movements',
+        issueType,
+        direction,
+        holdingCph,
+        holdingTypeCode,
+        movementPairId,
+        anchorId: movementPairId
+          ? 'movement-' + movementPairId
+          : '',
+        linkText,
+        title: linkText,
+        description: details.reason || 'This movement needs attention.'
+      });
+    }
+
+    const eventIssues = Array.isArray(event.issues)
+      ? event.issues
+      : [];
+
+    eventIssues.forEach((issue, index) => {
+      if (typeof issue === 'string') {
+        issues.push({
+          id: event.id + '-issue-' + index,
+          eventId: event.id,
+          area: event.event_type === 'movement' ? 'movements' : 'events',
+          linkText: issue,
+          title: issue,
+          description: ''
+        });
+        return;
+      }
+
+      const issueStatus = String(issue.status || '')
+        .trim()
+        .toLowerCase();
+
+      if (resolvedStatuses.has(issueStatus)) return;
+
+      const issueTitle = (
+        issue.title
+        || issue.description
+        || issue.code
+        || 'Issue'
+      );
+
+      issues.push({
+        id: issue.id || issue.code || event.id + '-issue-' + index,
+        eventId: event.id,
+        area: event.event_type === 'movement' ? 'movements' : 'events',
+        linkText: issueTitle,
+        title: issueTitle,
+        description: issue.title
+          ? (issue.description || issue.guidance || '')
+          : (issue.guidance || '')
+      });
+    });
+  });
+
+  return issues;
+}
+
+
+function getMovementHoldingType(req, cph, rawType, rawCode) {
+  if (rawCode) {
+    const labelsByCode = {
+      AH: 'Agricultural holding',
+      MA: 'Market',
+      SL: 'Slaughterhouse or abattoir',
+      CA: 'Collection or assembly centre',
+      CC: 'Showground or temporary holding'
+    };
+
+    return {
+      code: rawCode,
+      label: labelsByCode[rawCode] || rawType || rawCode
+    };
+  }
+
+  const normalisedType = String(rawType || '').toLowerCase();
+  const types = {
+    farm: { code: 'AH', label: 'Agricultural holding' },
+    'agricultural holding': { code: 'AH', label: 'Agricultural holding' },
+    market: { code: 'MA', label: 'Market' },
+    abattoir: { code: 'SL', label: 'Slaughterhouse or abattoir' },
+    slaughterhouse: { code: 'SL', label: 'Slaughterhouse or abattoir' },
+    'collection-centre': { code: 'CA', label: 'Collection or assembly centre' },
+    'collection centre': { code: 'CA', label: 'Collection or assembly centre' },
+    showground: { code: 'CC', label: 'Showground or temporary holding' }
+  };
+
+  if (types[normalisedType]) {
+    return types[normalisedType];
+  }
+
+  const location = getHoldingLocationDetails(req, cph);
+
+  return {
+    code: location.holdingTypeCode || '',
+    label: location.holdingType || rawType || ''
+  };
+}
+
+function getReporterLabel(value) {
+  const reporter = String(value || '').trim();
+
+  if (!reporter) return '';
+  if (reporter.toLowerCase() === 'keeper') return 'Keeper';
+  if (reporter.toLowerCase() === 'abattoir') return 'Abattoir';
+  if (reporter.toLowerCase() === 'bcms') return 'BCMS';
+
+  return reporter.charAt(0).toUpperCase() + reporter.slice(1);
+}
+
+function getAnimalMovementHistory(req, animalEvents) {
+  const groups = new Map();
+  const resolvedStatuses = new Set([
+    'resolved',
+    'closed',
+    'complete',
+    'completed'
+  ]);
+
+  function getGroup(pairId) {
+    if (!groups.has(pairId)) {
+      groups.set(pairId, {
+        pairId,
+        offEvent: null,
+        onEvent: null,
+        issueEvent: null
+      });
+    }
+
+    return groups.get(pairId);
+  }
+
+  animalEvents.forEach((event) => {
+    if (event.event_type !== 'movement') return;
+
+    const pairId = event.details?.movement_pair_id || event.id;
+    const group = getGroup(pairId);
+
+    if (event.details?.direction === 'off') {
+      group.offEvent = event;
+    } else if (event.details?.direction === 'on') {
+      group.onEvent = event;
+    }
+  });
+
+  animalEvents.forEach((event) => {
+    if (event.event_type !== 'movement_issue') return;
+
+    const status = String(event.details?.status || '').trim().toLowerCase();
+    if (resolvedStatuses.has(status)) return;
+
+    const pairId = event.details?.movement_pair_id;
+    if (!pairId) return;
+
+    getGroup(pairId).issueEvent = event;
+  });
+
+  return Array.from(groups.values())
+    .map((group) => {
+      const details = group.issueEvent?.details || {};
+      const issueType = details.issue_type || '';
+      const isGap = issueType === 'movement_history_gap';
+      const missingOff = issueType === 'missing_movement_off';
+      const missingOn = issueType === 'missing_movement_on';
+
+      const fromCph = isGap
+        ? details.from_holding_cph
+        : (
+          group.offEvent?.details?.from_cph
+          || (missingOff ? details.holding_cph : '')
+        );
+
+      const toCph = isGap
+        ? details.to_holding_cph
+        : (
+          group.onEvent?.details?.to_cph
+          || (missingOn ? details.holding_cph : '')
+        );
+
+      const fromType = getMovementHoldingType(
+        req,
+        fromCph,
+        isGap ? details.from_holding_type : group.offEvent?.details?.off_holding_type,
+        isGap
+          ? details.from_holding_type_code
+          : (missingOff ? details.holding_type_code : '')
+      );
+
+      const toType = getMovementHoldingType(
+        req,
+        toCph,
+        isGap ? details.to_holding_type : group.onEvent?.details?.to_holding_type,
+        isGap
+          ? details.to_holding_type_code
+          : (missingOn ? details.holding_type_code : '')
+      );
+
+      const movementTimestamps = [group.offEvent, group.onEvent]
+        .filter(Boolean)
+        .map((event) => getEventTimestamp(event));
+
+      let sortTimestamp = movementTimestamps.length
+        ? Math.min(...movementTimestamps)
+        : 0;
+
+      if (isGap && details.history_sort_date) {
+        sortTimestamp = getEventTimestamp({
+          event_date: details.history_sort_date,
+          event_time: '00:00'
+        });
+      }
+
+      return {
+        pairId: group.pairId,
+        offEvent: group.offEvent,
+        onEvent: group.onEvent,
+        issueEvent: group.issueEvent,
+        issueType,
+        hasIssue: Boolean(group.issueEvent),
+        missingOff,
+        missingOn,
+        fromCph,
+        toCph,
+        fromType,
+        toType,
+        offReportedBy: getReporterLabel(group.offEvent?.reported_by),
+        onReportedBy: getReporterLabel(group.onEvent?.reported_by),
+        sortTimestamp
+      };
+    })
+    .filter((movement) => {
+      return movement.fromCph || movement.toCph;
+    })
+    .sort((a, b) => {
+      return a.sortTimestamp - b.sortTimestamp;
+    });
 }
 
 function enrichEvent(req, event) {
@@ -467,11 +738,26 @@ function getEventAttentionValues(event) {
 
   const issues = Array.isArray(event.issues) ? event.issues : [];
 
+  const movementIssueStatus = String(event.details?.status || '')
+    .trim()
+    .toLowerCase();
+
+  const movementIssueIsOpen = (
+    event.event_type === 'movement_issue'
+    && ![
+      'resolved',
+      'closed',
+      'complete',
+      'completed'
+    ].includes(movementIssueStatus)
+  );
+
   const hasIssue = (
     explicitValues.includes('issue')
     || event.has_issue === true
     || event.hasIssue === true
     || issues.length > 0
+    || movementIssueIsOpen
   );
 
   const needsReview = (
@@ -511,6 +797,10 @@ function eventMatchesSearch(event, search) {
     event.details?.reason,
     event.details?.cause,
     event.details?.linked_movement_id,
+    event.details?.movement_pair_id,
+    event.details?.issue_type,
+    event.details?.direction,
+    event.details?.holding_type_code,
 
     registration.status,
     registration.registered_date,
@@ -704,16 +994,28 @@ function csvValue(value) {
 }
 
 function getEventIssueCodes(event) {
-  if (!Array.isArray(event.issues)) return '';
+  const codes = [];
 
-  return event.issues
-    .map((issue) => {
-      if (typeof issue === 'string') return issue;
+  if (
+    event.event_type === 'movement_issue'
+    && event.details?.issue_type
+  ) {
+    codes.push(event.details.issue_type);
+  }
 
-      return issue.code || issue.id || issue.type || '';
-    })
-    .filter(Boolean)
-    .join('; ');
+  if (Array.isArray(event.issues)) {
+    event.issues.forEach((issue) => {
+      if (typeof issue === 'string') {
+        codes.push(issue);
+        return;
+      }
+
+      const code = issue.code || issue.id || issue.type || '';
+      if (code) codes.push(code);
+    });
+  }
+
+  return codes.join('; ');
 }
 
 function createEventsCsv(events) {
@@ -867,6 +1169,11 @@ function getCattleDetails(req, earTagNumber) {
 
   const offspring = getOffspring(req, animal);
   const animalEvents = getAnimalEvents(req, animal);
+  const historySummary = getAnimalHistorySummary(animalEvents);
+
+  const animalIssues = getAnimalIssues(animalEvents);
+  const issueCount = animalIssues.length;
+
   const currentLocation = getCurrentLocation(req, animal, animalEvents);
   const animalLocations = getAnimalLocations(
     req,
@@ -898,7 +1205,10 @@ function getCattleDetails(req, earTagNumber) {
     animalEvents,
     currentLocation,
     animalLocations,
-    locationHeading
+    locationHeading,
+    historySummary,
+    animalIssues,
+    issueCount
   };
 }
 
@@ -919,6 +1229,9 @@ function registerCattleDetailsRoute(urlPath, viewPath) {
       currentLocation: cattleDetails.currentLocation,
       animalLocations: cattleDetails.animalLocations,
       locationHeading: cattleDetails.locationHeading,
+      historySummary: cattleDetails.historySummary,
+      animalIssues: cattleDetails.animalIssues,
+      issueCount: cattleDetails.issueCount,
       baseURL
     });
   });
@@ -939,17 +1252,24 @@ function registerCattleHistoryRoute(urlPath, viewPath) {
         });
       }
 
-      const animalEvents = [...cattleDetails.animalEvents]
-        .sort((a, b) => {
-          return getEventTimestamp(b) - getEventTimestamp(a);
-        });
+      const movementHistory = getAnimalMovementHistory(
+        req,
+        cattleDetails.animalEvents
+      );
 
-      const historySummary = getAnimalHistorySummary(animalEvents);
+      const deathEvent = [...cattleDetails.animalEvents]
+        .reverse()
+        .find((event) => {
+          return event.event_type === 'death';
+        });
 
       return res.render(baseURL + '/' + viewPath, {
         animal: cattleDetails.animal,
-        animalEvents,
-        historySummary,
+        movementHistory,
+        deathEvent,
+        animalLocations: cattleDetails.animalLocations,
+        animalIssues: cattleDetails.animalIssues,
+        issueCount: cattleDetails.issueCount,
         baseURL
       });
     }
@@ -1057,27 +1377,7 @@ function registerUsersRoute(urlPath, viewPath) {
     });
   });
 }
-function getPageHref(pageNumber) {
-    const params = new URLSearchParams();
 
-    if (search) {
-        params.set('search', search);
-    }
-
-    if (req.query.fromSearch) {
-        params.set('fromSearch', req.query.fromSearch);
-    }
-
-    params.set('page', pageNumber);
-
-    return (
-        '/' + baseURL
-        + '/holdings/'
-        + holding.id
-        + '/cattle-register?'
-        + params.toString()
-    );
-}
 
 /**
  * Global search
@@ -1262,120 +1562,24 @@ router.get('/' + baseURL + '/events/:id', (req, res) => {
  * Cattle register for a holding
  */
 router.get('/' + baseURL + '/holdings/:id/cattle-register', (req, res) => {
-    const holdingsData = getHoldingsData(req);
+   const cattleResults = getFilteredCattle(req);
+   const holdingsData = getHoldingsData(req);
 
-    const holding = holdingsData.holdings.find((holding) => {
-        return holding.id === req.params.id;
-    });
 
-    if (!holding) {
-        return res.status(404).render(baseURL + '/404', {
-            pageTitle: 'Holding not found'
+        const holding = holdingsData.holdings.find((holding) => {
+            return holding.id === req.params.id;
         });
-    }
 
-    const search = String(req.query.search || '').trim();
-    const searchTerm = normalise(search);
-
-    let cattle = getPrototypeHoldingCattle(req, holding);
-
-    if (search) {
-        cattle = cattle.filter((animal) => {
-            const searchableValues = [
-                animal.earTagNumber,
-                animal.sex,
-                animal.breed?.name,
-                animal.breed?.code
-            ];
-
-            return searchableValues.some((value) => {
-                return normalise(value).includes(searchTerm);
+        if (!holding) {
+            return res.status(404).render(baseURL + '/404', {
+                pageTitle: 'Holding not found'
             });
-        });
-    }
-
-    const totalResults = cattle.length;
-    const pageSize = 25;
-    const totalPages = Math.ceil(totalResults / pageSize);
-
-    const requestedPage = Number(req.query.page) || 1;
-
-    const page = Math.min(
-        Math.max(1, requestedPage),
-        Math.max(1, totalPages)
-    );
-
-    const startIndex = (page - 1) * pageSize;
-    const endIndex = startIndex + pageSize;
-
-    const pageStart = totalResults
-        ? startIndex + 1
-        : 0;
-
-    const pageEnd = Math.min(
-        endIndex,
-        totalResults
-    );
-
-    cattle = cattle.slice(startIndex, endIndex);
-
-    function getPageHref(pageNumber) {
-        const params = new URLSearchParams();
-
-        if (search) {
-            params.set('search', search);
         }
-
-        if (req.query.fromSearch) {
-            params.set('fromSearch', req.query.fromSearch);
-        }
-
-        params.set('page', pageNumber);
-
-        return (
-            '/' + baseURL
-            + '/holdings/'
-            + holding.id
-            + '/cattle-register?'
-            + params.toString()
-        );
-    }
-
-    const pagination = {
-        items: []
-    };
-
-    for (let pageNumber = 1; pageNumber <= totalPages; pageNumber++) {
-        pagination.items.push({
-            number: pageNumber,
-            href: getPageHref(pageNumber),
-            current: pageNumber === page
-        });
-    }
-
-    if (page > 1) {
-        pagination.previous = {
-            href: getPageHref(page - 1)
-        };
-    }
-
-    if (page < totalPages) {
-        pagination.next = {
-            href: getPageHref(page + 1)
-        };
-    }
-
-    return res.render(baseURL + '/holding-cattle-register', {
-        holding,
-        cattle,
-        search,
-        totalResults,
-        page,
-        pageSize,
-        pageStart,
-        pageEnd,
-        pagination,
-        baseURL
+   return res.render(baseURL + '/holding-cattle-register', {
+      cattle: cattleResults.cattle,
+      search: cattleResults.search,
+      holding,
+      baseURL
     });
 });
 /**
@@ -1399,14 +1603,41 @@ router.get('/' + baseURL + '/holdings/:id/animal-error-record', (req, res) => {
         baseURL
     });
 });
+
+function registerCattleActivityRoute(urlPath, viewPath) {
+  router.get(
+    '/' + baseURL + '/' + urlPath + '/:earTagNumber/cattle-activity',
+    (req, res) => {
+      const cattleDetails = getCattleDetails(
+        req,
+        req.params.earTagNumber
+      );
+
+      if (!cattleDetails) {
+        return res.status(404).render(baseURL + '/404', {
+          pageTitle: 'Cattle record not found'
+        });
+      }
+
+      return res.render(baseURL + '/' + viewPath, {
+        animal: cattleDetails.animal,
+        animalIssues: cattleDetails.animalIssues,
+        issueCount: cattleDetails.issueCount,
+        baseURL
+      });
+    }
+  );
+}
 /**
  * Register cattle detail routes
  */
 
 registerCattleDetailsRoute('cattle', 'cattle-details');
 registerCattleHistoryRoute('cattle', 'cattle-history');
+registerCattleActivityRoute('cattle', 'cattle-activity');
 
 registerCattleDetailsRoute('holdings/cattle', 'holding-cattle-details');
+
 
 
 /**
@@ -1553,4 +1784,3 @@ router.get('/' + baseURL + '/users/:id/activity', (req, res) => {
     baseURL
   });
 });
-

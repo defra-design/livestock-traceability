@@ -108,21 +108,24 @@ href: "./home"
       <th aria-sort="ascending" scope="col" class="govuk-table__header app-table__cell--no-wrap">
         Ear tag
       </th>
-      <th aria-sort="none" scope="col" class="govuk-table__header app-table__cell--no-wrap">
-        CPH
+         <th aria-sort="none" scope="col" class="govuk-table__header app-table__cell--no-wrap">
+        Animal status
+      </th>
+         <th aria-sort="none" scope="col" class="govuk-table__header app-table__cell--no-wrap">
+            Passport status
       </th>
       <th aria-sort="none" scope="col" class="govuk-table__header app-table__cell--no-wrap">
-        Location
+            Last location
       </th>
+
+
 <!--      <th aria-sort="none" scope="col" class="govuk-table__header app-table__cell&#45;&#45;no-wrap">-->
 <!--        County-->
 <!--      </th>-->
 <!--      <th aria-sort="none" scope="col" class="govuk-table__header app-table__cell&#45;&#45;no-wrap">-->
 <!--        Postcode-->
 <!--      </th>-->
-      <th aria-sort="none" scope="col" class="govuk-table__header app-table__cell--no-wrap">
-        Status
-      </th>
+
     </tr>
   </thead>
 
@@ -141,18 +144,48 @@ href: "./home"
           {{ animal.earTagNumber | formatReference }}
         </a>
       </th>
+        <td class="govuk-table__cell">
+        {{ animal.status }}
+      </td>
+           <td class="govuk-table__cell">
+         {% if animal.administrativeStatus.passportStatus == "Refused" %}
+  {{ govukTag({
+    text: "Refused",
+    classes: "govuk-tag--red"
+  }) }}
 
+{% elseif animal.administrativeStatus.passportStatus == "Incomplete" %}
+  {{ govukTag({
+    text: "Incomplete",
+    classes: "govuk-tag--yellow"
+  }) }}
+
+{% elseif animal.administrativeStatus.passportStatus == "Awaiting return" %}
+  {{ govukTag({
+    text: "Awaiting return",
+    classes: "govuk-tag--yellow"
+  }) }}
+
+{% else %}
+  {{ animal.administrativeStatus.passportStatus }}
+{% endif %}
+      </td>
       <td class="govuk-table__cell app-table__cell--no-wrap">
-        {{ animal.cph }}
+      {{ animal.cph }}  (<abbr title="{{ animal.cphType }}">
+    {{ animal.cphTypeCode }})
+  </abbr>
+  <span class="govuk-visually-hidden">
+    , {{ holding.cphType}}
+  </span>
       </td>
 
-      <td class="govuk-table__cell">
-        {% if animal.holding %}
+<!--      <td class="govuk-table__cell">-->
+<!--        {% if animal.holding %}-->
 
-            {{ animal.holding.holdingName }}, {{ animal.holding.address.town }}, {{ animal.holding.address.county }}, {{ animal.holding.address.postcode }}
+<!--            {{ animal.holding.holdingName }}, {{ animal.holding.address.town }}, {{ animal.holding.address.county }}, {{ animal.holding.address.postcode }}-->
 
-        {% endif %}
-      </td>
+<!--        {% endif %}-->
+<!--      </td>-->
 
 <!--      <td class="govuk-table__cell">-->
 <!--        {% if animal.holding %}-->
@@ -165,9 +198,7 @@ href: "./home"
 <!--        {% endif %}-->
 <!--      </td>-->
 
-      <td class="govuk-table__cell">
-        {{ animal.status }}
-      </td>
+
 
     </tr>
     {% endfor %}

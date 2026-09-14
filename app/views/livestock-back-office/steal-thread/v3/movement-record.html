@@ -1,0 +1,65 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName = "Movement record" %}
+{% set activeNav = "animals" %}
+
+{% block header %}
+{% block navBar %}{% include "./components/_navigation.html" %}{% endblock %}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <a
+      href="/{{ baseURL }}/cattle/{{ animal.earTagNumber }}/cattle-history{{ contextQuery }}"
+      class="govuk-back-link"
+    >
+      Back to movements
+    </a>
+
+    <span class="govuk-caption-l">UK 251278 289382</span>
+    <h1 class="govuk-heading-l">Movement record</h1>
+
+    <dl class="govuk-summary-list">
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">From</dt>
+        <dd class="govuk-summary-list__value">
+          63/829/0276 (<abbr title="Agricultural holding">AH</abbr>)
+        </dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Moved off</dt>
+        <dd class="govuk-summary-list__value">8 July 2025, 9:12am</dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">To</dt>
+        <dd class="govuk-summary-list__value">
+          56/312/0056 (<abbr title="Agricultural holding">AH</abbr>)
+        </dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Moved on</dt>
+        <dd class="govuk-summary-list__value">8 July 2025, 11:24am</dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Reported by</dt>
+        <dd class="govuk-summary-list__value">Keeper</dd>
+      </div>
+    </dl>
+
+    <a
+      href="/{{ baseURL }}/cattle/{{ animal.earTagNumber }}/movements/evt_0028/change{{ contextQuery }}"
+      role="button"
+      draggable="false"
+      class="govuk-button"
+      data-module="govuk-button"
+    >
+      Change movement record
+    </a>
+
+  </div>
+</div>
+
+{% endblock %}

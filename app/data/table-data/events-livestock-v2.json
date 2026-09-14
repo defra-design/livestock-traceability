@@ -1,5 +1,5 @@
 {
-  "recordCount": 58,
+  "recordCount": 70,
   "events": [
     {
       "id": "evt_0001",
@@ -529,6 +529,108 @@
       }
     },
     {
+      "id": "evt_1020_on",
+      "animal_id": "UK457586378257",
+      "event_type": "movement",
+      "event_date": "12-03-2024",
+      "event_time": "11:10",
+      "reported_by": "keeper",
+      "details": {
+        "direction": "on",
+        "to_cph": "31/672/0158",
+        "to_holding_type": "farm",
+        "reason": "sale",
+        "movement_pair_id": "evt_1020"
+      }
+    },
+    {
+      "id": "evt_1021_off",
+      "animal_id": "UK457586378257",
+      "event_type": "movement",
+      "event_date": "18-09-2024",
+      "event_time": "09:05",
+      "reported_by": "keeper",
+      "details": {
+        "direction": "off",
+        "from_cph": "31/672/0158",
+        "off_holding_type": "farm",
+        "reason": "summer grazing",
+        "movement_pair_id": "evt_1021"
+      }
+    },
+    {
+      "id": "evt_1023",
+      "animal_id": "UK457586378257",
+      "event_type": "movement_issue",
+      "event_date": "16-08-2026",
+      "event_time": "09:14",
+      "reported_by": "BCMS",
+      "details": {
+        "issue_type": "missing_movement_off",
+        "status": "open",
+        "direction": "off",
+        "holding_cph": "15/628/0067",
+        "holding_type": "Agricultural holding",
+        "holding_type_code": "AH",
+        "movement_pair_id": "evt_1020",
+        "reason": "Expected movement off record not received"
+      }
+    },
+    {
+      "id": "evt_1024",
+      "animal_id": "UK457586378257",
+      "event_type": "movement_issue",
+      "event_date": "17-08-2026",
+      "event_time": "10:02",
+      "reported_by": "BCMS",
+      "details": {
+        "issue_type": "missing_movement_on",
+        "status": "open",
+        "direction": "on",
+        "holding_cph": "44/209/0317",
+        "holding_type": "Agricultural holding",
+        "holding_type_code": "AH",
+        "movement_pair_id": "evt_1021",
+        "reason": "Expected movement on record not received"
+      }
+    },
+    {
+      "id": "evt_1025",
+      "animal_id": "UK457586378257",
+      "event_type": "movement_issue",
+      "event_date": "18-08-2026",
+      "event_time": "11:28",
+      "reported_by": "BCMS",
+      "details": {
+        "issue_type": "movement_history_gap",
+        "status": "open",
+        "movement_pair_id": "evt_1022",
+        "from_holding_cph": "53/417/0088",
+        "from_holding_type": "Agricultural holding",
+        "from_holding_type_code": "AH",
+        "to_holding_cph": "66/204/0141",
+        "to_holding_type": "Agricultural holding",
+        "to_holding_type_code": "AH",
+        "history_sort_date": "07-04-2025",
+        "label": "Movement history gap between 53/417/0088 (AH) and 66/204/0141 (AH)",
+        "reason": "There is no movement record explaining how the animal moved between these holdings."
+      }
+    },
+    {
+      "id": "evt_1026",
+      "animal_id": "UK457586378257",
+      "event_type": "passport",
+      "event_date": "19-08-2026",
+      "event_time": "14:18",
+      "reported_by": "BCMS",
+      "details": {
+        "action": "refused",
+        "status": "Passport refused",
+        "passport_version": 2,
+        "reason": "Multiple movement history issues remain unresolved"
+      }
+    },
+    {
       "id": "evt_1005",
       "animal_id": "UK457586378257",
       "event_type": "movement_restriction",
@@ -537,7 +639,7 @@
       "reported_by": "BCMS",
       "details": {
         "action": "applied",
-        "reason": "Identity check required"
+        "reason": "Multiple unresolved movement issues"
       }
     },
     {
@@ -881,9 +983,14 @@
       "event_time": "13:37",
       "reported_by": "BCMS",
       "details": {
-        "issue_type": "missing_movement",
+        "issue_type": "missing_movement_off",
         "status": "open",
-        "reason": "Expected movement record not received"
+        "reason": "Expected movement off record not received",
+        "direction": "off",
+        "holding_cph": "31/672/0158",
+        "holding_type": "Agricultural holding",
+        "holding_type_code": "AH",
+        "movement_pair_id": "evt_0033"
       }
     },
     {
@@ -936,6 +1043,96 @@
           "batch_id": "batch_2024_0020",
           "defra_reference": "REG-2024-0020"
         }
+      }
+    },
+    {
+      "id": "evt_1021b_off",
+      "animal_id": "UK457586378257",
+      "event_type": "movement",
+      "event_date": "15-01-2025",
+      "event_time": "09:14",
+      "reported_by": "keeper",
+      "details": {
+        "direction": "off",
+        "from_cph": "44/209/0317",
+        "off_holding_type": "farm",
+        "reason": "sale",
+        "movement_pair_id": "evt_1021b"
+      }
+    },
+    {
+      "id": "evt_1021b_on",
+      "animal_id": "UK457586378257",
+      "event_type": "movement",
+      "event_date": "15-01-2025",
+      "event_time": "11:31",
+      "reported_by": "keeper",
+      "details": {
+        "direction": "on",
+        "to_cph": "53/417/0088",
+        "to_holding_type": "farm",
+        "reason": "sale",
+        "movement_pair_id": "evt_1021b"
+      }
+    },
+    {
+      "id": "evt_1027_off",
+      "animal_id": "UK457586378257",
+      "event_type": "movement",
+      "event_date": "20-05-2025",
+      "event_time": "09:18",
+      "reported_by": "keeper",
+      "details": {
+        "direction": "off",
+        "from_cph": "66/204/0141",
+        "off_holding_type": "farm",
+        "reason": "sale",
+        "movement_pair_id": "evt_1027"
+      }
+    },
+    {
+      "id": "evt_1027_on",
+      "animal_id": "UK457586378257",
+      "event_type": "movement",
+      "event_date": "20-05-2025",
+      "event_time": "11:42",
+      "reported_by": "keeper",
+      "details": {
+        "direction": "on",
+        "to_cph": "56/312/0056",
+        "to_holding_type": "farm",
+        "reason": "sale",
+        "movement_pair_id": "evt_1027"
+      }
+    },
+    {
+      "id": "evt_1028_off",
+      "animal_id": "UK457586378257",
+      "event_type": "movement",
+      "event_date": "21-05-2025",
+      "event_time": "09:08",
+      "reported_by": "keeper",
+      "details": {
+        "direction": "off",
+        "from_cph": "56/312/0056",
+        "off_holding_type": "farm",
+        "reason": "sale",
+        "movement_pair_id": "evt_1028"
+      }
+    },
+    {
+      "id": "evt_1028_on",
+      "animal_id": "UK457586378257",
+      "event_type": "movement",
+      "event_date": "21-05-2025",
+      "event_time": "11:26",
+      "reported_by": "keeper",
+      "details": {
+        "direction": "on",
+        "to_cph": "53/417/0088",
+        "to_holding_type": "farm",
+        "reason": "sale",
+        "movement_pair_id": "evt_1028"
       }
     }
   ],

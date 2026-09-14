@@ -134,6 +134,9 @@ href: "./home"
               <th scope="col" class="govuk-table__header">
                   Location
               </th>
+              <th scope="col" class="govuk-table__header">
+                  Status
+              </th>
 
           </tr>
           </thead>
@@ -161,6 +164,9 @@ href: "./home"
 
               <td class="govuk-table__cell">
                   {{ holding.holdingName }}, {{ holding.address.town }}, {{ holding.address.county }},  {{ holding.address.postcode }}
+              </td>
+               <td class="govuk-table__cell">
+                  {{ holding.status }}
               </td>
           </tr>
           {% endfor %}

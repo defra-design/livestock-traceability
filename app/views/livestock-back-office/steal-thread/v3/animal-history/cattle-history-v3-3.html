@@ -1,0 +1,235 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName = "Movements" %}
+{% set activeNav = "animals" %}
+
+{% block header %}
+{% block navBar %}{% include "../components/_navigation.html" %}{% endblock %}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+
+    <span class="govuk-caption-l">Registered animal</span>
+
+    <h1 class="govuk-heading-l govuk-!-margin-bottom-2">
+      UK 159517 919901
+    </h1>
+
+    <p class="govuk-body govuk-!-margin-top-4 govuk-!-margin-bottom-6">
+      <strong>Animal status:</strong> Stolen
+      &nbsp;&nbsp;|&nbsp;&nbsp;
+      <strong>Passport status:</strong> Valid
+    </p>
+
+    <nav class="moj-sub-navigation" aria-label="Animal navigation">
+      <ul class="moj-sub-navigation__list">
+        <li class="moj-sub-navigation__item">
+          <a
+            class="moj-sub-navigation__link"
+            href="/{{ baseURL }}/cattle/{{ animal.earTagNumber }}{{ contextQuery }}"
+          >
+            Animal details
+          </a>
+        </li>
+        <li class="moj-sub-navigation__item">
+          <a
+            class="moj-sub-navigation__link"
+            aria-current="page"
+            href="/{{ baseURL }}/cattle/{{ animal.earTagNumber }}/cattle-history{{ contextQuery }}"
+          >
+            Movements
+          </a>
+        </li>
+        <li class="moj-sub-navigation__item">
+          <a class="moj-sub-navigation__link" href="#">
+            Event history
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+  </div>
+</div>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+
+    <h2 class="govuk-heading-m">Movement history</h2>
+
+    <ol class="govuk-list app-event-results">
+
+      {# Birth bookend — deliberately not numbered #}
+      <li class="govuk-!-margin-bottom-6">
+        <section class="app-movement-card__leg" aria-labelledby="birth-bookend">
+          <h3 class="govuk-heading-s" id="birth-bookend">
+            Born at 31/672/0158 (<abbr title="Agricultural holding">AH</abbr>)
+          </h3>
+
+          <dl class="govuk-summary-list govuk-summary-list--no-border app-movement-card__details">
+            <div class="govuk-summary-list__row">
+              <dt class="govuk-summary-list__key">Born on</dt>
+              <dd class="govuk-summary-list__value">23 February 2025</dd>
+            </div>
+            <div class="govuk-summary-list__row">
+              <dt class="govuk-summary-list__key">Reported by</dt>
+              <dd class="govuk-summary-list__value">Keeper</dd>
+            </div>
+          </dl>
+        </section>
+      </li>
+
+      <li
+        class="app-event-card app-event-card--movement"
+        id="movement-evt_0007"
+      >
+        <article>
+          <div class="app-event-card__header">
+            <h3 class="govuk-heading-s app-event-card__title">
+              <span class="app-event-card__number" aria-hidden="true">1</span>
+              <span>Movement <span class="govuk-visually-hidden">1</span></span>
+            </h3>
+
+            <strong class="govuk-tag govuk-tag--green">
+              Complete
+            </strong>
+          </div>
+
+          <div class="app-movement-card__route">
+
+            <section class="app-movement-card__leg" aria-labelledby="movement-1-from">
+              <h4 class="govuk-heading-s" id="movement-1-from">
+                From 31/672/0158 (<abbr title="Agricultural holding">AH</abbr>)
+              </h4>
+
+              <dl class="govuk-summary-list govuk-summary-list--no-border app-movement-card__details">
+                <div class="govuk-summary-list__row">
+                  <dt class="govuk-summary-list__key">Moved off</dt>
+                  <dd class="govuk-summary-list__value">15 July 2025, 9:17am</dd>
+                </div>
+                <div class="govuk-summary-list__row">
+                  <dt class="govuk-summary-list__key">Reported by</dt>
+                  <dd class="govuk-summary-list__value">Keeper</dd>
+                </div>
+              </dl>
+            </section>
+
+            <div class="app-movement-card__arrow" aria-hidden="true">
+              <span class="app-movement-card__arrow--horizontal">→</span>
+              <span class="app-movement-card__arrow--vertical">↓</span>
+            </div>
+
+            <section class="app-movement-card__leg" aria-labelledby="movement-1-to">
+              <h4 class="govuk-heading-s" id="movement-1-to">
+                To 66/204/0141 (<abbr title="Agricultural holding">AH</abbr>)
+              </h4>
+
+              <dl class="govuk-summary-list govuk-summary-list--no-border app-movement-card__details">
+                <div class="govuk-summary-list__row">
+                  <dt class="govuk-summary-list__key">Moved on</dt>
+                  <dd class="govuk-summary-list__value">15 July 2025, 11:21am</dd>
+                </div>
+                <div class="govuk-summary-list__row">
+                  <dt class="govuk-summary-list__key">Reported by</dt>
+                  <dd class="govuk-summary-list__value">Keeper</dd>
+                </div>
+              </dl>
+            </section>
+
+          </div>
+        </article>
+      </li>
+
+      <li
+        class="app-event-card app-event-card--movement"
+        id="movement-evt_stolen_02"
+      >
+        <article>
+          <div class="app-event-card__header">
+            <h3 class="govuk-heading-s app-event-card__title">
+              <span class="app-event-card__number" aria-hidden="true">2</span>
+              <span>Movement <span class="govuk-visually-hidden">2</span></span>
+            </h3>
+
+            <strong class="govuk-tag govuk-tag--green">
+              Complete
+            </strong>
+          </div>
+
+          <div class="app-movement-card__route">
+
+            <section class="app-movement-card__leg" aria-labelledby="movement-2-from">
+              <h4 class="govuk-heading-s" id="movement-2-from">
+                From 66/204/0141 (<abbr title="Agricultural holding">AH</abbr>)
+              </h4>
+
+              <dl class="govuk-summary-list govuk-summary-list--no-border app-movement-card__details">
+                <div class="govuk-summary-list__row">
+                  <dt class="govuk-summary-list__key">Moved off</dt>
+                  <dd class="govuk-summary-list__value">12 August 2026, 9:08am</dd>
+                </div>
+                <div class="govuk-summary-list__row">
+                  <dt class="govuk-summary-list__key">Reported by</dt>
+                  <dd class="govuk-summary-list__value">Keeper</dd>
+                </div>
+              </dl>
+            </section>
+
+            <div class="app-movement-card__arrow" aria-hidden="true">
+              <span class="app-movement-card__arrow--horizontal">→</span>
+              <span class="app-movement-card__arrow--vertical">↓</span>
+            </div>
+
+            <section class="app-movement-card__leg" aria-labelledby="movement-2-to">
+              <h4 class="govuk-heading-s" id="movement-2-to">
+                To 37/338/8280 (<abbr title="Agricultural holding">AH</abbr>)
+              </h4>
+
+              <dl class="govuk-summary-list govuk-summary-list--no-border app-movement-card__details">
+                <div class="govuk-summary-list__row">
+                  <dt class="govuk-summary-list__key">Moved on</dt>
+                  <dd class="govuk-summary-list__value">12 August 2026, 11:19am</dd>
+                </div>
+                <div class="govuk-summary-list__row">
+                  <dt class="govuk-summary-list__key">Reported by</dt>
+                  <dd class="govuk-summary-list__value">Keeper</dd>
+                </div>
+              </dl>
+            </section>
+
+          </div>
+        </article>
+      </li>
+
+      {# Current terminal state — stolen #}
+      <li class="govuk-!-margin-top-6">
+        <section class="app-movement-card__leg" aria-labelledby="stolen-bookend">
+          <h3 class="govuk-heading-s" id="stolen-bookend">
+            Reported stolen at 37/338/8280 (<abbr title="Agricultural holding">AH</abbr>)
+          </h3>
+
+          <dl class="govuk-summary-list govuk-summary-list--no-border app-movement-card__details">
+            <div class="govuk-summary-list__row">
+              <dt class="govuk-summary-list__key">Reported stolen on</dt>
+              <dd class="govuk-summary-list__value">18 August 2026</dd>
+            </div>
+            <div class="govuk-summary-list__row">
+              <dt class="govuk-summary-list__key">Reported by</dt>
+              <dd class="govuk-summary-list__value">Keeper</dd>
+            </div>
+            <div class="govuk-summary-list__row">
+              <dt class="govuk-summary-list__key">Reason</dt>
+              <dd class="govuk-summary-list__value">Keeper reported suspected theft</dd>
+            </div>
+          </dl>
+        </section>
+      </li>
+
+    </ol>
+
+  </div>
+</div>
+
+{% endblock %}

@@ -1,440 +1,261 @@
 {% extends "layouts/main.html" %}
 
-{% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
-
-{% set pageName="Animal detail view" %}
-
+{% set pageName = "Movements" %}
 {% set activeNav = "animals" %}
 
 {% block header %}
-
 {% block navBar %}{% include "./components/_navigation.html" %}{% endblock %}
-
 {% endblock %}
 
 {% block beforeContent %}
 {% set currentBaseUrl = '/' + baseURL + '/' %}
 {% block returnLink %}{% include "./components/_return-link-animal.html" %}{% endblock %}
 {% endblock %}
+
 {% block content %}
-  <div class="govuk-grid-row">
-    <div class="govuk-grid-column-full">
 
-          <span class="govuk-caption-l">
-            Registered cattle
-          </span>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
 
-      <h1 class="govuk-heading-l">
-        {{ animal.earTagNumber  | formatReference }}
-      </h1>
+    <span class="govuk-caption-l">Registered animal</span>
 
+    <h1 class="govuk-heading-xl govuk-!-margin-bottom-2">
+      {{ animal.earTagNumber | formatReference }}
+    </h1>
 
-            <nav class="moj-sub-navigation" aria-label="Sub navigation">
-        <ul class="moj-sub-navigation__list">
-          <li class="moj-sub-navigation__item">
-            <a
-                    class="moj-sub-navigation__link"
-                    href="/{{baseURL}}/cattle/{{ animal.earTagNumber }}{{ contextQuery }}"
-            >
-              Animal details
+    <p class="govuk-body govuk-!-margin-top-4 govuk-!-margin-bottom-1">
+      <strong>Animal status:</strong> {{ animal.status }}
+      &nbsp;&nbsp;|&nbsp;&nbsp;
+      <strong>Passport status:</strong> {{ animal.administrativeStatus.passportStatus }}
+    </p>
+
+    {% include "./components/_animal-issues-callout.html" %}
+
+    <nav class="moj-sub-navigation" aria-label="Sub navigation">
+      <ul class="moj-sub-navigation__list">
+        <li class="moj-sub-navigation__item">
+          <a
+            class="moj-sub-navigation__link"
+            href="/{{ baseURL }}/cattle/{{ animal.earTagNumber }}{{ contextQuery }}"
+          >
+            Animal details
+          </a>
+        </li>
+        <li class="moj-sub-navigation__item">
+          <a
+            class="moj-sub-navigation__link"
+            aria-current="page"
+            href="/{{ baseURL }}/cattle/{{ animal.earTagNumber }}/cattle-history{{ contextQuery }}"
+          >
+            Movements
+          </a>
+        </li>
+        <li class="moj-sub-navigation__item">
+          <a
+                  class="moj-sub-navigation__link"
+
+                  href="/{{baseURL}}/cattle/{{ animal.earTagNumber }}/cattle-activity{{ contextQuery }}"
+          >
+              Activity
             </a>
-          </li>
-          <li class="moj-sub-navigation__item">
-            <a
-                    class="moj-sub-navigation__link"
-                    aria-current="page"
-                    href="/{{baseURL}}/cattle/{{ animal.earTagNumber }}/cattle-history{{ contextQuery }}"
+        </li>
+      </ul>
+    </nav>
+
+  </div>
+</div>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full govuk-!-padding-bottom-9">
+
+    <h2 class="govuk-heading-m">Movement history</h2>
+
+    {% if movementHistory.length %}
+    <ol class="govuk-list app-event-results">
+      {% for movement in movementHistory %}
+      <li
+        class="app-event-card app-event-card--movement"
+        id="movement-{{ movement.pairId }}"
+      >
+        <article>
+          <div class="app-event-card__header">
+            <h3 class="govuk-heading-s app-event-card__title">
+              <span class="app-event-card__number" aria-hidden="true">{{ loop.index }}</span>
+              <span>
+                {% if movement.issueType === "movement_history_gap" %}
+                  Movement history gap
+                {% else %}
+                  Movement
+                {% endif %}
+                <span class="govuk-visually-hidden">{{ loop.index }}</span>
+              </span>
+            </h3>
+
+            {% if movement.hasIssue %}
+            <strong class="govuk-tag govuk-tag--red">Issue</strong>
+            {% else %}
+            <strong class="govuk-tag govuk-tag--green">Complete</strong>
+            {% endif %}
+          </div>
+
+          <div class="app-movement-card__route">
+
+            <section
+              class="app-movement-card__leg{% if movement.missingOff or movement.issueType === 'movement_history_gap' %} app-movement-card__leg--missing{% endif %}"
+              aria-labelledby="movement-{{ loop.index }}-from"
             >
-              History
-            </a>
-          </li>
-        </ul>
-      </nav>
+              <h4 class="govuk-heading-s" id="movement-{{ loop.index }}-from">
+                From {{ movement.fromCph }}{% if movement.fromType.code %} (<abbr title="{{ movement.fromType.label }}">{{ movement.fromType.code }}</abbr>){% endif %}
+              </h4>
 
-
-          <section aria-labelledby="animal-history-heading">
-            <h2 class="govuk-heading-m" id="animal-history-heading">
-              Animal history
-            </h2>
-
-            {% if animalEvents.length %}
-            <section class="app-history-summary" aria-labelledby="history-summary-heading">
-              <h3 class="govuk-heading-s" id="history-summary-heading">
-                History summary
-              </h3>
-
-              <ul class="govuk-list app-history-summary__counts">
-                <li>
-                  <strong>{{ historySummary.movementRecords }}</strong>
-                  movement record{% if historySummary.movementRecords != 1 %}s{% endif %}
-                </li>
-                {% if historySummary.passportEvents %}
-                <li>
-                  <strong>{{ historySummary.passportEvents }}</strong>
-                  passport event{% if historySummary.passportEvents != 1 %}s{% endif %}
-                </li>
-                {% endif %}
-                {% if historySummary.registrationChanges %}
-                <li>
-                  <strong>{{ historySummary.registrationChanges }}</strong>
-                  registration change{% if historySummary.registrationChanges != 1 %}s{% endif %}
-                </li>
-                {% endif %}
-              </ul>
+              {% if movement.missingOff or movement.issueType === "movement_history_gap" %}
+              <p class="govuk-body app-movement-card__missing-text">
+                <strong>Missing movement off</strong><br>
+                No movement off has been recorded.
+              </p>
+              {% else %}
+              <dl class="govuk-summary-list govuk-summary-list--no-border app-movement-card__details">
+                <div class="govuk-summary-list__row">
+                  <dt class="govuk-summary-list__key">Moved off</dt>
+                  <dd class="govuk-summary-list__value">
+                    {{ movement.offEvent.event_date | fullDateFormat }}, {{ movement.offEvent.event_time_display }}
+                  </dd>
+                </div>
+                <div class="govuk-summary-list__row">
+                  <dt class="govuk-summary-list__key">Reported by</dt>
+                  <dd class="govuk-summary-list__value">{{ movement.offReportedBy }}</dd>
+                </div>
+              </dl>
+              {% endif %}
             </section>
 
-            <ol class="app-history">
-              {% for event in animalEvents %}
-              <li class="app-history__item">
-                <div class="app-history__content">
-                  <time
-                    class="app-history__datetime"
-                    datetime="{{ event.event_datetime }}"
-                  >
-                    {{ event.event_date | fullDateFormat }} at {{ event.event_time_display }}
-                  </time>
+            <div class="app-movement-card__arrow" aria-hidden="true">
+              <span class="app-movement-card__arrow--horizontal">→</span>
+              <span class="app-movement-card__arrow--vertical">↓</span>
+            </div>
 
-                  <article class="app-event-card app-event-card__content">
+            <section
+              class="app-movement-card__leg{% if movement.missingOn or movement.issueType === 'movement_history_gap' %} app-movement-card__leg--missing{% endif %}"
+              aria-labelledby="movement-{{ loop.index }}-to"
+            >
+              <h4 class="govuk-heading-s" id="movement-{{ loop.index }}-to">
+                To {{ movement.toCph }}{% if movement.toType.code %} (<abbr title="{{ movement.toType.label }}">{{ movement.toType.code }}</abbr>){% endif %}
+              </h4>
 
-                <h3 class="govuk-heading-s app-event-card__heading">
-                  <a
-                          class="govuk-link"
-                          href="{{ currentBaseUrl }}events/{{ event.id }}"
-                  >
-                    {% if event.event_type === "birth" %}
-                      Birth reported
-                    {% elseif event.event_type === "movement" and event.details.direction === "off" %}
-                      Moved off holding
-                    {% elseif event.event_type === "movement" and event.details.direction === "on" %}
-                      Moved on to holding
-                    {% elseif event.event_type === "death" %}
-                      Death recorded
-                    {% elseif event.event_type === "passport" and event.details.action === "issued" %}
-                      Passport issued
-                    {% elseif event.event_type === "passport" and event.details.action === "reissued" %}
-                      Passport reissued
-                    {% elseif event.event_type === "passport" and event.details.action === "refused" %}
-                      Passport refused
-                    {% elseif event.event_type === "passport" and event.details.action === "correction_requested" %}
-                      Passport correction requested
-                    {% elseif event.event_type === "passport" and event.details.action === "replacement_requested" %}
-                      Replacement passport requested
-                    {% elseif event.event_type === "movement_issue" %}
-                      Missing movement identified
-                    {% elseif event.event_type === "movement_restriction" and event.details.action === "applied" %}
-                      Movement restriction applied
-                    {% elseif event.event_type === "movement_restriction" and event.details.action === "removed" %}
-                      Movement restriction removed
-                    {% elseif event.event_type === "animal_status" and event.details.action === "reported_lost" %}
-                      Animal reported lost
-                    {% elseif event.event_type === "animal_status" and event.details.action === "reported_stolen" %}
-                      Animal reported stolen
-                    {% elseif event.event_type === "animal_status" and event.details.action === "reported_found" %}
-                      Animal found
-                    {% else %}
-                      {{ event.event_type | capitalize }}
-                    {% endif %}
-                  </a>
-                </h3>
-
-
-
-                <ul class="govuk-list app-event-card__details">
-                   {% if event.event_type === "birth" %}
-                <li>
-                  Animal born at holding
-                  {% if event.holdings.location.id %}
-                  <a
-                          class="govuk-link"
-                          href="../holdings/{{ event.holdings.location.id }}"
-                  >
-                    {{ event.details.holding_cph }}
-                  </a>
-                  {% else %}
-                  <a
-                          class="govuk-link"
-                          href="../holdings?search={{ event.details.holding_cph | urlencode }}"
-                  >
-                    {{ event.details.holding_cph }}
-                  </a>.
-                  {% endif %}
-                </li>
-                {% endif %}
-
-                {% if event.event_type === "movement" and event.details.direction === "off" %}
-                <li>
-                  Moved off
-                  {% if event.holdings.from.id %}
-                  <a
-                          class="govuk-link"
-                          href="{{ currentBaseUrl }}holdings/{{ event.holdings.from.id }}"
-                  >
-                    {{ event.details.from_cph }}
-                  </a>
-                  {% else %}
-                  <a
-                          class="govuk-link"
-                          href="{{ currentBaseUrl }}holdings?search={{ event.details.from_cph | urlencode }}"
-                  >
-                    {{ event.details.from_cph }}
-                  </a>.
-                  {% endif %}
-                </li>
-                {% endif %}
-
-                {% if event.event_type === "movement" and event.details.direction === "on" %}
-                <li>
-                  Moved on to
-                  {% if event.holdings.to.id %}
-                  <a
-                          class="govuk-link"
-                          href="{{ currentBaseUrl }}holdings/{{ event.holdings.to.id }}"
-                  >
-                    {{ event.details.to_cph }}
-                  </a>
-                  {% else %}
-                  <a
-                          class="govuk-link"
-                          href="{{ currentBaseUrl }}holdings?search={{ event.details.to_cph | urlencode }}"
-                  >
-                    {{ event.details.to_cph }}
-                  </a>.
-                  {% endif %}
-                </li>
-                {% endif %}
-
-                {% if event.event_type === "death" %}
-                <li>
-                  Death recorded at holding
-                  {% if event.holdings.location.id %}
-                  <a
-                          class="govuk-link"
-                          href="{{ currentBaseUrl }}holdings/{{ event.holdings.location.id }}"
-                  >
-                    {{ event.details.holding_cph }}
-                  </a>
-                  {% else %}
-                  <a
-                          class="govuk-link"
-                          href="{{ currentBaseUrl }}holdings?search={{ event.details.holding_cph | urlencode }}"
-                  >
-                    {{ event.details.holding_cph }}
-                  </a>.
-                  {% endif %}
-                </li>
-                {% endif %}
-                  {% if event.event_type === "birth" %}
-
-                    {% if event.details.dam_id %}
-                    <li>
-
-                        Genetic dam:
-
-                      <a
-                              class="govuk-link"
-                              href="../cattle/{{ event.details.dam_id }}"
-                      >
-                        {{ event.details.dam_id | formatReference }}
-                      </a>
-                    </li>
-                    {% endif %}
-
-                    {% if event.details.surrogate_dam_id %}
-                    <li>
-
-                        Surrogate dam:
-
-                      <a
-                              class="govuk-link"
-                              href="../cattle/{{ event.details.surrogate_dam_id }}"
-                      >
-                        {{ event.details.surrogate_dam_id | formatReference }}
-                      </a>
-                    </li>
-                    {% endif %}
-
-                    {% if event.details.sire_id %}
-                    <li>
-
-                        Sire:
-
-                      <a
-                              class="govuk-link"
-                              href="../cattle/{{ event.details.sire_id }}"
-                      >
-                        {{ event.details.sire_id | formatReference }}
-                      </a>
-                    </li>
-                    {% endif %}
-
-                    {% if event.details.registration %}
-                    <li>
-
-                        Registration status:
-
-                      {{ event.details.registration.status }}
-                    </li>
-                    <li>
-
-                        Registered date:
-
-                      {{ event.details.registration.registered_date | fullDateFormat }}
-                    </li>
-                    {% endif %}
-                  {% endif %}
-
-                  {% if event.event_type === "movement" %}
-                    {% if (event.toHolding and event.toHolding.holdingType) or (event.fromHolding and event.fromHolding.holdingType)%}
-                    <li>
-
-                        Holding type:
-
-                      {{ event.toHolding.holdingType or event.fromHolding.holdingType }}
-                    </li>
-                    {% elseif event.details.to_holding_type === "farm" %}
-                    <li>
-
-                        Holding type:
-
-                      Agricultural Holding (AH)
-                    </li>
-                    {% elseif event.details.to_holding_type === "abattoir" %}
-                    <li>
-
-                        Holding type:
-
-                      Slaughterhouses / Abattoirs (SL)
-                    </li>
-                    {% elseif event.details.to_holding_type === "market" %}
-                    <li>
-
-                        Holding type:
-
-                      Markets (MA)
-                    </li>
-                    {% elseif event.details.to_holding_type === "collection-centre" %}
-                    <li>
-
-                        Holding type:
-
-                      Collection / Assembly Centres (CA)
-                    </li>
-                    {% elseif event.details.to_holding_type === "showground" %}
-                    <li>
-
-                        Holding type:
-
-                      Showgrounds and Temporary Holdings (CC)
-                    </li>
-                    {% elseif event.details.to_holding_type %}
-                    <li>
-
-                        Holding type:
-
-                      {{ event.details.to_holding_type }}
-                    </li>
-                    {% elseif event.details.off_holding_type %}
-                    Holding type:
-
-                      Agricultural Holding (AH)
-                    {% endif %}
-
-                  {% endif %}
-
-                  {% if event.event_type === "passport" %}
-                    {% if event.details.status %}
-                    <li>
-
-                        Passport status:
-
-                      {{ event.details.status }}
-                    </li>
-                    {% endif %}
-
-                    {% if event.details.passport_version %}
-                    <li>
-
-                        Passport version:
-
-                      {{ event.details.passport_version }}
-                    </li>
-                    {% endif %}
-                  {% endif %}
-
-                  {% if event.event_type === "movement_issue" and event.details.status %}
-                  <li>
-
-                      Status:
-
-                    {{ event.details.status | capitalize }}
-                  </li>
-                  {% endif %}
-
-                  {% if event.event_type === "movement_restriction" %}
-                  <li>
-
-                      Movement status:
-
-                    {% if event.details.action === "applied" %}
-                      Restricted
-                    {% else %}
-                      Unrestricted
-                    {% endif %}
-                  </li>
-                  {% endif %}
-
-                  {% if event.event_type === "animal_status" and event.details.status %}
-                  <li>
-
-                    Animal status: {{ event.details.status }}
-                  </li>
-                  {% endif %}
-
-                  {% if event.event_type === "death" %}
-                    {% if event.details.cause_label %}
-                    <li>
-                       Cause: {{ event.details.cause_label }}
-                    </li>
-                    {% elseif event.details.cause %}
-                    <li>
-                       Cause: {{ event.details.cause }}
-                    </li>
-                    {% endif %}
-
-                    {% if event.details.linked_movement_id %}
-                    <li>
-                       Linked movement: {{ event.details.linked_movement_id }}
-                    </li>
-                    {% endif %}
-
-                    {% if event.details.disposal_method %}
-                    <li>
-                      Disposal method: {{ event.details.disposal_method }}
-                    </li>
-                    {% endif %}
-                  {% endif %}
-
-                  <li>
-
-                      Created by:
-
-                    {{ event.reported_by }}
-                  </li>
-                </ul>
-
-                  </article>
+              {% if movement.missingOn or movement.issueType === "movement_history_gap" %}
+              <p class="govuk-body app-movement-card__missing-text">
+                <strong>Missing movement on</strong><br>
+                No movement on has been recorded.
+              </p>
+              {% else %}
+              <dl class="govuk-summary-list govuk-summary-list--no-border app-movement-card__details">
+                <div class="govuk-summary-list__row">
+                  <dt class="govuk-summary-list__key">Moved on</dt>
+                  <dd class="govuk-summary-list__value">
+                    {{ movement.onEvent.event_date | fullDateFormat }}, {{ movement.onEvent.event_time_display }}
+                  </dd>
                 </div>
-              </li>
-              {% endfor %}
-            </ol>
-            {% else %}
-            <p class="govuk-body">
-              No history events are recorded for this animal.
-            </p>
-            {% endif %}
-          </section>
+                <div class="govuk-summary-list__row">
+                  <dt class="govuk-summary-list__key">Reported by</dt>
+                  <dd class="govuk-summary-list__value">{{ movement.onReportedBy }}</dd>
+                </div>
+              </dl>
+              {% endif %}
+            </section>
 
-    </div>
+          </div>
+
+          {% if movement.issueType === "movement_history_gap" %}
+          <div class="govuk-warning-text app-movement-card__warning">
+            <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+            <strong class="govuk-warning-text__text">
+              <span class="govuk-visually-hidden">Warning</span>
+              There is no movement record explaining how the animal moved between these holdings. This may represent one or more unrecorded movements.
+            </strong>
+          </div>
+
+          <p class="govuk-body govuk-!-margin-top-3 govuk-!-margin-bottom-0">
+            <a
+              class="govuk-link"
+              href="/{{ baseURL }}/cattle/{{ animal.earTagNumber }}/movements/{{ movement.pairId }}/resolve-gap{{ contextQuery }}"
+            >
+              Resolve movement history gap
+            </a>
+          </p>
+          {% elseif movement.missingOff %}
+          <p class="govuk-body govuk-!-margin-top-4 govuk-!-margin-bottom-0">
+            <a
+              class="govuk-link"
+              href="/{{ baseURL }}/cattle/{{ animal.earTagNumber }}/movements/{{ movement.pairId }}/add-missing-off{{ contextQuery }}"
+            >
+              Add missing movement off
+            </a>
+          </p>
+          {% elseif movement.missingOn %}
+          <p class="govuk-body govuk-!-margin-top-4 govuk-!-margin-bottom-0">
+            <a
+              class="govuk-link"
+              href="/{{ baseURL }}/cattle/{{ animal.earTagNumber }}/movements/{{ movement.pairId }}/add-missing-on{{ contextQuery }}"
+            >
+              Add missing movement on
+            </a>
+          </p>
+          {% else %}
+          <p class="govuk-body govuk-!-margin-top-4 govuk-!-margin-bottom-0">
+            <a
+              class="govuk-link"
+              href="/{{ baseURL }}/cattle/{{ animal.earTagNumber }}/movements/{{ movement.pairId }}{{ contextQuery }}"
+            >
+              View movement record
+            </a>
+          </p>
+          {% endif %}
+        </article>
+      </li>
+      {% endfor %}
+    </ol>
+
+    {% if deathEvent %}
+    <p class="govuk-body govuk-!-margin-top-6">
+      <strong>Animal deceased.</strong>
+      Recorded as deceased on {{ deathEvent.event_date | fullDateFormat }}{% if deathEvent.details.holding_cph %} at
+      <strong>{{ deathEvent.details.holding_cph }}{% if deathEvent.details.holding_type_code %} (<abbr title="Slaughterhouse or abattoir">{{ deathEvent.details.holding_type_code }}</abbr>){% endif %}</strong>{% endif %}.
+    </p>
+    {% elseif animal.status === "Alive" %}
+    <h3 class="govuk-heading-s govuk-!-margin-top-6 govuk-!-margin-bottom-2">Current position</h3>
+    <p class="govuk-body">
+      This animal is alive and is currently recorded at
+      <strong>{{ animalLocations.current.cph }}{% if animalLocations.current.holdingTypeCode %} (<abbr title="{{ animalLocations.current.holdingType }}">{{ animalLocations.current.holdingTypeCode }}</abbr>){% endif %}</strong>.
+    </p>
+    {% endif %}
+
+    {% else %}
+    <h3 class="govuk-heading-s govuk-!-margin-bottom-2">No movement history recorded</h3>
+
+    {% if animal.status === "Alive" %}
+    <p class="govuk-body">
+      This animal is alive and is currently recorded at
+      <strong>{{ animalLocations.current.cph }}{% if animalLocations.current.holdingTypeCode %} (<abbr title="{{ animalLocations.current.holdingType }}">{{ animalLocations.current.holdingTypeCode }}</abbr>){% endif %}</strong>.
+    </p>
+    {% elseif deathEvent %}
+    <p class="govuk-body">
+      <strong>Animal deceased.</strong>
+      Recorded as deceased on {{ deathEvent.event_date | fullDateFormat }}.
+    </p>
+    {% endif %}
+    {% endif %}
+
+    <a
+      href="/{{ baseURL }}/cattle/{{ animal.earTagNumber }}/movements/add{{ contextQuery }}"
+      role="button"
+      draggable="false"
+      class="govuk-button"
+      data-module="govuk-button"
+    >
+      Add a movement record
+    </a>
+
   </div>
+</div>
 
 {% endblock %}

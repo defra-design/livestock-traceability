@@ -6,6 +6,7 @@ const delegatesSingleCph = require('./table-data/delegates-single-cph.json');
 const holdings_v2 = require('./table-data/versions/v2/holdings.json');
 const users_v2 = require('./table-data/versions/v2/users.json');
 const events_livestock = require('./table-data/events-livestock.json');
+const events_livestock_v2 = require('./table-data/events-livestock-v2.json');
 const oakfield_livestock = require('./table-data/livestock-oakfield-cattle-register.json');
 
 module.exports = {
@@ -18,6 +19,7 @@ module.exports = {
   holdings_v2 : holdings_v2,
   users_v2 : users_v2,
   events_livestock : events_livestock,
+  events_v2 : events_livestock_v2,
   holdingsSingleCph : holdingsSingleCph,
   delegatesSingleCph : delegatesSingleCph,
   oakfieldLivestock : oakfield_livestock,

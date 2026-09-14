@@ -1,0 +1,406 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName = "Movements" %}
+{% set activeNav = "animals" %}
+
+{% block header %}
+{% block navBar %}{% include "../components/_navigation.html" %}{% endblock %}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+
+    <span class="govuk-caption-l">Registered animal</span>
+
+    <h1 class="govuk-heading-l govuk-!-margin-bottom-2">
+      UK 457586 378257
+    </h1>
+    <p class="govuk-body govuk-!-margin-top-4 govuk-!-margin-bottom-6">
+      <strong>Animal status:</strong> Alive
+      &nbsp;&nbsp;|&nbsp;&nbsp;
+      <strong>Passport status:</strong> Refused
+    </p>
+    <section class="govuk-inset-text app-callout app-callout--issue" aria-labelledby="record-issues-heading">
+  <h2 class="govuk-heading-m govuk-!-margin-bottom-2" id="record-issues-heading">
+    3 issues need attention
+  </h2>
+
+  <ul class="govuk-list govuk-!-margin-bottom-0">
+
+    <li class="app-callout__item">
+
+      <a class="govuk-link" href="/livestock-back-office/steal-thread/v3/cattle/UK457586378257/cattle-history?fromSearch=UK457586378257#movement-evt_1020">
+        Missing movement off from 15/628/0067 (AH)
+      </a>
+
+    </li>
+
+    <li class="app-callout__item">
+
+      <a class="govuk-link" href="/livestock-back-office/steal-thread/v3/cattle/UK457586378257/cattle-history?fromSearch=UK457586378257#movement-evt_1021">
+        Missing movement on to 44/209/0317 (AH)
+      </a>
+
+    </li>
+
+    <li class="app-callout__item">
+
+      <a class="govuk-link" href="/livestock-back-office/steal-thread/v3/cattle/UK457586378257/cattle-history?fromSearch=UK457586378257#movement-evt_1022">
+        Missing movement off from 44/209/0317 (AH)
+      </a>
+
+    </li>
+
+  </ul>
+</section>
+    <nav class="moj-sub-navigation" aria-label="Animal navigation">
+      <ul class="moj-sub-navigation__list">
+        <li class="moj-sub-navigation__item">
+          <a
+                  class="moj-sub-navigation__link"
+                  href="/{{ baseURL }}/cattle/{{ animal.earTagNumber }}{{ contextQuery }}"
+          >
+            Animal details
+          </a>
+        </li>
+        <li class="moj-sub-navigation__item">
+          <a
+                  class="moj-sub-navigation__link"
+                  aria-current="page"
+                  href="/{{ baseURL }}/cattle/{{ animal.earTagNumber }}/cattle-history{{ contextQuery }}"
+          >
+            Movements
+          </a>
+        </li>
+        <li class="moj-sub-navigation__item">
+          <a class="moj-sub-navigation__link" href="#">
+            Event history
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+  </div>
+</div>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+
+    <h2 class="govuk-heading-m">Movements</h2>
+
+    <ol class="govuk-list app-event-results">
+
+      {# Complete movement #}
+      <li
+              class="app-event-card app-event-card--movement"
+              id="movement-evt_0018"
+      >
+        <article>
+          <div class="app-event-card__header">
+            <h3 class="govuk-heading-s app-event-card__title">
+              <span class="app-event-card__number" aria-hidden="true">1</span>
+              <span>Movement <span class="govuk-visually-hidden">1</span></span>
+            </h3>
+
+            <strong class="govuk-tag govuk-tag--green">
+              Complete
+            </strong>
+          </div>
+
+          <div class="app-movement-card__route">
+
+            <section class="app-movement-card__leg" aria-labelledby="movement-1-from">
+              <h4
+                      class="govuk-heading-s"
+                      id="movement-1-from"
+              >
+                From 39/740/0193 (AH) - Oakfield farm
+              </h4>
+              <dl class="govuk-summary-list govuk-summary-list--no-border app-movement-card__details">
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Moved off
+    </dt>
+    <dd class="govuk-summary-list__value">
+      24 July 2023, 9:11am
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Reported on
+    </dt>
+    <dd class="govuk-summary-list__value">
+      24 July 2023, 12:22am
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Reported by
+    </dt>
+    <dd class="govuk-summary-list__value">
+       Keeper
+    </dd>
+  </div>
+</dl>
+
+
+            </section>
+
+            <div class="app-movement-card__arrow" aria-hidden="true">
+              <span class="app-movement-card__arrow--horizontal">→</span>
+              <span class="app-movement-card__arrow--vertical">↓</span>
+            </div>
+
+            <section class="app-movement-card__leg" aria-labelledby="movement-1-to">
+              <h4
+                      class="app-movement-card__leg-heading"
+                      id="movement-1-to"
+              >
+                To
+              </h4>
+
+              <p class="app-movement-card__holding">
+                15/628/0067 (AH)
+              </p>
+
+              <dl class="app-movement-card__details">
+                <div class="app-movement-card__details-row">
+                  <dt class="app-movement-card__details-key">Moved on</dt>
+                  <dd class="app-movement-card__details-value">24 July 2023, 11:23am</dd>
+                </div>
+                <div class="app-movement-card__details-row">
+                  <dt class="app-movement-card__details-key">Reported by</dt>
+                  <dd class="app-movement-card__details-value">Keeper</dd>
+                </div>
+              </dl>
+            </section>
+
+          </div>
+        </article>
+      </li>
+
+      {# Missing movement off #}
+      <li
+              class="app-event-card app-event-card--movement"
+              id="movement-evt_1020"
+      >
+        <article>
+          <div class="app-event-card__header">
+            <h3 class="govuk-heading-s app-event-card__title">
+              <span class="app-event-card__number" aria-hidden="true">2</span>
+              <span>Movement <span class="govuk-visually-hidden">2</span></span>
+            </h3>
+
+            <strong class="govuk-tag govuk-tag--red">
+              Issue
+            </strong>
+          </div>
+
+          <div class="app-movement-card__route">
+
+            <section
+                    class="app-movement-card__leg app-movement-card__leg--missing"
+                    aria-labelledby="movement-2-from"
+            >
+              <h4
+                      class="app-movement-card__leg-heading"
+                      id="movement-2-from"
+              >
+                From
+              </h4>
+
+              <p class="app-movement-card__holding">
+                15/628/0067 (AH)
+              </p>
+
+              <p class="govuk-body app-movement-card__missing-text">
+                <strong>Missing movement off</strong><br>
+                No movement off has been recorded.
+              </p>
+            </section>
+
+            <div class="app-movement-card__arrow" aria-hidden="true">
+              <span class="app-movement-card__arrow--horizontal">→</span>
+              <span class="app-movement-card__arrow--vertical">↓</span>
+            </div>
+
+            <section class="app-movement-card__leg" aria-labelledby="movement-2-to">
+              <h4
+                      class="app-movement-card__leg-heading"
+                      id="movement-2-to"
+              >
+                To
+              </h4>
+
+              <p class="app-movement-card__holding">
+                31/672/0158 (AH)
+              </p>
+
+              <dl class="app-movement-card__details">
+                <div class="app-movement-card__details-row">
+                  <dt class="app-movement-card__details-key">Moved on</dt>
+                  <dd class="app-movement-card__details-value">12 March 2024, 11:10am</dd>
+                </div>
+                <div class="app-movement-card__details-row">
+                  <dt class="app-movement-card__details-key">Reported by</dt>
+                  <dd class="app-movement-card__details-value">Keeper</dd>
+                </div>
+              </dl>
+            </section>
+
+          </div>
+        </article>
+      </li>
+
+      {# Missing movement on #}
+      <li
+              class="app-event-card app-event-card--movement"
+              id="movement-evt_1021"
+      >
+        <article>
+          <div class="app-event-card__header">
+            <h3 class="govuk-heading-s app-event-card__title">
+              <span class="app-event-card__number" aria-hidden="true">3</span>
+              <span>Movement <span class="govuk-visually-hidden">3</span></span>
+            </h3>
+
+            <strong class="govuk-tag govuk-tag--red">
+              Issue
+            </strong>
+          </div>
+
+          <div class="app-movement-card__route">
+
+            <section class="app-movement-card__leg" aria-labelledby="movement-3-from">
+              <h4
+                      class="app-movement-card__leg-heading"
+                      id="movement-3-from"
+              >
+                From
+              </h4>
+
+              <p class="app-movement-card__holding">
+                31/672/0158 (AH)
+              </p>
+
+              <dl class="app-movement-card__details">
+                <div class="app-movement-card__details-row">
+                  <dt class="app-movement-card__details-key">Moved off</dt>
+                  <dd class="app-movement-card__details-value">18 September 2024, 9:05am</dd>
+                </div>
+                <div class="app-movement-card__details-row">
+                  <dt class="app-movement-card__details-key">Reported by</dt>
+                  <dd class="app-movement-card__details-value">Keeper</dd>
+                </div>
+              </dl>
+            </section>
+
+            <div class="app-movement-card__arrow" aria-hidden="true">
+              <span class="app-movement-card__arrow--horizontal">→</span>
+              <span class="app-movement-card__arrow--vertical">↓</span>
+            </div>
+
+            <section
+                    class="app-movement-card__leg app-movement-card__leg--missing"
+                    aria-labelledby="movement-3-to"
+            >
+              <h4
+                      class="app-movement-card__leg-heading"
+                      id="movement-3-to"
+              >
+                To
+              </h4>
+
+              <p class="app-movement-card__holding">
+                44/209/0317 (AH)
+              </p>
+
+              <p class="govuk-body app-movement-card__missing-text">
+                <strong>Missing movement on</strong><br>
+                No movement on has been recorded.
+              </p>
+            </section>
+
+          </div>
+        </article>
+      </li>
+
+      {# Fully implied movement / continuity gap #}
+      <li
+              class="app-event-card app-event-card--movement app-event-card--movement-implied"
+              id="movement-implied-1"
+      >
+        <article>
+          <div class="app-event-card__header">
+            <h3 class="govuk-heading-s app-event-card__title">
+              <span class="app-event-card__number" aria-hidden="true">4</span>
+              <span>Movement <span class="govuk-visually-hidden">4</span></span>
+            </h3>
+
+            <strong class="govuk-tag govuk-tag--red">
+              Issue
+            </strong>
+          </div>
+
+          <div class="app-movement-card__route">
+
+            <section class="app-movement-card__leg" aria-labelledby="movement-4-from">
+              <h4
+                      class="app-movement-card__leg-heading"
+                      id="movement-4-from"
+              >
+                From
+              </h4>
+
+              <p class="app-movement-card__holding">
+                44/209/0317 (AH)
+              </p>
+
+              <p class="govuk-body govuk-!-margin-bottom-0">
+                Previous recorded location
+              </p>
+            </section>
+
+            <div class="app-movement-card__arrow" aria-hidden="true">
+              <span class="app-movement-card__arrow--horizontal">→</span>
+              <span class="app-movement-card__arrow--vertical">↓</span>
+            </div>
+
+            <section class="app-movement-card__leg" aria-labelledby="movement-4-to">
+              <h4
+                      class="app-movement-card__leg-heading"
+                      id="movement-4-to"
+              >
+                To
+              </h4>
+
+              <p class="app-movement-card__holding">
+                66/204/0141 (AH)
+              </p>
+
+              <p class="govuk-body govuk-!-margin-bottom-0">
+                Next recorded location
+              </p>
+            </section>
+
+          </div>
+
+          <div class="govuk-warning-text app-movement-card__warning">
+            <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+            <strong class="govuk-warning-text__text">
+              <span class="govuk-visually-hidden">Warning</span>
+              Movement inferred from surrounding records. No matching movement off or movement on was recorded between these holdings.
+            </strong>
+          </div>
+
+        </article>
+      </li>
+
+    </ol>
+
+  </div>
+</div>
+
+{% endblock %}

@@ -29,6 +29,7 @@
 .app-event-card__heading {
   margin-bottom: govuk-spacing(3);
 }
+
 .app-event-card__notice-heading--issue {
   color: $govuk-error-colour;
 }
@@ -83,4 +84,116 @@
 .app-summary-list--compact .govuk-summary-list__actions {
   padding-top: 4px;
   padding-bottom: 4px;
+}
+
+// Movement history cards
+// These extend the existing event card without changing its base styles.
+
+.app-event-card--movement {
+  max-width: none;
+}
+
+.app-event-card__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: govuk-spacing(3);
+  margin-bottom: govuk-spacing(4);
+}
+
+.app-event-card__title {
+  display: flex;
+  align-items: center;
+  gap: govuk-spacing(2);
+  margin-bottom: 0;
+}
+
+.app-event-card__number {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: govuk-colour("light-grey");
+  @include govuk-font($size: 19, $weight: bold);
+}
+
+.app-movement-card__route {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  gap: govuk-spacing(3);
+  align-items: stretch;
+}
+
+.app-movement-card__leg {
+  padding: govuk-spacing(3);
+  background: govuk-colour("light-grey");
+}
+
+.app-movement-card__leg .govuk-heading-s {
+  margin-bottom: govuk-spacing(3);
+}
+
+.app-movement-card__leg--missing {
+  border: 3px solid govuk-colour("red");
+}
+
+// Keep the GOV.UK summary list structure, but make it more compact inside movement legs.
+.app-movement-card__details {
+  margin-bottom: 0;
+}
+
+.app-movement-card__details .govuk-summary-list__key,
+.app-movement-card__details .govuk-summary-list__value,
+.app-movement-card__details .govuk-summary-list__actions {
+  padding-top: 2px;
+  padding-bottom: 2px;
+  @include govuk-font($size: 16);
+}
+
+.app-movement-card__missing-text {
+  margin-bottom: 0;
+}
+
+.app-movement-card__arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 32px;
+  color: $govuk-secondary-text-colour;
+  @include govuk-font($size: 27);
+}
+
+.app-movement-card__arrow--vertical {
+  display: none;
+}
+
+.app-movement-card__warning {
+  margin-top: govuk-spacing(4);
+  margin-bottom: 0;
+}
+
+@include govuk-media-query($until: tablet) {
+  .app-event-card__header {
+    gap: govuk-spacing(2);
+  }
+
+  .app-movement-card__route {
+    grid-template-columns: 1fr;
+    gap: govuk-spacing(2);
+  }
+
+  .app-movement-card__arrow {
+    min-height: 24px;
+  }
+    
+  .app-movement-card__arrow--horizontal {
+    display: none;
+  }
+
+  .app-movement-card__arrow--vertical {
+    display: inline;
+  }
 }

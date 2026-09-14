@@ -2,6 +2,7 @@
 // For guidance on how to add CSS and SCSS see:
 // https://prototype-kit.service.gov.uk/docs/adding-css-javascript-and-images
 @import "components/dashboard";
+@import "components/callout";
 @import "components/event-card";
 @import "components/filter-panel";
 @import "components/filter-accordion";
@@ -12,6 +13,41 @@
 @import "components/task-links";
 @import "components/timeline";
 @import "components/wide-layout";
+
+.app-sub-navigation__list__spaced .moj-sub-navigation__item{
+    margin-left:govuk-spacing(6)
+ }
+
+
+.app-record-summary {
+  margin-bottom: govuk-spacing(6);
+}
+
+.app-record-summary__list {
+  margin: 0 0 govuk-spacing(4);
+}
+
+.app-record-summary__item {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: govuk-spacing(3);
+
+  padding: govuk-spacing(3) 0;
+
+  border-bottom: 1px solid $govuk-border-colour;
+}
+
+.app-record-summary__label {
+  @include govuk-font(19, $weight: bold);
+}
+
+.app-record-summary__value {
+  @include govuk-font(36, $weight: bold);
+
+  margin: 0;
+  flex-shrink: 0;
+}
 
 abbr[title] {
   /* 1. Remove the default browser underline */
@@ -47,7 +83,7 @@ abbr[title] {
       margin-top: 0;
       margin-bottom: 15px
     }
-    
+
     .card__description {
       margin-bottom: 0
     }
@@ -55,7 +91,7 @@ abbr[title] {
     .card--clickable {
       border-bottom-width: 5px
     }
-    
+
     .card--clickable:hover,.card--clickable:active {
       cursor: pointer
     }
