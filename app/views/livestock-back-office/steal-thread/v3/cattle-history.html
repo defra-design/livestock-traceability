@@ -23,10 +23,30 @@
       {{ animal.earTagNumber | formatReference }}
     </h1>
 
-    <p class="govuk-body govuk-!-margin-top-4 govuk-!-margin-bottom-1">
+    <p class="govuk-body govuk-!-margin-top-4 govuk-!-margin-bottom-{% if animalIssues and animalIssues.length %}2{%else%}6{%endif%}">
       <strong>Animal status:</strong> {{ animal.status }}
       &nbsp;&nbsp;|&nbsp;&nbsp;
-      <strong>Passport status:</strong> {{ animal.administrativeStatus.passportStatus }}
+      <strong>Passport status:</strong>            {% if animal.administrativeStatus.passportStatus == "Refused" %}
+  {{ govukTag({
+    text: "Refused",
+    classes: "govuk-tag--red"
+  }) }}
+
+{% elseif animal.administrativeStatus.passportStatus == "Incomplete" %}
+  {{ govukTag({
+    text: "Incomplete",
+    classes: "govuk-tag--yellow"
+  }) }}
+
+{% elseif animal.administrativeStatus.passportStatus == "Awaiting return" %}
+  {{ govukTag({
+    text: "Awaiting return",
+    classes: "govuk-tag--yellow"
+  }) }}
+
+{% else %}
+  {{ animal.administrativeStatus.passportStatus }}
+{% endif %}
     </p>
 
     {% include "./components/_animal-issues-callout.html" %}

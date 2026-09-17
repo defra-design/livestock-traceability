@@ -197,3 +197,22 @@
     display: inline;
   }
 }
+.app-movement-card__details .govuk-summary-list__row {
+  display: flex;
+}
+.app-movement-card__details {
+  .govuk-summary-list__row {
+    display: flex;
+    padding-bottom:0;
+  }
+
+  .govuk-summary-list__key {
+    flex: 0 0 40%;
+    margin-bottom: govuk-spacing(1);
+  }
+
+  .govuk-summary-list__value {
+    flex: 1;
+    margin-bottom: govuk-spacing(1);
+  }
+}
