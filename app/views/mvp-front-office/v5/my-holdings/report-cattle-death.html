@@ -1,0 +1,119 @@
+{% extends "layouts/main.html" %}
+
+
+{% set pageName="Submissions" %}
+{% set activeNavItem = "my-holdings" %}
+{% set sideNavActive = "submissions" %}
+
+{% block header %}
+
+  {% include "mvp-front-office/v5/partials/header.html" %}
+
+{% endblock %}
+
+{% block beforeContent %}
+  <a href="/mvp-front-office/v5/my-holdings/holding-overview" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+
+        <span class="govuk-caption-l">{{ holding.holdingName if holding.holdingName else holding.cph }}</span>
+        <h1 class="govuk-heading-l">
+          Report a cattle death
+        </h1>
+
+        <a href="/mvp-front-office/v5/report-death/is-registered" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+          New death report
+        </a>
+
+        {% if submissions.length %}
+        {% from "govuk/components/table/macro.njk" import govukTable %}
+        {% from "govuk/components/pagination/macro.njk" import govukPagination %}
+
+        {% set rows = [] %}
+        {% for submission in submissions %}
+        {% set row = [
+        {
+        html: '<a class="govuk-link" href="' + submission.href + '">' + (submission.date | shortDateFormat) + '</a>',
+        classes: "app-table__cell--no-wrap",
+        attributes: {
+        "data-sort-value": submission.date.slice(6,10) + submission.date.slice(3,5) + submission.date.slice(0,2)
+        }
+        },
+        {
+        text: submission.reference,
+        classes: "app-table__cell--no-wrap"
+        },
+        {
+        text: submission.total,
+        classes: "app-table__cell--no-wrap"
+        },
+        {
+        text: submission.errorCount if submission.errorCount else "–",
+        classes: "app-table__cell--no-wrap"
+        },
+        {
+        html: '<strong class="govuk-tag ' + submission.statusClass + '">' + submission.status + '</strong>',
+        classes: "app-table__cell--no-wrap",
+        attributes: {
+        "data-sort-value": submission.status
+        }
+        }
+        ] %}
+        {% set rows = (rows.push(row), rows) %}
+        {% endfor %}
+
+        <div class="app-dashboard-table-wrapper">
+          {{ govukTable({
+          attributes: {
+          "data-module": "moj-sortable-table"
+          },
+          caption: "Cattle death submissions",
+          captionClasses: "govuk-visually-hidden",
+          head: [
+          {
+          text: "Date",
+          classes: "app-table__cell--no-wrap",
+          attributes: { "aria-sort": "descending" }
+          },
+          {
+          text: "Reference number",
+          classes: "app-table__cell--no-wrap",
+          attributes: { "aria-sort": "none" }
+          },
+          {
+          text: "Total deaths",
+          classes: "app-table__cell--no-wrap",
+          attributes: { "aria-sort": "none" }
+          },
+          {
+          text: "Error count",
+          classes: "app-table__cell--no-wrap",
+          attributes: { "aria-sort": "none" }
+          },
+          {
+          text: "Status",
+          classes: "app-table__cell--no-wrap",
+          attributes: { "aria-sort": "none" }
+          }
+          ],
+          rows: rows
+          }) }}
+        </div>
+
+        <p class="govuk-body">
+          Showing {{ showingFrom }} to {{ showingTo }} of {{ totalSubmissions }} results
+        </p>
+
+        {% if pagination %}
+        {{ govukPagination(pagination) }}
+        {% endif %}
+        {% endif %}
+
+  </div>
+</div>
+
+{% endblock %}
