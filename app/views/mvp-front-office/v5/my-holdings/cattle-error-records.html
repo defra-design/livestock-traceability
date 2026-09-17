@@ -1,6 +1,5 @@
 {% extends "layouts/main.html" %}
 
-
 {% set pageName="Animals on holding" %}
 {% set activeNavItem = "my-holdings" %}
 {% set sideNavActive = "animals-on-holding" %}
@@ -13,18 +12,7 @@
 
 {% block beforeContent %}
 
-<nav class="govuk-breadcrumbs" aria-label="Breadcrumb">
-  <ol class="govuk-breadcrumbs__list">
-    <li class="govuk-breadcrumbs__list-item">
-      <a class="govuk-breadcrumbs__link" href="/mvp-front-office/v5/overview">Home</a>
-    </li>
-    <li class="govuk-breadcrumbs__list-item">
-      <a class="govuk-breadcrumbs__link" href="/mvp-front-office/v5/my-holdings/holding-details">
-        {{ holding.holdingName if holding.holdingName else holding.cph }}
-      </a>
-    </li>
-  </ol>
-</nav>
+<a href="/mvp-front-office/v5/my-holdings/holding-overview" class="govuk-back-link">Back</a>
 
 {% endblock %}
 
@@ -33,22 +21,10 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
 
-    <span class="govuk-caption-l">{{ holding.holdingName if holding.holdingName else holding.cph }}</span>
-    <h1 class="govuk-heading-l">
-      Animals on holding
+    <span class="govuk-caption-xl">{{ holding.holdingName if holding.holdingName else holding.cph }}</span>
+    <h1 class="govuk-heading-xl">
+      Cattle on holding
     </h1>
-
-        <nav class="moj-sub-navigation" aria-label="Sub navigation">
-          <ul class="moj-sub-navigation__list">
-            <li class="moj-sub-navigation__item">
-              <a class="moj-sub-navigation__link" href="/mvp-front-office/v5/my-holdings/holding-overview">Overview</a>
-            </li>
-            <li class="moj-sub-navigation__item">
-              <a class="moj-sub-navigation__link" href="/mvp-front-office/v5/my-holdings/holding-details">Holding details</a>
-            </li>
-          </ul>
-        </nav>
-
       <div>
 
         <div class="govuk-grid-row govuk-!-margin-bottom-0">
@@ -59,7 +35,7 @@
               <div class="search-wrapper govuk-form-group">
                 <h2 class="govuk-label-wrapper">
                   <label class="govuk-label govuk-label&#45;&#45;m" for="search-reservations">
-                    Search animals on your holding
+                    Search cattle on your holding
                   </label>
                 </h2>
 

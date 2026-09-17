@@ -12,21 +12,7 @@
 {% endblock %}
 
 {% block beforeContent %}
-<nav class="govuk-breadcrumbs" aria-label="Breadcrumb">
-  <ol class="govuk-breadcrumbs__list">
-    <li class="govuk-breadcrumbs__list-item">
-      <a class="govuk-breadcrumbs__link" href="/mvp-front-office/v5/overview">Home</a>
-    </li>
-    <li class="govuk-breadcrumbs__list-item">
-      <a class="govuk-breadcrumbs__link" href="/mvp-front-office/v5/my-holdings">My holdings</a>
-    </li>
-    <li class="govuk-breadcrumbs__list-item">
-      <a class="govuk-breadcrumbs__link" href="/mvp-front-office/v5/my-holdings/holding-details">
-        {{ holding.holdingName if holding.holdingName else holding.cph }}
-      </a>
-    </li>
-  </ol>
-</nav>
+  <a href="/mvp-front-office/v5/my-holdings/animals-on-holding" class="govuk-back-link">Back</a>
 {% endblock %}
 
 {% block content %}
