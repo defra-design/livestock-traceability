@@ -21,10 +21,9 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
 
-    <span class="govuk-caption-xl">{{ holding.holdingName if holding.holdingName else holding.cph }}</span>
-    <h1 class="govuk-heading-xl">
-      Cattle on holding
-    </h1>
+      <h1 class="govuk-heading-l">
+        Cattle on holding
+      </h1>
       <div>
 
         <div class="govuk-grid-row govuk-!-margin-bottom-0">
@@ -34,7 +33,7 @@
             <form method="GET" >
               <div class="search-wrapper govuk-form-group">
                 <h2 class="govuk-label-wrapper">
-                  <label class="govuk-label govuk-label&#45;&#45;m" for="search-reservations">
+                  <label class="govuk-label govuk-label&#45;&#45;m" for="search-cattle">
                     Search cattle on your holding
                   </label>
                 </h2>
@@ -44,7 +43,7 @@
                 </p>
 
                 <div class="search-input-wrapper">
-                  <input type="search" value="{{ search }}" id="search-reservations" name="search" title="Search" class="govuk-input">
+                  <input type="search" value="{{ search }}" id="search-cattle" name="search" title="Search" class="govuk-input">
                   <div class="search-input-submit-wrapper">
                     <button type="submit" class="search-submit">Search</button>
                   </div>
@@ -74,7 +73,7 @@
 
           {% if search %}
           <p class="govuk-body">
-            <a class="govuk-link" href="/mvp-front-office/v5/my-holdings/animals-on-holding">Clear search</a>
+            <a class="govuk-link" href="/mvp-front-office/v5/my-holdings/cattle-on-holding">Clear search</a>
           </p>
           {% endif %}
 
@@ -178,7 +177,7 @@
           </div>
 
           <p class="govuk-body">
-            Showing {{ showingFrom }} to {{ showingTo }} of {{ totalCattle }} animals
+            Showing {{ showingFrom }} to {{ showingTo }} of {{ totalCattle }} results
           </p>
 
           {% if pagination %}

@@ -7,6 +7,7 @@ const holdings_v2 = require('./table-data/versions/v2/holdings.json');
 const users_v2 = require('./table-data/versions/v2/users.json');
 const events_livestock = require('./table-data/events-livestock.json');
 const oakfield_livestock = require('./table-data/livestock-oakfield-cattle-register.json');
+const pendingValidation = require('./table-data/pending-validation.json');
 
 module.exports = {
   delegates: [
@@ -21,5 +22,6 @@ module.exports = {
   holdingsSingleCph : holdingsSingleCph,
   delegatesSingleCph : delegatesSingleCph,
   oakfieldLivestock : oakfield_livestock,
+  pendingValidation : pendingValidation,
   singleCph: '23/456/0001'
 }

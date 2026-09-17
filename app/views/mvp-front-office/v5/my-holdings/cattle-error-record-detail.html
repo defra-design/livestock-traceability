@@ -10,7 +10,7 @@
 
 {{ govukBackLink({
   text: "Back",
-  href: "/mvp-front-office/v5/my-holdings/animal-error-record"
+  href: "/mvp-front-office/v5/my-holdings/cattle-error-records"
 }) }}
 
 {% endblock %}
@@ -23,7 +23,7 @@
     {% set statusTagClasses = {
       "Rejected": "govuk-tag--red",
       "Pending": "govuk-tag--yellow",
-      "In review": "govuk-tag--blue"
+      "Resolved": "govuk-tag--green"
     } %}
 
     <span class="govuk-caption-l">Error ID: {{ record.id }}</span>

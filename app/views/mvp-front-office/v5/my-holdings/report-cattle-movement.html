@@ -22,47 +22,96 @@
 
         <span class="govuk-caption-l">{{ holding.holdingName if holding.holdingName else holding.cph }}</span>
         <h1 class="govuk-heading-l">
-          Register a cattle birth
+          Report a cattle movement
         </h1>
 
-        <a href="/mvp-front-office/v5/register-animal/calf-details" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
-          New registration
+        <a href="/mvp-front-office/v5/report-movement/movement-type" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+          New movement report
         </a>
 
-        <table class="govuk-table">
-          <thead class="govuk-table__head">
-            <tr class="govuk-table__row">
-              <th scope="col" class="govuk-table__header">Reference</th>
-              <th scope="col" class="govuk-table__header">Submission date</th>
-              <th scope="col" class="govuk-table__header">Total animals</th>
-              <th scope="col" class="govuk-table__header">Error count</th>
-              <th scope="col" class="govuk-table__header">Status</th>
-            </tr>
-          </thead>
-          <tbody class="govuk-table__body">
-            <tr class="govuk-table__row">
-              <td class="govuk-table__cell"><a class="govuk-link" href="/mvp-front-office/v5/register-animal/submission-detail-draft">CB-143466</a></td>
-              <td class="govuk-table__cell">–</td>
-              <td class="govuk-table__cell">2</td>
-              <td class="govuk-table__cell">–</td>
-              <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--blue">Draft</strong></td>
-            </tr>
-            <tr class="govuk-table__row">
-              <td class="govuk-table__cell"><a class="govuk-link" href="/mvp-front-office/v5/register-animal/submission-detail-pending">CB-143887</a></td>
-              <td class="govuk-table__cell">5 May 2026</td>
-              <td class="govuk-table__cell">4</td>
-              <td class="govuk-table__cell">–</td>
-              <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--yellow">Pending</strong></td>
-            </tr>
-            <tr class="govuk-table__row">
-              <td class="govuk-table__cell"><a class="govuk-link" href="/mvp-front-office/v5/register-animal/submission-detail-sent">CB-143856</a></td>
-              <td class="govuk-table__cell">8 May 2026</td>
-              <td class="govuk-table__cell">12</td>
-              <td class="govuk-table__cell">1</td>
-              <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--green">Sent</strong></td>
-            </tr>
-          </tbody>
-        </table>
+        {% if submissions.length %}
+        {% from "govuk/components/table/macro.njk" import govukTable %}
+        {% from "govuk/components/pagination/macro.njk" import govukPagination %}
+
+        {% set rows = [] %}
+        {% for submission in submissions %}
+        {% set row = [
+        {
+        html: '<a class="govuk-link" href="' + submission.href + '">' + (submission.date | shortDateFormat) + '</a>',
+        classes: "app-table__cell--no-wrap",
+        attributes: {
+        "data-sort-value": submission.date.slice(6,10) + submission.date.slice(3,5) + submission.date.slice(0,2)
+        }
+        },
+        {
+        text: submission.reference,
+        classes: "app-table__cell--no-wrap"
+        },
+        {
+        text: submission.total,
+        classes: "app-table__cell--no-wrap"
+        },
+        {
+        text: submission.errorCount if submission.errorCount else "–",
+        classes: "app-table__cell--no-wrap"
+        },
+        {
+        html: '<strong class="govuk-tag ' + submission.statusClass + '">' + submission.status + '</strong>',
+        classes: "app-table__cell--no-wrap",
+        attributes: {
+        "data-sort-value": submission.status
+        }
+        }
+        ] %}
+        {% set rows = (rows.push(row), rows) %}
+        {% endfor %}
+
+        <div class="app-dashboard-table-wrapper">
+          {{ govukTable({
+          attributes: {
+          "data-module": "moj-sortable-table"
+          },
+          caption: "Cattle movement submissions",
+          captionClasses: "govuk-visually-hidden",
+          head: [
+          {
+          text: "Submission date",
+          classes: "app-table__cell--no-wrap",
+          attributes: { "aria-sort": "descending" }
+          },
+          {
+          text: "Reference",
+          classes: "app-table__cell--no-wrap",
+          attributes: { "aria-sort": "none" }
+          },
+          {
+          text: "Total animals",
+          classes: "app-table__cell--no-wrap",
+          attributes: { "aria-sort": "none" }
+          },
+          {
+          text: "Error count",
+          classes: "app-table__cell--no-wrap",
+          attributes: { "aria-sort": "none" }
+          },
+          {
+          text: "Status",
+          classes: "app-table__cell--no-wrap",
+          attributes: { "aria-sort": "none" }
+          }
+          ],
+          rows: rows
+          }) }}
+        </div>
+
+        <p class="govuk-body">
+          Showing {{ showingFrom }} to {{ showingTo }} of {{ totalSubmissions }} results
+        </p>
+
+        {% if pagination %}
+        {{ govukPagination(pagination) }}
+        {% endif %}
+        {% endif %}
 
   </div>
 </div>

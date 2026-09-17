@@ -21,17 +21,11 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
 
-    <span class="govuk-caption-xl">{{ holding.holdingName if holding.holdingName else holding.cph }}</span>
-    <h1 class="govuk-heading-xl">
-      Pending registration
-    </h1>
-      <div>
+      <h1 class="govuk-heading-l">
+        Pending validation
+      </h1>
 
-        <div class="govuk-inset-text govuk-!-margin-top-2">
-          Recent changes such as new registrations may take up to 24 hours to appear in your list.
-        </div>
-
-          <p class="govuk-body" aria-live="polite">
+      <p class="govuk-body" aria-live="polite">
             {% if search %}
             {{ cattle.length }}
             {% if cattle.length === 1 %}
@@ -45,120 +39,120 @@
             {% endif %}
           </p>
 
-          {% if search %}
-          <p class="govuk-body">
-            <a class="govuk-link" href="/mvp-front-office/v5/my-holdings/pending-registration">Clear search</a>
-          </p>
-          {% endif %}
+      {% if search %}
+      <p class="govuk-body">
+        <a class="govuk-link" href="/mvp-front-office/v5/my-holdings/pending-validation">Clear search</a>
+      </p>
+      {% endif %}
 
-          {% if cattle.length %}
-          {% from "govuk/components/table/macro.njk" import govukTable %}
-          {% from "govuk/components/pagination/macro.njk" import govukPagination %}
+        {% if cattle.length %}
+        {% from "govuk/components/table/macro.njk" import govukTable %}
+        {% from "govuk/components/pagination/macro.njk" import govukPagination %}
 
-          {% set rows = [] %}
-          {% for animal in cattle %}
-          {% set row = [
-          {
-          text: animal.earTagNumber | formatReference,
-          classes: "app-table__cell--no-wrap"
+        {% set rows = [] %}
+        {% for animal in cattle %}
+        {% set row = [
+        {
+        text: animal.earTagNumber | formatReference,
+        classes: "app-table__cell--no-wrap"
+        },
+        {
+        text: animal.dateOfBirth | shortDateFormat,
+        classes: "app-table__cell--no-wrap",
+        attributes: {
+        "data-sort-value": animal.dateOfBirth.slice(6,10) + animal.dateOfBirth.slice(3,5) + animal.dateOfBirth.slice(0,2)
+        }
+        },
+        {
+        text: animal.dateOfBirth | animalAge,
+        classes: "app-table__cell--no-wrap",
+        attributes: {
+        "data-sort-value": animal.dateOfBirth.slice(6,10) + animal.dateOfBirth.slice(3,5) + animal.dateOfBirth.slice(0,2)
+        }
+        },
+        {
+        text: animal.dateOfRegistration | shortDateFormat,
+        classes: "app-table__cell--no-wrap",
+        attributes: {
+        "data-sort-value": animal.dateOfRegistration.slice(6,10) + animal.dateOfRegistration.slice(3,5) + animal.dateOfRegistration.slice(0,2)
+        }
+        },
+        {
+        text: animal.sex,
+        classes: "app-table__cell--no-wrap"
+        },
+        {
+        html: '<abbr title="' + animal.breed.name + '">' + animal.breed.code + '</abbr><span class="govuk-visually-hidden">, ' + animal.breed.name + '</span>',
+        classes: "app-table__cell--no-wrap"
+        }
+        ] %}
+        {% set rows = (rows.push(row), rows) %}
+        {% endfor %}
+
+        <div class="app-dashboard-table-wrapper">
+          {{ govukTable({
+          attributes: {
+          "data-module": "moj-sortable-table"
           },
+          caption: "Animals on holding",
+          captionClasses: "govuk-visually-hidden",
+          head: [
           {
-          text: animal.dateOfBirth | shortDateFormat,
+          text: "Ear tag number",
           classes: "app-table__cell--no-wrap",
           attributes: {
-          "data-sort-value": animal.dateOfBirth.slice(6,10) + animal.dateOfBirth.slice(3,5) + animal.dateOfBirth.slice(0,2)
+          "aria-sort": "ascending"
           }
           },
           {
-          text: animal.dateOfBirth | animalAge,
+          text: "Date of birth",
           classes: "app-table__cell--no-wrap",
           attributes: {
-          "data-sort-value": animal.dateOfBirth.slice(6,10) + animal.dateOfBirth.slice(3,5) + animal.dateOfBirth.slice(0,2)
+          "aria-sort": "none"
           }
           },
           {
-          text: animal.dateOfRegistration | shortDateFormat,
+          text: "Age",
           classes: "app-table__cell--no-wrap",
           attributes: {
-          "data-sort-value": animal.dateOfRegistration.slice(6,10) + animal.dateOfRegistration.slice(3,5) + animal.dateOfRegistration.slice(0,2)
+          "aria-sort": "none"
           }
           },
           {
-          text: animal.sex,
-          classes: "app-table__cell--no-wrap"
+          text: "Date on holding",
+          classes: "app-table__cell--no-wrap",
+          attributes: {
+          "aria-sort": "none"
+          }
           },
           {
-          html: '<abbr title="' + animal.breed.name + '">' + animal.breed.code + '</abbr><span class="govuk-visually-hidden">, ' + animal.breed.name + '</span>',
-          classes: "app-table__cell--no-wrap"
+          text: "Sex",
+          classes: "app-table__cell--no-wrap",
+          attributes: {
+          "aria-sort": "none"
           }
-          ] %}
-          {% set rows = (rows.push(row), rows) %}
-          {% endfor %}
+          },
+          {
+          text: "Breed",
+          classes: "app-table__cell--no-wrap",
+          attributes: {
+          "aria-sort": "none"
+          }
+          }
+          ],
+          rows: rows
+          }) }}
+        </div>
 
-          <div class="app-dashboard-table-wrapper">
-            {{ govukTable({
-            attributes: {
-            "data-module": "moj-sortable-table"
-            },
-            caption: "Animals on holding",
-            captionClasses: "govuk-visually-hidden",
-            head: [
-            {
-            text: "Ear tag number",
-            classes: "app-table__cell--no-wrap",
-            attributes: {
-            "aria-sort": "ascending"
-            }
-            },
-            {
-            text: "Date of birth",
-            classes: "app-table__cell--no-wrap",
-            attributes: {
-            "aria-sort": "none"
-            }
-            },
-            {
-            text: "Age",
-            classes: "app-table__cell--no-wrap",
-            attributes: {
-            "aria-sort": "none"
-            }
-            },
-            {
-            text: "Date on holding",
-            classes: "app-table__cell--no-wrap",
-            attributes: {
-            "aria-sort": "none"
-            }
-            },
-            {
-            text: "Sex",
-            classes: "app-table__cell--no-wrap",
-            attributes: {
-            "aria-sort": "none"
-            }
-            },
-            {
-            text: "Breed",
-            classes: "app-table__cell--no-wrap",
-            attributes: {
-            "aria-sort": "none"
-            }
-            }
-            ],
-            rows: rows
-            }) }}
-          </div>
+        <p class="govuk-body">
+          Showing {{ showingFrom }} to {{ showingTo }} of {{ totalCattle }} results
+        </p>
 
-          <p class="govuk-body">
-            Showing {{ showingFrom }} to {{ showingTo }} of {{ totalCattle }} animals
-          </p>
-
-          {% if pagination %}
-          {{ govukPagination(pagination) }}
-          {% endif %}
-          {% else %}
-          {% endif %}
+        {% if pagination %}
+        {{ govukPagination(pagination) }}
+        {% endif %}
+        {% else %}
+        {% endif %}
   </div>
 </div>
 
