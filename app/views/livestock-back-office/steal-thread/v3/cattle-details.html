@@ -20,68 +20,13 @@
   <div class="govuk-grid-column-full">
     <span class="govuk-caption-l">Registered animal</span>
 
-    <h1 class="govuk-heading-xl govuk-!-margin-bottom-2">
+    <h1 class="govuk-heading-l govuk-!-margin-bottom-8">
       {{ animal.earTagNumber | formatReference }}
     </h1>
 
-    <p class="govuk-body govuk-!-margin-top-4 govuk-!-margin-bottom-{% if animalIssues and animalIssues.length %}2{%else%}6{%endif%}">
-  <strong>Animal status:</strong> {{ animal.status }} &nbsp;&nbsp;|&nbsp;&nbsp; <strong>Passport status:</strong>
-           {% if animal.administrativeStatus.passportStatus == "Refused" %}
-  {{ govukTag({
-    text: "Refused",
-    classes: "govuk-tag--red"
-  }) }}
 
-{% elseif animal.administrativeStatus.passportStatus == "Incomplete" %}
-  {{ govukTag({
-    text: "Incomplete",
-    classes: "govuk-tag--yellow"
-  }) }}
 
-{% elseif animal.administrativeStatus.passportStatus == "Awaiting return" %}
-  {{ govukTag({
-    text: "Awaiting return",
-    classes: "govuk-tag--yellow"
-  }) }}
 
-{% else %}
-  {{ animal.administrativeStatus.passportStatus }}
-{% endif %}
-</p>
-
-{% include "./components/_animal-issues-callout.html" %}
-
-    <nav class="moj-sub-navigation" aria-label="Sub navigation">
-     <ul class="moj-sub-navigation__list">
-          <li class="moj-sub-navigation__item">
-            <a
-                    class="moj-sub-navigation__link"
-                    aria-current="page"
-                    href="/{{baseURL}}/cattle/{{ animal.earTagNumber }}{{ contextQuery }}"
-            >
-              Animal details
-            </a>
-          </li>
-          <li class="moj-sub-navigation__item">
-            <a
-                    class="moj-sub-navigation__link"
-
-                    href="/{{baseURL}}/cattle/{{ animal.earTagNumber }}/cattle-history{{ contextQuery }}"
-            >
-              Movements
-            </a>
-          </li>
-          <li class="moj-sub-navigation__item">
-            <a
-                    class="moj-sub-navigation__link"
-
-                    href="/{{baseURL}}/cattle/{{ animal.earTagNumber }}/cattle-activity{{ contextQuery }}"
-            >
-              Activity
-            </a>
-          </li>
-        </ul>
-    </nav>
   </div>
 </div>
 
@@ -100,7 +45,10 @@
         <dt class="govuk-summary-list__key">Date of birth</dt>
         <dd class="govuk-summary-list__value">{{ animal.dateOfBirth | fullDateFormat }}</dd>
       </div>
-
+    <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Registered on</dt>
+        <dd class="govuk-summary-list__value">{{ animal.dateOfRegistration | fullDateFormat }}</dd>
+      </div>
       {% if animal.status === "Deceased" and animal.dateOfDeath %}
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">Date of death</dt>
@@ -108,18 +56,18 @@
       </div>
       {% endif %}
 
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-          {% if animal.status === "Deceased" %}Age at death{% else %}Age{% endif %}
-        </dt>
-        <dd class="govuk-summary-list__value">
-          {% if animal.status === "Deceased" and animal.dateOfDeath %}
-            {{ animal.dateOfBirth | animalAge(animal.dateOfDeath) }}
-          {% else %}
-            {{ animal.dateOfBirth | animalAge }}
-          {% endif %}
-        </dd>
-      </div>
+<!--      <div class="govuk-summary-list__row">-->
+<!--        <dt class="govuk-summary-list__key">-->
+<!--          {% if animal.status === "Deceased" %}Age at death{% else %}Age{% endif %}-->
+<!--        </dt>-->
+<!--        <dd class="govuk-summary-list__value">-->
+<!--          {% if animal.status === "Deceased" and animal.dateOfDeath %}-->
+<!--            {{ animal.dateOfBirth | animalAge(animal.dateOfDeath) }}-->
+<!--          {% else %}-->
+<!--            {{ animal.dateOfBirth | animalAge }}-->
+<!--          {% endif %}-->
+<!--        </dd>-->
+<!--      </div>-->
 
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">Sex</dt>
@@ -133,6 +81,10 @@
         </dd>
       </div>
 
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Animal status</dt>
+        <dd class="govuk-summary-list__value">{{ animal.status }}</dd>
+      </div>
     </dl>
 
     <h2 class="govuk-heading-m">Dam details</h2>
@@ -189,47 +141,11 @@
     <p class="govuk-body govuk-!-margin-bottom-8">No sire details are recorded.</p>
     {% endif %}
 
-    <h2 class="govuk-heading-m">Registration and passport</h2>
-
-
-    <dl class="govuk-summary-list govuk-!-margin-bottom-8">
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">Registered on</dt>
-        <dd class="govuk-summary-list__value">{{ animal.dateOfRegistration | fullDateFormat }}</dd>
-      </div>
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">Passport status</dt>
-        <dd class="govuk-summary-list__value">{{ animal.administrativeStatus.passportStatus }}</dd>
-      </div>
-
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">Passport version</dt>
-        <dd class="govuk-summary-list__value">
-          {% if animal.administrativeStatus.passportVersion %}
-            {{ animal.administrativeStatus.passportVersion }}
-          {% else %}
-            Not applicable
-          {% endif %}
-        </dd>
-      </div>
-
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">Last issued</dt>
-        <dd class="govuk-summary-list__value">
-          {% if animal.administrativeStatus.passportLastIssued %}
-            {{ animal.administrativeStatus.passportLastIssued | fullDateFormat }}
-          {% else %}
-            Not issued
-          {% endif %}
-        </dd>
-      </div>
-
-    </dl>
 
 
     <h2 class="govuk-heading-m">{{ locationHeading }}</h2>
 
-    <dl class="govuk-summary-list govuk-!-margin-bottom-6">
+    <dl class="govuk-summary-list govuk-!-margin-bottom-8">
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">CPH</dt>
         <dd class="govuk-summary-list__value">
@@ -238,11 +154,8 @@
                   class="govuk-link"
                   href="/{{baseURL}}/holdings/{{ animalLocations.current.id }}"
           >
-            {{ animalLocations.current.cph }}{% if animalLocations.current.holdingTypeCode %} (<abbr title="{{ animalLocations.current.holdingType }}">{{ animalLocations.current.holdingTypeCode }}</abbr>){% endif %}
+            {{ animalLocations.current.cph }}{% endif %}
           </a>
-          {% else %}
-            {{ animalLocations.current.cph }}{% if animalLocations.current.holdingTypeCode %} (<abbr title="{{ animalLocations.current.holdingType }}">{{ animalLocations.current.holdingTypeCode }}</abbr>){% endif %}
-          {% endif %}
         </dd>
       </div>
 
@@ -320,15 +233,7 @@
     </dl>
     {% endif %}
 
-    <a
-      href="/{{ baseURL }}/cattle/{{ animal.earTagNumber }}/update{{ contextQuery }}"
-      role="button"
-      draggable="false"
-      class="govuk-button"
-      data-module="govuk-button"
-    >
-      Update animal record
-    </a>
+
 
   </div>
 

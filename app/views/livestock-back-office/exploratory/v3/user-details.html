@@ -45,12 +45,22 @@ href: currentBaseUrl+"users"
         Details
       </a>
     </li>
+
     <li class="moj-sub-navigation__item">
       <a
         class="moj-sub-navigation__link"
         href="{{ currentBaseUrl }}{{ user.id }}/holdings"
       >
         Holdings
+      </a>
+    </li>
+
+    <li class="moj-sub-navigation__item">
+      <a
+        class="moj-sub-navigation__link"
+        href="{{ currentBaseUrl }}{{ user.id }}/activity"
+      >
+        Activity
       </a>
     </li>
   </ul>

@@ -7,28 +7,28 @@
           class="govuk-back-link"
           href="/{{baseURL}}/cattle?search={{ query.fromSearch | urlencode }}"
   >
-   Back
+    Return to search results
   </a>
 {% elseif query.fromHolding %}
   <a
           class="govuk-back-link"
           href="/{{baseURL}}/holdings/{{ query.fromHolding }}{% if query.fromSearch %}?fromSearch={{ query.fromSearch | urlencode }}{% endif %}"
   >
-    Back
+    Return to holding {{ query.holdingCph }}
   </a>
 {% elseif query.fromEarTag %}
   <a
           class="govuk-back-link"
           href="/{{baseURL}}/cattle/{{ query.fromEarTag }}"
   >
-    Back
+    Return to animal {{ query.fromEarTag }}
   </a>
 {% else %}
   <a
           class="govuk-back-link"
           href="/{{baseURL}}/cattle"
   >
-    Back
+    Find an animal
   </a>
 {% endif %}
 

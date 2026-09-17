@@ -4,7 +4,7 @@
 
 {% set pageName="Holdings" %}
 
-{% set activeNav = "holdings" %}
+{% set activeNav = "my-holdings" %}
 
 {% block header %}
 
@@ -13,15 +13,6 @@
 {% endblock %}
 
 
-{% block beforeContent %}
-{% set pathParts = currentPath.split('/') %}
-{% set currentBaseUrl = '/' + pathParts[1] + '/' + pathParts[2] + '/' + pathParts[3] + '/' %}
-{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
-{{ govukBackLink({
-text: "Return to home",
-href: "./home"
-}) }}
-{% endblock %}
 
 {% block content %}
 
@@ -40,7 +31,7 @@ href: "./home"
                   for="search-holdings"
                   class="govuk-label govuk-label--l"
           >
-            Find a holding
+            Search holdings
           </label>
         </h1>
 
@@ -48,7 +39,7 @@ href: "./home"
                 id="search-holdings-hint"
                 class="govuk-hint"
         >
-          Enter a CPH number, holding name, postcode or herd mark
+          Enter a CPH number, holding name, herd number, town, county or postcode
         </div>
 
         <div class="search-input-wrapper">
@@ -62,6 +53,7 @@ href: "./home"
                   aria-describedby="search-holdings-hint"
                   spellcheck="false"
           >
+sdfasdfasdfasd
           <div class="search-input-submit-wrapper">
             <button
                     type="submit"
@@ -88,7 +80,7 @@ href: "./home"
               <ul class="govuk-list govuk-list--bullet">
                   <li>CPH number, for example 12/345/0001</li>
                   <li>holding name, for example Oakfield Farm</li>
-                  <li>herd mark, for example UK 123456</li>
+                  <li>herd number, for example UK 123456</li>
                   <li>town or county, for example Cumbria</li>
                   <li>postcode, for example SY4 1AB</li>
               </ul>
@@ -114,7 +106,6 @@ href: "./home"
       </p>
 
 {% if holdings.length %}
-<div class="app-dashboard-table-wrapper">
       <table class="govuk-table">
           <caption class="govuk-table__caption govuk-visually-hidden">
               Holdings search results
@@ -126,53 +117,65 @@ href: "./home"
                   CPH
               </th>
               <th scope="col" class="govuk-table__header">
-                  Type
+                  Holding name
               </th>
-<!--              <th scope="col" class="govuk-table__header">-->
-<!--                  Holding name-->
-<!--              </th>-->
               <th scope="col" class="govuk-table__header">
                   Location
               </th>
               <th scope="col" class="govuk-table__header">
                   Status
               </th>
-
           </tr>
           </thead>
 
           <tbody class="govuk-table__body">
           {% for holding in holdings %}
           <tr class="govuk-table__row">
-              <th scope="col" class="govuk-table__header app-table__cell--no-wrap">
+              <td class="govuk-table__cell">
                   <a
                           class="govuk-link"
-                          href="/{{ baseURL }}/holdings/{{ holding.id }}?fromSearch={{ query.search | urlencode }}"
+                          href="./holdings/{{ holding.id }}"
                   >
                       {{ holding.cph }}
                   </a>
-              </th>
-                             <td class="govuk-table__cell">
-  <abbr title="{{ holding.holdingType }}">
-    {{ holding.holdingTypeCode }}
-  </abbr>
-  <span class="govuk-visually-hidden">
-    , {{ holding.holdingType }}
-  </span>
-</td>
+              </td>
+
+              <td class="govuk-table__cell">
+                  {{ holding.holdingName }}
+              </td>
+
+              <td class="govuk-table__cell">
+                  {{ holding.address.town }}, {{ holding.address.county }},  {{ holding.address.postcode }}
+
+              </td>
+
 
 
               <td class="govuk-table__cell">
-                  {{ holding.holdingName }}, {{ holding.address.town }}, {{ holding.address.county }},  {{ holding.address.postcode }}
-              </td>
-               <td class="govuk-table__cell">
+                  {% if holding.status === "Active" %}
+                  <strong class="govuk-tag govuk-tag--green">
+                      Active
+                  </strong>
+                  {% elseif holding.status === "Inactive" %}
+                  <strong class="govuk-tag govuk-tag--yellow">
+                      Inactive
+                  </strong>
+                  {% elseif holding.status === "Closed" %}
+                  <strong class="govuk-tag govuk-tag--grey">
+                      Closed
+                  </strong>
+                  {% else %}
                   {{ holding.status }}
+                  {% endif %}
               </td>
           </tr>
           {% endfor %}
           </tbody>
       </table>
-</div>
+{% else %}
+      <p class="govuk-body">
+          No holdings found.
+      </p>
 {% endif %}
 
 {% endif %}
