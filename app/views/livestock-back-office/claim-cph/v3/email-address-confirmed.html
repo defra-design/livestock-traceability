@@ -1,0 +1,230 @@
+{% extends "layouts/main.html" %}
+
+{% set pageHeading = "We could not match the holding" %}
+
+{% block pageTitle %}
+  {{ pageHeading }}
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "/" ~ baseURL ~ "/add-holding"
+  }) }}
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<header class="hmrc-page-heading">
+  <h1 class="govuk-heading-l">Email address confirmed</h1>
+  <p class="hmrc-caption govuk-caption-l"><span class="govuk-visually-hidden">This section is </span>Your contact details</p>
+</header>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <form method="POST" novalidate="" action="/submissions/form/request-authorisation-as-registered-intermediary/-/n26?ff=t&amp;action=SaveAndContinue" class="js-form" autocomplete="on" id="gf-form">
+
+            <input type="hidden" name="csrfToken" value="fb00c12e4e6e3df602ed97d5d33a94f2bff799bf-1785426076884-93a195d335dbae2eaf93947b">
+
+
+
+
+
+
+
+
+
+
+
+
+      <div class="govuk-body govuk-!-font-size-19">
+        <p>We will use this email address to send you a confirmation email when you submit this form.</p>
+      </div>
+
+
+
+
+
+
+
+
+      <div class="govuk-body govuk-!-font-size-19">
+        <p>You can now continue with this form.</p>
+      </div>
+
+
+
+  <div class="govuk-button-group">
+
+
+
+
+      <button type="submit" class="govuk-button" data-module="govuk-button" data-govuk-button-init="">
+        Save and continue
+           </button>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      <button type="submit" class="govuk-button govuk-button--secondary" data-module="govuk-button" formaction="/submissions/form/request-authorisation-as-registered-intermediary/-/n26?ff=t&amp;action=Save" data-govuk-button-init="">
+        Save and come back later
+           </button>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+
+    </form>
+
+
+
+
+
+
+
+    <script nonce="">
+      window.gform = window.gform || {};
+      window.gform.envelopeId = "78762edc-614d-46a1-bb9f-f534e8efef27";
+      const fileSizePairs = "".slice(1, -1).split(")(");
+      const fileSizeMap = new Map();
+      fileSizePairs.forEach(pair => {
+          const [key, value] = pair.split(",");
+          fileSizeMap.set(key, value);
+      });
+      window.gform.fileUploadMaxSize = fileSizeMap;
+      window.gform.formMaxAttachmentSizeMB = "10";
+      window.gform.contentTypes = "application/pdf, image/jpeg, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.oasis.opendocument.spreadsheet, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.oasis.opendocument.text, application/vnd.openxmlformats-officedocument.presentationml.presentation, application/vnd.oasis.opendocument.presentation";
+      window.gform.restrictedFileExtensions = "jfif, png";
+      function getValue(elementId, isHidden) {
+   var el = document.getElementById(elementId);
+   var isVisible = !isHidden();
+   if (el && isVisible) {
+     return getNumber(el.value.replace(/[£,]/g,''));
+   } else {
+     return 0;
+   };
+};
+
+function getNumber(value) {
+  if (value == ""){
+    return 0;
+  } else {
+    return value.replace(",", "");
+  }
+};
+
+function add(a, b) {
+  return BigNumber(a).plus(BigNumber(b));
+};
+
+function subtract(a, b) {
+  return BigNumber(a).minus(BigNumber(b));
+};
+
+function multiply(a, b) {
+  return BigNumber(a).times(BigNumber(b));
+};
+
+function divide(a, b) {
+  return BigNumber(a).div(BigNumber(b));
+};
+
+function displaySterling(result, precision, rounding) {
+  var r = BigNumber(result).toFormat(precision, rounding);
+  return result < 0 ? r.replace("-", "-£") : '£' + r;
+};
+function isElementHidden(elementId) {
+  var classList = document.getElementById(elementId).parentNode.parentNode.parentNode.parentNode.classList;
+  return classList.contains("govuk-radios__conditional--hidden") || classList.contains("govuk-checkboxes__conditional--hidden");
+}
+
+    </script>
+
+
+  <a lang="en" hreflang="en" class="govuk-link hmrc-report-technical-issue " target="_blank" href="/contact/report-technical-problem?service=GForm%2FRequest%20authorisation%20as%20a%20registered%20intermediary%20%28TC689%29&amp;useServiceNavigation">Is this page not working properly? (opens in new tab)</a>
+
+
+
+    </div>
+</div>
+{% endblock %}

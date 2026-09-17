@@ -1,0 +1,194 @@
+{% extends "layouts/main.html" %}
+
+{% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
+
+{% set pageName="Keeper details" %}
+
+{% set activeNav = "keepers" %}
+
+{% block header %}
+
+{% block navBar %}{% include "./components/_navigation.html" %}{% endblock %}
+
+{% endblock %}
+
+{% block beforeContent %}
+{% set pathParts = currentPath.split('/') %}
+{% set currentBaseUrl = '/' + pathParts[1] + '/' + pathParts[2] + '/' + pathParts[3] + '/' %}
+{{ govukBreadcrumbs({
+items: [
+{
+text: "Home",
+href: currentBaseUrl+"home"
+},
+{
+text: "Keepers",
+href: currentBaseUrl+"users"
+}
+]
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<span class="govuk-caption-l">Keeper</span>
+<h1 class="govuk-heading-l">{{ user.name }}</h1>
+
+<nav class="moj-sub-navigation" aria-label="Sub navigation">
+  <ul class="moj-sub-navigation__list">
+    <li class="moj-sub-navigation__item">
+      <a
+        class="moj-sub-navigation__link"
+        aria-current="page"
+        href="{{ currentBaseUrl }}../{{ user.id }}"
+      >
+        Details
+      </a>
+    </li>
+
+    <li class="moj-sub-navigation__item">
+      <a
+        class="moj-sub-navigation__link"
+        href="{{ currentBaseUrl }}{{ user.id }}/holdings"
+      >
+        Holdings
+      </a>
+    </li>
+
+    <li class="moj-sub-navigation__item">
+      <a
+        class="moj-sub-navigation__link"
+        href="{{ currentBaseUrl }}{{ user.id }}/activity"
+      >
+        Activity
+      </a>
+    </li>
+  </ul>
+</nav>
+
+<h2 class="govuk-heading-m">User details</h2>
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+        <dl class="govuk-summary-list govuk-!-margin-bottom-8">
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">Name</dt>
+                <dd class="govuk-summary-list__value">{{ user.name }}</dd>
+            </div>
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">Email</dt>
+                <dd class="govuk-summary-list__value">
+                    <a class="govuk-link" href="mailto:{{ user.email }}">{{ user.email }}</a>
+                </dd>
+            </div>
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">Phone</dt>
+                <dd class="govuk-summary-list__value">{{ user.phone }}</dd>
+            </div>
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">Address</dt>
+                <dd class="govuk-summary-list__value">
+                    {{ user.address.addressLine1 }}<br>
+                    {% if user.address.addressLine2 %}
+                    {{ user.address.addressLine2 }}<br>
+                    {% endif %}
+                    {{ user.address.town }}<br>
+                    {{ user.address.county }}<br>
+                    {{ user.address.country }}
+                </dd>
+            </div>
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">Postcode</dt>
+                <dd class="govuk-summary-list__value">{{ user.address.postcode }}</dd>
+            </div>
+
+<!--            <div class="govuk-summary-list__row">-->
+<!--                <dt class="govuk-summary-list__key">Security word</dt>-->
+<!--                <dd class="govuk-summary-list__value">{{ user.securityWord }}</dd>-->
+<!--            </div>-->
+        </dl>
+
+
+    </div>
+<!--    <div class="govuk-grid-column-full">-->
+<!--        <h2 class="govuk-heading-m">Holdings</h2>-->
+
+<!--{% if userHoldings.length %}-->
+<!--<table class="govuk-table">-->
+<!--    <caption class="govuk-table__caption govuk-table__caption&#45;&#45;s">-->
+<!--        Holdings linked to {{ user.name }}-->
+<!--    </caption>-->
+
+<!--    <thead class="govuk-table__head">-->
+<!--    <tr class="govuk-table__row">-->
+<!--        <th scope="col" class="govuk-table__header">CPH</th>-->
+<!--        <th scope="col" class="govuk-table__header">Holding</th>-->
+<!--        <th scope="col" class="govuk-table__header">Role</th>-->
+<!--        <th scope="col" class="govuk-table__header">Species managed</th>-->
+<!--        <th scope="col" class="govuk-table__header">Status</th>-->
+<!--        <th scope="col" class="govuk-table__header">Holding type</th>-->
+<!--    </tr>-->
+<!--    </thead>-->
+
+<!--    <tbody class="govuk-table__body">-->
+<!--    {% for item in userHoldings %}-->
+<!--    <tr class="govuk-table__row">-->
+<!--        <td class="govuk-table__cell">-->
+<!--            {% if item.holding %}-->
+<!--            <a class="govuk-link" href="{{ currentBaseUrl }}holdings/{{ item.holding.id }}">-->
+<!--                {{ item.cph }}-->
+<!--            </a>-->
+<!--            {% else %}-->
+<!--            {{ item.cph }}-->
+<!--            {% endif %}-->
+<!--        </td>-->
+
+<!--        <td class="govuk-table__cell">-->
+<!--            {% if item.holding %}-->
+<!--            {{ item.holding.holdingName }}-->
+<!--            {% else %}-->
+<!--            Holding not found-->
+<!--            {% endif %}-->
+<!--        </td>-->
+
+<!--        <td class="govuk-table__cell">-->
+<!--            {{ item.role | capitalize }}-->
+<!--        </td>-->
+
+<!--        <td class="govuk-table__cell">-->
+<!--            {{ item.speciesManagedByRole | join(", ") }}-->
+<!--        </td>-->
+
+<!--        <td class="govuk-table__cell">-->
+<!--            {% if item.holding %}-->
+<!--            {{ item.holding.status }}-->
+<!--            {% else %}-->
+<!--            - -->
+<!--            {% endif %}-->
+<!--        </td>-->
+
+<!--        <td class="govuk-table__cell">-->
+<!--            {% if item.holding %}-->
+<!--            {{ item.holding.holdingType }} CPH-->
+<!--            {% else %}-->
+<!--            - -->
+<!--            {% endif %}-->
+<!--        </td>-->
+<!--    </tr>-->
+<!--    {% endfor %}-->
+<!--    </tbody>-->
+<!--</table>-->
+<!--{% else %}-->
+<!--<p class="govuk-body">This user is not linked to any holdings.</p>-->
+<!--{% endif %}-->
+
+<!--    </div>-->
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,321 @@
+{% extends "layouts/main.html" %}
+
+{% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
+
+{% set pageName = "Find a record" %}
+{% set activeNav = "search" %}
+
+{% block header %}
+{% block navBar %}{% include "./components/_navigation.html" %}{% endblock %}
+{% endblock %}
+
+{% block beforeContent %}
+{% set pathParts = currentPath.split('/') %}
+{% set currentBaseUrl = '/' + pathParts[1] + '/' + pathParts[2] + '/' + pathParts[3] + '/' %}
+{{ govukBreadcrumbs({
+  items: [
+    {
+      text: "Home",
+      href: currentBaseUrl + "home"
+    }
+  ]
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+        <form method="GET">
+      <div class="search-wrapper govuk-form-group">
+
+        <h1 class="govuk-label-wrapper">
+          <label for="search-records" class="govuk-label govuk-label--l">
+            Find a record
+          </label>
+        </h1>
+
+        <div id="search-records-hint" class="govuk-hint">
+          Search for an animal, holding or keeper
+        </div>
+
+        <div class="search-input-wrapper">
+          <input
+                  type="search"
+                  value="{{ search }}"
+                  id="search-records"
+                  name="search"
+                  title="Search"
+                  class="govuk-input"
+                  aria-describedby="search-records-hint"
+                  spellcheck="false"
+          >
+
+          <div class="search-input-submit-wrapper">
+            <button type="submit" class="search-submit">
+              Search
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </form>
+  </div>
+</div>
+
+{% if not search %}
+
+<h2 class="govuk-heading-m govuk-!-margin-top-6">
+  What you can search for
+</h2>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-third">
+    <h3 class="govuk-heading-s">
+      Animals
+    </h3>
+
+    <p class="govuk-body">
+      Search for an individual animal using its ear tag number, or find cattle recorded against a CPH number.
+    </p>
+
+    <p class="govuk-body">
+      <a class="govuk-link" href="{{ currentBaseUrl }}cattle">
+        Search animals
+      </a>
+    </p>
+  </div>
+
+  <div class="govuk-grid-column-one-third">
+    <h3 class="govuk-heading-s">
+      Holdings
+    </h3>
+
+    <p class="govuk-body">
+      You can search using:
+    </p>
+
+    <ul class="govuk-list govuk-list--bullet">
+      <li>CPH number, for example 12/345/0001</li>
+      <li>holding name, for example Oakfield Farm</li>
+      <li>herd number, for example UK 123456</li>
+      <li>town or county, for example Cumbria</li>
+      <li>postcode, for example SY4 1AB</li>
+    </ul>
+
+    <p class="govuk-body">
+      <a class="govuk-link" href="{{ currentBaseUrl }}holdings">
+        Search holdings
+      </a>
+    </p>
+  </div>
+
+  <div class="govuk-grid-column-one-third">
+    <h3 class="govuk-heading-s">
+      Keepers
+    </h3>
+
+    <p class="govuk-body">
+      You can search using:
+    </p>
+
+    <ul class="govuk-list govuk-list--bullet">
+      <li>name, for example James Williams</li>
+      <li>postcode, for example SY4 1AB</li>
+      <li>email address, for example james.williams@example.com</li>
+      <li>phone number, for example 07700 900001</li>
+    </ul>
+
+    <p class="govuk-body">
+      <a class="govuk-link" href="{{ currentBaseUrl }}users">
+        Find a keeper
+      </a>
+    </p>
+  </div>
+</div>
+
+{% else %}
+
+{% if totalResults %}
+<p class="govuk-body" aria-live="polite">
+  {{ totalResults }}
+  {% if totalResults === 1 %}
+    result found for
+  {% else %}
+    results found for
+  {% endif %}
+  <strong>‘{{ search }}’</strong>
+</p>
+{% else %}
+<p class="govuk-body" aria-live="polite">
+  No records found for <strong>‘{{ search }}’</strong>.
+</p>
+{% endif %}
+
+<p class="govuk-body">
+  <a class="govuk-link" href="{{ currentBaseUrl }}search">
+    Clear search
+  </a>
+</p>
+
+{% if animalCount %}
+<section class="govuk-!-margin-top-7" aria-labelledby="animal-results-heading">
+  <h2 class="govuk-heading-m" id="animal-results-heading">
+    Animals ({{ animalCount }})
+  </h2>
+
+  <table class="govuk-table app-table--compact">
+    <caption class="govuk-table__caption govuk-visually-hidden">
+      Animal search results
+    </caption>
+    <thead class="govuk-table__head">
+      <tr class="govuk-table__row">
+        <th scope="col" class="govuk-table__header">Ear tag</th>
+        <th scope="col" class="govuk-table__header">CPH</th>
+        <th scope="col" class="govuk-table__header">Holding name</th>
+        <th scope="col" class="govuk-table__header">Status</th>
+      </tr>
+    </thead>
+    <tbody class="govuk-table__body">
+      {% for animal in animals %}
+      <tr class="govuk-table__row">
+        <th scope="row" class="govuk-table__header app-table__cell--no-wrap">
+          <a class="govuk-link" href="{{ currentBaseUrl }}cattle/{{ animal.earTagNumber }}">
+            {{ animal.earTagNumber | formatReference }}
+          </a>
+        </th>
+        <td class="govuk-table__cell">
+          {{ animal.cph }}
+        </td>
+        <td class="govuk-table__cell">
+          {% if animal.holding %}
+            {{ animal.holding.holdingName }}
+          {% else %}
+            <span class="govuk-hint govuk-!-margin-bottom-0">Not available</span>
+          {% endif %}
+        </td>
+        <td class="govuk-table__cell">
+          {{ animal.status }}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  {% if animalCount > previewLimit %}
+  <p class="govuk-body">
+    <a class="govuk-link" href="{{ currentBaseUrl }}cattle?search={{ encodedSearch }}">
+      View all {{ animalCount }} animal results
+    </a>
+  </p>
+  {% endif %}
+</section>
+{% endif %}
+
+{% if holdingCount %}
+<section class="govuk-!-margin-top-7" aria-labelledby="holding-results-heading">
+  <h2 class="govuk-heading-m" id="holding-results-heading">
+    Holdings ({{ holdingCount }})
+  </h2>
+
+  <table class="govuk-table app-table--compact">
+    <caption class="govuk-table__caption govuk-visually-hidden">
+      Holding search results
+    </caption>
+    <thead class="govuk-table__head">
+      <tr class="govuk-table__row">
+        <th scope="col" class="govuk-table__header">CPH</th>
+        <th scope="col" class="govuk-table__header">Holding name</th>
+        <th scope="col" class="govuk-table__header">Location</th>
+        <th scope="col" class="govuk-table__header">Status</th>
+      </tr>
+    </thead>
+    <tbody class="govuk-table__body">
+      {% for holding in holdings %}
+      <tr class="govuk-table__row">
+        <th scope="row" class="govuk-table__header app-table__cell--no-wrap">
+          <a class="govuk-link" href="{{ currentBaseUrl }}holdings/{{ holding.id }}">
+            {{ holding.cph }}
+          </a>
+        </th>
+        <td class="govuk-table__cell">
+          {{ holding.holdingName }}
+        </td>
+        <td class="govuk-table__cell">
+          {{ holding.address.town }}, {{ holding.address.county }}, {{ holding.address.postcode }}
+        </td>
+        <td class="govuk-table__cell">
+          {{ holding.status }}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  {% if holdingCount > previewLimit %}
+  <p class="govuk-body">
+    <a class="govuk-link" href="{{ currentBaseUrl }}holdings?search={{ encodedSearch }}">
+      View all {{ holdingCount }} holding results
+    </a>
+  </p>
+  {% endif %}
+</section>
+{% endif %}
+
+{% if keeperCount %}
+<section class="govuk-!-margin-top-7" aria-labelledby="keeper-results-heading">
+  <h2 class="govuk-heading-m" id="keeper-results-heading">
+    Keepers ({{ keeperCount }})
+  </h2>
+
+  <table class="govuk-table app-table--compact">
+    <caption class="govuk-table__caption govuk-visually-hidden">
+      Keeper search results
+    </caption>
+    <thead class="govuk-table__head">
+      <tr class="govuk-table__row">
+        <th scope="col" class="govuk-table__header">Name</th>
+        <th scope="col" class="govuk-table__header">Phone</th>
+        <th scope="col" class="govuk-table__header">Postcode</th>
+        <th scope="col" class="govuk-table__header">Holdings</th>
+      </tr>
+    </thead>
+    <tbody class="govuk-table__body">
+      {% for keeper in keepers %}
+      <tr class="govuk-table__row">
+        <th scope="row" class="govuk-table__header">
+          <a class="govuk-link" href="{{ currentBaseUrl }}users/{{ keeper.id }}">
+            {{ keeper.name }}
+          </a>
+        </th>
+        <td class="govuk-table__cell">
+          {{ keeper.phone }}
+        </td>
+        <td class="govuk-table__cell">
+          {% if keeper.address and keeper.address.postcode %}
+            {{ keeper.address.postcode }}
+          {% else %}
+            {{ keeper.postcode }}
+          {% endif %}
+        </td>
+        <td class="govuk-table__cell">
+          {{ keeper.holdings.length }}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  {% if keeperCount > previewLimit %}
+  <p class="govuk-body">
+    <a class="govuk-link" href="{{ currentBaseUrl }}users?search={{ encodedSearch }}">
+      View all {{ keeperCount }} keeper results
+    </a>
+  </p>
+  {% endif %}
+</section>
+{% endif %}
+
+{% endif %}
+
+{% endblock %}

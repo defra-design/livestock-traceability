@@ -547,6 +547,159 @@ function createEventsCsv(events) {
   ].join('\r\n');
 }
 
+function createEventsFilterUrl(req, filterName, filterValue) {
+  const params = new URLSearchParams();
+
+  Object.entries(req.query).forEach(([name, value]) => {
+    if (name === 'page') return;
+
+    getQueryValues(value).forEach((item) => {
+      const removeThisValue = (
+        name === filterName
+        && (filterValue === undefined || item === filterValue)
+      );
+
+      if (!removeThisValue) {
+        params.append(name, item);
+      }
+    });
+  });
+
+  const queryString = params.toString();
+
+  return (
+    '/' + baseURL + '/events'
+    + (queryString ? '?' + queryString : '')
+  );
+}
+
+function getAppliedEventFilters(req, criteria) {
+  const filters = [];
+
+  const eventTypeLabels = {
+    birth: 'Birth',
+    movement: 'Movement',
+    death: 'Death'
+  };
+
+  const attentionLabels = {
+    issue: 'Has issue',
+    review: 'Needs review',
+    none: 'No issue'
+  };
+
+  const statusLabels = {
+    completed: 'Completed',
+    'in-progress': 'In progress'
+  };
+
+  const reporterLabels = {
+    keeper: 'Keeper',
+    abattoir: 'Abattoir',
+    market: 'Market',
+    system: 'System'
+  };
+
+  function addFilter(group, name, value, removeName, removeValue) {
+    if (!value) return;
+
+    filters.push({
+      group,
+      name,
+      value,
+      removeUrl: createEventsFilterUrl(req, removeName, removeValue)
+    });
+  }
+
+  addFilter(
+    'Event details',
+    'Keywords or reference',
+    criteria.search,
+    'search'
+  );
+
+  criteria.eventTypes.forEach((value) => {
+    addFilter(
+      'Event details',
+      'Event type',
+      eventTypeLabels[value] || value,
+      'eventType',
+      value
+    );
+  });
+
+  criteria.attention.forEach((value) => {
+    addFilter(
+      'Attention',
+      'Attention',
+      attentionLabels[value] || value,
+      'attention',
+      value
+    );
+  });
+
+  criteria.statuses.forEach((value) => {
+    addFilter(
+      'Event status',
+      'Event status',
+      statusLabels[value] || value,
+      'status',
+      value
+    );
+  });
+
+  addFilter(
+    'Event date',
+    'Event date from',
+    criteria.dateFrom,
+    'dateFrom'
+  );
+
+  addFilter(
+    'Event date',
+    'Event date to',
+    criteria.dateTo,
+    'dateTo'
+  );
+
+  addFilter(
+    'Holding and reporter',
+    'Holding',
+    criteria.holding,
+    'holding'
+  );
+
+  if (criteria.reportedBy) {
+    addFilter(
+      'Holding and reporter',
+      'Reported by',
+      reporterLabels[criteria.reportedBy] || criteria.reportedBy,
+      'reportedBy'
+    );
+  }
+
+  return filters;
+}
+
+function getEventFilterCounts(criteria) {
+  return {
+    eventDetails: (
+      (criteria.search ? 1 : 0)
+      + criteria.eventTypes.length
+    ),
+    attention: criteria.attention.length,
+    status: criteria.statuses.length,
+    date: (
+      (criteria.dateFrom ? 1 : 0)
+      + (criteria.dateTo ? 1 : 0)
+    ),
+    holdingAndReporter: (
+      (criteria.holding ? 1 : 0)
+      + (criteria.reportedBy ? 1 : 0)
+    )
+  };
+}
+
 function registerEventsRoute(urlPath, viewPath) {
   router.get('/' + baseURL + '/' + urlPath, (req, res) => {
     const eventResults = getFilteredEvents(req);
@@ -558,6 +711,8 @@ function registerEventsRoute(urlPath, viewPath) {
       selectedEventTypes: eventResults.selectedEventTypes,
       selectedAttention: eventResults.selectedAttention,
       selectedStatuses: eventResults.selectedStatuses,
+      appliedFilters: getAppliedEventFilters(req, eventResults.criteria),
+      filterCounts: getEventFilterCounts(eventResults.criteria),
       exportUrl: createEventsExportUrl(req),
       query: req.query,
       sort: eventResults.criteria.sort,
@@ -830,10 +985,29 @@ router.get('/' + baseURL + '/events/:id', (req, res) => {
     }
   }
 
-  return res.render(baseURL + '/event-details', {
+  const hasSexMismatch = (
+    Array.isArray(enrichedEvent.issues)
+    && enrichedEvent.issues.some((issue) => {
+      if (typeof issue === 'string') {
+        return issue === 'sex-mismatch';
+      }
+
+      return issue.code === 'sex-mismatch';
+    })
+  );
+
+  const viewPath = enrichedEvent.event_type === 'birth'
+    ? 'birth-event-details'
+    : 'event-details';
+
+  return res.render(baseURL + '/' + viewPath, {
     event: enrichedEvent,
     animal: enrichedEvent.animal,
     linkedMovement,
+    hasSexMismatch,
+    backUrl: enrichedEvent.event_type === 'birth'
+      ? '/' + baseURL + '/events?eventType=birth'
+      : null,
     baseURL
   });
 });

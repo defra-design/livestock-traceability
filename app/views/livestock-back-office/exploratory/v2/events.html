@@ -56,7 +56,7 @@ href: currentBaseUrl + "home"
 
 {% macro completedEventCard(event, currentBaseUrl) %}
 
-<li class="app-event-card">
+<li class="app-event-card{% if event.issues and event.issues.length %} app-event-card--issue{% endif %}">
     <article class="app-event-card__content">
 
         <p class="govuk-body-s app-event-card__date">
@@ -65,7 +65,11 @@ href: currentBaseUrl + "home"
 
         <h3 class="govuk-heading-s app-event-card__heading">
             <a class="govuk-link" href="{{ currentBaseUrl }}events/{{ event.id }}">
+                {% if event.issues and event.issues.length %}
+                <span class="govuk-visually-hidden">Has issue: </span>
+                {% else %}
                 <span class="govuk-visually-hidden">Complete event: </span>
+                {% endif %}
 
                 {% if event.event_type === "birth" %}
                 Birth reported
@@ -208,295 +212,33 @@ href: currentBaseUrl + "home"
         </ul>
         {% endif %}
 
-    </article>
-</li>
-
-{% endmacro %}
-
-
-{% macro sexMismatchIssue() %}
-
-<li class="app-event-card app-event-card--issue">
-    <article class="app-event-card__content">
-
-        <p class="govuk-body-s app-event-card__date">
-            3 January 2024
-        </p>
-
-        <h3 class="govuk-heading-s app-event-card__heading">
-            <a class="govuk-link" href="./birth-event-details?showError=true">
-                <span class="govuk-visually-hidden">Has issue: </span>
-                Birth reported - {{ "UK098765432107" | formatReference }}
-            </a>
-        </h3>
-
-        <ul class="govuk-list app-event-card__details">
-            <li>
-            <span class="app-event-card__details-key">
-              Holding:
-            </span>
-                12/345/6789
-            </li>
-
-            <li>
-            <span class="app-event-card__details-key">
-              Registered:
-            </span>
-                8 January 2024 · REG-2024-0091
-            </li>
-        </ul>
-
-        <div class="app-event-card__notice">
+        {% if event.issues and event.issues.length %}
+          {% for issue in event.issues %}
+          <div class="app-event-card__notice">
             <h4 class="govuk-heading-s govuk-!-margin-bottom-1 app-event-card__notice-heading app-event-card__notice-heading--issue">
-                <span class="govuk-visually-hidden">Issue reason: </span>
-                Sex recorded for the birth does not match the issued passport
+              <span class="govuk-visually-hidden">Issue reason: </span>
+              {{ issue.title or issue.code }}
             </h4>
 
-            <p class="govuk-body-s govuk-!-margin-bottom-1">
-                Check the sex recorded for the birth and the details on the issued passport.
-            </p>
-
+            {% if issue.description %}
             <p class="govuk-body-s govuk-!-margin-bottom-0">
-                Movements are restricted until this issue is resolved.
+              {{ issue.description }}
             </p>
-        </div>
+            {% endif %}
+          </div>
+          {% endfor %}
+        {% endif %}
 
     </article>
 </li>
 
 {% endmacro %}
-
-
-{% macro damTagIssue() %}
-
-<li class="app-event-card app-event-card--issue">
-    <article class="app-event-card__content">
-
-        <p class="govuk-body-s app-event-card__date">
-            5 January 2024
-        </p>
-
-        <h3 class="govuk-heading-s app-event-card__heading">
-            <a class="govuk-link" href="#">
-                <span class="govuk-visually-hidden">Has issue: </span>
-                Birth reported - {{ "UK098765432199" | formatReference }}
-            </a>
-        </h3>
-
-        <ul class="govuk-list app-event-card__details">
-            <li>
-            <span class="app-event-card__details-key">
-              Holding:
-            </span>
-                12/345/6789
-            </li>
-            <li>
-            <span class="app-event-card__details-key">
-              Registered:
-            </span>
-                10 January 2024 · REG-2024-0098
-            </li>
-        </ul>
-
-        <div class="app-event-card__notice">
-            <h4 class="govuk-heading-s govuk-!-margin-bottom-1 app-event-card__notice-heading app-event-card__notice-heading--issue">
-                <span class="govuk-visually-hidden">Issue reason: </span>
-                Dam tag not found on register
-            </h4>
-
-            <p class="govuk-body-s govuk-!-margin-bottom-0">
-                Check the dam ear tag before completing this birth registration.
-            </p>
-        </div>
-
-    </article>
-</li>
-
-{% endmacro %}
-
-
-{% macro originCphIssue() %}
-
-<li class="app-event-card app-event-card--issue">
-    <article class="app-event-card__content">
-
-        <p class="govuk-body-s app-event-card__date">
-            15 June 2024
-        </p>
-
-        <h3 class="govuk-heading-s app-event-card__heading">
-            <a class="govuk-link" href="#">
-                <span class="govuk-visually-hidden">Has issue: </span>
-                Movement reported - {{ "UK223344556677" | formatReference }}
-            </a>
-        </h3>
-
-        <ul class="govuk-list app-event-card__details">
-            <li>
-            <span class="app-event-card__details-key">
-              From:
-            </span>
-                09/112/3399
-            </li>
-
-            <li>
-            <span class="app-event-card__details-key">
-              To:
-            </span>
-                12/345/6789
-            </li>
-
-            <li>
-            <span class="app-event-card__details-key">
-              Reason:
-            </span>
-                Sale
-            </li>
-        </ul>
-
-        <div class="app-event-card__notice">
-            <h4 class="govuk-heading-s govuk-!-margin-bottom-1 app-event-card__notice-heading app-event-card__notice-heading--issue">
-                <span class="govuk-visually-hidden">Issue reason: </span>
-                Origin CPH 09/112/3399 not found on register
-            </h4>
-
-            <p class="govuk-body-s govuk-!-margin-bottom-0">
-                Check the origin CPH before completing this movement.
-            </p>
-        </div>
-
-    </article>
-</li>
-
-{% endmacro %}
-
-
-{% macro lateMovementReview() %}
-
-<li class="app-event-card app-event-card--review">
-    <article class="app-event-card__content">
-
-        <p class="govuk-body-s app-event-card__date">
-            18 February 2026
-        </p>
-
-        <h3 class="govuk-heading-s app-event-card__heading">
-            <a class="govuk-link" href="#">
-                <span class="govuk-visually-hidden">Needs review: </span>
-                Movement reported - {{ "UK667788990022" | formatReference }}
-            </a>
-        </h3>
-
-        <ul class="govuk-list app-event-card__details">
-            <li>
-            <span class="app-event-card__details-key">
-              From:
-            </span>
-                12/345/6789
-            </li>
-
-            <li>
-            <span class="app-event-card__details-key">
-              To:
-            </span>
-                44/112/9087
-            </li>
-
-            <li>
-            <span class="app-event-card__details-key">
-              Reason:
-            </span>
-                Slaughter
-            </li>
-        </ul>
-
-        <div class="app-event-card__notice">
-            <h4 class="govuk-heading-s govuk-!-margin-bottom-1 app-event-card__notice-heading app-event-card__notice-heading--review">
-                <span class="govuk-visually-hidden">Review reason: </span>
-                Reported 5 days after the event, outside the 3 day window
-            </h4>
-
-            <p class="govuk-body-s govuk-!-margin-bottom-0">
-                Check whether this late movement report needs further action.
-            </p>
-        </div>
-
-    </article>
-</li>
-
-{% endmacro %}
-
-
-{% macro passportReview() %}
-
-<li class="app-event-card app-event-card--review">
-    <article class="app-event-card__content">
-
-        <p class="govuk-body-s app-event-card__date">
-            20 February 2026
-        </p>
-
-        <h3 class="govuk-heading-s app-event-card__heading">
-            <a class="govuk-link" href="#">
-                <span class="govuk-visually-hidden">Needs review: </span>
-                Death recorded - {{ "UK334455667700" | formatReference }}
-            </a>
-        </h3>
-
-        <ul class="govuk-list app-event-card__details">
-            <li>
-            <span class="app-event-card__details-key">
-              Holding:
-            </span>
-                12/345/6789
-            </li>
-
-            <li>
-            <span class="app-event-card__details-key">
-              Cause:
-            </span>
-                Slaughter
-            </li>
-
-            <li>
-            <span class="app-event-card__details-key">
-              Reported by:
-            </span>
-                Riverside Abattoir
-            </li>
-        </ul>
-
-        <div class="app-event-card__notice">
-            <h4 class="govuk-heading-s govuk-!-margin-bottom-1 app-event-card__notice-heading app-event-card__notice-heading--review">
-                <span class="govuk-visually-hidden">Review reason: </span>
-                Passport return overdue, 3 days late
-            </h4>
-
-            <p class="govuk-body-s govuk-!-margin-bottom-0">
-                Check whether the passport has been returned or needs chasing.
-            </p>
-        </div>
-
-    </article>
-</li>
-
-{% endmacro %}
-
 
 
 {% set eventList = events | default([]) %}
-{% set eventCount = (eventList | length) + 5 %}
+{% set eventCount = eventList | length %}
 
-{#
-The route should provide exportUrl containing the current query parameters.
-The fallback below represents the selected filters in this static mock-up.
-#}
-{% set exportHref = exportUrl or (
-  currentBaseUrl
-  + "events/export?holding=12%2F345%2F6789"
-  + "&eventType=movement"
-  + "&attention=issue"
-) %}
+{% set exportHref = exportUrl or (currentBaseUrl + "events/export") %}
 
 
 <div class="govuk-grid-row">
@@ -582,9 +324,11 @@ The fallback below represents the selected filters in this static mock-up.
                 </span>
               </h3>
 
+              {% if filterCounts.eventDetails %}
               <div class="govuk-accordion__section-summary govuk-body">
-                1 selected
+                {{ filterCounts.eventDetails }} selected
               </div>
+              {% endif %}
 
             </div>
 
@@ -617,16 +361,18 @@ The fallback below represents the selected filters in this static mock-up.
                 items: [
                   {
                     value: "birth",
-                    text: "Birth"
+                    text: "Birth",
+                    checked: "birth" in selectedEventTypes
                   },
                   {
                     value: "movement",
                     text: "Movement",
-                    checked: true
+                    checked: "movement" in selectedEventTypes
                   },
                   {
                     value: "death",
-                    text: "Death"
+                    text: "Death",
+                    checked: "death" in selectedEventTypes
                   }
                 ]
               }) }}
@@ -649,9 +395,11 @@ The fallback below represents the selected filters in this static mock-up.
                 </span>
               </h3>
 
+              {% if filterCounts.attention %}
               <div class="govuk-accordion__section-summary govuk-body">
-                1 selected
+                {{ filterCounts.attention }} selected
               </div>
+              {% endif %}
 
             </div>
 
@@ -673,15 +421,17 @@ The fallback below represents the selected filters in this static mock-up.
                   {
                     value: "issue",
                     text: "Has issue",
-                    checked: true
+                    checked: "issue" in selectedAttention
                   },
                   {
                     value: "review",
-                    text: "Needs review"
+                    text: "Needs review",
+                    checked: "review" in selectedAttention
                   },
                   {
                     value: "none",
-                    text: "No issue"
+                    text: "No issue",
+                    checked: "none" in selectedAttention
                   }
                 ]
               }) }}
@@ -723,11 +473,13 @@ The fallback below represents the selected filters in this static mock-up.
                 items: [
                   {
                     value: "completed",
-                    text: "Completed"
+                    text: "Completed",
+                    checked: "completed" in selectedStatuses
                   },
                   {
                     value: "in-progress",
-                    text: "In progress"
+                    text: "In progress",
+                    checked: "in-progress" in selectedStatuses
                   }
                 ]
               }) }}
@@ -799,9 +551,11 @@ The fallback below represents the selected filters in this static mock-up.
                 </span>
               </h3>
 
+              {% if filterCounts.holdingAndReporter %}
               <div class="govuk-accordion__section-summary govuk-body">
-                1 selected
+                {{ filterCounts.holdingAndReporter }} selected
               </div>
+              {% endif %}
 
             </div>
 
@@ -813,7 +567,7 @@ The fallback below represents the selected filters in this static mock-up.
               {{ govukInput({
                 id: "holding",
                 name: "holding",
-                value: "12/345/6789",
+                value: query.holding,
                 classes: "govuk-input--width-10",
                 label: {
                   text: "Holding CPH"
@@ -830,23 +584,27 @@ The fallback below represents the selected filters in this static mock-up.
                   {
                     value: "",
                     text: "Any reporter",
-                    selected: true
+                    selected: not query.reportedBy
                   },
                   {
                     value: "keeper",
-                    text: "Keeper"
+                    text: "Keeper",
+                    selected: query.reportedBy === "keeper"
                   },
                   {
                     value: "abattoir",
-                    text: "Abattoir"
+                    text: "Abattoir",
+                    selected: query.reportedBy === "abattoir"
                   },
                   {
                     value: "market",
-                    text: "Market"
+                    text: "Market",
+                    selected: query.reportedBy === "market"
                   },
                   {
                     value: "system",
-                    text: "System"
+                    text: "System",
+                    selected: query.reportedBy === "system"
                   }
                 ]
               }) }}
@@ -886,6 +644,7 @@ The fallback below represents the selected filters in this static mock-up.
     id="event-results"
   >
 
+    {% if appliedFilters and appliedFilters.length %}
     <section
       class="app-applied-filters"
       aria-labelledby="applied-filters-heading"
@@ -911,76 +670,34 @@ The fallback below represents the selected filters in this static mock-up.
 
       <dl class="app-applied-filters__list">
 
+        {% for filter in appliedFilters %}
         <div class="app-applied-filters__group">
 
           <dt class="app-applied-filters__key">
-            Holding
+            {{ filter.name }}
           </dt>
 
           <dd class="app-applied-filters__value">
-            12/345/6789
+            {{ filter.value }}
 
             <a
               class="govuk-link app-applied-filters__remove"
-              href="{{ currentBaseUrl }}events?eventType=movement&attention=issue"
+              href="{{ filter.removeUrl }}"
             >
               <span class="govuk-visually-hidden">
-                Remove holding filter: 12/345/6789
+                Remove {{ filter.name | lower }} filter: {{ filter.value }}
               </span>
               Remove
             </a>
           </dd>
 
         </div>
-
-        <div class="app-applied-filters__group">
-
-          <dt class="app-applied-filters__key">
-            Event type
-          </dt>
-
-          <dd class="app-applied-filters__value">
-            Movement
-
-            <a
-              class="govuk-link app-applied-filters__remove"
-              href="{{ currentBaseUrl }}events?holding=12%2F345%2F6789&attention=issue"
-            >
-              <span class="govuk-visually-hidden">
-                Remove event type filter: Movement
-              </span>
-              Remove
-            </a>
-          </dd>
-
-        </div>
-
-        <div class="app-applied-filters__group">
-
-          <dt class="app-applied-filters__key">
-            Attention
-          </dt>
-
-          <dd class="app-applied-filters__value">
-            Has issue
-
-            <a
-              class="govuk-link app-applied-filters__remove"
-              href="{{ currentBaseUrl }}events?holding=12%2F345%2F6789&eventType=movement"
-            >
-              <span class="govuk-visually-hidden">
-                Remove attention filter: Has issue
-              </span>
-              Remove
-            </a>
-          </dd>
-
-        </div>
+        {% endfor %}
 
       </dl>
 
     </section>
-
+    {% endif %}
 
     <div class="app-results-header">
 
@@ -1031,55 +748,19 @@ The fallback below represents the selected filters in this static mock-up.
       classes: "govuk-button--secondary govuk-!-margin-bottom-0"
       }) }}
 
+    {% if eventList.length %}
     <ol class="govuk-list app-event-results">
 
       {% for event in eventList %}
-
         {{ completedEventCard(event, currentBaseUrl) }}
-
-        {% if loop.index === 1 %}
-          {{ lateMovementReview() }}
-        {% endif %}
-
-        {% if loop.index === 2 %}
-          {{ sexMismatchIssue() }}
-        {% endif %}
-
-        {% if loop.index === 3 %}
-          {{ originCphIssue() }}
-        {% endif %}
-
-        {% if loop.index === 4 %}
-          {{ passportReview() }}
-        {% endif %}
-
-        {% if loop.index === 5 %}
-          {{ damTagIssue() }}
-        {% endif %}
-
       {% endfor %}
 
-      {% if eventList.length < 1 %}
-        {{ lateMovementReview() }}
-      {% endif %}
-
-      {% if eventList.length < 2 %}
-        {{ sexMismatchIssue() }}
-      {% endif %}
-
-      {% if eventList.length < 3 %}
-        {{ originCphIssue() }}
-      {% endif %}
-
-      {% if eventList.length < 4 %}
-        {{ passportReview() }}
-      {% endif %}
-
-      {% if eventList.length < 5 %}
-        {{ damTagIssue() }}
-      {% endif %}
-
     </ol>
+    {% else %}
+    <div class="govuk-inset-text">
+      No events match the selected filters.
+    </div>
+    {% endif %}
       {{ govukButton({
       text: "Export filtered events (CSV)",
       href: exportHref,

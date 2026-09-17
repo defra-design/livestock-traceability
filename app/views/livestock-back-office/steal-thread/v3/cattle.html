@@ -1,0 +1,257 @@
+{% extends "layouts/main.html" %}
+
+{% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
+
+{% set pageName="Cattle register" %}
+
+{% set activeNav = "animals" %}
+
+{% block header %}
+
+{% block navBar %}{% include "./components/_navigation.html" %}{% endblock %}
+
+{% endblock %}
+
+{% block beforeContent %}
+{% set pathParts = currentPath.split('/') %}
+{% set currentBaseUrl = '/' + pathParts[1] + '/' + pathParts[2] + '/' + pathParts[3] + '/' %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{{ govukBackLink({
+text: "Return to home",
+href: "./home"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+{%- from "govuk/components/checkboxes/macro.njk" import govukCheckboxes -%}
+{%- from "govuk/components/input/macro.njk" import govukInput -%}
+{%- from "govuk/components/table/macro.njk" import govukTable -%}
+
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+<form
+        class="app-search-form govuk-!-margin-bottom-6"
+        method="get"
+        action="{{ currentBaseUrl }}cattle"
+>
+  <div class="govuk-form-group">
+    <h1 class="govuk-label-wrapper">
+      <label
+              class="govuk-label govuk-label--l"
+              for="search"
+      >
+        Find an animal
+      </label>
+    </h1>
+
+     <div class="search-wrapper govuk-form-group">
+         <div
+                 id="search-hint"
+                 class="govuk-hint"
+         >
+      Enter an ear tag number
+    </div>
+        <div class="search-input-wrapper">
+          <input type="search" value="{{search}}" id="search" name="search" title="Search" class="govuk-input" aria-describedby="search-hint"
+                 autocomplete="off" spellcheck="false" >
+          <div class="search-input-submit-wrapper">
+            <button type="submit" class="search-submit">Search</button>
+          </div>
+        </div>
+    </div>
+  </div>
+</form>
+        </div>
+</div>
+
+{% if not search %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+  <p>Enter the whole number. For example, UK 017373 777279.</p>
+
+<p>You do not need to include 'UK'.
+</p>
+</ul>
+    </div>
+</div>
+
+{% else %}
+
+<p class="govuk-body" aria-live="polite">
+    {{ cattle.length }}
+    {% if cattle.length === 1 %}
+    animal record matches
+    {% else %}
+    animal records match
+    {% endif %}
+    <strong>‘{{ search }}’</strong>
+</p>
+
+<p class="govuk-body">
+    <a class="govuk-link" href="./cattle">
+        Clear search
+    </a>
+</p>
+
+{% if cattle.length %}
+<div class="app-dashboard-table-wrapper">
+<table class="govuk-table"  {% if cattle.length > 4 %}data-module="moj-sortable-table"{% endif %}>
+  <caption class="govuk-table__caption govuk-visually-hidden">
+    Cattle search results
+  </caption>
+
+  <thead class="govuk-table__head">
+    <tr class="govuk-table__row">
+      <th aria-sort="ascending" scope="col" class="govuk-table__header app-table__cell--no-wrap">
+        Ear tag
+      </th>
+         <th aria-sort="none" scope="col" class="govuk-table__header app-table__cell--no-wrap">
+        Animal status
+      </th>
+         <th aria-sort="none" scope="col" class="govuk-table__header app-table__cell--no-wrap">
+            Passport status
+      </th>
+      <th aria-sort="none" scope="col" class="govuk-table__header app-table__cell--no-wrap">
+            Last location
+      </th>
+
+
+<!--      <th aria-sort="none" scope="col" class="govuk-table__header app-table__cell&#45;&#45;no-wrap">-->
+<!--        County-->
+<!--      </th>-->
+<!--      <th aria-sort="none" scope="col" class="govuk-table__header app-table__cell&#45;&#45;no-wrap">-->
+<!--        Postcode-->
+<!--      </th>-->
+
+    </tr>
+  </thead>
+
+  <tbody class="govuk-table__body">
+    {% for animal in cattle %}
+    <tr class="govuk-table__row">
+
+      <th
+              scope="row"
+              class="govuk-table__header app-table__cell--no-wrap"
+      >
+        <a
+                class="govuk-link"
+                href="/{{baseURL}}/cattle/{{ animal.earTagNumber }}?fromSearch={{query.search | urlencode}}"
+        >
+          {{ animal.earTagNumber | formatReference }}
+        </a>
+      </th>
+        <td class="govuk-table__cell">
+        {{ animal.status }}
+      </td>
+           <td class="govuk-table__cell">
+         {% if animal.administrativeStatus.passportStatus == "Refused" %}
+  {{ govukTag({
+    text: "Refused",
+    classes: "govuk-tag--red"
+  }) }}
+
+{% elseif animal.administrativeStatus.passportStatus == "Incomplete" %}
+  {{ govukTag({
+    text: "Incomplete",
+    classes: "govuk-tag--yellow"
+  }) }}
+
+{% elseif animal.administrativeStatus.passportStatus == "Awaiting return" %}
+  {{ govukTag({
+    text: "Awaiting return",
+    classes: "govuk-tag--yellow"
+  }) }}
+
+{% else %}
+  {{ animal.administrativeStatus.passportStatus }}
+{% endif %}
+      </td>
+      <td class="govuk-table__cell app-table__cell--no-wrap">
+      {{ animal.cph }}  (<abbr title="{{ animal.cphType }}">
+    {{ animal.cphTypeCode }})
+  </abbr>
+  <span class="govuk-visually-hidden">
+    , {{ holding.cphType}}
+  </span>
+      </td>
+
+<!--      <td class="govuk-table__cell">-->
+<!--        {% if animal.holding %}-->
+
+<!--            {{ animal.holding.holdingName }}, {{ animal.holding.address.town }}, {{ animal.holding.address.county }}, {{ animal.holding.address.postcode }}-->
+
+<!--        {% endif %}-->
+<!--      </td>-->
+
+<!--      <td class="govuk-table__cell">-->
+<!--        {% if animal.holding %}-->
+<!--          {{ animal.holding.address.county }}-->
+<!--        {% endif %}
+        </td>-->
+<!--      <td class="govuk-table__cell app-table__cell&#45;&#45;no-wrap">-->
+<!--        {% if animal.holding %}-->
+<!--          {{ animal.holding.address.postcode }}-->
+<!--        {% endif %}-->
+<!--      </td>-->
+
+
+
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+    <div>
+{% endif %}
+
+
+
+
+
+{% endif %}
+
+</div>
+</div>
+{% if search and cattle.length >= 14 %}
+      <div class="govuk-grid-row govuk-!-margin-top-6">
+          <div class="govuk-grid-column-two-thirds">
+              {{ govukPagination({
+              next: {
+              href: "#"
+              },
+              items: [
+              {
+              number: 1,
+              current: true,
+              href: "#"
+              },
+              {
+              number: 2,
+              href: "#"
+              },
+              {
+              number: 3,
+              href: "#"
+              },
+              {
+              ellipsis: true
+              },
+              {
+              number: 50,
+              href: "#"
+              }
+              ]
+              }) }}
+          </div>
+
+          <div class="govuk-grid-column-one-third govuk-!-text-align-right">
+              <p class="govuk-body govuk-!-margin-top-2">
+                  Showing 1 to 50 of 1000
+              </p>
+          </div>
+      </div>
+{% endif %}
+{% endblock %}

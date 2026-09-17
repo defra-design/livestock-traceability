@@ -1,0 +1,33 @@
+<nav class="moj-sub-navigation" aria-label="Sub navigation">
+           <ul class="moj-sub-navigation__list">
+
+    <li class="moj-sub-navigation__item">
+        <a class="moj-sub-navigation__link"
+           {% if currentTab=='details' %}aria-current="page"{% endif %}
+           href="/{{ baseURL }}/holdings/{{ holding.id }}{{ contextQuery }}"
+        >
+            Holding details
+        </a>
+    </li>
+
+    <li class="moj-sub-navigation__item">
+        <a
+                class="moj-sub-navigation__link"
+                {% if currentTab == 'records' %}aria-current="page"{% endif %}
+                href="/{{ baseURL }}/holdings/{{ holding.id }}/cattle-register{{ contextQuery }}"
+        >
+            Animals on holding
+        </a>
+    </li>
+
+    <li class="moj-sub-navigation__item">
+        <a class="moj-sub-navigation__link"
+                {% if currentTab == 'issues' %}aria-current="page"{% endif %}
+                href="/{{ baseURL }}/holdings/{{ holding.id }}/animal-error-record{{ contextQuery }}"
+        >
+            Animal error record
+        </a>
+    </li>
+
+</ul>
+        </nav>

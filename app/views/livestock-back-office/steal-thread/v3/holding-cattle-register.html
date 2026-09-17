@@ -1,0 +1,190 @@
+{% extends "layouts/main.html" %}
+
+{% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
+
+{% set pageName="Cattle register" %}
+
+{% set activeNav = "holdings" %}
+
+{% block header %}
+
+{% block navBar %}{% include "./components/_navigation.html" %}{% endblock %}
+
+{% endblock %}
+
+{% block beforeContent %}
+
+{% set currentBaseUrl = '/' + baseURL + '/' %}
+{% block filterBar %}{% include "./components/_return-link-holding.html" %}{% endblock %}
+{% endblock %}
+
+{% block content %}
+
+{%- from "govuk/components/checkboxes/macro.njk" import govukCheckboxes -%}
+{%- from "govuk/components/input/macro.njk" import govukInput -%}
+{%- from "govuk/components/table/macro.njk" import govukTable -%}
+
+
+<span class="govuk-caption-l">
+            Holding
+      </span>
+
+        <h1 class="govuk-heading-l">
+           {{ holding.cph }} - {{ holding.holdingName }}
+        </h1>
+       <!-- Import sub navigation and set which tab is active-->
+{% set currentTab = 'records'%}
+{% block subnav %}{% include "./components/_subnav-holding.html" %}{% endblock %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+<form
+        class="app-search-form govuk-!-margin-bottom-6"
+        method="get"
+        action="{{ currentPath }}"
+>
+  {% if query.fromSearch %}
+    <input type="hidden" name="fromSearch" value="{{ query.fromSearch }}">
+  {% endif %}
+  <div class="govuk-form-group">
+    <h2class="govuk-label-wrapper">
+      <label
+              class="govuk-label govuk-label--m"
+              for="search"
+      >
+        Search animals on holding
+      </label>
+      </h2>
+
+      <div class="search-wrapper govuk-form-group">
+         <div
+                 id="search-hint"
+                 class="govuk-hint"
+         >
+      You can use all or part of the animal ear tag number, or search by sex or breed.
+    </div>
+        <div class="search-input-wrapper">
+          <input type="search" value="{{search}}" id="search" name="search" title="Search" class="govuk-input" aria-describedby="search-hint"
+                 autocomplete="off" spellcheck="false" >
+          <div class="search-input-submit-wrapper">
+            <button type="submit" class="search-submit">Search</button>
+          </div>
+        </div>
+    </div>
+  </div>
+</form>
+
+
+
+    <p class="govuk-body" aria-live="polite">
+      {% if search %}
+      {{ totalResults }}
+      {% if totalResults === 1 %}
+      registered cattle record matches
+      {% else %}
+      registered cattle records match
+      {% endif %}
+        <strong>‘{{ search }}’</strong>
+      {% else %}
+      {{ totalResults }} registered cattle
+      {% endif %}
+    </p>
+
+        {% if search %}
+        <p class="govuk-body">
+          <a class="govuk-link" href="{{ currentPath }}{% if query.fromSearch %}?fromSearch={{ query.fromSearch | urlencode }}{% endif %}">
+            Clear search
+          </a>
+        </p>
+        {% endif %}
+</div>
+    </div>
+
+{% if cattle.length %}
+    <div class="app-dashboard-table-wrapper">
+<table class="govuk-table"  {% if cattle.length > 4 %}data-module="moj-sortable-table"{% endif %}>
+    <caption class="govuk-table__caption govuk-visually-hidden">
+        Cattle search results
+    </caption>
+
+    <thead class="govuk-table__head">
+    <tr class="govuk-table__row">
+        <th aria-sort="ascending" scope="col" class="govuk-table__header app-table__cell--no-wrap " >Ear tag</th>
+        <th aria-sort="none"  scope="col" class="govuk-table__header app-table__cell--no-wrap">Date of birth</th>
+        <th aria-sort="none"  scope="col" class="govuk-table__header app-table__cell--no-wrap">Age</th>
+        <th aria-sort="none"  scope="col" class="govuk-table__header app-table__cell--no-wrap">Date on holding</th>
+        <th aria-sort="none"  scope="col" class="govuk-table__header app-table__cell--no-wrap">Sex</th>
+        <th aria-sort="none"  scope="col" class="govuk-table__header app-table__cell--no-wrap">Breed</th>
+
+    </tr>
+    </thead>
+
+    <tbody class="govuk-table__body">
+    {% for animal in cattle %}
+    <tr class="govuk-table__row">
+        <th scope="row" class="govuk-table__header app-table__cell--no-wrap ">
+            <a class="govuk-link" href="/{{baseURL}}/cattle/{{ animal.earTagNumber }}?fromHolding={{holding.id}}">
+                {{ animal.earTagNumber | formatReference }}
+            </a>
+        </th>
+
+        <td class="govuk-table__cell">
+            {{ animal.dateOfBirth | shortDateFormat }}
+        </td>
+        <td class="govuk-table__cell app-table__cell--no-wrap">
+            {{ animal.dateOfBirth | animalAge }}
+        </td>
+
+        <td class="govuk-table__cell">
+            {{ animal.dateOfRegistration | shortDateFormat}}
+        </td>
+
+        <td class="govuk-table__cell">
+            {{ animal.sex}}
+        </td>
+
+        <td class="govuk-table__cell">
+            <abbr title="{{ animal.breed.name }}">
+                {{ animal.breed.code }}
+            </abbr>
+            <span class="govuk-visually-hidden">
+                , {{ animal.breed.name }}
+            </span>
+        </td>
+
+
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+    </div>
+{% else %}
+    <div class="govuk-inset-text">
+      No cattle records found
+      {% if search %}
+      for “{{ search }}”.
+      {% else %}
+      .
+      {% endif %}
+    </div>
+{% endif %}
+{% if totalResults > pageSize %}
+      <div class="govuk-grid-row govuk-!-margin-top-6">
+          <div class="govuk-grid-column-two-thirds">
+              {{ govukPagination(pagination) }}
+          </div>
+
+          <div class="govuk-grid-column-one-third govuk-!-text-align-right">
+              <p class="govuk-body govuk-!-margin-top-2">
+                  Showing {{ pageStart }} to {{ pageEnd }} of {{ totalResults }}
+              </p>
+          </div>
+      </div>
+{% elseif totalResults %}
+      <p class="govuk-body govuk-!-margin-top-6">
+          Showing {{ pageStart }} to {{ pageEnd }} of {{ totalResults }}
+      </p>
+{% endif %}
+</div>
+
+{% endblock %}

@@ -1,0 +1,408 @@
+{% extends "layouts/main.html" %}
+
+{% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
+
+{% set pageName="Animal history" %}
+{% set activeNav = "animals" %}
+
+{% block header %}
+  {% block navBar %}{% include "./components/_navigation.html" %}{% endblock %}
+{% endblock %}
+
+{% block beforeContent %}
+  {% set pathParts = currentPath.split('/') %}
+  {% set currentBaseUrl = '/' + pathParts[1] + '/' + pathParts[2] + '/' + pathParts[3] + '/' %}
+
+  {{ govukBreadcrumbs({
+    items: [
+      {
+        text: "Home",
+        href: currentBaseUrl + "home"
+      },
+      {
+        text: "Animals",
+        href: currentBaseUrl + "cattle"
+      }
+    ]
+  }) }}
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+
+    <span class="govuk-caption-l">
+      Registered cattle
+    </span>
+
+    <h1 class="govuk-heading-l">
+      {{ "UK667788990022" | formatReference }}
+    </h1>
+
+    <nav class="moj-sub-navigation" aria-label="Sub navigation">
+      <ul class="moj-sub-navigation__list">
+        <li class="moj-sub-navigation__item">
+          <a
+            class="moj-sub-navigation__link"
+            href="#"
+          >
+            Animal details
+          </a>
+        </li>
+        <li class="moj-sub-navigation__item">
+          <a
+            class="moj-sub-navigation__link"
+            aria-current="page"
+            href="#"
+          >
+            History
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <h2 class="govuk-heading-m">
+      Animal history
+    </h2>
+
+    <ol class="govuk-list app-event-results">
+
+      {# Latest movement onto the current holding #}
+      <li class="app-event-card">
+        <article class="app-event-card__content">
+
+          <time class="govuk-body-s app-event-card__date" datetime="2026-06-19">
+            19 June 2026
+          </time>
+
+          <h3 class="govuk-heading-s app-event-card__heading">
+            <a class="govuk-link" href="#">
+              Moved on to holding
+            </a>
+          </h3>
+
+          <ul class="govuk-list app-event-card__details">
+            <li>
+              <span class="app-event-card__details-key">Holding:</span>
+              <a class="govuk-link" href="#">63/829/0276</a>
+              Stonebridge Farm
+            </li>
+            <li>
+              <span class="app-event-card__details-key">Holding type:</span>
+              Agricultural holdings (AH)
+            </li>
+            <li>
+              <span class="app-event-card__details-key">Reported by:</span>
+              Keeper
+            </li>
+          </ul>
+
+        </article>
+      </li>
+
+      {# Off the market, completing the second market movement #}
+      <li class="app-event-card">
+        <article class="app-event-card__content">
+
+          <time class="govuk-body-s app-event-card__date" datetime="2026-06-19">
+            19 June 2026
+          </time>
+
+          <h3 class="govuk-heading-s app-event-card__heading">
+            <a class="govuk-link" href="#">
+              Moved off holding
+            </a>
+          </h3>
+
+          <ul class="govuk-list app-event-card__details">
+            <li>
+              <span class="app-event-card__details-key">Holding:</span>
+              <a class="govuk-link" href="#">27/884/0106</a>
+              Blackthorn Estate
+            </li>
+            <li>
+              <span class="app-event-card__details-key">Holding type:</span>
+              Markets (MA)
+            </li>
+            <li>
+              <span class="app-event-card__details-key">Reported by:</span>
+              Market operator
+            </li>
+          </ul>
+
+        </article>
+      </li>
+
+      {# The animal arrives at the market, but the previous holding did not report it moving off #}
+      <li class="app-event-card app-event-card--review">
+        <article class="app-event-card__content">
+
+          <time class="govuk-body-s app-event-card__date" datetime="2026-06-18">
+            18 June 2026
+          </time>
+
+          <h3 class="govuk-heading-s app-event-card__heading">
+            <a class="govuk-link" href="#">
+              <span class="govuk-visually-hidden">Needs review: </span>
+              Moved on to holding
+            </a>
+          </h3>
+
+          <ul class="govuk-list app-event-card__details">
+            <li>
+              <span class="app-event-card__details-key">Holding:</span>
+              <a class="govuk-link" href="#">27/884/0106</a>
+              Blackthorn Estate
+            </li>
+            <li>
+              <span class="app-event-card__details-key">Holding type:</span>
+              Markets (MA)
+            </li>
+            <li>
+              <span class="app-event-card__details-key">Previous holding:</span>
+              <a class="govuk-link" href="#">53/417/0088</a>
+              High Fell Farm
+            </li>
+            <li>
+              <span class="app-event-card__details-key">Reported by:</span>
+              Market operator
+            </li>
+          </ul>
+
+          <div class="app-event-card__notice">
+            <h4 class="govuk-heading-s govuk-!-margin-bottom-1 app-event-card__notice-heading app-event-card__notice-heading--review">
+              <span class="govuk-visually-hidden">Review reason: </span>
+              Missing off movement from High Fell Farm
+            </h4>
+
+            <p class="govuk-body-s govuk-!-margin-bottom-0">
+              The animal was reported on to the market, but there is no matching report that it moved off CPH 53/417/0088.
+            </p>
+          </div>
+
+        </article>
+      </li>
+
+      {# Previous complete movement from market to holding #}
+      <li class="app-event-card">
+        <article class="app-event-card__content">
+
+          <time class="govuk-body-s app-event-card__date" datetime="2025-09-13">
+            13 September 2025
+          </time>
+
+          <h3 class="govuk-heading-s app-event-card__heading">
+            <a class="govuk-link" href="#">
+              Moved on to holding
+            </a>
+          </h3>
+
+          <ul class="govuk-list app-event-card__details">
+            <li>
+              <span class="app-event-card__details-key">Holding:</span>
+              <a class="govuk-link" href="#">53/417/0088</a>
+              High Fell Farm
+            </li>
+            <li>
+              <span class="app-event-card__details-key">Holding type:</span>
+              Agricultural holdings (AH)
+            </li>
+            <li>
+              <span class="app-event-card__details-key">Reported by:</span>
+              Keeper
+            </li>
+          </ul>
+
+        </article>
+      </li>
+
+      <li class="app-event-card">
+        <article class="app-event-card__content">
+
+          <time class="govuk-body-s app-event-card__date" datetime="2025-09-13">
+            13 September 2025
+          </time>
+
+          <h3 class="govuk-heading-s app-event-card__heading">
+            <a class="govuk-link" href="#">
+              Moved off holding
+            </a>
+          </h3>
+
+          <ul class="govuk-list app-event-card__details">
+            <li>
+              <span class="app-event-card__details-key">Holding:</span>
+              <a class="govuk-link" href="#">27/884/0106</a>
+              Blackthorn Estate
+            </li>
+            <li>
+              <span class="app-event-card__details-key">Holding type:</span>
+              Markets (MA)
+            </li>
+            <li>
+              <span class="app-event-card__details-key">Reported by:</span>
+              Market operator
+            </li>
+          </ul>
+
+        </article>
+      </li>
+
+      <li class="app-event-card">
+        <article class="app-event-card__content">
+
+          <time class="govuk-body-s app-event-card__date" datetime="2025-09-12">
+            12 September 2025
+          </time>
+
+          <h3 class="govuk-heading-s app-event-card__heading">
+            <a class="govuk-link" href="#">
+              Moved on to holding
+            </a>
+          </h3>
+
+          <ul class="govuk-list app-event-card__details">
+            <li>
+              <span class="app-event-card__details-key">Holding:</span>
+              <a class="govuk-link" href="#">27/884/0106</a>
+              Blackthorn Estate
+            </li>
+            <li>
+              <span class="app-event-card__details-key">Holding type:</span>
+              Markets (MA)
+            </li>
+            <li>
+              <span class="app-event-card__details-key">Previous holding:</span>
+              <a class="govuk-link" href="#">12/345/0001</a>
+              Oakfield Farm
+            </li>
+            <li>
+              <span class="app-event-card__details-key">Reported by:</span>
+              Market operator
+            </li>
+          </ul>
+
+        </article>
+      </li>
+
+      <li class="app-event-card">
+        <article class="app-event-card__content">
+
+          <time class="govuk-body-s app-event-card__date" datetime="2025-09-12">
+            12 September 2025
+          </time>
+
+          <h3 class="govuk-heading-s app-event-card__heading">
+            <a class="govuk-link" href="#">
+              Moved off holding
+            </a>
+          </h3>
+
+          <ul class="govuk-list app-event-card__details">
+            <li>
+              <span class="app-event-card__details-key">Holding:</span>
+              <a class="govuk-link" href="#">12/345/0001</a>
+              Oakfield Farm
+            </li>
+            <li>
+              <span class="app-event-card__details-key">Holding type:</span>
+              Agricultural holdings (AH)
+            </li>
+            <li>
+              <span class="app-event-card__details-key">Reported by:</span>
+              Keeper
+            </li>
+          </ul>
+
+        </article>
+      </li>
+
+      {# The resolution itself remains visible as an historical event #}
+      <li class="app-event-card">
+        <article class="app-event-card__content">
+
+          <time class="govuk-body-s app-event-card__date" datetime="2024-01-12">
+            12 January 2024
+          </time>
+
+          <h3 class="govuk-heading-s app-event-card__heading">
+            <a class="govuk-link" href="#">
+              Registration updated
+            </a>
+          </h3>
+
+          <ul class="govuk-list app-event-card__details">
+            <li>
+              <span class="app-event-card__details-key">Change:</span>
+              Genetic dam details added
+            </li>
+            <li>
+              <span class="app-event-card__details-key">Genetic dam:</span>
+              <a class="govuk-link" href="#">
+                {{ "UK123456780014" | formatReference }}
+              </a>
+            </li>
+            <li>
+              <span class="app-event-card__details-key">Changed by:</span>
+              Caseworker
+            </li>
+          </ul>
+
+        </article>
+      </li>
+
+      {# Birth with a registration issue that has since been resolved #}
+      <li class="app-event-card">
+        <article class="app-event-card__content">
+
+          <time class="govuk-body-s app-event-card__date" datetime="2024-01-10">
+            10 January 2024
+          </time>
+
+          <h3 class="govuk-heading-s app-event-card__heading">
+            <a class="govuk-link" href="#">
+              Birth reported
+            </a>
+          </h3>
+
+          <ul class="govuk-list app-event-card__details">
+            <li>
+              <span class="app-event-card__details-key">Animal born at holding:</span>
+              <a class="govuk-link" href="#">12/345/0001</a>
+              Oakfield Farm
+            </li>
+            <li>
+              <span class="app-event-card__details-key">Registration status:</span>
+              Confirmed
+            </li>
+            <li>
+              <span class="app-event-card__details-key">Registered:</span>
+              10 January 2024 · REG-2024-0098
+            </li>
+            <li>
+              <span class="app-event-card__details-key">Created by:</span>
+              Keeper
+            </li>
+          </ul>
+
+          <div class="app-event-card__notice">
+            <h4 class="govuk-heading-s govuk-!-margin-bottom-1 app-event-card__notice-heading">
+              <strong class="govuk-tag govuk-tag--green govuk-!-margin-right-2">
+                Resolved
+              </strong>
+              Dam details were missing from the registration
+            </h4>
+
+            <p class="govuk-body-s govuk-!-margin-bottom-0">
+              Genetic dam details were added by a caseworker on 12 January 2024.
+            </p>
+          </div>
+
+        </article>
+      </li>
+
+    </ol>
+
+  </div>
+</div>
+{% endblock %}

@@ -66,7 +66,8 @@ or:
 ?showError=true
 #}
 {% set showSexMismatch =
-query.issue == "sex-mismatch"
+hasSexMismatch
+or query.issue == "sex-mismatch"
 or query.showError == "true"
 %}
 
@@ -120,7 +121,7 @@ href: backUrl or currentBaseUrl + "events"
 
 {% endif %}
 
-{% if eventRecord.issues and eventRecord.issues.length %}
+{% if eventRecord.issues and eventRecord.issues.length and not showSexMismatch %}
 
 <section
         class="govuk-!-margin-top-7 govuk-!-margin-bottom-8"

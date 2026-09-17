@@ -1,0 +1,417 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName = "Activity" %}
+{% set activeNav = "animals" %}
+
+{% block header %}
+{% block navBar %}{% include "./components/_navigation.html" %}{% endblock %}
+<style>.govuk-secondary-text-colour{
+  color:	#484949;
+}</style>
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+
+    <span class="govuk-caption-l">Registered animal</span>
+
+    <h1 class="govuk-heading-xl govuk-!-margin-bottom-2">
+      {{ animal.earTagNumber | formatReference }}
+    </h1>
+
+    <p class="govuk-body govuk-!-margin-top-4 govuk-!-margin-bottom-{% if animalIssues and animalIssues.length %}2{%else%}6{%endif%}">
+  <strong>Animal status:</strong> {{ animal.status }} &nbsp;&nbsp;|&nbsp;&nbsp; <strong>Passport status:</strong>
+             {% if animal.administrativeStatus.passportStatus == "Refused" %}
+  {{ govukTag({
+    text: "Refused",
+    classes: "govuk-tag--red"
+  }) }}
+
+{% elseif animal.administrativeStatus.passportStatus == "Incomplete" %}
+  {{ govukTag({
+    text: "Incomplete",
+    classes: "govuk-tag--yellow"
+  }) }}
+
+{% elseif animal.administrativeStatus.passportStatus == "Awaiting return" %}
+  {{ govukTag({
+    text: "Awaiting return",
+    classes: "govuk-tag--yellow"
+  }) }}
+
+{% else %}
+  {{ animal.administrativeStatus.passportStatus }}
+{% endif %}
+</p>
+
+{% include "./components/_animal-issues-callout.html" %}
+
+    <nav class="moj-sub-navigation" aria-label="Sub navigation">
+     <ul class="moj-sub-navigation__list">
+          <li class="moj-sub-navigation__item">
+            <a
+                    class="moj-sub-navigation__link"
+
+                    href="/{{baseURL}}/cattle/{{ animal.earTagNumber }}{{ contextQuery }}"
+            >
+              Animal details
+            </a>
+          </li>
+          <li class="moj-sub-navigation__item">
+            <a
+                    class="moj-sub-navigation__link"
+
+                    href="/{{baseURL}}/cattle/{{ animal.earTagNumber }}/cattle-history{{ contextQuery }}"
+            >
+              Movements
+            </a>
+          </li>
+          <li class="moj-sub-navigation__item">
+            <a
+                    class="moj-sub-navigation__link"
+                    aria-current="page"
+                    href="/{{baseURL}}/cattle/{{ animal.earTagNumber }}/cattle-activity{{ contextQuery }}"
+            >
+              Activity
+            </a>
+          </li>
+        </ul>
+    </nav>
+
+  </div>
+</div>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds govuk-!-padding-bottom-9">
+
+    <h2 class="govuk-heading-m">Activity</h2>
+
+    <ol class="govuk-list">
+
+      <li>
+        <article>
+          <h3 class="govuk-heading-s govuk-!-margin-bottom-1">
+            <a href='#'>Passport returned</a>
+          </h3>
+
+          <p class="govuk-body govuk-secondary-text-colour govuk-!-margin-bottom-4">
+            <time datetime="2025-05-28T10:14:00">28 May 2025 at 10:14am</time>
+          </p>
+
+          <p class="govuk-body govuk-!-margin-bottom-2">
+            Passport recorded as returned after the animal was recorded as deceased.
+          </p>
+
+          <p class="govuk-body govuk-!-margin-bottom-0">
+            Recorded by Mike Thomas (caseworker)
+          </p>
+        </article>
+
+        <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+      </li>
+
+      <li>
+        <article>
+          <h3 class="govuk-heading-s govuk-!-margin-bottom-1">
+           <a href='#'> Death recorded</a>
+          </h3>
+
+          <p class="govuk-body govuk-secondary-text-colour govuk-!-margin-bottom-4">
+            <time datetime="2025-05-22T10:06:00">22 May 2025 at 10:06am</time>
+          </p>
+
+          <p class="govuk-body govuk-!-margin-bottom-2">
+            Animal recorded as deceased on 22 May 2025 at <strong>47/215/0169 (<abbr title="Slaughterhouse or abattoir">SL</abbr>)</strong>.
+          </p>
+
+          <p class="govuk-body govuk-!-margin-bottom-0">
+            Recorded by Mike Thomas (caseworker)
+          </p>
+        </article>
+
+        <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+      </li>
+
+      <li>
+        <article>
+          <h3 class="govuk-heading-s govuk-!-margin-bottom-1">
+            <a href='#'>Movement on recorded</a>
+          </h3>
+
+          <p class="govuk-body govuk-secondary-text-colour govuk-!-margin-bottom-4">
+            <time datetime="2025-05-21T11:34:00">21 May 2025 at 11:34am</time>
+          </p>
+
+          <p class="govuk-body govuk-!-margin-bottom-2">
+            Moved on to <strong>47/215/0169 (<abbr title="Slaughterhouse or abattoir">SL</abbr>)</strong> on 21 May 2025 at 11:26am.
+          </p>
+
+          <p class="govuk-body govuk-!-margin-bottom-0">
+            Recorded by Sarah Williams (keeper)
+          </p>
+        </article>
+
+        <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+      </li>
+
+      <li>
+        <article>
+          <h3 class="govuk-heading-s govuk-!-margin-bottom-1">
+          <a href='#' >Movement off recorded</a>
+          </h3>
+
+          <p class="govuk-body govuk-secondary-text-colour govuk-!-margin-bottom-4">
+            <time datetime="2025-05-21T09:16:00">21 May 2025 at 9:16am</time>
+          </p>
+
+          <p class="govuk-body govuk-!-margin-bottom-2">
+            Moved off <strong>56/312/0056 (<abbr title="Agricultural holding">AH</abbr>)</strong> on 21 May 2025 at 9:08am.
+          </p>
+
+          <p class="govuk-body govuk-!-margin-bottom-0">
+            Recorded by Sarah Williams (keeper)
+          </p>
+        </article>
+
+        <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+      </li>
+
+      <li>
+        <article>
+          <h3 class="govuk-heading-s govuk-!-margin-bottom-1">
+            <A href='#'>Movement on recorded</a>
+          </h3>
+
+          <p class="govuk-body govuk-secondary-text-colour govuk-!-margin-bottom-4">
+            <time datetime="2025-05-20T11:49:00">20 May 2025 at 11:49am</time>
+          </p>
+
+          <p class="govuk-body govuk-!-margin-bottom-2">
+            Moved on to <strong>56/312/0056 (<abbr title="Agricultural holding">AH</abbr>)</strong> on 20 May 2025 at 11:42am.
+          </p>
+
+          <p class="govuk-body govuk-!-margin-bottom-0">
+            Recorded by Sarah Williams (keeper)
+          </p>
+        </article>
+
+        <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+      </li>
+
+      <li>
+        <article>
+          <h3 class="govuk-heading-s govuk-!-margin-bottom-1">
+          <a href='#' >Movement off recorded</a>
+          </h3>
+
+          <p class="govuk-body govuk-secondary-text-colour govuk-!-margin-bottom-4">
+            <time datetime="2025-05-20T09:25:00">20 May 2025 at 9:25am</time>
+          </p>
+
+          <p class="govuk-body govuk-!-margin-bottom-2">
+            Moved off <strong>66/204/0141 (<abbr title="Agricultural holding">AH</abbr>)</strong> on 20 May 2025 at 9:18am.
+          </p>
+
+          <p class="govuk-body govuk-!-margin-bottom-0">
+            Recorded by Sarah Williams (keeper)
+          </p>
+        </article>
+
+        <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+      </li>
+
+      <li>
+        <article>
+          <h3 class="govuk-heading-s govuk-!-margin-bottom-1">
+            <A href='#'>Movement on recorded</a>
+          </h3>
+
+          <p class="govuk-body govuk-secondary-text-colour govuk-!-margin-bottom-4">
+            <time datetime="2025-01-15T11:38:00">15 January 2025 at 11:38am</time>
+          </p>
+
+          <p class="govuk-body govuk-!-margin-bottom-2">
+            Moved on to <strong>53/417/0088 (<abbr title="Agricultural holding">AH</abbr>)</strong> on 15 January 2025 at 11:31am.
+          </p>
+
+          <p class="govuk-body govuk-!-margin-bottom-0">
+            Recorded by Sarah Williams (keeper)
+          </p>
+        </article>
+
+        <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+      </li>
+
+      <li>
+        <article>
+          <h3 class="govuk-heading-s govuk-!-margin-bottom-1">
+          <a href='#' >Movement off recorded</a>
+          </h3>
+
+          <p class="govuk-body govuk-secondary-text-colour govuk-!-margin-bottom-4">
+            <time datetime="2025-01-15T09:20:00">15 January 2025 at 9:20am</time>
+          </p>
+
+          <p class="govuk-body govuk-!-margin-bottom-2">
+            Moved off <strong>44/209/0317 (<abbr title="Agricultural holding">AH</abbr>)</strong> on 15 January 2025 at 9:14am.
+          </p>
+
+          <p class="govuk-body govuk-!-margin-bottom-0">
+            Recorded by Sarah Williams (keeper)
+          </p>
+        </article>
+
+        <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+      </li>
+
+      <li>
+        <article>
+          <h3 class="govuk-heading-s govuk-!-margin-bottom-1">
+          <a href='#' >Movement off recorded</a>
+          </h3>
+
+          <p class="govuk-body govuk-secondary-text-colour govuk-!-margin-bottom-4">
+            <time datetime="2024-09-18T09:13:00">18 September 2024 at 9:13am</time>
+          </p>
+
+          <p class="govuk-body govuk-!-margin-bottom-2">
+            Moved off <strong>31/672/0158 (<abbr title="Agricultural holding">AH</abbr>)</strong> on 18 September 2024 at 9:05am.
+          </p>
+
+          <p class="govuk-body govuk-!-margin-bottom-0">
+            Recorded by Sarah Williams (keeper)
+          </p>
+        </article>
+
+        <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+      </li>
+
+      <li>
+        <article>
+          <h3 class="govuk-heading-s govuk-!-margin-bottom-1">
+            <A href='#'>Movement on recorded</a>
+          </h3>
+
+          <p class="govuk-body govuk-secondary-text-colour govuk-!-margin-bottom-4">
+            <time datetime="2024-03-12T11:18:00">12 March 2024 at 11:18am</time>
+          </p>
+
+          <p class="govuk-body govuk-!-margin-bottom-2">
+            Moved on to <strong>31/672/0158 (<abbr title="Agricultural holding">AH</abbr>)</strong> on 12 March 2024 at 11:10am.
+          </p>
+
+          <p class="govuk-body govuk-!-margin-bottom-0">
+            Recorded by Sarah Williams (keeper)
+          </p>
+        </article>
+
+        <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+      </li>
+
+      <li>
+        <article>
+          <h3 class="govuk-heading-s govuk-!-margin-bottom-1">
+            <a href='#'>Movement on recorded</a>
+          </h3>
+
+          <p class="govuk-body govuk-secondary-text-colour govuk-!-margin-bottom-4">
+            <time datetime="2023-07-24T11:31:00">24 July 2023 at 11:31am</time>
+          </p>
+
+          <p class="govuk-body govuk-!-margin-bottom-2">
+            Moved on to <strong>15/628/0067 (<abbr title="Agricultural holding">AH</abbr>)</strong> on 24 July 2023 at 11:23am.
+          </p>
+
+          <p class="govuk-body govuk-!-margin-bottom-0">
+            Recorded by Sarah Williams (keeper)
+          </p>
+        </article>
+
+        <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+      </li>
+
+      <li>
+        <article>
+          <h3 class="govuk-heading-s govuk-!-margin-bottom-1">
+            <a href='#'>Movement off recorded</a>
+          </h3>
+
+          <p class="govuk-body govuk-secondary-text-colour govuk-!-margin-bottom-4">
+            <time datetime="2023-07-24T09:18:00">24 July 2023 at 9:18am</time>
+          </p>
+
+          <p class="govuk-body govuk-!-margin-bottom-2">
+            Moved off <strong>39/740/0193 (<abbr title="Agricultural holding">AH</abbr>)</strong> on 24 July 2023 at 9:11am.
+          </p>
+
+          <p class="govuk-body govuk-!-margin-bottom-0">
+            Recorded by Sarah Williams (keeper)
+          </p>
+        </article>
+
+        <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+      </li>
+
+      <li>
+        <article>
+          <h3 class="govuk-heading-s govuk-!-margin-bottom-1">
+           <a href='#'>Animal details updated</a>
+          </h3>
+
+          <p class="govuk-body govuk-secondary-text-colour govuk-!-margin-bottom-4">
+            <time datetime="2023-01-05T14:16:00">5 January 2023 at 2:16pm</time>
+          </p>
+
+          <p class="govuk-body govuk-!-margin-bottom-2">
+            Sex changed from <strong>Male</strong> to <strong>Female</strong>.
+          </p>
+
+          <p class="govuk-body govuk-!-margin-bottom-0">
+            Updated by Mike Thomas (caseworker)
+          </p>
+        </article>
+
+        <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+      </li>
+
+      <li>
+        <article>
+          <h3 class="govuk-heading-s govuk-!-margin-bottom-1">
+            <a href='#'>Birth recorded</a>
+          </h3>
+
+          <p class="govuk-body govuk-secondary-text-colour govuk-!-margin-bottom-4">
+            <time datetime="2022-12-18T09:36:00">18 December 2022 at 9:36am</time>
+          </p>
+
+          <p class="govuk-body govuk-!-margin-bottom-2">
+            Birth recorded for 17 December 2022 at <strong>39/740/0193 (<abbr title="Agricultural holding">AH</abbr>)</strong>.
+          </p>
+
+          <p class="govuk-body govuk-!-margin-bottom-0">
+            Recorded by Sarah Williams (keeper)
+          </p>
+        </article>
+
+      </li>
+    </ol>
+
+  </div>
+</div>
+
+{% endblock %}

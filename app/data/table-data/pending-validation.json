@@ -1,0 +1,92 @@
+{
+  "species": "cattle",
+  "recordCount": 4,
+  "animals": [
+    {
+      "cph": "12/345/0001",
+      "earTagNumber": "UK324537113270",
+      "dateOfBirth": "01-09-2025",
+      "dateOfRegistration": "16-09-2025",
+      "onHoldingDate": "01-09-2025",
+      "sex": "Female",
+      "breed": {
+        "name": "Holstein Friesian",
+        "code": "HO"
+      },
+      "status": "Pending validation",
+      "dam": {
+        "type": "Genetic",
+        "surrogateDam": null,
+        "geneticDam": {
+          "earTagNumber": "UK324537113234"
+        }
+      },
+      "sire": null
+    },
+    {
+      "cph": "12/345/0001",
+      "earTagNumber": "UK324537113271",
+      "dateOfBirth": "03-09-2025",
+      "dateOfRegistration": "16-09-2025",
+      "onHoldingDate": "03-09-2025",
+      "sex": "Male",
+      "breed": {
+        "name": "Limousin",
+        "code": "LM"
+      },
+      "status": "Pending validation",
+      "dam": {
+        "type": "Genetic",
+        "surrogateDam": null,
+        "geneticDam": {
+          "earTagNumber": "UK324537113236"
+        }
+      },
+      "sire": null
+    },
+    {
+      "cph": "12/345/0001",
+      "earTagNumber": "UK324537113272",
+      "dateOfBirth": "10-09-2025",
+      "dateOfRegistration": "17-09-2025",
+      "onHoldingDate": "10-09-2025",
+      "sex": "Female",
+      "breed": {
+        "name": "British Blue",
+        "code": "BB"
+      },
+      "status": "Pending validation",
+      "dam": {
+        "type": "Surrogate",
+        "surrogateDam": {
+          "earTagNumber": "UK901132588101"
+        },
+        "geneticDam": {
+          "earTagNumber": "UK324537113234"
+        }
+      },
+      "sire": null
+    },
+    {
+      "cph": "12/345/0001",
+      "earTagNumber": "UK324537113273",
+      "dateOfBirth": "12-09-2025",
+      "dateOfRegistration": "17-09-2025",
+      "onHoldingDate": "12-09-2025",
+      "sex": "Male",
+      "breed": {
+        "name": "Aberdeen Angus",
+        "code": "AA"
+      },
+      "status": "Pending validation",
+      "dam": {
+        "type": "Genetic",
+        "surrogateDam": null,
+        "geneticDam": {
+          "earTagNumber": "UK324537113236"
+        }
+      },
+      "sire": null
+    }
+  ]
+}

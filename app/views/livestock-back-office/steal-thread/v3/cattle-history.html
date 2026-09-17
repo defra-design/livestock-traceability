@@ -1,0 +1,281 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName = "Movements" %}
+{% set activeNav = "animals" %}
+
+{% block header %}
+{% block navBar %}{% include "./components/_navigation.html" %}{% endblock %}
+{% endblock %}
+
+{% block beforeContent %}
+{% set currentBaseUrl = '/' + baseURL + '/' %}
+{% block returnLink %}{% include "./components/_return-link-animal.html" %}{% endblock %}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+
+    <span class="govuk-caption-l">Registered animal</span>
+
+    <h1 class="govuk-heading-xl govuk-!-margin-bottom-2">
+      {{ animal.earTagNumber | formatReference }}
+    </h1>
+
+    <p class="govuk-body govuk-!-margin-top-4 govuk-!-margin-bottom-{% if animalIssues and animalIssues.length %}2{%else%}6{%endif%}">
+      <strong>Animal status:</strong> {{ animal.status }}
+      &nbsp;&nbsp;|&nbsp;&nbsp;
+      <strong>Passport status:</strong>            {% if animal.administrativeStatus.passportStatus == "Refused" %}
+  {{ govukTag({
+    text: "Refused",
+    classes: "govuk-tag--red"
+  }) }}
+
+{% elseif animal.administrativeStatus.passportStatus == "Incomplete" %}
+  {{ govukTag({
+    text: "Incomplete",
+    classes: "govuk-tag--yellow"
+  }) }}
+
+{% elseif animal.administrativeStatus.passportStatus == "Awaiting return" %}
+  {{ govukTag({
+    text: "Awaiting return",
+    classes: "govuk-tag--yellow"
+  }) }}
+
+{% else %}
+  {{ animal.administrativeStatus.passportStatus }}
+{% endif %}
+    </p>
+
+    {% include "./components/_animal-issues-callout.html" %}
+
+    <nav class="moj-sub-navigation" aria-label="Sub navigation">
+      <ul class="moj-sub-navigation__list">
+        <li class="moj-sub-navigation__item">
+          <a
+            class="moj-sub-navigation__link"
+            href="/{{ baseURL }}/cattle/{{ animal.earTagNumber }}{{ contextQuery }}"
+          >
+            Animal details
+          </a>
+        </li>
+        <li class="moj-sub-navigation__item">
+          <a
+            class="moj-sub-navigation__link"
+            aria-current="page"
+            href="/{{ baseURL }}/cattle/{{ animal.earTagNumber }}/cattle-history{{ contextQuery }}"
+          >
+            Movements
+          </a>
+        </li>
+        <li class="moj-sub-navigation__item">
+          <a
+                  class="moj-sub-navigation__link"
+
+                  href="/{{baseURL}}/cattle/{{ animal.earTagNumber }}/cattle-activity{{ contextQuery }}"
+          >
+              Activity
+            </a>
+        </li>
+      </ul>
+    </nav>
+
+  </div>
+</div>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full govuk-!-padding-bottom-9">
+
+    <h2 class="govuk-heading-m">Movement history</h2>
+
+    {% if movementHistory.length %}
+    <ol class="govuk-list app-event-results">
+      {% for movement in movementHistory %}
+      <li
+        class="app-event-card app-event-card--movement"
+        id="movement-{{ movement.pairId }}"
+      >
+        <article>
+          <div class="app-event-card__header">
+            <h3 class="govuk-heading-s app-event-card__title">
+              <span class="app-event-card__number" aria-hidden="true">{{ loop.index }}</span>
+              <span>
+                {% if movement.issueType === "movement_history_gap" %}
+                  Movement history gap
+                {% else %}
+                  Movement
+                {% endif %}
+                <span class="govuk-visually-hidden">{{ loop.index }}</span>
+              </span>
+            </h3>
+
+            {% if movement.hasIssue %}
+            <strong class="govuk-tag govuk-tag--red">Issue</strong>
+            {% else %}
+            <strong class="govuk-tag govuk-tag--green">Complete</strong>
+            {% endif %}
+          </div>
+
+          <div class="app-movement-card__route">
+
+            <section
+              class="app-movement-card__leg{% if movement.missingOff or movement.issueType === 'movement_history_gap' %} app-movement-card__leg--missing{% endif %}"
+              aria-labelledby="movement-{{ loop.index }}-from"
+            >
+              <h4 class="govuk-heading-s" id="movement-{{ loop.index }}-from">
+                From {{ movement.fromCph }}{% if movement.fromType.code %} (<abbr title="{{ movement.fromType.label }}">{{ movement.fromType.code }}</abbr>){% endif %}
+              </h4>
+
+              {% if movement.missingOff or movement.issueType === "movement_history_gap" %}
+              <p class="govuk-body app-movement-card__missing-text">
+                <strong>Missing movement off</strong><br>
+                No movement off has been recorded.
+              </p>
+              {% else %}
+              <dl class="govuk-summary-list govuk-summary-list--no-border app-movement-card__details">
+                <div class="govuk-summary-list__row">
+                  <dt class="govuk-summary-list__key">Moved off</dt>
+                  <dd class="govuk-summary-list__value">
+                    {{ movement.offEvent.event_date | fullDateFormat }}, {{ movement.offEvent.event_time_display }}
+                  </dd>
+                </div>
+                <div class="govuk-summary-list__row">
+                  <dt class="govuk-summary-list__key">Reported by</dt>
+                  <dd class="govuk-summary-list__value">{{ movement.offReportedBy }}</dd>
+                </div>
+              </dl>
+              {% endif %}
+            </section>
+
+            <div class="app-movement-card__arrow" aria-hidden="true">
+              <span class="app-movement-card__arrow--horizontal">→</span>
+              <span class="app-movement-card__arrow--vertical">↓</span>
+            </div>
+
+            <section
+              class="app-movement-card__leg{% if movement.missingOn or movement.issueType === 'movement_history_gap' %} app-movement-card__leg--missing{% endif %}"
+              aria-labelledby="movement-{{ loop.index }}-to"
+            >
+              <h4 class="govuk-heading-s" id="movement-{{ loop.index }}-to">
+                To {{ movement.toCph }}{% if movement.toType.code %} (<abbr title="{{ movement.toType.label }}">{{ movement.toType.code }}</abbr>){% endif %}
+              </h4>
+
+              {% if movement.missingOn or movement.issueType === "movement_history_gap" %}
+              <p class="govuk-body app-movement-card__missing-text">
+                <strong>Missing movement on</strong><br>
+                No movement on has been recorded.
+              </p>
+              {% else %}
+              <dl class="govuk-summary-list govuk-summary-list--no-border app-movement-card__details">
+                <div class="govuk-summary-list__row">
+                  <dt class="govuk-summary-list__key">Moved on</dt>
+                  <dd class="govuk-summary-list__value">
+                    {{ movement.onEvent.event_date | fullDateFormat }}, {{ movement.onEvent.event_time_display }}
+                  </dd>
+                </div>
+                <div class="govuk-summary-list__row">
+                  <dt class="govuk-summary-list__key">Reported by</dt>
+                  <dd class="govuk-summary-list__value">{{ movement.onReportedBy }}</dd>
+                </div>
+              </dl>
+              {% endif %}
+            </section>
+
+          </div>
+
+          {% if movement.issueType === "movement_history_gap" %}
+          <div class="govuk-warning-text app-movement-card__warning">
+            <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+            <strong class="govuk-warning-text__text">
+              <span class="govuk-visually-hidden">Warning</span>
+              There is no movement record explaining how the animal moved between these holdings. This may represent one or more unrecorded movements.
+            </strong>
+          </div>
+
+          <p class="govuk-body govuk-!-margin-top-3 govuk-!-margin-bottom-0">
+            <a
+              class="govuk-link"
+              href="/{{ baseURL }}/cattle/{{ animal.earTagNumber }}/movements/{{ movement.pairId }}/resolve-gap{{ contextQuery }}"
+            >
+              Resolve movement history gap
+            </a>
+          </p>
+          {% elseif movement.missingOff %}
+          <p class="govuk-body govuk-!-margin-top-4 govuk-!-margin-bottom-0">
+            <a
+              class="govuk-link"
+              href="/{{ baseURL }}/cattle/{{ animal.earTagNumber }}/movements/{{ movement.pairId }}/add-missing-off{{ contextQuery }}"
+            >
+              Add missing movement off
+            </a>
+          </p>
+          {% elseif movement.missingOn %}
+          <p class="govuk-body govuk-!-margin-top-4 govuk-!-margin-bottom-0">
+            <a
+              class="govuk-link"
+              href="/{{ baseURL }}/cattle/{{ animal.earTagNumber }}/movements/{{ movement.pairId }}/add-missing-on{{ contextQuery }}"
+            >
+              Add missing movement on
+            </a>
+          </p>
+          {% else %}
+          <p class="govuk-body govuk-!-margin-top-4 govuk-!-margin-bottom-0">
+            <a
+              class="govuk-link"
+              href="/{{ baseURL }}/cattle/{{ animal.earTagNumber }}/movements/{{ movement.pairId }}{{ contextQuery }}"
+            >
+              View movement record
+            </a>
+          </p>
+          {% endif %}
+        </article>
+      </li>
+      {% endfor %}
+    </ol>
+
+    {% if deathEvent %}
+    <p class="govuk-body govuk-!-margin-top-6">
+      <strong>Animal deceased.</strong>
+      Recorded as deceased on {{ deathEvent.event_date | fullDateFormat }}{% if deathEvent.details.holding_cph %} at
+      <strong>{{ deathEvent.details.holding_cph }}{% if deathEvent.details.holding_type_code %} (<abbr title="Slaughterhouse or abattoir">{{ deathEvent.details.holding_type_code }}</abbr>){% endif %}</strong>{% endif %}.
+    </p>
+    {% elseif animal.status === "Alive" %}
+    <h3 class="govuk-heading-s govuk-!-margin-top-6 govuk-!-margin-bottom-2">Current position</h3>
+    <p class="govuk-body">
+      This animal is alive and is currently recorded at
+      <strong>{{ animalLocations.current.cph }}{% if animalLocations.current.holdingTypeCode %} (<abbr title="{{ animalLocations.current.holdingType }}">{{ animalLocations.current.holdingTypeCode }}</abbr>){% endif %}</strong>.
+    </p>
+    {% endif %}
+
+    {% else %}
+    <h3 class="govuk-heading-s govuk-!-margin-bottom-2">No movement history recorded</h3>
+
+    {% if animal.status === "Alive" %}
+    <p class="govuk-body">
+      This animal is alive and is currently recorded at
+      <strong>{{ animalLocations.current.cph }}{% if animalLocations.current.holdingTypeCode %} (<abbr title="{{ animalLocations.current.holdingType }}">{{ animalLocations.current.holdingTypeCode }}</abbr>){% endif %}</strong>.
+    </p>
+    {% elseif deathEvent %}
+    <p class="govuk-body">
+      <strong>Animal deceased.</strong>
+      Recorded as deceased on {{ deathEvent.event_date | fullDateFormat }}.
+    </p>
+    {% endif %}
+    {% endif %}
+
+    <a
+      href="/{{ baseURL }}/cattle/{{ animal.earTagNumber }}/movements/add{{ contextQuery }}"
+      role="button"
+      draggable="false"
+      class="govuk-button"
+      data-module="govuk-button"
+    >
+      Add a movement record
+    </a>
+
+  </div>
+</div>
+
+{% endblock %}

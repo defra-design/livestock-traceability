@@ -14,7 +14,7 @@
       },
       "status": "Deceased",
       "administrativeStatus": {
-        "passportStatus": "Passport issued",
+        "passportStatus": "Awaiting return",
         "movementStatus": "Unrestricted",
         "passportLastIssued": "17-05-2023",
         "passportVersion": 1
@@ -27,7 +27,9 @@
         }
       },
       "sire": null,
-      "dateOfRegistration": "17-05-2023"
+      "dateOfRegistration": "17-05-2023",
+      "cphType": "Agricultural holding (AH)",
+      "cphTypeCode": "AH"
     },
     {
       "cph": "23/792/8936",
@@ -40,7 +42,7 @@
       },
       "status": "Lost",
       "administrativeStatus": {
-        "passportStatus": "Passport issued",
+        "passportStatus": "Valid",
         "movementStatus": "Unrestricted",
         "passportLastIssued": "15-05-2024",
         "passportVersion": 1
@@ -55,7 +57,9 @@
         }
       },
       "sire": null,
-      "dateOfRegistration": "15-05-2024"
+      "dateOfRegistration": "15-05-2024",
+      "cphType": "Agricultural holding (AH)",
+      "cphTypeCode": "AH"
     },
     {
       "cph": "37/338/8280",
@@ -68,7 +72,7 @@
       },
       "status": "Stolen",
       "administrativeStatus": {
-        "passportStatus": "Passport issued",
+        "passportStatus": "Valid",
         "movementStatus": "Unrestricted",
         "passportLastIssued": "25-02-2025",
         "passportVersion": 1
@@ -86,7 +90,9 @@
         "earTagNumber": "UK039310588087",
         "name": "Highland Monarch"
       },
-      "dateOfRegistration": "25-02-2025"
+      "dateOfRegistration": "25-02-2025",
+      "cphType": "Agricultural holding (AH)",
+      "cphTypeCode": "AH"
     },
     {
       "cph": "67/703/4558",
@@ -99,7 +105,7 @@
       },
       "status": "Alive",
       "administrativeStatus": {
-        "passportStatus": "Passport issued",
+        "passportStatus": "Valid",
         "movementStatus": "Unrestricted",
         "passportLastIssued": "07-04-2026",
         "passportVersion": 1
@@ -112,7 +118,9 @@
         }
       },
       "sire": null,
-      "dateOfRegistration": "07-04-2026"
+      "dateOfRegistration": "07-04-2026",
+      "cphType": "Agricultural holding (AH)",
+      "cphTypeCode": "AH"
     },
     {
       "cph": "45/259/3528",
@@ -125,7 +133,7 @@
       },
       "status": "Alive",
       "administrativeStatus": {
-        "passportStatus": "Passport issued",
+        "passportStatus": "Valid",
         "movementStatus": "Unrestricted",
         "passportLastIssued": "25-01-2024",
         "passportVersion": 3
@@ -143,7 +151,9 @@
         "earTagNumber": "UK314575863782",
         "name": ""
       },
-      "dateOfRegistration": "03-08-2022"
+      "dateOfRegistration": "03-08-2022",
+      "cphType": "Agricultural holding (AH)",
+      "cphTypeCode": "AH"
     },
     {
       "cph": "55/967/5636",
@@ -156,7 +166,7 @@
       },
       "status": "Alive",
       "administrativeStatus": {
-        "passportStatus": "Passport issued",
+        "passportStatus": "Valid",
         "movementStatus": "Unrestricted",
         "passportLastIssued": "06-04-2022",
         "passportVersion": 1
@@ -169,7 +179,9 @@
         }
       },
       "sire": null,
-      "dateOfRegistration": "06-04-2022"
+      "dateOfRegistration": "06-04-2022",
+      "cphType": "Agricultural holding (AH)",
+      "cphTypeCode": "AH"
     },
     {
       "cph": "20/665/4804",
@@ -183,7 +195,7 @@
       },
       "status": "Deceased",
       "administrativeStatus": {
-        "passportStatus": "Passport issued",
+        "passportStatus": "Returned",
         "movementStatus": "Unrestricted",
         "passportLastIssued": "30-06-2025",
         "passportVersion": 1
@@ -196,7 +208,9 @@
         }
       },
       "sire": null,
-      "dateOfRegistration": "30-06-2025"
+      "dateOfRegistration": "30-06-2025",
+      "cphType": "Agricultural holding (AH)",
+      "cphTypeCode": "AH"
     },
     {
       "cph": "18/146/3734",
@@ -209,7 +223,7 @@
       },
       "status": "Alive",
       "administrativeStatus": {
-        "passportStatus": "Passport refused",
+        "passportStatus": "Refused",
         "movementStatus": "Restricted",
         "passportLastIssued": null,
         "passportVersion": null
@@ -222,7 +236,9 @@
         }
       },
       "sire": null,
-      "dateOfRegistration": "27-06-2022"
+      "dateOfRegistration": "27-06-2022",
+      "cphType": "Agricultural holding (AH)",
+      "cphTypeCode": "AH"
     },
     {
       "cph": "45/564/5978",
@@ -235,10 +251,10 @@
       },
       "status": "Alive",
       "administrativeStatus": {
-        "passportStatus": "Passport issued",
+        "passportStatus": "Incomplete",
         "movementStatus": "Unrestricted",
-        "passportLastIssued": "19-01-2024",
-        "passportVersion": 1
+        "passportLastIssued": null,
+        "passportVersion": null
       },
       "dam": {
         "type": "Genetic",
@@ -248,7 +264,9 @@
         }
       },
       "sire": null,
-      "dateOfRegistration": "19-01-2024"
+      "dateOfRegistration": "19-01-2024",
+      "cphType": "Agricultural holding (AH)",
+      "cphTypeCode": "AH"
     },
     {
       "cph": "97/763/1170",
@@ -261,7 +279,7 @@
       },
       "status": "Alive",
       "administrativeStatus": {
-        "passportStatus": "Passport issued",
+        "passportStatus": "Refused",
         "movementStatus": "Restricted",
         "passportLastIssued": "09-07-2023",
         "passportVersion": 2
@@ -276,7 +294,9 @@
         }
       },
       "sire": null,
-      "dateOfRegistration": "10-01-2023"
+      "dateOfRegistration": "10-01-2023",
+      "cphType": "Agricultural holding (AH)",
+      "cphTypeCode": "AH"
     },
     {
       "cph": "69/488/4423",
@@ -289,7 +309,7 @@
       },
       "status": "Alive",
       "administrativeStatus": {
-        "passportStatus": "Passport issued",
+        "passportStatus": "Valid",
         "movementStatus": "Unrestricted",
         "passportLastIssued": "14-02-2025",
         "passportVersion": 1
@@ -302,7 +322,9 @@
         }
       },
       "sire": null,
-      "dateOfRegistration": "14-02-2025"
+      "dateOfRegistration": "14-02-2025",
+      "cphType": "Agricultural holding (AH)",
+      "cphTypeCode": "AH"
     },
     {
       "cph": "39/941/0526",
@@ -315,7 +337,7 @@
       },
       "status": "Alive",
       "administrativeStatus": {
-        "passportStatus": "Passport issued",
+        "passportStatus": "Valid",
         "movementStatus": "Unrestricted",
         "passportLastIssued": "02-04-2024",
         "passportVersion": 1
@@ -328,7 +350,9 @@
         }
       },
       "sire": null,
-      "dateOfRegistration": "02-04-2024"
+      "dateOfRegistration": "02-04-2024",
+      "cphType": "Agricultural holding (AH)",
+      "cphTypeCode": "AH"
     },
     {
       "cph": "82/997/5156",
@@ -341,7 +365,7 @@
       },
       "status": "Alive",
       "administrativeStatus": {
-        "passportStatus": "Passport issued",
+        "passportStatus": "Valid",
         "movementStatus": "Unrestricted",
         "passportLastIssued": "18-02-2025",
         "passportVersion": 2
@@ -356,7 +380,9 @@
         }
       },
       "sire": null,
-      "dateOfRegistration": "21-10-2024"
+      "dateOfRegistration": "21-10-2024",
+      "cphType": "Agricultural holding (AH)",
+      "cphTypeCode": "AH"
     },
     {
       "cph": "43/242/4041",
@@ -369,7 +395,7 @@
       },
       "status": "Alive",
       "administrativeStatus": {
-        "passportStatus": "Passport issued",
+        "passportStatus": "Valid",
         "movementStatus": "Unrestricted",
         "passportLastIssued": "11-01-2025",
         "passportVersion": 1
@@ -382,7 +408,9 @@
         }
       },
       "sire": null,
-      "dateOfRegistration": "11-01-2025"
+      "dateOfRegistration": "11-01-2025",
+      "cphType": "Agricultural holding (AH)",
+      "cphTypeCode": "AH"
     },
     {
       "cph": "61/470/3594",
@@ -395,7 +423,7 @@
       },
       "status": "Alive",
       "administrativeStatus": {
-        "passportStatus": "Passport issued",
+        "passportStatus": "Valid",
         "movementStatus": "Unrestricted",
         "passportLastIssued": "12-10-2024",
         "passportVersion": 1
@@ -408,7 +436,9 @@
         }
       },
       "sire": null,
-      "dateOfRegistration": "12-10-2024"
+      "dateOfRegistration": "12-10-2024",
+      "cphType": "Agricultural holding (AH)",
+      "cphTypeCode": "AH"
     },
     {
       "cph": "29/742/2622",
@@ -421,7 +451,7 @@
       },
       "status": "Alive",
       "administrativeStatus": {
-        "passportStatus": "Passport issued",
+        "passportStatus": "Valid",
         "movementStatus": "Unrestricted",
         "passportLastIssued": "21-05-2024",
         "passportVersion": 1
@@ -437,7 +467,9 @@
         "earTagNumber": "UK528457090237",
         "name": "Blackthorn Major"
       },
-      "dateOfRegistration": "21-05-2024"
+      "dateOfRegistration": "21-05-2024",
+      "cphType": "Agricultural holding (AH)",
+      "cphTypeCode": "AH"
     },
     {
       "cph": "58/710/7669",
@@ -450,7 +482,7 @@
       },
       "status": "Alive",
       "administrativeStatus": {
-        "passportStatus": "Passport issued",
+        "passportStatus": "Valid",
         "movementStatus": "Unrestricted",
         "passportLastIssued": "17-02-2025",
         "passportVersion": 1
@@ -463,7 +495,9 @@
         }
       },
       "sire": null,
-      "dateOfRegistration": "17-02-2025"
+      "dateOfRegistration": "17-02-2025",
+      "cphType": "Agricultural holding (AH)",
+      "cphTypeCode": "AH"
     },
     {
       "cph": "78/868/4372",
@@ -476,7 +510,7 @@
       },
       "status": "Alive",
       "administrativeStatus": {
-        "passportStatus": "Passport issued",
+        "passportStatus": "Valid",
         "movementStatus": "Restricted",
         "passportLastIssued": "11-12-2024",
         "passportVersion": 2
@@ -491,7 +525,9 @@
         }
       },
       "sire": null,
-      "dateOfRegistration": "12-12-2023"
+      "dateOfRegistration": "12-12-2023",
+      "cphType": "Agricultural holding (AH)",
+      "cphTypeCode": "AH"
     },
     {
       "cph": "30/564/0054",
@@ -504,7 +540,7 @@
       },
       "status": "Alive",
       "administrativeStatus": {
-        "passportStatus": "Passport issued",
+        "passportStatus": "Valid",
         "movementStatus": "Unrestricted",
         "passportLastIssued": "15-07-2023",
         "passportVersion": 1
@@ -520,7 +556,9 @@
         "earTagNumber": "UK558006689864",
         "name": "Cwm Valley Duke"
       },
-      "dateOfRegistration": "15-07-2023"
+      "dateOfRegistration": "15-07-2023",
+      "cphType": "Agricultural holding (AH)",
+      "cphTypeCode": "AH"
     },
     {
       "cph": "23/991/4890",
@@ -533,7 +571,7 @@
       },
       "status": "Alive",
       "administrativeStatus": {
-        "passportStatus": "Passport issued",
+        "passportStatus": "Valid",
         "movementStatus": "Unrestricted",
         "passportLastIssued": "29-11-2024",
         "passportVersion": 1
@@ -546,7 +584,9 @@
         }
       },
       "sire": null,
-      "dateOfRegistration": "29-11-2024"
+      "dateOfRegistration": "29-11-2024",
+      "cphType": "Agricultural holding (AH)",
+      "cphTypeCode": "AH"
     }
   ]
 }

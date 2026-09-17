@@ -1,0 +1,279 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName = "Activity" %}
+{% set activeNav = "animals" %}
+
+{% block header %}
+{% block navBar %}{% include "./components/_navigation.html" %}{% endblock %}
+<style>.govuk-secondary-text-colour{
+  color:	#484949;
+}</style>
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+
+    <span class="govuk-caption-l">Registered animal</span>
+
+    <h1 class="govuk-heading-xl govuk-!-margin-bottom-2">
+      {{ animal.earTagNumber | formatReference }}
+    </h1>
+
+    <p class="govuk-body govuk-!-margin-top-4 govuk-!-margin-bottom-{% if animalIssues and animalIssues.length %}2{%else%}6{%endif%}">
+  <strong>Animal status:</strong> {{ animal.status }} &nbsp;&nbsp;|&nbsp;&nbsp; <strong>Passport status:</strong>
+             {% if animal.administrativeStatus.passportStatus == "Refused" %}
+  {{ govukTag({
+    text: "Refused",
+    classes: "govuk-tag--red"
+  }) }}
+
+{% elseif animal.administrativeStatus.passportStatus == "Incomplete" %}
+  {{ govukTag({
+    text: "Incomplete",
+    classes: "govuk-tag--yellow"
+  }) }}
+
+{% elseif animal.administrativeStatus.passportStatus == "Awaiting return" %}
+  {{ govukTag({
+    text: "Awaiting return",
+    classes: "govuk-tag--yellow"
+  }) }}
+
+{% else %}
+  {{ animal.administrativeStatus.passportStatus }}
+{% endif %}
+</p>
+
+{% include "./components/_animal-issues-callout.html" %}
+
+    <nav class="moj-sub-navigation" aria-label="Sub navigation">
+     <ul class="moj-sub-navigation__list">
+          <li class="moj-sub-navigation__item">
+            <a
+                    class="moj-sub-navigation__link"
+
+                    href="/{{baseURL}}/cattle/{{ animal.earTagNumber }}{{ contextQuery }}"
+            >
+              Animal details
+            </a>
+          </li>
+          <li class="moj-sub-navigation__item">
+            <a
+                    class="moj-sub-navigation__link"
+
+                    href="/{{baseURL}}/cattle/{{ animal.earTagNumber }}/cattle-history{{ contextQuery }}"
+            >
+              Movements
+            </a>
+          </li>
+          <li class="moj-sub-navigation__item">
+            <a
+                    class="moj-sub-navigation__link"
+                    aria-current="page"
+                    href="/{{baseURL}}/cattle/{{ animal.earTagNumber }}/cattle-activity{{ contextQuery }}"
+            >
+              Activity
+            </a>
+          </li>
+        </ul>
+    </nav>
+
+  </div>
+</div>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds govuk-!-padding-bottom-9">
+
+    <h2 class="govuk-heading-m">Activity</h2>
+
+    <ol class="govuk-list">
+
+      <li>
+        <article>
+          <h3 class="govuk-heading-s govuk-!-margin-bottom-1">
+            <a href="#">Death recorded</a>
+          </h3>
+
+          <p class="govuk-body govuk-secondary-text-colour govuk-!-margin-bottom-4">
+            <time datetime="2025-05-22T10:06:00">22 May 2025 at 10:06am</time>
+          </p>
+
+          <p class="govuk-body govuk-!-margin-bottom-2">
+            Animal recorded as deceased on 22 May 2025 at <strong>47/215/0169 (<abbr title="Slaughterhouse or abattoir">SL</abbr>)</strong>.
+          </p>
+
+          <p class="govuk-body govuk-!-margin-bottom-0">
+            Recorded by Mike Thomas (caseworker)
+          </p>
+        </article>
+
+        <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+      </li>
+
+      <li>
+        <article>
+          <h3 class="govuk-heading-s govuk-!-margin-bottom-1">
+            <a href="#">Movement on recorded</a>
+          </h3>
+
+          <p class="govuk-body govuk-secondary-text-colour govuk-!-margin-bottom-4">
+            <time datetime="2025-05-21T11:34:00">21 May 2025 at 11:34am</time>
+          </p>
+
+          <p class="govuk-body govuk-!-margin-bottom-2">
+            Moved on to <strong>47/215/0169 (<abbr title="Slaughterhouse or abattoir">SL</abbr>)</strong> on 21 May 2025 at 11:26am.
+          </p>
+
+          <p class="govuk-body govuk-!-margin-bottom-0">
+            Recorded by Sarah Williams (keeper)
+          </p>
+        </article>
+
+        <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+      </li>
+
+      <li>
+        <article>
+          <h3 class="govuk-heading-s govuk-!-margin-bottom-1">
+            <a href="#">Movement off record updated</a>
+          </h3>
+
+          <p class="govuk-body govuk-secondary-text-colour govuk-!-margin-bottom-4">
+            <time datetime="2025-05-20T14:42:00">20 May 2025 at 2:42pm</time>
+          </p>
+
+          <p class="govuk-body govuk-!-margin-bottom-2">
+            Moved off date changed from <strong>20 May 2025</strong> to <strong>19 May 2025</strong>.
+          </p>
+
+          <p class="govuk-body govuk-!-margin-bottom-0">
+            Updated by Mike Thomas (caseworker)
+          </p>
+        </article>
+
+        <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+      </li>
+
+      <li>
+        <article>
+          <h3 class="govuk-heading-s govuk-!-margin-bottom-1">
+            Missing movement off identified
+          </h3>
+
+          <p class="govuk-body govuk-secondary-text-colour govuk-!-margin-bottom-4">
+            <time datetime="2025-05-20T09:26:00">20 May 2025 at 9:26am</time>
+          </p>
+
+          <p class="govuk-body govuk-!-margin-bottom-2">
+            The recorded movement off did not fit the animal's movement history and was identified as missing from the expected date.
+          </p>
+
+          <p class="govuk-body govuk-!-margin-bottom-0">
+            Identified by the system
+          </p>
+        </article>
+
+        <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+      </li>
+
+      <li>
+        <article>
+          <h3 class="govuk-heading-s govuk-!-margin-bottom-1">
+            <a href="#">Movement off recorded</a>
+          </h3>
+
+          <p class="govuk-body govuk-secondary-text-colour govuk-!-margin-bottom-4">
+            <time datetime="2025-05-20T09:25:00">20 May 2025 at 9:25am</time>
+          </p>
+
+          <p class="govuk-body govuk-!-margin-bottom-2">
+            Moved off <strong>56/312/0056 (<abbr title="Agricultural holding">AH</abbr>)</strong> on 20 May 2025 at 9:18am.
+          </p>
+
+          <p class="govuk-body govuk-!-margin-bottom-0">
+            Recorded by Sarah Williams (keeper)
+          </p>
+        </article>
+
+        <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+      </li>
+
+      <li>
+        <article>
+          <h3 class="govuk-heading-s govuk-!-margin-bottom-1">
+            <a href="#">Dam details updated</a>
+          </h3>
+
+          <p class="govuk-body govuk-secondary-text-colour govuk-!-margin-bottom-4">
+            <time datetime="2022-12-20T11:03:00">20 December 2022 at 11:03am</time>
+          </p>
+
+          <p class="govuk-body govuk-!-margin-bottom-2">
+            Genetic dam changed from <strong>UK 123456 789012</strong> to <strong>UK 987654 321098</strong>.
+          </p>
+
+          <p class="govuk-body govuk-!-margin-bottom-0">
+            Updated by Mike Thomas (caseworker)
+          </p>
+        </article>
+
+        <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+      </li>
+
+      <li>
+        <article>
+          <h3 class="govuk-heading-s govuk-!-margin-bottom-1">
+            Dam details issue identified
+          </h3>
+
+          <p class="govuk-body govuk-secondary-text-colour govuk-!-margin-bottom-4">
+            <time datetime="2022-12-18T09:37:00">18 December 2022 at 9:37am</time>
+          </p>
+
+          <p class="govuk-body govuk-!-margin-bottom-2">
+            The recorded dam <strong>UK 123456 789012</strong> could not be matched to a registered animal.
+          </p>
+
+          <p class="govuk-body govuk-!-margin-bottom-0">
+            Identified by the system
+          </p>
+        </article>
+
+        <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+      </li>
+
+      <li>
+        <article>
+          <h3 class="govuk-heading-s govuk-!-margin-bottom-1">
+            <a href="#">Birth recorded</a>
+          </h3>
+
+          <p class="govuk-body govuk-secondary-text-colour govuk-!-margin-bottom-4">
+            <time datetime="2022-12-18T09:36:00">18 December 2022 at 9:36am</time>
+          </p>
+
+          <p class="govuk-body govuk-!-margin-bottom-2">
+            Birth recorded for 17 December 2022 at <strong>39/740/0193 (<abbr title="Agricultural holding">AH</abbr>)</strong> with dam <strong>UK 123456 789012</strong>.
+          </p>
+
+          <p class="govuk-body govuk-!-margin-bottom-0">
+            Recorded by Sarah Williams (keeper)
+          </p>
+        </article>
+
+      </li>
+    </ol>
+
+  </div>
+</div>
+
+{% endblock %}

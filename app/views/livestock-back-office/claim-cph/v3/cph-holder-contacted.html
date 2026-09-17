@@ -1,0 +1,49 @@
+{% extends "layouts/main.html" %}
+
+{% set pageHeading = "Request sent" %}
+{% block pageTitle %}{{ pageHeading }}{% endblock %}
+
+{% block header %}
+{% include "./components/_header.html" %}
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    {{ govukPanel({
+      titleText: "Request sent"
+    }) }}
+
+    <p class="govuk-body">
+      We’ve sent the CPH holder an email asking them to add you to CPH <strong>{{ holding.cphNumber }}</strong>.
+    </p>
+
+    <p class="govuk-body">
+      It can take up to 5 weeks for you to be added.
+    </p>
+
+    <p class="govuk-body">
+      If you have not been added after 5 weeks, contact the British Cattle Movement Service (BCMS).
+    </p>
+
+    <h2 class="govuk-heading-m">Contact BCMS</h2>
+
+    <ul class="govuk-list govuk-list--bullet">
+      <li>BCMS phone: 0345 050 1234</li>
+      <li>Helpline for cattle keepers in Wales: 0345 050 3456</li>
+      <li>Monday to Friday, 8:30am to 5pm</li>
+    </ul>
+
+    <p class="govuk-body">
+      <a class="govuk-link" href="https://www.gov.uk/call-charges">Find out about call charges</a>
+    </p>
+
+    {{ govukButton({
+      text: "Continue",
+      href: "/" ~ baseURL ~ "/holdings"
+    }) }}
+
+  </div>
+</div>
+{% endblock %}
