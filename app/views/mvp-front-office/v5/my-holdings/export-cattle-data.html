@@ -18,21 +18,23 @@
 {% block beforeContent %}
   {{ govukBackLink({
     text: "Back",
-    href: "/mvp-front-office/v5/my-holdings/holding-details"
+    href: "/mvp-front-office/v5/my-holdings/holding-overview"
   }) }}
 {% endblock %}
 
 {% block content %}
 
-<div class="govuk-grid-row">
-  <div class="govuk-grid-column-full">
+  <div class="govuk-grid-row">
 
-    <div class="govuk-grid-row">
-
-      <div class="govuk-grid-column-two-thirds">
-        <h1 class="govuk-heading-l">
-          Export animals on holding
-        </h1>
+      <div class="govuk-grid-column-full">
+        <div class="govuk-!-margin-bottom-8">
+          <h1 class="govuk-heading-l govuk-!-margin-bottom-3">
+            Export cattle on holding
+          </h1>
+          <p class="govuk-body">
+            Choose the columns, date range and file format you want, then select 'Export'.
+          </p>
+        </div>
 
         {% if exported %}
         {% set html %}
@@ -46,10 +48,6 @@
           html: html
         }) }}
         {% endif %}
-
-        <p class="govuk-body">
-          Choose the columns, date range and file format you want, then select 'Export'.
-        </p>
 
         <form action="/mvp-front-office/v5/my-holdings/export-animals" method="post" novalidate>
 
@@ -65,8 +63,8 @@
               text: "Select all that apply"
             },
             items: [
-              { value: "cph", text: "CPH number", checked: true },
-              { value: "earTagNumber", text: "Ear tag number", checked: true },
+              { value: "cph", text: "County Parish Holding number", checked: true },
+              { value: "earTagNumber", text: "Animal ear tag number", checked: true },
               { value: "dateOfBirth", text: "Date of birth", checked: true },
               { value: "dateOfRegistration", text: "Date of registration" },
               { value: "onHoldingDate", text: "On holding date" },
@@ -82,7 +80,7 @@
             ]
           }) }}
 
-          <div class="govuk-form-group">
+          <div class="govuk-form-group govuk-!-margin-top-8">
             <fieldset class="govuk-fieldset">
               <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
                 Date range
@@ -154,8 +152,5 @@
 
       </div>
     </div>
-
-  </div>
-</div>
 
 {% endblock %}

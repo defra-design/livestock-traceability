@@ -1,0 +1,80 @@
+// Traffic-card
+//
+// A block-level, clickable status tile with a coloured left-hand indicator.
+// The outer card has no left border - the coloured left border sits on
+// the inner element instead. Use the --green, --amber and --red modifiers
+// to signal the state of the count it links through to (eg. on holding /
+// pending / in error).
+
+.app-traffic-card {
+  display: block;
+  background-color: govuk-colour("light-grey");
+  border: 1px solid govuk-colour("mid-grey");
+  border-left: 0;
+  text-decoration: none;
+  color: $govuk-text-colour;
+
+  @include govuk-media-query($until: tablet) {
+    margin-bottom: govuk-spacing(2);
+  }
+
+  &:hover .app-traffic-card__label {
+    color: $govuk-link-hover-colour;
+    text-decoration-thickness: $govuk-link-hover-underline-thickness;
+    -webkit-text-decoration-skip-ink: none;
+            text-decoration-skip-ink: none;
+  }
+
+  &:focus {
+    outline: 3px solid transparent;
+    color: $govuk-focus-text-colour;
+    background-color: $govuk-focus-colour;
+  }
+
+  &:focus .app-traffic-card__label {
+    color: $govuk-focus-text-colour;
+  }
+}
+
+.app-traffic-card__inner {
+  display: block;
+  border-left: 6px solid;
+  padding: govuk-spacing(4) govuk-spacing(4);
+
+   @include govuk-media-query($until: tablet) {
+      padding: govuk-spacing(2) govuk-spacing(2);
+    }
+
+}
+
+.app-traffic-card__number {
+  @include govuk-font($size: 36, $weight: bold);
+
+  display: block;
+  margin-top: 0;
+  margin-bottom: govuk-spacing(1);
+  color: govuk-colour("black");
+}
+
+.app-traffic-card__label {
+  @include govuk-font($size: 19, $weight: bold);
+
+  display: block;
+  margin-bottom: 0;
+  color: $govuk-link-colour;
+  text-decoration: underline;
+  text-decoration-thickness: $govuk-link-underline-thickness;
+  text-underline-offset: $govuk-link-underline-offset;
+}
+
+.app-traffic-card--green .app-traffic-card__inner {
+  border-left-color: govuk-colour("green");
+}
+
+.app-traffic-card--amber .app-traffic-card__inner {
+  border-left-color: govuk-colour("orange");
+}
+
+.app-traffic-card--red .app-traffic-card__inner {
+  border-left-color: govuk-colour("red");
+}

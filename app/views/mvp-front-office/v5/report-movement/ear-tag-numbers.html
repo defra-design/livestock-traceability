@@ -1,0 +1,65 @@
+{% extends "layouts/main.html" %}
+
+
+{% block header %}
+
+  {% include "mvp-front-office/v5/partials/header.html" %}
+
+{% endblock %}
+
+{% set pageName="Ear tag numbers" %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    {% if errors %}
+    <div class="govuk-error-summary" data-module="govuk-error-summary">
+      <div role="alert">
+        <h2 class="govuk-error-summary__title">There is a problem</h2>
+        <div class="govuk-error-summary__body">
+          <ul class="govuk-list govuk-error-summary__list">
+            {% if errors['movement-ear-tags'] %}
+            <li><a href="#movement-ear-tags">{{ errors['movement-ear-tags'] }}</a></li>
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
+    <form action="/mvp-front-office/v5/report-movement/ear-tag-numbers" method="post" novalidate>
+
+      <div class="govuk-form-group {% if errors['movement-ear-tags'] %}govuk-form-group--error{% endif %}">
+        <h1 class="govuk-label-wrapper">
+          <label class="govuk-label govuk-label--l" for="movement-ear-tags">
+            Add the ear tag numbers of the animals involved
+          </label>
+        </h1>
+        <div id="movement-ear-tags-hint" class="govuk-hint">
+          Enter one ear tag number per line
+        </div>
+        {% if errors['movement-ear-tags'] %}
+        <p id="movement-ear-tags-error" class="govuk-error-message">
+          <span class="govuk-visually-hidden">Error:</span> {{ errors['movement-ear-tags'] }}
+        </p>
+        {% endif %}
+        <textarea class="govuk-textarea {% if errors['movement-ear-tags'] %}govuk-textarea--error{% endif %}" id="movement-ear-tags" name="movement-ear-tags" rows="10" aria-describedby="movement-ear-tags-hint{% if errors['movement-ear-tags'] %} movement-ear-tags-error{% endif %}">{{ data['movement-ear-tags'] }}</textarea>
+      </div>
+
+      {{ govukButton({ text: "Continue" }) }}
+
+    </form>
+
+  </div>
+</div>
+
+{% endblock %}

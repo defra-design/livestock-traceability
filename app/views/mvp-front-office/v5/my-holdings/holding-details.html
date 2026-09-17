@@ -14,8 +14,12 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
 
-      <span class="govuk-caption-l">Oakfield Farm</span>
-      <h1 class="govuk-heading-l">Holding details</h1>
+    <h1 class="govuk-heading-xl govuk-!-margin-bottom-4">
+         <span class="govuk-caption-l">
+             {{ holding.cph }}
+         </span>
+      {{ holding.holdingName }}
+    </h1>
 
       <nav class="moj-sub-navigation" aria-label="Sub navigation">
         <ul class="moj-sub-navigation__list">
@@ -57,16 +61,6 @@
             <br>{{ holding.address.postcode }}
             {% if holding.address.country %}<br>{{ holding.address.country }}{% endif %}
           </dd>
-        </div>
-
-       <!-- <div class="govuk-summary-list__row">
-          <dt class="govuk-summary-list__key">Holding type</dt>
-          <dd class="govuk-summary-list__value">{{ holding.holdingType }}</dd>
-        </div>-->
-
-        <div class="govuk-summary-list__row">
-          <dt class="govuk-summary-list__key">Registered keeper</dt>
-          <dd class="govuk-summary-list__value">{{ holding.keeper.name }}</dd>
         </div>
 
         <div class="govuk-summary-list__row">

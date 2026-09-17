@@ -1,0 +1,51 @@
+{% extends "layouts/main.html" %}
+
+
+{% block header %}
+
+  {% include "mvp-front-office/v5/partials/header.html" %}
+
+{% endblock %}
+
+{% set pageName="Are you sure you want to remove this draft registration?" %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <form action="/mvp-front-office/v5/my-holdings/register-cattle-birth/remove-draft" method="post" novalidate>
+
+      <input type="hidden" name="draft-reference" value="{{ submission.reference }}">
+
+      <div class="govuk-form-group">
+        <fieldset class="govuk-fieldset">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+            <h1 class="govuk-fieldset__heading">
+              Are you sure you want to remove this draft registration?
+            </h1>
+          </legend>
+          <p class="govuk-body">{{ submission.reference }}</p>
+        </fieldset>
+      </div>
+
+      <div class="govuk-button-group">
+        <button type="submit" class="govuk-button" data-module="govuk-button">
+          Remove
+        </button>
+        <a class="govuk-link" href="/mvp-front-office/v5/my-holdings/register-cattle-birth">Cancel</a>
+      </div>
+
+    </form>
+
+  </div>
+</div>
+
+{% endblock %}
