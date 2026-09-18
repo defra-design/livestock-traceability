@@ -1,5 +1,5 @@
 {
-  "recordCount": 42,
+  "recordCount": 40,
   "holdings": [
     {
       "id": "holding-001",
@@ -30,23 +30,7 @@
           "species": "Sheep",
           "mark": "UK654321"
         }
-      ],
-      "owner": {
-        "role": "owner",
-        "firstName": "James",
-        "lastName": "Williams",
-        "name": "James Williams",
-        "email": "james.williams@example.com",
-        "phone": "07700 900001",
-        "address": {
-          "addressLine1": "Oakfield Farm",
-          "addressLine2": "Church Lane",
-          "town": "Shrewsbury",
-          "county": "Shropshire",
-          "postcode": "SY4 1AB",
-          "country": "England"
-        }
-      }
+      ]
     },
     {
       "id": "holding-002",
@@ -76,36 +60,7 @@
           "species": "Cattle",
           "mark": "UK234221"
         }
-      ],
-      "temporaryLandAssociations": [
-        {
-          "id": "tla-001",
-          "status": "Active",
-          "startDate": "2026-04-01",
-          "endDate": "2027-03-31",
-          "landName": "Mill Meadow",
-          "landholderCph": "24/118/0199",
-          "species": [
-            "Cattle"
-          ]
-        }
-      ],
-      "owner": {
-        "role": "owner",
-        "firstName": "Sarah",
-        "lastName": "Evans",
-        "name": "Sarah Evans",
-        "email": "sarah.evans@example.com",
-        "phone": "07700 900002",
-        "address": {
-          "addressLine1": "Willow Brook Farm",
-          "addressLine2": "Mill Road",
-          "town": "Hereford",
-          "county": "Herefordshire",
-          "postcode": "HR2 8JL",
-          "country": "England"
-        }
-      }
+      ]
     },
     {
       "id": "holding-003",
@@ -136,23 +91,7 @@
           "species": "Goats",
           "mark": "UK345679"
         }
-      ],
-      "owner": {
-        "role": "owner",
-        "firstName": "Peter",
-        "lastName": "Clarke",
-        "name": "Peter Clarke",
-        "email": "peter.clarke@example.com",
-        "phone": "07700 900003",
-        "address": {
-          "addressLine1": "Red Barn",
-          "addressLine2": "Station Lane",
-          "town": "Lincoln",
-          "county": "Lincolnshire",
-          "postcode": "LN5 0QF",
-          "country": "England"
-        }
-      }
+      ]
     },
     {
       "id": "holding-004",
@@ -183,23 +122,7 @@
           "species": "Sheep",
           "mark": "UK456781"
         }
-      ],
-      "owner": {
-        "role": "owner",
-        "firstName": "Rhys",
-        "lastName": "Morgan",
-        "name": "Rhys Morgan",
-        "email": "rhys.morgan@example.com",
-        "phone": "07700 900004",
-        "address": {
-          "addressLine1": "Cwm Valley Farm",
-          "addressLine2": "Llan Road",
-          "town": "Brecon",
-          "county": "Powys",
-          "postcode": "LD3 7TP",
-          "country": "Wales"
-        }
-      }
+      ]
     },
     {
       "id": "holding-005",
@@ -230,23 +153,7 @@
           "species": "Goats",
           "mark": "UK567891"
         }
-      ],
-      "owner": {
-        "role": "owner",
-        "firstName": "Helen",
-        "lastName": "Price",
-        "name": "Helen Price",
-        "email": "helen.price@example.com",
-        "phone": "07700 900005",
-        "address": {
-          "addressLine1": "Meadow View",
-          "addressLine2": "North Lane",
-          "town": "York",
-          "county": "North Yorkshire",
-          "postcode": "YO26 8RW",
-          "country": "England"
-        }
-      }
+      ]
     },
     {
       "id": "holding-006",
@@ -277,23 +184,7 @@
           "species": "Pigs",
           "mark": "UK678902"
         }
-      ],
-      "owner": {
-        "role": "owner",
-        "firstName": "Oliver",
-        "lastName": "Grant",
-        "name": "Oliver Grant",
-        "email": "oliver.grant@example.com",
-        "phone": "07700 900006",
-        "address": {
-          "addressLine1": "Blackthorn Estate",
-          "addressLine2": "Estate Road",
-          "town": "Taunton",
-          "county": "Somerset",
-          "postcode": "TA3 5PL",
-          "country": "England"
-        }
-      }
+      ]
     },
     {
       "id": "holding-007",
@@ -324,23 +215,7 @@
           "species": "Sheep",
           "mark": "UK789013"
         }
-      ],
-      "owner": {
-        "role": "owner",
-        "firstName": "Alice",
-        "lastName": "Thompson",
-        "name": "Alice Thompson",
-        "email": "alice.thompson@example.com",
-        "phone": "07700 900007",
-        "address": {
-          "addressLine1": "High Fell Farm",
-          "addressLine2": "Moorland Road",
-          "town": "Kendal",
-          "county": "Cumbria",
-          "postcode": "LA8 9HS",
-          "country": "England"
-        }
-      }
+      ]
     },
     {
       "id": "holding-008",
@@ -366,23 +241,7 @@
           "species": "Cattle",
           "mark": "UK890123"
         }
-      ],
-      "owner": {
-        "role": "owner",
-        "firstName": "Daniel",
-        "lastName": "Foster",
-        "name": "Daniel Foster",
-        "email": "daniel.foster@example.com",
-        "phone": "07700 900008",
-        "address": {
-          "addressLine1": "Green Pastures",
-          "addressLine2": "Dairy Lane",
-          "town": "Chester",
-          "county": "Cheshire",
-          "postcode": "CH3 6NT",
-          "country": "England"
-        }
-      }
+      ]
     },
     {
       "id": "holding-009",
@@ -408,23 +267,7 @@
           "species": "Cattle",
           "mark": "UK901234"
         }
-      ],
-      "owner": {
-        "role": "owner",
-        "firstName": "Laura",
-        "lastName": "Bennett",
-        "name": "Laura Bennett",
-        "email": "laura.bennett@example.com",
-        "phone": "07700 900009",
-        "address": {
-          "addressLine1": "Riverside Smallholding",
-          "addressLine2": "Bridge End",
-          "town": "Bury St Edmunds",
-          "county": "Suffolk",
-          "postcode": "IP31 2DH",
-          "country": "England"
-        }
-      }
+      ]
     },
     {
       "id": "holding-010",
@@ -450,23 +293,7 @@
           "species": "Cattle",
           "mark": "UK012345"
         }
-      ],
-      "owner": {
-        "role": "owner",
-        "firstName": "Matthew",
-        "lastName": "Reed",
-        "name": "Matthew Reed",
-        "email": "matthew.reed@example.com",
-        "phone": "07700 900010",
-        "address": {
-          "addressLine1": "Hilltop Farm",
-          "addressLine2": "Beacon Road",
-          "town": "Exeter",
-          "county": "Devon",
-          "postcode": "EX5 4QR",
-          "country": "England"
-        }
-      }
+      ]
     },
     {
       "id": "holding-011",
@@ -493,23 +320,7 @@
           "species": "Cattle",
           "mark": "UK112233"
         }
-      ],
-      "owner": {
-        "role": "owner",
-        "firstName": "Rebecca",
-        "lastName": "Hall",
-        "name": "Rebecca Hall",
-        "email": "rebecca.hall@example.com",
-        "phone": "07700 900011",
-        "address": {
-          "addressLine1": "Long Acre Farm",
-          "addressLine2": "Lower Road",
-          "town": "Norwich",
-          "county": "Norfolk",
-          "postcode": "NR10 5BX",
-          "country": "England"
-        }
-      }
+      ]
     },
     {
       "id": "holding-012",
@@ -545,23 +356,7 @@
           "species": "Goats",
           "mark": "UK223346"
         }
-      ],
-      "owner": {
-        "role": "owner",
-        "firstName": "Carys",
-        "lastName": "Jones",
-        "name": "Carys Jones",
-        "email": "carys.jones@example.com",
-        "phone": "07700 900012",
-        "address": {
-          "addressLine1": "Ty Mawr",
-          "addressLine2": "Bryn Road",
-          "town": "Carmarthen",
-          "county": "Carmarthenshire",
-          "postcode": "SA32 7LG",
-          "country": "Wales"
-        }
-      }
+      ]
     },
     {
       "id": "holding-013",
@@ -592,23 +387,7 @@
           "species": "Sheep",
           "mark": "UK334456"
         }
-      ],
-      "owner": {
-        "role": "owner",
-        "firstName": "George",
-        "lastName": "Mills",
-        "name": "George Mills",
-        "email": "george.mills@example.com",
-        "phone": "07700 900013",
-        "address": {
-          "addressLine1": "Westmoor Farm",
-          "addressLine2": "Moor Lane",
-          "town": "Plymouth",
-          "county": "Devon",
-          "postcode": "PL7 5ND",
-          "country": "England"
-        }
-      }
+      ]
     },
     {
       "id": "holding-014",
@@ -639,23 +418,7 @@
           "species": "Pigs",
           "mark": "UK445567"
         }
-      ],
-      "owner": {
-        "role": "owner",
-        "firstName": "Sophie",
-        "lastName": "Carter",
-        "name": "Sophie Carter",
-        "email": "sophie.carter@example.com",
-        "phone": "07700 900014",
-        "address": {
-          "addressLine1": "Ash Grove Farm",
-          "addressLine2": "Old Rectory Lane",
-          "town": "Gloucester",
-          "county": "Gloucestershire",
-          "postcode": "GL2 8SA",
-          "country": "England"
-        }
-      }
+      ]
     },
     {
       "id": "holding-015",
@@ -686,23 +449,7 @@
           "species": "Sheep",
           "mark": "UK556678"
         }
-      ],
-      "owner": {
-        "role": "owner",
-        "firstName": "Henry",
-        "lastName": "Lawson",
-        "name": "Henry Lawson",
-        "email": "henry.lawson@example.com",
-        "phone": "07700 900015",
-        "address": {
-          "addressLine1": "Stonebridge Farm",
-          "addressLine2": "River Lane",
-          "town": "Derby",
-          "county": "Derbyshire",
-          "postcode": "DE6 2PA",
-          "country": "England"
-        }
-      }
+      ]
     },
     {
       "id": "holding-016",
@@ -728,23 +475,7 @@
           "species": "Cattle",
           "mark": "UK667788"
         }
-      ],
-      "owner": {
-        "role": "owner",
-        "firstName": "Emma",
-        "lastName": "Brooks",
-        "name": "Emma Brooks",
-        "email": "emma.brooks@example.com",
-        "phone": "07700 900016",
-        "address": {
-          "addressLine1": "Rosebank Farm",
-          "addressLine2": "Rose Lane",
-          "town": "Lancaster",
-          "county": "Lancashire",
-          "postcode": "LA2 7DX",
-          "country": "England"
-        }
-      }
+      ]
     },
     {
       "id": "holding-017",
@@ -770,23 +501,7 @@
           "species": "Cattle",
           "mark": "UK778899"
         }
-      ],
-      "owner": {
-        "role": "owner",
-        "firstName": "Jack",
-        "lastName": "Turner",
-        "name": "Jack Turner",
-        "email": "jack.turner@example.com",
-        "phone": "07700 900017",
-        "address": {
-          "addressLine1": "Low Wood Farm",
-          "addressLine2": "Woodland Drive",
-          "town": "Carlisle",
-          "county": "Cumbria",
-          "postcode": "CA5 7LD",
-          "country": "England"
-        }
-      }
+      ]
     },
     {
       "id": "holding-018",
@@ -817,23 +532,7 @@
           "species": "Sheep",
           "mark": "UK889901"
         }
-      ],
-      "owner": {
-        "role": "owner",
-        "firstName": "Owain",
-        "lastName": "Hughes",
-        "name": "Owain Hughes",
-        "email": "owain.hughes@example.com",
-        "phone": "07700 900018",
-        "address": {
-          "addressLine1": "Pen-y-Bryn",
-          "addressLine2": "Mountain Road",
-          "town": "Aberystwyth",
-          "county": "Ceredigion",
-          "postcode": "SY23 4NB",
-          "country": "Wales"
-        }
-      }
+      ]
     },
     {
       "id": "holding-019",
@@ -865,23 +564,7 @@
           "species": "Pigs",
           "mark": "UK990012"
         }
-      ],
-      "owner": {
-        "role": "owner",
-        "firstName": "Anna",
-        "lastName": "Wilson",
-        "name": "Anna Wilson",
-        "email": "anna.wilson@example.com",
-        "phone": "07700 900019",
-        "address": {
-          "addressLine1": "Brookside Farm",
-          "addressLine2": "Water Lane",
-          "town": "Leicester",
-          "county": "Leicestershire",
-          "postcode": "LE8 6UJ",
-          "country": "England"
-        }
-      }
+      ]
     },
     {
       "id": "holding-020",
@@ -912,37 +595,7 @@
           "species": "Sheep",
           "mark": "UK101113"
         }
-      ],
-      "temporaryLandAssociations": [
-        {
-          "id": "tla-002",
-          "status": "Active",
-          "startDate": "2026-05-15",
-          "endDate": "2026-11-15",
-          "landName": "East Pasture",
-          "landholderCph": "56/312/0188",
-          "species": [
-            "Cattle",
-            "Sheep"
-          ]
-        }
-      ],
-      "owner": {
-        "role": "owner",
-        "firstName": "Michael",
-        "lastName": "Green",
-        "name": "Michael Green",
-        "email": "michael.green@example.com",
-        "phone": "07700 900020",
-        "address": {
-          "addressLine1": "Sunnybank Farm",
-          "addressLine2": "East Road",
-          "town": "Durham",
-          "county": "County Durham",
-          "postcode": "DH7 9RE",
-          "country": "England"
-        }
-      }
+      ]
     },
     {
       "id": "holding-021",
@@ -1463,126 +1116,6 @@
           "mark": "UK765131"
         }
       ]
-    },
-    {
-      "id": "holding-041",
-      "cph": "12/345/0041",
-      "holdingName": "Lower Meadow",
-      "businessName": "Oakfield Livestock Ltd",
-      "address": {
-        "addressLine1": "Lower Meadow",
-        "addressLine2": "Church Lane",
-        "town": "Shrewsbury",
-        "county": "Shropshire",
-        "postcode": "SY4 2CD",
-        "country": "England"
-      },
-      "status": "Active",
-      "holdingType": "Temporary holding (TH)",
-      "holdingTypeCode": "TH",
-      "associatedHolding": {
-        "id": "holding-001",
-        "cph": "12/345/0001"
-      },
-      "startDate": "2026-04-01",
-      "endDate": "2027-03-31",
-      "species": [
-        "Cattle",
-        "Sheep"
-      ],
-      "herdAndFlockMarks": [
-        {
-          "species": "Cattle",
-          "mark": "UK654322"
-        },
-        {
-          "species": "Sheep",
-          "mark": "UK654321"
-        }
-      ],
-      "landowner": {
-        "name": "John Smith",
-        "businessName": "Smith Farming Ltd",
-        "cph": "98/765/4321",
-        "phone": "07700 900099",
-        "email": "john.smith@example.com"
-      },
-      "owner": {
-        "role": "owner",
-        "firstName": "James",
-        "lastName": "Williams",
-        "name": "James Williams",
-        "email": "james.williams@example.com",
-        "phone": "07700 900001",
-        "address": {
-          "addressLine1": "Oakfield Farm",
-          "addressLine2": "Church Lane",
-          "town": "Shrewsbury",
-          "county": "Shropshire",
-          "postcode": "SY4 1AB",
-          "country": "England"
-        }
-      }
-    },
-    {
-      "id": "holding-042",
-      "cph": "53/417/0142",
-      "holdingName": "Moorland Grazing",
-      "businessName": "High Fell Farming Partnership",
-      "address": {
-        "addressLine1": "Moorland Grazing",
-        "addressLine2": "Fell Road",
-        "town": "Kendal",
-        "county": "Cumbria",
-        "postcode": "LA8 8HT",
-        "country": "England"
-      },
-      "status": "Active",
-      "holdingType": "Temporary holding (TH)",
-      "holdingTypeCode": "TH",
-      "associatedHolding": {
-        "id": "holding-007",
-        "cph": "53/417/0088"
-      },
-      "startDate": "2026-05-01",
-      "endDate": "2026-10-31",
-      "species": [
-        "Cattle",
-        "Sheep"
-      ],
-      "herdAndFlockMarks": [
-        {
-          "species": "Cattle",
-          "mark": "UK789012"
-        },
-        {
-          "species": "Sheep",
-          "mark": "UK789013"
-        }
-      ],
-      "landowner": {
-        "name": "John Smith",
-        "businessName": "Smith Farming Ltd",
-        "cph": "98/765/4321",
-        "phone": "07700 900099",
-        "email": "john.smith@example.com"
-      },
-      "owner": {
-        "role": "owner",
-        "firstName": "Alice",
-        "lastName": "Thompson",
-        "name": "Alice Thompson",
-        "email": "alice.thompson@example.com",
-        "phone": "07700 900007",
-        "address": {
-          "addressLine1": "High Fell Farm",
-          "addressLine2": "Moorland Road",
-          "town": "Kendal",
-          "county": "Cumbria",
-          "postcode": "LA8 9HS",
-          "country": "England"
-        }
-      }
     }
   ]
 }

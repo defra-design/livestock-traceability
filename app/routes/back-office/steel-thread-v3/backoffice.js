@@ -1681,10 +1681,24 @@ router.get('/' + baseURL + '/holdings/:id', (req, res) => {
     return item.species === 'Cattle';
   });
 
+  const associatedHolding = holding.associatedHolding?.id
+    ? holdingsData.holdings.find((item) => {
+        return item.id === holding.associatedHolding.id;
+      })
+    : null;
+
+  const temporaryLandAssociations = Array.isArray(
+    holding.temporaryLandAssociations
+  )
+    ? holding.temporaryLandAssociations
+    : [];
+
   return res.render(baseURL + '/holding-details', {
     holding,
     users,
     cattleHerdMarks,
+    associatedHolding,
+    temporaryLandAssociations,
     baseURL
   });
 });
