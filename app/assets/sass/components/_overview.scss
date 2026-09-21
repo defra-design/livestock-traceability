@@ -18,6 +18,12 @@
   }
 }
 
+.app-services-column {
+  @include govuk-media-query($until: tablet) {
+    margin-bottom: govuk-spacing(6);
+  }
+}
+
 .app-grid-container {
   display: flex;
   flex-direction: column;

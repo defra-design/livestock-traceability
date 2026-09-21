@@ -90,36 +90,38 @@
       {% set rows = (rows.push(row), rows) %}
       {% endfor %}
 
-      {{ govukTable({
-      attributes: {
-      "data-module": "moj-sortable-table"
-      },
-      caption: "Cattle error records",
-      captionClasses: "govuk-visually-hidden",
-      head: [
-      {
-      text: "Reference",
-      attributes: { "aria-sort": "ascending", style: "white-space: nowrap;" }
-      },
-      {
-      text: "Ear tag number",
-      attributes: { "aria-sort": "none", style: "white-space: nowrap;" }
-      },
-      {
-      text: "Date",
-      attributes: { "aria-sort": "none", style: "white-space: nowrap;" }
-      },
-      {
-      text: "Category",
-      attributes: { "aria-sort": "none" }
-      },
-      {
-      text: "Status",
-      attributes: { "aria-sort": "none", style: "white-space: nowrap;" }
-      }
-      ],
-      rows: rows
-      }) }}
+      <div class="app-dashboard-table-wrapper">
+        {{ govukTable({
+        attributes: {
+        "data-module": "moj-sortable-table"
+        },
+        caption: "Cattle error records",
+        captionClasses: "govuk-visually-hidden",
+        head: [
+        {
+        text: "Reference",
+        attributes: { "aria-sort": "ascending", style: "white-space: nowrap;" }
+        },
+        {
+        text: "Ear tag number",
+        attributes: { "aria-sort": "none", style: "white-space: nowrap;" }
+        },
+        {
+        text: "Date",
+        attributes: { "aria-sort": "none", style: "white-space: nowrap;" }
+        },
+        {
+        text: "Category",
+        attributes: { "aria-sort": "none" }
+        },
+        {
+        text: "Status",
+        attributes: { "aria-sort": "none", style: "white-space: nowrap;" }
+        }
+        ],
+        rows: rows
+        }) }}
+      </div>
 
       <p class="govuk-body">
         Showing {{ showingFrom }} to {{ showingTo }} of {{ totalErrors }} error records

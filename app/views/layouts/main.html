@@ -6,20 +6,20 @@ https://prototype-kit.service.gov.uk/docs/how-to-use-layouts
 {% extends "govuk-prototype-kit/layouts/govuk-branded.njk" %}
 {% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
 
-{% block header %}
-
+{% block govukHeader %}
     {{ govukHeader({
         homepageUrl: '/index.html'
     }) }}
+{% endblock %}
 
-{{ govukServiceNavigation({
-  serviceName: "Livestock Traceability",
-  serviceUrl: "#",
-  navigation: [
+{% block govukServiceNavigation %}
+    {{ govukServiceNavigation({
+      serviceName: "Livestock Traceability",
+      serviceUrl: "#",
+      navigation: [
 
-  ]
-}) }}
-
+      ]
+    }) }}
 {% endblock %}
 
 {% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
