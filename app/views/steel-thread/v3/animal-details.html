@@ -5,12 +5,7 @@
 
 {% set pageName = animal.earTagNumber | formatReference %}
 
-{% block header %}
-
-  {{ govukHeader({
-    homepageUrl: '/index.html'
-  }) }}
-
+{% block govukServiceNavigation %}
   {{ govukServiceNavigation({
     serviceName: "Livestock Information",
     serviceUrl: "/steel-thread/v3/holding-details",
@@ -18,7 +13,6 @@
       navigationEnd: '<li class="govuk-service-navigation__item app-service-navigation__item--right"><a class="govuk-service-navigation__link" href="#">Sign out</a></li>'
     }
   }) }}
-
 {% endblock %}
 
 {% block beforeContent %}
