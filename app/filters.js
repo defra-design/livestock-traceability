@@ -108,46 +108,53 @@ addFilter('sexToLetter', function(value) {
    return value;
  });
 
- addFilter('fullDateFormat', function (value) {
-    if (!value || typeof value !== 'string') {
-      return value;
-    }
+addFilter('fullDateFormat', function (value) {
+  if (!value || typeof value !== 'string') {
+    return value;
+  }
 
-    const parts = value.split('-');
+  const input = value.trim();
 
-    if (parts.length !== 3) {
-      return value;
-    }
+  const ukMatch = input.match(/^(\d{1,2})-(\d{1,2})-(\d{4})$/);
+  const isoMatch = input.match(/^(\d{4})-(\d{1,2})-(\d{1,2})$/);
 
-    const [day, month, year] = parts;
+  let day;
+  let month;
+  let year;
 
-    const monthNames = [
-      'January',
-      'February',
-      'March',
-      'April',
-      'May',
-      'June',
-      'July',
-      'August',
-      'September',
-      'October',
-      'November',
-      'December'
-    ];
+  if (ukMatch) {
+    day = Number(ukMatch[1]);
+    month = Number(ukMatch[2]);
+    year = ukMatch[3];
+  } else if (isoMatch) {
+    year = isoMatch[1];
+    month = Number(isoMatch[2]);
+    day = Number(isoMatch[3]);
+  } else {
+    return value;
+  }
 
-    const monthIndex = Number(month) - 1;
+  const monthNames = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December'
+  ];
 
-    if (
-      !Number.isInteger(monthIndex) ||
-      monthIndex < 0 ||
-      monthIndex > 11
-    ) {
-      return value;
-    }
+  if (month < 1 || month > 12) {
+    return value;
+  }
 
-    return `${Number(day)} ${monthNames[monthIndex]} ${year}`;
-  });
+  return `${day} ${monthNames[month - 1]} ${year}`;
+});
 
   addFilter('animalAge', function (value) {
     if (!value || typeof value !== 'string') {

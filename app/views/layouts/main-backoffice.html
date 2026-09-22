@@ -5,19 +5,19 @@ https://prototype-kit.service.gov.uk/docs/how-to-use-layouts
 
 {% extends "govuk-prototype-kit/layouts/govuk-branded.njk" %}
 {% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
-
+{% set bodyClasses = "app-caseworker" %}
 {% block header %}
 
-    {{ govukHeader({
-        homepageUrl: '/index.html'
-    }) }}
+{{ govukHeader({
+homepageUrl: '/index.html'
+}) }}
 
 {{ govukServiceNavigation({
-  serviceName: "Livestock Traceability",
-  serviceUrl: "#",
-  navigation: [
+serviceName: "Livestock Traceability",
+serviceUrl: "#",
+navigation: [
 
-  ]
+]
 }) }}
 {% endblock %}
 

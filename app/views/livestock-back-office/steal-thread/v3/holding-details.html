@@ -1,4 +1,4 @@
-{% extends "layouts/main.html" %}
+{% extends "layouts/main-backoffice.html" %}
 
 {% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
 
@@ -21,8 +21,12 @@
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">
       <span class="govuk-caption-l">
-            Holding
-      </span>
+  {% if holding.holdingTypeCode == "TH" %}
+    Temporary holding
+  {% else %}
+    Holding
+  {% endif %}
+</span>
 
         <h1 class="govuk-heading-l">
            {{ holding.cph }} - {{ holding.holdingName }}
@@ -34,21 +38,30 @@
 
 
         <div class="govuk-grid-row">
-        <div class="govuk-grid-column-three-quarters">
+        <div class="govuk-grid-column-two-thirds">
         <h2 class="govuk-heading-m">
+            {% if holding.holdingTypeCode == "TH" %}
+            Temporary holding information
+            {% else %}
             Holding information
+            {% endif %}
         </h2>
-        <dl class="govuk-summary-list">
+        <dl class="govuk-summary-list govuk-!-margin-bottom-8">
 
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    County parish holding (CPH) number
+                    {% if holding.holdingTypeCode == "TH" %}
+                    Temporary CPH number
+                    {% else %}
+                    CPH number
+                    {% endif %}
                 </dt>
                 <dd class="govuk-summary-list__value">
                     {{ holding.cph }}
                 </dd>
             </div>
-              <div class="govuk-summary-list__row">
+
+            <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
                     Holding type
                 </dt>
@@ -56,82 +69,8 @@
                     {{ holding.holdingType }}
                 </dd>
             </div>
-            <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                    Status
-                </dt>
-                <dd class="govuk-summary-list__value">
-                        {{ holding.status }}
-                </dd>
-            </div>
 
-            <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                    Holding name
-                </dt>
-                <dd class="govuk-summary-list__value">
-                    {{ holding.holdingName }}
-                </dd>
-            </div>
-
-            {% if holding.businessName %}
-            <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                    Business name
-                </dt>
-                <dd class="govuk-summary-list__value">
-                    {{ holding.businessName }}
-                </dd>
-            </div>
-            {% endif %}
-
-
-
-
-            <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                    Address
-                </dt>
-                <dd class="govuk-summary-list__value">
-                    {{ holding.address.addressLine1 }}
-
-                    {% if holding.address.addressLine2 %}
-                    <br>
-                    {{ holding.address.addressLine2 }}
-                    {% endif %}
-
-                    <br>
-                    {{ holding.address.town }}
-
-                    <br>
-                    {{ holding.address.county }}
-
-                    <br>
-                    {{ holding.address.postcode }}
-
-                    {% if holding.address.country %}
-                    <br>
-                    {{ holding.address.country }}
-                    {% endif %}
-                </dd>
-            </div>
-            {% if cattleHerdMarks.length %}
-            <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                    Herd mark{% if cattleHerdMarks.length > 1 %}s{% endif %}
-                </dt>
-                <dd class="govuk-summary-list__value">
-                    {% for herdMark in cattleHerdMarks %}
-                    {{ herdMark.mark }}{% if not loop.last %}<br>{% endif %}
-                    {% endfor %}
-                </dd>
-            </div>
-            {% endif %}
-        </dl>
-        {% if holding.holdingTypeCode == "TH" %}
-        <h2 class="govuk-heading-m">Temporary holding details</h2>
-
-        <dl class="govuk-summary-list govuk-!-margin-bottom-8">
+            {% if holding.holdingTypeCode == "TH" %}
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
                     Main holding
@@ -168,37 +107,138 @@
                     {% endif %}
                 </dd>
             </div>
+            {% endif %}
 
-            {% if holding.landowner %}
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    Landowner
+                    Status
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    {{ holding.landowner.name }}
-                    {% if holding.landowner.businessName %}
+                    {{ holding.status }}
+                </dd>
+            </div>
+
+            {% if holding.holdingStartDate %}
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Holding start date
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {{ holding.holdingStartDate | fullDateFormat }}
+                </dd>
+            </div>
+            {% endif %}
+
+            {% if holding.status == "Inactive" and holding.holdingEndDate %}
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Holding end date
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {{ holding.holdingEndDate | fullDateFormat }}
+                </dd>
+            </div>
+            {% endif %}
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Holding name
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {{ holding.holdingName }}
+                </dd>
+            </div>
+
+            {% if holding.businessName %}
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Business name
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {{ holding.businessName }}
+                </dd>
+            </div>
+            {% endif %}
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Address
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {{ holding.address.addressLine1 }}
+
+                    {% if holding.address.addressLine2 %}
                     <br>
-                    {{ holding.landowner.businessName }}
+                    {{ holding.address.addressLine2 }}
+                    {% endif %}
+
+                    <br>
+                    {{ holding.address.town }}
+
+                    <br>
+                    {{ holding.address.county }}
+
+                    <br>
+                    {{ holding.address.postcode }}
+
+                    {% if holding.address.country %}
+                    <br>
+                    {{ holding.address.country }}
                     {% endif %}
                 </dd>
             </div>
 
-            {% if holding.landowner.cph %}
+            {% if cattleHerdMarks.length %}
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    Landowner CPH
+                    Herd mark{% if cattleHerdMarks.length > 1 %}s{% endif %}
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    {{ holding.landowner.cph }}
+                    {% for herdMark in cattleHerdMarks %}
+                    {{ herdMark.mark }}{% if not loop.last %}<br>{% endif %}
+                    {% endfor %}
+                </dd>
+            </div>
+            {% endif %}
+        </dl>
+
+        {% if holding.holdingTypeCode == "TH" and holding.landowner %}
+        <h2 class="govuk-heading-m">Landowner details</h2>
+
+        <dl class="govuk-summary-list govuk-!-margin-bottom-8">
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">Name</dt>
+                <dd class="govuk-summary-list__value">
+                    {{ holding.landowner.name }}
+                </dd>
+            </div>
+
+            {% if holding.landowner.businessName %}
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">Business name</dt>
+                <dd class="govuk-summary-list__value">
+                    {{ holding.landowner.businessName }}
+                </dd>
+            </div>
+            {% endif %}
+
+            {% if holding.landowner.cph %}
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">CPH number</dt>
+                <dd class="govuk-summary-list__value">
+                    <a
+                            class="govuk-link"
+                            href="/{{ baseURL }}/holding-search?search={{ holding.landowner.cph }}"
+                    >
+                        {{ holding.landowner.cph }}
+                    </a>
                 </dd>
             </div>
             {% endif %}
 
             {% if holding.landowner.email %}
             <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                    Landowner email
-                </dt>
+                <dt class="govuk-summary-list__key">Email address</dt>
                 <dd class="govuk-summary-list__value">
                     <a class="govuk-link" href="mailto:{{ holding.landowner.email }}">
                         {{ holding.landowner.email }}
@@ -209,82 +249,20 @@
 
             {% if holding.landowner.phone %}
             <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                    Landowner telephone
-                </dt>
+                <dt class="govuk-summary-list__key">Telephone</dt>
                 <dd class="govuk-summary-list__value">
                     {{ holding.landowner.phone }}
                 </dd>
             </div>
             {% endif %}
-            {% endif %}
         </dl>
         {% endif %}
 
-        {% if temporaryLandAssociations and temporaryLandAssociations.length %}
-        <h2 class="govuk-heading-m">Temporary land associations</h2>
-
-        {% for tla in temporaryLandAssociations %}
-        <h3 class="govuk-heading-s govuk-!-margin-bottom-2">
-            {{ tla.landName or "Temporary land association" }}
-        </h3>
-
-        <dl class="govuk-summary-list {% if not loop.last %}govuk-!-margin-bottom-6{% else %}govuk-!-margin-bottom-8{% endif %}">
-            <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                    Status
-                </dt>
-                <dd class="govuk-summary-list__value">
-                    {{ tla.status }}
-                </dd>
-            </div>
-
-            <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                    Temporary land association period
-                </dt>
-                <dd class="govuk-summary-list__value">
-                    {% if tla.startDate and tla.endDate %}
-                    {{ tla.startDate | fullDateFormat }} to {{ tla.endDate | fullDateFormat }}
-                    {% elseif tla.startDate %}
-                    From {{ tla.startDate | fullDateFormat }}
-                    {% elseif tla.endDate %}
-                    Until {{ tla.endDate | fullDateFormat }}
-                    {% else %}
-                    Not recorded
-                    {% endif %}
-                </dd>
-            </div>
-
-            {% if tla.landholderCph %}
-            <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                    Landholder CPH
-                </dt>
-                <dd class="govuk-summary-list__value">
-                    {{ tla.landholderCph }}
-                </dd>
-            </div>
-            {% endif %}
-
-            {% if tla.species and tla.species.length %}
-            <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                    Species
-                </dt>
-                <dd class="govuk-summary-list__value">
-                    {{ tla.species | join(", ") }}
-                </dd>
-            </div>
-            {% endif %}
-        </dl>
-        {% endfor %}
-        {% endif %}
 
         <h2 class="govuk-heading-m">Registered keeper details</h2>
 
         {% if holding.owner %}
-        <dl class="govuk-summary-list">
+        <dl class="govuk-summary-list govuk-!-margin-bottom-8">
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
                     Name
@@ -355,6 +333,70 @@
             No registered keeper details are recorded.
         </p>
         {% endif %}
+</div>
+ <div class="govuk-grid-column-full">
+            {% if temporaryLandAssociations and temporaryLandAssociations.length %}
+        <h2 class="govuk-heading-m">Temporary land associations</h2>
+
+        <table class="govuk-table govuk-!-margin-bottom-8">
+            <thead class="govuk-table__head">
+                <tr class="govuk-table__row">
+                    <th scope="col" class="govuk-table__header">
+                        Land
+                    </th>
+                    <th scope="col" class="govuk-table__header">
+                        Status
+                    </th>
+                    <th scope="col" class="govuk-table__header">
+                        Temporary land association period
+                    </th>
+                    <th scope="col" class="govuk-table__header">
+                        Landholder CPH
+                    </th>
+                </tr>
+            </thead>
+
+            <tbody class="govuk-table__body">
+                {% for tla in temporaryLandAssociations %}
+                <tr class="govuk-table__row">
+                    <th scope="row" class="govuk-table__header">
+                        {{ tla.landName or "Temporary land association" }}
+                    </th>
+
+                    <td class="govuk-table__cell">
+                        {{ tla.status }}
+                    </td>
+
+                    <td class="govuk-table__cell">
+                        {% if tla.startDate and tla.endDate %}
+                        {{ tla.startDate | fullDateFormat }} to {{ tla.endDate | fullDateFormat }}
+                        {% elseif tla.startDate %}
+                        From {{ tla.startDate | fullDateFormat }}
+                        {% elseif tla.endDate %}
+                        Until {{ tla.endDate | fullDateFormat }}
+                        {% else %}
+                        Not recorded
+                        {% endif %}
+                    </td>
+
+                    <td class="govuk-table__cell">
+                        {% if tla.landholderCph %}
+                        <a
+                                class="govuk-link"
+                                href="/{{ baseURL }}/holding-search?search={{ tla.landholderCph }}"
+                        >
+                            {{ tla.landholderCph }}
+                        </a>
+                        {% else %}
+                        Not recorded
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+            </div>
 
             <!--        <h2 class="govuk-heading-m">-->
             <!--            Livestock-->

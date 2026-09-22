@@ -1,0 +1,27 @@
+.defra-internal-header {
+  border-top: 8px solid #008938;
+  background: #ffffff;
+}
+
+.defra-internal-header__container {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.defra-internal-header__organisation-link,
+.defra-internal-header__service-link {
+  font-family: Arial, Helvetica, sans-serif;
+  color: #0b0c0c;
+}
+
+.defra-internal-header__organisation-link {
+  font-weight: 700;
+  font-size: 19px;
+}
+
+.defra-internal-header__service-link {
+  display: inline-block;
+  margin-top: 10px;
+  font-size: 24px;
+  font-weight: 700;
+}

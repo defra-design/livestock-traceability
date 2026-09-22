@@ -1,10 +1,9 @@
 {% extends "layouts/main.html" %}
-
 {% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
 
 {% set pageName="Cattle register" %}
 
-{% set activeNav = "my-holdings" %}
+{% set activeNav = "animals" %}
 
 {% block header %}
 
@@ -132,7 +131,6 @@ href: currentBaseUrl+"home"
 
     <tbody class="govuk-table__body">
     {% for animal in cattle %}
-    {% if animal.status == 'Alive' or animal.status == 'Deceased' %}
     <tr class="govuk-table__row">
         <th scope="row" class="govuk-table__header app-table__cell--no-wrap ">
             <a class="govuk-link" href="/{{baseURL}}/cattle/{{ animal.earTagNumber }}?fromSearch={{query.search | urlencode}}">
@@ -195,7 +193,6 @@ href: currentBaseUrl+"home"
 
 
     </tr>
-    {% endif %}
     {% endfor %}
     </tbody>
 </table>

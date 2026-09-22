@@ -1,4 +1,4 @@
-{% extends "layouts/main.html" %}
+{% extends "layouts/main-backoffice.html" %}
 
 {% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
 
@@ -20,9 +20,17 @@
   <div class="govuk-grid-column-full">
     <span class="govuk-caption-l">Registered animal</span>
 
-    <h1 class="govuk-heading-l govuk-!-margin-bottom-8">
+    <h1 class="govuk-heading-l govuk-!-margin-bottom-{% if animal.administrativeStatus.passportStatus != 'Refused' %}8{%else%}2{%endif%}">
       {{ animal.earTagNumber | formatReference }}
     </h1>
+    <p class="govuk-body govuk-!-margin-bottom-{% if animalIssues and animalIssues.length %}2{%else%}8{%endif%}">
+        {% if animal.administrativeStatus.passportStatus == "Refused" %}
+  {{ govukTag({
+    text: "Restricted",
+    classes: "govuk-tag--red"
+  }) }}
+{% endif %}
+    </p>
     {# <p class="govuk-body govuk-!-margin-bottom-{% if animalIssues and animalIssues.length %}2{%else%}8{%endif%}">
 
   <strong>Animal status:</strong> {{ animal.status }} &nbsp;&nbsp;|&nbsp;&nbsp; <strong>Movement status:</strong>
@@ -96,19 +104,6 @@
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">Animal status</dt>
         <dd class="govuk-summary-list__value">{{ animal.status }}</dd>
-      </div>
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">Movement status</dt>
-        <dd class="govuk-summary-list__value">     {% if animal.administrativeStatus.passportStatus == "Refused" %}
-  {{ govukTag({
-    text: "Restricted",
-    classes: "govuk-tag--red"
-  }) }}
-
-{% else %}
-  No restrictions
-{% endif %}
-        </dd>
       </div>
     </dl>
 

@@ -1,8 +1,9 @@
 //
 // For guidance on how to add CSS and SCSS see:
 // https://prototype-kit.service.gov.uk/docs/adding-css-javascript-and-images
-@import "components/dashboard";
 @import "components/callout";
+@import "components/dashboard";
+@import "components/defra-branding";
 @import "components/event-card";
 @import "components/filter-panel";
 @import "components/filter-accordion";
@@ -14,6 +15,14 @@
 @import "components/timeline";
 @import "components/traffic-card";
 @import "components/wide-layout";
+
+.app-caseworker,
+.app-caseworker * {
+  font-family: Arial, sans-serif !important;
+}
+// 3. Define Defra's exact brand colour hex codes
+$defra-green: #008938;
+
 
 .app-sub-navigation__list__spaced .moj-sub-navigation__item{
     margin-left:govuk-spacing(6)

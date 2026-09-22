@@ -46,7 +46,8 @@
           "postcode": "SY4 1AB",
           "country": "England"
         }
-      }
+      },
+      "holdingStartDate": "2008-03-17"
     },
     {
       "id": "holding-002",
@@ -105,7 +106,8 @@
           "postcode": "HR2 8JL",
           "country": "England"
         }
-      }
+      },
+      "holdingStartDate": "2012-06-04"
     },
     {
       "id": "holding-003",
@@ -152,7 +154,9 @@
           "postcode": "LN5 0QF",
           "country": "England"
         }
-      }
+      },
+      "holdingStartDate": "2005-09-12",
+      "holdingEndDate": "2024-11-30"
     },
     {
       "id": "holding-004",
@@ -199,7 +203,8 @@
           "postcode": "LD3 7TP",
           "country": "Wales"
         }
-      }
+      },
+      "holdingStartDate": "2010-02-22"
     },
     {
       "id": "holding-005",
@@ -246,7 +251,8 @@
           "postcode": "YO26 8RW",
           "country": "England"
         }
-      }
+      },
+      "holdingStartDate": "2016-07-11"
     },
     {
       "id": "holding-006",
@@ -293,7 +299,8 @@
           "postcode": "TA3 5PL",
           "country": "England"
         }
-      }
+      },
+      "holdingStartDate": "2001-11-05"
     },
     {
       "id": "holding-007",
@@ -340,7 +347,8 @@
           "postcode": "LA8 9HS",
           "country": "England"
         }
-      }
+      },
+      "holdingStartDate": "2007-04-16"
     },
     {
       "id": "holding-008",
@@ -382,7 +390,8 @@
           "postcode": "CH3 6NT",
           "country": "England"
         }
-      }
+      },
+      "holdingStartDate": "2013-01-28"
     },
     {
       "id": "holding-009",
@@ -397,7 +406,7 @@
         "postcode": "IP31 2DH",
         "country": "England"
       },
-      "status": "Closed",
+      "status": "Inactive",
       "holdingType": "Agricultural holding (AH)",
       "holdingTypeCode": "AH",
       "species": [
@@ -424,7 +433,9 @@
           "postcode": "IP31 2DH",
           "country": "England"
         }
-      }
+      },
+      "holdingStartDate": "1999-08-09",
+      "holdingEndDate": "2023-07-14"
     },
     {
       "id": "holding-010",
@@ -440,8 +451,8 @@
         "country": "England"
       },
       "status": "Active",
-      "holdingType": "Slaughterhouses / Abattoirs (SL)",
-      "holdingTypeCode": "SL",
+      "holdingType": "Slaughterhouse (SH)",
+      "holdingTypeCode": "SH",
       "species": [
         "Cattle"
       ],
@@ -466,7 +477,8 @@
           "postcode": "EX5 4QR",
           "country": "England"
         }
-      }
+      },
+      "holdingStartDate": "2004-05-24"
     },
     {
       "id": "holding-011",
@@ -509,7 +521,8 @@
           "postcode": "NR10 5BX",
           "country": "England"
         }
-      }
+      },
+      "holdingStartDate": "2011-10-03"
     },
     {
       "id": "holding-012",
@@ -561,7 +574,8 @@
           "postcode": "SA32 7LG",
           "country": "Wales"
         }
-      }
+      },
+      "holdingStartDate": "2006-12-18"
     },
     {
       "id": "holding-013",
@@ -608,7 +622,9 @@
           "postcode": "PL7 5ND",
           "country": "England"
         }
-      }
+      },
+      "holdingStartDate": "2002-07-15",
+      "holdingEndDate": "2025-02-28"
     },
     {
       "id": "holding-014",
@@ -655,7 +671,8 @@
           "postcode": "GL2 8SA",
           "country": "England"
         }
-      }
+      },
+      "holdingStartDate": "2014-03-10"
     },
     {
       "id": "holding-015",
@@ -702,7 +719,8 @@
           "postcode": "DE6 2PA",
           "country": "England"
         }
-      }
+      },
+      "holdingStartDate": "2009-09-21"
     },
     {
       "id": "holding-016",
@@ -744,7 +762,8 @@
           "postcode": "LA2 7DX",
           "country": "England"
         }
-      }
+      },
+      "holdingStartDate": "2018-02-05"
     },
     {
       "id": "holding-017",
@@ -759,7 +778,7 @@
         "postcode": "CA5 7LD",
         "country": "England"
       },
-      "status": "Closed",
+      "status": "Inactive",
       "holdingType": "Showgrounds and Temporary Holdings (CC)",
       "holdingTypeCode": "CC",
       "species": [
@@ -786,7 +805,9 @@
           "postcode": "CA5 7LD",
           "country": "England"
         }
-      }
+      },
+      "holdingStartDate": "2003-06-30",
+      "holdingEndDate": "2022-10-31"
     },
     {
       "id": "holding-018",
@@ -833,7 +854,8 @@
           "postcode": "SY23 4NB",
           "country": "Wales"
         }
-      }
+      },
+      "holdingStartDate": "2015-04-13"
     },
     {
       "id": "holding-019",
@@ -881,7 +903,8 @@
           "postcode": "LE8 6UJ",
           "country": "England"
         }
-      }
+      },
+      "holdingStartDate": "2017-08-07"
     },
     {
       "id": "holding-020",
@@ -942,7 +965,8 @@
           "postcode": "DH7 9RE",
           "country": "England"
         }
-      }
+      },
+      "holdingStartDate": "2011-01-17"
     },
     {
       "id": "holding-021",
@@ -968,7 +992,8 @@
           "species": "Cattle",
           "mark": "UK864202"
         }
-      ]
+      ],
+      "holdingStartDate": "2019-05-20"
     },
     {
       "id": "holding-022",
@@ -994,7 +1019,8 @@
           "species": "Cattle",
           "mark": "UK522634"
         }
-      ]
+      ],
+      "holdingStartDate": "2018-09-03"
     },
     {
       "id": "holding-023",
@@ -1020,7 +1046,8 @@
           "species": "Cattle",
           "mark": "UK159517"
         }
-      ]
+      ],
+      "holdingStartDate": "2020-02-10"
     },
     {
       "id": "holding-024",
@@ -1046,7 +1073,8 @@
           "species": "Cattle",
           "mark": "UK132588"
         }
-      ]
+      ],
+      "holdingStartDate": "2016-11-14"
     },
     {
       "id": "holding-025",
@@ -1072,7 +1100,8 @@
           "species": "Cattle",
           "mark": "UK551643"
         }
-      ]
+      ],
+      "holdingStartDate": "2017-03-27"
     },
     {
       "id": "holding-026",
@@ -1098,7 +1127,8 @@
           "species": "Cattle",
           "mark": "UK310588"
         }
-      ]
+      ],
+      "holdingStartDate": "2014-08-18"
     },
     {
       "id": "holding-027",
@@ -1124,7 +1154,8 @@
           "species": "Cattle",
           "mark": "UK946914"
         }
-      ]
+      ],
+      "holdingStartDate": "2013-06-24"
     },
     {
       "id": "holding-028",
@@ -1150,7 +1181,8 @@
           "species": "Cattle",
           "mark": "UK052474"
         }
-      ]
+      ],
+      "holdingStartDate": "2021-01-11"
     },
     {
       "id": "holding-029",
@@ -1176,7 +1208,8 @@
           "species": "Cattle",
           "mark": "UK859075"
         }
-      ]
+      ],
+      "holdingStartDate": "2019-10-07"
     },
     {
       "id": "holding-030",
@@ -1202,7 +1235,8 @@
           "species": "Cattle",
           "mark": "UK457586"
         }
-      ]
+      ],
+      "holdingStartDate": "2020-06-15"
     },
     {
       "id": "holding-031",
@@ -1228,7 +1262,8 @@
           "species": "Cattle",
           "mark": "UK017373"
         }
-      ]
+      ],
+      "holdingStartDate": "2015-09-28"
     },
     {
       "id": "holding-032",
@@ -1254,7 +1289,8 @@
           "species": "Cattle",
           "mark": "UK439125"
         }
-      ]
+      ],
+      "holdingStartDate": "2018-04-23"
     },
     {
       "id": "holding-033",
@@ -1280,7 +1316,8 @@
           "species": "Cattle",
           "mark": "UK755898"
         }
-      ]
+      ],
+      "holdingStartDate": "2016-01-18"
     },
     {
       "id": "holding-034",
@@ -1306,7 +1343,8 @@
           "species": "Cattle",
           "mark": "UK939086"
         }
-      ]
+      ],
+      "holdingStartDate": "2022-03-07"
     },
     {
       "id": "holding-035",
@@ -1332,7 +1370,8 @@
           "species": "Cattle",
           "mark": "UK251278"
         }
-      ]
+      ],
+      "holdingStartDate": "2017-12-04"
     },
     {
       "id": "holding-036",
@@ -1358,7 +1397,8 @@
           "species": "Cattle",
           "mark": "UK414344"
         }
-      ]
+      ],
+      "holdingStartDate": "2019-02-25"
     },
     {
       "id": "holding-037",
@@ -1384,7 +1424,8 @@
           "species": "Cattle",
           "mark": "UK925327"
         }
-      ]
+      ],
+      "holdingStartDate": "2014-11-10"
     },
     {
       "id": "holding-038",
@@ -1410,7 +1451,8 @@
           "species": "Cattle",
           "mark": "UK321512"
         }
-      ]
+      ],
+      "holdingStartDate": "2020-09-21"
     },
     {
       "id": "holding-039",
@@ -1436,7 +1478,8 @@
           "species": "Cattle",
           "mark": "UK113048"
         }
-      ]
+      ],
+      "holdingStartDate": "2021-05-17"
     },
     {
       "id": "holding-040",
@@ -1462,7 +1505,8 @@
           "species": "Cattle",
           "mark": "UK765131"
         }
-      ]
+      ],
+      "holdingStartDate": "2018-07-09"
     },
     {
       "id": "holding-041",
@@ -1522,7 +1566,8 @@
           "postcode": "SY4 1AB",
           "country": "England"
         }
-      }
+      },
+      "holdingStartDate": "2026-04-01"
     },
     {
       "id": "holding-042",
@@ -1582,7 +1627,8 @@
           "postcode": "LA8 9HS",
           "country": "England"
         }
-      }
+      },
+      "holdingStartDate": "2026-05-01"
     }
   ]
 }
