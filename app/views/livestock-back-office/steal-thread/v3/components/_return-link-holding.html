@@ -7,21 +7,21 @@
           class="govuk-back-link"
           href="/{{baseURL}}/holdings?search={{ query.fromSearch | urlencode }}"
   >
-    Return to search results
+    Back
   </a>
 {% elseif query.fromHolding %}
   <a
           class="govuk-back-link"
           href="/{{baseURL}}/holdings/{{ query.fromHolding }}{% if query.fromSearch %}?fromSearch={{ query.fromSearch | urlencode }}{% endif %}"
   >
-    Return to holding {{ query.holdingCph }}
+    Back
   </a>
 {% else %}
   <a
           class="govuk-back-link"
           href="/{{baseURL}}/holdings"
   >
-    Find a holding
+    Back
   </a>
 {% endif %}
 

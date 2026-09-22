@@ -77,18 +77,18 @@
 
 
     <p class="govuk-body" aria-live="polite">
-      {% if search %}
-      {{ totalResults }}
-      {% if totalResults === 1 %}
-      registered cattle record matches
-      {% else %}
-      registered cattle records match
-      {% endif %}
-        <strong>‘{{ search }}’</strong>
-      {% else %}
-      {{ totalResults }} registered cattle
-      {% endif %}
-    </p>
+          {% if search %}
+            {{ totalResults }}
+            {% if totalResults == 1 %}
+              registered cattle record matches
+            {% else %}
+              registered cattle records match
+            {% endif %}
+            <strong>‘{{ search }}’</strong>
+          {% else %}
+            {{ totalResults }} registered cattle
+          {% endif %}
+        </p>
 
         {% if search %}
         <p class="govuk-body">

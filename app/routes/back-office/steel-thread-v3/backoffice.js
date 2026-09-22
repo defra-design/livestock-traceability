@@ -1575,9 +1575,13 @@ router.get('/' + baseURL + '/holdings/:id/cattle-register', (req, res) => {
                 pageTitle: 'Holding not found'
             });
         }
+
+
+
    return res.render(baseURL + '/holding-cattle-register', {
       cattle: cattleResults.cattle,
       search: cattleResults.search,
+      totalResults: cattleResults.cattle.length,
       holding,
       baseURL
     });
