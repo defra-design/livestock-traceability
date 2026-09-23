@@ -1,0 +1,225 @@
+{% extends "layouts/main-backoffice.html" %}
+
+{% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
+
+{% set pageName="Holdings" %}
+
+{% set activeNav = "holdings" %}
+
+{% block header %}
+
+{% block navBar %}{% include "./components/_navigation.html" %}{% endblock %}
+
+{% endblock %}
+
+
+{% block beforeContent %}
+{% set pathParts = currentPath.split('/') %}
+{% set currentBaseUrl = '/' + pathParts[1] + '/' + pathParts[2] + '/' + pathParts[3] + '/' %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{{ govukBreadcrumbs({
+items: [
+{
+text: "Home",
+href: currentBaseUrl+"home"
+}
+]
+}) }}
+{% endblock %}
+
+{% block content %}
+
+{%- from "govuk/components/checkboxes/macro.njk" import govukCheckboxes -%}
+{%- from "govuk/components/input/macro.njk" import govukInput -%}
+{%- from "govuk/components/table/macro.njk" import govukTable -%}
+
+
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <form method="GET">
+      <div class="search-wrapper govuk-form-group">
+        <h1 class="govuk-label-wrapper">
+          <label
+                  for="search-holdings"
+                  class="govuk-label govuk-label--l"
+          >
+            Find a holding
+          </label>
+        </h1>
+
+        <div
+                id="search-holdings-hint"
+                class="govuk-hint"
+        >
+          Enter a CPH number, holding name, postcode or herd mark
+        </div>
+
+        <div class="search-input-wrapper">
+          <input
+                  type="search"
+                  value="{{ search }}"
+                  id="search-holdings"
+                  name="search"
+                  title="Search"
+                  class="govuk-input"
+                  aria-describedby="search-holdings-hint"
+                  spellcheck="false"
+          >
+          <div class="search-input-submit-wrapper">
+            <button
+                    type="submit"
+                    class="search-submit"
+            >
+              Search
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+{% if not search %}
+
+      <div class="govuk-grid-row">
+          <div class="govuk-grid-column-two-thirds">
+              <p class="govuk-body">
+                  You can search using:
+              </p>
+
+              <ul class="govuk-list govuk-list--bullet">
+                  <li>CPH number, for example 12/345/0001</li>
+                  <li>holding name, for example Oakfield Farm</li>
+                  <li>herd mark, for example UK 123456</li>
+                  <li>town or county, for example Cumbria</li>
+                  <li>postcode, for example SY4 1AB</li>
+              </ul>
+          </div>
+      </div>
+
+{% else %}
+
+      <p class="govuk-body" aria-live="polite">
+          {{ holdings.length }}
+          {% if holdings.length === 1 %}
+          holding matches
+          {% else %}
+          holdings match
+          {% endif %}
+          <strong>‘{{ search }}’</strong>
+      </p>
+
+      <p class="govuk-body">
+          <a class="govuk-link" href="./holdings">
+              Clear search
+          </a>
+      </p>
+
+{% if holdings.length %}
+<div class="app-dashboard-table-wrapper">
+      <table class="govuk-table">
+          <caption class="govuk-table__caption govuk-visually-hidden">
+              Holdings search results
+          </caption>
+
+          <thead class="govuk-table__head">
+          <tr class="govuk-table__row">
+              <th scope="col" class="govuk-table__header">
+                  CPH
+              </th>
+              <th scope="col" class="govuk-table__header">
+                  Type
+              </th>
+<!--              <th scope="col" class="govuk-table__header">-->
+<!--                  Holding name-->
+<!--              </th>-->
+              <th scope="col" class="govuk-table__header">
+                  Location
+              </th>
+              <th scope="col" class="govuk-table__header">
+                  Status
+              </th>
+
+          </tr>
+          </thead>
+
+          <tbody class="govuk-table__body">
+          {% for holding in holdings %}
+          <tr class="govuk-table__row">
+              <th scope="col" class="govuk-table__header app-table__cell--no-wrap">
+                  <a
+                          class="govuk-link"
+                          href="/{{ baseURL }}/holdings/{{ holding.id }}?fromSearch={{ query.search | urlencode }}"
+                  >
+                      {{ holding.cph }}
+                  </a>
+              </th>
+                             <td class="govuk-table__cell">
+  <abbr title="{{ holding.holdingType }}">
+    {{ holding.holdingTypeCode }}
+  </abbr>
+  <span class="govuk-visually-hidden">
+    , {{ holding.holdingType }}
+  </span>
+</td>
+
+
+              <td class="govuk-table__cell">
+                  {{ holding.holdingName }}, {{ holding.address.town }}, {{ holding.address.county }},  {{ holding.address.postcode }}
+              </td>
+               <td class="govuk-table__cell">
+                  {{ holding.status }}
+              </td>
+          </tr>
+          {% endfor %}
+          </tbody>
+      </table>
+</div>
+{% endif %}
+
+{% endif %}
+{% if search and holdings.length >= 16 %}
+      <div class="govuk-grid-row govuk-!-margin-top-6">
+          <div class="govuk-grid-column-two-thirds">
+              {{ govukPagination({
+              next: {
+              href: "#"
+              },
+              items: [
+              {
+              number: 1,
+              current: true,
+              href: "#"
+              },
+              {
+              number: 2,
+              href: "#"
+              },
+              {
+              number: 3,
+              href: "#"
+              },
+              {
+              ellipsis: true
+              },
+              {
+              number: 50,
+              href: "#"
+              }
+              ]
+              }) }}
+          </div>
+
+          <div class="govuk-grid-column-one-third govuk-!-text-align-right">
+              <p class="govuk-body govuk-!-margin-top-2">
+                  Showing 1 to 50 of 1000
+              </p>
+          </div>
+      </div>
+{% endif %}
+</div>
+</div>
+
+{% endblock %}

@@ -2,7 +2,7 @@ const govukPrototypeKit = require('govuk-prototype-kit');
 const router = govukPrototypeKit.requests.setupRouter();
 
 
-const baseURL = 'livestock-back-office/steal-thread/v1'
+const baseURL = 'livestock-back-office/steel-thread/v1'
 
 // permanent redirect from old folder structure
 router.use('/livestock-back-office/v3', (req, res) => {

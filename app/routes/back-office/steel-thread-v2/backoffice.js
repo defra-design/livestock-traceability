@@ -1,7 +1,7 @@
 const govukPrototypeKit = require('govuk-prototype-kit');
 const router = govukPrototypeKit.requests.setupRouter();
 
-const baseURL = 'livestock-back-office/steal-thread/v2';
+const baseURL = 'livestock-back-office/steel-thread/v2';
 
 
 
