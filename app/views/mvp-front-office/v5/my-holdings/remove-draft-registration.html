@@ -7,7 +7,7 @@
 
 {% endblock %}
 
-{% set pageName="Are you sure you want to remove this draft registration?" %}
+{% set pageName="Are you sure you want to cancel this draft registration?" %}
 
 {% block beforeContent %}
   {{ govukBackLink({
@@ -21,7 +21,7 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
 
-    <form action="/mvp-front-office/v5/my-holdings/register-cattle-birth/remove-draft" method="post" novalidate>
+    <form action="{{ basePath | default('/mvp-front-office/v5/my-holdings/register-cattle-birth') }}/remove-draft" method="post" novalidate>
 
       <input type="hidden" name="draft-reference" value="{{ submission.reference }}">
 
@@ -29,18 +29,25 @@
         <fieldset class="govuk-fieldset">
           <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
             <h1 class="govuk-fieldset__heading">
-              Are you sure you want to remove this draft registration?
+              Are you sure you want to cancel this draft registration?
             </h1>
           </legend>
-          <p class="govuk-body">{{ submission.reference }}</p>
+          <ul class="govuk-list">
+            <li>
+              Reference number: {{ submission.reference }}
+            </li>
+            <li>
+              {{ totalLabel | default('Total births') }}: {{ submission.total }}
+            </li>
+          </ul>
         </fieldset>
       </div>
 
       <div class="govuk-button-group">
-        <button type="submit" class="govuk-button" data-module="govuk-button">
-          Remove
-        </button>
-        <a class="govuk-link" href="/mvp-front-office/v5/my-holdings/register-cattle-birth">Cancel</a>
+        <a href="#" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+          Cancel draft
+        </a>
+        <a class="govuk-link" href="{{ basePath | default('/mvp-front-office/v5/my-holdings/register-cattle-birth') }}">Go back</a>
       </div>
 
     </form>

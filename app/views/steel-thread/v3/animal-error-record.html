@@ -113,7 +113,7 @@
               Ear tag number
             </dt>
             <dd class="govuk-summary-list__value">
-              {{ error.earTagNumber | formatReference }}
+              <span aria-hidden="true">{{ error.earTagNumber | formatReference }}</span><span class="govuk-visually-hidden">{{ error.earTagNumber | formatReferenceSpoken }}</span>
             </dd>
           </div>
           <div class="govuk-summary-list__row">
