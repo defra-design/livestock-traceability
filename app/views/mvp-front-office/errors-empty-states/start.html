@@ -1,0 +1,44 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="MVP errors and empty states" %}
+
+{% block header %}
+
+{{ govukHeader({
+homepageUrl: '/index.html'
+}) }}
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-heading-l">
+            MVP errors and empty states
+        </h1>
+
+    </div>
+</div>
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+        <ul class="govuk-list govuk-!-margin-bottom-0">
+
+            <li class="service-link govuk-!-margin-bottom-0">
+                <div class="service-link__name">
+                    <a href="/mvp-front-office/errors-empty-states/my-holdings/register-cattle-birth" class="service-link__overlay-link govuk-link govuk-link--no-visited-state govuk-body govuk-!-font-weight-bold govuk-!-margin-0">
+                        Register cattle birth
+                    </a>
+                </div>
+                <div class="chevron"></div>
+            </li>
+
+        </ul>
+
+    </div>
+
+</div>
+
+{% endblock %}

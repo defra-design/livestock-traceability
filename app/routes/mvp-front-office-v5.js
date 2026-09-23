@@ -107,7 +107,7 @@ function getBirthSubmissions() {
       date: '08-05-2026',
       total: 4,
       errorCount: null,
-      status: 'Pending',
+      status: 'Pending validation',
       statusClass: 'govuk-tag--yellow',
       href: '/mvp-front-office/v5/register-animal/submission-detail-pending'
     },
@@ -116,7 +116,7 @@ function getBirthSubmissions() {
       date: '01-05-2026',
       total: 12,
       errorCount: 1,
-      status: 'Sent',
+      status: 'Approved',
       statusClass: 'govuk-tag--green',
       href: '/mvp-front-office/v5/register-animal/submission-detail-sent'
     }
@@ -187,6 +187,11 @@ function getDeathSubmissions() {
   ]
 }
 
+function parseDDMMYYYY(dateString) {
+  const [day, month, year] = dateString.split('-')
+  return new Date(`${year}-${month}-${day}`).getTime()
+}
+
 function paginateSubmissions(submissions, req, basePath, pageParam = 'page') {
   const pageSize = 25
   const totalPages = Math.max(1, Math.ceil(submissions.length / pageSize))
@@ -226,11 +231,38 @@ router.get('/mvp-front-office/v5/my-holdings/register-cattle-birth', (req, res) 
   )
 
   const draftSubmissions = allSubmissions.filter((submission) => submission.status === 'Draft')
-  const sent = paginateSubmissions(
-    allSubmissions.filter((submission) => submission.status !== 'Draft'), req, basePath, 'sentPage'
-  )
+  const sentSubmissions = allSubmissions
+    .filter((submission) => submission.status !== 'Draft')
+    .sort((a, b) => parseDDMMYYYY(b.date) - parseDDMMYYYY(a.date))
+  const sent = paginateSubmissions(sentSubmissions, req, basePath, 'sentPage')
 
   res.render('mvp-front-office/v5/my-holdings/register-cattle-birth', {
+    holding,
+    draftSubmissions,
+    totalDrafts: draftSubmissions.length,
+    sentSubmissions: sent.pagedSubmissions,
+    sentPagination: sent.pagination,
+    sentShowingFrom: sent.showingFrom,
+    sentShowingTo: sent.showingTo,
+    totalSent: sent.totalSubmissions
+  })
+})
+
+router.get('/mvp-front-office/errors-empty-states/my-holdings/register-cattle-birth', (req, res) => {
+  const holding = getSelectedHolding(req)
+  const basePath = '/mvp-front-office/errors-empty-states/my-holdings/register-cattle-birth'
+  const removedDraftReferences = req.session.data.removedDraftReferences || []
+  const allSubmissions = getBirthSubmissions().filter(
+    (submission) => !removedDraftReferences.includes(submission.reference)
+  )
+
+  const draftSubmissions = allSubmissions.filter((submission) => submission.status === 'Draft')
+  const sentSubmissions = allSubmissions
+    .filter((submission) => submission.status !== 'Draft')
+    .sort((a, b) => parseDDMMYYYY(b.date) - parseDDMMYYYY(a.date))
+  const sent = paginateSubmissions(sentSubmissions, req, basePath, 'sentPage')
+
+  res.render('mvp-front-office/errors-empty-states/my-holdings/register-cattle-birth', {
     holding,
     draftSubmissions,
     totalDrafts: draftSubmissions.length,
@@ -264,21 +296,85 @@ router.post('/mvp-front-office/v5/my-holdings/register-cattle-birth/remove-draft
 
 router.get('/mvp-front-office/v5/my-holdings/report-cattle-movement', (req, res) => {
   const holding = getSelectedHolding(req)
-  const { pagedSubmissions, pagination, showingFrom, showingTo, totalSubmissions } =
-    paginateSubmissions(getMovementSubmissions(), req, '/mvp-front-office/v5/my-holdings/report-cattle-movement')
+  const basePath = '/mvp-front-office/v5/my-holdings/report-cattle-movement'
+  const removedDraftReferences = req.session.data.removedDraftReferences || []
+  const allSubmissions = getMovementSubmissions().filter(
+    (submission) => !removedDraftReferences.includes(submission.reference)
+  )
+
+  const draftSubmissions = allSubmissions.filter((submission) => submission.status === 'Draft')
+  const sentSubmissions = allSubmissions
+    .filter((submission) => submission.status !== 'Draft')
+    .sort((a, b) => parseDDMMYYYY(b.date) - parseDDMMYYYY(a.date))
+  const sent = paginateSubmissions(sentSubmissions, req, basePath, 'sentPage')
 
   res.render('mvp-front-office/v5/my-holdings/report-cattle-movement', {
-    holding, submissions: pagedSubmissions, pagination, showingFrom, showingTo, totalSubmissions
+    holding,
+    draftSubmissions,
+    totalDrafts: draftSubmissions.length,
+    sentSubmissions: sent.pagedSubmissions,
+    sentPagination: sent.pagination,
+    sentShowingFrom: sent.showingFrom,
+    sentShowingTo: sent.showingTo,
+    totalSent: sent.totalSubmissions
+  })
+})
+
+router.get('/mvp-front-office/v5/my-holdings/report-cattle-movement/remove-draft', (req, res) => {
+  const submission = getMovementSubmissions().find(
+    (s) => s.status === 'Draft' && s.reference === req.query.reference
+  )
+
+  if (!submission) {
+    return res.redirect('/mvp-front-office/v5/my-holdings/report-cattle-movement')
+  }
+
+  res.render('mvp-front-office/v5/my-holdings/remove-draft-registration', {
+    submission,
+    totalLabel: 'Total movements',
+    basePath: '/mvp-front-office/v5/my-holdings/report-cattle-movement'
   })
 })
 
 router.get('/mvp-front-office/v5/my-holdings/report-cattle-death', (req, res) => {
   const holding = getSelectedHolding(req)
-  const { pagedSubmissions, pagination, showingFrom, showingTo, totalSubmissions } =
-    paginateSubmissions(getDeathSubmissions(), req, '/mvp-front-office/v5/my-holdings/report-cattle-death')
+  const basePath = '/mvp-front-office/v5/my-holdings/report-cattle-death'
+  const removedDraftReferences = req.session.data.removedDraftReferences || []
+  const allSubmissions = getDeathSubmissions().filter(
+    (submission) => !removedDraftReferences.includes(submission.reference)
+  )
+
+  const draftSubmissions = allSubmissions.filter((submission) => submission.status === 'Draft')
+  const sentSubmissions = allSubmissions
+    .filter((submission) => submission.status !== 'Draft')
+    .sort((a, b) => parseDDMMYYYY(b.date) - parseDDMMYYYY(a.date))
+  const sent = paginateSubmissions(sentSubmissions, req, basePath, 'sentPage')
 
   res.render('mvp-front-office/v5/my-holdings/report-cattle-death', {
-    holding, submissions: pagedSubmissions, pagination, showingFrom, showingTo, totalSubmissions
+    holding,
+    draftSubmissions,
+    totalDrafts: draftSubmissions.length,
+    sentSubmissions: sent.pagedSubmissions,
+    sentPagination: sent.pagination,
+    sentShowingFrom: sent.showingFrom,
+    sentShowingTo: sent.showingTo,
+    totalSent: sent.totalSubmissions
+  })
+})
+
+router.get('/mvp-front-office/v5/my-holdings/report-cattle-death/remove-draft', (req, res) => {
+  const submission = getDeathSubmissions().find(
+    (s) => s.status === 'Draft' && s.reference === req.query.reference
+  )
+
+  if (!submission) {
+    return res.redirect('/mvp-front-office/v5/my-holdings/report-cattle-death')
+  }
+
+  res.render('mvp-front-office/v5/my-holdings/remove-draft-registration', {
+    submission,
+    totalLabel: 'Total deaths',
+    basePath: '/mvp-front-office/v5/my-holdings/report-cattle-death'
   })
 })
 
