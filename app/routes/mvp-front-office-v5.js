@@ -132,6 +132,7 @@ function getMovementSubmissions() {
       errorCount: null,
       status: 'Draft',
       statusClass: 'govuk-tag--blue',
+      movementType: 'On movement',
       href: '#'
     },
     {
@@ -141,6 +142,7 @@ function getMovementSubmissions() {
       errorCount: null,
       status: 'Pending validation',
       statusClass: 'govuk-tag--yellow',
+      movementType: 'Off movement',
       href: '#'
     },
     {
@@ -150,6 +152,7 @@ function getMovementSubmissions() {
       errorCount: 1,
       status: 'Sent',
       statusClass: 'govuk-tag--green',
+      movementType: 'On movement',
       href: '#'
     }
   ]

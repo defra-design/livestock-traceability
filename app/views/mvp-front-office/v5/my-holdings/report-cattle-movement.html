@@ -74,7 +74,7 @@
         {% endif %}
 
         <h2 class="govuk-heading-m govuk-!-margin-top-8">
-            Reporting history
+            Movements history
         </h2>
 
         {% if sentSubmissions.length %}
@@ -91,6 +91,10 @@
         attributes: {
         "data-sort-value": submission.date.slice(6,10) + submission.date.slice(3,5) + submission.date.slice(0,2)
         }
+        },
+        {
+        text: submission.movementType,
+        classes: "app-table__cell--no-wrap"
         },
         {
         text: submission.total,
@@ -130,12 +134,17 @@
           attributes: { "aria-sort": "descending" }
           },
           {
-          text: "Total movements",
+          text: "Type",
           classes: "app-table__cell--no-wrap",
           attributes: { "aria-sort": "none" }
           },
           {
-          text: "Movement errors",
+          text: "Total",
+          classes: "app-table__cell--no-wrap",
+          attributes: { "aria-sort": "none" }
+          },
+          {
+          text: "Errors",
           classes: "app-table__cell--no-wrap",
           attributes: { "aria-sort": "none" }
           },
