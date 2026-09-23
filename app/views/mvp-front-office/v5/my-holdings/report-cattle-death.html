@@ -1,14 +1,9 @@
 {% extends "layouts/main.html" %}
 
-
-{% set pageName="Submissions" %}
-{% set activeNavItem = "my-holdings" %}
-{% set sideNavActive = "submissions" %}
+{% set pageName="Report a cattle death" %}
 
 {% block header %}
-
   {% include "mvp-front-office/v5/partials/header.html" %}
-
 {% endblock %}
 
 {% block beforeContent %}
@@ -20,32 +15,83 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
 
-        <!--<span class="govuk-caption-l">{{ holding.holdingName if holding.holdingName else holding.cph }}</span>-->
         <h1 class="govuk-heading-l">
           Report a cattle death
         </h1>
 
         <a href="/mvp-front-office/v5/report-death/is-registered" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
-          New death report
+          Start report of cattle death
         </a>
 
-        {% if submissions.length %}
         {% from "govuk/components/table/macro.njk" import govukTable %}
         {% from "govuk/components/pagination/macro.njk" import govukPagination %}
 
+        {% if totalDrafts > 0 %}
+          <div class="govuk-grid-row">
+              <div class="govuk-grid-column-two-thirds">
+              <div class="govuk-!-margin-bottom-6">
+                <h2 class="govuk-heading-m govuk-!-margin-top-6">Draft death reports</h2>
+                <p class="govuk-body">
+                  Drafts are automatically deleted after 27 days.
+                </p>
+
+                {% set rows = [] %}
+                {% for submission in draftSubmissions %}
+                {% set row = [
+                {
+                text: submission.date | shortDateFormat
+                },
+                {
+                text: submission.total
+                },
+                {
+                html: '<a class="govuk-link" href="#">Cancel<span class="govuk-visually-hidden"> draft registration</span></a> <a class="govuk-link govuk-!-margin-left-3" href="' + submission.href + '">Continue<span class="govuk-visually-hidden"> registration</span></a>',
+                format: "numeric"
+                }
+                ] %}
+                {% set rows = (rows.push(row), rows) %}
+                {% endfor %}
+
+                {{ govukTable({
+                caption: "Draft cattle death registrations",
+                captionClasses: "govuk-visually-hidden",
+                head: [
+                {
+                text: "Date started"
+                },
+                {
+                text: "Total deaths"
+                },
+                {
+                html: '<span class="govuk-visually-hidden">Action</span>',
+                format: "numeric"
+                }
+                ],
+                rows: rows
+                }) }}
+              </div>
+              </div>
+          </div>
+        {% endif %}
+
+        <h2 class="govuk-heading-m govuk-!-margin-top-8">
+            Reporting history
+        </h2>
+
+        {% if sentSubmissions.length %}
         {% set rows = [] %}
-        {% for submission in submissions %}
+        {% for submission in sentSubmissions %}
         {% set row = [
         {
-        html: '<a class="govuk-link" href="' + submission.href + '">' + (submission.date | shortDateFormat) + '</a>',
+        html: '<a class="govuk-link" href="' + submission.href + '">' + submission.reference + '</a>',
+        classes: "app-table__cell--no-wrap"
+        },
+        {
+        text: submission.date | shortDateFormat,
         classes: "app-table__cell--no-wrap",
         attributes: {
         "data-sort-value": submission.date.slice(6,10) + submission.date.slice(3,5) + submission.date.slice(0,2)
         }
-        },
-        {
-        text: submission.reference,
-        classes: "app-table__cell--no-wrap"
         },
         {
         text: submission.total,
@@ -71,18 +117,18 @@
           attributes: {
           "data-module": "moj-sortable-table"
           },
-          caption: "Cattle death submissions",
+          caption: "Sent cattle death registrations",
           captionClasses: "govuk-visually-hidden",
           head: [
-          {
-          text: "Date",
-          classes: "app-table__cell--no-wrap",
-          attributes: { "aria-sort": "descending" }
-          },
           {
           text: "Reference number",
           classes: "app-table__cell--no-wrap",
           attributes: { "aria-sort": "none" }
+          },
+          {
+          text: "Date reported",
+          classes: "app-table__cell--no-wrap",
+          attributes: { "aria-sort": "descending" }
           },
           {
           text: "Total deaths",
@@ -90,7 +136,7 @@
           attributes: { "aria-sort": "none" }
           },
           {
-          text: "Error count",
+          text: "Death errors",
           classes: "app-table__cell--no-wrap",
           attributes: { "aria-sort": "none" }
           },
@@ -105,11 +151,11 @@
         </div>
 
         <p class="govuk-body">
-          Showing {{ showingFrom }} to {{ showingTo }} of {{ totalSubmissions }} results
+          Showing {{ sentShowingFrom }} to {{ sentShowingTo }} of {{ totalSent }} results
         </p>
 
-        {% if pagination %}
-        {{ govukPagination(pagination) }}
+        {% if sentPagination %}
+        {{ govukPagination(sentPagination) }}
         {% endif %}
         {% endif %}
 

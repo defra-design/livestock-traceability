@@ -27,6 +27,18 @@ addFilter('removeWhiteSpace', function(text) {
      return cleanValue.replace(/^(.{2})(.{6})(.{6})$/, '$1 $2 $3');
  });
 
+ // screen-reader-only version of an ear tag reference, so digits are read
+ // out individually instead of being parsed as large cardinal numbers
+ addFilter('formatReferenceSpoken', function(value) {
+     if (!value) {
+         return '';
+     }
+
+     const cleanValue = String(value).replace(/\s+/g, '');
+
+     return cleanValue.split('').join('-');
+ });
+
 
  addFilter('shortDateFormat', function (value) {
    if (!value || typeof value !== 'string') {

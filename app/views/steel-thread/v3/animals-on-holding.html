@@ -118,7 +118,7 @@
         {% for animal in cattle %}
         {% set row = [
         {
-        html: '<a class="govuk-link" href="/steel-thread/v3/cattle/' + animal.earTagNumber + '">' + (animal.earTagNumber | formatReference) + '</a>',
+        html: '<a class="govuk-link" href="/steel-thread/v3/cattle/' + animal.earTagNumber + '"><span aria-hidden="true">' + (animal.earTagNumber | formatReference) + '</span><span class="govuk-visually-hidden">' + (animal.earTagNumber | formatReferenceSpoken) + '</span></a>',
         classes: "app-table__cell--no-wrap"
         },
         {
