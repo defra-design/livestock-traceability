@@ -65,7 +65,7 @@ router.post(`${BASE}/calf-details`, (req, res) => {
   const errors = {}
 
   if (!data['ear-tag-number']) {
-    errors['ear-tag-number'] = 'Enter the last 6 digits of the animal ear tag number you are registering'
+    errors['ear-tag-number'] = 'Enter all or part of the animal ear tag number you are registering'
   }
 
   if (!data['dob-day'] || !data['dob-month'] || !data['dob-year']) {
@@ -272,15 +272,7 @@ router.get(`${BASE}/confirmation`, (req, res) => {
 })
 
 router.post(`${BASE}/confirmation`, (req, res) => {
-  res.redirect('/mvp-front-office/v5/my-holdings/submissions')
-})
-
-router.get(`${BASE}/submission-detail`, (req, res) => {
-  res.render('mvp-front-office/v5/register-animal/submission-detail')
-})
-
-router.post(`${BASE}/submission-detail`, (req, res) => {
-  res.redirect(`${BASE}/submit`)
+  res.redirect('/mvp-front-office/v5/my-holdings/register-cattle-birth')
 })
 
 module.exports = router

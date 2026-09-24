@@ -53,20 +53,16 @@
       {% from "govuk/components/pagination/macro.njk" import govukPagination %}
 
       {% set statusTagClasses = {
-      "Rejected": "govuk-tag--red",
+      "NoR issued": "govuk-tag--red",
       "Pending": "govuk-tag--yellow",
-      "Resolved": "govuk-tag--green"
+      "Action needed": "govuk-tag--orange"
       } %}
 
       {% set rows = [] %}
       {% for error in errors %}
       {% set row = [
       {
-      html: '<a class="govuk-link" href="/mvp-front-office/v5/my-holdings/cattle-error-record-detail/' + error.id + '">' + error.id + '</a>',
-      attributes: { style: "white-space: nowrap;" }
-      },
-      {
-      text: error.earTagNumber | formatReference,
+      html: '<a class="govuk-link" href="/mvp-front-office/v5/my-holdings/cattle-error-record-detail/' + error.id + '">' + (error.earTagNumber | formatReference) + '</a>',
       attributes: { style: "white-space: nowrap;" }
       },
       {
@@ -99,12 +95,8 @@
         captionClasses: "govuk-visually-hidden",
         head: [
         {
-        text: "Reference",
-        attributes: { "aria-sort": "ascending", style: "white-space: nowrap;" }
-        },
-        {
         text: "Ear tag number",
-        attributes: { "aria-sort": "none", style: "white-space: nowrap;" }
+        attributes: { "aria-sort": "ascending", style: "white-space: nowrap;" }
         },
         {
         text: "Date",
@@ -124,7 +116,7 @@
       </div>
 
       <p class="govuk-body">
-        Showing {{ showingFrom }} to {{ showingTo }} of {{ totalErrors }} error records
+        Showing {{ showingFrom }} to {{ showingTo }} of {{ totalErrors }} results
       </p>
 
       {% if pagination %}

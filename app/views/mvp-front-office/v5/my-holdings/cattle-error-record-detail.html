@@ -7,12 +7,7 @@
 {% endblock %}
 
 {% block beforeContent %}
-
-{{ govukBackLink({
-  text: "Back",
-  href: "/mvp-front-office/v5/my-holdings/cattle-error-records"
-}) }}
-
+  <a href="/mvp-front-office/v5/my-holdings/cattle-error-records" class="govuk-back-link">Back</a>
 {% endblock %}
 
 {% block content %}
@@ -21,12 +16,12 @@
   <div class="govuk-grid-column-two-thirds">
 
     {% set statusTagClasses = {
-      "Rejected": "govuk-tag--red",
+      "NoR issued": "govuk-tag--red",
       "Pending": "govuk-tag--yellow",
-      "Resolved": "govuk-tag--green"
+      "Action needed": "govuk-tag--orange"
     } %}
 
-    <span class="govuk-caption-l">Error ID: {{ record.id }}</span>
+ <!--   <span class="govuk-caption-l">Error ID: {{ record.id }}</span>-->
     <h1 class="govuk-heading-l">
       {{ record.earTagNumber | formatReference }}
     </h1>

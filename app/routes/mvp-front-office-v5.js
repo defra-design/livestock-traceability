@@ -20,7 +20,7 @@ function getErrorRecords() {
       category: 'Late birth registration',
       reason: 'Date of birth appears to be over the 27-day deadline to report a calf birth.',
       evidence: 'You may be required to provide a written explanation describing why the birth could not be reported within the allotted time.',
-      status: 'Rejected'
+      status: 'NoR issued'
     },
     {
       id: '6780-5907',
@@ -42,49 +42,7 @@ function getErrorRecords() {
       category: 'Dam age',
       reason: 'The genetic dam appears to be under 15-months old',
       evidence: 'You may be required to provide a signed declaration from your veterinarian or breed society.',
-      status: 'Resolved'
-    }
-  ]
-}
-
-// Dummy data for now - pending registrations will come from the real
-// registration submission pipeline once it exists.
-function getPendingRegistrations() {
-  return [
-    {
-      earTagNumber: 'UK324537467901',
-      dateOfBirth: '02-08-2025',
-      dateOfRegistration: '05-08-2025',
-      sex: 'Female',
-      breed: { name: 'Holstein Friesian', code: 'HO' }
-    },
-    {
-      earTagNumber: 'UK324537467902',
-      dateOfBirth: '14-08-2025',
-      dateOfRegistration: '18-08-2025',
-      sex: 'Male',
-      breed: { name: 'Holstein Friesian Cross', code: 'HOX' }
-    },
-    {
-      earTagNumber: 'UK324537467903',
-      dateOfBirth: '21-08-2025',
-      dateOfRegistration: '25-08-2025',
-      sex: 'Female',
-      breed: { name: 'Limousin', code: 'LM' }
-    },
-    {
-      earTagNumber: 'UK324537467904',
-      dateOfBirth: '30-08-2025',
-      dateOfRegistration: '02-09-2025',
-      sex: 'Male',
-      breed: { name: 'British Blue', code: 'BB' }
-    },
-    {
-      earTagNumber: 'UK324537467905',
-      dateOfBirth: '06-09-2025',
-      dateOfRegistration: '09-09-2025',
-      sex: 'Female',
-      breed: { name: 'Aberdeen Angus', code: 'AA' }
+      status: 'Action needed'
     }
   ]
 }
@@ -148,7 +106,7 @@ function getMovementSubmissions() {
       date: '01-05-2026',
       total: 12,
       errorCount: 1,
-      status: 'Sent',
+      status: 'Approved',
       statusClass: 'govuk-tag--green',
       href: '#'
     }
@@ -180,7 +138,7 @@ function getDeathSubmissions() {
       date: '01-05-2026',
       total: 12,
       errorCount: 1,
-      status: 'Sent',
+      status: 'Approved',
       statusClass: 'govuk-tag--green',
       href: '#'
     }
@@ -438,12 +396,6 @@ router.get('/mvp-front-office/v5/my-holdings', (req, res) => {
   res.render('mvp-front-office/v5/my-holdings', { holdings, search })
 })
 
-router.get('/mvp-front-office/v5/my-holdings/submissions', (req, res) => {
-  const holding = getSelectedHolding(req)
-
-  res.render('mvp-front-office/v5/my-holdings/submissions', { holding })
-})
-
 router.get('/mvp-front-office/v5/my-holdings/cattle-on-holding', (req, res) => {
   const search = String(req.query.search || '').trim().toLowerCase()
   const cattleData = req.session.data.livestockSameHerd
@@ -508,70 +460,11 @@ router.get('/mvp-front-office/v5/my-holdings/export-animals', (req, res) => {
   const holding = getSelectedHolding(req)
   const exported = req.query.exported === 'true'
 
-  res.render('mvp-front-office/v5/my-holdings/export-animals', { holding, exported })
+  res.render('mvp-front-office/v5/my-holdings/export-cattle-data', { holding, exported })
 })
 
 router.post('/mvp-front-office/v5/my-holdings/export-animals', (req, res) => {
   res.redirect('/mvp-front-office/v5/my-holdings/export-animals?exported=true')
-})
-
-router.get('/mvp-front-office/v5/my-holdings/animal-error-record', (req, res) => {
-  const holding = getSelectedHolding(req)
-
-  const errorRecords = getErrorRecords().map((record) => ({
-    ...record,
-    referenceNumber: record.id
-  }))
-
-  const toDate = (value) => {
-    const [day, month, year] = value.split('-')
-    return new Date(`${year}-${month}-${day}`)
-  }
-
-  const sort = ['oldest', 'newest', 'earTag'].includes(req.query.sort) ? req.query.sort : 'oldest'
-
-  const sortedErrors = [...errorRecords].sort((a, b) => {
-    if (sort === 'newest') return toDate(b.dateOfBirth) - toDate(a.dateOfBirth)
-    if (sort === 'earTag') return a.earTagNumber.localeCompare(b.earTagNumber)
-    return toDate(a.dateOfBirth) - toDate(b.dateOfBirth)
-  })
-
-  const pageSize = 25
-  const totalPages = Math.max(1, Math.ceil(sortedErrors.length / pageSize))
-  const requestedPage = parseInt(req.query.page, 10) || 1
-  const page = Math.min(Math.max(requestedPage, 1), totalPages)
-
-  const pagedErrors = sortedErrors.slice((page - 1) * pageSize, page * pageSize)
-
-  const pageHref = (pageNumber) => {
-    const params = new URLSearchParams()
-    params.set('sort', sort)
-    params.set('page', pageNumber)
-    return `/mvp-front-office/v5/my-holdings/animal-error-record?${params.toString()}`
-  }
-
-  const pagination = totalPages > 1 ? {
-    previous: page > 1 ? { href: pageHref(page - 1) } : undefined,
-    next: page < totalPages ? { href: pageHref(page + 1) } : undefined,
-    items: Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNumber) => ({
-      number: pageNumber,
-      current: pageNumber === page,
-      href: pageHref(pageNumber)
-    }))
-  } : null
-
-  const showingFrom = sortedErrors.length === 0 ? 0 : (page - 1) * pageSize + 1
-  const showingTo = Math.min(page * pageSize, sortedErrors.length)
-
-  res.render('mvp-front-office/v5/my-holdings/animal-error-record', {
-    errors: pagedErrors,
-    sort,
-    pagination,
-    showingFrom,
-    showingTo,
-    totalErrors: sortedErrors.length,
-    holding
-  })
 })
 
 router.get('/mvp-front-office/v5/my-holdings/cattle-error-records', (req, res) => {
@@ -711,63 +604,6 @@ router.get('/mvp-front-office/v5/my-holdings/cattle/:earTagNumber/activity-recor
   ]
 
   res.render('mvp-front-office/v5/my-holdings/cattle-activity-record', { animal, holding, transactions })
-})
-
-router.get('/mvp-front-office/v5/my-holdings/pending-registration', (req, res) => {
-  const search = String(req.query.search || '').trim().toLowerCase()
-  const holding = getSelectedHolding(req)
-
-  const cattle = getPendingRegistrations().filter((animal) => {
-    if (!search) return true
-    if (search === 'male' || search === 'female') {
-      return String(animal.sex || '').toLowerCase() === search
-    }
-    const searchableValues = [
-      animal.earTagNumber,
-      animal.breed?.name,
-      animal.breed?.code
-    ]
-    return searchableValues.some((value) =>
-      String(value || '').toLowerCase().includes(search)
-    )
-  })
-
-  const pageSize = 25
-  const totalPages = Math.max(1, Math.ceil(cattle.length / pageSize))
-  const requestedPage = parseInt(req.query.page, 10) || 1
-  const page = Math.min(Math.max(requestedPage, 1), totalPages)
-
-  const pagedCattle = cattle.slice((page - 1) * pageSize, page * pageSize)
-
-  const pageHref = (pageNumber) => {
-    const params = new URLSearchParams()
-    if (search) params.set('search', search)
-    params.set('page', pageNumber)
-    return `/mvp-front-office/v5/my-holdings/pending-registration?${params.toString()}`
-  }
-
-  const pagination = totalPages > 1 ? {
-    previous: page > 1 ? { href: pageHref(page - 1) } : undefined,
-    next: page < totalPages ? { href: pageHref(page + 1) } : undefined,
-    items: Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNumber) => ({
-      number: pageNumber,
-      current: pageNumber === page,
-      href: pageHref(pageNumber)
-    }))
-  } : null
-
-  const showingFrom = cattle.length === 0 ? 0 : (page - 1) * pageSize + 1
-  const showingTo = Math.min(page * pageSize, cattle.length)
-
-  res.render('mvp-front-office/v5/my-holdings/pending-registration', {
-    cattle: pagedCattle,
-    search,
-    holding,
-    pagination,
-    showingFrom,
-    showingTo,
-    totalCattle: cattle.length
-  })
 })
 
 router.get('/mvp-front-office/v5/my-holdings/pending-validation', (req, res) => {
