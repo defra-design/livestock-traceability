@@ -16,16 +16,6 @@
 {% block beforeContent %}
 {% set pathParts = currentPath.split('/') %}
 {% set currentBaseUrl = '/' + pathParts[1] + '/' + pathParts[2] + '/' + pathParts[3] + '/' %}
-{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
-{{ govukBreadcrumbs({
-items: [
-{
-text: "Home",
-href: currentBaseUrl+"home"
-}
-]
-}) }}
-{% endblock %}
 
 {% block content %}
 
