@@ -944,7 +944,7 @@
         }
       },
       "sire": null,
-      "dateOfRegistration": "30-01-2024"
+      "dateOfRegistration": "30-11-2026"
     },
     {
       "cph": "12/345/0001",
@@ -1186,8 +1186,8 @@
     {
       "cph": "12/345/0001",
       "earTagNumber": "UK654322100040",
-      "dateOfBirth": "02-02-2025",
-      "sex": "Male",
+      "dateOfBirth": "22-09-2026",
+      "sex": "Female",
       "breed": {
         "name": "Welsh Black",
         "code": "WB"
@@ -1196,7 +1196,7 @@
       "administrativeStatus": {
         "passportStatus": "Passport issued",
         "movementStatus": "Unrestricted",
-        "passportLastIssued": "05-02-2025",
+        "passportLastIssued": "24-09-2026",
         "passportVersion": 1
       },
       "dam": {
@@ -1207,7 +1207,7 @@
         }
       },
       "sire": null,
-      "dateOfRegistration": "05-02-2025"
+      "dateOfRegistration": "24-09-2026"
     },
     {
       "cph": "12/345/0001",

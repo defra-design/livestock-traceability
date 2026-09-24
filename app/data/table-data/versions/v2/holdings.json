@@ -1,5 +1,5 @@
 {
-  "recordCount": 42,
+  "recordCount": 46,
   "holdings": [
     {
       "id": "holding-001",
@@ -15,7 +15,7 @@
         "country": "England"
       },
       "status": "Active",
-      "holdingType": "Agricultural holding (AH)",
+      "holdingType": "Agricultural Holding (AH)",
       "holdingTypeCode": "AH",
       "species": [
         "Cattle",
@@ -63,7 +63,7 @@
         "country": "England"
       },
       "status": "Active",
-      "holdingType": "Agricultural holding (AH)",
+      "holdingType": "Agricultural Holding (AH)",
       "holdingTypeCode": "AH",
       "species": [
         "Cattle"
@@ -123,7 +123,7 @@
         "country": "England"
       },
       "status": "Inactive",
-      "holdingType": "Agricultural holding (AH)",
+      "holdingType": "Agricultural Holding (AH)",
       "holdingTypeCode": "AH",
       "species": [
         "Cattle",
@@ -172,7 +172,7 @@
         "country": "Wales"
       },
       "status": "Active",
-      "holdingType": "Agricultural holding (AH)",
+      "holdingType": "Agricultural Holding (AH)",
       "holdingTypeCode": "AH",
       "species": [
         "Cattle",
@@ -220,7 +220,7 @@
         "country": "England"
       },
       "status": "Active",
-      "holdingType": "Agricultural holding (AH)",
+      "holdingType": "Agricultural Holding (AH)",
       "holdingTypeCode": "AH",
       "species": [
         "Cattle",
@@ -268,7 +268,7 @@
         "country": "England"
       },
       "status": "Active",
-      "holdingType": "Markets (MA)",
+      "holdingType": "Market place (MA)",
       "holdingTypeCode": "MA",
       "species": [
         "Cattle",
@@ -316,7 +316,7 @@
         "country": "England"
       },
       "status": "Active",
-      "holdingType": "Agricultural holding (AH)",
+      "holdingType": "Agricultural Holding (AH)",
       "holdingTypeCode": "AH",
       "species": [
         "Cattle",
@@ -364,7 +364,7 @@
         "country": "England"
       },
       "status": "Active",
-      "holdingType": "Agricultural holding (AH)",
+      "holdingType": "Agricultural Holding (AH)",
       "holdingTypeCode": "AH",
       "species": [
         "Cattle"
@@ -407,7 +407,7 @@
         "country": "England"
       },
       "status": "Inactive",
-      "holdingType": "Agricultural holding (AH)",
+      "holdingType": "Agricultural Holding (AH)",
       "holdingTypeCode": "AH",
       "species": [
         "Cattle"
@@ -494,7 +494,7 @@
         "country": "England"
       },
       "status": "Active",
-      "holdingType": "Agricultural holding (AH)",
+      "holdingType": "Agricultural Holding (AH)",
       "holdingTypeCode": "AH",
       "species": [
         "Cattle",
@@ -538,7 +538,7 @@
         "country": "Wales"
       },
       "status": "Active",
-      "holdingType": "Agricultural holding (AH)",
+      "holdingType": "Agricultural Holding (AH)",
       "holdingTypeCode": "AH",
       "species": [
         "Cattle",
@@ -591,7 +591,7 @@
         "country": "England"
       },
       "status": "Inactive",
-      "holdingType": "Agricultural holding (AH)",
+      "holdingType": "Agricultural Holding (AH)",
       "holdingTypeCode": "AH",
       "species": [
         "Cattle",
@@ -640,7 +640,7 @@
         "country": "England"
       },
       "status": "Active",
-      "holdingType": "Agricultural holding (AH)",
+      "holdingType": "Agricultural Holding (AH)",
       "holdingTypeCode": "AH",
       "species": [
         "Cattle",
@@ -688,7 +688,7 @@
         "country": "England"
       },
       "status": "Active",
-      "holdingType": "Agricultural holding (AH)",
+      "holdingType": "Agricultural Holding (AH)",
       "holdingTypeCode": "AH",
       "species": [
         "Cattle",
@@ -736,7 +736,7 @@
         "country": "England"
       },
       "status": "Active",
-      "holdingType": "Agricultural holding (AH)",
+      "holdingType": "Agricultural Holding (AH)",
       "holdingTypeCode": "AH",
       "species": [
         "Cattle"
@@ -779,8 +779,8 @@
         "country": "England"
       },
       "status": "Inactive",
-      "holdingType": "Showgrounds and Temporary Holdings (CC)",
-      "holdingTypeCode": "CC",
+      "holdingType": "Agricultural Holding (AH)",
+      "holdingTypeCode": "AH",
       "species": [
         "Cattle"
       ],
@@ -823,7 +823,7 @@
         "country": "Wales"
       },
       "status": "Active",
-      "holdingType": "Agricultural holding (AH)",
+      "holdingType": "Agricultural Holding (AH)",
       "holdingTypeCode": "AH",
       "species": [
         "Cattle",
@@ -871,8 +871,8 @@
         "country": "England"
       },
       "status": "Active",
-      "holdingType": "Collection / Assembly Centres (CA)",
-      "holdingTypeCode": "CA",
+      "holdingType": "Calf Collection (CC)",
+      "holdingTypeCode": "CC",
       "species": [
         "Cattle",
         "Pigs",
@@ -920,7 +920,7 @@
         "country": "England"
       },
       "status": "Active",
-      "holdingType": "Agricultural holding (AH)",
+      "holdingType": "Agricultural Holding (AH)",
       "holdingTypeCode": "AH",
       "species": [
         "Cattle",
@@ -982,7 +982,7 @@
         "country": "England"
       },
       "status": "Active",
-      "holdingType": "Agricultural holding (AH)",
+      "holdingType": "Agricultural Holding (AH)",
       "holdingTypeCode": "AH",
       "species": [
         "Cattle"
@@ -1009,7 +1009,7 @@
         "country": "England"
       },
       "status": "Active",
-      "holdingType": "Agricultural holding (AH)",
+      "holdingType": "Agricultural Holding (AH)",
       "holdingTypeCode": "AH",
       "species": [
         "Cattle"
@@ -1036,7 +1036,7 @@
         "country": "England"
       },
       "status": "Active",
-      "holdingType": "Agricultural holding (AH)",
+      "holdingType": "Agricultural Holding (AH)",
       "holdingTypeCode": "AH",
       "species": [
         "Cattle"
@@ -1063,7 +1063,7 @@
         "country": "Wales"
       },
       "status": "Active",
-      "holdingType": "Agricultural holding (AH)",
+      "holdingType": "Agricultural Holding (AH)",
       "holdingTypeCode": "AH",
       "species": [
         "Cattle"
@@ -1090,7 +1090,7 @@
         "country": "England"
       },
       "status": "Active",
-      "holdingType": "Agricultural holding (AH)",
+      "holdingType": "Agricultural Holding (AH)",
       "holdingTypeCode": "AH",
       "species": [
         "Cattle"
@@ -1117,7 +1117,7 @@
         "country": "England"
       },
       "status": "Active",
-      "holdingType": "Agricultural holding (AH)",
+      "holdingType": "Agricultural Holding (AH)",
       "holdingTypeCode": "AH",
       "species": [
         "Cattle"
@@ -1144,7 +1144,7 @@
         "country": "England"
       },
       "status": "Active",
-      "holdingType": "Agricultural holding (AH)",
+      "holdingType": "Agricultural Holding (AH)",
       "holdingTypeCode": "AH",
       "species": [
         "Cattle"
@@ -1171,7 +1171,7 @@
         "country": "England"
       },
       "status": "Active",
-      "holdingType": "Agricultural holding (AH)",
+      "holdingType": "Agricultural Holding (AH)",
       "holdingTypeCode": "AH",
       "species": [
         "Cattle"
@@ -1198,7 +1198,7 @@
         "country": "England"
       },
       "status": "Active",
-      "holdingType": "Agricultural holding (AH)",
+      "holdingType": "Agricultural Holding (AH)",
       "holdingTypeCode": "AH",
       "species": [
         "Cattle"
@@ -1225,7 +1225,7 @@
         "country": "England"
       },
       "status": "Active",
-      "holdingType": "Agricultural holding (AH)",
+      "holdingType": "Agricultural Holding (AH)",
       "holdingTypeCode": "AH",
       "species": [
         "Cattle"
@@ -1252,7 +1252,7 @@
         "country": "Wales"
       },
       "status": "Active",
-      "holdingType": "Agricultural holding (AH)",
+      "holdingType": "Agricultural Holding (AH)",
       "holdingTypeCode": "AH",
       "species": [
         "Cattle"
@@ -1279,7 +1279,7 @@
         "country": "England"
       },
       "status": "Active",
-      "holdingType": "Agricultural holding (AH)",
+      "holdingType": "Agricultural Holding (AH)",
       "holdingTypeCode": "AH",
       "species": [
         "Cattle"
@@ -1306,7 +1306,7 @@
         "country": "England"
       },
       "status": "Active",
-      "holdingType": "Agricultural holding (AH)",
+      "holdingType": "Agricultural Holding (AH)",
       "holdingTypeCode": "AH",
       "species": [
         "Cattle"
@@ -1333,7 +1333,7 @@
         "country": "England"
       },
       "status": "Active",
-      "holdingType": "Agricultural holding (AH)",
+      "holdingType": "Agricultural Holding (AH)",
       "holdingTypeCode": "AH",
       "species": [
         "Cattle"
@@ -1360,7 +1360,7 @@
         "country": "England"
       },
       "status": "Active",
-      "holdingType": "Agricultural holding (AH)",
+      "holdingType": "Agricultural Holding (AH)",
       "holdingTypeCode": "AH",
       "species": [
         "Cattle"
@@ -1387,7 +1387,7 @@
         "country": "England"
       },
       "status": "Active",
-      "holdingType": "Agricultural holding (AH)",
+      "holdingType": "Agricultural Holding (AH)",
       "holdingTypeCode": "AH",
       "species": [
         "Cattle"
@@ -1414,7 +1414,7 @@
         "country": "Wales"
       },
       "status": "Active",
-      "holdingType": "Agricultural holding (AH)",
+      "holdingType": "Agricultural Holding (AH)",
       "holdingTypeCode": "AH",
       "species": [
         "Cattle"
@@ -1441,7 +1441,7 @@
         "country": "England"
       },
       "status": "Active",
-      "holdingType": "Agricultural holding (AH)",
+      "holdingType": "Agricultural Holding (AH)",
       "holdingTypeCode": "AH",
       "species": [
         "Cattle"
@@ -1468,7 +1468,7 @@
         "country": "England"
       },
       "status": "Active",
-      "holdingType": "Agricultural holding (AH)",
+      "holdingType": "Agricultural Holding (AH)",
       "holdingTypeCode": "AH",
       "species": [
         "Cattle"
@@ -1495,7 +1495,7 @@
         "country": "England"
       },
       "status": "Active",
-      "holdingType": "Agricultural holding (AH)",
+      "holdingType": "Agricultural Holding (AH)",
       "holdingTypeCode": "AH",
       "species": [
         "Cattle"
@@ -1629,6 +1629,189 @@
         }
       },
       "holdingStartDate": "2026-05-01"
+    },
+    {
+      "id": "holding-043",
+      "cph": "47/215/0176",
+      "holdingName": "Low Wood Hill Farm",
+      "businessName": "Low Wood Hill Farming Ltd",
+      "address": {
+        "addressLine1": "Low Wood Hill Farm",
+        "addressLine2": "Fell Lane",
+        "town": "Shrewsbury",
+        "county": "Shropshire",
+        "postcode": "SY4 6HP",
+        "country": "England"
+      },
+      "status": "Active",
+      "holdingType": "Agricultural Holding (AH)",
+      "holdingTypeCode": "AH",
+      "species": [
+        "Cattle",
+        "Sheep"
+      ],
+      "herdAndFlockMarks": [
+        {
+          "species": "Cattle",
+          "mark": "UK778901"
+        },
+        {
+          "species": "Sheep",
+          "mark": "UK778902"
+        }
+      ],
+      "owner": {
+        "role": "owner",
+        "firstName": "Rachel",
+        "lastName": "Cooper",
+        "name": "Rachel Cooper",
+        "email": "rachel.cooper@example.com",
+        "phone": "07700 900043",
+        "address": {
+          "addressLine1": "Low Wood Hill Farm",
+          "addressLine2": "Fell Lane",
+          "town": "Banbury",
+          "county": "Oxfordshire",
+          "postcode": "OX16 0BW",
+          "country": "England"
+        }
+      },
+      "holdingStartDate": "2014-04-07"
+    },
+    {
+      "id": "holding-044",
+      "cph": "47/215/0204",
+      "holdingName": "Low Wood Abattoir",
+      "businessName": "Low Wood Meat Processing Ltd",
+      "address": {
+        "addressLine1": "Low Wood Abattoir",
+        "addressLine2": "Industrial Road",
+        "town": "St Albans",
+        "county": "Hertfordshire",
+        "postcode": "AL1 3HZ",
+        "country": "England"
+      },
+      "status": "Active",
+      "holdingType": "Slaughterhouse (SH)",
+      "holdingTypeCode": "SH",
+      "species": [
+        "Cattle",
+        "Sheep"
+      ],
+      "herdAndFlockMarks": [],
+      "owner": {
+        "role": "owner",
+        "firstName": "Martin",
+        "lastName": "Ellis",
+        "name": "Martin Ellis",
+        "email": "martin.ellis@example.com",
+        "phone": "07700 900044",
+        "address": {
+          "addressLine1": "Low Wood Abattoir",
+          "addressLine2": "Industrial Road",
+          "town": "Carlisle",
+          "county": "Cumbria",
+          "postcode": "CA5 8AB",
+          "country": "England"
+        }
+      },
+      "holdingStartDate": "2011-09-12"
+    },
+    {
+      "id": "holding-045",
+      "cph": "47/215/0245",
+      "holdingName": "Low Wood Farm North",
+      "businessName": "Low Wood Farming Co",
+      "address": {
+        "addressLine1": "Low Wood Farm North",
+        "addressLine2": "North Woodland Drive",
+        "town": "Altrincham",
+        "county": "Greater Manchester",
+        "postcode": "WA14 2PU",
+        "country": "England"
+      },
+      "status": "Inactive",
+      "holdingType": "Temporary holding (TH)",
+      "holdingTypeCode": "TH",
+      "associatedHolding": {
+        "id": "holding-017",
+        "cph": "47/215/0169"
+      },
+      "startDate": "2021-04-01",
+      "endDate": "2021-10-31",
+      "species": [
+        "Cattle"
+      ],
+      "herdAndFlockMarks": [
+        {
+          "species": "Cattle",
+          "mark": "UK778899"
+        }
+      ],
+      "landowner": {
+        "name": "Sarah Bell",
+        "businessName": "Bell Rural Estates",
+        "cph": "47/215/0901",
+        "phone": "07700 900145",
+        "email": "sarah.bell@example.com"
+      },
+      "owner": {
+        "role": "owner",
+        "firstName": "Jack",
+        "lastName": "Turner",
+        "name": "Jack Turner",
+        "email": "jack.turner@example.com",
+        "phone": "07700 900017",
+        "address": {
+          "addressLine1": "Low Wood Farm",
+          "addressLine2": "Woodland Drive",
+          "town": "Carlisle",
+          "county": "Cumbria",
+          "postcode": "CA5 7LD",
+          "country": "England"
+        }
+      },
+      "holdingStartDate": "2021-04-01",
+      "holdingEndDate": "2021-10-31"
+    },
+    {
+      "id": "holding-046",
+      "cph": "47/215/0302",
+      "holdingName": "Bell and Lake Showground",
+      "businessName": "Low Wood Agricultural Events",
+      "address": {
+        "addressLine1": "Low Wood Showground",
+        "addressLine2": "Showground Lane",
+        "town": "Low Wood",
+        "county": "Cumbria",
+        "postcode": "CA5 8LW",
+        "country": "England"
+      },
+      "status": "Active",
+      "holdingType": "Showground (SG)",
+      "holdingTypeCode": "SG",
+      "species": [
+        "Cattle",
+        "Sheep"
+      ],
+      "herdAndFlockMarks": [],
+      "owner": {
+        "role": "owner",
+        "firstName": "Joanne",
+        "lastName": "Bell",
+        "name": "Joanne Bell",
+        "email": "joanne.bell@example.com",
+        "phone": "07700 900046",
+        "address": {
+          "addressLine1": "Low Wood Showground",
+          "addressLine2": "Showground Lane",
+          "town": "Low Wood",
+          "county": "Cumbria",
+          "postcode": "CA5 8LW",
+          "country": "England"
+        }
+      },
+      "holdingStartDate": "2009-05-18"
     }
   ]
 }

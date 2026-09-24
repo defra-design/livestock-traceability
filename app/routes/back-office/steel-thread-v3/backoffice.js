@@ -1314,9 +1314,7 @@ function getFilteredHoldings(req) {
       holding.address?.county,
       holding.address?.postcode,
       holding.status,
-      holding.holdingType,
-      ...(holding.species || []),
-      ...herdAndFlockMarks
+      holding.holdingType
     ];
 
     return searchableValues.some((value) => {

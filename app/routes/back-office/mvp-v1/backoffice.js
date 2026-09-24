@@ -1315,6 +1315,9 @@ function getFilteredHoldings(req) {
       holding.address?.postcode,
       holding.status,
       holding.holdingType,
+      holding.owner?.name,
+      holding.owner?.phone,
+      holding.owner?.email,
       ...(holding.species || []),
       ...herdAndFlockMarks
     ];

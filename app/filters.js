@@ -168,47 +168,61 @@ addFilter('fullDateFormat', function (value) {
   return `${day} ${monthNames[month - 1]} ${year}`;
 });
 
-  addFilter('animalAge', function (value) {
-    if (!value || typeof value !== 'string') {
-      return value;
-    }
+addFilter('animalAge', function (value) {
+  if (!value || typeof value !== 'string') {
+    return value;
+  }
 
-    const parts = value.split('-');
+  const parts = value.split('-');
 
-    if (parts.length !== 3) {
-      return value;
-    }
+  if (parts.length !== 3) {
+    return value;
+  }
 
-    const [day, month, year] = parts.map(Number);
-    const dateOfBirth = new Date(year, month - 1, day);
+  const [day, month, year] = parts.map(Number);
+  const dateOfBirth = new Date(year, month - 1, day);
 
-    if (Number.isNaN(dateOfBirth.getTime())) {
-      return value;
-    }
+  if (Number.isNaN(dateOfBirth.getTime())) {
+    return value;
+  }
 
-    const now = new Date();
+  const now = new Date();
 
-    let months = (now.getFullYear() - dateOfBirth.getFullYear()) * 12 + (now.getMonth() - dateOfBirth.getMonth());
+  let months =
+    (now.getFullYear() - dateOfBirth.getFullYear()) * 12
+    + (now.getMonth() - dateOfBirth.getMonth());
 
-    if (now.getDate() < dateOfBirth.getDate()) {
-      months--;
-    }
+  if (now.getDate() < dateOfBirth.getDate()) {
+    months--;
+  }
 
-    if (months < 1) {
-      const days = Math.floor((now - dateOfBirth) / (1000 * 60 * 60 * 24));
+  if (months < 1) {
+    const days = Math.floor(
+      (now - dateOfBirth) / (1000 * 60 * 60 * 24)
+    );
 
+    if (days < 7) {
       return `${days} day${days === 1 ? '' : 's'}`;
     }
 
-    if (months < 12) {
-      return `${months} month${months === 1 ? '' : 's'}`;
-    }
+    const weeks = Math.floor(days / 7);
 
-    const years = Math.floor(months / 12);
-    const remainingMonths = months % 12;
+    return `${weeks} week${weeks === 1 ? '' : 's'}`;
+  }
 
-    return `${years} year${years === 1 ? '' : 's'} ${remainingMonths} month${remainingMonths === 1 ? '' : 's'}`;
-  });
+  if (months < 12) {
+    return `${months} month${months === 1 ? '' : 's'}`;
+  }
+
+  const years = Math.floor(months / 12);
+  const remainingMonths = months % 12;
+
+  if (remainingMonths === 0) {
+    return `${years} year${years === 1 ? '' : 's'}`;
+  }
+
+  return `${years} year${years === 1 ? '' : 's'} ${remainingMonths} month${remainingMonths === 1 ? '' : 's'}`;
+});
 
   addFilter('sexInitial', function (value) {
     if (!value || typeof value !== 'string') {
