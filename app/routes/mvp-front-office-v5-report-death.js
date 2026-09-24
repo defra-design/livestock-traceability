@@ -30,7 +30,7 @@ router.post(`${BASE}/yes/animal-details`, (req, res) => {
   const errors = {}
 
   if (!data['death-ear-tag-number']) {
-    errors['death-ear-tag-number'] = 'Enter the last 6 digits of the animal ear tag number you are registering'
+    errors['death-ear-tag-number'] = 'Enter all or part of the animal ear tag number you are reporting'
   }
 
   const dateComplete = data['death-date-day'] && data['death-date-month'] && data['death-date-year']
@@ -57,7 +57,7 @@ router.post(`${BASE}/no/animal-details`, (req, res) => {
   const errors = {}
 
   if (!data['death-ear-tag-number']) {
-    errors['death-ear-tag-number'] = 'Enter the last 6 digits of the animal ear tag number you are registering'
+    errors['death-ear-tag-number'] = 'Enter the animal ear tag number you are reporting'
   }
 
   const dobComplete = data['death-dob-day'] && data['death-dob-month'] && data['death-dob-year']
@@ -154,7 +154,7 @@ router.post(`${BASE}/submit`, (req, res) => {
 })
 
 router.post(`${BASE}/confirmation`, (req, res) => {
-  res.redirect('/mvp-front-office/v5/my-holdings/submissions')
+  res.redirect('/mvp-front-office/v5/my-holdings/report-cattle-death')
 })
 
 module.exports = router

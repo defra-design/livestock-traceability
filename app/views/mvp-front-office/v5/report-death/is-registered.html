@@ -7,7 +7,7 @@
 
 {% endblock %}
 
-{% set pageName="Is the animal registered to your holding?" %}
+{% set pageName="Is the animal registered?" %}
 
 {% block beforeContent %}
   {{ govukBackLink({
@@ -42,7 +42,7 @@
         <fieldset class="govuk-fieldset" aria-describedby="{% if errors['death-is-registered'] %}death-is-registered-error{% endif %}">
           <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
             <h1 class="govuk-fieldset__heading">
-              Is the animal registered to your holding?
+              Is the animal registered?
             </h1>
           </legend>
           {% if errors['death-is-registered'] %}
