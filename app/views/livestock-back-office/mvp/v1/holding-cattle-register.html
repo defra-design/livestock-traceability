@@ -122,20 +122,20 @@
     <tbody class="govuk-table__body">
     {% for animal in cattle %}
     <tr class="govuk-table__row">
-        <th scope="row" class="govuk-table__header app-table__cell--no-wrap ">
+        <th scope="row" class="govuk-table__header app-table__cell--no-wrap " data-sort-value="{{animal.earTagNumber.slice(2,12)}}">
             <a class="govuk-link" href="/{{baseURL}}/cattle/{{ animal.earTagNumber }}?fromHolding={{holding.id}}">
                 {{ animal.earTagNumber | formatReference }}
             </a>
         </th>
 
-        <td class="govuk-table__cell">
+        <td class="govuk-table__cell" data-sort-value="{{animal.dateOfBirth.slice(6,10) + animal.dateOfBirth.slice(3,5) + animal.dateOfBirth.slice(0,2)}}">
             {{ animal.dateOfBirth | shortDateFormat }}
         </td>
-        <td class="govuk-table__cell app-table__cell--no-wrap">
+        <td class="govuk-table__cell app-table__cell--no-wrap" data-sort-value="{{animal.dateOfBirth.slice(6,10) + animal.dateOfBirth.slice(3,5) + animal.dateOfBirth.slice(0,2)}}">
             {{ animal.dateOfBirth | animalAge }}
         </td>
 
-        <td class="govuk-table__cell">
+        <td class="govuk-table__cell" data-sort-value="{{animal.dateOfRegistration.slice(6,10) + animal.dateOfRegistration.slice(3,5) + animal.dateOfRegistration.slice(0,2)}}">
             {{ animal.dateOfRegistration | shortDateFormat}}
         </td>
 

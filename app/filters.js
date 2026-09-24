@@ -291,76 +291,46 @@ addFilter('animalAge', function (value) {
     return parsed;
   }
 
-  addFilter('animalAge', function (value, endValue){
-    const dateOfBirth = parseAnimalDate(value);
+addFilter('animalAge', function (value) {
+  if (!value || typeof value !== 'string') {
+    return value;
+  }
 
-    if (!dateOfBirth) {
-      return '';
-    }
+  const parts = value.split('-');
 
-    const endDate = endValue
-      ? parseAnimalDate(endValue)
-      : new Date();
+  if (parts.length !== 3) {
+    return value;
+  }
 
-    if (!endDate) {
-      return '';
-    }
+  const [day, month, year] = parts.map(Number);
+  const dateOfBirth = new Date(year, month - 1, day);
 
-    const comparisonDate = new Date(
-      endDate.getFullYear(),
-      endDate.getMonth(),
-      endDate.getDate()
-    );
+  if (Number.isNaN(dateOfBirth.getTime())) {
+    return value;
+  }
 
-    if (dateOfBirth > comparisonDate) {
-      return '';
-    }
+  const now = new Date();
 
-    let years = comparisonDate.getFullYear() - dateOfBirth.getFullYear();
-    let months = comparisonDate.getMonth() - dateOfBirth.getMonth();
+  let months =
+    (now.getFullYear() - dateOfBirth.getFullYear()) * 12
+    + (now.getMonth() - dateOfBirth.getMonth());
 
-    if (comparisonDate.getDate() < dateOfBirth.getDate()) {
-      months -= 1;
-    }
+  if (now.getDate() < dateOfBirth.getDate()) {
+    months--;
+  }
 
-    if (months < 0) {
-      years -= 1;
-      months += 12;
-    }
+  if (months < 0) {
+    months = 0;
+  }
 
-    if (years >= 1) {
-      const yearText = years === 1
-        ? '1 year'
-        : years + ' years';
+  if (months < 12) {
+    return `${months} month${months === 1 ? '' : 's'}`;
+  }
 
-      const monthText = months === 1
-        ? '1 month'
-        : months + ' months';
+  const years = Math.floor(months / 12);
+  const remainingMonths = months % 12;
 
-      return yearText + ', ' + monthText;
-    }
-
-    if (months >= 1) {
-      return months === 1
-        ? '1 month'
-        : months + ' months';
-    }
-
-    const millisecondsPerDay = 1000 * 60 * 60 * 24;
-    const days = Math.floor(
-      (comparisonDate.getTime() - dateOfBirth.getTime())
-      / millisecondsPerDay
-    );
-
-    const weeks = Math.floor(days / 7);
-
-    if (weeks < 1) {
-      return 'Less than 1 week';
-    }
-
-    return weeks === 1
-      ? '1 week'
-      : weeks + ' weeks';
-  })
+  return `${years} year${years === 1 ? '' : 's'}, ${remainingMonths} month${remainingMonths === 1 ? '' : 's'}`;
+});
 
 

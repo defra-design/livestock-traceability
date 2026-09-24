@@ -98,12 +98,8 @@
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">Genetic dam ear tag</dt>
         <dd class="govuk-summary-list__value">
-          <a
-                  class="govuk-link"
-                  href="{{ currentBaseUrl }}cattle/{{ animal.dam.geneticDam.earTagNumber }}?returnUrl={{ (currentBaseUrl+'cattle/'+animal.earTagNumber) | urlencode }}"
-          >
+
             {{ animal.dam.geneticDam.earTagNumber | formatReference }}
-          </a>
         </dd>
       </div>
 
@@ -150,12 +146,9 @@
         <dt class="govuk-summary-list__key">CPH number</dt>
         <dd class="govuk-summary-list__value">
           {% if animalLocations.current.id %}
-          <a
-                  class="govuk-link"
-                  href="/{{baseURL}}/holdings/{{ animalLocations.current.id }}"
-          >
+
             {{ animalLocations.current.cph }}{% endif %}
-          </a>
+
         </dd>
       </div>
 
@@ -167,18 +160,10 @@
 <!--          {% endif %}-->
 
           {% if animalLocations.current.address %}
-          <p class="govuk-body govuk-!-margin-bottom-1">{{ animalLocations.current.address }}</p>
+          <p class="govuk-body ">{{ animalLocations.current.address }}</p>
           {% endif %}
 
-          <p class="govuk-body govuk-!-margin-bottom-0">
-            <a
-                    class="govuk-link"
-                    href="google.com/maps/place/51°48'27.0%22N+0°50'09.0%22E/@51.8079676,0.8299147,998m/data=!3m1!1e3!4m4!3m3!8m2!3d51.807509!4d0.8358453?entry=ttu&g_ep=EgoyMDI2MDkwMS4wIKXMDSoASAFQAw%3D%3D"
-                    target="_blank"
-            >
-              View on map (opens in new tab)
-            </a>
-          </p>
+
         </dd>
       </div>
 
