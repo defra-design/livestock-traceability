@@ -1,0 +1,179 @@
+{% extends "layouts/main-backoffice.html" %}
+
+{% set pageName = "Global search options" %}
+
+{% block content %}
+<div class="govuk-phase-banner govuk-width-container" style="margin-top:-30px; margin-bottom:30px">
+  <p class="govuk-phase-banner__content">
+    <strong class="govuk-tag govuk-phase-banner__content__tag">
+      Alpha
+    </strong>
+    <span class="govuk-phase-banner__text">
+      These are conceptual prototypes, not a finalised service.
+    </span>
+  </p>
+</div>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <h1 class="govuk-heading-xl">
+      Global search options
+    </h1>
+
+    <p class="govuk-body-l">
+      We explored different ways to search across animals, holdings and keepers from one place.
+    </p>
+
+    <h2 class="govuk-heading-l">
+      Option 1: One search with grouped results
+    </h2>
+
+    <p class="govuk-body">
+      <a class="govuk-link" href="./search">
+        View grouped global search
+      </a>
+    </p>
+
+    <p class="govuk-body">
+      One search checks animals, holdings and keepers, then shows a small number of results for each type.
+    </p>
+
+    <ul class="govuk-list govuk-list--bullet">
+      <li><strong>Why it could work:</strong> users can search with whatever information they have without choosing a record type first.</li>
+      <li><strong>Issue:</strong> the results page can become long, so each group needs a sensible preview limit.</li>
+    </ul>
+      <style>.govuk-accordion__controls{display:none;}</style>
+    <div class="govuk-accordion" data-module="govuk-accordion" id="accordion-default">
+  <div class="govuk-accordion__section">
+    <div class="govuk-accordion__section-header">
+      <h2 class="govuk-accordion__section-heading">
+        <span class="govuk-accordion__section-button" id="accordion-default-heading-1">
+            Global search pattern for option 1
+        </span>
+      </h2>
+    </div>
+    <div id="accordion-default-content-1" class="govuk-accordion__section-content">
+
+<p>The same search term is checked against all 3 record types at the same time.</p>
+
+<ul class="govuk-list govuk-list--bullet">
+  <li>Results are grouped into Animals, Holdings and Keepers.</li>
+  <li>Each group shows up to 5 results.</li>
+  <li>If there are more than 5 results in a group, the user gets a View all results link to the existing individual search.</li>
+  <li>If a record type has no matches, that section is not shown.</li>
+  <li>The overall result count is the total number of matching animals, holdings and keepers combined.</li>
+</ul>
+
+<h3 class="govuk-header-m" >Animals</h3>
+
+<p>The search checks:</p>
+
+<ul class="govuk-list govuk-list--bullet">
+  <li>ear tag number, partial match</li>
+  <li>CPH number, exact match</li>
+</ul>
+
+<p>Animal results show:</p>
+
+<ul class="govuk-list govuk-list--bullet">
+  <li>ear tag</li>
+  <li>CPH</li>
+  <li>holding name</li>
+  <li>status</li>
+</ul>
+
+<p>So, for example, searching a full CPH can return animals recorded against that holding.</p>
+
+<h3 class="govuk-header-m" >Holdings</h3>
+
+<p>The search checks:</p>
+
+<ul class="govuk-list govuk-list--bullet">
+  <li>CPH number</li>
+  <li>holding name</li>
+  <li>business name</li>
+  <li>town</li>
+  <li>county</li>
+  <li>postcode</li>
+  <li>herd or flock mark</li>
+</ul>
+
+<p>These use partial matching, so a term such as Low Wood, Cumbria or part of a CPH can return matching holdings.</p>
+
+<h3 class="govuk-header-m" >Keepers</h3>
+
+<p>The search checks:</p>
+
+<ul class="govuk-list govuk-list--bullet">
+  <li>name</li>
+  <li>first name</li>
+  <li>last name</li>
+  <li>email address</li>
+  <li>phone number</li>
+  <li>postcode</li>
+</ul>
+
+<p>These also use partial matching.</p>
+    </div>
+  </div>
+</div>
+
+    <h2 class="govuk-heading-l govuk-!-margin-top-7">
+      Option 2: Choose a record type before searching
+    </h2>
+
+    <p class="govuk-body">
+      <a class="govuk-link" href="./search-v2">
+        View scoped search with radios
+      </a>
+    </p>
+
+    <p class="govuk-body">
+      Users choose Animal, Holding or Keeper, then search only within that area.
+    </p>
+
+    <ul class="govuk-list govuk-list--bullet">
+      <li><strong>Why it could work:</strong> results are focused and the page only needs to show one result type.</li>
+      <li><strong>Issue:</strong> users need to know the record type before searching. A valid search can return nothing if the wrong option is selected.</li>
+      <li><strong>Issue:</strong> it starts to duplicate the existing individual animal, holding and keeper searches.</li>
+    </ul>
+
+    <h2 class="govuk-heading-l govuk-!-margin-top-7">
+      Option 3: Search results in tabs
+    </h2>
+
+    <p class="govuk-body">
+      One search checks all three areas, with separate tabs for Animals, Holdings and Keepers.
+    </p>
+
+    <ul class="govuk-list govuk-list--bullet">
+      <li><strong>Why it could work:</strong> keeps the page compact and allows each result type to keep its own table design.</li>
+      <li><strong>Issue:</strong> there is no obvious All tab because each result type needs different columns.</li>
+      <li><strong>Issue:</strong> one tab has to be selected by default, which could hide relevant results in another tab.</li>
+      <li><strong>Issue:</strong> responsive tab behaviour could make large result sets cumbersome on smaller screens.</li>
+    </ul>
+
+    <h2 class="govuk-heading-l govuk-!-margin-top-7">
+      Option 4: Mixed result cards
+    </h2>
+
+    <p class="govuk-body">
+      Show animals, holdings and keepers together using a flexible card layout rather than separate tables.
+    </p>
+
+    <ul class="govuk-list govuk-list--bullet">
+      <li><strong>Why it could work:</strong> cards can show different information for each record type and adapt well to different screen sizes.</li>
+      <li><strong>Issue:</strong> record types would need to be clearly distinguished.</li>
+      <li><strong>Issue:</strong> mixed cards introduce a difficult ordering question about which result type should appear first.</li>
+      <li><strong>Issue:</strong> cards use more vertical space and may be slower to scan than compact tables.</li>
+    </ul>
+
+    <div class="govuk-inset-text govuk-!-margin-top-7">
+      Current direction: continue with the grouped global search while keeping the other options documented as alternatives explored.
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}
