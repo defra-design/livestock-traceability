@@ -20,7 +20,7 @@ function getErrorRecords() {
       category: 'Late birth registration',
       reason: 'Date of birth appears to be over the 27-day deadline to report a calf birth.',
       evidence: 'You may be required to provide a written explanation describing why the birth could not be reported within the allotted time.',
-      status: 'NoR issued'
+      status: 'Refused'
     },
     {
       id: '6780-5907',
@@ -47,10 +47,49 @@ function getErrorRecords() {
   ]
 }
 
-// Dummy data for now - a real submissions data source will replace
-// this once the JSON is built.
+const birthRegistrations = require('../data/table-data/birth-registrations.json')
+
+const registrationStatusClasses = {
+  'Pending validation': 'govuk-tag--yellow',
+  Approved: 'govuk-tag--green'
+}
+
+function getBirthRegistration(reference) {
+  const registration = birthRegistrations.find((r) => r.reference === reference)
+
+  if (!registration) {
+    return null
+  }
+
+  const isPending = registration.status === 'Pending validation'
+  const errorCount = registration.animals.reduce((total, animal) => total + animal.errors, 0)
+
+  return {
+    ...registration,
+    total: registration.animals.length,
+    errorCount: isPending ? null : errorCount,
+    statusClass: registrationStatusClasses[registration.status],
+    isPending
+  }
+}
+
 function getBirthSubmissions() {
+  const registrations = birthRegistrations.map((r) => {
+    const registration = getBirthRegistration(r.reference)
+
+    return {
+      reference: registration.reference,
+      date: registration.dateRegistered,
+      total: registration.total,
+      errorCount: registration.errorCount,
+      status: registration.status,
+      statusClass: registration.statusClass,
+      href: `/mvp-front-office/v5/register-animal/submission-detail/${registration.reference}`
+    }
+  })
+
   return [
+    // Dummy draft - drafts are not yet part of the registrations data source.
     {
       reference: '9872-9873',
       date: '05-05-2026',
@@ -60,24 +99,7 @@ function getBirthSubmissions() {
       statusClass: 'govuk-tag--blue',
       href: '/mvp-front-office/v5/register-animal/submission-detail-draft'
     },
-    {
-      reference: '5268-9872',
-      date: '08-05-2026',
-      total: 4,
-      errorCount: null,
-      status: 'Pending validation',
-      statusClass: 'govuk-tag--yellow',
-      href: '/mvp-front-office/v5/register-animal/submission-detail-pending'
-    },
-    {
-      reference: '7863-9873',
-      date: '01-05-2026',
-      total: 12,
-      errorCount: 1,
-      status: 'Approved',
-      statusClass: 'govuk-tag--green',
-      href: '/mvp-front-office/v5/register-animal/submission-detail-sent'
-    }
+    ...registrations
   ]
 }
 
@@ -245,6 +267,16 @@ router.get('/mvp-front-office/v5/my-holdings/register-cattle-birth/remove-draft'
   }
 
   res.render('mvp-front-office/v5/my-holdings/remove-draft-registration', { submission })
+})
+
+router.get('/mvp-front-office/v5/register-animal/submission-detail/:reference', (req, res) => {
+  const registration = getBirthRegistration(req.params.reference)
+
+  if (!registration) {
+    return res.redirect('/mvp-front-office/v5/my-holdings/register-cattle-birth')
+  }
+
+  res.render('mvp-front-office/v5/register-animal/submission-detail', { registration })
 })
 
 router.post('/mvp-front-office/v5/my-holdings/register-cattle-birth/remove-draft', (req, res) => {
