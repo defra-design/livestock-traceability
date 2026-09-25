@@ -1,4 +1,4 @@
-```html
+
 {% extends "layouts/main-backoffice.html" %}
 
 {% set pageName = "Livestock back office v3 prototype" %}
@@ -19,12 +19,13 @@
   <div class="govuk-grid-column-two-thirds">
 
     <h1 class="govuk-heading-xl">
-      Livestock back office - steal thread version 3
+      Livestock back office - steel thread version 3
     </h1>
+    <strong class="govuk-tag govuk-tag--green govuk-!-margin-bottom-2">Release candidate</strong>
     <p class="govuk-body-l">
-      This is a limited scope prototype restricted to data points that the steel thread front office could use only.
+      This is a limited-scope prototype covering holdings and animals currently recorded on a holding.
     </p>
-<p>
+
 
     <h2 class="govuk-heading-m">
       Search holdings
@@ -33,66 +34,82 @@
     <ul class="govuk-list govuk-list--spaced">
       <li>
         <a class="govuk-link" href="./holdings">
-          Search start page (no search query)
+          Search holdings
         </a>
       </li>
+
       <li>
         <a class="govuk-link" href="./holdings?search=12%2F345%2F0001">
-          Single holding result (CPH exact match)
+          Search results - exact CPH match
         </a>
       </li>
+
       <li>
         <a class="govuk-link" href="./holdings?search=farm">
-          multiple holding results - with pagination
+          Search results - multiple holdings
         </a>
       </li>
+    </ul>
+
+    <h2 class="govuk-heading-m">
+      Holding details
+    </h2>
+
+    <ul class="govuk-list govuk-list--spaced">
       <li>
         <a class="govuk-link" href="./holdings/holding-001">
           View an example holding
         </a>
       </li>
-    </ul>
-    <h2 class="govuk-heading-m">
-      Holding details
-    </h2>
-    <ul class="govuk-list govuk-list--spaced">
-      <li>
-        <a class="govuk-link" href="./holdings/holding-001">
-          Holding details
-        </a>
-      </li>
+
       <li>
         <a class="govuk-link" href="./holdings/holding-002">
-          Holding details - with multiple herd marks
-        </a>
-      </li>
-      <li>
-        <a class="govuk-link" href="./holdings/cattle-register">
-          Holding current livestock
-        </a>
-      </li>
-      <li>
-        <a class="govuk-link" href="./holdings/cattle-register">
-          Holding current livestock
-        </a>
-      </li>
-
-      <li>
-        <a class="govuk-link" href="./holdings/cattle-register?search=146510">
-          Holding current livestock -  search results
-        </a>
-      </li>
-      <li>
-        <a class="govuk-link" href="./animal-error-record?id=holding-001">
-          Errors on holding
+          View a holding with multiple herd marks
         </a>
       </li>
     </ul>
 
+    <h2 class="govuk-heading-m">
+      Animals on a holding
+    </h2>
 
+    <ul class="govuk-list govuk-list--spaced">
+      <li>
+        <a class="govuk-link" href="./holdings/holding-001/cattle-register">
+          View animals currently recorded at a holding
+        </a>
+      </li>
 
+      <li>
+        <a class="govuk-link" href="./holdings/holding-001/cattle-register?search=12">
+          Search animals on a holding
+        </a>
+      </li>
+    </ul>
 
+    <h2 class="govuk-heading-m">
+      Animals details page
+    </h2>
 
+    <ul class="govuk-list govuk-list--spaced">
+      <li>
+        <a class="govuk-link" href="./cattle/UK017373777279?fromHolding=holding-001">
+          View animals details
+        </a>
+      </li>
+
+      <li>
+        <a class="govuk-link" href="./cattle/UK551643261039?fromHolding=holding-001">
+          View animal details - has surrogate and sire details
+        </a>
+      </li>
+
+      <li>
+        <a class="govuk-link" href="./cattle/UK132588101360?fromHolding=holding-001">
+          View animal details - born on holding
+        </a>
+      </li>
+    </ul>
 
     <div class="govuk-inset-text">
       All data in this prototype is fictional and should not be treated as

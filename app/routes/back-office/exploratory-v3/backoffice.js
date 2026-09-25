@@ -1497,6 +1497,95 @@ function registerGlobalSearchRoute(urlPath, viewPath) {
   });
 }
 
+/**
+ * Scoped global search
+ *
+ * Alternative to the global search above. The user chooses one record type
+ * and the page shows results for that type only, while staying on search-v2.
+ */
+function getScopedGlobalSearchResults(req) {
+  const search = String(req.query.search || '').trim();
+  const requestedSearchType = String(req.query.searchType || '').trim();
+  const previewLimit = 5;
+
+  const allowedSearchTypes = [
+    'animal',
+    'holding',
+    'keeper'
+  ];
+
+  const searchType = allowedSearchTypes.includes(requestedSearchType)
+    ? requestedSearchType
+    : '';
+
+  const results = {
+    search,
+    searchType,
+    animals: [],
+    holdings: [],
+    keepers: [],
+    animalCount: 0,
+    holdingCount: 0,
+    keeperCount: 0,
+    totalResults: 0,
+    previewLimit
+  };
+
+  if (!search || !searchType) {
+    return results;
+  }
+
+  if (searchType === 'animal') {
+    const cattleResults = getFilteredCattle(req);
+
+    results.animals = cattleResults.cattle
+    results.animalCount = cattleResults.cattle.length;
+    results.totalResults = results.animalCount;
+
+    return results;
+  }
+
+  if (searchType === 'holding') {
+    const holdingResults = getFilteredHoldings(req);
+
+    results.holdings = holdingResults.holdings
+    results.holdingCount = holdingResults.holdings.length;
+    results.totalResults = results.holdingCount;
+
+    return results;
+  }
+
+  const keeperResults = getFilteredUsers(req);
+
+  results.keepers = keeperResults.users
+  results.keeperCount = keeperResults.users.length;
+  results.totalResults = results.keeperCount;
+
+  return results;
+}
+
+function registerScopedGlobalSearchRoute(urlPath, viewPath) {
+  router.get('/' + baseURL + '/' + urlPath, (req, res) => {
+    const results = getScopedGlobalSearchResults(req);
+    console.log(results)
+    return res.render(baseURL + '/' + viewPath, {
+      search: results.search,
+      searchType: results.searchType,
+      animals: results.animals,
+      holdings: results.holdings,
+      keepers: results.keepers,
+      animalCount: results.animalCount,
+      holdingCount: results.holdingCount,
+      keeperCount: results.keeperCount,
+      totalResults: results.totalResults,
+      previewLimit: results.previewLimit,
+      encodedSearch: encodeURIComponent(results.search),
+      baseURL
+    });
+  });
+}
+
+
 
 /**
  * Register list/search routes first
@@ -1517,7 +1606,8 @@ registerHoldingsRoute('holding-search', 'holding-search');
 
 registerUsersRoute('users', 'users');
 registerGlobalSearchRoute('search','global-search');
-
+registerScopedGlobalSearchRoute('search-v2','global-search-radio');
+registerScopedGlobalSearchRoute('search-v3','global-search-radio-normal');
 
 /**
  * Event details
