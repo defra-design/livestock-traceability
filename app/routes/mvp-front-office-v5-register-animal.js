@@ -116,7 +116,7 @@ router.post(`${BASE}/surrogate-dam`, (req, res) => {
   const errors = {}
 
   if (!data['genetic-dam-number'] || !data['genetic-dam-number'].trim()) {
-    errors['genetic-dam-number'] = 'Enter the ear tag number of the genetic dam'
+    errors['genetic-dam-number'] = 'Enter the full animal ear tag number of the genetic dam'
   }
 
   const surrogateDamNumber = data['surrogate-dam-number']

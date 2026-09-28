@@ -38,7 +38,13 @@ router.post(`${BASE}/movement-date`, (req, res) => {
 router.post(`${BASE}/ear-tag-numbers`, (req, res) => {
   const data = req.session.data
 
-  if (!data['movement-ear-tags'] || !data['movement-ear-tags'].trim()) {
+  // Added one per item by the add another component, so drop any blank items
+  const earTags = [].concat(data['movement-ear-tags'] || [])
+    .map((tag) => tag.trim())
+    .filter(Boolean)
+  data['movement-ear-tags'] = earTags
+
+  if (earTags.length === 0) {
     return res.render('mvp-front-office/v5/report-movement/ear-tag-numbers', {
       errors: { 'movement-ear-tags': 'Enter at least one ear tag number' }
     })
