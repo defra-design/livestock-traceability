@@ -367,6 +367,32 @@
     },
     {
       "cph": "12/345/0001",
+      "earTagNumber": "UK654322100040",
+      "dateOfBirth": "22-09-2026",
+      "sex": "Female",
+      "breed": {
+        "name": "Welsh Black",
+        "code": "WB"
+      },
+      "status": "Alive",
+      "administrativeStatus": {
+        "passportStatus": "Passport issued",
+        "movementStatus": "Unrestricted",
+        "passportLastIssued": "24-09-2026",
+        "passportVersion": 1
+      },
+      "dam": {
+        "type": "Genetic",
+        "surrogateDam": null,
+        "geneticDam": {
+          "earTagNumber": "UK654322100035"
+        }
+      },
+      "sire": null,
+      "dateOfRegistration": "24-09-2026"
+    },
+    {
+      "cph": "12/345/0001",
       "earTagNumber": "UK654322100009",
       "dateOfBirth": "30-11-2021",
       "sex": "Female",
@@ -1183,32 +1209,7 @@
       "sire": null,
       "dateOfRegistration": "19-12-2024"
     },
-    {
-      "cph": "12/345/0001",
-      "earTagNumber": "UK654322100040",
-      "dateOfBirth": "22-09-2026",
-      "sex": "Female",
-      "breed": {
-        "name": "Welsh Black",
-        "code": "WB"
-      },
-      "status": "Alive",
-      "administrativeStatus": {
-        "passportStatus": "Passport issued",
-        "movementStatus": "Unrestricted",
-        "passportLastIssued": "24-09-2026",
-        "passportVersion": 1
-      },
-      "dam": {
-        "type": "Genetic",
-        "surrogateDam": null,
-        "geneticDam": {
-          "earTagNumber": "UK654322100035"
-        }
-      },
-      "sire": null,
-      "dateOfRegistration": "24-09-2026"
-    },
+
     {
       "cph": "12/345/0001",
       "earTagNumber": "UK132588101360",
