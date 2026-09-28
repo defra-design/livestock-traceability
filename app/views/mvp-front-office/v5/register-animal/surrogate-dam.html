@@ -71,6 +71,9 @@
         <label class="govuk-label govuk-label--m" for="genetic-dam-number">
           Genetic dam ear tag number
         </label>
+        <div id="account-number-hint" class="govuk-hint">
+         Enter the full animal ear tag number of the genetic dam
+        </div>
         {% if errors['genetic-dam-number'] %}
         <p id="genetic-dam-number-error" class="govuk-error-message">
           <span class="govuk-visually-hidden">Error:</span> {{ errors['genetic-dam-number'] }}

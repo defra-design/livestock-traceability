@@ -1,0 +1,32 @@
+[
+  {
+    "reference": "7KWM-3HTP",
+    "dateRegistered": "22-09-2026",
+    "status": "Pending validation",
+    "animals": [
+      { "earTagNumber": "UK123456301550", "dateOfBirth": "02-09-2026", "dateOnHolding": "02-09-2026", "sex": "Male", "breedCode": "HER", "breed": "Hereford", "errors": 0 },
+      { "earTagNumber": "UK123456301551", "dateOfBirth": "02-09-2026", "dateOnHolding": "02-09-2026", "sex": "Female", "breedCode": "HER", "breed": "Hereford", "errors": 0 },
+      { "earTagNumber": "UK123456301552", "dateOfBirth": "05-09-2026", "dateOnHolding": "05-09-2026", "sex": "Male", "breedCode": "HER", "breed": "Hereford", "errors": 0 },
+      { "earTagNumber": "UK123456301553", "dateOfBirth": "05-09-2026", "dateOnHolding": "05-09-2026", "sex": "Female", "breedCode": "HER", "breed": "Hereford", "errors": 0 }
+    ]
+  },
+  {
+    "reference": "R4XD-9CFN",
+    "dateRegistered": "03-09-2026",
+    "status": "Approved",
+    "animals": [
+      { "earTagNumber": "UK123456301546", "dateOfBirth": "18-08-2026", "dateOnHolding": "18-08-2026", "sex": "Female", "breedCode": "AA", "breed": "Aberdeen Angus", "errors": 0 },
+      { "earTagNumber": "UK123456301547", "dateOfBirth": "20-08-2026", "dateOnHolding": "20-08-2026", "sex": "Male", "breedCode": "AA", "breed": "Aberdeen Angus", "errors": 0 }
+    ]
+  },
+  {
+    "reference": "M6QA-2JVE",
+    "dateRegistered": "14-08-2026",
+    "status": "Approved",
+    "animals": [
+      { "earTagNumber": "UK123456301543", "dateOfBirth": "25-07-2026", "dateOnHolding": "25-07-2026", "sex": "Male", "breedCode": "LIM", "breed": "Limousin", "errors": 0 },
+      { "earTagNumber": "UK123456301544", "dateOfBirth": "28-07-2026", "dateOnHolding": "28-07-2026", "sex": "Female", "breedCode": "LIM", "breed": "Limousin", "errors": 1 },
+      { "earTagNumber": "UK123456301545", "dateOfBirth": "30-07-2026", "dateOnHolding": "30-07-2026", "sex": "Female", "breedCode": "LIM", "breed": "Limousin", "errors": 0 }
+    ]
+  }
+]

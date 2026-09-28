@@ -28,13 +28,15 @@
     <div class="govuk-inset-text">
 
       <h2 class="govuk-heading-m">
-        How to fix animal error records
+        How to fix cattle errors
       </h2>
 
       <p class="govuk-body">
-        Contact BCMS to fix errors related to animals on your holding.
+        Contact the British Cattle Movement Service (BCMS) to fix errors related to your cattle.
       </p>
-
+      <p class="govuk-body">
+        You can email requested information to <a href="mailto:bcmsenquiries@rpa.gov.uk">bcmsenquiries@rpa.gov.uk</a>
+      </p>
       <ul class="govuk-list">
         <li>BCMS phone: 0345 050 1234</li>
         <li>Helpline for cattle keepers in Wales: 0345 050 3456</li>
@@ -53,7 +55,7 @@
       {% from "govuk/components/pagination/macro.njk" import govukPagination %}
 
       {% set statusTagClasses = {
-      "NoR issued": "govuk-tag--red",
+      "Refused": "govuk-tag--red",
       "Pending": "govuk-tag--yellow",
       "Action needed": "govuk-tag--orange"
       } %}

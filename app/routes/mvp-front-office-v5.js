@@ -19,8 +19,8 @@ function getErrorRecords() {
       dateOfRegistration: '10-08-2025',
       category: 'Late birth registration',
       reason: 'Date of birth appears to be over the 27-day deadline to report a calf birth.',
-      evidence: 'You may be required to provide a written explanation describing why the birth could not be reported within the allotted time.',
-      status: 'NoR issued'
+      evidence: 'A Notice of Registration will be issued. You will need to go through the BCMS appeals process.',
+      status: 'Refused'
     },
     {
       id: '6780-5907',
@@ -30,7 +30,7 @@ function getErrorRecords() {
       dateOfRegistration: '10-08-2025',
       category: 'Dam calving interval',
       reason: 'The genetic dam appears to have given birth in the past 240 days.',
-      evidence: 'You may be required to provide documentary evidence or DNA parentage testing.',
+      evidence: 'You may need to provide a DNA test confirming the calf and dam to confirm parentage. Please provide the information within 27 days of the animal’s date of birth.',
       status: 'Pending'
     },
     {
@@ -41,16 +41,55 @@ function getErrorRecords() {
       dateOfRegistration: '10-08-2025',
       category: 'Dam age',
       reason: 'The genetic dam appears to be under 15-months old',
-      evidence: 'You may be required to provide a signed declaration from your veterinarian or breed society.',
+      evidence: 'You may need to provide calving records for the dam to confirm its age. Please provide the information within 27 days of the animal’s date of birth.',
       status: 'Action needed'
     }
   ]
 }
 
-// Dummy data for now - a real submissions data source will replace
-// this once the JSON is built.
+const birthRegistrations = require('../data/table-data/birth-registrations.json')
+
+const registrationStatusClasses = {
+  'Pending validation': 'govuk-tag--yellow',
+  Approved: 'govuk-tag--green'
+}
+
+function getBirthRegistration(reference) {
+  const registration = birthRegistrations.find((r) => r.reference === reference)
+
+  if (!registration) {
+    return null
+  }
+
+  const isPending = registration.status === 'Pending validation'
+  const errorCount = registration.animals.reduce((total, animal) => total + animal.errors, 0)
+
+  return {
+    ...registration,
+    total: registration.animals.length,
+    errorCount: isPending ? null : errorCount,
+    statusClass: registrationStatusClasses[registration.status],
+    isPending
+  }
+}
+
 function getBirthSubmissions() {
+  const registrations = birthRegistrations.map((r) => {
+    const registration = getBirthRegistration(r.reference)
+
+    return {
+      reference: registration.reference,
+      date: registration.dateRegistered,
+      total: registration.total,
+      errorCount: registration.errorCount,
+      status: registration.status,
+      statusClass: registration.statusClass,
+      href: `/mvp-front-office/v5/register-animal/submission-detail/${registration.reference}`
+    }
+  })
+
   return [
+    // Dummy draft - drafts are not yet part of the registrations data source.
     {
       reference: '9872-9873',
       date: '05-05-2026',
@@ -60,31 +99,14 @@ function getBirthSubmissions() {
       statusClass: 'govuk-tag--blue',
       href: '/mvp-front-office/v5/register-animal/submission-detail-draft'
     },
-    {
-      reference: '5268-9872',
-      date: '08-05-2026',
-      total: 4,
-      errorCount: null,
-      status: 'Pending validation',
-      statusClass: 'govuk-tag--yellow',
-      href: '/mvp-front-office/v5/register-animal/submission-detail-pending'
-    },
-    {
-      reference: '7863-9873',
-      date: '01-05-2026',
-      total: 12,
-      errorCount: 1,
-      status: 'Approved',
-      statusClass: 'govuk-tag--green',
-      href: '/mvp-front-office/v5/register-animal/submission-detail-sent'
-    }
+    ...registrations
   ]
 }
 
 function getMovementSubmissions() {
   return [
     {
-      reference: '7652-6478',
+      reference: '4HNB-8WKT',
       date: '05-05-2026',
       total: 2,
       errorCount: null,
@@ -94,7 +116,7 @@ function getMovementSubmissions() {
       href: '#'
     },
     {
-      reference: '2568-8762',
+      reference: 'P9RE-3MXC',
       date: '08-05-2026',
       total: 4,
       errorCount: null,
@@ -104,7 +126,7 @@ function getMovementSubmissions() {
       href: '#'
     },
     {
-      reference: '5678-2678',
+      reference: 'V2TL-6DQH',
       date: '01-05-2026',
       total: 12,
       errorCount: 1,
@@ -119,7 +141,7 @@ function getMovementSubmissions() {
 function getDeathSubmissions() {
   return [
     {
-      reference: '1234-8976',
+      reference: 'X7GF-4NRA',
       date: '05-05-2026',
       total: 2,
       errorCount: null,
@@ -128,7 +150,7 @@ function getDeathSubmissions() {
       href: '#'
     },
     {
-      reference: '1422-4391',
+      reference: 'C3YW-8PJM',
       date: '08-05-2026',
       total: 2,
       errorCount: null,
@@ -137,7 +159,7 @@ function getDeathSubmissions() {
       href: '#'
     },
     {
-      reference: '2598-1893',
+      reference: 'K5DV-2HLS',
       date: '01-05-2026',
       total: 12,
       errorCount: 1,
@@ -245,6 +267,16 @@ router.get('/mvp-front-office/v5/my-holdings/register-cattle-birth/remove-draft'
   }
 
   res.render('mvp-front-office/v5/my-holdings/remove-draft-registration', { submission })
+})
+
+router.get('/mvp-front-office/v5/register-animal/submission-detail/:reference', (req, res) => {
+  const registration = getBirthRegistration(req.params.reference)
+
+  if (!registration) {
+    return res.redirect('/mvp-front-office/v5/my-holdings/register-cattle-birth')
+  }
+
+  res.render('mvp-front-office/v5/register-animal/submission-detail', { registration })
 })
 
 router.post('/mvp-front-office/v5/my-holdings/register-cattle-birth/remove-draft', (req, res) => {

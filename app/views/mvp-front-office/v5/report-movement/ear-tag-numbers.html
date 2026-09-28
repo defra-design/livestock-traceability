@@ -9,6 +9,41 @@
 
 {% set pageName="Ear tag numbers" %}
 
+{% set isOffMovement = data['movement-type'] == 'off' %}
+
+{% set earTags = data['movement-ear-tags'] %}
+{% if earTags is string %}
+  {% set earTags = earTags.split('\n') %}
+{% endif %}
+{% if not earTags or earTags.length == 0 %}
+  {% set earTags = [''] %}
+{% endif %}
+
+{% block head %}
+  {{ super() }}
+  {% if isOffMovement %}
+  <link href="https://unpkg.com/accessible-autocomplete/dist/accessible-autocomplete.min.css" rel="stylesheet" media="all" />
+  <style>
+    .autocomplete__wrapper {
+      max-width: 20.5em;
+    }
+    .autocomplete__hint,
+    .autocomplete__input,
+    .autocomplete__option {
+      font-family: "Transport", arial, sans-serif;
+      font-size: 1.1875rem;
+      font-weight: normal!important;
+    }
+    .govuk-form-group--error .autocomplete__input {
+      border-color: #d4351c;
+    }
+    .autocomplete__option strong {
+      font-weight: normal;
+    }
+  </style>
+  {% endif %}
+{% endblock %}
+
 {% block beforeContent %}
   {{ govukBackLink({
     text: "Back",
@@ -28,7 +63,7 @@
         <div class="govuk-error-summary__body">
           <ul class="govuk-list govuk-error-summary__list">
             {% if errors['movement-ear-tags'] %}
-            <li><a href="#movement-ear-tags">{{ errors['movement-ear-tags'] }}</a></li>
+            <li><a href="#movement-ear-tags-0">{{ errors['movement-ear-tags'] }}</a></li>
             {% endif %}
           </ul>
         </div>
@@ -36,23 +71,93 @@
     </div>
     {% endif %}
 
+    <h1 class="govuk-heading-l">Add the ear tag numbers of the animals involved</h1>
+
+    <p class="govuk-body">
+      {% if isOffMovement %}
+        Start typing all or part of the ear tag number and select from the list. Add each animal separately.
+      {% else %}
+        Enter the full ear tag number. Add each animal separately.
+      {% endif %}
+    </p>
+
     <form action="/mvp-front-office/v5/report-movement/ear-tag-numbers" method="post" novalidate>
 
-      <div class="govuk-form-group {% if errors['movement-ear-tags'] %}govuk-form-group--error{% endif %}">
-        <h1 class="govuk-label-wrapper">
-          <label class="govuk-label govuk-label--l" for="movement-ear-tags">
-            Add the ear tag numbers of the animals involved
-          </label>
-        </h1>
-        <div id="movement-ear-tags-hint" class="govuk-hint">
-          Enter one ear tag number per line
+      <div class="moj-add-another" data-module="moj-add-another" data-item-label="Animal" data-layout="inline">
+        <div class="moj-add-another__items">
+
+          {% for earTag in earTags %}
+          {% set index = loop.index0 %}
+          {% set hasError = errors['movement-ear-tags'] and loop.first %}
+          <div class="moj-add-another__item moj-add-another__item--inline {% if hasError %}moj-add-another__item--error{% endif %}">
+            <fieldset class="govuk-fieldset moj-add-another__fieldset">
+              <legend class="govuk-fieldset__legend moj-add-another__item-title govuk-fieldset__legend--m">
+                Animal {{ loop.index }}{% if earTags.length > 1 %} of {{ earTags.length }}{% endif %}
+              </legend>
+              <div class="moj-add-another__item-container">
+                <div class="moj-add-another__item-row">
+
+                <div class="govuk-form-group {% if hasError %}govuk-form-group--error{% endif %}">
+                  <label class="govuk-label" for="movement-ear-tags-{{ index }}">
+                    Ear tag number
+                  </label>
+                  {% if hasError %}
+                  <p id="movement-ear-tags-{{ index }}-error" class="govuk-error-message">
+                    <span class="govuk-visually-hidden">Error:</span> {{ errors['movement-ear-tags'] }}
+                  </p>
+                  {% endif %}
+
+                  {% if isOffMovement %}
+                  <select class="app-ear-tag-autocomplete"
+                    id="movement-ear-tags-{{ index }}"
+                    name="movement-ear-tags[{{ index }}]"
+                    data-id="movement-ear-tags-%index%"
+                    data-name="movement-ear-tags[%index%]"
+                    data-label
+                    {% if hasError %}aria-describedby="movement-ear-tags-{{ index }}-error"{% endif %}>
+                    <option value=""></option>
+                    {% for animal in data.oakfieldLivestock.animals %}
+                    {% if animal.status == 'Alive' %}
+                    <option value="{{ animal.earTagNumber }}" {% if earTag == animal.earTagNumber %}selected{% endif %}>{{ animal.earTagNumber }}</option>
+                    {% endif %}
+                    {% endfor %}
+                  </select>
+                  {% else %}
+                  <input class="govuk-input govuk-input--width-20 {% if hasError %}govuk-input--error{% endif %}"
+                    id="movement-ear-tags-{{ index }}"
+                    name="movement-ear-tags[{{ index }}]"
+                    data-id="movement-ear-tags-%index%"
+                    data-name="movement-ear-tags[%index%]"
+                    data-label
+                    type="text"
+                    spellcheck="false"
+                    autocomplete="off"
+                    {% if hasError %}aria-describedby="movement-ear-tags-{{ index }}-error"{% endif %}
+                    value="{{ earTag }}">
+                  {% endif %}
+                </div>
+
+                </div>
+                <div class="moj-add-another__remove-button-container">
+                  {% if earTags.length > 1 %}
+                  <button type="button" class="govuk-button govuk-button--secondary moj-add-another__remove-button">
+                    Remove <span class="govuk-visually-hidden">animal {{ loop.index }} of {{ earTags.length }}</span>
+                  </button>
+                  {% endif %}
+                </div>
+
+              </div>
+            </fieldset>
+          </div>
+          {% endfor %}
+
         </div>
-        {% if errors['movement-ear-tags'] %}
-        <p id="movement-ear-tags-error" class="govuk-error-message">
-          <span class="govuk-visually-hidden">Error:</span> {{ errors['movement-ear-tags'] }}
-        </p>
-        {% endif %}
-        <textarea class="govuk-textarea {% if errors['movement-ear-tags'] %}govuk-textarea--error{% endif %}" id="movement-ear-tags" name="movement-ear-tags" rows="10" aria-describedby="movement-ear-tags-hint{% if errors['movement-ear-tags'] %} movement-ear-tags-error{% endif %}">{{ data['movement-ear-tags'] }}</textarea>
+
+        <div class="moj-add-another__add-button-container">
+          <button type="button" class="govuk-button govuk-button--secondary moj-add-another__add-button">
+            Add another animal
+          </button>
+        </div>
       </div>
 
       {{ govukButton({ text: "Continue" }) }}
@@ -62,4 +167,89 @@
   </div>
 </div>
 
+{% endblock %}
+
+{% block pageScripts %}
+  <script>
+    // Give each remove button a unique accessible name, for example
+    // "Remove animal 3 of 3". Add another only supplies the item number, so
+    // rewrite the hidden text after every add or remove.
+    (function () {
+      function updateRemoveButtons () {
+        var items = document.querySelectorAll('.moj-add-another__items .moj-add-another__item')
+        items.forEach(function (item, index) {
+          var button = item.querySelector('.moj-add-another__remove-button')
+          if (!button) return
+          button.textContent = 'Remove '
+          var hidden = document.createElement('span')
+          hidden.className = 'govuk-visually-hidden'
+          hidden.textContent = 'animal ' + (index + 1) + ' of ' + items.length
+          button.appendChild(hidden)
+        })
+      }
+
+      // Add another also rewrites the buttons when it initialises
+      window.addEventListener('load', updateRemoveButtons)
+      document.addEventListener('moj-add-another:add-item', updateRemoveButtons)
+      document.addEventListener('moj-add-another:remove-item', updateRemoveButtons)
+    })()
+  </script>
+
+  {% if isOffMovement %}
+  <script src="https://unpkg.com/accessible-autocomplete/dist/accessible-autocomplete.min.js"></script>
+  <script>
+    // Enhance each ear tag <select> with an autocomplete. This runs on window
+    // load so the MOJ add another component has already taken its blank item
+    // template from the plain <select> markup.
+    (function () {
+      function enhance (select) {
+        // Cloned items have no selected option, which the autocomplete needs
+        if (select.selectedIndex < 0) select.selectedIndex = 0
+        accessibleAutocomplete.enhanceSelectElement({
+          selectElement: select,
+          showAllValues: false,
+          autoselect: true,
+          displayMenu: 'overlay',
+          // On blur this is called with no value, so fall back to what is in
+          // the text box. Only keep a value that matches an ear tag we hold.
+          onConfirm: function (value) {
+            var input = select.parentNode.querySelector('.autocomplete__input')
+            var text = value !== undefined ? value : (input ? input.value.trim() : '')
+            var match = [].some.call(select.options, function (option) {
+              return option.value && option.value === text
+            })
+            select.value = match ? text : ''
+          }
+        })
+      }
+
+      // Add another re-indexes the <select> ids after an add or remove, so
+      // point each autocomplete input and label back at the new index.
+      function syncIds () {
+        document.querySelectorAll('.moj-add-another__item').forEach(function (item) {
+          var select = item.querySelector('select.app-ear-tag-autocomplete')
+          var input = item.querySelector('.autocomplete__input')
+          var label = item.querySelector('.govuk-label')
+          if (!select || !input) return
+          var id = select.id.replace(/-select$/, '')
+          select.id = id + '-select'
+          input.id = id
+          if (label) label.htmlFor = id
+        })
+      }
+
+      window.addEventListener('load', function () {
+        document.querySelectorAll('select.app-ear-tag-autocomplete').forEach(enhance)
+
+        document.addEventListener('moj-add-another:add-item', function (event) {
+          var select = event.target.querySelector('select.app-ear-tag-autocomplete')
+          if (select) enhance(select)
+          syncIds()
+        })
+
+        document.addEventListener('moj-add-another:remove-item', syncIds)
+      })
+    })()
+  </script>
+  {% endif %}
 {% endblock %}

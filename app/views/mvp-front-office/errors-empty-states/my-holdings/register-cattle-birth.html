@@ -30,9 +30,9 @@
               <h3 class="govuk-notification-banner__heading">
                  You have cancelled your draft registration.
               </h3>
-              <p class="govuk-body">
+             <!-- <p class="govuk-body">
                   Reference number: 3765-3867
-              </p>
+              </p>-->
               <p class="govuk-body">Contact <a class="govuk-notification-banner__link" href="#">bcmsenquiries@rpa.gov.uk</a> if you think there’s a problem.</p>
           </div>
       </div>
@@ -50,44 +50,40 @@
         {% from "govuk/components/pagination/macro.njk" import govukPagination %}
 
         {% if totalDrafts > 0 %}
-          <div class="govuk-!-margin-bottom-6">
-            <h2 class="govuk-heading-m govuk-!-margin-top-6">Draft registrations</h2>
-            <p class="govuk-body">
-              Drafts are automatically deleted after 27 days.
-            </p>
+          <div class="govuk-grid-row">
+            <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-!-margin-bottom-6">
+              <h2 class="govuk-heading-m govuk-!-margin-top-6">Draft registrations</h2>
+              <p class="govuk-body">
+                Drafts are automatically deleted after 27 days.
+              </p>
 
-            {% set rows = [] %}
-            {% for submission in draftSubmissions %}
-            {% set row = [
-            {
-            text: submission.date | shortDateFormat,
-            classes: "app-table__cell--no-wrap"
-            },
-            {
-            text: submission.total,
-            classes: "app-table__cell--no-wrap"
-            },
-            {
-            html: '<a class="govuk-link" href="/mvp-front-office/v5/my-holdings/register-cattle-birth/remove-draft?reference=' + submission.reference + '">Cancel<span class="govuk-visually-hidden"> draft registration</span></a> <a class="govuk-link govuk-!-margin-left-3" href="' + submission.href + '">Continue<span class="govuk-visually-hidden"> registration</span></a>',
-            classes: "app-table__cell--no-wrap",
-            format: "numeric"
-            }
-            ] %}
-            {% set rows = (rows.push(row), rows) %}
-            {% endfor %}
+              {% set rows = [] %}
+              {% for submission in draftSubmissions %}
+              {% set row = [
+              {
+              text: submission.date | shortDateFormat
+              },
+              {
+              text: submission.total
+              },
+              {
+              html: '<a class="govuk-link" href="/mvp-front-office/v5/my-holdings/register-cattle-birth/remove-draft?reference=' + submission.reference + '">Cancel<span class="govuk-visually-hidden"> draft registration</span></a> <a class="govuk-link govuk-!-margin-left-3" href="' + submission.href + '">Continue<span class="govuk-visually-hidden"> registration</span></a>',
+              format: "numeric"
+              }
+              ] %}
+              {% set rows = (rows.push(row), rows) %}
+              {% endfor %}
 
-            <div class="app-dashboard-table-wrapper">
               {{ govukTable({
               caption: "Draft cattle birth registrations",
               captionClasses: "govuk-visually-hidden",
               head: [
               {
-              text: "Date started",
-              classes: "app-table__cell--no-wrap"
+              text: "Date started"
               },
               {
-              text: "Total births",
-              classes: "app-table__cell--no-wrap"
+              text: "Total births"
               },
               {
               html: '<span class="govuk-visually-hidden">Action</span>',
@@ -96,6 +92,7 @@
               ],
               rows: rows
               }) }}
+            </div>
             </div>
           </div>
 
