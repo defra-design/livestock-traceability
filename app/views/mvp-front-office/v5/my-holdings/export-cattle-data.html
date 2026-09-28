@@ -67,7 +67,7 @@
               { value: "earTagNumber", text: "Animal ear tag number", checked: true },
               { value: "dateOfBirth", text: "Date of birth", checked: true },
               { value: "dateOfRegistration", text: "Date of registration" },
-              { value: "onHoldingDate", text: "On holding date" },
+              { value: "onHoldingDate", text: "Date on holding" },
               { value: "sex", text: "Sex", checked: true },
               { value: "breedName", text: "Breed name" },
               { value: "breedCode", text: "Breed code" },
@@ -83,10 +83,10 @@
           <div class="govuk-form-group govuk-!-margin-top-8">
             <fieldset class="govuk-fieldset">
               <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
-                Date range
+                Date range (optional)
               </legend>
               <div id="date-range-hint" class="govuk-hint">
-                Only animals with a date of birth in this range will be included
+                Only cattle born between the dates you enter will be included. Leave blank to include all.
               </div>
 
               {{ govukDateInput({
