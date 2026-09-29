@@ -123,13 +123,6 @@
           {
           html: '<abbr title="' + animal.breed.name + '">' + animal.breed.code + '</abbr><span class="govuk-visually-hidden">, ' + animal.breed.name + '</span>',
           classes: "app-table__cell--no-wrap"
-          },
-          {
-          html: '<strong class="govuk-tag ' + statusTagClasses[animal.status] + '">' + animal.status + '</strong>',
-          classes: "app-table__cell--no-wrap",
-          attributes: {
-          "data-sort-value": animal.status
-          }
           }
           ] %}
           {% set rows = (rows.push(row), rows) %}
@@ -180,13 +173,6 @@
             },
             {
             text: "Breed",
-            classes: "app-table__cell--no-wrap",
-            attributes: {
-            "aria-sort": "none"
-            }
-            },
-            {
-            text: "Status",
             classes: "app-table__cell--no-wrap",
             attributes: {
             "aria-sort": "none"
