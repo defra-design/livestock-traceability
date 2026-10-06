@@ -1,0 +1,93 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  Start page – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block header %}
+  <!-- Blank header with no service name for the start page -->
+  {{ govukHeader() }}
+{% endblock %}
+
+{% block beforeContent %}
+
+  {{ govukBreadcrumbs({
+    items: [
+      {
+        text: "Home",
+        href: "#"
+      },
+      {
+        text: "Section",
+        href: "#"
+      },
+      {
+        text: "Subsection"
+      }
+    ]
+  }) }}
+
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <h1 class="govuk-heading-xl">
+        Livestock reporting
+      </h1>
+
+      <p>Report a birth, movement or death, view your holding's records, or update your details.</p>
+
+      <h2 class="govuk-heading-m">
+        Before you start
+      </h2>
+
+      <p>
+        To use this service you need a County Parish Holding (CPH) number.
+      </p>
+
+      <p>
+If you do not have a CPH number, you'll need to <a href="https://www.gov.uk/guidance/apply-for-a-county-parish-holding-cph-number">set up as a livestock keeper</a> before you can use this service. 
+      </p>
+
+
+      {{ govukButton({
+        text: "Start now",
+        href: "/movements/version1/sign-in-decision",
+        isStartButton: true
+      }) }}
+
+      <p>
+You'll be asked to sign in or create an account.
+</p>
+
+<p>
+Previously known as CTS online.
+</p>
+
+    </div>
+
+    <div class="govuk-grid-column-one-third">
+
+      <aside class="govuk-prototype-kit-common-templates-related-items" role="complementary">
+        <h2 class="govuk-heading-m" id="subsection-title">
+          Related content
+        </h2>
+        <nav role="navigation" aria-labelledby="subsection-title">
+          <ul class="govuk-list govuk-!-font-size-16">
+            <li>
+              <a href="https://www.gov.uk/government/collections/keeping-cattle-bison-and-buffalo-in-england-and-wales">
+                Keeping cattle, bison and buffalo in England and Wales
+              </a>
+            </li>
+            
+          </ul>
+        </nav>
+      </aside>
+
+    </div>
+  </div>
+
+{% endblock %}
