@@ -1,0 +1,28 @@
+{% block beforeContent %}
+{% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
+{% set currentBaseUrl = '/' + baseURL + '/' %}
+
+{% if query.fromSearch %}
+  <a
+          class="govuk-back-link"
+          href="/{{baseURL}}/holdings?search={{ query.fromSearch | urlencode }}"
+  >
+    Back
+  </a>
+{% elseif query.fromHolding %}
+  <a
+          class="govuk-back-link"
+          href="/{{baseURL}}/holdings/{{ query.fromHolding }}{% if query.fromSearch %}?fromSearch={{ query.fromSearch | urlencode }}{% endif %}"
+  >
+    Back
+  </a>
+{% else %}
+  <a
+          class="govuk-back-link"
+          href="/{{baseURL}}/holdings"
+  >
+    Back
+  </a>
+{% endif %}
+
+{% endblock %}

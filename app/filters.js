@@ -333,4 +333,25 @@ addFilter('animalAge', function (value) {
   return `${years} year${years === 1 ? '' : 's'}, ${remainingMonths} month${remainingMonths === 1 ? '' : 's'}`;
 });
 
+addFilter('formatEarTag', function (value) {
+  if (!value) {
+    return value;
+  }
+
+  const earTag = String(value)
+    .replace(/\s+/g, '')
+    .toUpperCase();
+
+  const match = earTag.match(/^(UK)(\d{6})(\d{6})$/);
+
+  if (!match) {
+    return value;
+  }
+
+  return [
+    `<span class="id-group">${match[1]}</span>`,
+    `<span class="id-group">${match[2]}</span>`,
+    `<span class="id-group">${match[3]}</span>`
+  ].join('');
+});
 

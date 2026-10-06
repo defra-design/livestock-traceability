@@ -1,0 +1,35 @@
+{% if animalIssues and animalIssues.length %}
+<section
+  class="govuk-inset-text app-callout app-callout--issue"
+  aria-labelledby="record-issues-heading"
+>
+  <h2
+    class="govuk-heading-m govuk-!-margin-bottom-2"
+    id="record-issues-heading"
+  >
+    {{ animalIssues.length }} issue{% if animalIssues.length != 1 %}s{% endif %} need{% if animalIssues.length == 1 %}s{% endif %} attention
+  </h2>
+
+  <ul class="govuk-list govuk-!-margin-bottom-0">
+    {% for issue in animalIssues %}
+    <li class="app-callout__item">
+      {% if issue.area == "movements" %}
+      <a
+        class="govuk-link"
+        href="/{{ baseURL }}/cattle/{{ animal.earTagNumber }}/cattle-history{{ contextQuery }}{% if issue.anchorId %}#{{ issue.anchorId }}{% endif %}"
+      >
+        {{ issue.linkText or issue.title }}
+      </a>
+      {% else %}
+      <a
+        class="govuk-link"
+        href="/{{ baseURL }}/events/{{ issue.eventId }}"
+      >
+        {{ issue.linkText or issue.title }}
+      </a>
+      {% endif %}
+    </li>
+    {% endfor %}
+  </ul>
+</section>
+{% endif %}

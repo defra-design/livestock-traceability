@@ -1,0 +1,17 @@
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <form method="GET" >
+      <div class="search-wrapper govuk-form-group">
+        <label for="search-reservations" class="govuk-label">
+          {{filterHint or 'Set the hint text in the parent page using {{set filterHint = }}'}}
+        </label>
+        <div class="search-input-wrapper">
+          <input type="search" value="" id="search-reservations" name="search" title="Search" class="govuk-input">
+          <div class="search-input-submit-wrapper">
+            <button type="submit" class="search-submit">Search</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

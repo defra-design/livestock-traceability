@@ -16,11 +16,39 @@
 @import "components/traffic-card";
 @import "components/wide-layout";
 
+// A proposal to display eartag numbers with spaces but when they copy it, its the full eartag numnber
+.app-ear-tag__accessible {
+  user-select: none;
+}
+
+.app-ear-tag__value {
+  white-space: nowrap;
+}
+
+.app-ear-tag__value .id-group + .id-group {
+  margin-left: 0.35em;
+}
+
+/* Linked version only */
+.app-ear-tag-link {
+  text-decoration: none;
+}
+
+.app-ear-tag-link .app-ear-tag__value {
+  border-bottom: 1px solid currentColor;
+}
+
+.app-ear-tag-link:hover .app-ear-tag__value {
+  border-bottom-width: 3px;
+}
+
+
+/* caseworker header and footer branding */
 .app-caseworker,
 .app-caseworker * {
   font-family: Arial, sans-serif !important;
 }
-// 3. Define Defra's exact brand colour hex codes
+// Define Defra's exact brand colour hex codes
 $defra-green: #008938;
 
 
