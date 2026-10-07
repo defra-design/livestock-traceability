@@ -110,11 +110,11 @@
     <thead class="govuk-table__head">
     <tr class="govuk-table__row">
         <th aria-sort="ascending" scope="col" class="govuk-table__header app-table__cell--no-wrap " >Ear tag</th>
-        <th aria-sort="none"  scope="col" class="govuk-table__header app-table__cell--no-wrap">Date of birth</th>
-        <th aria-sort="none"  scope="col" class="govuk-table__header app-table__cell--no-wrap">Age</th>
-        <th aria-sort="none"  scope="col" class="govuk-table__header app-table__cell--no-wrap">Date on holding</th>
+<!--    <th aria-sort="none"  scope="col" class="govuk-table__header app-table__cell&#45;&#45;no-wrap">Date of birth</th>-->
         <th aria-sort="none"  scope="col" class="govuk-table__header app-table__cell--no-wrap">Sex</th>
         <th aria-sort="none"  scope="col" class="govuk-table__header app-table__cell--no-wrap">Breed</th>
+        <th aria-sort="none"  scope="col" class="govuk-table__header app-table__cell--no-wrap">Age</th>
+        <th aria-sort="none"  scope="col" class="govuk-table__header app-table__cell--no-wrap">On holding since</th>
 
     </tr>
     </thead>
@@ -128,16 +128,13 @@
             </a>
         </th>
 
-        <td class="govuk-table__cell" data-sort-value="{{animal.dateOfBirth.slice(6,10) + animal.dateOfBirth.slice(3,5) + animal.dateOfBirth.slice(0,2)}}">
-            {{ animal.dateOfBirth | shortDateFormat }}
-        </td>
-        <td class="govuk-table__cell app-table__cell--no-wrap" data-sort-value="{{animal.dateOfBirth.slice(6,10) + animal.dateOfBirth.slice(3,5) + animal.dateOfBirth.slice(0,2)}}">
-            {{ animal.dateOfBirth | animalAge }}
-        </td>
+<!--        Removed to research. With back office it seems they preferred age or at least thats what they used in testing. -->
+<!--        <td class="govuk-table__cell" data-sort-value="{{animal.dateOfBirth.slice(6,10) + animal.dateOfBirth.slice(3,5) + animal.dateOfBirth.slice(0,2)}}">-->
+<!--            {{ animal.dateOfBirth | shortDateFormat }}-->
+<!--        </td>-->
 
-        <td class="govuk-table__cell" data-sort-value="{{animal.dateOfRegistration.slice(6,10) + animal.dateOfRegistration.slice(3,5) + animal.dateOfRegistration.slice(0,2)}}">
-            {{ animal.dateOfRegistration | shortDateFormat}}
-        </td>
+
+
 
         <td class="govuk-table__cell">
             {{ animal.sex}}
@@ -152,7 +149,14 @@
             </span>
         </td>
 
+ <td class="govuk-table__cell app-table__cell--no-wrap" data-sort-value="{{animal.dateOfBirth.slice(6,10) + animal.dateOfBirth.slice(3,5) + animal.dateOfBirth.slice(0,2)}}">
+            {{ animal.dateOfBirth | animalAge }}
+        </td>
 
+<!--        Moved so details of the animal stay together and this comes last-->
+ <td class="govuk-table__cell" data-sort-value="{{animal.dateOfRegistration.slice(6,10) + animal.dateOfRegistration.slice(3,5) + animal.dateOfRegistration.slice(0,2)}}">
+            {{ animal.dateOfRegistration | shortDateFormat}}
+        </td>
     </tr>
     {% endfor %}
     </tbody>

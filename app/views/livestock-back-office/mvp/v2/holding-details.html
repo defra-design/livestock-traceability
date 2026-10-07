@@ -50,7 +50,9 @@
 
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    {% if holding.holdingTypeCode == "TH" %}
+                    {% if holding.holdingTypeCode == "SL" %}
+                    Approval number
+                    {% elif holding.holdingTypeCode == "TH" %}
                     Temporary CPH number
                     {% else %}
                     CPH number
@@ -180,12 +182,8 @@
 
                     <br>
                     {{ holding.address.postcode }}
+                    <!--  Removed country here, seem not needed as almost all England and CPH carries that information. -->
 
-                    {% if holding.address.country %}
-                    <br>
-                    {{ holding.address.country }}
-                    {% endif %}
-                </dd>
             </div>
 
             {% if cattleHerdMarks.length %}

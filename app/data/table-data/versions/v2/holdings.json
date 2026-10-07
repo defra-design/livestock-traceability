@@ -3,7 +3,7 @@
   "holdings": [
     {
       "id": "holding-001",
-      "cph": "12/345/0001",
+      "cph": "35/244/0001",
       "holdingName": "Oakfield Farm",
       "businessName": "Oakfield Livestock Ltd",
       "address": {
@@ -51,7 +51,7 @@
     },
     {
       "id": "holding-002",
-      "cph": "24/118/0042",
+      "cph": "17/087/0042",
       "holdingName": "Willow Brook Farm",
       "businessName": "Willow Brook Agriculture",
       "address": {
@@ -111,7 +111,7 @@
     },
     {
       "id": "holding-003",
-      "cph": "31/672/0158",
+      "cph": "24/004/0158",
       "holdingName": "Red Barn Holdings",
       "businessName": "Red Barn Rural Ltd",
       "address": {
@@ -160,7 +160,7 @@
     },
     {
       "id": "holding-004",
-      "cph": "44/209/0317",
+      "cph": "52/063/0317",
       "holdingName": "Cwm Valley Farm",
       "businessName": "Cwm Valley Livestock",
       "address": {
@@ -208,7 +208,7 @@
     },
     {
       "id": "holding-005",
-      "cph": "18/553/0029",
+      "cph": "48/755/0029",
       "holdingName": "Meadow View",
       "businessName": "Meadow View Smallholding",
       "address": {
@@ -304,7 +304,7 @@
     },
     {
       "id": "holding-007",
-      "cph": "53/417/0088",
+      "cph": "08/362/0088",
       "holdingName": "High Fell Farm",
       "businessName": "High Fell Farming Partnership",
       "address": {
@@ -352,7 +352,7 @@
     },
     {
       "id": "holding-008",
-      "cph": "66/204/0141",
+      "cph": "06/098/0141",
       "holdingName": "Green Pastures",
       "businessName": "Green Pastures Dairy",
       "address": {
@@ -395,7 +395,7 @@
     },
     {
       "id": "holding-009",
-      "cph": "72/391/0254",
+      "cph": "38/360/0254",
       "holdingName": "Riverside Smallholding",
       "businessName": "",
       "address": {
@@ -439,7 +439,7 @@
     },
     {
       "id": "holding-010",
-      "cph": "39/740/0193",
+      "cph": "1847",
       "holdingName": "Hilltop Farm",
       "businessName": "Hilltop Beef Ltd",
       "address": {
@@ -482,7 +482,7 @@
     },
     {
       "id": "holding-011",
-      "cph": "15/628/0067",
+      "cph": "28/180/0067",
       "holdingName": "Long Acre Farm",
       "businessName": "Long Acre Farms",
       "address": {
@@ -526,7 +526,7 @@
     },
     {
       "id": "holding-012",
-      "cph": "48/952/0205",
+      "cph": "55/042/0205",
       "holdingName": "Ty Mawr",
       "businessName": "Ty Mawr Farming",
       "address": {
@@ -579,7 +579,7 @@
     },
     {
       "id": "holding-013",
-      "cph": "21/366/0094",
+      "cph": "10/138/0094",
       "holdingName": "Westmoor Farm",
       "businessName": "Westmoor Organics",
       "address": {
@@ -628,7 +628,7 @@
     },
     {
       "id": "holding-014",
-      "cph": "58/103/0122",
+      "cph": "14/185/0122",
       "holdingName": "Ash Grove Farm",
       "businessName": "Ash Grove Rural Enterprises",
       "address": {
@@ -676,7 +676,7 @@
     },
     {
       "id": "holding-015",
-      "cph": "63/829/0276",
+      "cph": "09/020/0276",
       "holdingName": "Stonebridge Farm",
       "businessName": "Stonebridge Livestock",
       "address": {
@@ -724,7 +724,7 @@
     },
     {
       "id": "holding-016",
-      "cph": "34/547/0031",
+      "cph": "21/148/0031",
       "holdingName": "Rosebank Farm",
       "businessName": "",
       "address": {
@@ -767,7 +767,7 @@
     },
     {
       "id": "holding-017",
-      "cph": "47/215/0169",
+      "cph": "08/067/0169",
       "holdingName": "Low Wood Farm",
       "businessName": "Low Wood Farming Co",
       "address": {
@@ -811,7 +811,7 @@
     },
     {
       "id": "holding-018",
-      "cph": "69/438/0114",
+      "cph": "55/209/0114",
       "holdingName": "Pen-y-Bryn",
       "businessName": "Pen-y-Bryn Farm Partnership",
       "address": {
@@ -908,7 +908,7 @@
     },
     {
       "id": "holding-020",
-      "cph": "56/312/0056",
+      "cph": "12/031/0056",
       "holdingName": "Sunnybank Farm",
       "businessName": "Sunnybank Livestock Ltd",
       "address": {
@@ -970,7 +970,7 @@
     },
     {
       "id": "holding-021",
-      "cph": "91/214/0410",
+      "cph": "48/711/0410",
       "holdingName": "Northfield Farm",
       "businessName": "Northfield Livestock Ltd",
       "address": {
@@ -997,7 +997,7 @@
     },
     {
       "id": "holding-022",
-      "cph": "23/792/8936",
+      "cph": "35/115/8936",
       "holdingName": "Bramble Hill Farm",
       "businessName": "Bramble Hill Farming",
       "address": {
@@ -1024,7 +1024,7 @@
     },
     {
       "id": "holding-023",
-      "cph": "37/338/8280",
+      "cph": "24/434/8280",
       "holdingName": "White House Farm",
       "businessName": "White House Cattle Co",
       "address": {
@@ -1051,7 +1051,7 @@
     },
     {
       "id": "holding-024",
-      "cph": "67/703/4558",
+      "cph": "52/063/4558",
       "holdingName": "Penrhos Farm",
       "businessName": "Penrhos Livestock",
       "address": {
@@ -1078,7 +1078,7 @@
     },
     {
       "id": "holding-025",
-      "cph": "45/259/3528",
+      "cph": "36/427/3528",
       "holdingName": "Lower Moor Farm",
       "businessName": "Lower Moor Agriculture",
       "address": {
@@ -1105,7 +1105,7 @@
     },
     {
       "id": "holding-026",
-      "cph": "55/967/5636",
+      "cph": "08/362/5636",
       "holdingName": "Hawthorn Farm",
       "businessName": "Hawthorn Beef Ltd",
       "address": {
@@ -1132,7 +1132,7 @@
     },
     {
       "id": "holding-027",
-      "cph": "20/665/4804",
+      "cph": "06/098/4804",
       "holdingName": "Brook Farm",
       "businessName": "Brook Farm Partnership",
       "address": {
@@ -1159,7 +1159,7 @@
     },
     {
       "id": "holding-028",
-      "cph": "18/146/3734",
+      "cph": "48/790/3734",
       "holdingName": "Woodside Farm",
       "businessName": "Woodside Livestock",
       "address": {
@@ -1186,7 +1186,7 @@
     },
     {
       "id": "holding-029",
-      "cph": "45/564/5978",
+      "cph": "28/180/5978",
       "holdingName": "Mill House Farm",
       "businessName": "Mill House Agriculture",
       "address": {
@@ -1213,7 +1213,7 @@
     },
     {
       "id": "holding-030",
-      "cph": "97/763/1170",
+      "cph": "10/087/1170",
       "holdingName": "Cedar Farm",
       "businessName": "Cedar Rural Ltd",
       "address": {
@@ -1240,7 +1240,7 @@
     },
     {
       "id": "holding-031",
-      "cph": "69/488/4423",
+      "cph": "55/042/4423",
       "holdingName": "Glan Afon Farm",
       "businessName": "Glan Afon Farming",
       "address": {
@@ -1267,7 +1267,7 @@
     },
     {
       "id": "holding-032",
-      "cph": "39/941/0526",
+      "cph": "10/138/0526",
       "holdingName": "Higher West Farm",
       "businessName": "Higher West Organics",
       "address": {
@@ -1294,7 +1294,7 @@
     },
     {
       "id": "holding-033",
-      "cph": "82/997/5156",
+      "cph": "14/127/5156",
       "holdingName": "Old Rectory Farm",
       "businessName": "Old Rectory Livestock",
       "address": {
@@ -1321,7 +1321,7 @@
     },
     {
       "id": "holding-034",
-      "cph": "43/242/4041",
+      "cph": "09/020/4041",
       "holdingName": "Bridge Farm",
       "businessName": "Bridge Farm Cattle",
       "address": {
@@ -1348,7 +1348,7 @@
     },
     {
       "id": "holding-035",
-      "cph": "61/470/3594",
+      "cph": "21/148/3594",
       "holdingName": "Moss Bank Farm",
       "businessName": "Moss Bank Farming",
       "address": {
@@ -1375,7 +1375,7 @@
     },
     {
       "id": "holding-036",
-      "cph": "29/742/2622",
+      "cph": "08/067/2622",
       "holdingName": "Green Lane Farm",
       "businessName": "Green Lane Livestock",
       "address": {
@@ -1402,7 +1402,7 @@
     },
     {
       "id": "holding-037",
-      "cph": "58/710/7669",
+      "cph": "55/209/7669",
       "holdingName": "Bryn Glas Farm",
       "businessName": "Bryn Glas Partnership",
       "address": {
@@ -1429,7 +1429,7 @@
     },
     {
       "id": "holding-038",
-      "cph": "78/868/4372",
+      "cph": "22/260/4372",
       "holdingName": "Home Farm",
       "businessName": "Home Farm Agricultural Services",
       "address": {
@@ -1456,7 +1456,7 @@
     },
     {
       "id": "holding-039",
-      "cph": "30/564/0054",
+      "cph": "12/031/0054",
       "holdingName": "East View Farm",
       "businessName": "East View Livestock Ltd",
       "address": {
@@ -1483,7 +1483,7 @@
     },
     {
       "id": "holding-040",
-      "cph": "23/991/4890",
+      "cph": "17/093/4890",
       "holdingName": "Maple Farm",
       "businessName": "Maple Farm Partnership",
       "address": {
@@ -1526,7 +1526,7 @@
       "holdingTypeCode": "TH",
       "associatedHolding": {
         "id": "holding-001",
-        "cph": "12/345/0001"
+        "cph": "35/244/0001"
       },
       "startDate": "2026-04-01",
       "endDate": "2027-03-31",
@@ -1587,7 +1587,7 @@
       "holdingTypeCode": "TH",
       "associatedHolding": {
         "id": "holding-007",
-        "cph": "53/417/0088"
+        "cph": "08/362/0088"
       },
       "startDate": "2026-05-01",
       "endDate": "2026-10-31",
@@ -1632,7 +1632,7 @@
     },
     {
       "id": "holding-043",
-      "cph": "47/215/0176",
+      "cph": "35/244/0176",
       "holdingName": "Low Wood Hill Farm",
       "businessName": "Low Wood Hill Farming Ltd",
       "address": {
@@ -1680,7 +1680,7 @@
     },
     {
       "id": "holding-044",
-      "cph": "47/215/0204",
+      "cph": "2635",
       "holdingName": "Low Wood Abattoir",
       "businessName": "Low Wood Meat Processing Ltd",
       "address": {
@@ -1735,7 +1735,7 @@
       "holdingTypeCode": "TH",
       "associatedHolding": {
         "id": "holding-017",
-        "cph": "47/215/0169"
+        "cph": "08/067/0169"
       },
       "startDate": "2021-04-01",
       "endDate": "2021-10-31",
