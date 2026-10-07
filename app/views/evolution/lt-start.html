@@ -1,7 +1,7 @@
 {% extends "layouts/main.html" %}
 
 {% block pageTitle %}
-  Start page – {{ serviceName }} – GOV.UK Prototype Kit
+  Start page – Livestock tracing – GOV.UK Prototype Kit
 {% endblock %}
 
 {% block header %}
@@ -38,8 +38,16 @@
         Livestock tracing
       </h1>
 
-      <p>Report a birth, movement or death, view your holding's records, or update your details.</p>
-
+      <p>
+        This service replaces Cattle Tracing System (CTS) online.
+      </p>
+      
+      <p class="govuk-body">Use this service to:</p>
+<ul class="govuk-list govuk-list--bullet">
+  <li>report births, deaths and movements</li>
+  <li>view your animal records</li>
+  <li>update your details</li>
+</ul>
       <h2 class="govuk-heading-m">
         Before you start
       </h2>
@@ -49,23 +57,23 @@
       </p>
 
       <p>
-If you do not have a CPH number, you'll need to <a href="https://www.gov.uk/guidance/apply-for-a-county-parish-holding-cph-number">set up as a livestock keeper</a> before you can use this service. 
+If you do not have a CPH number, you'll need to <a href="https://www.gov.uk/guidance/apply-for-a-county-parish-holding-cph-number">set up as a livestock keeper</a> first. When you're set up, you can create your account. 
       </p>
 
+       <h3 class="govuk-heading-m">
+        Sign in or create your account
+      </h3>
+
+            <p>
+If you already have an account, you will be able to sign in, or create one if you haven't already.
+</p>
 
       {{ govukButton({
         text: "Start now",
-        href: "/movements/version1/sign-in-decision",
+        href: "",
         isStartButton: true
       }) }}
 
-      <p>
-You'll be asked to sign in or create an account.
-</p>
-
-<p>
-Previously known as CTS online.
-</p>
 
     </div>
 
@@ -77,6 +85,11 @@ Previously known as CTS online.
         </h2>
         <nav role="navigation" aria-labelledby="subsection-title">
           <ul class="govuk-list govuk-!-font-size-16">
+            <li>
+              <a href="https://www.gov.uk/guidance/apply-for-a-county-parish-holding-cph-number">
+                Apply for a county parish holding (CPH) number
+              </a>
+            </li>
             <li>
               <a href="https://www.gov.uk/government/collections/keeping-cattle-bison-and-buffalo-in-england-and-wales">
                 Keeping cattle, bison and buffalo in England and Wales
