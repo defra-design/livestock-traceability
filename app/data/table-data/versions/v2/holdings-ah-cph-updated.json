@@ -1,0 +1,1817 @@
+{
+  "recordCount": 46,
+  "holdings": [
+    {
+      "id": "holding-001",
+      "cph": "35/244/0001",
+      "holdingName": "Oakfield Farm",
+      "businessName": "Oakfield Livestock Ltd",
+      "address": {
+        "addressLine1": "Oakfield Farm",
+        "addressLine2": "Church Lane",
+        "town": "Shrewsbury",
+        "county": "Shropshire",
+        "postcode": "SY4 1AB",
+        "country": "England"
+      },
+      "status": "Active",
+      "holdingType": "Agricultural Holding (AH)",
+      "holdingTypeCode": "AH",
+      "species": [
+        "Cattle",
+        "Sheep"
+      ],
+      "herdAndFlockMarks": [
+        {
+          "species": "Cattle",
+          "mark": "UK654322"
+        },
+        {
+          "species": "Sheep",
+          "mark": "UK654321"
+        }
+      ],
+      "owner": {
+        "role": "owner",
+        "firstName": "James",
+        "lastName": "Williams",
+        "name": "James Williams",
+        "email": "james.williams@example.com",
+        "phone": "07700 900001",
+        "address": {
+          "addressLine1": "Oakfield Farm",
+          "addressLine2": "Church Lane",
+          "town": "Shrewsbury",
+          "county": "Shropshire",
+          "postcode": "SY4 1AB",
+          "country": "England"
+        }
+      },
+      "holdingStartDate": "2008-03-17"
+    },
+    {
+      "id": "holding-002",
+      "cph": "17/087/0042",
+      "holdingName": "Willow Brook Farm",
+      "businessName": "Willow Brook Agriculture",
+      "address": {
+        "addressLine1": "Willow Brook Farm",
+        "addressLine2": "Mill Road",
+        "town": "Hereford",
+        "county": "Herefordshire",
+        "postcode": "HR2 8JL",
+        "country": "England"
+      },
+      "status": "Active",
+      "holdingType": "Agricultural Holding (AH)",
+      "holdingTypeCode": "AH",
+      "species": [
+        "Cattle"
+      ],
+      "herdAndFlockMarks": [
+        {
+          "species": "Cattle",
+          "mark": "UK234567"
+        },
+        {
+          "species": "Cattle",
+          "mark": "UK234221"
+        }
+      ],
+      "temporaryLandAssociations": [
+        {
+          "id": "tla-001",
+          "status": "Active",
+          "startDate": "2026-04-01",
+          "endDate": "2027-03-31",
+          "landName": "Mill Meadow",
+          "landholderCph": "24/118/0199",
+          "species": [
+            "Cattle"
+          ]
+        }
+      ],
+      "owner": {
+        "role": "owner",
+        "firstName": "Sarah",
+        "lastName": "Evans",
+        "name": "Sarah Evans",
+        "email": "sarah.evans@example.com",
+        "phone": "07700 900002",
+        "address": {
+          "addressLine1": "Willow Brook Farm",
+          "addressLine2": "Mill Road",
+          "town": "Hereford",
+          "county": "Herefordshire",
+          "postcode": "HR2 8JL",
+          "country": "England"
+        }
+      },
+      "holdingStartDate": "2012-06-04"
+    },
+    {
+      "id": "holding-003",
+      "cph": "24/004/0158",
+      "holdingName": "Red Barn Holdings",
+      "businessName": "Red Barn Rural Ltd",
+      "address": {
+        "addressLine1": "Red Barn",
+        "addressLine2": "Station Lane",
+        "town": "Lincoln",
+        "county": "Lincolnshire",
+        "postcode": "LN5 0QF",
+        "country": "England"
+      },
+      "status": "Inactive",
+      "holdingType": "Agricultural Holding (AH)",
+      "holdingTypeCode": "AH",
+      "species": [
+        "Cattle",
+        "Goats"
+      ],
+      "herdAndFlockMarks": [
+        {
+          "species": "Cattle",
+          "mark": "UK345678"
+        },
+        {
+          "species": "Goats",
+          "mark": "UK345679"
+        }
+      ],
+      "owner": {
+        "role": "owner",
+        "firstName": "Peter",
+        "lastName": "Clarke",
+        "name": "Peter Clarke",
+        "email": "peter.clarke@example.com",
+        "phone": "07700 900003",
+        "address": {
+          "addressLine1": "Red Barn",
+          "addressLine2": "Station Lane",
+          "town": "Lincoln",
+          "county": "Lincolnshire",
+          "postcode": "LN5 0QF",
+          "country": "England"
+        }
+      },
+      "holdingStartDate": "2005-09-12",
+      "holdingEndDate": "2024-11-30"
+    },
+    {
+      "id": "holding-004",
+      "cph": "52/063/0317",
+      "holdingName": "Cwm Valley Farm",
+      "businessName": "Cwm Valley Livestock",
+      "address": {
+        "addressLine1": "Cwm Valley Farm",
+        "addressLine2": "Llan Road",
+        "town": "Brecon",
+        "county": "Powys",
+        "postcode": "LD3 7TP",
+        "country": "Wales"
+      },
+      "status": "Active",
+      "holdingType": "Agricultural Holding (AH)",
+      "holdingTypeCode": "AH",
+      "species": [
+        "Cattle",
+        "Sheep"
+      ],
+      "herdAndFlockMarks": [
+        {
+          "species": "Cattle",
+          "mark": "UK456780"
+        },
+        {
+          "species": "Sheep",
+          "mark": "UK456781"
+        }
+      ],
+      "owner": {
+        "role": "owner",
+        "firstName": "Rhys",
+        "lastName": "Morgan",
+        "name": "Rhys Morgan",
+        "email": "rhys.morgan@example.com",
+        "phone": "07700 900004",
+        "address": {
+          "addressLine1": "Cwm Valley Farm",
+          "addressLine2": "Llan Road",
+          "town": "Brecon",
+          "county": "Powys",
+          "postcode": "LD3 7TP",
+          "country": "Wales"
+        }
+      },
+      "holdingStartDate": "2010-02-22"
+    },
+    {
+      "id": "holding-005",
+      "cph": "48/755/0029",
+      "holdingName": "Meadow View",
+      "businessName": "Meadow View Smallholding",
+      "address": {
+        "addressLine1": "Meadow View",
+        "addressLine2": "North Lane",
+        "town": "York",
+        "county": "North Yorkshire",
+        "postcode": "YO26 8RW",
+        "country": "England"
+      },
+      "status": "Active",
+      "holdingType": "Agricultural Holding (AH)",
+      "holdingTypeCode": "AH",
+      "species": [
+        "Cattle",
+        "Goats"
+      ],
+      "herdAndFlockMarks": [
+        {
+          "species": "Cattle",
+          "mark": "UK567890"
+        },
+        {
+          "species": "Goats",
+          "mark": "UK567891"
+        }
+      ],
+      "owner": {
+        "role": "owner",
+        "firstName": "Helen",
+        "lastName": "Price",
+        "name": "Helen Price",
+        "email": "helen.price@example.com",
+        "phone": "07700 900005",
+        "address": {
+          "addressLine1": "Meadow View",
+          "addressLine2": "North Lane",
+          "town": "York",
+          "county": "North Yorkshire",
+          "postcode": "YO26 8RW",
+          "country": "England"
+        }
+      },
+      "holdingStartDate": "2016-07-11"
+    },
+    {
+      "id": "holding-006",
+      "cph": "27/884/0106",
+      "holdingName": "Blackthorn Estate",
+      "businessName": "Blackthorn Estate Farms",
+      "address": {
+        "addressLine1": "Blackthorn Estate",
+        "addressLine2": "Estate Road",
+        "town": "Taunton",
+        "county": "Somerset",
+        "postcode": "TA3 5PL",
+        "country": "England"
+      },
+      "status": "Active",
+      "holdingType": "Market place (MA)",
+      "holdingTypeCode": "MA",
+      "species": [
+        "Cattle",
+        "Pigs"
+      ],
+      "herdAndFlockMarks": [
+        {
+          "species": "Cattle",
+          "mark": "UK678901"
+        },
+        {
+          "species": "Pigs",
+          "mark": "UK678902"
+        }
+      ],
+      "owner": {
+        "role": "owner",
+        "firstName": "Oliver",
+        "lastName": "Grant",
+        "name": "Oliver Grant",
+        "email": "oliver.grant@example.com",
+        "phone": "07700 900006",
+        "address": {
+          "addressLine1": "Blackthorn Estate",
+          "addressLine2": "Estate Road",
+          "town": "Taunton",
+          "county": "Somerset",
+          "postcode": "TA3 5PL",
+          "country": "England"
+        }
+      },
+      "holdingStartDate": "2001-11-05"
+    },
+    {
+      "id": "holding-007",
+      "cph": "08/362/0088",
+      "holdingName": "High Fell Farm",
+      "businessName": "High Fell Farming Partnership",
+      "address": {
+        "addressLine1": "High Fell Farm",
+        "addressLine2": "Moorland Road",
+        "town": "Kendal",
+        "county": "Cumbria",
+        "postcode": "LA8 9HS",
+        "country": "England"
+      },
+      "status": "Active",
+      "holdingType": "Agricultural Holding (AH)",
+      "holdingTypeCode": "AH",
+      "species": [
+        "Cattle",
+        "Sheep"
+      ],
+      "herdAndFlockMarks": [
+        {
+          "species": "Cattle",
+          "mark": "UK789012"
+        },
+        {
+          "species": "Sheep",
+          "mark": "UK789013"
+        }
+      ],
+      "owner": {
+        "role": "owner",
+        "firstName": "Alice",
+        "lastName": "Thompson",
+        "name": "Alice Thompson",
+        "email": "alice.thompson@example.com",
+        "phone": "07700 900007",
+        "address": {
+          "addressLine1": "High Fell Farm",
+          "addressLine2": "Moorland Road",
+          "town": "Kendal",
+          "county": "Cumbria",
+          "postcode": "LA8 9HS",
+          "country": "England"
+        }
+      },
+      "holdingStartDate": "2007-04-16"
+    },
+    {
+      "id": "holding-008",
+      "cph": "06/098/0141",
+      "holdingName": "Green Pastures",
+      "businessName": "Green Pastures Dairy",
+      "address": {
+        "addressLine1": "Green Pastures",
+        "addressLine2": "Dairy Lane",
+        "town": "Chester",
+        "county": "Cheshire",
+        "postcode": "CH3 6NT",
+        "country": "England"
+      },
+      "status": "Active",
+      "holdingType": "Agricultural Holding (AH)",
+      "holdingTypeCode": "AH",
+      "species": [
+        "Cattle"
+      ],
+      "herdAndFlockMarks": [
+        {
+          "species": "Cattle",
+          "mark": "UK890123"
+        }
+      ],
+      "owner": {
+        "role": "owner",
+        "firstName": "Daniel",
+        "lastName": "Foster",
+        "name": "Daniel Foster",
+        "email": "daniel.foster@example.com",
+        "phone": "07700 900008",
+        "address": {
+          "addressLine1": "Green Pastures",
+          "addressLine2": "Dairy Lane",
+          "town": "Chester",
+          "county": "Cheshire",
+          "postcode": "CH3 6NT",
+          "country": "England"
+        }
+      },
+      "holdingStartDate": "2013-01-28"
+    },
+    {
+      "id": "holding-009",
+      "cph": "38/360/0254",
+      "holdingName": "Riverside Smallholding",
+      "businessName": "",
+      "address": {
+        "addressLine1": "Riverside Smallholding",
+        "addressLine2": "Bridge End",
+        "town": "Bury St Edmunds",
+        "county": "Suffolk",
+        "postcode": "IP31 2DH",
+        "country": "England"
+      },
+      "status": "Inactive",
+      "holdingType": "Agricultural Holding (AH)",
+      "holdingTypeCode": "AH",
+      "species": [
+        "Cattle"
+      ],
+      "herdAndFlockMarks": [
+        {
+          "species": "Cattle",
+          "mark": "UK901234"
+        }
+      ],
+      "owner": {
+        "role": "owner",
+        "firstName": "Laura",
+        "lastName": "Bennett",
+        "name": "Laura Bennett",
+        "email": "laura.bennett@example.com",
+        "phone": "07700 900009",
+        "address": {
+          "addressLine1": "Riverside Smallholding",
+          "addressLine2": "Bridge End",
+          "town": "Bury St Edmunds",
+          "county": "Suffolk",
+          "postcode": "IP31 2DH",
+          "country": "England"
+        }
+      },
+      "holdingStartDate": "1999-08-09",
+      "holdingEndDate": "2023-07-14"
+    },
+    {
+      "id": "holding-010",
+      "cph": "39/740/0193",
+      "holdingName": "Hilltop Farm",
+      "businessName": "Hilltop Beef Ltd",
+      "address": {
+        "addressLine1": "Hilltop Farm",
+        "addressLine2": "Beacon Road",
+        "town": "Exeter",
+        "county": "Devon",
+        "postcode": "EX5 4QR",
+        "country": "England"
+      },
+      "status": "Active",
+      "holdingType": "Slaughterhouse (SH)",
+      "holdingTypeCode": "SH",
+      "species": [
+        "Cattle"
+      ],
+      "herdAndFlockMarks": [
+        {
+          "species": "Cattle",
+          "mark": "UK012345"
+        }
+      ],
+      "owner": {
+        "role": "owner",
+        "firstName": "Matthew",
+        "lastName": "Reed",
+        "name": "Matthew Reed",
+        "email": "matthew.reed@example.com",
+        "phone": "07700 900010",
+        "address": {
+          "addressLine1": "Hilltop Farm",
+          "addressLine2": "Beacon Road",
+          "town": "Exeter",
+          "county": "Devon",
+          "postcode": "EX5 4QR",
+          "country": "England"
+        }
+      },
+      "holdingStartDate": "2004-05-24"
+    },
+    {
+      "id": "holding-011",
+      "cph": "28/180/0067",
+      "holdingName": "Long Acre Farm",
+      "businessName": "Long Acre Farms",
+      "address": {
+        "addressLine1": "Long Acre Farm",
+        "addressLine2": "Lower Road",
+        "town": "Norwich",
+        "county": "Norfolk",
+        "postcode": "NR10 5BX",
+        "country": "England"
+      },
+      "status": "Active",
+      "holdingType": "Agricultural Holding (AH)",
+      "holdingTypeCode": "AH",
+      "species": [
+        "Cattle",
+        "Poultry"
+      ],
+      "herdAndFlockMarks": [
+        {
+          "species": "Cattle",
+          "mark": "UK112233"
+        }
+      ],
+      "owner": {
+        "role": "owner",
+        "firstName": "Rebecca",
+        "lastName": "Hall",
+        "name": "Rebecca Hall",
+        "email": "rebecca.hall@example.com",
+        "phone": "07700 900011",
+        "address": {
+          "addressLine1": "Long Acre Farm",
+          "addressLine2": "Lower Road",
+          "town": "Norwich",
+          "county": "Norfolk",
+          "postcode": "NR10 5BX",
+          "country": "England"
+        }
+      },
+      "holdingStartDate": "2011-10-03"
+    },
+    {
+      "id": "holding-012",
+      "cph": "55/042/0205",
+      "holdingName": "Ty Mawr",
+      "businessName": "Ty Mawr Farming",
+      "address": {
+        "addressLine1": "Ty Mawr",
+        "addressLine2": "Bryn Road",
+        "town": "Carmarthen",
+        "county": "Carmarthenshire",
+        "postcode": "SA32 7LG",
+        "country": "Wales"
+      },
+      "status": "Active",
+      "holdingType": "Agricultural Holding (AH)",
+      "holdingTypeCode": "AH",
+      "species": [
+        "Cattle",
+        "Sheep",
+        "Goats"
+      ],
+      "herdAndFlockMarks": [
+        {
+          "species": "Cattle",
+          "mark": "UK223344"
+        },
+        {
+          "species": "Sheep",
+          "mark": "UK223345"
+        },
+        {
+          "species": "Goats",
+          "mark": "UK223346"
+        }
+      ],
+      "owner": {
+        "role": "owner",
+        "firstName": "Carys",
+        "lastName": "Jones",
+        "name": "Carys Jones",
+        "email": "carys.jones@example.com",
+        "phone": "07700 900012",
+        "address": {
+          "addressLine1": "Ty Mawr",
+          "addressLine2": "Bryn Road",
+          "town": "Carmarthen",
+          "county": "Carmarthenshire",
+          "postcode": "SA32 7LG",
+          "country": "Wales"
+        }
+      },
+      "holdingStartDate": "2006-12-18"
+    },
+    {
+      "id": "holding-013",
+      "cph": "10/138/0094",
+      "holdingName": "Westmoor Farm",
+      "businessName": "Westmoor Organics",
+      "address": {
+        "addressLine1": "Westmoor Farm",
+        "addressLine2": "Moor Lane",
+        "town": "Plymouth",
+        "county": "Devon",
+        "postcode": "PL7 5ND",
+        "country": "England"
+      },
+      "status": "Inactive",
+      "holdingType": "Agricultural Holding (AH)",
+      "holdingTypeCode": "AH",
+      "species": [
+        "Cattle",
+        "Sheep"
+      ],
+      "herdAndFlockMarks": [
+        {
+          "species": "Cattle",
+          "mark": "UK334455"
+        },
+        {
+          "species": "Sheep",
+          "mark": "UK334456"
+        }
+      ],
+      "owner": {
+        "role": "owner",
+        "firstName": "George",
+        "lastName": "Mills",
+        "name": "George Mills",
+        "email": "george.mills@example.com",
+        "phone": "07700 900013",
+        "address": {
+          "addressLine1": "Westmoor Farm",
+          "addressLine2": "Moor Lane",
+          "town": "Plymouth",
+          "county": "Devon",
+          "postcode": "PL7 5ND",
+          "country": "England"
+        }
+      },
+      "holdingStartDate": "2002-07-15",
+      "holdingEndDate": "2025-02-28"
+    },
+    {
+      "id": "holding-014",
+      "cph": "14/185/0122",
+      "holdingName": "Ash Grove Farm",
+      "businessName": "Ash Grove Rural Enterprises",
+      "address": {
+        "addressLine1": "Ash Grove Farm",
+        "addressLine2": "Old Rectory Lane",
+        "town": "Gloucester",
+        "county": "Gloucestershire",
+        "postcode": "GL2 8SA",
+        "country": "England"
+      },
+      "status": "Active",
+      "holdingType": "Agricultural Holding (AH)",
+      "holdingTypeCode": "AH",
+      "species": [
+        "Cattle",
+        "Pigs"
+      ],
+      "herdAndFlockMarks": [
+        {
+          "species": "Cattle",
+          "mark": "UK445566"
+        },
+        {
+          "species": "Pigs",
+          "mark": "UK445567"
+        }
+      ],
+      "owner": {
+        "role": "owner",
+        "firstName": "Sophie",
+        "lastName": "Carter",
+        "name": "Sophie Carter",
+        "email": "sophie.carter@example.com",
+        "phone": "07700 900014",
+        "address": {
+          "addressLine1": "Ash Grove Farm",
+          "addressLine2": "Old Rectory Lane",
+          "town": "Gloucester",
+          "county": "Gloucestershire",
+          "postcode": "GL2 8SA",
+          "country": "England"
+        }
+      },
+      "holdingStartDate": "2014-03-10"
+    },
+    {
+      "id": "holding-015",
+      "cph": "09/020/0276",
+      "holdingName": "Stonebridge Farm",
+      "businessName": "Stonebridge Livestock",
+      "address": {
+        "addressLine1": "Stonebridge Farm",
+        "addressLine2": "River Lane",
+        "town": "Derby",
+        "county": "Derbyshire",
+        "postcode": "DE6 2PA",
+        "country": "England"
+      },
+      "status": "Active",
+      "holdingType": "Agricultural Holding (AH)",
+      "holdingTypeCode": "AH",
+      "species": [
+        "Cattle",
+        "Sheep"
+      ],
+      "herdAndFlockMarks": [
+        {
+          "species": "Cattle",
+          "mark": "UK556677"
+        },
+        {
+          "species": "Sheep",
+          "mark": "UK556678"
+        }
+      ],
+      "owner": {
+        "role": "owner",
+        "firstName": "Henry",
+        "lastName": "Lawson",
+        "name": "Henry Lawson",
+        "email": "henry.lawson@example.com",
+        "phone": "07700 900015",
+        "address": {
+          "addressLine1": "Stonebridge Farm",
+          "addressLine2": "River Lane",
+          "town": "Derby",
+          "county": "Derbyshire",
+          "postcode": "DE6 2PA",
+          "country": "England"
+        }
+      },
+      "holdingStartDate": "2009-09-21"
+    },
+    {
+      "id": "holding-016",
+      "cph": "21/148/0031",
+      "holdingName": "Rosebank Farm",
+      "businessName": "",
+      "address": {
+        "addressLine1": "Rosebank Farm",
+        "addressLine2": "Rose Lane",
+        "town": "Lancaster",
+        "county": "Lancashire",
+        "postcode": "LA2 7DX",
+        "country": "England"
+      },
+      "status": "Active",
+      "holdingType": "Agricultural Holding (AH)",
+      "holdingTypeCode": "AH",
+      "species": [
+        "Cattle"
+      ],
+      "herdAndFlockMarks": [
+        {
+          "species": "Cattle",
+          "mark": "UK667788"
+        }
+      ],
+      "owner": {
+        "role": "owner",
+        "firstName": "Emma",
+        "lastName": "Brooks",
+        "name": "Emma Brooks",
+        "email": "emma.brooks@example.com",
+        "phone": "07700 900016",
+        "address": {
+          "addressLine1": "Rosebank Farm",
+          "addressLine2": "Rose Lane",
+          "town": "Lancaster",
+          "county": "Lancashire",
+          "postcode": "LA2 7DX",
+          "country": "England"
+        }
+      },
+      "holdingStartDate": "2018-02-05"
+    },
+    {
+      "id": "holding-017",
+      "cph": "08/067/0169",
+      "holdingName": "Low Wood Farm",
+      "businessName": "Low Wood Farming Co",
+      "address": {
+        "addressLine1": "Low Wood Farm",
+        "addressLine2": "Woodland Drive",
+        "town": "Carlisle",
+        "county": "Cumbria",
+        "postcode": "CA5 7LD",
+        "country": "England"
+      },
+      "status": "Inactive",
+      "holdingType": "Agricultural Holding (AH)",
+      "holdingTypeCode": "AH",
+      "species": [
+        "Cattle"
+      ],
+      "herdAndFlockMarks": [
+        {
+          "species": "Cattle",
+          "mark": "UK778899"
+        }
+      ],
+      "owner": {
+        "role": "owner",
+        "firstName": "Jack",
+        "lastName": "Turner",
+        "name": "Jack Turner",
+        "email": "jack.turner@example.com",
+        "phone": "07700 900017",
+        "address": {
+          "addressLine1": "Low Wood Farm",
+          "addressLine2": "Woodland Drive",
+          "town": "Carlisle",
+          "county": "Cumbria",
+          "postcode": "CA5 7LD",
+          "country": "England"
+        }
+      },
+      "holdingStartDate": "2003-06-30",
+      "holdingEndDate": "2022-10-31"
+    },
+    {
+      "id": "holding-018",
+      "cph": "55/209/0114",
+      "holdingName": "Pen-y-Bryn",
+      "businessName": "Pen-y-Bryn Farm Partnership",
+      "address": {
+        "addressLine1": "Pen-y-Bryn",
+        "addressLine2": "Mountain Road",
+        "town": "Aberystwyth",
+        "county": "Ceredigion",
+        "postcode": "SY23 4NB",
+        "country": "Wales"
+      },
+      "status": "Active",
+      "holdingType": "Agricultural Holding (AH)",
+      "holdingTypeCode": "AH",
+      "species": [
+        "Cattle",
+        "Sheep"
+      ],
+      "herdAndFlockMarks": [
+        {
+          "species": "Cattle",
+          "mark": "UK889900"
+        },
+        {
+          "species": "Sheep",
+          "mark": "UK889901"
+        }
+      ],
+      "owner": {
+        "role": "owner",
+        "firstName": "Owain",
+        "lastName": "Hughes",
+        "name": "Owain Hughes",
+        "email": "owain.hughes@example.com",
+        "phone": "07700 900018",
+        "address": {
+          "addressLine1": "Pen-y-Bryn",
+          "addressLine2": "Mountain Road",
+          "town": "Aberystwyth",
+          "county": "Ceredigion",
+          "postcode": "SY23 4NB",
+          "country": "Wales"
+        }
+      },
+      "holdingStartDate": "2015-04-13"
+    },
+    {
+      "id": "holding-019",
+      "cph": "25/701/0238",
+      "holdingName": "Brookside Farm",
+      "businessName": "Brookside Agricultural Services",
+      "address": {
+        "addressLine1": "Brookside Farm",
+        "addressLine2": "Water Lane",
+        "town": "Leicester",
+        "county": "Leicestershire",
+        "postcode": "LE8 6UJ",
+        "country": "England"
+      },
+      "status": "Active",
+      "holdingType": "Calf Collection (CC)",
+      "holdingTypeCode": "CC",
+      "species": [
+        "Cattle",
+        "Pigs",
+        "Poultry"
+      ],
+      "herdAndFlockMarks": [
+        {
+          "species": "Cattle",
+          "mark": "UK990011"
+        },
+        {
+          "species": "Pigs",
+          "mark": "UK990012"
+        }
+      ],
+      "owner": {
+        "role": "owner",
+        "firstName": "Anna",
+        "lastName": "Wilson",
+        "name": "Anna Wilson",
+        "email": "anna.wilson@example.com",
+        "phone": "07700 900019",
+        "address": {
+          "addressLine1": "Brookside Farm",
+          "addressLine2": "Water Lane",
+          "town": "Leicester",
+          "county": "Leicestershire",
+          "postcode": "LE8 6UJ",
+          "country": "England"
+        }
+      },
+      "holdingStartDate": "2017-08-07"
+    },
+    {
+      "id": "holding-020",
+      "cph": "12/031/0056",
+      "holdingName": "Sunnybank Farm",
+      "businessName": "Sunnybank Livestock Ltd",
+      "address": {
+        "addressLine1": "Sunnybank Farm",
+        "addressLine2": "East Road",
+        "town": "Durham",
+        "county": "County Durham",
+        "postcode": "DH7 9RE",
+        "country": "England"
+      },
+      "status": "Active",
+      "holdingType": "Agricultural Holding (AH)",
+      "holdingTypeCode": "AH",
+      "species": [
+        "Cattle",
+        "Sheep"
+      ],
+      "herdAndFlockMarks": [
+        {
+          "species": "Cattle",
+          "mark": "UK101112"
+        },
+        {
+          "species": "Sheep",
+          "mark": "UK101113"
+        }
+      ],
+      "temporaryLandAssociations": [
+        {
+          "id": "tla-002",
+          "status": "Active",
+          "startDate": "2026-05-15",
+          "endDate": "2026-11-15",
+          "landName": "East Pasture",
+          "landholderCph": "56/312/0188",
+          "species": [
+            "Cattle",
+            "Sheep"
+          ]
+        }
+      ],
+      "owner": {
+        "role": "owner",
+        "firstName": "Michael",
+        "lastName": "Green",
+        "name": "Michael Green",
+        "email": "michael.green@example.com",
+        "phone": "07700 900020",
+        "address": {
+          "addressLine1": "Sunnybank Farm",
+          "addressLine2": "East Road",
+          "town": "Durham",
+          "county": "County Durham",
+          "postcode": "DH7 9RE",
+          "country": "England"
+        }
+      },
+      "holdingStartDate": "2011-01-17"
+    },
+    {
+      "id": "holding-021",
+      "cph": "48/711/0410",
+      "holdingName": "Northfield Farm",
+      "businessName": "Northfield Livestock Ltd",
+      "address": {
+        "addressLine1": "Northfield Farm",
+        "addressLine2": "Market Lane",
+        "town": "Ripon",
+        "county": "North Yorkshire",
+        "postcode": "HG4 3AA",
+        "country": "England"
+      },
+      "status": "Active",
+      "holdingType": "Agricultural Holding (AH)",
+      "holdingTypeCode": "AH",
+      "species": [
+        "Cattle"
+      ],
+      "herdAndFlockMarks": [
+        {
+          "species": "Cattle",
+          "mark": "UK864202"
+        }
+      ],
+      "holdingStartDate": "2019-05-20"
+    },
+    {
+      "id": "holding-022",
+      "cph": "35/115/8936",
+      "holdingName": "Bramble Hill Farm",
+      "businessName": "Bramble Hill Farming",
+      "address": {
+        "addressLine1": "Bramble Hill Farm",
+        "addressLine2": "Bramble Road",
+        "town": "Ludlow",
+        "county": "Shropshire",
+        "postcode": "SY8 4DL",
+        "country": "England"
+      },
+      "status": "Active",
+      "holdingType": "Agricultural Holding (AH)",
+      "holdingTypeCode": "AH",
+      "species": [
+        "Cattle"
+      ],
+      "herdAndFlockMarks": [
+        {
+          "species": "Cattle",
+          "mark": "UK522634"
+        }
+      ],
+      "holdingStartDate": "2018-09-03"
+    },
+    {
+      "id": "holding-023",
+      "cph": "24/434/8280",
+      "holdingName": "White House Farm",
+      "businessName": "White House Cattle Co",
+      "address": {
+        "addressLine1": "White House Farm",
+        "addressLine2": "Mill Lane",
+        "town": "Lincoln",
+        "county": "Lincolnshire",
+        "postcode": "LN4 2PT",
+        "country": "England"
+      },
+      "status": "Active",
+      "holdingType": "Agricultural Holding (AH)",
+      "holdingTypeCode": "AH",
+      "species": [
+        "Cattle"
+      ],
+      "herdAndFlockMarks": [
+        {
+          "species": "Cattle",
+          "mark": "UK159517"
+        }
+      ],
+      "holdingStartDate": "2020-02-10"
+    },
+    {
+      "id": "holding-024",
+      "cph": "52/063/4558",
+      "holdingName": "Penrhos Farm",
+      "businessName": "Penrhos Livestock",
+      "address": {
+        "addressLine1": "Penrhos Farm",
+        "addressLine2": "Ffordd y Bryn",
+        "town": "Brecon",
+        "county": "Powys",
+        "postcode": "LD3 9AP",
+        "country": "Wales"
+      },
+      "status": "Active",
+      "holdingType": "Agricultural Holding (AH)",
+      "holdingTypeCode": "AH",
+      "species": [
+        "Cattle"
+      ],
+      "herdAndFlockMarks": [
+        {
+          "species": "Cattle",
+          "mark": "UK132588"
+        }
+      ],
+      "holdingStartDate": "2016-11-14"
+    },
+    {
+      "id": "holding-025",
+      "cph": "36/427/3528",
+      "holdingName": "Lower Moor Farm",
+      "businessName": "Lower Moor Agriculture",
+      "address": {
+        "addressLine1": "Lower Moor Farm",
+        "addressLine2": "Moor Road",
+        "town": "Taunton",
+        "county": "Somerset",
+        "postcode": "TA4 6QJ",
+        "country": "England"
+      },
+      "status": "Active",
+      "holdingType": "Agricultural Holding (AH)",
+      "holdingTypeCode": "AH",
+      "species": [
+        "Cattle"
+      ],
+      "herdAndFlockMarks": [
+        {
+          "species": "Cattle",
+          "mark": "UK551643"
+        }
+      ],
+      "holdingStartDate": "2017-03-27"
+    },
+    {
+      "id": "holding-026",
+      "cph": "08/362/5636",
+      "holdingName": "Hawthorn Farm",
+      "businessName": "Hawthorn Beef Ltd",
+      "address": {
+        "addressLine1": "Hawthorn Farm",
+        "addressLine2": "Church Road",
+        "town": "Kendal",
+        "county": "Cumbria",
+        "postcode": "LA9 7PH",
+        "country": "England"
+      },
+      "status": "Active",
+      "holdingType": "Agricultural Holding (AH)",
+      "holdingTypeCode": "AH",
+      "species": [
+        "Cattle"
+      ],
+      "herdAndFlockMarks": [
+        {
+          "species": "Cattle",
+          "mark": "UK310588"
+        }
+      ],
+      "holdingStartDate": "2014-08-18"
+    },
+    {
+      "id": "holding-027",
+      "cph": "06/098/4804",
+      "holdingName": "Brook Farm",
+      "businessName": "Brook Farm Partnership",
+      "address": {
+        "addressLine1": "Brook Farm",
+        "addressLine2": "Water Lane",
+        "town": "Chester",
+        "county": "Cheshire",
+        "postcode": "CH3 8NE",
+        "country": "England"
+      },
+      "status": "Active",
+      "holdingType": "Agricultural Holding (AH)",
+      "holdingTypeCode": "AH",
+      "species": [
+        "Cattle"
+      ],
+      "herdAndFlockMarks": [
+        {
+          "species": "Cattle",
+          "mark": "UK946914"
+        }
+      ],
+      "holdingStartDate": "2013-06-24"
+    },
+    {
+      "id": "holding-028",
+      "cph": "48/790/3734",
+      "holdingName": "Woodside Farm",
+      "businessName": "Woodside Livestock",
+      "address": {
+        "addressLine1": "Woodside Farm",
+        "addressLine2": "Wood Lane",
+        "town": "York",
+        "county": "North Yorkshire",
+        "postcode": "YO41 4RT",
+        "country": "England"
+      },
+      "status": "Active",
+      "holdingType": "Agricultural Holding (AH)",
+      "holdingTypeCode": "AH",
+      "species": [
+        "Cattle"
+      ],
+      "herdAndFlockMarks": [
+        {
+          "species": "Cattle",
+          "mark": "UK052474"
+        }
+      ],
+      "holdingStartDate": "2021-01-11"
+    },
+    {
+      "id": "holding-029",
+      "cph": "28/180/5978",
+      "holdingName": "Mill House Farm",
+      "businessName": "Mill House Agriculture",
+      "address": {
+        "addressLine1": "Mill House Farm",
+        "addressLine2": "Station Road",
+        "town": "Norwich",
+        "county": "Norfolk",
+        "postcode": "NR15 2HT",
+        "country": "England"
+      },
+      "status": "Active",
+      "holdingType": "Agricultural Holding (AH)",
+      "holdingTypeCode": "AH",
+      "species": [
+        "Cattle"
+      ],
+      "herdAndFlockMarks": [
+        {
+          "species": "Cattle",
+          "mark": "UK859075"
+        }
+      ],
+      "holdingStartDate": "2019-10-07"
+    },
+    {
+      "id": "holding-030",
+      "cph": "10/087/1170",
+      "holdingName": "Cedar Farm",
+      "businessName": "Cedar Rural Ltd",
+      "address": {
+        "addressLine1": "Cedar Farm",
+        "addressLine2": "Cedar Lane",
+        "town": "Exeter",
+        "county": "Devon",
+        "postcode": "EX6 6LP",
+        "country": "England"
+      },
+      "status": "Active",
+      "holdingType": "Agricultural Holding (AH)",
+      "holdingTypeCode": "AH",
+      "species": [
+        "Cattle"
+      ],
+      "herdAndFlockMarks": [
+        {
+          "species": "Cattle",
+          "mark": "UK457586"
+        }
+      ],
+      "holdingStartDate": "2020-06-15"
+    },
+    {
+      "id": "holding-031",
+      "cph": "55/042/4423",
+      "holdingName": "Glan Afon Farm",
+      "businessName": "Glan Afon Farming",
+      "address": {
+        "addressLine1": "Glan Afon Farm",
+        "addressLine2": "Riverside Road",
+        "town": "Carmarthen",
+        "county": "Carmarthenshire",
+        "postcode": "SA32 8BQ",
+        "country": "Wales"
+      },
+      "status": "Active",
+      "holdingType": "Agricultural Holding (AH)",
+      "holdingTypeCode": "AH",
+      "species": [
+        "Cattle"
+      ],
+      "herdAndFlockMarks": [
+        {
+          "species": "Cattle",
+          "mark": "UK017373"
+        }
+      ],
+      "holdingStartDate": "2015-09-28"
+    },
+    {
+      "id": "holding-032",
+      "cph": "10/138/0526",
+      "holdingName": "Higher West Farm",
+      "businessName": "Higher West Organics",
+      "address": {
+        "addressLine1": "Higher West Farm",
+        "addressLine2": "West Lane",
+        "town": "Plymouth",
+        "county": "Devon",
+        "postcode": "PL7 7RD",
+        "country": "England"
+      },
+      "status": "Active",
+      "holdingType": "Agricultural Holding (AH)",
+      "holdingTypeCode": "AH",
+      "species": [
+        "Cattle"
+      ],
+      "herdAndFlockMarks": [
+        {
+          "species": "Cattle",
+          "mark": "UK439125"
+        }
+      ],
+      "holdingStartDate": "2018-04-23"
+    },
+    {
+      "id": "holding-033",
+      "cph": "14/127/5156",
+      "holdingName": "Old Rectory Farm",
+      "businessName": "Old Rectory Livestock",
+      "address": {
+        "addressLine1": "Old Rectory Farm",
+        "addressLine2": "Rectory Lane",
+        "town": "Gloucester",
+        "county": "Gloucestershire",
+        "postcode": "GL4 8SA",
+        "country": "England"
+      },
+      "status": "Active",
+      "holdingType": "Agricultural Holding (AH)",
+      "holdingTypeCode": "AH",
+      "species": [
+        "Cattle"
+      ],
+      "herdAndFlockMarks": [
+        {
+          "species": "Cattle",
+          "mark": "UK755898"
+        }
+      ],
+      "holdingStartDate": "2016-01-18"
+    },
+    {
+      "id": "holding-034",
+      "cph": "09/020/4041",
+      "holdingName": "Bridge Farm",
+      "businessName": "Bridge Farm Cattle",
+      "address": {
+        "addressLine1": "Bridge Farm",
+        "addressLine2": "Bridge Lane",
+        "town": "Derby",
+        "county": "Derbyshire",
+        "postcode": "DE6 5PA",
+        "country": "England"
+      },
+      "status": "Active",
+      "holdingType": "Agricultural Holding (AH)",
+      "holdingTypeCode": "AH",
+      "species": [
+        "Cattle"
+      ],
+      "herdAndFlockMarks": [
+        {
+          "species": "Cattle",
+          "mark": "UK939086"
+        }
+      ],
+      "holdingStartDate": "2022-03-07"
+    },
+    {
+      "id": "holding-035",
+      "cph": "21/148/3594",
+      "holdingName": "Moss Bank Farm",
+      "businessName": "Moss Bank Farming",
+      "address": {
+        "addressLine1": "Moss Bank Farm",
+        "addressLine2": "Moss Road",
+        "town": "Lancaster",
+        "county": "Lancashire",
+        "postcode": "LA2 9DX",
+        "country": "England"
+      },
+      "status": "Active",
+      "holdingType": "Agricultural Holding (AH)",
+      "holdingTypeCode": "AH",
+      "species": [
+        "Cattle"
+      ],
+      "herdAndFlockMarks": [
+        {
+          "species": "Cattle",
+          "mark": "UK251278"
+        }
+      ],
+      "holdingStartDate": "2017-12-04"
+    },
+    {
+      "id": "holding-036",
+      "cph": "08/067/2622",
+      "holdingName": "Green Lane Farm",
+      "businessName": "Green Lane Livestock",
+      "address": {
+        "addressLine1": "Green Lane Farm",
+        "addressLine2": "Green Lane",
+        "town": "Carlisle",
+        "county": "Cumbria",
+        "postcode": "CA5 8LD",
+        "country": "England"
+      },
+      "status": "Active",
+      "holdingType": "Agricultural Holding (AH)",
+      "holdingTypeCode": "AH",
+      "species": [
+        "Cattle"
+      ],
+      "herdAndFlockMarks": [
+        {
+          "species": "Cattle",
+          "mark": "UK414344"
+        }
+      ],
+      "holdingStartDate": "2019-02-25"
+    },
+    {
+      "id": "holding-037",
+      "cph": "55/209/7669",
+      "holdingName": "Bryn Glas Farm",
+      "businessName": "Bryn Glas Partnership",
+      "address": {
+        "addressLine1": "Bryn Glas Farm",
+        "addressLine2": "Bryn Road",
+        "town": "Aberystwyth",
+        "county": "Ceredigion",
+        "postcode": "SY23 5NB",
+        "country": "Wales"
+      },
+      "status": "Active",
+      "holdingType": "Agricultural Holding (AH)",
+      "holdingTypeCode": "AH",
+      "species": [
+        "Cattle"
+      ],
+      "herdAndFlockMarks": [
+        {
+          "species": "Cattle",
+          "mark": "UK925327"
+        }
+      ],
+      "holdingStartDate": "2014-11-10"
+    },
+    {
+      "id": "holding-038",
+      "cph": "22/260/4372",
+      "holdingName": "Home Farm",
+      "businessName": "Home Farm Agricultural Services",
+      "address": {
+        "addressLine1": "Home Farm",
+        "addressLine2": "Home Lane",
+        "town": "Leicester",
+        "county": "Leicestershire",
+        "postcode": "LE8 8UJ",
+        "country": "England"
+      },
+      "status": "Active",
+      "holdingType": "Agricultural Holding (AH)",
+      "holdingTypeCode": "AH",
+      "species": [
+        "Cattle"
+      ],
+      "herdAndFlockMarks": [
+        {
+          "species": "Cattle",
+          "mark": "UK321512"
+        }
+      ],
+      "holdingStartDate": "2020-09-21"
+    },
+    {
+      "id": "holding-039",
+      "cph": "12/031/0054",
+      "holdingName": "East View Farm",
+      "businessName": "East View Livestock Ltd",
+      "address": {
+        "addressLine1": "East View Farm",
+        "addressLine2": "East Road",
+        "town": "Durham",
+        "county": "County Durham",
+        "postcode": "DH7 5RE",
+        "country": "England"
+      },
+      "status": "Active",
+      "holdingType": "Agricultural Holding (AH)",
+      "holdingTypeCode": "AH",
+      "species": [
+        "Cattle"
+      ],
+      "herdAndFlockMarks": [
+        {
+          "species": "Cattle",
+          "mark": "UK113048"
+        }
+      ],
+      "holdingStartDate": "2021-05-17"
+    },
+    {
+      "id": "holding-040",
+      "cph": "17/093/4890",
+      "holdingName": "Maple Farm",
+      "businessName": "Maple Farm Partnership",
+      "address": {
+        "addressLine1": "Maple Farm",
+        "addressLine2": "Maple Lane",
+        "town": "Hereford",
+        "county": "Herefordshire",
+        "postcode": "HR2 6JL",
+        "country": "England"
+      },
+      "status": "Active",
+      "holdingType": "Agricultural Holding (AH)",
+      "holdingTypeCode": "AH",
+      "species": [
+        "Cattle"
+      ],
+      "herdAndFlockMarks": [
+        {
+          "species": "Cattle",
+          "mark": "UK765131"
+        }
+      ],
+      "holdingStartDate": "2018-07-09"
+    },
+    {
+      "id": "holding-041",
+      "cph": "12/345/0041",
+      "holdingName": "Lower Meadow",
+      "businessName": "Oakfield Livestock Ltd",
+      "address": {
+        "addressLine1": "Lower Meadow",
+        "addressLine2": "Church Lane",
+        "town": "Shrewsbury",
+        "county": "Shropshire",
+        "postcode": "SY4 2CD",
+        "country": "England"
+      },
+      "status": "Active",
+      "holdingType": "Temporary holding (TH)",
+      "holdingTypeCode": "TH",
+      "associatedHolding": {
+        "id": "holding-001",
+        "cph": "35/244/0001"
+      },
+      "startDate": "2026-04-01",
+      "endDate": "2027-03-31",
+      "species": [
+        "Cattle",
+        "Sheep"
+      ],
+      "herdAndFlockMarks": [
+        {
+          "species": "Cattle",
+          "mark": "UK654322"
+        },
+        {
+          "species": "Sheep",
+          "mark": "UK654321"
+        }
+      ],
+      "landowner": {
+        "name": "John Smith",
+        "businessName": "Smith Farming Ltd",
+        "cph": "98/765/4321",
+        "phone": "07700 900099",
+        "email": "john.smith@example.com"
+      },
+      "owner": {
+        "role": "owner",
+        "firstName": "James",
+        "lastName": "Williams",
+        "name": "James Williams",
+        "email": "james.williams@example.com",
+        "phone": "07700 900001",
+        "address": {
+          "addressLine1": "Oakfield Farm",
+          "addressLine2": "Church Lane",
+          "town": "Shrewsbury",
+          "county": "Shropshire",
+          "postcode": "SY4 1AB",
+          "country": "England"
+        }
+      },
+      "holdingStartDate": "2026-04-01"
+    },
+    {
+      "id": "holding-042",
+      "cph": "53/417/0142",
+      "holdingName": "Moorland Grazing",
+      "businessName": "High Fell Farming Partnership",
+      "address": {
+        "addressLine1": "Moorland Grazing",
+        "addressLine2": "Fell Road",
+        "town": "Kendal",
+        "county": "Cumbria",
+        "postcode": "LA8 8HT",
+        "country": "England"
+      },
+      "status": "Active",
+      "holdingType": "Temporary holding (TH)",
+      "holdingTypeCode": "TH",
+      "associatedHolding": {
+        "id": "holding-007",
+        "cph": "08/362/0088"
+      },
+      "startDate": "2026-05-01",
+      "endDate": "2026-10-31",
+      "species": [
+        "Cattle",
+        "Sheep"
+      ],
+      "herdAndFlockMarks": [
+        {
+          "species": "Cattle",
+          "mark": "UK789012"
+        },
+        {
+          "species": "Sheep",
+          "mark": "UK789013"
+        }
+      ],
+      "landowner": {
+        "name": "John Smith",
+        "businessName": "Smith Farming Ltd",
+        "cph": "98/765/4321",
+        "phone": "07700 900099",
+        "email": "john.smith@example.com"
+      },
+      "owner": {
+        "role": "owner",
+        "firstName": "Alice",
+        "lastName": "Thompson",
+        "name": "Alice Thompson",
+        "email": "alice.thompson@example.com",
+        "phone": "07700 900007",
+        "address": {
+          "addressLine1": "High Fell Farm",
+          "addressLine2": "Moorland Road",
+          "town": "Kendal",
+          "county": "Cumbria",
+          "postcode": "LA8 9HS",
+          "country": "England"
+        }
+      },
+      "holdingStartDate": "2026-05-01"
+    },
+    {
+      "id": "holding-043",
+      "cph": "35/244/0176",
+      "holdingName": "Low Wood Hill Farm",
+      "businessName": "Low Wood Hill Farming Ltd",
+      "address": {
+        "addressLine1": "Low Wood Hill Farm",
+        "addressLine2": "Fell Lane",
+        "town": "Shrewsbury",
+        "county": "Shropshire",
+        "postcode": "SY4 6HP",
+        "country": "England"
+      },
+      "status": "Active",
+      "holdingType": "Agricultural Holding (AH)",
+      "holdingTypeCode": "AH",
+      "species": [
+        "Cattle",
+        "Sheep"
+      ],
+      "herdAndFlockMarks": [
+        {
+          "species": "Cattle",
+          "mark": "UK778901"
+        },
+        {
+          "species": "Sheep",
+          "mark": "UK778902"
+        }
+      ],
+      "owner": {
+        "role": "owner",
+        "firstName": "Rachel",
+        "lastName": "Cooper",
+        "name": "Rachel Cooper",
+        "email": "rachel.cooper@example.com",
+        "phone": "07700 900043",
+        "address": {
+          "addressLine1": "Low Wood Hill Farm",
+          "addressLine2": "Fell Lane",
+          "town": "Banbury",
+          "county": "Oxfordshire",
+          "postcode": "OX16 0BW",
+          "country": "England"
+        }
+      },
+      "holdingStartDate": "2014-04-07"
+    },
+    {
+      "id": "holding-044",
+      "cph": "47/215/0204",
+      "holdingName": "Low Wood Abattoir",
+      "businessName": "Low Wood Meat Processing Ltd",
+      "address": {
+        "addressLine1": "Low Wood Abattoir",
+        "addressLine2": "Industrial Road",
+        "town": "St Albans",
+        "county": "Hertfordshire",
+        "postcode": "AL1 3HZ",
+        "country": "England"
+      },
+      "status": "Active",
+      "holdingType": "Slaughterhouse (SH)",
+      "holdingTypeCode": "SH",
+      "species": [
+        "Cattle",
+        "Sheep"
+      ],
+      "herdAndFlockMarks": [],
+      "owner": {
+        "role": "owner",
+        "firstName": "Martin",
+        "lastName": "Ellis",
+        "name": "Martin Ellis",
+        "email": "martin.ellis@example.com",
+        "phone": "07700 900044",
+        "address": {
+          "addressLine1": "Low Wood Abattoir",
+          "addressLine2": "Industrial Road",
+          "town": "Carlisle",
+          "county": "Cumbria",
+          "postcode": "CA5 8AB",
+          "country": "England"
+        }
+      },
+      "holdingStartDate": "2011-09-12"
+    },
+    {
+      "id": "holding-045",
+      "cph": "47/215/0245",
+      "holdingName": "Low Wood Farm North",
+      "businessName": "Low Wood Farming Co",
+      "address": {
+        "addressLine1": "Low Wood Farm North",
+        "addressLine2": "North Woodland Drive",
+        "town": "Altrincham",
+        "county": "Greater Manchester",
+        "postcode": "WA14 2PU",
+        "country": "England"
+      },
+      "status": "Inactive",
+      "holdingType": "Temporary holding (TH)",
+      "holdingTypeCode": "TH",
+      "associatedHolding": {
+        "id": "holding-017",
+        "cph": "08/067/0169"
+      },
+      "startDate": "2021-04-01",
+      "endDate": "2021-10-31",
+      "species": [
+        "Cattle"
+      ],
+      "herdAndFlockMarks": [
+        {
+          "species": "Cattle",
+          "mark": "UK778899"
+        }
+      ],
+      "landowner": {
+        "name": "Sarah Bell",
+        "businessName": "Bell Rural Estates",
+        "cph": "47/215/0901",
+        "phone": "07700 900145",
+        "email": "sarah.bell@example.com"
+      },
+      "owner": {
+        "role": "owner",
+        "firstName": "Jack",
+        "lastName": "Turner",
+        "name": "Jack Turner",
+        "email": "jack.turner@example.com",
+        "phone": "07700 900017",
+        "address": {
+          "addressLine1": "Low Wood Farm",
+          "addressLine2": "Woodland Drive",
+          "town": "Carlisle",
+          "county": "Cumbria",
+          "postcode": "CA5 7LD",
+          "country": "England"
+        }
+      },
+      "holdingStartDate": "2021-04-01",
+      "holdingEndDate": "2021-10-31"
+    },
+    {
+      "id": "holding-046",
+      "cph": "47/215/0302",
+      "holdingName": "Bell and Lake Showground",
+      "businessName": "Low Wood Agricultural Events",
+      "address": {
+        "addressLine1": "Low Wood Showground",
+        "addressLine2": "Showground Lane",
+        "town": "Low Wood",
+        "county": "Cumbria",
+        "postcode": "CA5 8LW",
+        "country": "England"
+      },
+      "status": "Active",
+      "holdingType": "Showground (SG)",
+      "holdingTypeCode": "SG",
+      "species": [
+        "Cattle",
+        "Sheep"
+      ],
+      "herdAndFlockMarks": [],
+      "owner": {
+        "role": "owner",
+        "firstName": "Joanne",
+        "lastName": "Bell",
+        "name": "Joanne Bell",
+        "email": "joanne.bell@example.com",
+        "phone": "07700 900046",
+        "address": {
+          "addressLine1": "Low Wood Showground",
+          "addressLine2": "Showground Lane",
+          "town": "Low Wood",
+          "county": "Cumbria",
+          "postcode": "CA5 8LW",
+          "country": "England"
+        }
+      },
+      "holdingStartDate": "2009-05-18"
+    }
+  ]
+}

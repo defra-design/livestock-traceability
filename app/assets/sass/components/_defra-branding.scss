@@ -25,3 +25,20 @@
   font-size: 24px;
   font-weight: 700;
 }
+
+.app-defra-header__organisation-name {
+  font-size: 19px;
+  line-height: 1.2;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+@media (max-width: 40.0525em) {
+  .app-defra-header__brand {
+    align-items: flex-start;
+  }
+
+  .app-defra-header__organisation-name {
+    font-size: 16px;
+  }
+}
