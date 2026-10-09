@@ -7,6 +7,56 @@ const baseURL = 'livestock-back-office/steel-thread/v3';
 
 module.exports = router;
 
+// Load the larger fixture files only when a page needs them.
+// Keep the existing session keys so the rest of the prototype is unchanged.
+const fs = require('node:fs/promises');
+const path = require('node:path');
+
+const lazyDataFiles = {
+  holdings_v2: 'table-data/versions/v2/holdings.json',
+  events_v2: 'table-data/events-livestock-v2.json',
+  oakfieldLivestock: 'table-data/livestock-oakfield-cattle-register.json'
+};
+
+async function loadSessionFixture(req, key) {
+  // Never replace a dataset already in session (including user changes).
+  if (req.session.data[key] != null) return;
+
+  const filename = path.join(process.cwd(), 'app/data', lazyDataFiles[key]);
+  const contents = await fs.readFile(filename, 'utf8');
+  const data = JSON.parse(contents);
+
+  // Check again after the asynchronous file read.
+  if (req.session.data[key] == null) {
+    req.session.data[key] = data;
+  }
+}
+
+// Registered before the page routes, so existing synchronous helpers work.
+router.use('/' + baseURL, async (req, res, next) => {
+  try {
+    const pathname = req.path;
+    const isEventPage = /^\/events(?:\/|$)/.test(pathname);
+    const isAnimalDetailsPage = /^\/(?:cattle|holdings\/cattle)\/[^/]+(?:\/|$)/.test(pathname);
+    const isHoldingRegisterPage = /^\/holdings\/[^/]+\/cattle-register\/?$/.test(pathname);
+
+    // Holdings are needed across most search/detail views.
+    await loadSessionFixture(req, 'holdings_v2');
+
+    if (isEventPage || isAnimalDetailsPage) {
+      await loadSessionFixture(req, 'events_v2');
+    }
+
+    if (isEventPage || isAnimalDetailsPage || isHoldingRegisterPage) {
+      await loadSessionFixture(req, 'oakfieldLivestock');
+    }
+
+    next();
+  } catch (error) {
+    next(error);
+  }
+});
+
 
 /**
  * Shared helpers

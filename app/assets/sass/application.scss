@@ -16,6 +16,29 @@
 @import "components/traffic-card";
 @import "components/wide-layout";
 
+
+// Animal and passport status responsive layout
+
+.animal-status-item {
+  display: block;
+  margin-bottom: govuk-spacing(2);
+}
+
+.animal-status-divider {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .animal-status-item {
+    display: inline;
+  }
+
+  .animal-status-divider {
+    display: inline;
+    margin: 0 10px;
+  }
+}
+
 // A proposal to display eartag numbers with spaces but when they copy it, its the full eartag numnber
 .app-ear-tag__accessible {
   user-select: none;

@@ -20,7 +20,7 @@
   <div class="govuk-grid-column-full">
     <span class="govuk-caption-l">Registered animal</span>
 
-    <h1 class="govuk-heading-l govuk-!-margin-bottom-{% if animal.administrativeStatus.passportStatus != 'Refused' %}8{%else%}2{%endif%}">
+    <h1 class="govuk-heading-l govuk-!-margin-bottom-0">
       <span class="app-ear-tag">
   <span class="govuk-visually-hidden app-ear-tag__accessible">
     {{ animal.earTagNumber | formatReference }}
@@ -31,28 +31,51 @@
   </span>
 </span>
     </h1>
-    <p class="govuk-body govuk-!-margin-bottom-{% if animalIssues and animalIssues.length %}2{%else%}8{%endif%}">
-        {% if animal.administrativeStatus.passportStatus == "Refused" %}
-  {{ govukTag({
-    text: "Restricted",
-    classes: "govuk-tag--red"
-  }) }}
-{% endif %}
-    </p>
-    {# <p class="govuk-body govuk-!-margin-bottom-{% if animalIssues and animalIssues.length %}2{%else%}8{%endif%}">
 
-  <strong>Animal status:</strong> {{ animal.status }} &nbsp;&nbsp;|&nbsp;&nbsp; <strong>Movement status:</strong>
-           {% if animal.administrativeStatus.passportStatus == "Refused" %}
-  {{ govukTag({
-    text: "Restricted",
-    classes: "govuk-tag--red"
-  }) }}
+ <p class="govuk-body govuk-!-margin-top-3 govuk-!-margin-bottom-{% if animalIssues and animalIssues.length %}2{% else %}6{% endif %}">
 
-{% else %}
-  No restrictions
-{% endif %}
-    </p>#}
+  <span class="animal-status-item">
+    <strong>Animal status:</strong>
 
+    {% if animal.administrativeStatus.passportStatus == "Refused" %}
+      {{ govukTag({
+        text: "Restricted",
+        classes: "govuk-tag--red"
+      }) }}
+    {% else %}
+      {{ animal.status }}
+    {% endif %}
+  </span>
+
+  <span class="animal-status-divider" aria-hidden="true">|</span>
+
+  <span class="animal-status-item">
+    <strong>Passport status:</strong>
+
+    {% if animal.administrativeStatus.passportStatus == "Refused" %}
+      {{ govukTag({
+        text: "Refused",
+        classes: "govuk-tag--red"
+      }) }}
+
+    {% elseif animal.administrativeStatus.passportStatus == "Incomplete" %}
+      {{ govukTag({
+        text: "Incomplete",
+        classes: "govuk-tag--yellow"
+      }) }}
+
+    {% elseif animal.administrativeStatus.passportStatus == "Awaiting return" %}
+      {{ govukTag({
+        text: "Awaiting return",
+        classes: "govuk-tag--yellow"
+      }) }}
+
+    {% else %}
+      {{ animal.administrativeStatus.passportStatus }}
+    {% endif %}
+  </span>
+
+</p>
     <nav class="moj-sub-navigation" aria-label="Sub navigation">
       <ul class="moj-sub-navigation__list">
         <li class="moj-sub-navigation__item">
@@ -153,7 +176,7 @@
       </div>
     </dl>
 
-    <h2 class="govuk-heading-m">Dam details</h2>
+    <h2 class="govuk-heading-m">Dam and sire details</h2>
 
     <dl class="govuk-summary-list govuk-!-margin-bottom-8">
       <div class="govuk-summary-list__row">
@@ -162,7 +185,7 @@
       </div>
 
       <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">Genetic dam ear tag</dt>
+        <dt class="govuk-summary-list__key">Genetic dam</dt>
         <dd class="govuk-summary-list__value">
           <a
                   class="govuk-link"
@@ -175,7 +198,7 @@
 
       {% if animal.dam.surrogateDam %}
       <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">Surrogate dam ear tag</dt>
+        <dt class="govuk-summary-list__key">Surrogate dam</dt>
         <dd class="govuk-summary-list__value">
           <a class="govuk-link" href="../cattle/{{ animal.dam.surrogateDam.earTagNumber }}">
             {{ animal.dam.surrogateDam.earTagNumber | formatReference }}
@@ -183,29 +206,58 @@
         </dd>
       </div>
       {% endif %}
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Sire</dt>
+        <dd class="govuk-summary-list__value">
+              {% if animal.sire %}
+          <a class="govuk-link" href="../cattle/{{ animal.sire.earTagNumber }}">
+            {{ animal.sire.earTagNumber | formatReference or animal.sire.name }}
+          </a>
+              {% else %}
+Not provided
+    {% endif %}
+        </dd>
+      </div>
+
+
     </dl>
+       <h2 class="govuk-heading-m">Registration and passport</h2>
 
-    <h2 class="govuk-heading-m">Sire details</h2>
 
-    {% if animal.sire %}
     <dl class="govuk-summary-list govuk-!-margin-bottom-8">
       <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">Sire ear tag number</dt>
+        <dt class="govuk-summary-list__key">Registered on</dt>
+        <dd class="govuk-summary-list__value">{{ animal.dateOfRegistration | fullDateFormat }}</dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Passport status</dt>
+        <dd class="govuk-summary-list__value">{{ animal.administrativeStatus.passportStatus }}</dd>
+      </div>
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Passport version</dt>
         <dd class="govuk-summary-list__value">
-          <a class="govuk-link" href="../cattle/{{ animal.sire.earTagNumber }}">
-            {{ animal.sire.earTagNumber | formatReference }}
-          </a>
+          {% if animal.administrativeStatus.passportVersion %}
+            {{ animal.administrativeStatus.passportVersion }}
+          {% else %}
+            Not applicable
+          {% endif %}
         </dd>
       </div>
 
       <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">Sire name</dt>
-        <dd class="govuk-summary-list__value">{{ animal.sire.name }}</dd>
+        <dt class="govuk-summary-list__key">Last issued</dt>
+        <dd class="govuk-summary-list__value">
+          {% if animal.administrativeStatus.passportLastIssued %}
+            {{ animal.administrativeStatus.passportLastIssued | fullDateFormat }}
+          {% else %}
+            Not issued
+          {% endif %}
+        </dd>
       </div>
+
     </dl>
-    {% else %}
-    <p class="govuk-body govuk-!-margin-bottom-8">No sire details are recorded.</p>
-    {% endif %}
 
 
 
@@ -237,13 +289,14 @@
           {% endif %}
 
           <p class="govuk-body govuk-!-margin-bottom-0">
-            <a
-                    class="govuk-link"
-                    href="https://www.google.com/maps/search/?api=1&query=52.6800,-2.7400"
-                    target="_blank"
-            >
-              View grid reference on map (opens in new tab)
-            </a>
+<!--              Removed in v2 this was not needed by the staff we tested with, possible issues with old data. Maybe useful for investigators?-->
+<!--            <a-->
+<!--                    class="govuk-link"-->
+<!--                    href="https://www.google.com/maps/search/?api=1&query=52.6800,-2.7400"-->
+<!--                    target="_blank"-->
+<!--            >-->
+<!--              View grid reference on map (opens in new tab)-->
+<!--            </a>-->
           </p>
         </dd>
       </div>

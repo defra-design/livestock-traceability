@@ -7,6 +7,62 @@ const baseURL = 'livestock-back-office/exploratory/v3';
 
 module.exports = router;
 
+/**
+ * Load the larger fixture files only when an exploratory v3 page needs them.
+ * Keep the existing session keys and never overwrite data already in session.
+ * Paths are relative to this route file (the same directory as table-data).
+ */
+const fs = require('node:fs/promises');
+const path = require('node:path');
+
+const lazyDataFiles = {
+  holdings_v2: 'table-data/versions/v2/holdings.json',
+  events_v2: 'table-data/events-livestock-v2.json',
+  oakfieldLivestock: 'table-data/livestock-oakfield-cattle-register.json'
+};
+
+async function loadSessionFixture(req, key) {
+  if (req.session.data[key] != null) return;
+
+  const contents = await fs.readFile(
+    path.join(process.cwd(), 'app/data', lazyDataFiles[key]),
+    'utf8'
+  );
+
+  // Another request may have initialised the same session in the meantime.
+  if (req.session.data[key] == null) {
+    req.session.data[key] = JSON.parse(contents);
+  }
+}
+
+// Register before the page routes so their existing synchronous helpers work.
+router.use('/' + baseURL, async (req, res, next) => {
+  try {
+    // Express req.path here is relative to the mounted v3 route.
+    const pagePath = req.path;
+    const isEventPage = /^\/events(?:\/|$)/.test(pagePath);
+    const isCattlePage = /^\/(?:cattle(?:\d+)?|cattle-with-filter|holdings\/cattle(?:-register)?)(?:\/|$)/.test(pagePath);
+    const isHoldingPage = /^\/holdings(?:\/|$)/.test(pagePath) || pagePath === '/holding-search';
+    const isSearchPage = /^\/search(?:-v\d+)?(?:\/|$)/.test(pagePath);
+    const isUserPage = /^\/users(?:\/|$)/.test(pagePath);
+
+    const needsHoldings = isEventPage || isCattlePage || isHoldingPage || isSearchPage || isUserPage;
+    const needsEvents = isEventPage || (isCattlePage && /\/[^/]+(?:\/cattle-(?:history|activity))?$/.test(pagePath) && !/^\/(?:cattle\d*|cattle-with-filter|holdings\/cattle-register)$/.test(pagePath));
+    // The original exploratory v3 does not read this fixture yet. Load it
+    // on the holding cattle-register page so it is available when required.
+    const needsOakfield = /^\/holdings\/[^/]+\/cattle-register\/?$/.test(pagePath);
+
+    await Promise.all([
+      needsHoldings ? loadSessionFixture(req, 'holdings_v2') : Promise.resolve(),
+      needsEvents ? loadSessionFixture(req, 'events_v2') : Promise.resolve(),
+      needsOakfield ? loadSessionFixture(req, 'oakfieldLivestock') : Promise.resolve()
+    ]);
+    next();
+  } catch (error) {
+    next(error);
+  }
+});
+
 
 /**
  * Shared helpers

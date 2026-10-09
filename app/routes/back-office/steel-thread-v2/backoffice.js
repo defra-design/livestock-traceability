@@ -7,6 +7,60 @@ const baseURL = 'livestock-back-office/steel-thread/v2';
 
 module.exports = router;
 
+const fs = require('node:fs/promises');
+const path = require('node:path');
+
+// Paths are relative to app/data.
+const lazyDataFiles = {
+  holdings_v2: 'table-data/versions/v2/holdings.json',
+  events_livestock: 'table-data/events-livestock.json',
+  oakfieldLivestock: 'table-data/livestock-oakfield-cattle-register.json'
+};
+
+async function loadSessionFixture(req, key) {
+  // Preserve any data already in the session, including user changes.
+  if (req.session.data[key] !== undefined) return;
+
+  const filename = path.join(process.cwd(), 'app/data', lazyDataFiles[key]);
+  const contents = await fs.readFile(filename, 'utf8');
+  const parsed = JSON.parse(contents);
+
+  if (req.session.data[key] === undefined) {
+    req.session.data[key] = parsed;
+  }
+}
+
+// Load fixtures before the existing synchronous route helpers run.
+router.use('/' + baseURL, async (req, res, next) => {
+  try {
+    const pathname = req.path;
+    const isCattle = /^\/cattle(?:\/|$)/.test(pathname);
+    const isHoldingCattle = /^\/holdings\/cattle(?:\/|$)/.test(pathname);
+    const isEvents = /^\/events(?:\/|$)/.test(pathname);
+    const isHolding = /^\/holdings(?:\/|$)/.test(pathname);
+    const isUser = /^\/users(?:\/|$)/.test(pathname);
+    const isSearch = pathname === '/search';
+    const isHoldingRegister = /^\/holdings\/[^/]+\/cattle-register\/?$/.test(pathname);
+
+    const needed = [];
+    if (isCattle || isHoldingCattle || isEvents || isHolding || isUser || isSearch) {
+      needed.push('holdings_v2');
+    }
+    if (isCattle || isHoldingCattle || isEvents) {
+      needed.push('events_livestock');
+    }
+    if (isHoldingRegister) {
+      needed.push('oakfieldLivestock');
+    }
+
+    await Promise.all(needed.map((key) => loadSessionFixture(req, key)));
+    next();
+  } catch (error) {
+    next(error);
+  }
+});
+
+
 
 /**
  * Shared helpers

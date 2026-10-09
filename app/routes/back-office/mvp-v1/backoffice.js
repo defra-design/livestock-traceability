@@ -1513,6 +1513,78 @@ function registerGlobalSearchRoute(urlPath, viewPath) {
 
 
 /**
+ * Lazy-load the three MVP v1 fixtures only when a page requires them.
+ * Data already present in the session is never overwritten.
+ * Keep the other shared session datasets (including livestock and users_v2) unchanged.
+ */
+const fs = require('node:fs/promises');
+const path = require('node:path');
+
+const lazyDataFiles = {
+  holdings_v2: 'table-data/versions/v2/holdings.json',
+  events_v2: 'table-data/events-livestock-v2.json',
+  oakfieldLivestock: 'table-data/livestock-oakfield-cattle-register.json'
+};
+
+async function ensureSessionData(req, keys) {
+  await Promise.all(keys.map(async (key) => {
+    if (req.session.data[key] != null) return;
+
+    // Paths are relative to the routes directory, as the original require() calls were.
+    const filePath = path.join(process.cwd(), 'app/data', lazyDataFiles[key]);
+    const content = await fs.readFile(filePath, 'utf8');
+    const parsed = JSON.parse(content);
+
+    // Preserve session state if another request populated it during the read.
+    if (req.session.data[key] == null) {
+      req.session.data[key] = parsed;
+    }
+  }));
+}
+
+// Runs before the v1 handlers below, not on unrelated prototype routes.
+router.use('/' + baseURL, async (req, res, next) => {
+  if (req.method !== 'GET') return next();
+
+  const routePath = req.path.replace(/\/$/, '') || '/';
+  const keys = new Set();
+
+  if (routePath === '/events' || routePath.startsWith('/events/')) {
+    // Event enrichment resolves animals (including Oakfield) and holdings.
+    keys.add('events_v2');
+    keys.add('holdings_v2');
+    keys.add('oakfieldLivestock');
+  } else if (/^\/(?:cattle|holdings\/cattle)\/[^/]+(?:\/(?:cattle-history|cattle-activity))?$/.test(routePath)) {
+    // Animal details, movements and activity all use the event history.
+    keys.add('holdings_v2');
+    keys.add('events_v2');
+    keys.add('oakfieldLivestock');
+  } else if (/^\/holdings\/[^/]+\/cattle-register$/.test(routePath)) {
+    keys.add('holdings_v2');
+    keys.add('oakfieldLivestock');
+  } else if (
+    routePath === '/search'
+    || routePath === '/holdings'
+    || routePath === '/holding-search'
+    || routePath === '/cattle'
+    || /^\/cattle(?:2|3|4|-with-filter)$/.test(routePath)
+    || routePath === '/holdings/cattle-register'
+    || /^\/holdings\/[^/]+(?:\/animal-error-record)?$/.test(routePath)
+    || /^\/users\/[^/]+(?:\/holdings)?$/.test(routePath)
+  ) {
+    keys.add('holdings_v2');
+  }
+
+  try {
+    await ensureSessionData(req, [...keys]);
+    next();
+  } catch (error) {
+    next(error);
+  }
+});
+
+
+/**
  * Register list/search routes first
  */
 

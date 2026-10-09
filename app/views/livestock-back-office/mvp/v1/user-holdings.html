@@ -83,7 +83,7 @@ href: currentBaseUrl+"users"
     <tr class="govuk-table__row">
         <td class="govuk-table__cell">
             {% if item.holding %}
-            <a class="govuk-link" href="{{ currentBaseUrl }}holdings/{{ item.holding.id }}">
+            <a class="govuk-link" href="/{{ baseURL }}/holdings/{{ item.holding.id }}">
                 {{ item.cph }}
             </a>
             {% else %}

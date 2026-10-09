@@ -1,7 +1,56 @@
 const govukPrototypeKit = require('govuk-prototype-kit');
 const router = govukPrototypeKit.requests.setupRouter();
+const fs = require('node:fs/promises');
+const path = require('node:path');
 
 const baseURL = 'livestock-back-office/mvp/v2';
+
+// These three fixtures are loaded only when a route needs them. Keep the
+// existing session keys so other parts of the prototype can reuse the data.
+const lazyFixtures = {
+  holdings_v3: 'table-data/versions/v3/holdings.json',
+  events_v3: 'table-data/versions/v3/events-livestock.json',
+  oakfieldLivestock: 'table-data/livestock-oakfield-cattle-register.json'
+};
+
+async function ensureSessionFixture(req, key) {
+  // Never overwrite a dataset already present (including user changes).
+  if (req.session.data[key] !== undefined) return;
+
+  const filePath = path.join(process.cwd(), 'app/data', lazyFixtures[key]);
+  const contents = await fs.readFile(filePath, 'utf8');
+  const parsed = JSON.parse(contents);
+
+  // Another request may have populated this session while the file was read.
+  if (req.session.data[key] === undefined) {
+    req.session.data[key] = parsed;
+  }
+}
+
+// Scoped to this back-office version; pages outside it are unaffected.
+router.use('/' + baseURL, async (req, res, next) => {
+  const routePath = req.path;
+  const isEvents = /^\/events(?:\/|$)/.test(routePath);
+  const isAnimalRecord = /^\/cattle\/[^/]+(?:\/cattle-(?:history|activity))?\/?$/.test(routePath)
+    || /^\/holdings\/cattle\/[^/]+\/?$/.test(routePath);
+  const isHoldingRegister = /^\/holdings\/[^/]+\/cattle-register\/?$/.test(routePath);
+
+  const needsHoldings = isEvents || isAnimalRecord
+    || /^\/(?:cattle|holdings|holding-search|search)(?:\/|$)/.test(routePath)
+    || /^\/users\/[^/]+(?:\/holdings)?\/?$/.test(routePath);
+
+  const keys = [];
+  if (needsHoldings) keys.push('holdings_v3');
+  if (isEvents || isAnimalRecord) keys.push('events_v3');
+  if (isEvents || isAnimalRecord || isHoldingRegister) keys.push('oakfieldLivestock');
+
+  try {
+    await Promise.all(keys.map((key) => ensureSessionFixture(req, key)));
+    next();
+  } catch (error) {
+    next(error);
+  }
+});
 
 
 
@@ -20,7 +69,7 @@ function normalise(value) {
 }
 
 function getHoldingsData(req) {
-  return req.session.data.holdings_v2 || { holdings: [] };
+  return req.session.data.holdings_v3 || { holdings: [] };
 }
 
 function getUsersData(req) {
@@ -36,7 +85,7 @@ function getOakfieldLivestockData(req) {
 }
 
 function getEventsData(req) {
-  return req.session.data.events_v2 || { events: [] };
+  return req.session.data.events_v3 || { events: [] };
 }
 
 function getHoldingByCph(req, cph) {
@@ -83,8 +132,7 @@ function getHoldingLocationDetails(req, cph) {
     address.addressLine2,
     address.town,
     address.county,
-    address.postcode,
-    address.country
+    address.postcode
   ].filter(Boolean);
 
   return {
