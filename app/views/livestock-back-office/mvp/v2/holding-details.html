@@ -253,6 +253,15 @@
                 </dd>
             </div>
             {% endif %}
+
+             {% if holding.landowner.mobile %}
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">Mobile</dt>
+                <dd class="govuk-summary-list__value">
+                    {{ holding.landowner.mobile }}
+                </dd>
+            </div>
+            {% endif %}
         </dl>
         {% endif %}
 
@@ -289,6 +298,15 @@
                     {{ holding.owner.phone }}
                 </dd>
             </div>
+
+            {% if  holding.owner.mobile %}
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">Mobile</dt>
+                <dd class="govuk-summary-list__value">
+                    {{  holding.owner.mobile }}
+                </dd>
+            </div>
+            {% endif %}
 
             {% if holding.owner.address %}
             <div class="govuk-summary-list__row">

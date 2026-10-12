@@ -37,7 +37,8 @@
         "lastName": "Williams",
         "name": "James Williams",
         "email": "james.williams@example.com",
-        "phone": "07700 900001",
+        "phone": "01743 765678",
+        "mobile": "07700 900001",
         "address": {
           "addressLine1": "Oakfield Farm",
           "addressLine2": "Church Lane",
@@ -145,7 +146,8 @@
         "lastName": "Clarke",
         "name": "Peter Clarke",
         "email": "peter.clarke@example.com",
-        "phone": "07700 900003",
+        "phone": "01522 1234565",
+        "mobile": "07700 900003",
         "address": {
           "addressLine1": "Red Barn",
           "addressLine2": "Station Lane",

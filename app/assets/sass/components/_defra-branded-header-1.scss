@@ -1,0 +1,181 @@
+.defra-internal-header {
+  padding: 20px 0;
+  border-bottom: 8px solid #00a33b;
+}
+
+@media (min-width: 48.0625em) {
+  .defra-internal-header {
+    display: table;
+    width: 100%;
+    min-height: 35px;
+  }
+}
+.defra-internal-header .defra-logo {
+  min-width: 275px;
+  margin-bottom: 15px;
+}
+
+@media (min-width: 48.0625em) {
+  .defra-internal-header .defra-logo {
+    display: table-cell;
+    width: 33.33%;
+    margin-bottom: 0;
+  }
+}
+@media (min-width: 48.0625em) {
+  .defra-internal-service-name {
+    display: table-cell;
+    vertical-align: middle;
+    padding-left: 2em;
+  }
+}
+.defra-internal-service-name__link {
+  text-decoration: none;
+  font-size: 21px;
+  font-weight: 400;
+}
+
+.defra-internal-service-name__link:link,
+.defra-internal-service-name__link:visited {
+  color: var(--govuk-text-colour, #0b0c0c);
+}
+
+.defra-internal-service-name--centred {
+  text-align: center;
+}
+
+.defra-internal-header .govuk-width-container {
+  position: relative;
+}
+
+@media (min-width: 48.0625em) {
+  .defra-internal-service-name--centred-full {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    padding-left: 0;
+  }
+}
+@media (min-width: 48.0625em) {
+  .defra-internal-service-name__link {
+    font-size: 24px;
+  }
+}
+.defra-logo {
+  border-left: 2px solid #00a33b;
+  padding-left: 8px;
+}
+.defra-horizontal-logo {
+    border-left-width: 0;
+      padding-left: 0;
+    }
+
+.defra-logo__link {
+  display: table;
+}
+
+.defra-logo__link::before {
+  content: "";
+  display: table-cell;
+  background: url("/public/images/Department_for_Environment_Food_and_Rural_Affairs_logo2.png") no-repeat;
+  background-size: 100% 100%;
+  width: 138px;
+  height: 75px;
+}
+
+.defra-horizontal-logo .defra-logo__link::before {
+  content: "";
+  display: table-cell;
+  background: url("/public/images/black-defra-logo-horizontal.png") no-repeat;
+  background-size: 100% 100%;
+  width: 350px;
+  height: 55px;
+}
+
+.defra-logo__link:link,
+.defra-logo__link:visited {
+  text-decoration: none;
+  font-size: 20px;
+  color: var(--govuk-text-colour, #0b0c0c);
+}
+
+.defra-logo__img {
+  visibility: hidden;
+  height: 0;
+  width: 0;
+}
+
+.lg-div {
+  background-color: #E7F4EB;
+}
+
+.govuk-service-navigation-white {
+  border-bottom: 1px solid #b1b4b6;
+  background-color: #fff;
+}
+
+.govuk-service-navigation__item-c,
+.govuk-service-navigation__service-name {
+  position: relative;
+  margin: 10px 0;
+  border: 0 solid rgb(26.1, 100.8, 165.6);
+}
+
+@media (min-width: 40.0625em) {
+  .govuk-service-navigation__item-c,
+  .govuk-service-navigation__service-name {
+    margin-top: 0;
+    margin-bottom: 0;
+    padding: 5px 0;
+  }
+  .govuk-service-navigation__item-c:not(:last-child),
+  .govuk-service-navigation__service-name:not(:last-child) {
+    margin-right: 20px;
+  }
+}
+@media (min-width: 40.0625em) and (min-width: 40.0625em) {
+  .govuk-service-navigation__item-c:not(:last-child),
+  .govuk-service-navigation__service-name:not(:last-child) {
+    margin-right: 30px;
+  }
+}
+.govuk-service-navigation__item-c2,
+.govuk-service-navigation__service-name {
+  position: relative;
+  margin: 10px 0;
+  border: 0 solid rgb(26.1, 100.8, 165.6);
+}
+
+@media (min-width: 40.0625em) {
+  .govuk-service-navigation__item-c2,
+  .govuk-service-navigation__service-name {
+    margin-top: 0;
+    margin-bottom: 0;
+    padding: 5px 0;
+  }
+  .govuk-service-navigation__item-c2:not(:last-child),
+  .govuk-service-navigation__service-name:not(:last-child) {
+    margin-right: 20px;
+  }
+}
+@media (min-width: 40.0625em) and (min-width: 40.0625em) {
+  .govuk-service-navigation__item-c2:not(:last-child),
+  .govuk-service-navigation__service-name:not(:last-child) {
+    margin-right: 50px;
+  }
+}
+@media (max-width: 40.0525em) {
+  .govuk-service-navigation__item--active {
+    margin-left: -15px;
+    padding-left: 10px;
+    border-left-width: 5px;
+  }
+}
+@media (min-width: 40.0625em) {
+  .govuk-service-navigation__item--active {
+    padding-bottom: 15px;
+    border-bottom-width: 5px;
+  }
+}

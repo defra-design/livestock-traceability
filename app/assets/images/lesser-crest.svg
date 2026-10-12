@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" width="40" height="40" aria-hidden="true" focusable="false" style="display: inline-block; vertical-align: middle;">
+    <!-- Background Shield Silhouette / Core Body Base -->
+    <path d="M12,10 C12,10 14,8 20,8 C26,8 28,10 28,10 C28,10 29,18 27,24 C25,29 20,33 20,33 C20,33 15,29 13,24 C11,18 12,10 12,10 Z" fill="#ffffff" />
+
+    <!-- Internal Quartered Lines (Pixel Aligned) -->
+    <path d="M20,8 L20,33 M12,19 L28,19" stroke="#0b0c0c" stroke-width="1.5" stroke-linecap="square"/>
+
+    <!-- Left Supporter (Lion) - Stylised Crisp Silhouette Geometry -->
+    <path d="M7,12 C6,12 5,14 6,16 C7,17 9,15 9,17 C9,20 7,22 6,24 C5,26 6,29 8,29 C10,29 11,26 11,23 L11,13 C11,11 9,12 7,12 Z" fill="#ffffff" />
+    <path d="M5,15 L3,14 M4,18 L2,19" stroke="#ffffff" stroke-width="1" stroke-linecap="round"/> <!-- Simplified Crown/Mane tips -->
+
+    <!-- Right Supporter (Unicorn) - Clean Geometric Angles -->
+    <path d="M33,12 C34,12 35,14 34,16 C33,17 31,15 31,17 C31,20 33,22 34,24 C35,26 34,29 32,29 C30,29 29,26 29,23 L29,13 C29,11 31,12 33,12 Z" fill="#ffffff" />
+    <path d="M35,13 L38,10" stroke="#ffffff" stroke-width="1.2" stroke-linecap="round"/> <!-- Monospace Horn Variant -->
+
+    <!-- The Crown Girdle Base (Sits at exact boundary coordinate) -->
+    <path d="M16,6 L24,6 L22,4 L18,4 Z" fill="#ffffff" />
+    <circle cx="20" cy="2" r="1" fill="#ffffff" />
+</svg>

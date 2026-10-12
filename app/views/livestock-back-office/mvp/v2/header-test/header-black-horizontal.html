@@ -7,8 +7,8 @@
 {% set activeNav = "holdings" %}
 
 {% block header %}
-
-{% block navBar %}{% include "./components/_navigation.html" %}{% endblock %}
+{{ super() }}
+{% block navBar %}{% include "../components/_navigation.html" %}{% endblock %}
 
 {% endblock %}
 
