@@ -1,0 +1,33 @@
+{% extends "layouts/main.html" %}
+
+{% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
+{% from "govuk/components/tabs/macro.njk" import govukTabs %}
+
+{% set pageName = "You do not have permission to use this service yet" %}
+
+{% block header %}
+
+{{ govukHeader({
+homepageUrl: '/index.html'
+}) }}
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-heading-l">
+            You do not have permission to use this service yet
+        </h1>
+        <p class="govuk-body">
+            We're currently testing a new livestock service for a small group of invited users. Your account does not yet have access.
+        </p>
+        <p class="govuk-body">
+            You can still use <a href="https://www.gov.uk/cattle-tracing-online">Cattle Tracing Service (CTS) Online</a>.
+        </p>
+    </div>
+</div>
+
+{% endblock %}
+
