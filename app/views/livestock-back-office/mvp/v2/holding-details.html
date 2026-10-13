@@ -131,7 +131,7 @@
             </div>
             {% endif %}
 
-            {% if holding.status == "Inactive" and holding.holdingEndDate %}
+            {% if holding.status == "Closed" and holding.holdingEndDate %}
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
                     Holding end date
@@ -150,7 +150,7 @@
                     {{ holding.holdingName }}
                 </dd>
             </div>
-
+            {#
             {% if holding.businessName %}
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
@@ -161,6 +161,7 @@
                 </dd>
             </div>
             {% endif %}
+            #}
 
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
@@ -245,28 +246,28 @@
             </div>
             {% endif %}
 
-            {% if holding.landowner.phone %}
+
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">Telephone</dt>
                 <dd class="govuk-summary-list__value">
-                    {{ holding.landowner.phone }}
+                   {% if holding.landowner.phone %} {{ holding.landowner.phone }}{% else %}Not provided{% endif %}
                 </dd>
             </div>
-            {% endif %}
 
-             {% if holding.landowner.mobile %}
+
+
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">Mobile</dt>
                 <dd class="govuk-summary-list__value">
-                    {{ holding.landowner.mobile }}
+                   {% if holding.landowner.mobile %} {{ holding.landowner.mobile }} {% else %}Not provided{% endif %}
                 </dd>
             </div>
-            {% endif %}
+
         </dl>
         {% endif %}
 
 
-        <h2 class="govuk-heading-m">Registered keeper details</h2>
+        <h2 class="govuk-heading-m">Keeper</h2>
 
         {% if holding.owner %}
         <dl class="govuk-summary-list govuk-!-margin-bottom-8">
@@ -295,23 +296,23 @@
                     Telephone
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    {{ holding.owner.phone }}
+                   {% if  holding.owner.phone %} {{ holding.owner.phone }} {% else %}Not provided{% endif %}
                 </dd>
             </div>
 
-            {% if  holding.owner.mobile %}
+
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">Mobile</dt>
                 <dd class="govuk-summary-list__value">
-                    {{  holding.owner.mobile }}
+                   {% if  holding.owner.mobile %} {{  holding.owner.mobile }} {% else %}<span class="govuk-hint">Not provided</span>{% endif %}
                 </dd>
             </div>
-            {% endif %}
+
 
             {% if holding.owner.address %}
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    Address
+                    Correspondence address
                 </dt>
                 <dd class="govuk-summary-list__value">
                     {{ holding.owner.address.addressLine1 }}
@@ -346,7 +347,7 @@
         </dl>
         {% else %}
         <p class="govuk-body">
-            No registered keeper details are recorded.
+            No keeper details are recorded.
         </p>
         {% endif %}
 </div>

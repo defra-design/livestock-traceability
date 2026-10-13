@@ -123,7 +123,7 @@
         "postcode": "LN5 0QF",
         "country": "England"
       },
-      "status": "Inactive",
+      "status": "Closed",
       "holdingType": "Agricultural Holding (AH)",
       "holdingTypeCode": "AH",
       "species": [
@@ -408,7 +408,7 @@
         "postcode": "IP31 2DH",
         "country": "England"
       },
-      "status": "Inactive",
+      "status": "Closed",
       "holdingType": "Agricultural Holding (AH)",
       "holdingTypeCode": "AH",
       "species": [
@@ -442,10 +442,10 @@
     {
       "id": "holding-010",
       "cph": "1847",
-      "holdingName": "Hilltop Farm",
-      "businessName": "Hilltop Beef Ltd",
+      "holdingName": "Riverside Abattoir",
+      "businessName": "Riverside Abattoir Ltd",
       "address": {
-        "addressLine1": "Hilltop Farm",
+        "addressLine1": "Riverside Abattoir",
         "addressLine2": "Beacon Road",
         "town": "Exeter",
         "county": "Devon",
@@ -592,7 +592,7 @@
         "postcode": "PL7 5ND",
         "country": "England"
       },
-      "status": "Inactive",
+      "status": "Closed",
       "holdingType": "Agricultural Holding (AH)",
       "holdingTypeCode": "AH",
       "species": [
@@ -771,7 +771,7 @@
       "id": "holding-017",
       "cph": "08/067/0169",
       "holdingName": "Low Wood Farm",
-      "businessName": "Low Wood Farming Co",
+      "businessName": "",
       "address": {
         "addressLine1": "Low Wood Farm",
         "addressLine2": "Woodland Drive",
@@ -780,7 +780,7 @@
         "postcode": "CA5 7LD",
         "country": "England"
       },
-      "status": "Inactive",
+      "status": "Closed",
       "holdingType": "Agricultural Holding (AH)",
       "holdingTypeCode": "AH",
       "species": [
@@ -1732,7 +1732,7 @@
         "postcode": "WA14 2PU",
         "country": "England"
       },
-      "status": "Inactive",
+      "status": "Closed",
       "holdingType": "Temporary holding (TH)",
       "holdingTypeCode": "TH",
       "associatedHolding": {

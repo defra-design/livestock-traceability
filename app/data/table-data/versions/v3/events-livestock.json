@@ -60,7 +60,7 @@
       "details": {
         "cause": "slaughter",
         "cause_label": "Slaughtered at abattoir",
-        "holding_cph": "55/209/0114",
+        "holding_cph": "1847",
         "linked_movement_id": "evt_0002_on",
         "disposal_method": null
       }

@@ -14,7 +14,7 @@
       },
       "status": "Deceased",
       "administrativeStatus": {
-        "passportStatus": "Awaiting return",
+        "passportStatus": "Returned",
         "movementStatus": "Unrestricted",
         "passportLastIssued": "17-05-2023",
         "passportVersion": 1
@@ -224,6 +224,7 @@
       "status": "Alive",
       "administrativeStatus": {
         "passportStatus": "Refused",
+        "passportRefusalReason": "Incomplete",
         "movementStatus": "Restricted",
         "passportLastIssued": null,
         "passportVersion": null
@@ -280,6 +281,7 @@
       "status": "Alive",
       "administrativeStatus": {
         "passportStatus": "Refused",
+        "passportRefusalReason": "late",
         "movementStatus": "Restricted",
         "passportLastIssued": "09-07-2023",
         "passportVersion": 2

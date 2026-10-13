@@ -1629,7 +1629,7 @@ function getHoldingRegisterCattle(req, holding) {
   const searchTerm = normalise(search);
 
   const isOakfield = (
-    normalise(holding.cph) === normalise('12/345/0001')
+    normalise(holding.cph) === normalise('35/244/0001')
   );
 
   const sourceData = isOakfield

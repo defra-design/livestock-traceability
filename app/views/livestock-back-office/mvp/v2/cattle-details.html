@@ -32,8 +32,9 @@
 </span>
     </h1>
 
- <p class="govuk-body govuk-!-margin-top-3 govuk-!-margin-bottom-{% if animalIssues and animalIssues.length %}2{% else %}6{% endif %}">
-
+<!--<p class="govuk-body govuk-!-margin-top-3 govuk-!-margin-bottom-{% if animalIssues and animalIssues.length %}2{% else %}6{% endif %}">-->
+<p class="govuk-body govuk-!-margin-top-3 govuk-!-margin-bottom-6">
+  {# Animal status #}
   <span class="animal-status-item">
     <strong>Animal status:</strong>
 
@@ -49,6 +50,9 @@
 
   <span class="animal-status-divider" aria-hidden="true">|</span>
 
+
+
+  {# Passport status #}
   <span class="animal-status-item">
     <strong>Passport status:</strong>
 
@@ -134,16 +138,17 @@
         <dt class="govuk-summary-list__key">Date of birth</dt>
         <dd class="govuk-summary-list__value">{{ animal.dateOfBirth | fullDateFormat }}</dd>
       </div>
-    <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">Registered on</dt>
-        <dd class="govuk-summary-list__value">{{ animal.dateOfRegistration | fullDateFormat }}</dd>
-      </div>
-      {% if animal.status === "Deceased" and animal.dateOfDeath %}
+                        {% if animal.status === "Deceased" and animal.dateOfDeath %}
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">Date of death</dt>
         <dd class="govuk-summary-list__value">{{ animal.dateOfDeath | fullDateFormat }}</dd>
       </div>
       {% endif %}
+<!--    <div class="govuk-summary-list__row">-->
+<!--        <dt class="govuk-summary-list__key">Registered on</dt>-->
+<!--        <dd class="govuk-summary-list__value">{{ animal.dateOfRegistration | fullDateFormat }}</dd>-->
+<!--      </div>-->
+
 
 <!--      <div class="govuk-summary-list__row">-->
 <!--        <dt class="govuk-summary-list__key">-->
@@ -232,7 +237,7 @@ Not provided
       </div>
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">Passport status</dt>
-        <dd class="govuk-summary-list__value">{{ animal.administrativeStatus.passportStatus }}</dd>
+        <dd class="govuk-summary-list__value">{{ animal.administrativeStatus.passportStatus }}{% if animal.administrativeStatus.passportRefusalReason %} - {{animal.administrativeStatus.passportRefusalReason}} {%endif%}</dd>
       </div>
 
       <div class="govuk-summary-list__row">
@@ -263,53 +268,56 @@ Not provided
 
     <h2 class="govuk-heading-m">{{ locationHeading }}</h2>
 
-    <dl class="govuk-summary-list govuk-!-margin-bottom-8">
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">CPH number</dt>
-        <dd class="govuk-summary-list__value">
-          {% if animalLocations.current.id %}
-          <a
-                  class="govuk-link"
-                  href="/{{baseURL}}/holdings/{{ animalLocations.current.id }}"
-          >
-            {{ animalLocations.current.cph }}{% endif %}
-          </a>
-        </dd>
-      </div>
-
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">Address</dt>
-        <dd class="govuk-summary-list__value">
-<!--          {% if animalLocations.current.name %}-->
-<!--          <p class="govuk-body govuk-!-margin-bottom-1">{{ animalLocations.current.name }}</p>-->
-<!--          {% endif %}-->
-
-          {% if animalLocations.current.address %}
-          <p class="govuk-body govuk-!-margin-bottom-1">{{ animalLocations.current.address }}</p>
-          {% endif %}
-
-          <p class="govuk-body govuk-!-margin-bottom-0">
-<!--              Removed in v2 this was not needed by the staff we tested with, possible issues with old data. Maybe useful for investigators?-->
-<!--            <a-->
-<!--                    class="govuk-link"-->
-<!--                    href="https://www.google.com/maps/search/?api=1&query=52.6800,-2.7400"-->
-<!--                    target="_blank"-->
-<!--            >-->
-<!--              View grid reference on map (opens in new tab)-->
-<!--            </a>-->
-          </p>
-        </dd>
-      </div>
-
-      {% if animalLocations.current.movementDate %}
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">Moved to holding on</dt>
-        <dd class="govuk-summary-list__value">
-          {{ animalLocations.current.movementDate | fullDateFormat }}
-        </dd>
-      </div>
+   <dl class="govuk-summary-list govuk-!-margin-bottom-8">
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      {% if animalLocations.current.holdingTypeCode == "SH" %}
+        Approval number
+      {% else %}
+        CPH number
       {% endif %}
-    </dl>
+    </dt>
+
+    <dd class="govuk-summary-list__value">
+      {% if animalLocations.current.id %}
+        <a
+                class="govuk-link"
+                href="/{{ baseURL }}/holdings/{{ animalLocations.current.id }}"
+        >
+          {{ animalLocations.current.cph }}
+        </a>
+      {% endif %}
+    </dd>
+  </div>
+
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Address
+    </dt>
+
+    <dd class="govuk-summary-list__value">
+      {% if animalLocations.current.address %}
+        <p class="govuk-body govuk-!-margin-bottom-0">
+          {{ animalLocations.current.address }}
+        </p>
+      {% endif %}
+    </dd>
+  </div>
+
+  {% if animalLocations.current.movementDate
+    and animalLocations.current.holdingTypeCode != "SL" %}
+    <div class="govuk-summary-list__row">
+      <dt class="govuk-summary-list__key">
+        Moved to location on
+      </dt>
+
+      <dd class="govuk-summary-list__value">
+        {{ animalLocations.current.movementDate | fullDateFormat }}
+      </dd>
+    </div>
+  {% endif %}
+
+</dl>
 
     <h2 class="govuk-heading-m">Place of birth</h2>
 
