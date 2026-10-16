@@ -273,7 +273,7 @@
         <dl class="govuk-summary-list govuk-!-margin-bottom-8">
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    Name
+                    Name or trading title
                 </dt>
                 <dd class="govuk-summary-list__value">
                     {{ holding.owner.name }}
@@ -337,10 +337,6 @@
                     {{ holding.owner.address.postcode }}
                     {% endif %}
 
-                    {% if holding.owner.address.country %}
-                    <br>
-                    {{ holding.owner.address.country }}
-                    {% endif %}
                 </dd>
             </div>
             {% endif %}

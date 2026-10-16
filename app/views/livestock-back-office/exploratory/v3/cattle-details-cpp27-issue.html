@@ -1,0 +1,121 @@
+{% extends "layouts/main.html" %}
+
+{% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
+
+{% set pageName="Animal detail view" %}
+{% set activeNav = "animals" %}
+
+{% block header %}
+{% block navBar %}{% include "./components/_navigation.html" %}{% endblock %}
+{% endblock %}
+
+{% block beforeContent %}
+{% set currentBaseUrl = '/' + baseUrl + '/' %}
+{% block returnLink %}{% include "./components/_return-link-animal.html" %}{% endblock %}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <span class="govuk-caption-l">Registered animal</span>
+
+    <h1 class="govuk-heading-xl govuk-!-margin-bottom-2">
+      UK 457586 378257
+    </h1>
+
+    <p class="govuk-body govuk-!-margin-top-4 govuk-!-margin-bottom-{% if animalIssues and animalIssues.length %}2{%else%}6{%endif%}">
+ <style></style>
+  <strong>Animal status:</strong> Alive &nbsp;  | {{ animal.status }} {{ govukTag({
+    text: "Movement restricted",
+    classes: "govuk-tag--red app-ear-tag__value"
+  }) }} &nbsp; {{ govukTag({
+    text: "Passport refused",
+    classes: "govuk-tag--red"
+  }) }}
+</p>
+
+<section class="govuk-inset-text app-callout app-callout--issue" aria-labelledby="record-issues-heading">
+  <h2 class="govuk-heading-m govuk-!-margin-bottom-2" id="record-issues-heading">
+    1 issues need attention
+  </h2>
+    <p>Individual movement restriction in place (CPP27) issued on 12 September 2026 by RPA Field Officer</p>
+    <p class="govuk-body govuk-!-margin-bottom-1"><strong>Reason for restriction</strong></p><ul class="govuk-list govuk-!-margin-bottom-2"><li class="app-callout__item"><a class="govuk-link" href="#sex-details">Sex recorded on the passport does not match the animal record</a></li></ul>
+</section>
+
+    <nav class="moj-sub-navigation" aria-label="Sub navigation">
+     <ul class="moj-sub-navigation__list">
+          <li class="moj-sub-navigation__item">
+            <a
+                    class="moj-sub-navigation__link"
+                    aria-current="page"
+                    href="/{{baseURL}}/cattle/{{ animal.earTagNumber }}{{ contextQuery }}"
+            >
+              Animal details
+            </a>
+          </li>
+          <li class="moj-sub-navigation__item">
+            <a
+                    class="moj-sub-navigation__link"
+
+                    href="/{{baseURL}}/cattle/{{ animal.earTagNumber }}/cattle-history{{ contextQuery }}"
+            >
+              Movements
+            </a>
+          </li>
+          <li class="moj-sub-navigation__item">
+            <a
+                    class="moj-sub-navigation__link"
+
+                    href="/{{baseURL}}/cattle/{{ animal.earTagNumber }}/cattle-activity{{ contextQuery }}"
+            >
+              Activity
+            </a>
+          </li>
+        </ul>
+    </nav>
+  </div>
+</div>
+
+ <div class="govuk-grid-row"><div class="govuk-grid-column-three-quarters govuk-!-padding-bottom-9" id="animal-details">
+        <h2 class="govuk-heading-m">Animal details</h2>
+        <dl class="govuk-summary-list govuk-!-margin-bottom-8">
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Ear tag number</dt><dd class="govuk-summary-list__value">UK 457586 378257</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Date of birth</dt><dd class="govuk-summary-list__value">17 December 2022</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Age</dt><dd class="govuk-summary-list__value">3 years, 9 months</dd></div>
+          <div class="govuk-summary-list__row app-correction-row " id="sex-details" style="border-left: 3px solid #df3034;padding-left: 10px;">
+            <dt class="govuk-summary-list__key"  style="padding-left: 10px;">Sex</dt>
+            <dd class="govuk-summary-list__value">Female <br><span class="govuk-error-message">Sex recorded on the passport does not match the animal record</span></dd>
+            <dd class="govuk-summary-list__actions"><a class="govuk-link app-summary-action" href="/livestock-back-office/exploratory/v3/cattle/UK457586378257/update?fromSearch=2#sex">Change<span class="govuk-visually-hidden"> sex</span></a></dd>
+          </div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Breed</dt><dd class="govuk-summary-list__value">Lincoln Red (LR)</dd></div>
+        </dl>
+        <h2 class="govuk-heading-m">Dam details</h2>
+        <dl class="govuk-summary-list govuk-!-margin-bottom-8">
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Dam type</dt><dd class="govuk-summary-list__value">Surrogate</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Genetic dam ear tag</dt><dd class="govuk-summary-list__value"><a class="govuk-link" href="/livestock-back-office/exploratory/v3/cattle/UK925127828938">UK 925127 828938</a></dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Surrogate dam ear tag</dt><dd class="govuk-summary-list__value"><a class="govuk-link" href="/livestock-back-office/exploratory/v3/cattle/UK241434401087">UK 241434 401087</a></dd></div>
+        </dl>
+        <h2 class="govuk-heading-m">Sire details</h2><p class="govuk-body govuk-!-margin-bottom-8">No sire details are recorded.</p>
+        <h2 class="govuk-heading-m">Registration and passport</h2>
+        <dl class="govuk-summary-list govuk-!-margin-bottom-8">
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Registered on</dt><dd class="govuk-summary-list__value">10 January 2023</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Passport status</dt><dd class="govuk-summary-list__value">Refused</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Passport version</dt><dd class="govuk-summary-list__value">2</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Last issued</dt><dd class="govuk-summary-list__value">9 July 2023</dd></div>
+        </dl>
+        <h2 class="govuk-heading-m">Current location</h2>
+        <dl class="govuk-summary-list govuk-!-margin-bottom-6">
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">CPH</dt><dd class="govuk-summary-list__value"><a class="govuk-link" href="/livestock-back-office/exploratory/v3/holdings/holding-007">53/417/0088</a></dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Address</dt><dd class="govuk-summary-list__value">High Fell Farm, Moorland Road, Kendal, Cumbria, LA8 9HS, England</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Moved to holding on</dt><dd class="govuk-summary-list__value">21 May 2025</dd></div>
+        </dl>
+        <h2 class="govuk-heading-m">Place of birth</h2>
+        <dl class="govuk-summary-list govuk-!-margin-bottom-8">
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">CPH</dt><dd class="govuk-summary-list__value"><a class="govuk-link" href="/livestock-back-office/exploratory/v3/holdings/holding-010">39/740/0193</a></dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Address</dt><dd class="govuk-summary-list__value">Hilltop Farm, Beacon Road, Exeter, Devon, EX5 4QR, England</dd></div>
+        </dl>
+        <a href="/livestock-back-office/exploratory/v3/cattle/UK457586378257/update?fromSearch=2" role="button" class="govuk-button">Update animal record</a>
+      </div></div>
+
+{% endblock %}

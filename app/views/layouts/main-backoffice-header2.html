@@ -1,0 +1,78 @@
+{#
+For guidance on how to use layouts see:
+https://prototype-kit.service.gov.uk/docs/how-to-use-layouts
+#}
+
+{% extends "govuk-prototype-kit/layouts/govuk-branded.njk" %}
+
+{% set bodyClasses = "app-caseworker" %}
+{% block header %}
+
+
+<header class="defra-internal-header" role="banner">
+    <div class="govuk-width-container ">
+      <div class="defra-logo defra-horizontal-logo defra-horizontal-logo-black">
+          <a href="https://www.gov.uk/government/organisations/department-for-environment-food-rural-affairs" title="Go to the Defra Design Library homepage" class="defra-logo__link">
+            <span class="c-defra-logo__title govuk-visually-hidden">Department for Environment Food &amp; Rural Affairs</span>
+          </a>
+      </div>
+
+
+      <div class="defra-internal-service-name">
+          <a href="/" title="Go to the homepage" class="defra-internal-service-name__link">
+           Livestock Information
+          </a>
+      </div>
+    </div>
+  </header>
+
+<style>
+    .govuk-service-navigation__list {
+      width: 100%;
+      display: flex;
+    }
+
+    .govuk-service-navigation__item:last-child {
+      margin-left: auto;
+    }
+</style>
+{#
+Set the current version base URL.
+
+This takes the first 2 parts of the current path.
+For example:
+/tools/v6/holdings/holding-001
+becomes:
+/tools/v6/
+
+If the prototype is moved into another child folder, add another path part.
+For example, add pathParts[3].
+#}
+{% set pathParts = currentPath.split('/') %}
+{% set currentBaseUrl = '/' + pathParts[1] + '/' + pathParts[2] + '/' + pathParts[3] + '/' %}
+
+{{ govukServiceNavigation({
+navigation: [
+{
+href: currentBaseUrl+"cattle",
+text: "Animals",
+active: activeNav === "animals"
+},
+{
+href: currentBaseUrl+"holdings",
+text: "Holdings",
+active: activeNav === "holdings"
+},
+{
+href: currentBaseUrl+"users",
+text: "Keepers",
+active: activeNav === "keepers"
+},
+{
+href: "./sign-out",
+text: "Sign out"
+}
+]
+}) }}
+{% endblock %}
+

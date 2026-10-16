@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Animal details – CPP27 example – Livestock back office</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/govuk-frontend@6.1.0/dist/govuk/govuk-frontend.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ministryofjustice/frontend@2.5.0/moj/all.min.css">
+  <style>
+    body { margin: 0; color:#0b0c0c; background:#fff; font-family:Arial,Helvetica,sans-serif; }
+    .govuk-width-container { max-width: 960px; margin: 0 auto; padding: 0 24px; }
+    .prototype-header { background:#0b0c0c; color:#fff; border-bottom: 4px solid #1d70b8; }
+    .prototype-header__inner {display:flex;align-items:center;gap:22px;padding:16px 0;}
+    .prototype-header__brand {font-weight:700;font-size:26px;letter-spacing:-1px;}
+    .prototype-header__service {font-size:19px;}
+    .prototype-phase {border-bottom:1px solid #b1b4b6;padding:12px 0;font-size:16px;}
+    .prototype-phase b {background:#1d70b8;color:white;padding:4px 8px;margin-right:8px;font-size:14px;}
+    .govuk-main-wrapper {padding-top:34px;padding-bottom:60px;}
+    a { color:#1d70b8; }
+    .app-callout--issue { background:#f3f2f1; border-left: 5px solid #d4351c; padding:20px 22px; margin:24px 0 28px; }
+    .app-callout--issue .govuk-heading-m {margin-top:0;}
+    .app-callout__item {margin-bottom:8px;}
+    .app-callout__item:last-child {margin-bottom:0;}
+    .app-meta {font-size:16px;line-height:1.5;margin:0 0 8px;}
+    .app-status-line {display:flex;gap:10px;align-items:center;flex-wrap:wrap;}
+    .app-status-line .govuk-tag {font-size:14px;}
+    .app-notice {border-left:4px solid #b1b4b6;padding-left:15px;margin-top:16px;margin-bottom:12px;}
+    .app-issue-title {margin: 12px 0 8px;}
+    .app-issue-row {border-top:1px solid #b1b4b6;padding-top:14px;margin-top:16px;}
+    .app-correction-row {background:#fff5f3;box-shadow:inset 5px 0 #d4351c;}
+    .app-correction-row .govuk-summary-list__key, .app-correction-row .govuk-summary-list__value,.app-correction-row .govuk-summary-list__actions {padding-top:16px;padding-bottom:16px;}
+    .app-correction-row .govuk-summary-list__key {padding-left:12px;}
+    .app-inline-warning {display:block;color:#942514;margin-top:8px;line-height:1.45;font-weight:700;font-size:16px;}
+    .app-summary-action {white-space:nowrap;}
+    .moj-sub-navigation {margin:0 0 36px;border-bottom:1px solid #b1b4b6;}
+    .moj-sub-navigation__list {display:flex;gap:24px;margin:0;padding:0;list-style:none;flex-wrap:wrap;}
+    .moj-sub-navigation__item {margin:0;}
+    .moj-sub-navigation__link {display:block;padding:13px 0;text-decoration:none;color:#1d70b8;font-size:19px;}
+    .moj-sub-navigation__link[aria-current="page"] {border-bottom:4px solid #1d70b8;color:#0b0c0c;font-weight:700;}
+    .govuk-summary-list {width:100%;}
+    .govuk-summary-list__row {border-bottom:1px solid #b1b4b6;}
+    .govuk-summary-list__key {font-weight:700;}
+    .govuk-summary-list__actions {text-align:right;}
+    .mockup-note {padding:14px 18px;margin-bottom:28px;border:1px solid #b1b4b6;background:#f8f8f8;font-size:16px;line-height:1.5;}
+    .govuk-tag--red {background:#f4cdc6;color:#942514;}
+    @media (max-width: 640px) { .govuk-width-container{padding:0 16px}.prototype-header__inner{flex-wrap:wrap}.govuk-summary-list__row{display:block;padding:12px 0}.govuk-summary-list__key,.govuk-summary-list__value,.govuk-summary-list__actions{display:block;width:auto;padding:4px 12px!important;text-align:left}.moj-sub-navigation__list{gap:16px}.app-correction-row{padding:5px 0} }
+  </style>
+</head>
+<body class="govuk-template__body">
+  <header class="prototype-header" role="banner"><div class="govuk-width-container prototype-header__inner"><span class="prototype-header__brand">GOV.UK</span><span class="prototype-header__service">Livestock back office</span></div></header>
+  <div class="govuk-width-container prototype-phase"><b>PROTOTYPE</b> Example for UCD design exploration — not a confirmed enforcement record</div>
+  <div class="govuk-width-container">
+    <main class="govuk-main-wrapper" id="main-content">
+      <div class="govuk-grid-row"><div class="govuk-grid-column-full">
+        <span class="govuk-caption-l">Registered animal</span>
+        <h1 class="govuk-heading-xl govuk-!-margin-bottom-2">UK 457586 378257</h1>
+        <p class="govuk-body govuk-!-margin-top-4 govuk-!-margin-bottom-2 app-status-line">
+          <span><strong>Animal status:</strong> Alive</span>
+          <strong class="govuk-tag govuk-tag--red">Movement restricted</strong>
+          <strong class="govuk-tag govuk-tag--red">Passport refused</strong>
+        </p>
+        <section class="govuk-inset-text app-callout--issue" aria-labelledby="record-issues-heading">
+          <h2 class="govuk-heading-m govuk-!-margin-bottom-2" id="record-issues-heading">1 issue needs attention</h2>
+          <h3 class="govuk-heading-s app-issue-title">Individual movement restriction in place</h3>
+          <p class="govuk-body govuk-!-margin-bottom-2">CPP27 restriction issued on <strong>12 September 2026</strong> following a cattle identification inspection.</p>
+          <p class="app-meta"><strong>Issued by:</strong> RPA Field Officer</p>
+          <p class="app-meta"><strong>Notice:</strong> CPP27 — Individual movement restriction</p>
+          <div class="app-issue-row">
+            <p class="govuk-body govuk-!-margin-bottom-1"><strong>Reason for restriction</strong></p>
+            <ul class="govuk-list govuk-!-margin-bottom-2"><li class="app-callout__item"><a class="govuk-link" href="#sex-details">Sex recorded on the passport does not match the animal record</a></li></ul>
+            <p class="govuk-body govuk-!-margin-bottom-0">This animal cannot be moved off the holding until the restriction is lifted.</p>
+          </div>
+        </section>
+        <nav class="moj-sub-navigation" aria-label="Sub navigation"><ul class="moj-sub-navigation__list">
+          <li class="moj-sub-navigation__item"><a class="moj-sub-navigation__link" aria-current="page" href="#animal-details">Animal details</a></li>
+          <li class="moj-sub-navigation__item"><a class="moj-sub-navigation__link" href="/livestock-back-office/exploratory/v3/cattle/UK457586378257/cattle-history?fromSearch=2">Movements</a></li>
+          <li class="moj-sub-navigation__item"><a class="moj-sub-navigation__link" href="/livestock-back-office/exploratory/v3/cattle/UK457586378257/cattle-activity?fromSearch=2">Activity</a></li>
+        </ul></nav>
+      </div></div>
+      <div class="govuk-grid-row"><div class="govuk-grid-column-three-quarters govuk-!-padding-bottom-9" id="animal-details">
+        <h2 class="govuk-heading-m">Animal details</h2>
+        <dl class="govuk-summary-list govuk-!-margin-bottom-8">
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Ear tag number</dt><dd class="govuk-summary-list__value">UK 457586 378257</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Date of birth</dt><dd class="govuk-summary-list__value">17 December 2022</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Age</dt><dd class="govuk-summary-list__value">3 years, 9 months</dd></div>
+          <div class="govuk-summary-list__row app-correction-row" id="sex-details">
+            <dt class="govuk-summary-list__key">Sex</dt>
+            <dd class="govuk-summary-list__value">Female <span class="app-inline-warning">Issue: Passport records Male</span></dd>
+            <dd class="govuk-summary-list__actions"><a class="govuk-link app-summary-action" href="/livestock-back-office/exploratory/v3/cattle/UK457586378257/update?fromSearch=2#sex">Change<span class="govuk-visually-hidden"> sex</span></a></dd>
+          </div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Breed</dt><dd class="govuk-summary-list__value">Lincoln Red (LR)</dd></div>
+        </dl>
+        <h2 class="govuk-heading-m">Dam details</h2>
+        <dl class="govuk-summary-list govuk-!-margin-bottom-8">
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Dam type</dt><dd class="govuk-summary-list__value">Surrogate</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Genetic dam ear tag</dt><dd class="govuk-summary-list__value"><a class="govuk-link" href="/livestock-back-office/exploratory/v3/cattle/UK925127828938">UK 925127 828938</a></dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Surrogate dam ear tag</dt><dd class="govuk-summary-list__value"><a class="govuk-link" href="/livestock-back-office/exploratory/v3/cattle/UK241434401087">UK 241434 401087</a></dd></div>
+        </dl>
+        <h2 class="govuk-heading-m">Sire details</h2><p class="govuk-body govuk-!-margin-bottom-8">No sire details are recorded.</p>
+        <h2 class="govuk-heading-m">Registration and passport</h2>
+        <dl class="govuk-summary-list govuk-!-margin-bottom-8">
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Registered on</dt><dd class="govuk-summary-list__value">10 January 2023</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Passport status</dt><dd class="govuk-summary-list__value">Refused</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Passport version</dt><dd class="govuk-summary-list__value">2</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Last issued</dt><dd class="govuk-summary-list__value">9 July 2023</dd></div>
+        </dl>
+        <h2 class="govuk-heading-m">Current location</h2>
+        <dl class="govuk-summary-list govuk-!-margin-bottom-6">
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">CPH</dt><dd class="govuk-summary-list__value"><a class="govuk-link" href="/livestock-back-office/exploratory/v3/holdings/holding-007">53/417/0088</a></dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Address</dt><dd class="govuk-summary-list__value">High Fell Farm, Moorland Road, Kendal, Cumbria, LA8 9HS, England</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Moved to holding on</dt><dd class="govuk-summary-list__value">21 May 2025</dd></div>
+        </dl>
+        <h2 class="govuk-heading-m">Place of birth</h2>
+        <dl class="govuk-summary-list govuk-!-margin-bottom-8">
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">CPH</dt><dd class="govuk-summary-list__value"><a class="govuk-link" href="/livestock-back-office/exploratory/v3/holdings/holding-010">39/740/0193</a></dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Address</dt><dd class="govuk-summary-list__value">Hilltop Farm, Beacon Road, Exeter, Devon, EX5 4QR, England</dd></div>
+        </dl>
+        <a href="/livestock-back-office/exploratory/v3/cattle/UK457586378257/update?fromSearch=2" role="button" class="govuk-button">Update animal record</a>
+      </div></div>
+    </main>
+  </div>
+  <footer class="govuk-footer"><div class="govuk-width-container"><p class="govuk-body-s">Prototype concept — CPP27 and passport discrepancy example; dates and details are illustrative.</p></div></footer>
+</body>
+</html>

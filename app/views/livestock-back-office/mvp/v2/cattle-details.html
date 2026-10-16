@@ -237,7 +237,7 @@ Not provided
       </div>
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">Passport status</dt>
-        <dd class="govuk-summary-list__value">{{ animal.administrativeStatus.passportStatus }}{% if animal.administrativeStatus.passportRefusalReason %} - {{animal.administrativeStatus.passportRefusalReason}} {%endif%}</dd>
+        <dd class="govuk-summary-list__value">{{ animal.administrativeStatus.passportStatus }}{% if animal.administrativeStatus.passportRefusalReason %} - {{animal.administrativeStatus.passportRefusalReason | lower}} {%endif%}</dd>
       </div>
 
       <div class="govuk-summary-list__row">
@@ -271,11 +271,7 @@ Not provided
    <dl class="govuk-summary-list govuk-!-margin-bottom-8">
   <div class="govuk-summary-list__row">
     <dt class="govuk-summary-list__key">
-      {% if animalLocations.current.holdingTypeCode == "SH" %}
-        Approval number
-      {% else %}
-        CPH number
-      {% endif %}
+      Location ID
     </dt>
 
     <dd class="govuk-summary-list__value">
