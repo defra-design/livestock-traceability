@@ -2,6 +2,16 @@
   padding: 20px 0;
   border-bottom: 8px solid #00a33b;
 }
+.defra-header-header--black{
+    border-bottom-width: 0;
+    background-color:#000;
+
+    .defra-internal-service-name__link:link,
+    .defra-internal-service-name__link:visited {
+      color: #FFF
+    }
+    }
+
 
 @media (min-width: 48.0625em) {
   .defra-internal-header {
@@ -26,7 +36,7 @@
   .defra-internal-service-name {
     display: table-cell;
     vertical-align: middle;
-    padding-left: 2em;
+    padding-left: 3em;
   }
 }
 .defra-internal-service-name__link {
@@ -89,6 +99,14 @@
   content: "";
   display: table-cell;
   background: url("/public/images/black-defra-logo-horizontal.png") no-repeat;
+  background-size: 100% 100%;
+  width: 350px;
+  height: 55px;
+}
+.defra-horizontal-logo-white .defra-logo__link::before {
+  content: "";
+  display: table-cell;
+  background: url("/public/images/white-defra-logo-horizontal.png") no-repeat;
   background-size: 100% 100%;
   width: 350px;
   height: 55px;
@@ -177,5 +195,33 @@
   .govuk-service-navigation__item--active {
     padding-bottom: 15px;
     border-bottom-width: 5px;
+  }
+}
+
+.app-service-navigation--defra {
+  background-color: #00a33b;
+  border-bottom-color: #00a33b;
+
+  // Active navigation item
+  .govuk-service-navigation__item--active {
+    border-bottom-color: #fff;
+  }
+  .govuk-service-navigation__link:not(:hover):not(:active) {
+    text-decoration: none;
+  }
+  .govuk-service-navigation__link:link {
+    color: #fff
+  }
+  .govuk-service-navigation__link:visited {
+    color: #fff
+  }
+  .govuk-service-navigation__link:hover {
+    color: #fff
+  }
+  .govuk-service-navigation__link:active {
+    color: #fff
+  }
+  .govuk-service-navigation__link:focus {
+    color: #fff
   }
 }
