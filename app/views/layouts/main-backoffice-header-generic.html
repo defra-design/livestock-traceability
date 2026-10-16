@@ -48,6 +48,8 @@ For example, add pathParts[3].
 {% set currentBaseUrl = '/' + pathParts[1] + '/' + pathParts[2] + '/' + pathParts[3] + '/' %}
 
 {{ govukServiceNavigation({
+serviceName: "Livestock Traceability",
+serviceUrl: "#",
 navigation: [
 {
 href: currentBaseUrl+"cattle",
