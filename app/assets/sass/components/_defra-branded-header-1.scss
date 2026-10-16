@@ -199,7 +199,6 @@
 }
 
 .app-service-navigation--defra {
-  background-color: #00a33b;
   border-bottom-color: #00a33b;
 
   // Active navigation item
@@ -225,3 +224,19 @@
     color: #fff
   }
 }
+
+
+.app-generic-header--defra {
+  background-color: #0b0c0c;
+  border-bottom: 5px solid #00a33b;
+
+  .govuk-generic-header__homepage-link {
+      display: inline-block;
+    height:45px;
+    font-size: 25px;
+  }
+  .govuk-generic-header__homepage-link > * {
+      vertical-align: middle;
+  }
+}
+
