@@ -5,9 +5,9 @@
     {
       "cph": "91/214/0410",
       "earTagNumber": "UK324537113234",
-      "dateOfBirth": "10-03-2023",
-      "dateOfRegistration": "14-03-2023",
-      "onHoldingDate": "10-03-2023",
+      "dateOfBirth": "10-03-2019",
+      "dateOfRegistration": "14-03-2019",
+      "onHoldingDate": "10-03-2019",
       "sex": "Female",
       "breed": {
         "name": "Holstein Friesian",
@@ -49,9 +49,9 @@
     {
       "cph": "37/338/8280",
       "earTagNumber": "UK324537113236",
-      "dateOfBirth": "15-04-2023",
-      "dateOfRegistration": "15-04-2023",
-      "onHoldingDate": "15-04-2023",
+      "dateOfBirth": "12-04-2024",
+      "dateOfRegistration": "15-04-2024",
+      "onHoldingDate": "12-04-2024",
       "sex": "Male",
       "breed": {
         "name": "Holstein Friesian",
@@ -73,9 +73,9 @@
     {
       "cph": "67/703/4558",
       "earTagNumber": "UK324537113237",
-      "dateOfBirth": "02-05-2023",
-      "dateOfRegistration": "07-05-2023",
-      "onHoldingDate": "02-05-2023",
+      "dateOfBirth": "22-02-2024",
+      "dateOfRegistration": "26-02-2024",
+      "onHoldingDate": "22-02-2024",
       "sex": "Male",
       "breed": {
         "name": "Holstein Friesian Cross",
@@ -94,9 +94,9 @@
     {
       "cph": "45/259/3528",
       "earTagNumber": "UK324537113238",
-      "dateOfBirth": "20-05-2023",
-      "dateOfRegistration": "21-05-2023",
-      "onHoldingDate": "20-05-2023",
+      "dateOfBirth": "16-09-2022",
+      "dateOfRegistration": "19-09-2022",
+      "onHoldingDate": "16-09-2022",
       "sex": "Male",
       "breed": {
         "name": "Holstein Friesian",
@@ -799,6 +799,102 @@
         }
       },
       "sire": null
+    },
+    {
+      "cph": "91/214/0410",
+      "earTagNumber": "UK324537113274",
+      "dateOfBirth": "22-03-2021",
+      "dateOfRegistration": "25-03-2021",
+      "onHoldingDate": "22-03-2021",
+      "sex": "Female",
+      "breed": {
+        "name": "Holstein Friesian",
+        "code": "HO"
+      },
+      "status": "Alive",
+      "dam": {
+        "type": "Genetic",
+        "surrogateDam": null,
+        "geneticDam": {
+          "earTagNumber": "UK324537113234"
+        }
+      },
+      "sire": {
+        "earTagNumber": "UK039310588087",
+        "name": "Highland Monarch"
+      }
+    },
+    {
+      "cph": "91/214/0410",
+      "earTagNumber": "UK324537113275",
+      "dateOfBirth": "04-04-2022",
+      "dateOfRegistration": "07-04-2022",
+      "onHoldingDate": "04-04-2022",
+      "sex": "Male",
+      "breed": {
+        "name": "Holstein Friesian Cross",
+        "code": "HOX"
+      },
+      "status": "Alive",
+      "dam": {
+        "type": "Genetic",
+        "surrogateDam": null,
+        "geneticDam": {
+          "earTagNumber": "UK324537113234"
+        }
+      },
+      "sire": {
+        "earTagNumber": "UK039310588087",
+        "name": "Highland Monarch"
+      }
+    },
+    {
+      "cph": "91/214/0410",
+      "earTagNumber": "UK324537113276",
+      "dateOfBirth": "24-04-2025",
+      "dateOfRegistration": "28-04-2025",
+      "onHoldingDate": "24-04-2025",
+      "sex": "Female",
+      "breed": {
+        "name": "Holstein Friesian",
+        "code": "HO"
+      },
+      "status": "Alive",
+      "dam": {
+        "type": "Genetic",
+        "surrogateDam": null,
+        "geneticDam": {
+          "earTagNumber": "UK324537113234"
+        }
+      },
+      "sire": {
+        "earTagNumber": "UK039310588087",
+        "name": "Highland Monarch"
+      }
+    },
+    {
+      "cph": "91/214/0410",
+      "earTagNumber": "UK324537113277",
+      "dateOfBirth": "06-05-2026",
+      "dateOfRegistration": "09-05-2026",
+      "onHoldingDate": "06-05-2026",
+      "sex": "Male",
+      "breed": {
+        "name": "Holstein Friesian",
+        "code": "HO"
+      },
+      "status": "Alive",
+      "dam": {
+        "type": "Genetic",
+        "surrogateDam": null,
+        "geneticDam": {
+          "earTagNumber": "UK324537113234"
+        }
+      },
+      "sire": {
+        "earTagNumber": "UK039310588087",
+        "name": "Highland Monarch"
+      }
     }
   ]
 }
