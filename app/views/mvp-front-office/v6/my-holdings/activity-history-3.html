@@ -1,0 +1,425 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Activity history" %}
+{% set activeNavItem = "my-holdings" %}
+{% set sideNavActive = "activity-history" %}
+
+{% block header %}
+    {% include "mvp-front-office/v6/partials/header.html" %}
+{% endblock %}
+
+{% block content %}
+
+<div>
+
+    <h1 class="govuk-heading-xl govuk-!-margin-bottom-4">
+         <span class="govuk-caption-l">
+             {{ holding.cph }}
+         </span>
+        {{ holding.holdingName }}
+    </h1>
+
+    <nav class="moj-sub-navigation govuk-!-margin-bottom-5" aria-label="Sub navigation">
+        <ul class="moj-sub-navigation__list">
+            <li class="moj-sub-navigation__item">
+                <a class="moj-sub-navigation__link" href="/mvp-front-office/v6/my-holdings/holding-overview">
+                    Overview
+                </a>
+            </li>
+            <li class="moj-sub-navigation__item">
+                <a class="moj-sub-navigation__link" href="/mvp-front-office/v6/my-holdings/holding-details">
+                    Holding details
+                </a>
+            </li>
+            <li class="moj-sub-navigation__item">
+                <a class="moj-sub-navigation__link" aria-current="page" href="/mvp-front-office/v6/my-holdings/activity-history">
+                    Activity history
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+
+            <div class="govuk-summary-card">
+                <div class="govuk-summary-card__title-wrapper">
+                    <h3 class="govuk-summary-card__title">
+                        Birth registration submitted
+                    </h3>
+                    <ul class="govuk-summary-card__actions">
+                        <li class="govuk-summary-card__action">
+                            <a class="govuk-link" href="/mvp-front-office/v6/register-animal/submission-detail/7KWM-3HTP">View registration<span class="govuk-visually-hidden"> 7KWM-3HTP</span></a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="govuk-summary-card__content">
+                    <dl class="govuk-summary-list">
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">
+                                Date and time
+                            </dt>
+                            <dd class="govuk-summary-list__value">
+                                22 September 2026 at 9:41am
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">
+                                By
+                            </dt>
+                            <dd class="govuk-summary-list__value">
+                                James Williams
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">
+                                Details
+                            </dt>
+                            <dd class="govuk-summary-list__value">
+                                4 calves registered (UK 123456 301550 to UK 123456 301553). Reference 7KWM-3HTP – pending validation.
+                            </dd>
+                        </div>
+                    </dl>
+                </div>
+            </div>
+
+            <div class="govuk-summary-card">
+                <div class="govuk-summary-card__title-wrapper">
+                    <h3 class="govuk-summary-card__title">
+                        Death reported
+                    </h3>
+                </div>
+                <div class="govuk-summary-card__content">
+                    <dl class="govuk-summary-list">
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">
+                                Date and time
+                            </dt>
+                            <dd class="govuk-summary-list__value">
+                                17 September 2026 at 2:05pm
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">
+                                By
+                            </dt>
+                            <dd class="govuk-summary-list__value">
+                                James Williams
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">
+                                Details
+                            </dt>
+                            <dd class="govuk-summary-list__value">
+                                UK 123456 301512 died on holding on 16 September 2026. Carcass collected by approved disposal service.
+                            </dd>
+                        </div>
+                    </dl>
+                </div>
+            </div>
+
+            <div class="govuk-summary-card">
+                <div class="govuk-summary-card__title-wrapper">
+                    <h3 class="govuk-summary-card__title">
+                        Movement off reported
+                    </h3>
+                </div>
+                <div class="govuk-summary-card__content">
+                    <dl class="govuk-summary-list">
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">
+                                Date and time
+                            </dt>
+                            <dd class="govuk-summary-list__value">
+                                11 September 2026 at 11:30am
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">
+                                By
+                            </dt>
+                            <dd class="govuk-summary-list__value">
+                                Tom Bennett (delegate)
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">
+                                Details
+                            </dt>
+                            <dd class="govuk-summary-list__value">
+                                6 cattle moved to 12/345/6789 on 10 September 2026.
+                            </dd>
+                        </div>
+                    </dl>
+                </div>
+            </div>
+
+            <div class="govuk-summary-card">
+                <div class="govuk-summary-card__title-wrapper">
+                    <h3 class="govuk-summary-card__title">
+                        Birth registration approved
+                    </h3>
+                    <ul class="govuk-summary-card__actions">
+                        <li class="govuk-summary-card__action">
+                            <a class="govuk-link" href="/mvp-front-office/v6/register-animal/submission-detail/R4XD-9CFN">View registration<span class="govuk-visually-hidden"> R4XD-9CFN</span></a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="govuk-summary-card__content">
+                    <dl class="govuk-summary-list">
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">
+                                Date and time
+                            </dt>
+                            <dd class="govuk-summary-list__value">
+                                4 September 2026 at 8:15am
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">
+                                By
+                            </dt>
+                            <dd class="govuk-summary-list__value">
+                                System
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">
+                                Details
+                            </dt>
+                            <dd class="govuk-summary-list__value">
+                                2 calves added to holding (UK 123456 301546 and UK 123456 301547). Reference R4XD-9CFN.
+                            </dd>
+                        </div>
+                    </dl>
+                </div>
+            </div>
+
+            <div class="govuk-summary-card">
+                <div class="govuk-summary-card__title-wrapper">
+                    <h3 class="govuk-summary-card__title">
+                        Birth registration submitted
+                    </h3>
+                </div>
+                <div class="govuk-summary-card__content">
+                    <dl class="govuk-summary-list">
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">
+                                Date and time
+                            </dt>
+                            <dd class="govuk-summary-list__value">
+                                3 September 2026 at 4:22pm
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">
+                                By
+                            </dt>
+                            <dd class="govuk-summary-list__value">
+                                James Williams
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">
+                                Details
+                            </dt>
+                            <dd class="govuk-summary-list__value">
+                                2 calves registered. Reference R4XD-9CFN.
+                            </dd>
+                        </div>
+                    </dl>
+                </div>
+            </div>
+
+            <div class="govuk-summary-card">
+                <div class="govuk-summary-card__title-wrapper">
+                    <h3 class="govuk-summary-card__title">
+                        Replacement ear tag recorded
+                    </h3>
+                </div>
+                <div class="govuk-summary-card__content">
+                    <dl class="govuk-summary-list">
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">
+                                Date and time
+                            </dt>
+                            <dd class="govuk-summary-list__value">
+                                27 August 2026 at 10:48am
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">
+                                By
+                            </dt>
+                            <dd class="govuk-summary-list__value">
+                                James Williams
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">
+                                Details
+                            </dt>
+                            <dd class="govuk-summary-list__value">
+                                Lost tag replaced for UK 123456 301498.
+                            </dd>
+                        </div>
+                    </dl>
+                </div>
+            </div>
+
+            <div class="govuk-summary-card">
+                <div class="govuk-summary-card__title-wrapper">
+                    <h3 class="govuk-summary-card__title">
+                        Movement on reported
+                    </h3>
+                </div>
+                <div class="govuk-summary-card__content">
+                    <dl class="govuk-summary-list">
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">
+                                Date and time
+                            </dt>
+                            <dd class="govuk-summary-list__value">
+                                20 August 2026 at 3:10pm
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">
+                                By
+                            </dt>
+                            <dd class="govuk-summary-list__value">
+                                Tom Bennett (delegate)
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">
+                                Details
+                            </dt>
+                            <dd class="govuk-summary-list__value">
+                                3 cattle moved on from 98/765/4321 on 19 August 2026.
+                            </dd>
+                        </div>
+                    </dl>
+                </div>
+            </div>
+
+            <div class="govuk-summary-card">
+                <div class="govuk-summary-card__title-wrapper">
+                    <h3 class="govuk-summary-card__title">
+                        Birth registration approved
+                    </h3>
+                    <ul class="govuk-summary-card__actions">
+                        <li class="govuk-summary-card__action">
+                            <a class="govuk-link" href="/mvp-front-office/v6/register-animal/submission-detail/M6QA-2JVE">View registration<span class="govuk-visually-hidden"> M6QA-2JVE</span></a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="govuk-summary-card__content">
+                    <dl class="govuk-summary-list">
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">
+                                Date and time
+                            </dt>
+                            <dd class="govuk-summary-list__value">
+                                15 August 2026 at 9:02am
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">
+                                By
+                            </dt>
+                            <dd class="govuk-summary-list__value">
+                                System
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">
+                                Details
+                            </dt>
+                            <dd class="govuk-summary-list__value">
+                                3 calves added to holding. Reference M6QA-2JVE.
+                            </dd>
+                        </div>
+                    </dl>
+                </div>
+            </div>
+
+            <div class="govuk-summary-card">
+                <div class="govuk-summary-card__title-wrapper">
+                    <h3 class="govuk-summary-card__title">
+                        Birth registration submitted
+                    </h3>
+                </div>
+                <div class="govuk-summary-card__content">
+                    <dl class="govuk-summary-list">
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">
+                                Date and time
+                            </dt>
+                            <dd class="govuk-summary-list__value">
+                                14 August 2026 at 1:37pm
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">
+                                By
+                            </dt>
+                            <dd class="govuk-summary-list__value">
+                                James Williams
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">
+                                Details
+                            </dt>
+                            <dd class="govuk-summary-list__value">
+                                3 calves registered. Reference M6QA-2JVE.
+                            </dd>
+                        </div>
+                    </dl>
+                </div>
+            </div>
+
+            <div class="govuk-summary-card">
+                <div class="govuk-summary-card__title-wrapper">
+                    <h3 class="govuk-summary-card__title">
+                        Error record corrected
+                    </h3>
+                </div>
+                <div class="govuk-summary-card__content">
+                    <dl class="govuk-summary-list">
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">
+                                Date and time
+                            </dt>
+                            <dd class="govuk-summary-list__value">
+                                2 August 2026 at 12:20pm
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">
+                                By
+                            </dt>
+                            <dd class="govuk-summary-list__value">
+                                James Williams
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">
+                                Details
+                            </dt>
+                            <dd class="govuk-summary-list__value">
+                                Date of birth updated for UK 123456 301477.
+                            </dd>
+                        </div>
+                    </dl>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

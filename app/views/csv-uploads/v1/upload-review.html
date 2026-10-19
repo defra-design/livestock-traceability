@@ -1,0 +1,114 @@
+{% extends "layouts/main.html" %}
+
+{% from "govuk/components/table/macro.njk" import govukTable %}
+
+{% set pageName="Upload review" %}
+
+{% set uploadRows = [
+  { earTagNumber: "UK106341242446", date: "05-09-2026", movementType: "On movement" },
+  { earTagNumber: "UK106341209495", date: "27-10-2026", movementType: "On movement" },
+  { earTagNumber: "UK106341247932", date: "19-08-2026", movementType: "On movement" },
+  { earTagNumber: "UK106341204915", date: "03-09-2026", movementType: "On movement" },
+  { earTagNumber: "UK106341209157", date: "08-08-2026", movementType: "On movement" },
+  { earTagNumber: "UK106341207748", date: "27-10-2026", movementType: "On movement" },
+  { earTagNumber: "UK106341229261", date: "21-10-2026", movementType: "On movement" },
+  { earTagNumber: "UK106341275643", date: "19-09-2026", movementType: "On movement" },
+  { earTagNumber: "UK106341228978", date: "02-10-2026", movementType: "On movement" },
+  { earTagNumber: "UK106341237960", date: "14-08-2026", movementType: "On movement" },
+  { earTagNumber: "UK106341274831", date: "10-10-2026", movementType: "On movement" },
+  { earTagNumber: "UK106341213508", date: "19-10-2026", movementType: "On movement" },
+  { earTagNumber: "UK106341248811", date: "04-10-2026", movementType: "On movement" },
+  { earTagNumber: "UK106341273973", date: "02-10-2026", movementType: "On movement" },
+  { earTagNumber: "UK106341265067", date: "22-10-2026", movementType: "On movement" },
+  { earTagNumber: "UK106341241176", date: "15-10-2026", movementType: "On movement" },
+  { earTagNumber: "UK106341247394", date: "10-08-2026", movementType: "On movement" },
+  { earTagNumber: "UK106341291619", date: "25-08-2026", movementType: "On movement" },
+  { earTagNumber: "UK106341275291", date: "10-10-2026", movementType: "On movement" },
+  { earTagNumber: "UK106341245021", date: "24-09-2026", movementType: "On movement" }
+] %}
+
+{% block beforeContent %}
+  <a href="/csv-uploads/v1/upload-summary" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+
+    <h1 class="govuk-heading-l">
+      Upload review
+    </h1>
+
+    {% set rows = [] %}
+    {% for record in uploadRows %}
+    {% set row = [
+    {
+    html: '<span aria-hidden="true">' + (record.earTagNumber | formatReference) + '</span><span class="govuk-visually-hidden">' + (record.earTagNumber | formatReferenceSpoken) + '</span>',
+    classes: "app-table__cell--no-wrap"
+    },
+    {
+    text: record.date | shortDateFormat,
+    classes: "app-table__cell--no-wrap",
+    attributes: {
+    "data-sort-value": record.date.slice(6,10) + record.date.slice(3,5) + record.date.slice(0,2)
+    }
+    },
+    {
+    text: record.movementType,
+    classes: "app-table__cell--no-wrap"
+    },
+    {
+    html: '<a class="govuk-link" href="#">Review<span class="govuk-visually-hidden"> ' + (record.earTagNumber | formatReferenceSpoken) + '</span></a>',
+    classes: "app-table__cell--no-wrap"
+    }
+    ] %}
+    {% set rows = (rows.push(row), rows) %}
+    {% endfor %}
+
+    <div class="app-dashboard-table-wrapper" tabindex="0" role="region" aria-label="Upload review table">
+      {{ govukTable({
+      attributes: {
+      "data-module": "moj-sortable-table"
+      },
+      caption: "Upload review",
+      captionClasses: "govuk-visually-hidden",
+      head: [
+      {
+      text: "Ear tag number",
+      classes: "app-table__cell--no-wrap",
+      attributes: {
+      "aria-sort": "ascending"
+      }
+      },
+      {
+      text: "Date",
+      classes: "app-table__cell--no-wrap",
+      attributes: {
+      "aria-sort": "none"
+      }
+      },
+      {
+      text: "Movement type",
+      classes: "app-table__cell--no-wrap",
+      attributes: {
+      "aria-sort": "none"
+      }
+      },
+      {
+      text: "Actions",
+      classes: "app-table__cell--no-wrap"
+      }
+      ],
+      rows: rows
+      }) }}
+    </div>
+
+    <p class="govuk-body">
+      Showing {{ uploadRows.length }} results
+    </p>
+
+  </div>
+</div>
+
+{% endblock %}

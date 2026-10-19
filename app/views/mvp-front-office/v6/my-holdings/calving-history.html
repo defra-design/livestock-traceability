@@ -1,0 +1,70 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName = animal.earTagNumber | formatReference %}
+{% set activeNavItem = "my-holdings" %}
+
+{% block header %}
+
+  {% include "mvp-front-office/v6/partials/header.html" %}
+
+{% endblock %}
+
+{% block beforeContent %}
+  <a href="/mvp-front-office/v6/my-holdings/cattle-on-holding" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+
+    <h1 class="govuk-heading-l">{{ animal.earTagNumber | formatReference }}</h1>
+
+    <nav class="moj-sub-navigation" aria-label="Sub navigation">
+      <ul class="moj-sub-navigation__list">
+        <li class="moj-sub-navigation__item">
+          <a class="moj-sub-navigation__link" href="/mvp-front-office/v6/my-holdings/cattle/{{ animal.earTagNumber }}">Animal details</a>
+        </li>
+        <li class="moj-sub-navigation__item">
+          <a class="moj-sub-navigation__link" aria-current="page" href="/mvp-front-office/v6/my-holdings/cattle/{{ animal.earTagNumber }}/calving-history">Calving history</a>
+        </li>
+      </ul>
+    </nav>
+
+    {% if offspring.length %}
+    <table class="govuk-table">
+      <caption class="govuk-table__caption govuk-table__caption--m">Calving history</caption>
+      <thead class="govuk-table__head">
+        <tr class="govuk-table__row">
+          <th scope="col" class="govuk-table__header app-table__cell--no-wrap">Date</th>
+          <th scope="col" class="govuk-table__header app-table__cell--no-wrap">Ear tag number</th>
+          <th scope="col" class="govuk-table__header app-table__cell--no-wrap">Age</th>
+          <th scope="col" class="govuk-table__header app-table__cell--no-wrap">Interval</th>
+          <th scope="col" class="govuk-table__header app-table__cell--no-wrap">Sex</th>
+          <th scope="col" class="govuk-table__header app-table__cell--no-wrap">Breed</th>
+        </tr>
+      </thead>
+      <tbody class="govuk-table__body">
+        {% for calf in offspring %}
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell app-table__cell--no-wrap">{{ calf.dateOfBirth | shortDateFormat }}</td>
+          <td class="govuk-table__cell app-table__cell--no-wrap">{{ calf.earTagNumber | formatReference }}</td>
+          <td class="govuk-table__cell app-table__cell--no-wrap">{{ calf.dateOfBirth | animalAge }}</td>
+          <td class="govuk-table__cell app-table__cell--no-wrap">
+            {% if calf.calvingIntervalDays !== null %}{{ calf.calvingIntervalDays }} days{% else %}First calf{% endif %}
+          </td>
+          <td class="govuk-table__cell app-table__cell--no-wrap">{{ calf.sex }}</td>
+          <td class="govuk-table__cell app-table__cell--no-wrap"><abbr title="{{ calf.breed.name }}">{{ calf.breed.code }}</abbr><span class="govuk-visually-hidden">, {{ calf.breed.name }}</span></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <h2 class="govuk-heading-m">Calving history</h2>
+    <p class="govuk-body">No calving history recorded.</p>
+    {% endif %}
+
+  </div>
+</div>
+
+{% endblock %}
