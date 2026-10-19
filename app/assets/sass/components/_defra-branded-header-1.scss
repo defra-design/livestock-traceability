@@ -11,7 +11,9 @@
       color: #FFF
     }
     }
-
+.defra-internal-header--no-border {
+  border-bottom-width: 0px;
+}
 
 @media (min-width: 48.0625em) {
   .defra-internal-header {
@@ -199,8 +201,8 @@
 }
 
 .app-service-navigation--defra {
-     background-color: #00a33b;
-  border-bottom-color: #00a33b;
+     background-color: #008531;
+  border-bottom-color: #008531;
 
   // Active navigation item
   .govuk-service-navigation__item--active {

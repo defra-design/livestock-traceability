@@ -52,6 +52,7 @@ For example, add pathParts[3].
 {% set currentBaseUrl = '/' + pathParts[1] + '/' + pathParts[2] + '/' + pathParts[3] + '/' %}
 
 {{ govukServiceNavigation({
+classes: "app-service-navigation--defra",
 navigation: [
 {
 href: currentBaseUrl+"cattle",
