@@ -1,0 +1,92 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Upload summary" %}
+
+{% block beforeContent %}
+  <a href="/csv-uploads/v1/start" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+        <div class="govuk-error-summary" data-module="govuk-error-summary">
+            <div role="alert">
+                <h2 class="govuk-error-summary__title">
+                    There is a problem
+                </h2>
+                <div class="govuk-error-summary__body">
+                    <ul class="govuk-list govuk-error-summary__list">
+                        <li>
+                            <a href="#">Enter your full name</a>
+                        </li>
+                        <li>
+                            <a href="#">The date your passport was issued must be in the past</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="govuk-notification-banner govuk-notification-banner--success" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
+            <div class="govuk-notification-banner__header">
+                <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+                    Success
+                </h2>
+            </div>
+            <div class="govuk-notification-banner__content">
+                <h3 class="govuk-notification-banner__heading">
+                    Your upload has been successful.
+                </h3>
+                <!-- <p class="govuk-body">
+                     Reference number: 3765-3867
+                 </p>-->
+                <p class="govuk-body">Contact <a class="govuk-notification-banner__link" href="#">bcmsenquiries@rpa.gov.uk</a> if you think there’s a problem.</p>
+            </div>
+        </div>
+
+
+        <h1 class="govuk-heading-l">
+            Upload summary
+        </h1>
+
+        <p class="govuk-body">
+            We have checked the file you uploaded.
+        </p>
+
+        <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Total rows
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    120
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Successfully uploaded
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    112
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Rows with errors
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    8
+                </dd>
+            </div>
+        </dl>
+
+        <a href="upload-review" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+            Continue
+        </a>
+
+    </div>
+</div>
+
+{% endblock %}

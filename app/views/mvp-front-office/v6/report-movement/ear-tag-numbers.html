@@ -1,0 +1,317 @@
+{% extends "layouts/main.html" %}
+
+
+{% block header %}
+
+  {% include "mvp-front-office/v6/partials/header.html" %}
+
+{% endblock %}
+
+{% set pageName="Ear tag numbers" %}
+
+{% set isOffMovement = data['movement-type'] == 'off' %}
+
+{% set earTags = data['movement-ear-tags'] %}
+{% if earTags is string %}
+  {% set earTags = earTags.split('\n') %}
+{% endif %}
+{% if not earTags or earTags.length == 0 %}
+  {% set earTags = [''] %}
+{% endif %}
+
+{# One movement date per animal, in the same order as the ear tags #}
+{% set movementDates = data['movement-dates'] %}
+{% if movementDates is string %}
+  {% set movementDates = [movementDates] %}
+{% endif %}
+{% if not movementDates %}
+  {% set movementDates = [] %}
+{% endif %}
+
+{% block head %}
+  {{ super() }}
+  {% if isOffMovement %}
+  <link href="https://unpkg.com/accessible-autocomplete/dist/accessible-autocomplete.min.css" rel="stylesheet" media="all" />
+  <style>
+    .autocomplete__wrapper {
+      max-width: 20.5em;
+    }
+    .autocomplete__hint,
+    .autocomplete__input,
+    .autocomplete__option {
+      font-family: "Transport", arial, sans-serif;
+      font-size: 1.1875rem;
+      font-weight: normal!important;
+    }
+    .govuk-form-group--error .autocomplete__input {
+      border-color: #d4351c;
+    }
+    .autocomplete__option strong {
+      font-weight: normal;
+    }
+  </style>
+  {% endif %}
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    {% if errors %}
+    <div class="govuk-error-summary" data-module="govuk-error-summary">
+      <div role="alert">
+        <h2 class="govuk-error-summary__title">There is a problem</h2>
+        <div class="govuk-error-summary__body">
+          <ul class="govuk-list govuk-error-summary__list">
+            {% for error in errorList %}
+            <li><a href="{{ error.href }}">{{ error.text }}</a></li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
+    <h1 class="govuk-heading-l">Movement details</h1>
+
+    <p class="govuk-body">
+      {% if isOffMovement %}
+        Start typing all or part of the ear tag number and select from the list, then enter the date that animal moved. Add each animal separately.
+      {% else %}
+        Enter the full ear tag number and the date that animal moved. Add each animal separately.
+      {% endif %}
+    </p>
+
+    <form action="/mvp-front-office/v6/report-movement/ear-tag-numbers" method="post" novalidate>
+
+      <div class="moj-add-another" data-module="moj-add-another" data-item-label="Animal">
+        <div class="moj-add-another__items">
+
+          {% for earTag in earTags %}
+          {% set index = loop.index0 %}
+          {% set tagError = errors['movement-ear-tags-' + index] if errors %}
+          {% set dateError = errors['movement-dates-' + index] if errors %}
+          <div class="moj-add-another__item {% if tagError or dateError %}moj-add-another__item--error{% endif %}">
+            <fieldset class="govuk-fieldset moj-add-another__fieldset">
+              <legend class="govuk-fieldset__legend moj-add-another__item-title govuk-fieldset__legend--m">
+                Animal {{ loop.index }}{% if earTags.length > 1 %} of {{ earTags.length }}{% endif %}
+              </legend>
+              <div class="moj-add-another__item-container">
+
+                <div class="govuk-form-group {% if tagError %}govuk-form-group--error{% endif %}">
+                  <label class="govuk-label" for="movement-ear-tags-{{ index }}">
+                    Ear tag number
+                  </label>
+                  {% if tagError %}
+                  <p id="movement-ear-tags-{{ index }}-error" class="govuk-error-message">
+                    <span class="govuk-visually-hidden">Error:</span> {{ tagError }}
+                  </p>
+                  {% endif %}
+
+                  {% if isOffMovement %}
+                  <select class="app-ear-tag-autocomplete"
+                    id="movement-ear-tags-{{ index }}"
+                    name="movement-ear-tags[{{ index }}]"
+                    data-id="movement-ear-tags-%index%"
+                    data-name="movement-ear-tags[%index%]"
+                    data-label
+                    {% if tagError %}aria-describedby="movement-ear-tags-{{ index }}-error"{% endif %}>
+                    <option value=""></option>
+                    {% for animal in data.livestockSameHerd.animals %}
+                    {% if animal.status == 'Alive' %}
+                    <option value="{{ animal.earTagNumber }}" {% if earTag == animal.earTagNumber %}selected{% endif %}>{{ animal.earTagNumber }}</option>
+                    {% endif %}
+                    {% endfor %}
+                  </select>
+                  {% else %}
+                  <input class="govuk-input govuk-input--width-20 {% if tagError %}govuk-input--error{% endif %}"
+                    id="movement-ear-tags-{{ index }}"
+                    name="movement-ear-tags[{{ index }}]"
+                    data-id="movement-ear-tags-%index%"
+                    data-name="movement-ear-tags[%index%]"
+                    data-label
+                    type="text"
+                    spellcheck="false"
+                    autocomplete="off"
+                    {% if tagError %}aria-describedby="movement-ear-tags-{{ index }}-error"{% endif %}
+                    value="{{ earTag }}">
+                  {% endif %}
+                </div>
+
+                <div class="moj-datepicker" data-module="moj-date-picker">
+                  <div class="govuk-form-group {% if dateError %}govuk-form-group--error{% endif %}">
+                    <label class="govuk-label" for="movement-dates-{{ index }}">
+                      Movement date
+                    </label>
+                    <div id="movement-dates-{{ index }}-hint" class="govuk-hint app-movement-date-hint">
+                      For example, 27/3/2026.
+                    </div>
+                    {% if dateError %}
+                    <p id="movement-dates-{{ index }}-error" class="govuk-error-message">
+                      <span class="govuk-visually-hidden">Error:</span> {{ dateError }}
+                    </p>
+                    {% endif %}
+                    <input class="govuk-input moj-js-datepicker-input {% if dateError %}govuk-input--error{% endif %}"
+                      id="movement-dates-{{ index }}"
+                      name="movement-dates[{{ index }}]"
+                      data-id="movement-dates-%index%"
+                      data-name="movement-dates[%index%]"
+                      type="text"
+                      autocomplete="off"
+                      aria-describedby="movement-dates-{{ index }}-hint{% if dateError %} movement-dates-{{ index }}-error{% endif %}"
+                      value="{{ movementDates[index] }}">
+                  </div>
+                </div>
+
+                <div class="moj-add-another__remove-button-container">
+                  {% if earTags.length > 1 %}
+                  <button type="button" class="govuk-button govuk-button--secondary moj-add-another__remove-button">
+                    Remove <span class="govuk-visually-hidden">animal {{ loop.index }} of {{ earTags.length }}</span>
+                  </button>
+                  {% endif %}
+                </div>
+
+              </div>
+            </fieldset>
+          </div>
+          {% endfor %}
+
+        </div>
+
+        <div class="moj-add-another__add-button-container">
+          <button type="button" class="govuk-button govuk-button--secondary moj-add-another__add-button">
+            Add another animal
+          </button>
+        </div>
+      </div>
+
+      {{ govukButton({ text: "Continue" }) }}
+
+    </form>
+
+  </div>
+</div>
+
+{% endblock %}
+
+{% block pageScripts %}
+  <script>
+    // Give each remove button a unique accessible name, for example
+    // "Remove animal 3 of 3". Add another only supplies the item number, so
+    // rewrite the hidden text after every add or remove.
+    (function () {
+      function updateRemoveButtons () {
+        var items = document.querySelectorAll('.moj-add-another__items .moj-add-another__item')
+        items.forEach(function (item, index) {
+          var button = item.querySelector('.moj-add-another__remove-button')
+          if (!button) return
+          button.textContent = 'Remove '
+          var hidden = document.createElement('span')
+          hidden.className = 'govuk-visually-hidden'
+          hidden.textContent = 'animal ' + (index + 1) + ' of ' + items.length
+          button.appendChild(hidden)
+        })
+      }
+
+      // Add another also rewrites the buttons when it initialises
+      window.addEventListener('load', updateRemoveButtons)
+      document.addEventListener('moj-add-another:add-item', updateRemoveButtons)
+      document.addEventListener('moj-add-another:remove-item', updateRemoveButtons)
+    })()
+
+    // Each animal row has its own movement date picker. Add another copies a
+    // blank row that hasn't been set up as a date picker, so set it up here.
+    // It also renumbers input ids but not hint ids, so keep those in step.
+    // The leading semicolon stops this being read as a call on the block above.
+    ;(function () {
+      function syncDateHints () {
+        document.querySelectorAll('.moj-add-another__item').forEach(function (item) {
+          var input = item.querySelector('.moj-js-datepicker-input')
+          var hint = item.querySelector('.app-movement-date-hint')
+          if (!input || !hint) return
+          var describedBy = (input.getAttribute('aria-describedby') || '')
+            .split(' ')
+            .filter(function (id) { return id && id !== hint.id })
+          hint.id = input.id + '-hint'
+          input.setAttribute('aria-describedby', [hint.id].concat(describedBy).join(' '))
+        })
+      }
+
+      document.addEventListener('moj-add-another:add-item', function (event) {
+        var datePicker = event.target.querySelector('[data-module="moj-date-picker"]')
+        if (datePicker && window.MOJFrontend) {
+          new window.MOJFrontend.DatePicker(datePicker)
+        }
+        syncDateHints()
+      })
+
+      document.addEventListener('moj-add-another:remove-item', syncDateHints)
+    })()
+  </script>
+
+  {% if isOffMovement %}
+  <script src="https://unpkg.com/accessible-autocomplete/dist/accessible-autocomplete.min.js"></script>
+  <script>
+    // Enhance each ear tag <select> with an autocomplete. This runs on window
+    // load so the MOJ add another component has already taken its blank item
+    // template from the plain <select> markup.
+    (function () {
+      function enhance (select) {
+        // Cloned items have no selected option, which the autocomplete needs
+        if (select.selectedIndex < 0) select.selectedIndex = 0
+        accessibleAutocomplete.enhanceSelectElement({
+          selectElement: select,
+          showAllValues: false,
+          autoselect: true,
+          displayMenu: 'overlay',
+          // On blur this is called with no value, so fall back to what is in
+          // the text box. Only keep a value that matches an ear tag we hold.
+          onConfirm: function (value) {
+            var input = select.parentNode.querySelector('.autocomplete__input')
+            var text = value !== undefined ? value : (input ? input.value.trim() : '')
+            var match = [].some.call(select.options, function (option) {
+              return option.value && option.value === text
+            })
+            select.value = match ? text : ''
+          }
+        })
+      }
+
+      // Add another re-indexes the <select> ids after an add or remove, so
+      // point each autocomplete input and label back at the new index.
+      function syncIds () {
+        document.querySelectorAll('.moj-add-another__item').forEach(function (item) {
+          var select = item.querySelector('select.app-ear-tag-autocomplete')
+          var input = item.querySelector('.autocomplete__input')
+          var label = item.querySelector('.govuk-label')
+          if (!select || !input) return
+          var id = select.id.replace(/-select$/, '')
+          select.id = id + '-select'
+          input.id = id
+          if (label) label.htmlFor = id
+        })
+      }
+
+      window.addEventListener('load', function () {
+        document.querySelectorAll('select.app-ear-tag-autocomplete').forEach(enhance)
+
+        document.addEventListener('moj-add-another:add-item', function (event) {
+          var select = event.target.querySelector('select.app-ear-tag-autocomplete')
+          if (select) enhance(select)
+          syncIds()
+        })
+
+        document.addEventListener('moj-add-another:remove-item', syncIds)
+      })
+    })()
+  </script>
+  {% endif %}
+{% endblock %}

@@ -1,0 +1,78 @@
+{% extends "layouts/main.html" %}
+
+{% set activeNavItem = "my-holdings" %}
+
+{% set pageName="My holdings" %}
+
+{% block header %}
+
+  {% include "mvp-front-office/v6/partials/header.html" %}
+
+{% endblock %}
+
+{% block beforeContent %}
+
+{% endblock %}
+
+{% block content %}
+
+  <h1 class="govuk-heading-xl govuk-!-margin-bottom-6">
+    Cattle Service Prototype
+  </h1>
+
+  <h2 class="govuk-heading-m">
+    My holdings
+  </h2>
+
+{% from "govuk/components/table/macro.njk" import govukTable %}
+
+{{ govukTable({
+caption: "My holdings",
+captionClasses: "govuk-visually-hidden",
+head: [
+{
+text: "CPH"
+},
+{
+text: "Holding name"
+},
+{
+text: "Postcode"
+},
+{
+text: "Role"
+}
+],
+rows: [
+[
+{
+html: '<a class="govuk-link" href="/mvp-front-office/v6/my-holdings/holding-overview?holding-id=holding-001">12/345/0001</a>'
+},
+{
+text: "Oakfield Farm"
+},
+{
+text: "SY4 1AB"
+},
+{
+text: "Owner"
+}
+],
+[
+{
+html: '<a class="govuk-link" href="#">24/118/0042</a>'
+},
+{
+text: "Willow Brook Farm"
+},
+{
+text: "HR2 8JL"
+},
+{
+text: "Agent"
+}
+]
+]
+}) }}
+
+{% endblock %}

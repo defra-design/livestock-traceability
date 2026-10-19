@@ -1,0 +1,127 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Activity history" %}
+{% set activeNavItem = "my-holdings" %}
+{% set sideNavActive = "activity-history" %}
+
+{% block header %}
+    {% include "mvp-front-office/v6/partials/header.html" %}
+{% endblock %}
+
+{% block content %}
+
+<div>
+
+    <h1 class="govuk-heading-xl govuk-!-margin-bottom-4">
+         <span class="govuk-caption-l">
+             {{ holding.cph }}
+         </span>
+        {{ holding.holdingName }}
+    </h1>
+
+    <nav class="moj-sub-navigation govuk-!-margin-bottom-5" aria-label="Sub navigation">
+        <ul class="moj-sub-navigation__list">
+            <li class="moj-sub-navigation__item">
+                <a class="moj-sub-navigation__link" href="/mvp-front-office/v6/my-holdings/holding-overview">
+                    Overview
+                </a>
+            </li>
+            <li class="moj-sub-navigation__item">
+                <a class="moj-sub-navigation__link" href="/mvp-front-office/v6/my-holdings/holding-details">
+                    Holding details
+                </a>
+            </li>
+            <li class="moj-sub-navigation__item">
+                <a class="moj-sub-navigation__link" aria-current="page" href="/mvp-front-office/v6/my-holdings/activity-history">
+                    Activity history
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <h2 class="govuk-heading-l">
+        Activity history
+    </h2>
+
+    <div class="dwp-timeline">
+        <ol class="dwp-timeline__items">
+
+            <li class="dwp-timeline__item">
+                <p class="dwp-timeline__datetime">22 September 2026 at 9:41am</p>
+                <h3 class="dwp-timeline__heading">Birth registration submitted</h3>
+                <p class="dwp-timeline__by-line">by James Williams</p>
+                <p class="dwp-timeline__content">4 calves registered (UK 123456 301550 to UK 123456 301553). Reference 7KWM-3HTP – pending validation.</p>
+                <a href="/mvp-front-office/v6/register-animal/submission-detail/7KWM-3HTP" class="dwp-timeline__link">View registration<span class="govuk-visually-hidden"> 7KWM-3HTP</span></a>
+            </li>
+
+            <li class="dwp-timeline__item">
+                <p class="dwp-timeline__datetime">17 September 2026 at 2:05pm</p>
+                <h3 class="dwp-timeline__heading">Death reported</h3>
+                <p class="dwp-timeline__by-line">by James Williams</p>
+                <p class="dwp-timeline__content">UK 123456 301512 died on holding on 16 September 2026. Carcass collected by approved disposal service.</p>
+            </li>
+
+            <li class="dwp-timeline__item">
+                <p class="dwp-timeline__datetime">11 September 2026 at 11:30am</p>
+                <h3 class="dwp-timeline__heading">Movement off reported</h3>
+                <p class="dwp-timeline__by-line">by Tom Bennett (delegate)</p>
+                <p class="dwp-timeline__content">6 cattle moved to 12/345/6789 on 10 September 2026.</p>
+            </li>
+
+            <li class="dwp-timeline__item">
+                <p class="dwp-timeline__datetime">4 September 2026 at 8:15am</p>
+                <h3 class="dwp-timeline__heading">Birth registration approved</h3>
+                <p class="dwp-timeline__by-line">by System</p>
+                <p class="dwp-timeline__content">2 calves added to holding (UK 123456 301546 and UK 123456 301547). Reference R4XD-9CFN.</p>
+                <a href="/mvp-front-office/v6/register-animal/submission-detail/R4XD-9CFN" class="dwp-timeline__link">View registration<span class="govuk-visually-hidden"> R4XD-9CFN</span></a>
+            </li>
+
+            <li class="dwp-timeline__item">
+                <p class="dwp-timeline__datetime">3 September 2026 at 4:22pm</p>
+                <h3 class="dwp-timeline__heading">Birth registration submitted</h3>
+                <p class="dwp-timeline__by-line">by James Williams</p>
+                <p class="dwp-timeline__content">2 calves registered. Reference R4XD-9CFN.</p>
+            </li>
+
+            <li class="dwp-timeline__item">
+                <p class="dwp-timeline__datetime">27 August 2026 at 10:48am</p>
+                <h3 class="dwp-timeline__heading">Replacement ear tag recorded</h3>
+                <p class="dwp-timeline__by-line">by James Williams</p>
+                <p class="dwp-timeline__content">Lost tag replaced for UK 123456 301498.</p>
+            </li>
+
+            <li class="dwp-timeline__item">
+                <p class="dwp-timeline__datetime">20 August 2026 at 3:10pm</p>
+                <h3 class="dwp-timeline__heading">Movement on reported</h3>
+                <p class="dwp-timeline__by-line">by Tom Bennett (delegate)</p>
+                <p class="dwp-timeline__content">3 cattle moved on from 98/765/4321 on 19 August 2026.</p>
+            </li>
+
+            <li class="dwp-timeline__item">
+                <p class="dwp-timeline__datetime">15 August 2026 at 9:02am</p>
+                <h3 class="dwp-timeline__heading">Birth registration approved</h3>
+                <p class="dwp-timeline__by-line">by System</p>
+                <p class="dwp-timeline__content">3 calves added to holding. Reference M6QA-2JVE.</p>
+                <a href="/mvp-front-office/v6/register-animal/submission-detail/M6QA-2JVE" class="dwp-timeline__link">View registration<span class="govuk-visually-hidden"> M6QA-2JVE</span></a>
+            </li>
+
+            <li class="dwp-timeline__item">
+                <p class="dwp-timeline__datetime">14 August 2026 at 1:37pm</p>
+                <h3 class="dwp-timeline__heading">Birth registration submitted</h3>
+                <p class="dwp-timeline__by-line">by James Williams</p>
+                <p class="dwp-timeline__content">3 calves registered. Reference M6QA-2JVE.</p>
+            </li>
+
+            <li class="dwp-timeline__item">
+                <p class="dwp-timeline__datetime">2 August 2026 at 12:20pm</p>
+                <h3 class="dwp-timeline__heading">Error record corrected</h3>
+                <p class="dwp-timeline__by-line">by James Williams</p>
+                <p class="dwp-timeline__content">Date of birth updated for UK 123456 301477.</p>
+            </li>
+
+        </ol>
+    </div>
+
+</div>
+
+{% endblock %}

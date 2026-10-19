@@ -1,0 +1,215 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Activity history" %}
+{% set activeNavItem = "my-holdings" %}
+{% set sideNavActive = "activity-history" %}
+
+{% block header %}
+    {% include "mvp-front-office/v6/partials/header.html" %}
+<style>.govuk-secondary-text-colour{
+  color:	#484949;
+}</style>
+{% endblock %}
+
+{% block content %}
+
+<div>
+
+    <h1 class="govuk-heading-xl govuk-!-margin-bottom-4">
+         <span class="govuk-caption-l">
+             {{ holding.cph }}
+         </span>
+        {{ holding.holdingName }}
+    </h1>
+
+    <nav class="moj-sub-navigation govuk-!-margin-bottom-5" aria-label="Sub navigation">
+        <ul class="moj-sub-navigation__list">
+            <li class="moj-sub-navigation__item">
+                <a class="moj-sub-navigation__link" href="/mvp-front-office/v6/my-holdings/holding-overview">
+                    Overview
+                </a>
+            </li>
+            <li class="moj-sub-navigation__item">
+                <a class="moj-sub-navigation__link" href="/mvp-front-office/v6/my-holdings/holding-details">
+                    Holding details
+                </a>
+            </li>
+            <li class="moj-sub-navigation__item">
+                <a class="moj-sub-navigation__link" aria-current="page" href="/mvp-front-office/v6/my-holdings/activity-history">
+                    Activity history
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds govuk-!-padding-bottom-9">
+
+        <ol class="govuk-list">
+
+          <li>
+            <article>
+              <h2 class="govuk-heading-s govuk-!-margin-bottom-1">
+                <a href="/mvp-front-office/v6/register-animal/submission-detail/7KWM-3HTP">Cattle birth registration</a>
+              </h2>
+
+              <p class="govuk-body govuk-secondary-text-colour govuk-!-margin-bottom-4">
+                <time datetime="2026-09-22T09:41:00">22 September 2026 at 9:41am</time>
+              </p>
+
+              <p class="govuk-body govuk-!-margin-bottom-2">
+                4 calves registered, <strong>UK 123456 301550</strong> to <strong>UK 123456 301553</strong>. Reference <strong>7KWM-3HTP</strong>.
+              </p>
+
+              <p class="govuk-body govuk-!-margin-bottom-0">
+                Recorded by James Williams
+              </p>
+            </article>
+
+            <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+          </li>
+
+          <li>
+            <article>
+              <h2 class="govuk-heading-s govuk-!-margin-bottom-1">
+                <a href="#">Cattle death report</a>
+              </h2>
+
+              <p class="govuk-body govuk-secondary-text-colour govuk-!-margin-bottom-4">
+                <time datetime="2026-09-17T14:05:00">17 September 2026 at 2:05pm</time>
+              </p>
+
+              <p class="govuk-body govuk-!-margin-bottom-2">
+                <strong>UK 123456 301512</strong> recorded as deceased on 16 September 2026.
+              </p>
+
+              <p class="govuk-body govuk-!-margin-bottom-0">
+                Recorded by James Williams
+              </p>
+            </article>
+
+            <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+          </li>
+
+          <li>
+            <article>
+              <h2 class="govuk-heading-s govuk-!-margin-bottom-1">
+                <a href="#">Cattle off-movement</a>
+              </h2>
+
+              <p class="govuk-body govuk-secondary-text-colour govuk-!-margin-bottom-4">
+                <time datetime="2026-09-11T11:30:00">11 September 2026 at 11:30am</time>
+              </p>
+
+              <p class="govuk-body govuk-!-margin-bottom-2">
+                6 cattle moved off to <strong>12/345/6789</strong> on 10 September 2026.
+              </p>
+
+              <p class="govuk-body govuk-!-margin-bottom-0">
+                Recorded by Tom Bennett (delegate)
+              </p>
+            </article>
+
+            <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+          </li>
+
+          <li>
+            <article>
+              <h2 class="govuk-heading-s govuk-!-margin-bottom-1">
+                <a href="/mvp-front-office/v6/register-animal/submission-detail/R4XD-9CFN">Cattle birth registration</a>
+              </h2>
+
+              <p class="govuk-body govuk-secondary-text-colour govuk-!-margin-bottom-4">
+                <time datetime="2026-09-03T16:22:00">3 September 2026 at 4:22pm</time>
+              </p>
+
+              <p class="govuk-body govuk-!-margin-bottom-2">
+                2 calves registered, <strong>UK 123456 301546</strong> and <strong>UK 123456 301547</strong>. Reference <strong>R4XD-9CFN</strong>.
+              </p>
+
+              <p class="govuk-body govuk-!-margin-bottom-0">
+                Recorded by James Williams
+              </p>
+            </article>
+
+            <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+          </li>
+
+          <li>
+            <article>
+              <h2 class="govuk-heading-s govuk-!-margin-bottom-1">
+                <a href="#">Cattle on-movement</a>
+              </h2>
+
+              <p class="govuk-body govuk-secondary-text-colour govuk-!-margin-bottom-4">
+                <time datetime="2026-08-20T15:10:00">20 August 2026 at 3:10pm</time>
+              </p>
+
+              <p class="govuk-body govuk-!-margin-bottom-2">
+                3 cattle moved on from <strong>98/765/4321</strong> on 19 August 2026.
+              </p>
+
+              <p class="govuk-body govuk-!-margin-bottom-0">
+                Recorded by Tom Bennett (delegate)
+              </p>
+            </article>
+
+            <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+          </li>
+
+          <li>
+            <article>
+              <h2 class="govuk-heading-s govuk-!-margin-bottom-1">
+                <a href="/mvp-front-office/v6/register-animal/submission-detail/M6QA-2JVE">Cattle birth registration</a>
+              </h2>
+
+              <p class="govuk-body govuk-secondary-text-colour govuk-!-margin-bottom-4">
+                <time datetime="2026-08-14T13:37:00">14 August 2026 at 1:37pm</time>
+              </p>
+
+              <p class="govuk-body govuk-!-margin-bottom-2">
+                3 calves registered, <strong>UK 123456 301543</strong> to <strong>UK 123456 301545</strong>. Reference <strong>M6QA-2JVE</strong>.
+              </p>
+
+              <p class="govuk-body govuk-!-margin-bottom-0">
+                Recorded by James Williams
+              </p>
+            </article>
+
+            <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+          </li>
+
+          <li>
+            <article>
+              <h2 class="govuk-heading-s govuk-!-margin-bottom-1">
+                <a href="#">Delegate added</a>
+              </h2>
+
+              <p class="govuk-body govuk-secondary-text-colour govuk-!-margin-bottom-4">
+                <time datetime="2026-08-05T10:12:00">5 August 2026 at 10:12am</time>
+              </p>
+
+              <p class="govuk-body govuk-!-margin-bottom-2">
+                <strong>tony.wilson@gmail.com</strong> added as a delegate.
+              </p>
+
+              <p class="govuk-body govuk-!-margin-bottom-0">
+                Added by James Williams
+              </p>
+            </article>
+
+          </li>
+        </ol>
+
+      </div>
+    </div>
+
+</div>
+
+{% endblock %}
