@@ -1,0 +1,11 @@
+{% extends base +"/layout.html" %}
+{% set pageName = "Cattle that could not be added" %}
+{% set backHref = base + '/animals' %}
+{% block journeyContent %}
+<h1 class="govuk-heading-l">{{ failures.length }} cattle could not be added</h1>
+<p class="govuk-body">These animals have not been included in your movement.</p>
+<table class="govuk-table"><caption class="govuk-visually-hidden">Animals not added and reasons</caption>
+<thead class="govuk-table__head"><tr><th scope="col" class="govuk-table__header">Ear tag number</th><th scope="col" class="govuk-table__header">Reason not added</th></tr></thead>
+<tbody class="govuk-table__body">{% for item in failures %}<tr><th scope="row" class="govuk-table__header">{{ item.value }}</th><td class="govuk-table__cell">{{ item.message }}</td></tr>{% endfor %}</tbody></table>
+<p class="govuk-body"><a class="govuk-link" href="{{ base }}/animals">Return to added cattle</a></p>
+{% endblock %}

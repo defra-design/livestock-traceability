@@ -1,0 +1,146 @@
+{% extends "layouts/main.html" %}
+{% from "govuk/components/panel/macro.njk" import govukPanel %}
+
+{% set pageName = "Movement report updated" %}
+{% block pageTitle %}{{ pageName }} – GOV.UK{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    {# The panel confirms the action submitted, not necessarily the whole movement. #}
+    {% if movement.status == 'confirmed' %}
+      {% call govukPanel({
+        titleText: "Whole movement confirmed"
+      }) %}
+        Movement {{ movement.id }}
+      {% endcall %}
+
+      <h2 class="govuk-heading-m">What happens next</h2>
+      <p class="govuk-body">
+        Both keepers have agreed the movement details. No further confirmation is needed.
+      </p>
+      <p class="govuk-body">
+        The movement record and the actions taken to confirm it remain available to view.
+      </p>
+
+    {% elif movement.status == 'changes' %}
+      {% call govukPanel({
+        titleText: "Proposed changes submitted"
+      }) %}
+        Movement {{ movement.id }}
+      {% endcall %}
+
+      <h2 class="govuk-heading-m">What happens next</h2>
+      <p class="govuk-body">
+        Your proposed changes have been recorded. The keeper who originally reported
+        the movement will need to accept or dispute them.
+      </p>
+      <p class="govuk-body">
+        The original movement report has not been overwritten. The whole movement
+        is not yet confirmed.
+      </p>
+
+    {% elif movement.status == 'rejected' %}
+      {% call govukPanel({
+        titleText: "Movement rejection submitted"
+      }) %}
+        Movement {{ movement.id }}
+      {% endcall %}
+
+      <h2 class="govuk-heading-m">What happens next</h2>
+      <p class="govuk-body">
+        The keeper who reported the movement can review your reason for rejection
+        and decide whether to correct, withdraw or dispute their report.
+      </p>
+      <p class="govuk-body">
+        The original ON or OFF report remains recorded. The whole movement has not
+        been confirmed or automatically cancelled.
+      </p>
+
+    {% elif movement.status == 'disputed' %}
+      {% call govukPanel({
+        titleText: "Movement dispute submitted"
+      }) %}
+        Movement {{ movement.id }}
+      {% endcall %}
+
+      <h2 class="govuk-heading-m">What happens next</h2>
+      <p class="govuk-body">
+        The disagreement has been recorded for BCMS to investigate and determine.
+        Neither keeper's original declaration has been automatically overwritten.
+      </p>
+      <p class="govuk-body">
+        The whole movement is not confirmed. BCMS may need more information from
+        one or both keepers.
+      </p>
+
+    {% elif movement.status == 'withdrawn' %}
+      {% call govukPanel({
+        titleText: "Movement report withdrawn"
+      }) %}
+        Movement {{ movement.id }}
+      {% endcall %}
+
+      <h2 class="govuk-heading-m">What happens next</h2>
+      <p class="govuk-body">
+        This movement report is withdrawn and will not become a confirmed whole
+        movement through the current review process.
+      </p>
+      <p class="govuk-body">
+        The withdrawn report and its activity history have been retained. If cattle
+        did move, you may still need to report the actual movement correctly.
+      </p>
+
+    {% elif movement.status == 'awaiting' %}
+      {% call govukPanel({
+        titleText: "Corrected movement report submitted"
+      }) %}
+        Movement {{ movement.id }}
+      {% endcall %}
+
+      <h2 class="govuk-heading-m">What happens next</h2>
+      <p class="govuk-body">
+        The corrected report has been sent for the other keeper to review and confirm.
+      </p>
+      <p class="govuk-body">
+        The original movement reference and submission information have been retained,
+        along with the correction in the activity history. The whole movement is
+        not yet confirmed.
+      </p>
+
+    {% elif movement.status == 'unconfirmed' %}
+      {% call govukPanel({
+        titleText: "Movement remains unconfirmed"
+      }) %}
+        Movement {{ movement.id }}
+      {% endcall %}
+
+      <h2 class="govuk-heading-m">What happens next</h2>
+      <p class="govuk-body">
+        The original ON or OFF report is still recorded, but the opposing keeper
+        has not confirmed the whole movement. It may need further review by BCMS.
+      </p>
+
+    {% else %}
+      {% call govukPanel({
+        titleText: "Movement action recorded"
+      }) %}
+        Movement {{ movement.id }}
+      {% endcall %}
+
+      <p class="govuk-body">
+        The movement record has been updated. You can view its current status and
+        activity history.
+      </p>
+    {% endif %}
+
+    <p class="govuk-body">
+      <a class="govuk-link" href="{{ root }}/{{ movement.id }}">View movement details</a>
+    </p>
+    <p class="govuk-body">
+      <a class="govuk-link" href="{{ root }}">Return to movements</a>
+    </p>
+  </div>
+</div>
+{% endblock %}

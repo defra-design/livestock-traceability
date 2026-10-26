@@ -1,0 +1,217 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName = "Whole cattle movements prototype" %}
+
+{% block pageTitle %}
+  {{ pageName }} – GOV.UK
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <span class="govuk-caption-xl">Livestock service prototype</span>
+      <h1 class="govuk-heading-xl">Whole cattle movements</h1>
+
+      <p class="govuk-body-l">
+        Pages and example states for reporting, reviewing and confirming
+        whole cattle movements.
+      </p>
+
+      <p class="govuk-body">
+        These pages use demonstration data. Some reporting steps depend on
+        answers given earlier in the journey, so start at the beginning if
+        a direct link redirects you.
+      </p>
+
+      <h2 class="govuk-heading-l">Movement register</h2>
+      <ul class="govuk-list govuk-list--bullet">
+        <li>
+          <a class="govuk-link" href="./movements">
+            Movements for 37/123/4567
+          </a>
+        </li>
+      </ul>
+
+      <h2 class="govuk-heading-l">Movement details and states</h2>
+      <ul class="govuk-list govuk-list--bullet">
+        <li>
+          <a class="govuk-link" href="./movements/MOV-1007">
+            Awaiting your confirmation – MOV-1007
+          </a>
+        </li>
+        <li>
+          <a class="govuk-link" href="./movements/MOV-1001">
+            Awaiting the other keeper – MOV-1001
+          </a>
+        </li>
+        <li>
+          <a class="govuk-link" href="./movements/MOV-1002">
+            Changes proposed – MOV-1002
+          </a>
+        </li>
+        <li>
+          <a class="govuk-link" href="./movements/MOV-1004">
+            Rejected, awaiting your response – MOV-1004
+          </a>
+        </li>
+        <li>
+          <a class="govuk-link" href="./movements/MOV-1003">
+            Confirmed – MOV-1003
+          </a>
+        </li>
+        <li>
+          <a class="govuk-link" href="./movements/MOV-1006">
+            Disputed – MOV-1006
+          </a>
+        </li>
+        <li>
+          <a class="govuk-link" href="./movements/MOV-1005">
+            Unconfirmed – MOV-1005
+          </a>
+        </li>
+        <li>
+          <a class="govuk-link" href="./movements/MOV-1002/activity">
+            Movement activity – MOV-1002
+          </a>
+        </li>
+      </ul>
+
+      <h2 class="govuk-heading-l">Review a movement</h2>
+      <ul class="govuk-list govuk-list--bullet">
+        <li>
+          <a class="govuk-link" href="./movements/MOV-1007#movement-action">
+            Confirm, propose changes or reject a movement
+          </a>
+        </li>
+        <li>
+          <a class="govuk-link" href="./movements/MOV-1007/propose">
+            Propose changes to a movement
+          </a>
+        </li>
+        <li>
+          <a class="govuk-link" href="./movements/MOV-1007/reject">
+            Reject a movement
+          </a>
+        </li>
+        <li>
+          <a class="govuk-link" href="./movements/MOV-1002#movement-action">
+            Accept or dispute proposed changes
+          </a>
+        </li>
+        <li>
+          <a class="govuk-link" href="./movements/MOV-1004#movement-action">
+            Respond to a rejected movement
+          </a>
+        </li>
+        <li>
+          <a class="govuk-link" href="./movements/MOV-1004/correct">
+            Correct a movement report
+          </a>
+        </li>
+      </ul>
+
+      <h2 class="govuk-heading-l">Report a movement</h2>
+      <ul class="govuk-list govuk-list--bullet">
+        <li>
+          <a class="govuk-link" href="/record-full-movement-v2">
+            Start reporting a cattle movement
+          </a>
+        </li>
+        <li>
+          <a class="govuk-link" href="./movement-type">
+            Choose movement on or off
+          </a>
+        </li>
+        <li>
+          <a class="govuk-link" href="./add-method">
+            Choose how to add cattle
+          </a>
+        </li>
+        <li>
+          <a class="govuk-link" href="./manual">
+            Enter ear tags manually
+          </a>
+        </li>
+        <li>
+          <a class="govuk-link" href="./upload">
+            Upload a cattle list
+          </a>
+        </li>
+        <li>
+          <a class="govuk-link" href="./animals">
+            Cattle added to the movement
+          </a>
+        </li>
+        <li>
+          <a class="govuk-link" href="./movement-authorisation">
+            Movement restrictions and authorisation
+          </a>
+        </li>
+        <li>
+          <a class="govuk-link" href="./movement-date">
+            Movement date
+          </a>
+        </li>
+        <li>
+          <a class="govuk-link" href="./check-answers">
+            Check your answers
+          </a>
+        </li>
+        <li>
+          <a class="govuk-link" href="./confirmation">
+            Report submission confirmation
+          </a>
+        </li>
+      </ul>
+      <p class="govuk-hint">
+        The cattle list, authorisation, check your answers and confirmation
+        screens require information entered earlier in the journey.
+      </p>
+
+      <h2 class="govuk-heading-l">Find and confirm a holding</h2>
+      <ul class="govuk-list govuk-list--bullet">
+        <li>
+          <a class="govuk-link" href="./previous-destinations">
+            Previously used holdings
+          </a>
+        </li>
+        <li>
+          <a class="govuk-link" href="./destination-type">
+            Choose destination type
+          </a>
+        </li>
+        <li>
+          <a class="govuk-link" href="./find-method">
+            Find a registered location
+          </a>
+        </li>
+        <li>
+          <a class="govuk-link" href="./destination">
+            Search by CPH number
+          </a>
+        </li>
+        <li>
+          <a class="govuk-link" href="./destination-address">
+            Search by address
+          </a>
+        </li>
+        <li>
+          <a class="govuk-link" href="./destination-address-results">
+            Select a matching address
+          </a>
+        </li>
+        <li>
+          <a class="govuk-link" href="./confirm-destination">
+            Confirm the selected holding
+          </a>
+        </li>
+      </ul>
+      <p class="govuk-hint">
+        These screens depend on whether the movement is on or off and on the
+        location selected in the journey.
+      </p>
+
+    </div>
+  </div>
+{% endblock %}

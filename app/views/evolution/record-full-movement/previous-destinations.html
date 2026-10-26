@@ -1,0 +1,16 @@
+{% extends base +"/layout.html" %}
+{% set pageName = 'Where did the cattle move from?' if isOn else 'Where are the cattle moving to?' %}
+{% set backHref = base + ('/movement-type' if isOn else '/movement-date') %}
+{% block journeyContent %}
+<form action="{{ base }}/previous-destinations" method="post" novalidate>
+<div class="govuk-form-group{% if errors %} govuk-form-group--error{% endif %}">
+<fieldset class="govuk-fieldset"><legend class="govuk-fieldset__legend govuk-fieldset__legend--l"><h1 class="govuk-fieldset__heading">{% if isOn %}Where did the cattle move from?{% else %}Where are the cattle moving to?{% endif %}</h1></legend>
+{% if previousDestinations.length %}<div class="govuk-hint">{% if isOn %}Select a sending location or find another registered location.{% else %}Select a destination you have used before or choose a new destination.{% endif %}</div>{% endif %}
+{% if errors %}<p class="govuk-error-message" id="previous-error"><span class="govuk-visually-hidden">Error:</span> {{ errors[0].message }}</p>{% endif %}
+<div class="govuk-radios">
+{% for item in previousDestinations %}<div class="govuk-radios__item"><input class="govuk-radios__input" id="previous-{{ item.id }}" type="radio" name="rfm-previous" value="{{ item.id }}"><label class="govuk-label govuk-radios__label" for="previous-{{ item.id }}">{{ item.name }} ({{ item.identifier }})</label></div>{% endfor %}
+{% if previousDestinations.length %}<div class="govuk-radios__divider">or</div>{% endif %}
+<div class="govuk-radios__item"><input class="govuk-radios__input" id="previous-new" type="radio" name="rfm-previous" value="new"><label class="govuk-label govuk-radios__label" for="previous-new">{% if isOn %}Find another sending location{% else %}A new destination{% endif %}</label></div>
+</div></fieldset></div>
+<button class="govuk-button">Continue</button></form>
+{% endblock %}

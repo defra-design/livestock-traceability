@@ -1,0 +1,7 @@
+{% extends "layouts/main.html" %}
+{% set pageName = "Reject movement" %}
+{% block pageTitle %}Reject movement – GOV.UK{% endblock %}
+{% block beforeContent %}<a class="govuk-back-link" href="{{ root }}">Back</a>{% endblock %}
+{% block content %}
+<div class="govuk-grid-row"><div class="govuk-grid-column-two-thirds"><h1 class="govuk-heading-l">Reject movement {{ movement.id }}</h1><p class="govuk-body">The original reporter will be asked to correct, withdraw or dispute their report.</p>{% if error %}<p class="govuk-error-message">{{ error }}</p>{% endif %}<form method="post"><div class="govuk-form-group"><label for="reason" class="govuk-label govuk-label--m">Why are you rejecting this movement?</label><textarea id="reason" name="reason" rows="5" class="govuk-textarea"></textarea></div><button class="govuk-button">Reject movement</button></form></div></div>
+{% endblock %}

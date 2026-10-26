@@ -1,0 +1,14 @@
+{% extends base +"/layout.html" %}
+{% set pageName = "Enter the destination details" %}
+{% set backHref = base + '/destination-type' %}
+{% block journeyContent %}
+<h1 class="govuk-heading-l">Enter the destination details</h1>
+<p class="govuk-body">Use this for another type of destination that is not listed.</p>
+<form action="{{ base }}/destination-other" method="post" novalidate>
+{% for field in [{id:'other-name',name:'rfm-other-name',label:'Destination name',value:posted.name},{id:'other-id',name:'rfm-other-id',label:'Destination identifier',value:posted.identifier},{id:'other-address',name:'rfm-other-address',label:'Address',value:posted.address}] %}
+<div class="govuk-form-group"><label class="govuk-label govuk-label--m" for="{{ field.id }}">{{ field.label }}</label>
+<input class="govuk-input govuk-!-width-two-thirds" id="{{ field.id }}" name="{{ field.name }}" value="{{ field.value or '' }}"></div>
+{% endfor %}
+{% if errors %}<p class="govuk-error-message" id="other-details-error"><span class="govuk-visually-hidden">Error:</span> {{ errors[0].message }}</p>{% endif %}
+<button class="govuk-button">Continue</button></form>
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends "layouts/main.html" %}
+{% set pageName = "Change animals in movement" %}
+{% block beforeContent %}
+  <a class="govuk-back-link" href="{{ root }}/{{ movement.id }}/propose">Back</a>
+{% endblock %}
+{% block content %}
+<div class="govuk-grid-row"><div class="govuk-grid-column-two-thirds">
+  <span class="govuk-caption-l">Movement {{ movement.id }}</span>
+  <h1 class="govuk-heading-l">Animals in the proposed movement</h1>
+  <p class="govuk-body">These are the animals in the original report. Remove any that did not arrive or add any that are missing.</p>
+  {% if error %}<p class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> {{ error }}</p>{% endif %}
+  {% if success %}<p class="govuk-notification-banner__heading">{{ success }}</p>{% endif %}
+  <p class="govuk-body">You have {{ proposedAnimals | length }} cattle in the proposed movement.</p>
+</div></div>
+<div class="govuk-grid-row"><div class="govuk-grid-column-full">
+<table class="govuk-table">
+  <caption class="govuk-visually-hidden">Cattle in the proposed movement</caption>
+  <thead class="govuk-table__head"><tr class="govuk-table__row">
+    <th scope="col" class="govuk-table__header">Ear tag number</th>
+    <th scope="col" class="govuk-table__header">Breed</th>
+    <th scope="col" class="govuk-table__header">Sex</th>
+    <th scope="col" class="govuk-table__header">Date of birth</th>
+    <th scope="col" class="govuk-table__header">Actions</th>
+  </tr></thead>
+  <tbody class="govuk-table__body">
+  {% for animal in proposedAnimals %}
+    <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header">{{ animal.tag }}</th>
+      <td class="govuk-table__cell"><abbr title="{{ animal.breed.name }}">{{ animal.breed.code }}</abbr><span class="govuk-visually-hidden">, {{ animal.breed.name }}</span></td>
+      <td class="govuk-table__cell">{{ animal.sex }}</td>
+      <td class="govuk-table__cell">{{ animal.dateOfBirth }}</td>
+      <td class="govuk-table__cell">
+        <form method="post" action="{{ root }}/{{ movement.id }}/propose/animals/remove">
+          <input type="hidden" name="tag" value="{{ animal.tag }}">
+          <button class="govuk-button govuk-button--secondary govuk-!-margin-bottom-0" type="submit">Remove<span class="govuk-visually-hidden"> {{ animal.tag }}</span></button>
+        </form>
+      </td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+</div></div>
+<div class="govuk-grid-row"><div class="govuk-grid-column-two-thirds">
+  <h2 class="govuk-heading-m">Add more cattle</h2>
+  <form method="post" action="{{ root }}/{{ movement.id }}/propose/animals/add">
+    <div class="govuk-form-group">
+      <label class="govuk-label" for="tags">Ear tag numbers</label>
+      <div class="govuk-hint" id="tags-hint">Enter one ear tag per line. Animals are added to your proposed list, not the original report.</div>
+      <textarea class="govuk-textarea" id="tags" name="tags" rows="4" aria-describedby="tags-hint"></textarea>
+    </div>
+    <button class="govuk-button govuk-button--secondary" type="submit">Add cattle</button>
+  </form>
+  <form method="post" action="{{ root }}/{{ movement.id }}/propose/animals/continue">
+    <button class="govuk-button" type="submit">Continue</button>
+  </form>
+  <p class="govuk-body"><a class="govuk-link" href="{{ root }}/{{ movement.id }}/propose/cancel">Cancel proposed changes</a></p>
+</div></div>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends base +"/layout.html" %}
+{% set pageName = 'When did the cattle move onto your holding?' if isOn else 'When did you move the cattle off your holding?' %}
+{% set backHref = base + '/animals' %}
+{% block stylesheets %}
+{{ super() }}
+{# Without JavaScript, keep the alternative date fields accessible even when the radio has not yet been selected. #}
+<noscript><style>.govuk-radios__conditional--hidden { display: block !important; }</style></noscript>
+{% endblock %}
+{% block journeyContent %}
+<form action="{{ base }}/movement-date" method="post" novalidate>
+<div class="govuk-form-group{% if errors %} govuk-form-group--error{% endif %}">
+<fieldset class="govuk-fieldset"><legend class="govuk-fieldset__legend govuk-fieldset__legend--l"><h1 class="govuk-fieldset__heading">When did the cattle move {% if isOn %}onto{% else %}off{% endif %} your holding?</h1></legend>
+{% if errors %}<p class="govuk-error-message" id="movement-date-error"><span class="govuk-visually-hidden">Error:</span> {{ errors[0].message }}</p>{% endif %}
+<div class="govuk-radios" data-module="govuk-radios">
+{% for option in quickDates %}<div class="govuk-radios__item"><input class="govuk-radios__input" id="date-{{ option.value }}" type="radio" name="rfm-date-choice" value="{{ option.value }}" {% if chosen == option.value %}checked{% endif %}><label class="govuk-label govuk-radios__label" for="date-{{ option.value }}">{{ option.label }}</label></div>{% endfor %}
+<div class="govuk-radios__item"><input class="govuk-radios__input" id="date-different" type="radio" name="rfm-date-choice" value="different" data-aria-controls="conditional-date" {% if chosen == 'different' %}checked{% endif %}><label class="govuk-label govuk-radios__label" for="date-different">A different date</label></div>
+<div class="govuk-radios__conditional{% if chosen != 'different' %} govuk-radios__conditional--hidden{% endif %}" id="conditional-date">
+<div class="govuk-form-group"><fieldset class="govuk-fieldset" role="group" aria-describedby="other-date-hint">
+<legend class="govuk-fieldset__legend govuk-fieldset__legend--s">Date of movement</legend>
+<div class="govuk-hint" id="other-date-hint">For example, 15 10 2026</div>
+<div class="govuk-date-input" id="movement-date-input">
+<div class="govuk-date-input__item"><div class="govuk-form-group"><label class="govuk-label govuk-date-input__label" for="day">Day</label><input class="govuk-input govuk-date-input__input govuk-input--width-2" type="text" inputmode="numeric" id="day" name="rfm-day" value="{{ posted.day if posted else draft.dateDay }}"></div></div>
+<div class="govuk-date-input__item"><div class="govuk-form-group"><label class="govuk-label govuk-date-input__label" for="month">Month</label><input class="govuk-input govuk-date-input__input govuk-input--width-2" type="text" inputmode="numeric" id="month" name="rfm-month" value="{{ posted.month if posted else draft.dateMonth }}"></div></div>
+<div class="govuk-date-input__item"><div class="govuk-form-group"><label class="govuk-label govuk-date-input__label" for="year">Year</label><input class="govuk-input govuk-date-input__input govuk-input--width-4" type="text" inputmode="numeric" id="year" name="rfm-year" value="{{ posted.year if posted else draft.dateYear }}"></div></div>
+</div></fieldset></div></div>
+</div></fieldset></div>
+<button class="govuk-button">Continue</button></form>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends base +"/layout.html" %}
+{% set pageName = "Upload a file of cattle" %}
+{% set backHref = base + '/add-method' %}
+{% block journeyContent %}
+<h1 class="govuk-heading-l">Upload a file of cattle moving off your holding</h1>
+<p class="govuk-body">Upload a spreadsheet with the ear tag numbers of the cattle that moved.</p>
+<form action="{{ base }}/upload" method="post" enctype="application/x-www-form-urlencoded" novalidate>
+<div class="govuk-form-group{% if errors %} govuk-form-group--error{% endif %}">
+<label for="file-upload" class="govuk-label govuk-label--m">Upload file</label>
+<div class="govuk-hint" id="upload-hint">The file must be a CSV or XLSX and no larger than 10MB.</div>
+{% if errors %}<p class="govuk-error-message" id="file-upload-error"><span class="govuk-visually-hidden">Error:</span> {{ errors[0].message }}</p>{% endif %}
+<input class="govuk-file-upload{% if errors %} govuk-file-upload--error{% endif %}" id="file-upload" name="rfm-file" type="file" accept=".csv,.xlsx,text/csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" aria-describedby="upload-hint{% if errors %} file-upload-error{% endif %}">
+</div><button class="govuk-button">Upload file</button>
+</form>
+<p class="govuk-hint">Prototype only: selecting a CSV or XLSX filename uses three example cattle. The file itself is not uploaded or checked, including its size.</p>
+{% endblock %}

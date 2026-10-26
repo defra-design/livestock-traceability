@@ -1,0 +1,38 @@
+{# Shared movement status/action callout. CSS scoped to app-callout to avoid changing GOV.UK inset text globally. #}
+
+{% if movement.status == 'confirmed' %}{% set calloutVariant = 'success' %}
+{% elif movement.status == 'changes' %}{% set calloutVariant = 'change' %}
+{% elif movement.status == 'rejected' or movement.status == 'disputed' %}{% set calloutVariant = 'issue' %}
+{% elif movement.status == 'unconfirmed' %}{% set calloutVariant = 'warning' %}
+{% elif movement.status == 'withdrawn' %}{% set calloutVariant = 'neutral' %}
+{% else %}{% set calloutVariant = 'info' %}{% endif %}
+<section class="govuk-inset-text app-callout app-callout--{{ calloutVariant }}" aria-labelledby="movement-status-heading">
+<h2 class="govuk-heading-m" id="movement-status-heading">{{ movement.label }}</h2>
+{% if movement.status == 'awaiting' %}
+  {% if movement.canReview %}
+  <p class="govuk-body">The other keeper has reported this movement. Check the movement details and cattle before confirming, proposing changes or rejecting it.</p>
+  {% else %}<p class="govuk-body">Waiting for the opposing keeper to confirm or respond to this report. No action is needed from you at the moment.</p>{% endif %}
+{% elif movement.status == 'changes' %}
+  <p class="govuk-body">The opposing keeper has proposed changes to this movement.</p>
+  {% if movement.proposal and movement.proposal.note %}<p class="govuk-body"><strong>Reason for changes:</strong> {{ movement.proposal.note }}</p>{% endif %}
+  {% if movement.canRespondChanges %}<p class="govuk-body">Review the original report and proposed changes, then decide whether to accept or dispute them.</p>
+  {% else %}<p class="govuk-body">Waiting for the original reporter to respond to the proposed changes.</p>{% endif %}
+{% elif movement.status == 'rejected' %}
+  <p class="govuk-body">The opposing keeper has rejected this movement.</p>
+  {% if movement.reason %}<p class="govuk-body"><strong>Reason given:</strong> {{ movement.reason }}</p>{% endif %}
+  {% if movement.canRespondRejection %}<p class="govuk-body">Review the movement details and decide whether to correct, withdraw or dispute the report.</p>
+  {% else %}<p class="govuk-body">The original reporter needs to respond to this rejection.</p>{% endif %}
+{% elif movement.status == 'confirmed' %}
+  <p class="govuk-body">Both parties have confirmed this movement. No further action is needed.</p>
+{% elif movement.status == 'disputed' %}
+  <p class="govuk-body">This movement has been referred for back-office review.</p>
+  {% if movement.reason %}<p class="govuk-body"><strong>Reason:</strong> {{ movement.reason }}</p>{% endif %}
+{% elif movement.status == 'unconfirmed' %}
+  <p class="govuk-body">This movement has not been confirmed within the expected response period. It remains recorded and may need back-office review.</p>
+{% elif movement.status == 'withdrawn' %}
+  <p class="govuk-body">The original reporter withdrew this report. Its activity history has been retained.</p>
+{% endif %}
+{% if movement.canReview or movement.canRespondChanges or movement.canRespondRejection %}
+<p class="govuk-body"><a class="govuk-link" href="{% if statusLinkToDetails %}{{ root }}/{{ movement.id }}{% endif %}#movement-action">{% if movement.canReview %}Review movement{% elif movement.canRespondChanges %}Respond to proposed changes{% else %}Respond to rejection{% endif %}</a></p>
+{% endif %}
+</section>

@@ -1,0 +1,32 @@
+// Add this to your existing application SCSS file.
+// Opt-in for long movement status tags only.
+.app-tag--no-max-width {
+  max-width: none;
+  white-space: nowrap;
+}
+  /* A visual enhancement to the standard GOV.UK table; the labels carry the meaning. */
+  .app-movement-diff__row--removed > .govuk-table__cell,
+  .app-movement-diff__row--removed > .govuk-table__header {
+    background-color: #fdf2f1;
+  }
+  .app-movement-diff__row--added > .govuk-table__cell,
+  .app-movement-diff__row--added > .govuk-table__header {
+    background-color: #eaf5ee;
+  }
+.app-movement-filters {
+  display: flex;
+  align-items: flex-end;
+  gap: govuk-spacing(3);
+
+  .govuk-button {
+    margin-bottom: 0;
+  }
+}
+  .app-callout { border-left-width: 5px; border-left-style: solid; margin-top: 24px; margin-bottom: 32px; padding: 15px 20px; background-color:#f3f3f3;}
+  .app-callout--info { border-left-color: #1d70b8; background-color:#f4f8fb;}
+  .app-callout--change { border-left-color: #6f42a1; background-color:#f6f5fa; }
+  .app-callout--success { border-left-color: #00703c;background-color:#f3f8f6; }
+  .app-callout--issue { border-left-color: #d4351c; }
+  .app-callout--warning { border-left-color: #ffdd00;background-color:#fffdf2;}
+  .app-callout--neutral { border-left-color: #505a5f; }
+  .app-callout > :last-child { margin-bottom: 0; }

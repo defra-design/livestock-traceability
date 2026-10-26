@@ -1,0 +1,15 @@
+{% extends base +"/layout.html" %}
+{% set pageName = "Report a cattle movement" %}
+{% block journeyContent %}
+<span class="govuk-caption-l">Cattle movements</span>
+<h1 class="govuk-heading-xl">Report a cattle movement</h1>
+<p class="govuk-body">Use this service to report cattle that have moved onto or off your holding.</p>
+<h2 class="govuk-heading-m">Your holding</h2>
+<dl class="govuk-summary-list">
+<div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Holding</dt><dd class="govuk-summary-list__value">{{ sender.name }}</dd></div>
+<div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">CPH number</dt><dd class="govuk-summary-list__value">{{ sender.cph }}</dd></div>
+</dl>
+<p class="govuk-body">You will add the cattle first, then enter the movement date and destination.</p>
+<form action="{{ base }}/start" method="post"><button class="govuk-button" type="submit">Start now</button></form>
+<p class="govuk-hint">This is a demonstration with fictional records. No live movement will be reported.</p>
+{% endblock %}

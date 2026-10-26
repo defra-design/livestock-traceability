@@ -1,0 +1,11 @@
+{% extends base +"/layout.html" %}
+{% set pageName = "Remove all cattle" %}
+{% set backHref = base + '/animals' %}
+{% block journeyContent %}
+<form action="{{ base }}/remove-all" method="post" novalidate>
+<fieldset class="govuk-fieldset"><legend class="govuk-fieldset__legend govuk-fieldset__legend--l"><h1 class="govuk-fieldset__heading">Are you sure you want to remove all {{ count }} cattle?</h1></legend>
+{% if errors %}<p class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> {{ errors[0].message }}</p>{% endif %}
+<div class="govuk-radios"><div class="govuk-radios__item"><input class="govuk-radios__input" type="radio" name="rfm-remove-all" id="remove-all-yes" value="yes"><label class="govuk-label govuk-radios__label" for="remove-all-yes">Yes</label></div>
+<div class="govuk-radios__item"><input class="govuk-radios__input" type="radio" name="rfm-remove-all" id="remove-all-no" value="no"><label class="govuk-label govuk-radios__label" for="remove-all-no">No</label></div></div></fieldset>
+<button class="govuk-button">Continue</button></form>
+{% endblock %}

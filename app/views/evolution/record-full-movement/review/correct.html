@@ -1,0 +1,8 @@
+{% extends "layouts/main.html" %}
+{% set pageName = "Correct movement" %}
+{% block pageTitle %}Correct movement – GOV.UK{% endblock %}
+{% block beforeContent %}<a class="govuk-back-link" href="{{ root }}">Back</a>{% endblock %}
+{% block content %}
+<div class="govuk-grid-row"><div class="govuk-grid-column-two-thirds"><h1 class="govuk-heading-l">Correct movement {{ movement.id }}</h1><p class="govuk-body">Corrections retain the original reference and submission date in this prototype. The other keeper will be asked to confirm the corrected report again.</p>{% if error %}<p class="govuk-error-message">{{ error }}</p>{% endif %}<form method="post"><div class="govuk-form-group"><label class="govuk-label" for="from">Moving from (CPH or identifier)</label><input class="govuk-input govuk-input--width-20" name="from" id="from" value="{{ movement.from }}"></div><div class="govuk-form-group"><label class="govuk-label" for="to">Moving to (CPH or identifier)</label><input class="govuk-input govuk-input--width-20" name="to" id="to" value="{{ movement.to }}"></div><div class="govuk-form-group"><label class="govuk-label" for="date">Movement date</label><input class="govuk-input govuk-input--width-20" name="date" id="date" value="{{ movement.date }}"></div><div class="govuk-form-group"><label class="govuk-label" for="tags">Ear tag numbers (one per line)</label><textarea class="govuk-textarea" name="tags" id="tags" rows="5">{% for tag in movement.tags %}{{ tag }}{% if not loop.last %}
+{% endif %}{% endfor %}</textarea></div><button class="govuk-button">Send corrected report</button></form></div></div>
+{% endblock %}

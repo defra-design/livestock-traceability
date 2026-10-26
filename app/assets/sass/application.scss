@@ -8,6 +8,7 @@
 @import "components/event-card";
 @import "components/filter-panel";
 @import "components/filter-accordion";
+@import "components/whole-movements";
 @import "components/history";
 @import "components/overview";
 @import "components/search";
@@ -77,7 +78,7 @@ $defra-green: #008938;
 
 
 .app-sub-navigation__list__spaced .moj-sub-navigation__item{
-    margin-left:govuk-spacing(6)
+    margin-right:govuk-spacing(6)
  }
 
 

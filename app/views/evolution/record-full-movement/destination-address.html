@@ -1,0 +1,15 @@
+{% extends base +"/layout.html" %}
+{% set pageName = "Find the {% if isOn %}sending location{% else %}destination{% endif %} by address" %}
+{% set backHref = base + '/find-method' %}
+{% block journeyContent %}
+<h1 class="govuk-heading-l">Find the {% if isOn %}sending location{% else %}destination{% endif %} by address</h1>
+<p class="govuk-body">Enter an address or postcode to search for registered locations.</p>
+<form action="{{ base }}/destination-address" method="post" novalidate>
+  <div class="govuk-form-group{% if errors %} govuk-form-group--error{% endif %}">
+    <label class="govuk-label govuk-label--m" for="address-search">Address or postcode</label>
+    {% if errors %}<p class="govuk-error-message" id="address-search-error"><span class="govuk-visually-hidden">Error:</span> {{ errors[0].message }}</p>{% endif %}
+    <input class="govuk-input govuk-input--width-20{% if errors %} govuk-input--error{% endif %}" id="address-search" name="rfm-address-search" value="{{ search or '' }}" {% if errors %}aria-describedby="address-search-error"{% endif %}>
+  </div>
+  <button class="govuk-button" type="submit">Find {% if isOn %}sending location{% else %}destination{% endif %}</button>
+</form>
+{% endblock %}

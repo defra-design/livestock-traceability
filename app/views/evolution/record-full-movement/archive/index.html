@@ -1,0 +1,90 @@
+{% extends "layouts/main.html" %}
+{% set pageName = "Movements for " + currentHolding %}
+
+{% block pageTitle %}Movements for {{ currentHolding }} – GOV.UK{% endblock %}
+
+{% block beforeContent %}
+  <a class="govuk-back-link" href="{{ base }}">Back</a>
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <h1 class="govuk-heading-l">Movements for {{ currentHolding }}</h1>
+
+      <a class="govuk-button" href="{{ base }}" role="button" data-module="govuk-button">
+        Report a movement
+      </a>
+
+      <p class="govuk-body">
+        View movements on to and off this holding, including reports needing a response and confirmed reports.
+      </p>
+
+      <form method="get" action="{{ root }}">
+        <div class="govuk-form-group">
+          <label class="govuk-label" for="status">Show movements</label>
+          <div class="govuk-button-group">
+            <select class="govuk-select" id="status" name="status">
+              <option value="all" {% if filter == 'all' %}selected{% endif %}>All movements</option>
+              <option value="action" {% if filter == 'action' %}selected{% endif %}>Action needed</option>
+              {% for key, label in labels %}
+                <option value="{{ key }}" {% if filter == key %}selected{% endif %}>{{ label }}</option>
+              {% endfor %}
+            </select>
+            <button class="govuk-button govuk-button--secondary govuk-!-margin-left-2" type="submit" data-module="govuk-button">
+              Filter
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+      <table class="govuk-table">
+        <caption class="govuk-visually-hidden">Movement register</caption>
+        <thead class="govuk-table__head">
+          <tr class="govuk-table__row">
+            <th scope="col" class="govuk-table__header">Reference</th>
+            <th scope="col" class="govuk-table__header">Movement date</th>
+            <th scope="col" class="govuk-table__header">Movement</th>
+            <th scope="col" class="govuk-table__header">Cattle</th>
+            <th scope="col" class="govuk-table__header">Status</th>
+          </tr>
+        </thead>
+        <tbody class="govuk-table__body">
+          {% for m in movements %}
+            <tr class="govuk-table__row">
+              <th scope="row" class="govuk-table__header">
+                <a class="govuk-link" href="{{ root }}/{{ m.id }}">{{ m.id }}</a>
+              </th>
+              <td class="govuk-table__cell">{{ m.date }}</td>
+              <td class="govuk-table__cell">
+                {% if m.holdingDirection == 'on' %}
+                  <strong>From</strong> {{ m.otherHolding }}
+                {% elif m.holdingDirection == 'off' %}
+                  <strong>To</strong> {{ m.otherHolding }}
+                {% else %}
+                  Holding not identified
+                {% endif %}
+              </td>
+              <td class="govuk-table__cell">{{ m.count }}</td>
+              <td class="govuk-table__cell ">
+                {% if m.status == 'confirmed'  or m.status == 'withdrawn' %}
+                  {{ m.label }}
+                {% else %}
+                  <strong class="govuk-tag app-tag--no-max-width {{ m.colour }}">{{ m.label }}</strong>
+                {% endif %}
+              </td>
+            </tr>
+          {% else %}
+            <tr class="govuk-table__row">
+              <td colspan="5" class="govuk-table__cell">No movements match this filter.</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+{% endblock %}

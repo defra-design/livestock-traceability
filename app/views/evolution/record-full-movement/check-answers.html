@@ -1,0 +1,63 @@
+{% extends base +"/layout.html" %}
+{% set pageName = "Check your answers" %}
+{% set backHref = base + ('/movement-date' if isOn else '/confirm-destination') %}
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    {% include base +"/partials/errors.html" %}
+    <h1 class="govuk-heading-l">Check your answers before reporting the movement</h1>
+    <dl class="govuk-summary-list">
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Moving from</dt>
+        <dd class="govuk-summary-list__value">{% if isOn %}{{ destination.identifier }}<br>{{ destination.address }}{% else %}{{ sender.cph }}<br>{{ sender.address }}{% endif %}</dd>
+        {% if isOn %}<dd class="govuk-summary-list__actions"><a class="govuk-link" href="{{ base }}/confirm-destination">Change<span class="govuk-visually-hidden"> sending location</span></a></dd>{% endif %}
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Moving to</dt>
+        <dd class="govuk-summary-list__value">{% if isOn %}{{ sender.cph }}<br>{{ sender.address }}{% else %}{{ destination.identifier }}<br>{{ destination.address }}{% endif %}</dd>
+        {% if not isOn %}<dd class="govuk-summary-list__actions"><a href="{{ base }}/previous-destinations" class="govuk-link">Change<span class="govuk-visually-hidden"> destination</span></a></dd>{% endif %}
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Movement date</dt>
+        <dd class="govuk-summary-list__value">{{ movement.display }}</dd>
+        <dd class="govuk-summary-list__actions"><a href="{{ base }}/movement-date" class="govuk-link">Change<span class="govuk-visually-hidden"> movement date</span></a></dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Number of cattle</dt>
+        <dd class="govuk-summary-list__value">{{ animals.length }}</dd>
+        <dd class="govuk-summary-list__actions"><a href="{{ base }}/animals" class="govuk-link">Add or remove<span class="govuk-visually-hidden"> cattle</span></a></dd>
+      </div>
+    </dl>
+  </div>
+</div>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    {% set showAnimalActions = true %}
+    {% set actionReturnTo = 'check-answers' %}
+    {% include base +"/partials/grouped-cattle-tables.html" %}
+    <p class="govuk-body"><a class="govuk-button govuk-button--secondary" href="{{ base }}/add-method" role="button" data-module="govuk-button">Add more animals</a></p>
+  </div>
+</div>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    {% if movement.late %}
+      <div class="govuk-warning-text"><span class="govuk-warning-text__icon" aria-hidden="true">!</span><strong class="govuk-warning-text__text"><span class="govuk-visually-hidden">Warning</span>This movement is being reported more than 3 days after it happened. Use the actual date the cattle moved.</strong></div>
+    {% endif %}
+    {% if not isOn and draft.destinationType == 'slaughterhouse' %}
+      <p class="govuk-inset-text">Reporting this movement does not record the cattle as deceased.</p>
+    {% endif %}
+    <h2 class="govuk-heading-m">Now submit your movement report</h2>
+    <p class="govuk-body">By submitting this report you confirm that:</p>
+    <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-7">
+      <li>to the best of your knowledge the details you are providing are correct</li>
+      <li>the animals listed on the report have already been moved {% if isOn %}onto{% else %}off{% endif %} your holding</li>
+      {% if hasRestrictions %}
+      <li>you have answered the question about whether you had authorisation when the restricted cattle moved. Your answer was: <strong>{% if draft.authorisation == 'yes' %}Yes{% elif draft.authorisation == 'no' %}No{% else %}I'm not sure{% endif %}</strong>. This does not change the requirement to report the movement. <a class="govuk-link" href="{{ base }}/movement-authorisation?returnTo=check-answers">Change your answer<span class="govuk-visually-hidden"> about movement authorisation</span></a></li>
+      {% endif %}
+    </ul>
+    <form method="post" action="{{ base }}/submit">
+      <button class="govuk-button" type="submit">Accept and submit report</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends base +"/layout.html" %}
+{% set pageName = "How do you want to find the {% if isOn %}sending location{% else %}destination{% endif %}?" %}
+{% set backHref = base + '/destination-type' %}
+{% block journeyContent %}
+<form action="{{ base }}/find-method" method="post" novalidate>
+<div class="govuk-form-group{% if errors %} govuk-form-group--error{% endif %}">
+<fieldset class="govuk-fieldset"><legend class="govuk-fieldset__legend govuk-fieldset__legend--l"><h1 class="govuk-fieldset__heading">How do you want to find the {% if isOn %}sending location{% else %}destination{% endif %}?</h1></legend>
+{% if errors %}<p class="govuk-error-message" id="find-method-error"><span class="govuk-visually-hidden">Error:</span> {{ errors[0].message }}</p>{% endif %}
+<div class="govuk-radios">
+<div class="govuk-radios__item"><input class="govuk-radios__input" id="find-id" name="rfm-find-method" type="radio" value="identifier"><label class="govuk-label govuk-radios__label" for="find-id">By {% if draft.destinationType == 'slaughterhouse' %}approval number{% else %}CPH number{% endif %}</label></div>
+<div class="govuk-radios__item"><input class="govuk-radios__input" id="find-address" name="rfm-find-method" type="radio" value="address"><label class="govuk-label govuk-radios__label" for="find-address">By address</label></div>
+</div></fieldset></div><button class="govuk-button">Continue</button></form>
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends "layouts/main.html" %}
+{% set pageName = "Movement " + movement.id + " activity" %}
+{% block pageTitle %}Movement {{ movement.id }} activity – GOV.UK{% endblock %}
+{% block beforeContent %}<a class="govuk-back-link" href="{{ root }}">Back to movements</a>{% endblock %}
+{% block content %}
+<div class="govuk-grid-row"><div class="govuk-grid-column-two-thirds">
+<h1 class="govuk-heading-l">Movement {{ movement.id }}</h1>
+{% set statusLinkToDetails = true %}
+{% include base +"/review/status-callout.html" %}
+<nav class="app-sub-navigation__list__spaced moj-sub-navigation govuk-!-margin-top-4" aria-label="Sub navigation"><ul class="moj-sub-navigation__list">
+<li class="moj-sub-navigation__item"><a class="moj-sub-navigation__link" href="{{ root }}/{{ movement.id }}">Movement details</a></li>
+<li class="moj-sub-navigation__item"><a class="moj-sub-navigation__link" aria-current="page" href="{{ root }}/{{ movement.id }}/activity">Activity</a></li>
+</ul></nav>
+<h2 class="govuk-heading-m">Activity</h2>
+<ul class="govuk-list">
+{% for event in movement.history %}
+<li><article>
+<h3 class="govuk-heading-s govuk-!-margin-bottom-1">{{ event.text }}</h3>
+<p class="govuk-body govuk-secondary-text-colour govuk-!-margin-bottom-4">{% if event.datetime %}<time datetime="{{ event.datetime }}">{{ event.when }}</time>{% else %}{{ event.when }}{% endif %}</p>
+{% if event.note %}<p class="govuk-body govuk-!-margin-bottom-2">{{ event.note }}</p>{% endif %}
+<p class="govuk-body govuk-!-margin-bottom-0">{% if event.actor %}Action by {{ event.actor }}{% else %}Action by not recorded{% endif %}</p>
+</article><hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"></li>
+{% else %}
+<li><p class="govuk-body">No subsequent activity has been recorded for this movement.</p></li>
+{% endfor %}
+<li><article>
+<h3 class="govuk-heading-s govuk-!-margin-bottom-1">Movement {{ movement.direction | upper }} reported</h3>
+<p class="govuk-body govuk-secondary-text-colour govuk-!-margin-bottom-4">{{ movement.reportedAt }}</p>
+<p class="govuk-body govuk-!-margin-bottom-2">{{ movement.origin }}. {{ movement.count }} cattle reported moving from {{ movement.from }} to {{ movement.to }}.</p>
+<p class="govuk-body govuk-!-margin-bottom-0">Reported by {{ movement.reportedBy }}</p>
+</article></li>
+</ul>
+</div></div>
+{% endblock %}

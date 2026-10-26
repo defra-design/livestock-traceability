@@ -1,0 +1,14 @@
+{% extends base +"/layout.html" %}
+{% set pageName = "How do you want to add animals that are moving off?" %}
+{% set backHref = base + '/movement-type' %}
+{% block journeyContent %}
+<form action="{{ base }}/add-method" method="post" novalidate>
+<div class="govuk-form-group{% if errors %} govuk-form-group--error{% endif %}">
+<fieldset class="govuk-fieldset"><legend class="govuk-fieldset__legend govuk-fieldset__legend--l"><h1 class="govuk-fieldset__heading">How do you want to add animals that are moving off?</h1></legend>
+{% if errors %}<p class="govuk-error-message" id="add-method-error"><span class="govuk-visually-hidden">Error:</span> {{ errors[0].message }}</p>{% endif %}
+<div class="govuk-radios">
+<div class="govuk-radios__item"><input class="govuk-radios__input" id="method-upload" name="rfm-method" type="radio" value="upload"><label class="govuk-label govuk-radios__label" for="method-upload">Upload a file</label></div>
+<div class="govuk-radios__item"><input class="govuk-radios__input" id="method-manual" name="rfm-method" type="radio" value="manual"><label class="govuk-label govuk-radios__label" for="method-manual">Enter ear tag numbers manually</label></div>
+</div></fieldset></div>
+<button class="govuk-button">Continue</button></form>
+{% endblock %}

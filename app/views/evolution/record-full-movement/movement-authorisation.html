@@ -1,0 +1,28 @@
+{% extends base +"/layout.html" %}
+{% set pageName = "Movement authorisation" %}
+{% set backHref = base + '/animals' %}
+{% block content %}
+<div class="govuk-grid-row"><div class="govuk-grid-column-two-thirds">
+{% include base +"/partials/errors.html" %}
+<h1 class="govuk-heading-l">Did you have authorisation when these cattle moved?</h1>
+<p class="govuk-body">Some cattle you have added have movement restrictions. Some movements may be permitted with a licence or other authorisation. Others may be prohibited.</p>
+<p class="govuk-body">You must still report a movement that has already happened, even if you did not have authorisation. Reporting it does not mean the movement was lawful.</p>
+<p class="govuk-body">{{ groups.authorisation.length + groups.prohibited.length }} {% if groups.authorisation.length + groups.prohibited.length == 1 %}animal has{% else %}cattle have{% endif %} movement restrictions recorded.</p>
+<form action="{{ base }}/movement-authorisation" method="post" novalidate>
+<input type="hidden" name="rfm-return-to" value="{{ returnTo or 'movement-date' }}">
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{{ govukRadios({
+  name: "rfm-authorisation",
+  fieldset: { legend: { text: "Did you have the necessary authorisation when these cattle moved?", classes: "govuk-fieldset__legend--m" } },
+  hint: { text: "Answer based on what you knew when the movement happened." },
+  errorMessage: { text: errors[0].message } if errors else null,
+  items: [
+    { value: "yes", text: "Yes", checked: draft.authorisation == "yes" },
+    { value: "no", text: "No", checked: draft.authorisation == "no" },
+    { divider: "or" },
+    { value: "unsure", text: "I'm not sure", checked: draft.authorisation == "unsure" }
+  ]
+}) }}
+<button class="govuk-button" type="submit">Continue</button>
+</form></div></div>
+{% endblock %}

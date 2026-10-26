@@ -1,0 +1,22 @@
+<div class="govuk-grid-column-full govuk-!-margin-bottom-7">
+<table class="govuk-table ">
+<caption class="govuk-visually-hidden">{{ tableCaption or 'Cattle in this movement' }}</caption>
+<thead class="govuk-table__head"><tr class="govuk-table__row">
+<th scope="col" class="govuk-table__header">Ear tag number</th>{% if showRestrictionColumn %}<th scope="col" class="govuk-table__header">Restriction</th>{% endif %}<th scope="col" class="govuk-table__header">Breed</th><th scope="col" class="govuk-table__header">Sex</th><th scope="col" class="govuk-table__header">Date of birth</th>
+{% if showAnimalActions %}<th scope="col" class="govuk-table__header">Actions</th>{% endif %}
+</tr></thead><tbody class="govuk-table__body">
+{% for animal in tableAnimals %}<tr class="govuk-table__row">
+<th scope="row" class="govuk-table__header">{% if newTags and animal.tag in newTags %}<strong class="govuk-tag govuk-tag--blue govuk-!-margin-right-2">New</strong> {% endif %}{{ animal.tag }}</th>{% if showRestrictionColumn %}<td class="govuk-table__cell">{{ animal.restriction.description }}</td>{% endif %}
+
+  <td class="govuk-table__cell">
+  <abbr title="{{ animal.breed.name }}">
+    {{ animal.breed.code }}
+  </abbr>
+  <span class="govuk-visually-hidden">
+    , {{ animal.breed.name }}
+  </span>
+</td>
+  <td class="govuk-table__cell">{{ animal.sex }}</td><td class="govuk-table__cell">{{ animal.dateOfBirth }}</td>
+{% if showAnimalActions %}<td class="govuk-table__cell"><a class="govuk-link" href="{{ base }}/animal/{{ animal.encodedTag }}/remove?returnTo={{ actionReturnTo or 'check-answers' }}">Remove<span class="govuk-visually-hidden"> {{ animal.tag }}</span></a></td>{% endif %}
+</tr>{% endfor %}
+</tbody></table></div>

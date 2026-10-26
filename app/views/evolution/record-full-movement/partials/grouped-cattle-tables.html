@@ -1,0 +1,37 @@
+<div class="govuk-grid-row">
+
+{# All included cattle, separated only when restrictions exist. #}
+
+{% if groups.clear.length %}
+        <div class="govuk-grid-column-two-thirds">
+<h2 class="govuk-heading-m">{% if groups.authorisation.length or groups.prohibited.length %}Cattle with no identified restrictions ({{ groups.clear.length }}){% else %}Cattle in this movement ({{ groups.clear.length }}){% endif %}</h2>
+{% set showRestrictionColumn = false %}
+{% set tableAnimals = groups.clear %}
+{% set tableCaption = 'Cattle with no identified restrictions' %}
+                </div>
+{% include base +"/partials/cattle-table.html" %}
+
+{% endif %}
+{% if groups.authorisation.length %}
+    <div class="govuk-grid-column-two-thirds">
+<h2 class="govuk-heading-m">Cattle with restrictions requiring authorisation ({{ groups.authorisation.length }})</h2>
+<p class="govuk-body">These cattle have restrictions that may require a licence or other authorisation. They are included in your movement report.</p>
+{% set showRestrictionColumn = true %}
+{% set tableAnimals = groups.authorisation %}
+{% set tableCaption = 'Cattle with restrictions requiring authorisation' %}
+            </div>
+{% include base +"/partials/cattle-table.html" %}
+
+{% endif %}
+{% if groups.prohibited.length %}
+    <div class="govuk-grid-column-two-thirds">
+<h2 class="govuk-heading-m">Cattle with movements recorded as prohibited ({{ groups.prohibited.length }})</h2>
+<div class="govuk-warning-text"><span class="govuk-warning-text__icon" aria-hidden="true">!</span><strong class="govuk-warning-text__text"><span class="govuk-visually-hidden">Warning</span>These cattle are recorded as having a movement prohibition. They remain in the report because you are reporting a movement that has already happened. Reporting does not make the movement lawful.</strong></div>
+{% set showRestrictionColumn = true %}
+{% set tableAnimals = groups.prohibited %}
+{% set tableCaption = 'Cattle with movements recorded as prohibited' %}
+           </div>
+{% include base +"/partials/cattle-table.html" %}
+
+{% endif %}
+</div>

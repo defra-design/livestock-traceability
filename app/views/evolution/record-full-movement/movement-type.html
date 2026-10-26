@@ -1,0 +1,20 @@
+{% extends base +"/layout.html" %}
+{% set pageName = "What type of movement are you reporting?" %}
+{% set backHref = base %}
+{% block journeyContent %}
+<form action="{{ base }}/movement-type" method="post" novalidate>
+<div class="govuk-form-group{% if errors %} govuk-form-group--error{% endif %}">
+<fieldset class="govuk-fieldset"><legend class="govuk-fieldset__legend govuk-fieldset__legend--l"><h1 class="govuk-fieldset__heading">What type of movement are you reporting?</h1></legend>
+{% if errors %}<p class="govuk-error-message" id="movement-type-error"><span class="govuk-visually-hidden">Error:</span> {{ errors[0].message }}</p>{% endif %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{{ govukRadios({
+ name: "rfm-movement-type",
+ errorMessage: { text: errors[0].message } if errors else null,
+ items: [
+  { value: "off", text: "Movement off", checked: not isOn },
+  { value: "on", text: "Movement on", checked: isOn }
+ ]
+}) }}
+</fieldset></div><button class="govuk-button">Continue</button></form>
+
+{% endblock %}

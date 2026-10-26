@@ -1,0 +1,65 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Home" %}
+
+{% block content %}
+
+<div class="govuk-phase-banner govuk-width-container" style="margin-top:-30px; margin-bottom:30px">
+  <p class="govuk-phase-banner__content">
+    <strong class="govuk-tag govuk-phase-banner__content__tag">
+      Alpha
+    </strong>
+    <span class="govuk-phase-banner__text">
+      These are conceptual prototypes, not a finalised service.
+    </span>
+  </p>
+</div>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+
+      <h1 class="govuk-heading-xl">
+          Livestock Service Prototypes
+      </h1>
+
+     <nav class="moj-sub-navigation" aria-label="Sub navigation">
+  <ul class="moj-sub-navigation__list">
+    <li class="moj-sub-navigation__item">
+      <a class="moj-sub-navigation__link"  href="/">Front office</a>
+    </li>
+    <li class="moj-sub-navigation__item">
+      <a class="moj-sub-navigation__link"  href="/back-office">Back office</a>
+    </li>
+    <li class="moj-sub-navigation__item">
+      <a class="moj-sub-navigation__link" aria-current="page"  href="/evolution">Evolution team</a>
+    </li>
+    <li class="moj-sub-navigation__item">
+      <a class="moj-sub-navigation__link" href="/archive">Archive</a>
+    </li>
+  </ul>
+</nav>
+    <h2 class="govuk-heading-l">Evolution team prototypes</h2>
+    <div class="app-dashboard-table-wrapper">
+    <table class="govuk-table govuk-table--small-text-until-tablet">
+      <caption class="govuk-table__caption govuk-table__caption--m">Whole movements</caption>
+      <thead class="govuk-table__head">
+      <tr class="govuk-table__row">
+        <th scope="col" class="govuk-table__header">Date</th>
+        <th scope="col" class="govuk-table__header govuk-!-width-three-quarters">Description</th>
+        <th scope="col" class="govuk-table__header">Link</th>
+      </tr>
+      </thead>
+      <tbody class="govuk-table__body">
+     <tr class="govuk-table__row">
+       <th scope="row" class="govuk-table__header">November 2026</th>
+       <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--green">Initital</strong> This covers the core initial reporting on and off and review movements journey. This does not include back office version</td>
+       <td class="govuk-table__cell"><a href="/evolution/record-full-movement/prototype-details" class="govuk-link">Version 1</a></td>
+     </tr>
+      </tbody>
+    </table>
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}

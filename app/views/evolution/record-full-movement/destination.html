@@ -1,0 +1,16 @@
+{% extends base +"/layout.html" %}
+{% set pageName = "Find the {% if isOn %}sending location{% else %}destination{% endif %}" %}
+{% set backHref = base + '/find-method' %}
+{% block journeyContent %}
+<h1 class="govuk-heading-l">Find the {% if isOn %}sending location{% else %}destination{% endif %}</h1>
+<form action="{{ base }}/destination" method="post" novalidate>
+<div class="govuk-form-group{% if errors %} govuk-form-group--error{% endif %}">
+<label class="govuk-label govuk-label--m" for="destination-id">{% if draft.destinationType == 'slaughterhouse' %}Approval number{% else %}CPH number{% endif %}</label>
+<div class="govuk-hint" id="dest-hint">{% if draft.destinationType == 'slaughterhouse' %}For example, UK 1234{% else %}For example, 56/312/0056{% endif %}</div>
+{% if errors %}<p class="govuk-error-message" id="destination-id-error"><span class="govuk-visually-hidden">Error:</span> {{ errors[0].message }}</p>{% endif %}
+<input class="govuk-input govuk-input--width-20" id="destination-id" type="text" name="rfm-destination-id" value="{{ enteredId or draft.identifierSearch or '' }}" aria-describedby="dest-hint{% if errors %} destination-id-error{% endif %}">
+</div><button class="govuk-button">Find {% if isOn %}sending location{% else %}destination{% endif %}</button></form>
+<details class="govuk-details"><summary class="govuk-details__summary"><span class="govuk-details__summary-text">Demonstration identifiers</span></summary><div class="govuk-details__text">
+{% for item in matchingDestinations %}<p class="govuk-body">{{ item.name }} – {{ item.identifier }}</p>{% endfor %}
+</div></details>
+{% endblock %}

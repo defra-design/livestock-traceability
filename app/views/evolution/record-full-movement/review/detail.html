@@ -1,0 +1,292 @@
+{% extends "layouts/main.html" %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% set pageName = "Movement " + movement.id %}
+{% block pageTitle %}
+  Movement {{ movement.id }} – GOV.UK
+{% endblock %}
+{% block beforeContent %}
+  <a class="govuk-back-link" href="{{ root }}">Back to movements</a>
+{% endblock %}
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+{% if movement.holdingDirection == 'on' %}
+  <span class="govuk-caption-l">Movement on to holding {{ currentHolding }}</span>
+{% elif movement.holdingDirection == 'off' %}
+  <span class="govuk-caption-l">Movement off holding {{ currentHolding }}</span>
+{% endif %}
+<h1 class="govuk-heading-l">Movement {{ movement.id }}</h1>
+{% include base +"/review/status-callout.html" %}
+<nav class="app-sub-navigation__list__spaced moj-sub-navigation" aria-label="Sub navigation">
+  <ul class="moj-sub-navigation__list">
+    <li class="moj-sub-navigation__item">
+      <a class="moj-sub-navigation__link" aria-current="page" href="{{ root }}/{{ movement.id }}">Movement details</a>
+    </li>
+    <li class="moj-sub-navigation__item">
+      <a class="moj-sub-navigation__link" href="{{ root }}/{{ movement.id }}/activity">Activity</a>
+    </li>
+  </ul>
+</nav>
+<h2 class="govuk-heading-m">Movement details</h2>
+<dl class="govuk-summary-list">
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">Date of movement</dt>
+    <dd class="govuk-summary-list__value">{{ movement.date }}</dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">Moving from</dt>
+    <dd class="govuk-summary-list__value">{{ movement.from }}{% if movement.fromAddress %}<br>{{ movement.fromAddress }}{% endif %}</dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">Moving to</dt>
+    <dd class="govuk-summary-list__value">{{ movement.to }}{% if movement.toAddress %}<br>{{ movement.toAddress }}{% endif %}</dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">Number of cattle</dt>
+    <dd class="govuk-summary-list__value">{{ movement.count }}</dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">Reported by</dt>
+    <dd class="govuk-summary-list__value">{{ movement.reportedBy }}</dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">Reported date</dt>
+    <dd class="govuk-summary-list__value">{{ movement.reportedAt }}</dd>
+  </div>
+</dl>
+</div></div>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds"><h2 class="govuk-heading-m">Cattle in this movement</h2></div></div>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+<table class="govuk-table">
+  <caption class="govuk-visually-hidden">Cattle included in movement {{ movement.id }}</caption>
+<thead class="govuk-table__head">
+  <tr class="govuk-table__row">
+    <th scope="col" class="govuk-table__header">Ear tag number</th>
+    <th scope="col" class="govuk-table__header">Breed</th>
+    <th scope="col" class="govuk-table__header">Sex</th>
+    <th scope="col" class="govuk-table__header">Date of birth</th>
+  </tr>
+</thead>
+<tbody class="govuk-table__body">
+{% for animal in movement.animals %}
+  <tr class="govuk-table__row">
+    <th scope="row" class="govuk-table__header">{{ animal.tag }}</th>
+    <td class="govuk-table__cell">
+      <abbr title="{{ animal.breed.name }}">{{ animal.breed.code }}</abbr>
+      <span class="govuk-visually-hidden">, {{ animal.breed.name }}</span>
+    </td>
+    <td class="govuk-table__cell">{{ animal.sex }}</td>
+    <td class="govuk-table__cell">{{ animal.dateOfBirth }}</td>
+  </tr>
+{% endfor %}
+</tbody>
+</table>
+</div></div>
+
+{% if movement.canReview or movement.canRespondChanges or movement.canRespondRejection %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+<section id="movement-action" aria-labelledby="movement-action-heading" tabindex="-1" class="govuk-!-margin-top-4 govuk-!-margin-bottom-7">
+<h2 class="govuk-heading-m" id="movement-action-heading">
+  {% if movement.canReview %}
+    Review this movement
+  {% elif movement.canRespondChanges %}
+    Respond to proposed changes
+  {% else %}
+    Respond to this rejection
+  {% endif %}
+</h2>
+{% if movement.canRespondChanges and movement.proposal %}
+  <p class="govuk-body">
+    The opposing keeper has proposed changes to this movement.
+    Only the details they want to change are shown below.
+  </p>
+
+  {% if movement.proposalDiff.dateChanged %}
+    <h3 class="govuk-heading-s">Movement date</h3>
+    <dl class="govuk-summary-list govuk-!-margin-bottom-6">
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Originally reported</dt>
+        <dd class="govuk-summary-list__value">{{ movement.date }}</dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Proposed date</dt>
+        <dd class="govuk-summary-list__value">{{ movement.proposal.date }}</dd>
+      </div>
+    </dl>
+  {% endif %}
+
+  <h3 class="govuk-heading-s">Changes to cattle</h3>
+  <p class="govuk-body">
+    Originally {{ movement.proposalDiff.originalCount }} cattle.
+    Proposed {{ movement.proposalDiff.proposedCount }} cattle.
+  </p>
+
+  {% if movement.proposalDiff.removed.length or movement.proposalDiff.added.length %}
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-full">
+        <table class="govuk-table app-movement-diff">
+          <caption class="govuk-visually-hidden">
+            Cattle added to or removed from the proposed movement
+          </caption>
+          <thead class="govuk-table__head">
+            <tr class="govuk-table__row">
+              <th scope="col" class="govuk-table__header">Proposed change</th>
+              <th scope="col" class="govuk-table__header">Ear tag number</th>
+              <th scope="col" class="govuk-table__header">Breed</th>
+              <th scope="col" class="govuk-table__header">Sex</th>
+              <th scope="col" class="govuk-table__header">Date of birth</th>
+            </tr>
+          </thead>
+          <tbody class="govuk-table__body">
+            {% for animal in movement.proposalDiff.removed %}
+              <tr class="govuk-table__row app-movement-diff__row--removed">
+                <td class="govuk-table__cell">
+                  <strong class="govuk-tag govuk-tag--red">Remove</strong>
+                </td>
+                <th scope="row" class="govuk-table__header">{{ animal.tag }}</th>
+                <td class="govuk-table__cell">
+                  <abbr title="{{ animal.breed.name }}">{{ animal.breed.code }}</abbr>
+                  <span class="govuk-visually-hidden">, {{ animal.breed.name }}</span>
+                </td>
+                <td class="govuk-table__cell">{{ animal.sex }}</td>
+                <td class="govuk-table__cell">{{ animal.dateOfBirth }}</td>
+              </tr>
+            {% endfor %}
+            {% for animal in movement.proposalDiff.added %}
+              <tr class="govuk-table__row app-movement-diff__row--added">
+                <td class="govuk-table__cell">
+                  <strong class="govuk-tag govuk-tag--green">Add</strong>
+                </td>
+                <th scope="row" class="govuk-table__header">{{ animal.tag }}</th>
+                <td class="govuk-table__cell">
+                  <abbr title="{{ animal.breed.name }}">{{ animal.breed.code }}</abbr>
+                  <span class="govuk-visually-hidden">, {{ animal.breed.name }}</span>
+                </td>
+                <td class="govuk-table__cell">{{ animal.sex }}</td>
+                <td class="govuk-table__cell">{{ animal.dateOfBirth }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  {% else %}
+    <p class="govuk-body">No changes to the cattle in this movement.</p>
+  {% endif %}
+{% endif %}
+{% if error %}
+  <p class="govuk-error-message">
+    <span class="govuk-visually-hidden">Error:</span> {{ error }}
+  </p>
+{% endif %}
+{% if movement.canReview %}
+<form method="post" action="{{ root }}/{{ movement.id }}/review" novalidate>
+{{ govukRadios({
+  name: "review-action",
+  fieldset: {
+    legend: {
+      text: "What do you want to do?",
+      classes: "govuk-fieldset__legend--m"
+    }
+  },
+  items: [
+    {
+      value: "confirm",
+      text: "Confirm the movement",
+      hint: {
+        text: "This will complete the whole movement report. Both holdings will have confirmed the movement."
+      }
+    },
+    {
+      value: "amend",
+      text: "Propose changes",
+      hint: {
+        text: "Your proposed changes will be sent to the keeper who reported the movement for review and confirmation."
+      }
+    },
+    {
+      value: "reject",
+      text: "Reject the movement",
+      hint: {
+        text: "Choose this if the movement was reported against your CPH by mistake or the movement did not happen. The reporting keeper will be asked to respond."
+      }
+    }
+  ]
+}) }}
+  <button class="govuk-button" type="submit">Continue</button>
+</form>
+{% elif movement.canRespondChanges %}
+<form method="post" action="{{ root }}/{{ movement.id }}/respond-changes" novalidate>
+{{ govukRadios({
+  name: "decision",
+  fieldset: {
+    legend: {
+      text: "Do you accept the proposed changes?",
+      classes: "govuk-fieldset__legend--m"
+    }
+  },
+  items: [
+    {
+      value: "accept",
+      text: "Yes, I accept the changes",
+      hint: {
+        text: "This will confirm the changes and complete the whole movement report."
+      }
+    },
+    {
+      value: "dispute",
+      text: "No, I dispute the changes",
+      hint: {
+        text: "This will create a dispute for the British Cattle Movement Service (BCMS) to investigate and resolve. The movement will not be confirmed."
+      }
+    }
+  ]
+}) }}
+  <button class="govuk-button" type="submit">Continue</button>
+</form>
+{% else %}
+<form method="post" action="{{ root }}/{{ movement.id }}/respond-rejection" novalidate>
+{{ govukRadios({
+  name: "decision",
+  fieldset: {
+    legend: {
+      text: "What do you want to do?",
+      classes: "govuk-fieldset__legend--m"
+    }
+  },
+  items: [
+    {
+      value: "correct",
+      text: "Correct the existing movement report",
+      hint: {
+        text: "You can correct the reported details. The corrected report will be sent to the other keeper for confirmation."
+      }
+    },
+    {
+      value: "withdraw",
+      text: "Withdraw the report",
+      hint: {
+        text: "This will withdraw your movement report. It will remain in the record for audit purposes but will not be confirmed."
+      }
+    },
+    {
+      value: "dispute",
+      text: "Dispute the rejection",
+      hint: {
+        text: "This will create a dispute for BCMS to investigate and resolve. The movement will not be confirmed at this stage."
+      }
+    }
+  ]
+}) }}
+  <button class="govuk-button" type="submit">Continue</button>
+</form>
+{% endif %}
+</section></div></div>
+{% endif %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds"><p class="govuk-body"><a class="govuk-link" href="{{ root }}">Return to movements</a></p></div></div>
+{% endblock %}

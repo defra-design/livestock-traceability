@@ -1,0 +1,11 @@
+{% extends base +"/layout.html" %}
+{% set pageName = 'Movement on reported' if isOn else 'Movement off reported' %}
+{% block journeyContent %}
+<div class="govuk-panel govuk-panel--confirmation"><h1 class="govuk-panel__title">Movement {% if isOn %}on{% else %}off{% endif %} reported</h1><div class="govuk-panel__body">Reference number<br><strong>{{ confirmation.reference }}</strong></div></div>
+<p class="govuk-body">You have reported {{ confirmation.animals.length }} cattle moving {% if isOn %}onto {{ sender.cph }} from {{ confirmation.destination.identifier }}{% else %}off {{ sender.cph }} to {{ confirmation.destination.identifier }}{% endif %} on {{ confirmation.date }}.</p>
+<p class="govuk-body">This is a demonstration confirmation. Nothing has been sent to the live movement service.</p>
+<p class="govuk-body"><a class="govuk-link" href="{{ base }}/movements">View all movements</a></p>
+<h2 class="govuk-heading-m">What happens next</h2>
+<p class="govuk-body">This reports one end of the movement only. It does not confirm the other keeper's declaration or record animal deaths.</p>
+<form method="post" action="{{ base }}/start"><button type="submit" class="govuk-button govuk-button--secondary">Report another movement</button></form>
+{% endblock %}

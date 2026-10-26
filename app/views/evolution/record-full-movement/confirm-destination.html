@@ -1,0 +1,27 @@
+{% extends base +"/layout.html" %}
+{% set pageName = "Confirm the {% if isOn %}sending location{% else %}destination{% endif %}" %}
+{% set backHref = base + (backTo or '/previous-destinations') %}
+{% block journeyContent %}
+<h1 class="govuk-heading-l">Confirm the {% if isOn %}sending location{% else %}destination{% endif %}</h1>
+<dl class="govuk-summary-list">
+<div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">{{ destination.idLabel }}</dt><dd class="govuk-summary-list__value">{{ destination.identifier }}</dd></div>
+<div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Address</dt><dd class="govuk-summary-list__value">{{ destination.address }}</dd></div>
+{% if destination.type == 'holding' %}
+<div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Status</dt><dd class="govuk-summary-list__value">{% if isClosed %}<strong class="govuk-tag govuk-tag--grey">Closed</strong>{% else %}Active{% endif %}</dd></div>
+{% endif %}
+</dl>
+{% if isClosed %}
+<h2 class="govuk-heading-m">You cannot use this holding as a {% if isOn %}sending location{% else %}destination{% endif %}</h2>
+<p class="govuk-body">This holding is recorded as closed. Check the details and try searching for another {% if isOn %}sending location{% else %}destination{% endif %}.</p>
+<p class="govuk-body">If you believe this holding should be open, contact the British Cattle Movement Service (BCMS) to check its status.</p>
+<a class="govuk-button" href="{{ base }}{{ backTo or '/previous-destinations' }}">Try again</a>
+{% else %}
+{% if draft.destinationType == 'slaughterhouse' %}<p class="govuk-inset-text">Reporting movement off to a slaughterhouse does not record the death of the cattle.</p>{% endif %}
+<form method="post" action="{{ base }}/confirm-destination" novalidate>
+<div class="govuk-form-group{% if errors %} govuk-form-group--error{% endif %}"><fieldset class="govuk-fieldset"><legend class="govuk-fieldset__legend govuk-fieldset__legend--m">Is this the correct {% if isOn %}sending location{% else %}destination{% endif %}?</legend>
+{% if errors %}<p class="govuk-error-message" id="confirm-destination-error"><span class="govuk-visually-hidden">Error:</span> {{ errors[0].message }}</p>{% endif %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{{ govukRadios({ name: "rfm-confirm-destination", items: [{ value: "yes", text: "Yes" }, { value: "no", text: "No" }] }) }}</fieldset></div>
+<button class="govuk-button">Continue</button></form>
+{% endif %}
+{% endblock %}
