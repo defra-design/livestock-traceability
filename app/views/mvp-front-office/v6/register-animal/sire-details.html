@@ -30,7 +30,10 @@
         <label class="govuk-label govuk-label--m" for="sire-number">
           Sire ear tag number (optional)
         </label>
-        <input class="govuk-input govuk-!-width-two-thirds" id="sire-number" name="sire-number" type="text" value="{{ data['sire-number'] }}">
+        <div id="sire-number-hint" class="govuk-hint">
+          Enter the full animal ear tag number of the sire
+        </div>
+        <input class="govuk-input govuk-!-width-two-thirds" id="sire-number" name="sire-number" type="text" value="{{ data['sire-number'] }}" aria-describedby="sire-number-hint">
       </div>
 
       <div class="govuk-form-group">

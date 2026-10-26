@@ -32,6 +32,7 @@
     </nav>
 
     {% if offspring.length %}
+    <div class="app-dashboard-table-wrapper">
     <table class="govuk-table">
       <caption class="govuk-table__caption govuk-table__caption--m">Calving history</caption>
       <thead class="govuk-table__head">
@@ -59,6 +60,7 @@
         {% endfor %}
       </tbody>
     </table>
+    </div>
     {% else %}
     <h2 class="govuk-heading-m">Calving history</h2>
     <p class="govuk-body">No calving history recorded.</p>
