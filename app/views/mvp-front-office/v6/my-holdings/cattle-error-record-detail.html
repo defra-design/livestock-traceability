@@ -81,7 +81,11 @@
           Information needed
         </dt>
         <dd class="govuk-summary-list__value">
-          {{ record.evidence }}
+          {% if record.evidenceHtml %}
+            {{ record.evidenceHtml | safe }}
+          {% else %}
+            {{ record.evidence }}
+          {% endif %}
         </dd>
       </div>
 

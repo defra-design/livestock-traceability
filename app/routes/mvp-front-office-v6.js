@@ -18,8 +18,16 @@ function getErrorRecords() {
       dateOfBirth: '09-07-2025',
       dateOfRegistration: '10-08-2025',
       category: 'Late registration',
-      reason: 'Date of birth appears to be over the 27-day deadline to report a calf birth.',
-      evidence: 'A Notice of Registration will be issued. You will need to go through the BCMS appeals process.',
+      reason: 'Date of birth is over the 27-day deadline to report a calf birth.',
+      evidenceHtml: `
+        <p class="govuk-body">A Notice of Registration will be sent to your email address. You will need to go through the BCMS appeals process to get this amended to a passport.</p>
+        <p class="govuk-body">A notice of registration means that the animal cannot:</p>
+        <ul class="govuk-list govuk-list--bullet">
+          <li>move off your holding alive unless you have a movement licence</li>
+          <li>enter the food chain</li>
+        </ul>
+        <p class="govuk-body govuk-!-margin-bottom-0">You can continue to register the birth of any calves this animal produces in the usual way.</p>
+      `,
       status: 'Refused'
     },
     {
@@ -40,8 +48,20 @@ function getErrorRecords() {
       dateOfBirth: '29-07-2025',
       dateOfRegistration: '10-08-2025',
       category: 'Dam is too young',
-      reason: 'The genetic dam appears to be under 15-months old',
-      evidence: 'You may need to provide calving records for the dam to confirm its age. Please provide the information within 27 days of the animal’s date of birth.',
+      reason: 'Genetic/surrogate dam appears to be 12-15 months old at the time of calving.',
+      evidenceHtml: `
+        <p class="govuk-body">You will need to provide the dam’s calving history to prove the ages of the dam and calf by email.</p>
+        <p class="govuk-body">If the dam is no longer on your holding, contact BCMS and we can help to resolve the issue.</p>
+        <h3 class="govuk-heading-s">Notice of registration</h3>
+        <p class="govuk-body">A Notice of Registration will also be issued.</p>
+        <p class="govuk-body">A notice of registration means that the animal cannot:</p>
+        <ul class="govuk-list govuk-list--bullet">
+          <li>move off your holding alive unless you have a movement licence</li>
+          <li>enter the food chain</li>
+        </ul>
+        <p class="govuk-body">You can continue to register the birth of any calves this animal produces in the usual way.</p>
+        <p class="govuk-body govuk-!-margin-bottom-0">If you can provide the information needed, this may be amended to a passport.</p>
+      `,
       status: 'Action needed'
     },
     {
@@ -51,8 +71,20 @@ function getErrorRecords() {
       dateOfBirth: '30-07-2025',
       dateOfRegistration: '11-08-2025',
       category: 'Excessive multiple calving',
-      reason: 'The genetic dam appears to have given birth to more calves in a single calving than expected.',
-      evidence: 'You may need to provide a DNA test confirming the calves and dam to confirm parentage. Please provide the information within 27 days of the animal’s date of birth.',
+      reason: 'Dam has registered three or more calves in the past 240 days',
+      evidenceHtml: `
+        <p class="govuk-body">The dam you have registered appears to have registered more than three calves in the past 240 days.</p>
+        <p class="govuk-body">You can contact BCMS via telephone or email to discuss next steps and resolve the issue.</p>
+        <h3 class="govuk-heading-s">Notice of registration</h3>
+        <p class="govuk-body">A Notice of Registration will also be issued.</p>
+        <p class="govuk-body">A notice of registration means that the animal cannot:</p>
+        <ul class="govuk-list govuk-list--bullet">
+          <li>move off your holding alive unless you have a licence</li>
+          <li>enter the food chain</li>
+        </ul>
+        <p class="govuk-body">You can continue to register the birth of any calves this animal produces in the usual way.</p>
+        <p class="govuk-body govuk-!-margin-bottom-0">If you can provide the information needed, this may be amended to a passport.</p>
+      `,
       status: 'Action needed'
     }
   ]

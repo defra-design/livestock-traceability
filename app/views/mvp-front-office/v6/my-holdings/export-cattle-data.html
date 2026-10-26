@@ -48,93 +48,97 @@
         }) }}
         {% endif %}
 
-        <form action="/mvp-front-office/v6/my-holdings/export-animals" method="post" novalidate>
+        <div class="govuk-grid-row">
+          <div class="govuk-grid-column-two-thirds">
+            <form action="/mvp-front-office/v6/my-holdings/export-animals" method="post" novalidate>
 
-          {{ govukCheckboxes({
-            name: "columns",
-            fieldset: {
-              legend: {
-                text: "Which columns do you want to include?",
-                classes: "govuk-fieldset__legend--m"
-              }
-            },
-            hint: {
-              text: "Select all that apply"
-            },
-            items: [
-              { value: "cph", text: "County Parish Holding number", checked: true },
-              { value: "earTagNumber", text: "Animal ear tag number", checked: true },
-              { value: "dateOfBirth", text: "Date of birth", checked: true },
-              { value: "dateOfRegistration", text: "Date of registration" },
-              { value: "onHoldingDate", text: "Date on holding" },
-              { value: "sex", text: "Sex", checked: true },
-              { value: "breedName", text: "Breed name" },
-              { value: "breedCode", text: "Breed code" },
-              { value: "status", text: "Status" },
-              { value: "damType", text: "Dam type" },
-              { value: "geneticDamEarTagNumber", text: "Genetic dam ear tag number" },
-              { value: "surrogateDamEarTagNumber", text: "Surrogate dam ear tag number" },
-              { value: "sireEarTagNumber", text: "Sire ear tag number" },
-              { value: "sireName", text: "Sire name" }
-            ]
-          }) }}
+              {{ govukCheckboxes({
+                name: "columns",
+                fieldset: {
+                  legend: {
+                    text: "Which columns do you want to include?",
+                    classes: "govuk-fieldset__legend--m"
+                  }
+                },
+                hint: {
+                  text: "Select all that apply"
+                },
+                items: [
+                  { value: "cph", text: "County Parish Holding number", checked: true },
+                  { value: "earTagNumber", text: "Animal ear tag number", checked: true },
+                  { value: "dateOfBirth", text: "Date of birth", checked: true },
+                  { value: "dateOfRegistration", text: "Date of registration" },
+                  { value: "onHoldingDate", text: "Date on holding" },
+                  { value: "sex", text: "Sex", checked: true },
+                  { value: "breedName", text: "Breed name" },
+                  { value: "breedCode", text: "Breed code" },
+                  { value: "status", text: "Status" },
+                  { value: "damType", text: "Dam type" },
+                  { value: "geneticDamEarTagNumber", text: "Genetic dam ear tag number" },
+                  { value: "surrogateDamEarTagNumber", text: "Surrogate dam ear tag number" },
+                  { value: "sireEarTagNumber", text: "Sire ear tag number" },
+                  { value: "sireName", text: "Sire name" }
+                ]
+              }) }}
 
-          <div class="govuk-form-group govuk-!-margin-top-8">
-            <fieldset class="govuk-fieldset">
-              <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
-                Date range (optional)
-              </legend>
-              <div id="date-range-hint" class="govuk-hint">
-                Only cattle born between the dates you enter will be included. Leave blank to include all.
-              </div>
-
-              <div class="moj-datepicker govuk-!-margin-bottom-6" data-module="moj-date-picker">
-                <div class="govuk-form-group">
-                  <label class="govuk-label govuk-label--s" for="date-from">
-                    From
-                  </label>
-                  <div id="date-from-hint" class="govuk-hint">
-                    For example, 1/4/2023.
+              <div class="govuk-form-group govuk-!-margin-top-8">
+                <fieldset class="govuk-fieldset">
+                  <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+                    Date range (optional)
+                  </legend>
+                  <div id="date-range-hint" class="govuk-hint">
+                    Only cattle born between the dates you enter will be included. Leave blank to include all.
                   </div>
-                  <input class="govuk-input moj-js-datepicker-input" id="date-from" name="date-from" type="text" aria-describedby="date-from-hint" autocomplete="off" value="{{ data['date-from'] }}">
-                </div>
+
+                  <div class="moj-datepicker govuk-!-margin-bottom-6" data-module="moj-date-picker">
+                    <div class="govuk-form-group">
+                      <label class="govuk-label govuk-label--s" for="date-from">
+                        From
+                      </label>
+                      <div id="date-from-hint" class="govuk-hint">
+                        Click the calendar icon and select the correct date, or type the date manually for example, 01/02/2026
+                      </div>
+                      <input class="govuk-input moj-js-datepicker-input" id="date-from" name="date-from" type="text" aria-describedby="date-from-hint" autocomplete="off" value="{{ data['date-from'] }}">
+                    </div>
+                  </div>
+
+                  <div class="moj-datepicker" data-module="moj-date-picker">
+                    <div class="govuk-form-group">
+                      <label class="govuk-label govuk-label--s" for="date-to">
+                        To
+                      </label>
+                      <div id="date-to-hint" class="govuk-hint">
+                        Click the calendar icon and select the correct date, or type the date manually for example, 01/02/2026
+                      </div>
+                      <input class="govuk-input moj-js-datepicker-input" id="date-to" name="date-to" type="text" aria-describedby="date-to-hint" autocomplete="off" value="{{ data['date-to'] }}">
+                    </div>
+                  </div>
+                </fieldset>
               </div>
 
-              <div class="moj-datepicker" data-module="moj-date-picker">
-                <div class="govuk-form-group">
-                  <label class="govuk-label govuk-label--s" for="date-to">
-                    To
-                  </label>
-                  <div id="date-to-hint" class="govuk-hint">
-                    For example, 30/4/2024.
-                  </div>
-                  <input class="govuk-input moj-js-datepicker-input" id="date-to" name="date-to" type="text" aria-describedby="date-to-hint" autocomplete="off" value="{{ data['date-to'] }}">
-                </div>
-              </div>
-            </fieldset>
+              {{ govukRadios({
+                name: "file-format",
+                fieldset: {
+                  legend: {
+                    text: "File format",
+                    classes: "govuk-fieldset__legend--m"
+                  }
+                },
+                items: [
+                  { value: "csv", text: "CSV", checked: true },
+                  { value: "xlsx", text: "XLSX" },
+                  { value: "pdf", text: "PDF" }
+                ]
+              }) }}
+
+              {{ govukButton({
+                text: "Download",
+                preventDoubleClick: true
+              }) }}
+
+            </form>
           </div>
-
-          {{ govukRadios({
-            name: "file-format",
-            fieldset: {
-              legend: {
-                text: "File format",
-                classes: "govuk-fieldset__legend--m"
-              }
-            },
-            items: [
-              { value: "csv", text: "CSV", checked: true },
-              { value: "xlsx", text: "XLSX" },
-              { value: "pdf", text: "PDF" }
-            ]
-          }) }}
-
-          {{ govukButton({
-            text: "Download",
-            preventDoubleClick: true
-          }) }}
-
-        </form>
+        </div>
 
       </div>
     </div>
