@@ -39,7 +39,7 @@
                 </h2>
 
                 <p class="govuk-body">
-                  You can use all or part of the animal ear tag number, or search by sex or breed.
+                  Use all or part of the animal ear tag number for example the last 3 digits, or search by sex or breed.
                 </p>
 
                 <div class="search-input-wrapper">
@@ -192,6 +192,12 @@
           {% endif %}
           {% else %}
           {% endif %}
+
+          {{ govukButton({
+            text: "Download a list of cattle on your holding",
+            classes: "govuk-button--secondary",
+            href: "/mvp-front-office/v6/my-holdings/export-cattle-data"
+          }) }}
   </div>
 </div>
 
