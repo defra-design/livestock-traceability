@@ -17,7 +17,7 @@ function getErrorRecords() {
       date: '11-08-2025',
       dateOfBirth: '09-07-2025',
       dateOfRegistration: '10-08-2025',
-      category: 'Late birth registration',
+      category: 'Late registration',
       reason: 'Date of birth appears to be over the 27-day deadline to report a calf birth.',
       evidence: 'A Notice of Registration will be issued. You will need to go through the BCMS appeals process.',
       status: 'Refused'
@@ -28,7 +28,7 @@ function getErrorRecords() {
       date: '12-08-2025',
       dateOfBirth: '29-07-2025',
       dateOfRegistration: '10-08-2025',
-      category: 'Dam calving interval',
+      category: 'Dam calved again too soon',
       reason: 'The genetic dam appears to have given birth in the past 240 days.',
       evidence: 'You may need to provide a DNA test confirming the calf and dam to confirm parentage. Please provide the information within 27 days of the animal’s date of birth.',
       status: 'Pending'
@@ -39,9 +39,20 @@ function getErrorRecords() {
       date: '13-08-2025',
       dateOfBirth: '29-07-2025',
       dateOfRegistration: '10-08-2025',
-      category: 'Dam age',
+      category: 'Dam is too young',
       reason: 'The genetic dam appears to be under 15-months old',
       evidence: 'You may need to provide calving records for the dam to confirm its age. Please provide the information within 27 days of the animal’s date of birth.',
+      status: 'Action needed'
+    },
+    {
+      id: '3104-2276',
+      earTagNumber: 'UK324537467889',
+      date: '14-08-2025',
+      dateOfBirth: '30-07-2025',
+      dateOfRegistration: '11-08-2025',
+      category: 'Excessive multiple calving',
+      reason: 'The genetic dam appears to have given birth to more calves in a single calving than expected.',
+      evidence: 'You may need to provide a DNA test confirming the calves and dam to confirm parentage. Please provide the information within 27 days of the animal’s date of birth.',
       status: 'Action needed'
     }
   ]

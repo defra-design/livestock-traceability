@@ -1,7 +1,6 @@
 {% extends "layouts/main.html" %}
 
 {% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
-{% from "govuk/components/date-input/macro.njk" import govukDateInput %}
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
 {% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
@@ -89,43 +88,29 @@
                 Only cattle born between the dates you enter will be included. Leave blank to include all.
               </div>
 
-              {{ govukDateInput({
-                id: "date-from",
-                namePrefix: "date-from",
-                fieldset: {
-                  legend: {
-                    text: "From",
-                    classes: "govuk-fieldset__legend--s"
-                  }
-                },
-                hint: {
-                  text: "For example, 1 4 2023."
-                },
-                items: [
-                  { name: "day", classes: "govuk-input--width-2" },
-                  { name: "month", classes: "govuk-input--width-2" },
-                  { name: "year", classes: "govuk-input--width-4" }
-                ]
-              }) }}
+              <div class="moj-datepicker govuk-!-margin-bottom-6" data-module="moj-date-picker">
+                <div class="govuk-form-group">
+                  <label class="govuk-label govuk-label--s" for="date-from">
+                    From
+                  </label>
+                  <div id="date-from-hint" class="govuk-hint">
+                    For example, 1/4/2023.
+                  </div>
+                  <input class="govuk-input moj-js-datepicker-input" id="date-from" name="date-from" type="text" aria-describedby="date-from-hint" autocomplete="off" value="{{ data['date-from'] }}">
+                </div>
+              </div>
 
-              {{ govukDateInput({
-                id: "date-to",
-                namePrefix: "date-to",
-                fieldset: {
-                  legend: {
-                    text: "To",
-                    classes: "govuk-fieldset__legend--s"
-                  }
-                },
-                hint: {
-                  text: "For example, 30 4 2024."
-                },
-                items: [
-                  { name: "day", classes: "govuk-input--width-2" },
-                  { name: "month", classes: "govuk-input--width-2" },
-                  { name: "year", classes: "govuk-input--width-4" }
-                ]
-              }) }}
+              <div class="moj-datepicker" data-module="moj-date-picker">
+                <div class="govuk-form-group">
+                  <label class="govuk-label govuk-label--s" for="date-to">
+                    To
+                  </label>
+                  <div id="date-to-hint" class="govuk-hint">
+                    For example, 30/4/2024.
+                  </div>
+                  <input class="govuk-input moj-js-datepicker-input" id="date-to" name="date-to" type="text" aria-describedby="date-to-hint" autocomplete="off" value="{{ data['date-to'] }}">
+                </div>
+              </div>
             </fieldset>
           </div>
 
