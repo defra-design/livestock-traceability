@@ -344,15 +344,17 @@
           <label class="govuk-label govuk-label--m" for="dob">
             Date of birth
           </label>
+          {#
           <div id="dob-hint" class="govuk-hint">
             Click the calendar icon and select the correct date, or type the date manually for example, 01/02/2026
           </div>
+          #}
           {% if errors['dob'] %}
           <p id="dob-error" class="govuk-error-message">
             <span class="govuk-visually-hidden">Error:</span> {{ errors['dob'] }}
           </p>
           {% endif %}
-          <input class="govuk-input moj-js-datepicker-input {% if errors['dob'] %}govuk-input--error{% endif %}" id="dob" name="dob" type="text" aria-describedby="dob-hint{% if errors['dob'] %} dob-error{% endif %}" autocomplete="off" value="{{ data['dob'] }}">
+          <input class="govuk-input moj-js-datepicker-input {% if errors['dob'] %}govuk-input--error{% endif %}" id="dob" name="dob" type="text" {% if errors['dob'] %}aria-describedby="dob-error"{% endif %} autocomplete="off" value="{{ data['dob'] }}">
         </div>
       </div>
 
