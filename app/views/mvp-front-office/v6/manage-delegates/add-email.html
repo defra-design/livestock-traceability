@@ -4,6 +4,7 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 
 {% set pageName="What is your delegate's email address?" %}
+{% set serviceName = "View and report livestock information" %}
 
 {% block header %}
 
@@ -47,7 +48,7 @@
           classes: "govuk-label--l"
         },
         hint: {
-          text: "Your delegate will receive an email invitation from the Cattle Service Prototype after you submit the form."
+          text: "Your delegate will receive an email invitation from the View and report livestock information service after you submit the form."
         },
         errorMessage: errors['delegate-email'] and { text: errors['delegate-email'] },
         id: "delegate-email",

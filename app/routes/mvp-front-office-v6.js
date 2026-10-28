@@ -319,6 +319,16 @@ router.get('/mvp-front-office/v6/register-animal/submission-detail/:reference', 
     return res.redirect('/mvp-front-office/v6/my-holdings/register-cattle-birth')
   }
 
+  // Link ear tags to existing animals; unknown ones get a dead link
+  const knownTags = [...req.session.data.livestockSameHerd.animals, ...req.session.data.pendingValidation.animals]
+    .map((a) => a.earTagNumber.toLowerCase())
+  registration.animals = registration.animals.map((animal) => ({
+    ...animal,
+    href: knownTags.includes(animal.earTagNumber.toLowerCase())
+      ? `/mvp-front-office/v6/my-holdings/cattle/${animal.earTagNumber}`
+      : '#'
+  }))
+
   res.render('mvp-front-office/v6/register-animal/submission-detail', { registration })
 })
 

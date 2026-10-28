@@ -1,8 +1,7 @@
 {% extends "layouts/main.html" %}
 
-{% set pageName="Animals on holding" %}
-{% set activeNavItem = "my-holdings" %}
-{% set sideNavActive = "animals-on-holding" %}
+{% set pageName="In progress" %}
+{% set serviceName = "View and report livestock information" %}
 
 {% block header %}
 
@@ -22,137 +21,86 @@
   <div class="govuk-grid-column-full">
 
       <h1 class="govuk-heading-l">
-        Pending validation
+        In progress
       </h1>
 
-      <p class="govuk-body" aria-live="polite">
-            {% if search %}
-            {{ cattle.length }}
-            {% if cattle.length === 1 %}
-            registered cattle record matches
-            {% else %}
-            registered cattle records match
-            {% endif %}
-            <strong>'{{ search }}'</strong>
-            {% else %}
-            <!--  {{ cattle.length }} registered cattle-->
-            {% endif %}
-          </p>
+    <div class="govuk-inset-text govuk-!-margin-top-0">
+      Changes may take up to 24 hours to move from In Progress to Cattle on Holding, and to flag any issues in your Animal error record.
+    </div>
 
-      {% if search %}
-      <p class="govuk-body">
-        <a class="govuk-link" href="/mvp-front-office/v6/my-holdings/pending-validation">Clear search</a>
-      </p>
-      {% endif %}
-
-        {% if cattle.length %}
         {% from "govuk/components/table/macro.njk" import govukTable %}
-        {% from "govuk/components/pagination/macro.njk" import govukPagination %}
+        {% from "govuk/components/tabs/macro.njk" import govukTabs %}
 
-        {% set rows = [] %}
-        {% for animal in cattle %}
-        {% set row = [
-        {
-        html: '<a class="govuk-link" href="/mvp-front-office/v6/my-holdings/cattle/' + animal.earTagNumber + '">' + (animal.earTagNumber | formatReference) + '</a>',
-        classes: "app-table__cell--no-wrap"
-        },
-        {
-        text: animal.dateOfBirth | shortDateFormat,
-        classes: "app-table__cell--no-wrap",
-        attributes: {
-        "data-sort-value": animal.dateOfBirth.slice(6,10) + animal.dateOfBirth.slice(3,5) + animal.dateOfBirth.slice(0,2)
-        }
-        },
-        {
-        text: animal.dateOfBirth | animalAge,
-        classes: "app-table__cell--no-wrap",
-        attributes: {
-        "data-sort-value": animal.dateOfBirth.slice(6,10) + animal.dateOfBirth.slice(3,5) + animal.dateOfBirth.slice(0,2)
-        }
-        },
-        {
-        text: animal.dateOfRegistration | shortDateFormat,
-        classes: "app-table__cell--no-wrap",
-        attributes: {
-        "data-sort-value": animal.dateOfRegistration.slice(6,10) + animal.dateOfRegistration.slice(3,5) + animal.dateOfRegistration.slice(0,2)
-        }
-        },
-        {
-        text: animal.sex,
-        classes: "app-table__cell--no-wrap"
-        },
-        {
-        html: '<abbr title="' + animal.breed.name + '">' + animal.breed.code + '</abbr><span class="govuk-visually-hidden">, ' + animal.breed.name + '</span>',
-        classes: "app-table__cell--no-wrap"
-        }
-        ] %}
-        {% set rows = (rows.push(row), rows) %}
-        {% endfor %}
-
-        <div class="app-dashboard-table-wrapper">
+        {% set birthsHtml %}
+          <h2 class="govuk-heading-m">Births</h2>
           {{ govukTable({
-          attributes: {
-          "data-module": "moj-sortable-table"
-          },
-          caption: "Animals on holding",
-          captionClasses: "govuk-visually-hidden",
-          head: [
-          {
-          text: "Ear tag number",
-          classes: "app-table__cell--no-wrap",
-          attributes: {
-          "aria-sort": "ascending"
-          }
-          },
-          {
-          text: "Date of birth",
-          classes: "app-table__cell--no-wrap",
-          attributes: {
-          "aria-sort": "none"
-          }
-          },
-          {
-          text: "Age",
-          classes: "app-table__cell--no-wrap",
-          attributes: {
-          "aria-sort": "none"
-          }
-          },
-          {
-          text: "Date on holding",
-          classes: "app-table__cell--no-wrap",
-          attributes: {
-          "aria-sort": "none"
-          }
-          },
-          {
-          text: "Sex",
-          classes: "app-table__cell--no-wrap",
-          attributes: {
-          "aria-sort": "none"
-          }
-          },
-          {
-          text: "Breed",
-          classes: "app-table__cell--no-wrap",
-          attributes: {
-          "aria-sort": "none"
-          }
-          }
-          ],
-          rows: rows
+            caption: "Births pending validation",
+            captionClasses: "govuk-visually-hidden",
+            head: [
+              { text: "Ear tag number" },
+              { text: "Date of birth" },
+              { text: "Sex" },
+              { text: "Breed" },
+              { text: "Date submitted" }
+            ],
+            rows: [
+              [
+                { html: '<a class="govuk-link" href="#">UK 123456 301550</a>' },
+                { text: "2 Sep 2026" },
+                { text: "Female" },
+                { html: '<abbr title="Hereford">HER</abbr><span class="govuk-visually-hidden">, Hereford</span>' },
+                { text: "10 Sep 2026" }
+              ],
+              [
+                { html: '<a class="govuk-link" href="#">UK 123456 301551</a>' },
+                { text: "2 Sep 2026" },
+                { text: "Male" },
+                { html: '<abbr title="Hereford">HER</abbr><span class="govuk-visually-hidden">, Hereford</span>' },
+                { text: "10 Sep 2026" }
+              ],
+              [
+                { html: '<a class="govuk-link" href="#">UK 123456 301552</a>' },
+                { text: "5 Sep 2026" },
+                { text: "Female" },
+                { html: '<abbr title="Hereford">HER</abbr><span class="govuk-visually-hidden">, Hereford</span>' },
+                { text: "10 Sep 2026" }
+              ]
+            ]
           }) }}
-        </div>
+        {% endset %}
 
-        <p class="govuk-body">
-          Showing {{ showingFrom }} to {{ showingTo }} of {{ totalCattle }} results
-        </p>
+        {% set movementsHtml %}
+          <h2 class="govuk-heading-m">Movements</h2>
+          {{ govukTable({
+            caption: "Movements pending validation",
+            captionClasses: "govuk-visually-hidden",
+            head: [
+              { text: "Ear tag number" },
+              { text: "Movement date" },
+              { text: "Movement type" }
+            ],
+            rows: [
+              [
+                { html: '<a class="govuk-link" href="#">UK 324537 113234</a>' },
+                { text: "14 Oct 2026" },
+                { text: "Off" }
+              ]
+            ]
+          }) }}
+        {% endset %}
 
-        {% if pagination %}
-        {{ govukPagination(pagination) }}
-        {% endif %}
-        {% else %}
-        {% endif %}
+        {% set deathsHtml %}
+          <h2 class="govuk-heading-m">Deaths</h2>
+          <p class="govuk-body">There are no deaths pending validation.</p>
+        {% endset %}
+
+        {{ govukTabs({
+          items: [
+            { label: "Births (3)", id: "births", panel: { html: birthsHtml } },
+            { label: "Movements (1)", id: "movements", panel: { html: movementsHtml } },
+            { label: "Deaths (0)", id: "deaths", panel: { html: deathsHtml } }
+          ]
+        }) }}
   </div>
 </div>
 

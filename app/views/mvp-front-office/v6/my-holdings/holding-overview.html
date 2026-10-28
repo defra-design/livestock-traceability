@@ -1,6 +1,7 @@
 {% extends "layouts/main.html" %}
 
 {% set pageName=holding.holdingName %}
+{% set serviceName = "View and report livestock information" %}
 {% set activeNavItem = "my-holdings" %}
 {% set sideNavActive = "holding-overview" %}
 
@@ -40,7 +41,7 @@
     </nav>
 
     <div class="govuk-inset-text govuk-!-margin-top-0">
-        Recent changes such as new registrations may take up to 24 hours to appear in your list.
+        Changes such as registrations, movements and deaths may take up to 24 hours to move from In Progress
     </div>
 
     <div class="card">
@@ -63,7 +64,7 @@
                 <a href="/mvp-front-office/v6/my-holdings/pending-validation" class="app-traffic-card app-traffic-card--amber">
                     <span class="app-traffic-card__inner">
                         <span class="app-traffic-card__number">4</span>
-                        <span class="app-traffic-card__label">Pending validation</span>
+                        <span class="app-traffic-card__label">In progress</span>
                     </span>
                 </a>
             </div>

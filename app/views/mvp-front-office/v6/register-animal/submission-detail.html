@@ -8,6 +8,7 @@
 {% endblock %}
 
 {% set pageName="Submission details" %}
+{% set serviceName = "View and report livestock information" %}
 
 {% block beforeContent %}
   {{ govukBackLink({
@@ -28,10 +29,6 @@
   <div class="govuk-grid-column-two-thirds">
 
     <dl class="govuk-summary-list govuk-!-margin-bottom-9">
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">Reference number</dt>
-        <dd class="govuk-summary-list__value">{{ registration.reference }}</dd>
-      </div>
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">Submission date</dt>
         <dd class="govuk-summary-list__value">{{ registration.dateRegistered | shortDateFormat }}</dd>
@@ -80,7 +77,7 @@
       <tbody class="govuk-table__body">
         {% for animal in registration.animals %}
         <tr class="govuk-table__row">
-          <td class="govuk-table__cell">{{ animal.earTagNumber | formatReference }}</td>
+          <td class="govuk-table__cell"><a href="{{ animal.href }}" class="govuk-link">{{ animal.earTagNumber | formatReference }}</a></td>
           <td class="govuk-table__cell">{{ animal.dateOfBirth | shortDateFormat }}</td>
           <td class="govuk-table__cell">{{ animal.dateOnHolding | shortDateFormat }}</td>
           <td class="govuk-table__cell">{{ animal.sex }}</td>
