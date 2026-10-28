@@ -1,0 +1,107 @@
+{% extends base + "/layout.html" %}
+{% set pageName = "When did the cattle move at the other holding?" %}
+{% set backHref = base + "/movement-date" %}
+
+{% block stylesheets %}
+  {{ super() }}
+  <noscript>
+    <style>
+      .govuk-radios__conditional--hidden { display: block !important; }
+    </style>
+  </noscript>
+{% endblock %}
+
+{% block journeyContent %}
+  <form method="post" action="{{ base }}/other-movement-date" novalidate>
+    <div class="govuk-form-group{% if errors %} govuk-form-group--error{% endif %}">
+      <fieldset class="govuk-fieldset" aria-describedby="other-date-hint">
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+          <h1 class="govuk-fieldset__heading">
+            {% if isOn %}
+              Did the cattle leave the sending holding on {{ originalDate }}?
+            {% else %}
+              Did the cattle arrive at the receiving holding on {{ originalDate }}?
+            {% endif %}
+          </h1>
+        </legend>
+
+        <p class="govuk-hint" id="other-date-hint">
+          {% if isOn %}
+            This is the date you reported the cattle arriving at your holding.
+          {% else %}
+            This is the date you reported the cattle leaving your holding.
+          {% endif %}
+        </p>
+
+        {% if errors %}
+          <p class="govuk-error-message" id="other-date-error">
+            <span class="govuk-visually-hidden">Error:</span>
+            {{ errors[0].message }}
+          </p>
+        {% endif %}
+
+        {% set choice = posted.otherDateChoice if posted else draft.otherDateChoice %}
+        {% set day = posted.otherDateDay if posted else draft.otherDateDay %}
+        {% set month = posted.otherDateMonth if posted else draft.otherDateMonth %}
+        {% set year = posted.otherDateYear if posted else draft.otherDateYear %}
+
+        <div class="govuk-radios" data-module="govuk-radios">
+          <div class="govuk-radios__item">
+            <input class="govuk-radios__input" id="other-date-same" type="radio"
+              name="rfm-other-date-choice" value="same" {% if choice == 'same' %}checked{% endif %}>
+            <label class="govuk-label govuk-radios__label" for="other-date-same">Yes</label>
+          </div>
+
+          <div class="govuk-radios__item">
+            <input class="govuk-radios__input" id="other-date-different" type="radio"
+              name="rfm-other-date-choice" value="different" data-aria-controls="conditional-other-date"
+              {% if choice == 'different' %}checked{% endif %}>
+            <label class="govuk-label govuk-radios__label" for="other-date-different">{% if isOn %}No, they left on a different date{% else %}No, they arrived on a different date{% endif %}</label>
+          </div>
+
+          <div class="govuk-radios__conditional{% if choice != 'different' %} govuk-radios__conditional--hidden{% endif %}" id="conditional-other-date">
+            <div class="govuk-form-group">
+              <fieldset class="govuk-fieldset" role="group" aria-describedby="other-date-fields-hint">
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+                  {% if isOn %}What date did the cattle leave the sending holding?{% else %}What date did the cattle arrive at the receiving holding?{% endif %}
+                </legend>
+                <div class="govuk-hint" id="other-date-fields-hint">For example, 15 10 2026</div>
+                <div class="govuk-date-input" id="other-movement-date-input">
+                  <div class="govuk-date-input__item">
+                    <div class="govuk-form-group">
+                      <label class="govuk-label govuk-date-input__label" for="other-day">Day</label>
+                      <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="other-day"
+                        name="rfm-other-day" inputmode="numeric" value="{{ day }}">
+                    </div>
+                  </div>
+                  <div class="govuk-date-input__item">
+                    <div class="govuk-form-group">
+                      <label class="govuk-label govuk-date-input__label" for="other-month">Month</label>
+                      <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="other-month"
+                        name="rfm-other-month" inputmode="numeric" value="{{ month }}">
+                    </div>
+                  </div>
+                  <div class="govuk-date-input__item">
+                    <div class="govuk-form-group">
+                      <label class="govuk-label govuk-date-input__label" for="other-year">Year</label>
+                      <input class="govuk-input govuk-date-input__input govuk-input--width-4" id="other-year"
+                        name="rfm-other-year" inputmode="numeric" value="{{ year }}">
+                    </div>
+                  </div>
+                </div>
+              </fieldset>
+            </div>
+          </div>
+
+          <div class="govuk-radios__divider">or</div>
+          <div class="govuk-radios__item">
+            <input class="govuk-radios__input" id="other-date-unknown" type="radio"
+              name="rfm-other-date-choice" value="unknown" {% if choice == 'unknown' %}checked{% endif %}>
+            <label class="govuk-label govuk-radios__label" for="other-date-unknown">I don't know</label>
+          </div>
+        </div>
+      </fieldset>
+    </div>
+    <button class="govuk-button" type="submit">Continue</button>
+  </form>
+{% endblock %}

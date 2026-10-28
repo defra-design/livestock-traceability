@@ -1,14 +1,43 @@
-{% extends base +"/layout.html" %}
+{% extends base + "/layout.html" %}
 {% set pageName = "Enter ear tag numbers" %}
 {% set backHref = base + '/add-method' %}
+
 {% block journeyContent %}
-<h1 class="govuk-heading-l">Enter the ear tag numbers of cattle moving off your holding</h1>
-<form action="{{ base }}/manual" method="post" novalidate>
-<div class="govuk-form-group{% if errors %} govuk-form-group--error{% endif %}">
-<label class="govuk-label govuk-label--m" for="ear-tags">Ear tag numbers</label>
-<div class="govuk-hint" id="ear-tags-hint">Enter one ear tag number per line. You can enter one animal or paste several, for example UK 371234 000001.</div>
-{% if errors %}<p class="govuk-error-message" id="ear-tags-error"><span class="govuk-visually-hidden">Error:</span> {{ errors[0].message }}</p>{% endif %}
-<textarea class="govuk-textarea{% if errors %} govuk-textarea--error{% endif %}" id="ear-tags" rows="10" name="rfm-tags" aria-describedby="ear-tags-hint{% if errors %} ear-tags-error{% endif %}">{{ postedTags or '' }}</textarea>
-</div><button class="govuk-button">Check ear tag numbers</button>
-</form>
+  <form action="{{ base }}/manual" method="post" novalidate>
+    <div class="govuk-form-group{% if errors %} govuk-form-group--error{% endif %}">
+      <h1 class="govuk-label-wrapper">
+        <label class="govuk-label govuk-label--l" for="ear-tags">
+          {% if isOn %}
+            Enter the ear tag numbers of cattle moving on to your holding
+          {% else %}
+            Enter the ear tag numbers of cattle moving off your holding
+          {% endif %}
+        </label>
+      </h1>
+
+      <div class="govuk-hint" id="ear-tags-hint">
+        Enter one ear tag number per line. You can enter one animal or paste several,
+        for example UK 371234 000001.
+      </div>
+
+      {% if errors %}
+        <p class="govuk-error-message" id="ear-tags-error">
+          <span class="govuk-visually-hidden">Error:</span>
+          {{ errors[0].message }}
+        </p>
+      {% endif %}
+
+      <textarea
+        class="govuk-textarea{% if errors %} govuk-textarea--error{% endif %}"
+        id="ear-tags"
+        name="rfm-tags"
+        rows="10"
+        aria-describedby="ear-tags-hint{% if errors %} ear-tags-error{% endif %}"
+      >{{ postedTags or '' }}</textarea>
+    </div>
+
+    <button class="govuk-button" type="submit">
+      Continue
+    </button>
+  </form>
 {% endblock %}

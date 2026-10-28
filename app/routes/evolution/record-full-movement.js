@@ -44,7 +44,7 @@ const yesNo = a => a === 'yes' || a === 'no'
 const err = (field, message) => ({ field, message })
 
 function blank () {
-  return { direction: 'off', animals: [], pending: null, lastBatch: [], lastBatchIsAdditional: false, lastFailures: [], authorisation: '', method: '', dateChoice: '', dateDay: '', dateMonth: '', dateYear: '',
+  return { direction: 'off', animals: [], pending: null, lastBatch: [], lastBatchIsAdditional: false, lastFailures: [], authorisation: '', method: '', dateChoice: '', dateDay: '', dateMonth: '', dateYear: '', otherDateChoice: '', otherDateDay: '', otherDateMonth: '', otherDateYear: '',
     destinationType: '', destinationId: '', findMethod: '', addressSearch: '', identifierSearch: '', otherDestination: null, confirmedDestination: false, confirmation: null }
 }
 function data (req) {
@@ -69,6 +69,39 @@ function requireAnimals (req, res) { if (!data(req).animals.length) { go(res, '/
 function requireDate (req, res) {
   if (!requireAuthorisation(req, res)) return false
   if (movementDate(data(req).dateDay, data(req).dateMonth, data(req).dateYear).message) { go(res, '/movement-date'); return false }
+  return true
+}
+// The initial date is the date for the holding making the report. The other
+// date can be the same, different, or not known to this keeper.
+function otherDateResult (d) {
+  if (!['same', 'different', 'unknown'].includes(d.otherDateChoice)) return { message: 'Select whether the dates were the same' }
+  const own = movementDate(d.dateDay, d.dateMonth, d.dateYear)
+  if (own.message) return { message: own.message }
+  if (d.otherDateChoice === 'unknown') return { display: 'Not known', known: false }
+  if (d.otherDateChoice === 'same') return { display: own.display, known: true }
+  const other = movementDate(d.otherDateDay, d.otherDateMonth, d.otherDateYear)
+  if (other.message) return other
+  const ownTime = Date.UTC(Number(d.dateYear), Number(d.dateMonth) - 1, Number(d.dateDay))
+  const otherTime = Date.UTC(Number(d.otherDateYear), Number(d.otherDateMonth) - 1, Number(d.otherDateDay))
+  if (otherTime === ownTime) return { message: 'Select Yes if the cattle moved on the same day' }
+  // Arrival cannot precede departure: which date is which depends on direction.
+  if ((d.direction === 'off' && otherTime < ownTime) || (d.direction === 'on' && ownTime < otherTime)) {
+    return { message: 'The arrival date cannot be before the departure date' }
+  }
+  return { display: other.display, known: true }
+}
+function movementDates (d) {
+  const own = movementDate(d.dateDay, d.dateMonth, d.dateYear).display
+  const other = otherDateResult(d)
+  return {
+    off: d.direction === 'off' ? own : other.display,
+    on: d.direction === 'on' ? own : other.display,
+    otherDateChoice: d.otherDateChoice
+  }
+}
+function requireOtherDate (req, res) {
+  if (!requireDate(req, res)) return false
+  if (otherDateResult(data(req)).message) { go(res, '/other-movement-date'); return false }
   return true
 }
 function requireDestination (req, res) {
@@ -163,6 +196,7 @@ function clearDestination (d) {
 function saveDate (d, parts, option) {
   d.dateDay = parts.day; d.dateMonth = parts.month; d.dateYear = parts.year
   d.dateChoice = option; d.confirmation = null
+  // The other-date response remains saved and is revalidated against any changed date.
 }
 
 // Register routes on the exported Express router.
@@ -274,8 +308,45 @@ function saveDate (d, parts, option) {
     const parsed = movementDate(parts.day, parts.month, parts.year)
     if (parsed.message) return invalid(req, res, 'movement-date', [err('movement-date-error', parsed.message)], { quickDates: quickDates(), chosen, posted: parts })
     saveDate(d, parts, chosen)
+    return go(res, '/other-movement-date')
+  })
+  router.get(`${BASE}/other-movement-date`, (req, res) => {
+    if (!requireDate(req, res)) return
+    return render(req, res, 'other-movement-date', {
+      originalDate: movementDate(data(req).dateDay, data(req).dateMonth, data(req).dateYear).display
+    })
+  })
+
+  router.post(`${BASE}/other-movement-date`, (req, res) => {
+    if (!requireDate(req, res)) return
+    const d = data(req)
+    const choice = strip(req.body['rfm-other-date-choice'])
+    if (!['same', 'different', 'unknown'].includes(choice)) {
+      return invalid(req, res, 'other-movement-date', [err('other-date-error', 'Select whether the cattle moved on the same day')], {
+        originalDate: movementDate(d.dateDay, d.dateMonth, d.dateYear).display
+      })
+    }
+    const proposed = { ...d,
+      otherDateChoice: choice,
+      otherDateDay: strip(req.body['rfm-other-day']),
+      otherDateMonth: strip(req.body['rfm-other-month']),
+      otherDateYear: strip(req.body['rfm-other-year'])
+    }
+    const result = otherDateResult(proposed)
+    if (result.message) {
+      return invalid(req, res, 'other-movement-date', [err('other-date-error', result.message)], {
+        originalDate: movementDate(d.dateDay, d.dateMonth, d.dateYear).display,
+        posted: proposed
+      })
+    }
+    d.otherDateChoice = choice
+    d.otherDateDay = choice === 'different' ? proposed.otherDateDay : ''
+    d.otherDateMonth = choice === 'different' ? proposed.otherDateMonth : ''
+    d.otherDateYear = choice === 'different' ? proposed.otherDateYear : ''
+    d.confirmation = null
     return go(res, d.direction === 'on' ? '/check-answers' : '/previous-destinations')
   })
+
   router.get(`${BASE}/previous-destinations`, (req, res) => {
     if (data(req).direction !== 'on' && !requireDate(req, res)) return
     return render(req, res, 'previous-destinations', { previousDestinations: PREVIOUS_IDS.map(id => DESTINATIONS.find(x => x.id === id)).filter(Boolean).slice(0, 10) })
@@ -326,14 +397,28 @@ function saveDate (d, parts, option) {
   })
   router.get(`${BASE}/destination-address`, (req, res) => {
     if (!requireType(req, res)) return
-    const search = strip(req.query.q) || data(req).addressSearch
-    return render(req, res, 'destination-address', { search })
+    const d = data(req)
+    // Retain separate fields for this HMRC-style postcode lookup.
+    return render(req, res, 'destination-address', {
+      postcode: d.addressPostcode || '',
+      property: d.addressProperty || ''
+    })
   })
   router.post(`${BASE}/destination-address`, (req, res) => {
     if (!requireType(req, res)) return
-    const search = strip(req.body['rfm-address-search'])
-    if (!search) return invalid(req, res, 'destination-address', [err('address-search-error', 'Enter an address or postcode')], { search })
+    const postcode = strip(req.body['rfm-location-postcode'])
+    const property = strip(req.body['rfm-location-property'])
+    if (!postcode) {
+      return invalid(req, res, 'destination-address', [
+        err('location-postcode-error', 'Enter a postcode')
+      ], { postcode, property })
+    }
     const d = data(req)
+    d.addressPostcode = postcode
+    d.addressProperty = property
+    // Existing registered-location matching accepts individual search words.
+    // Keep addressSearch for the existing results and confirmation routes.
+    const search = [property, postcode].filter(Boolean).join(' ')
     d.addressSearch = search
     const results = searchDestinations(d, search)
     if (results.length === 1) {
@@ -392,19 +477,19 @@ function saveDate (d, parts, option) {
   })
   router.get(`${BASE}/check-answers`, (req, res) => {
     if (!requireDestination(req, res)) return
-    if (!requireDate(req, res)) return
+    if (!requireOtherDate(req, res)) return
     if (!data(req).confirmedDestination || getDestination(data(req)).status === 'Closed') return go(res, '/confirm-destination')
     const d = data(req)
-    return render(req, res, 'check-answers', { destination: getDestination(d), movement: movementDate(d.dateDay, d.dateMonth, d.dateYear), animals: rows(d), groups: groups(d), hasRestrictions: hasRestrictions(d) })
+    return render(req, res, 'check-answers', { destination: getDestination(d), movement: movementDate(d.dateDay, d.dateMonth, d.dateYear), animals: rows(d), groups: groups(d), hasRestrictions: hasRestrictions(d), dates: movementDates(d) })
   })
   router.post(`${BASE}/submit`, (req, res) => {
     if (!requireDestination(req, res)) return
-    if (!requireDate(req, res)) return
+    if (!requireOtherDate(req, res)) return
     const d = data(req)
     if (!d.confirmedDestination || getDestination(d).status === 'Closed') return go(res, '/confirm-destination')
     if (!d.confirmation) d.confirmation = {
       reference: (d.direction === 'on' ? 'MI-' : 'MO-') + String(Math.floor(Math.random() * 900000) + 100000),
-      direction: d.direction, destination: getDestination(d), date: movementDate(d.dateDay, d.dateMonth, d.dateYear).display, animals: d.animals.slice(), authorisation: d.authorisation
+      direction: d.direction, destination: getDestination(d), date: movementDate(d.dateDay, d.dateMonth, d.dateYear).display, offDate: movementDates(d).off, onDate: movementDates(d).on, animals: d.animals.slice(), authorisation: d.authorisation
     }
     return go(res, '/confirmation')
   })

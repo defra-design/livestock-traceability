@@ -175,26 +175,26 @@
   <div class="govuk-!-margin-bottom-4">
 
     <p class="govuk-body govuk-!-margin-bottom-2">
-      <strong>{{ movements | length }} movements matching</strong>
-    </p>
+      {{ movements | length }} movements matching
+
 
     {% if filter != 'all' %}
-      <p class="govuk-body govuk-!-margin-bottom-1">
-        Status: <strong>{{ labels[filter] }}</strong>
-      </p>
+        status <strong>'{{ labels[filter] }}'</strong>
     {% endif %}
 
     {% if actionFilter != 'all' %}
-      <p class="govuk-body govuk-!-margin-bottom-1">
-        Action with:
-        <strong>
+{% if filter != 'all' %}
+        and
+    {% endif %}
+       action with
+        <strong>'
           {% if actionFilter == 'you' %}
             You
           {% elif actionFilter == 'other' %}
             Other keeper
           {% elif actionFilter == 'bcms' %}
             BCMS
-          {% endif %}
+          {% endif %}'
         </strong>
       </p>
     {% endif %}

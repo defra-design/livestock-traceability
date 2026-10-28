@@ -1,6 +1,6 @@
 {% extends base +"/layout.html" %}
 {% set pageName = "Check your answers" %}
-{% set backHref = base + ('/movement-date' if isOn else '/confirm-destination') %}
+{% set backHref = base + ('/other-movement-date' if isOn else '/confirm-destination') %}
 {% block content %}
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
@@ -18,9 +18,23 @@
         {% if not isOn %}<dd class="govuk-summary-list__actions"><a href="{{ base }}/previous-destinations" class="govuk-link">Change<span class="govuk-visually-hidden"> destination</span></a></dd>{% endif %}
       </div>
       <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">Movement date</dt>
-        <dd class="govuk-summary-list__value">{{ movement.display }}</dd>
-        <dd class="govuk-summary-list__actions"><a href="{{ base }}/movement-date" class="govuk-link">Change<span class="govuk-visually-hidden"> movement date</span></a></dd>
+        <dt class="govuk-summary-list__key">Date the cattle left the sending holding</dt>
+        <dd class="govuk-summary-list__value">{{ dates.off }}</dd>
+        <dd class="govuk-summary-list__actions">
+          <a href="{{ base }}{% if isOn %}/other-movement-date{% else %}/movement-date{% endif %}" class="govuk-link">
+            Change<span class="govuk-visually-hidden"> departure date</span>
+          </a>
+        </dd>
+      </div>
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Date the cattle arrived at the receiving holding</dt>
+        <dd class="govuk-summary-list__value">{{ dates.on }}</dd>
+        <dd class="govuk-summary-list__actions">
+          <a href="{{ base }}{% if isOn %}/movement-date{% else %}/other-movement-date{% endif %}" class="govuk-link">
+            Change<span class="govuk-visually-hidden"> arrival date</span>
+          </a>
+        </dd>
       </div>
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">Number of cattle</dt>
