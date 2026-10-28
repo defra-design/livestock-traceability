@@ -1,6 +1,7 @@
 {% extends "layouts/main.html" %}
 
 {% set pageName = "Animal error record - " + (record.earTagNumber | formatReference) %}
+{% set serviceName = "View and report livestock information" %}
 
 {% block header %}
   {% include "mvp-front-office/v6/partials/header.html" %}
