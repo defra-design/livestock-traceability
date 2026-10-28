@@ -1,0 +1,18 @@
+{% extends "layouts/main.html" %}
+{% set pageName = "Cattle that could not be added" %}
+{% block beforeContent %}
+<a class="govuk-back-link" href="{{ root }}/{{ movement.id }}/propose/animals">Back to cattle in this movement</a>
+{% endblock %}
+{% block content %}
+<div class="govuk-grid-row"><div class="govuk-grid-column-two-thirds">
+  <span class="govuk-caption-l">Movement {{ movement.id }}</span>
+  <h1 class="govuk-heading-l">{{ failureCount }} {% if failureCount == 1 %}animal could{% else %}cattle could{% endif %} not be added</h1>
+  <p class="govuk-body">These animals have not been included in the movement.</p>
+  <ul class="govuk-list govuk-list--bullet">
+    {% for failure in failures %}
+    <li><strong>{{ failure.value }}</strong> – {{ failure.message }}</li>
+    {% endfor %}
+  </ul>
+  <p class="govuk-body"><a class="govuk-link" href="{{ root }}/{{ movement.id }}/propose/animals">Return to cattle in this movement</a></p>
+</div></div>
+{% endblock %}

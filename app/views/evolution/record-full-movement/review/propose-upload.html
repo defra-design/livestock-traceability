@@ -1,0 +1,19 @@
+{% extends "layouts/main.html" %}
+{% set pageName = "Upload a file of cattle" %}
+{% block beforeContent %}<a class="govuk-back-link" href="{{ root }}/{{ movement.id }}/propose/animals/add-method">Back</a>{% endblock %}
+{% block content %}
+<div class="govuk-grid-row"><div class="govuk-grid-column-two-thirds">
+<h1 class="govuk-heading-l">Upload a file of cattle to add to this movement</h1>
+<p class="govuk-body">Upload a spreadsheet with the ear tag numbers of the cattle that moved.</p>
+<form method="post" action="{{ root }}/{{ movement.id }}/propose/animals/upload" enctype="application/x-www-form-urlencoded" novalidate>
+  <div class="govuk-form-group{% if error %} govuk-form-group--error{% endif %}">
+    <label class="govuk-label govuk-label--m" for="file-upload">Upload file</label>
+    <div class="govuk-hint" id="upload-hint">The file must be a CSV or XLSX and no larger than 10MB.</div>
+    {% if error %}<p class="govuk-error-message" id="upload-error"><span class="govuk-visually-hidden">Error:</span> {{ error }}</p>{% endif %}
+    <input class="govuk-file-upload{% if error %} govuk-file-upload--error{% endif %}" type="file" id="file-upload" name="rfm-file" accept=".csv,.xlsx,text/csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" aria-describedby="upload-hint{% if error %} upload-error{% endif %}">
+  </div>
+  <button class="govuk-button" type="submit">Upload file</button>
+</form>
+<p class="govuk-hint">Prototype only: selecting a CSV or XLSX filename uses three example cattle. The file itself is not uploaded or checked, including its size.</p>
+</div></div>
+{% endblock %}

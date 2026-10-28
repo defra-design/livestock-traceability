@@ -1,0 +1,18 @@
+{% extends "layouts/main.html" %}
+{% set pageName = "How do you want to add cattle?" %}
+{% block beforeContent %}<a class="govuk-back-link" href="{{ root }}/{{ movement.id }}/propose/animals">Back</a>{% endblock %}
+{% block content %}
+<div class="govuk-grid-row"><div class="govuk-grid-column-two-thirds">
+<form method="post" action="{{ root }}/{{ movement.id }}/propose/animals/add-method" novalidate>
+  <div class="govuk-form-group{% if error %} govuk-form-group--error{% endif %}">
+    <fieldset class="govuk-fieldset"><legend class="govuk-fieldset__legend govuk-fieldset__legend--l"><h1 class="govuk-fieldset__heading">How do you want to add cattle?</h1></legend>
+      {% if error %}<p class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> {{ error }}</p>{% endif %}
+      <div class="govuk-radios">
+        <div class="govuk-radios__item"><input class="govuk-radios__input" id="upload" name="method" type="radio" value="upload"><label class="govuk-label govuk-radios__label" for="upload">Upload a file</label></div>
+        <div class="govuk-radios__item"><input class="govuk-radios__input" id="manual" name="method" type="radio" value="manual"><label class="govuk-label govuk-radios__label" for="manual">Enter ear tag numbers manually</label></div>
+      </div>
+    </fieldset>
+  </div>
+  <button class="govuk-button" type="submit">Continue</button>
+</form></div></div>
+{% endblock %}

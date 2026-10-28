@@ -1,0 +1,29 @@
+{% extends "layouts/main.html" %}
+{% set pageName = "Check the cattle to add" %}
+{% block beforeContent %}<a class="govuk-back-link" href="{{ root }}/{{ movement.id }}/propose/animals/{{ pending.method }}">Back</a>{% endblock %}
+{% block content %}
+<div class="govuk-grid-row"><div class="govuk-grid-column-two-thirds">
+<h1 class="govuk-heading-l">Check the cattle to add</h1>
+<p class="govuk-body"><strong>{{ pending.good.length }}</strong> cattle matched. <strong>{{ pending.issues.length }}</strong> ear tag numbers need attention.</p>
+{% if pending.good.length %}
+<h2 class="govuk-heading-m">Cattle ready to add</h2>
+{% endif %}
+</div></div>
+{% if pending.good.length %}
+<div class="govuk-grid-row"><div class="govuk-grid-column-full"><table class="govuk-table"><caption class="govuk-visually-hidden">Cattle ready to add</caption><thead class="govuk-table__head"><tr><th scope="col" class="govuk-table__header">Ear tag number</th><th scope="col" class="govuk-table__header">Breed</th><th scope="col" class="govuk-table__header">Sex</th><th scope="col" class="govuk-table__header">Date of birth</th></tr></thead><tbody>{% for animal in matchedAnimals %}<tr><th scope="row" class="govuk-table__header">{{ animal.tag }}</th><td class="govuk-table__cell"><abbr title="{{ animal.breed.name }}">{{ animal.breed.code }}</abbr><span class="govuk-visually-hidden">, {{ animal.breed.name }}</span></td><td class="govuk-table__cell">{{ animal.sex }}</td><td class="govuk-table__cell">{{ animal.dateOfBirth }}</td></tr>{% endfor %}</tbody></table></div></div>
+{% endif %}
+<div class="govuk-grid-row"><div class="govuk-grid-column-two-thirds">
+{% if pending.issues.length %}
+<div class="govuk-inset-text">The numbers needing attention will not be added until you correct or remove them.</div>
+<h2 class="govuk-heading-m">Ear tag numbers needing attention</h2>
+<ul class="govuk-list govuk-list--bullet">{% for item in pending.issues %}<li><strong>{{ item.value }}</strong> – {{ item.message }}</li>{% endfor %}</ul>
+<form method="post" action="{{ root }}/{{ movement.id }}/propose/animals/check/correct">
+  <div class="govuk-form-group"><label class="govuk-label govuk-label--m" for="corrections">Correct the ear tag numbers</label><div class="govuk-hint">Correct or delete the incorrect lines. The cattle that matched will be kept.</div><textarea class="govuk-textarea" id="corrections" name="corrections" rows="7">{% for item in pending.issues %}{{ item.value }}{% if not loop.last %}
+{% endif %}{% endfor %}</textarea></div>
+  <button class="govuk-button govuk-button--secondary" type="submit">Check corrected ear tags</button>
+</form>
+{% else %}
+<form method="post" action="{{ root }}/{{ movement.id }}/propose/animals/check/add"><button class="govuk-button" type="submit">Add {{ pending.good.length }} cattle to the movement</button></form>
+{% endif %}
+</div></div>
+{% endblock %}

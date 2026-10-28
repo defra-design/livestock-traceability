@@ -29,11 +29,8 @@
   </ul>
 </nav>
 <h2 class="govuk-heading-m">Movement details</h2>
-<dl class="govuk-summary-list">
-  <div class="govuk-summary-list__row">
-    <dt class="govuk-summary-list__key">Date of movement</dt>
-    <dd class="govuk-summary-list__value">{{ movement.date }}</dd>
-  </div>
+<dl class="govuk-summary-list govuk-!-margin-bottom-7">
+
   <div class="govuk-summary-list__row">
     <dt class="govuk-summary-list__key">Moving from</dt>
     <dd class="govuk-summary-list__value">{{ movement.from }}{% if movement.fromAddress %}<br>{{ movement.fromAddress }}{% endif %}</dd>
@@ -46,20 +43,31 @@
     <dt class="govuk-summary-list__key">Number of cattle</dt>
     <dd class="govuk-summary-list__value">{{ movement.count }}</dd>
   </div>
+    <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">Date cattle left</dt>
+    <dd class="govuk-summary-list__value">
+      {{ movement.offDate or 'Not known' }}
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">Date cattle arrived</dt>
+    <dd class="govuk-summary-list__value">
+      {{ movement.onDate or 'Not known' }}
+    </dd>
+  </div>
   <div class="govuk-summary-list__row">
     <dt class="govuk-summary-list__key">Reported by</dt>
     <dd class="govuk-summary-list__value">{{ movement.reportedBy }}</dd>
   </div>
   <div class="govuk-summary-list__row">
     <dt class="govuk-summary-list__key">Reported date</dt>
-    <dd class="govuk-summary-list__value">{{ movement.reportedAt }}</dd>
+    <dd class="govuk-summary-list__value">{{ movement.offDate or '1 November 2026' }}</dd>
   </div>
 </dl>
 </div></div>
 <div class="govuk-grid-row">
-  <div class="govuk-grid-column-two-thirds"><h2 class="govuk-heading-m">Cattle in this movement</h2></div></div>
-<div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
+    <h2 class="govuk-heading-m">Cattle in this movement</h2>
 <table class="govuk-table">
   <caption class="govuk-visually-hidden">Cattle included in movement {{ movement.id }}</caption>
 <thead class="govuk-table__head">

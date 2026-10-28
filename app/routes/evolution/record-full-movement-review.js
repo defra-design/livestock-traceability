@@ -34,7 +34,7 @@ const seed = () => [
 ]
 const LABELS={awaiting:'Awaiting confirmation',changes:'Changes proposed',confirmed:'Confirmed',rejected:'Rejected – awaiting response',disputed:'Disputed',unconfirmed:'Unconfirmed',withdrawn:'Withdrawn'}
 const COLOURS={awaiting:'govuk-tag--blue',changes:'govuk-tag--purple',confirmed:'govuk-tag--green',rejected:'govuk-tag--orange',disputed:'govuk-tag--red',unconfirmed:'govuk-tag--yellow',withdrawn:'govuk-tag--grey'}
-function records(req){const s=req.session.data;if(!Array.isArray(s[KEY]))s[KEY]=seed();const d=s.recordFullMovementV2;if(d&&d.confirmation){const c=d.confirmation;if(!s[KEY].some(x=>x.id===c.reference)){s[KEY].unshift({id:c.reference,direction:c.direction,from:c.direction==='off'?'37/123/4567':c.destination.identifier,to:c.direction==='on'?'37/123/4567':c.destination.identifier,date:c.date,fromAddress:c.direction==='on'?c.destination.address:PREMISES_ADDRESSES['37/123/4567'],toAddress:c.direction==='off'?c.destination.address:PREMISES_ADDRESSES['37/123/4567'],tags:c.animals||[],status:'awaiting',initiator:'you',origin:'You submitted this movement',reportedAt:new Intl.DateTimeFormat('en-GB',{day:'numeric',month:'long',year:'numeric',hour:'numeric',minute:'2-digit',hour12:true,timeZone:'Europe/London'}).format(new Date()),history:[]})}}return s[KEY]}
+function records(req){const s=req.session.data;if(!Array.isArray(s[KEY]))s[KEY]=seed();const d=s.recordFullMovementV2;if(d&&d.confirmation){const c=d.confirmation;if(!s[KEY].some(x=>x.id===c.reference)){s[KEY].unshift({id:c.reference,direction:c.direction,from:c.direction==='off'?'37/123/4567':c.destination.identifier,to:c.direction==='on'?'37/123/4567':c.destination.identifier,date:c.date,offDate:c.offDate || null,onDate:c.onDate || null,fromAddress:c.direction==='on'?c.destination.address:PREMISES_ADDRESSES['37/123/4567'],toAddress:c.direction==='off'?c.destination.address:PREMISES_ADDRESSES['37/123/4567'],tags:c.animals||[],status:'awaiting',initiator:'you',origin:'You submitted this movement',reportedAt:new Intl.DateTimeFormat('en-GB',{day:'numeric',month:'long',year:'numeric',hour:'numeric',minute:'2-digit',hour12:true,timeZone:'Europe/London'}).format(new Date()),history:[]})}}return s[KEY]}
 function find(req){return records(req).find(x=>x.id===req.params.id)}
 function animalRow(tag) {
   const index = Number((String(tag).match(/(\d{6})$/) || [,''])[1]) - 1
@@ -58,7 +58,7 @@ function proposalDiff(r) {
 function decorate(r){
  const holdingDirection = r.to === CURRENT_HOLDING ? 'on' : r.from === CURRENT_HOLDING ? 'off' : null
  const otherHolding = holdingDirection === 'on' ? r.from : holdingDirection === 'off' ? r.to : null
- return {...r,holdingDirection,otherHolding,proposalDiff:proposalDiff(r),fromAddress:r.fromAddress || PREMISES_ADDRESSES[r.from] || '',toAddress:r.toAddress || PREMISES_ADDRESSES[r.to] || '',animals:r.tags.map(animalRow),reportedBy:r.reportedBy || (r.initiator === 'you' ? 'You (keeper)' : 'Opposing keeper'),reportedAt:r.reportedAt || 'Not recorded in demonstration data',label:LABELS[r.status],colour:COLOURS[r.status],count:r.tags.length,isMine:r.initiator==='you',canReview:r.status==='awaiting'&&r.initiator==='other',canRespondChanges:r.status==='changes'&&r.initiator==='you',canRespondRejection:r.status==='rejected'&&r.initiator==='you'}}
+ return {...r,holdingDirection,otherHolding,offDate:r.offDate || (r.direction === 'off' ? r.date : null),onDate:r.onDate || (r.direction === 'on' ? r.date : null),proposalDiff:proposalDiff(r),fromAddress:r.fromAddress || PREMISES_ADDRESSES[r.from] || '',toAddress:r.toAddress || PREMISES_ADDRESSES[r.to] || '',animals:r.tags.map(animalRow),reportedBy:r.reportedBy || (r.initiator === 'you' ? 'You (keeper)' : 'Opposing keeper'),reportedAt:r.reportedAt || 'Not recorded in demonstration data',label:LABELS[r.status],colour:COLOURS[r.status],count:r.tags.length,isMine:r.initiator==='you',canReview:r.status==='awaiting'&&r.initiator==='other',canRespondChanges:r.status==='changes'&&r.initiator==='you',canRespondRejection:r.status==='rejected'&&r.initiator==='you'}}
 // Responsibility belongs to the current holding, not an individual user.
 function actionWith(r) {
   if (r.status === 'confirmed' || r.status === 'withdrawn') return 'none'
@@ -118,9 +118,12 @@ function issue(res,page,req,r,message,extras={}){res.status(400);return render(r
    const d = draft(req, r)
    return render(req, res, page, {
      movement: decorate(r), draft: d,
-     proposedAnimals: d.tags.map(animalRow),
+     proposedAnimals: d.tags.map(tag => ({ ...animalRow(tag), encodedTag: encodeURIComponent(tag) })),
      dateSelected: d.changes.includes('date'),
      animalsSelected: d.changes.includes('animals'),
+     newTags: d.newTags || [],
+     failures: d.failures || [],
+     failureCount: (d.failures || []).length,
      ...extras
    })
  }
@@ -150,6 +153,19 @@ function issue(res,page,req,r,message,extras={}){res.status(400);return render(r
    if (!d.changes.includes('animals')) return redirect(res, '/' + encodeURIComponent(r.id) + '/propose')
    return show(req, res, 'propose-animals', r)
  })
+ // GET link follows the same remove pattern as the reporting cattle list.
+ router.get(ROOT + '/:id/propose/animals/:tag/remove', (req, res) => {
+   const r = must(req, res); if (!r) return
+   if (!eligible(r)) return redirect(res, '/' + encodeURIComponent(r.id))
+   const d = draft(req, r)
+   if (!d.changes.includes('animals')) return redirect(res, '/' + encodeURIComponent(r.id) + '/propose')
+   const tag = escape(req.params.tag)
+   if (!d.tags.includes(tag)) return redirect(res, '/' + encodeURIComponent(r.id) + '/propose/animals')
+   if (d.tags.length === 1) return show(req, res, 'propose-animals', r, {error: 'You cannot remove the last animal. Reject the movement if no cattle arrived.'})
+   d.tags = d.tags.filter(t => t !== tag)
+   d.newTags = (d.newTags || []).filter(t => t !== tag)
+   return redirect(res, '/' + encodeURIComponent(r.id) + '/propose/animals')
+ })
  router.post(ROOT + '/:id/propose/animals/remove', (req, res) => {
    const r = must(req, res); if (!r) return
    if (!eligible(r)) return redirect(res, '/' + encodeURIComponent(r.id))
@@ -158,24 +174,113 @@ function issue(res,page,req,r,message,extras={}){res.status(400);return render(r
    if (!d.tags.includes(tag)) return redirect(res, '/' + encodeURIComponent(r.id) + '/propose/animals')
    if (d.tags.length === 1) return show(req, res, 'propose-animals', r, {error: 'You cannot remove the last animal. Reject the movement if no cattle arrived.'})
    d.tags = d.tags.filter(t => t !== tag)
+   d.newTags = (d.newTags || []).filter(t => t !== tag)
    return redirect(res, '/' + encodeURIComponent(r.id) + '/propose/animals')
  })
- router.post(ROOT + '/:id/propose/animals/add', (req, res) => {
-   const r = must(req, res); if (!r) return
-   if (!eligible(r)) return redirect(res, '/' + encodeURIComponent(r.id))
-   const d = draft(req, r)
-   const entered = escape(req.body.tags).split(/[\n,;]+/).map(v => v.trim()).filter(Boolean)
-   if (!entered.length) return show(req, res, 'propose-animals', r, {error: 'Enter at least one ear tag number'})
-   const invalid = entered.filter(t => !/^UK\s?\d{6}\s?\d{6}$/i.test(t))
-   if (invalid.length) return show(req, res, 'propose-animals', r, {error: 'Enter valid cattle ear tag numbers, for example UK 371234 000001'})
-   const previous = new Set(d.tags)
-   d.tags = [...new Set([...d.tags, ...entered])]
-   return show(req, res, 'propose-animals', r, {success: d.tags.length - previous.size + ' cattle added to the proposed movement'})
+ // Adding cattle follows the same method -> manual/upload -> check -> add-to-list pattern as reporting.
+ function proposalUrl(r, suffix) { return '/' + encodeURIComponent(r.id) + '/propose/animals' + suffix }
+ function normaliseEarTag(value) {
+   const compact = escape(value).toUpperCase().replace(/\s+/g, '')
+   const match = compact.match(/^UK(\d{6})(\d{6})$/)
+   return match ? 'UK ' + match[1] + ' ' + match[2] : null
+ }
+ function prepareProposalTags(text, d) {
+   const good = [], issues = [], seen = new Set()
+   for (const value of escape(text).split(/[\n,;]+/).map(s => s.trim()).filter(Boolean)) {
+     const tag = normaliseEarTag(value)
+     if (!tag) { issues.push({value, message:'Enter a valid cattle ear tag number, for example UK 371234 000001'}); continue }
+     if (seen.has(tag) || d.tags.includes(tag)) { issues.push({value, message:'This animal is already in the list'}); continue }
+     if (!/^UK 371234 000(0[0-9]{2}|1[0-7][0-9]|180)$/.test(tag) || Number(tag.slice(-6)) < 1) {
+       issues.push({value, message:'This ear tag number was not found in the demonstration cattle register'}); continue
+     }
+     seen.add(tag); good.push(tag)
+   }
+   return {good,issues}
+ }
+ function addProposalTags(d, checked) {
+   d.newTags = checked.good.filter(tag => !d.tags.includes(tag))
+   d.tags = [...new Set([...d.tags, ...d.newTags])]
+   d.failures = checked.issues.slice()
+   delete d.pending
+ }
+ router.get(ROOT + '/:id/propose/animals/add-method', (req,res) => {
+   const r=must(req,res); if (!r) return
+   if (!eligible(r)) return redirect(res,'/'+encodeURIComponent(r.id))
+   return show(req,res,'propose-add-method',r)
+ })
+ router.post(ROOT + '/:id/propose/animals/add-method', (req,res) => {
+   const r=must(req,res); if (!r) return
+   if (!eligible(r)) return redirect(res,'/'+encodeURIComponent(r.id))
+   const method=escape(req.body.method)
+   if (!['manual','upload'].includes(method)) return show(req,res,'propose-add-method',r,{error:'Select how you want to add cattle'})
+   return redirect(res,proposalUrl(r,method==='manual'?'/manual':'/upload'))
+ })
+ router.get(ROOT + '/:id/propose/animals/manual', (req,res) => {
+   const r=must(req,res); if (!r) return
+   if (!eligible(r)) return redirect(res,'/'+encodeURIComponent(r.id))
+   return show(req,res,'propose-manual',r)
+ })
+ router.post(ROOT + '/:id/propose/animals/manual', (req,res) => {
+   const r=must(req,res); if (!r) return
+   if (!eligible(r)) return redirect(res,'/'+encodeURIComponent(r.id))
+   const d=draft(req,r), entered=escape(req.body.tags)
+   if (!entered) return show(req,res,'propose-manual',r,{error:'Enter at least one ear tag number',postedTags:entered})
+   addProposalTags(d, prepareProposalTags(entered,d))
+   return redirect(res,proposalUrl(r,''))
+ })
+ router.get(ROOT + '/:id/propose/animals/upload', (req,res) => {
+   const r=must(req,res); if (!r) return
+   if (!eligible(r)) return redirect(res,'/'+encodeURIComponent(r.id))
+   return show(req,res,'propose-upload',r)
+ })
+ router.post(ROOT + '/:id/propose/animals/upload', (req,res) => {
+   const r=must(req,res); if (!r) return
+   if (!eligible(r)) return redirect(res,'/'+encodeURIComponent(r.id))
+   const file=escape(req.body['rfm-file'])
+   if (!file) return show(req,res,'propose-upload',r,{error:'Select a file to upload'})
+   if (!/\.(csv|xlsx)$/i.test(file)) return show(req,res,'propose-upload',r,{error:'Choose a CSV or XLSX file'})
+   const d=draft(req,r)
+   // Matches the reporting prototype: filename triggers sample data, not a genuine upload.
+   addProposalTags(d, prepareProposalTags('UK 371234 000041\nUK 371234 000042\nUK 371234 000043',d))
+   return redirect(res,proposalUrl(r,''))
+ })
+ router.get(ROOT + '/:id/propose/animals/check', (req,res) => {
+   const r=must(req,res); if (!r) return
+   if (!eligible(r)) return redirect(res,'/'+encodeURIComponent(r.id))
+   const d=draft(req,r)
+   if (!d.pending) return redirect(res,proposalUrl(r,'/add-method'))
+   return show(req,res,'propose-check-animals',r,{pending:d.pending,matchedAnimals:d.pending.good.map(animalRow)})
+ })
+ router.post(ROOT + '/:id/propose/animals/check/correct', (req,res) => {
+   const r=must(req,res); if (!r) return
+   if (!eligible(r)) return redirect(res,'/'+encodeURIComponent(r.id))
+   const d=draft(req,r)
+   if (!d.pending) return redirect(res,proposalUrl(r,'/add-method'))
+   const corrected=prepareProposalTags(req.body.corrections,d)
+   d.pending.good=[...new Set([...d.pending.good,...corrected.good])]
+   d.pending.issues=corrected.issues.filter(x=>!d.pending.good.includes(normaliseEarTag(x.value)))
+   return redirect(res,proposalUrl(r,'/check'))
+ })
+ router.post(ROOT + '/:id/propose/animals/check/add', (req,res) => {
+   const r=must(req,res); if (!r) return
+   if (!eligible(r)) return redirect(res,'/'+encodeURIComponent(r.id))
+   const d=draft(req,r)
+   if (!d.pending) return redirect(res,proposalUrl(r,'/add-method'))
+   addProposalTags(d, d.pending)
+   return redirect(res,proposalUrl(r,''))
+ })
+ router.get(ROOT + '/:id/propose/animals/not-added', (req,res) => {
+   const r=must(req,res); if (!r) return
+   if (!eligible(r)) return redirect(res,'/'+encodeURIComponent(r.id))
+   return show(req,res,'propose-animals-not-added',r)
  })
  router.post(ROOT + '/:id/propose/animals/continue', (req, res) => {
    const r = must(req, res); if (!r) return
    if (!eligible(r)) return redirect(res, '/' + encodeURIComponent(r.id))
    const d = draft(req, r)
+   if (!d.tags.length) return show(req,res,'propose-animals',r,{error:'The proposed movement must include at least one animal'})
+   if (!d.changes.includes('date') && d.tags.length === r.tags.length && d.tags.every(tag => r.tags.includes(tag))) return show(req,res,'propose-animals',r,{error:'You have not made any changes to the cattle in this movement'})
+   delete d.pending
    return redirect(res, '/' + encodeURIComponent(r.id) + (d.changes.includes('date') ? '/propose/date' : '/propose/check'))
  })
  router.get(ROOT + '/:id/propose/date', (req, res) => {
