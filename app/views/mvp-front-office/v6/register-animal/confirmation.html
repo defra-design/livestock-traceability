@@ -7,7 +7,8 @@
 
 {% endblock %}
 
-{% set pageName="5 cattle births registered" %}
+{% set count = data['registered-count'] | int %}
+{% set pageName = count ~ (" cattle birth registered" if count == 1 else " cattle births registered") %}
 {% set serviceName = "View and report livestock information" %}
 
 {% block content %}
@@ -17,7 +18,7 @@
 
     <div class="govuk-panel govuk-panel--confirmation">
       <h1 class="govuk-panel__title">
-        5 cattle births registered
+        {{ pageName }}
       </h1>
     </div>
 

@@ -332,12 +332,15 @@ router.get('/mvp-front-office/v6/register-animal/submission-detail/:reference', 
   res.render('mvp-front-office/v6/register-animal/submission-detail', { registration })
 })
 
-router.post('/mvp-front-office/v6/my-holdings/register-cattle-birth/remove-draft', (req, res) => {
-  const removedDraftReferences = req.session.data.removedDraftReferences || []
-  removedDraftReferences.push(req.body['draft-reference'])
-  req.session.data.removedDraftReferences = removedDraftReferences
+// Removing a draft birth, movement or death report returns to its own list
+;['register-cattle-birth', 'report-cattle-movement', 'report-cattle-death'].forEach((page) => {
+  router.post(`/mvp-front-office/v6/my-holdings/${page}/remove-draft`, (req, res) => {
+    const removedDraftReferences = req.session.data.removedDraftReferences || []
+    removedDraftReferences.push(req.body['draft-reference'])
+    req.session.data.removedDraftReferences = removedDraftReferences
 
-  res.redirect('/mvp-front-office/v6/my-holdings/register-cattle-birth')
+    res.redirect(`/mvp-front-office/v6/my-holdings/${page}`)
+  })
 })
 
 router.get('/mvp-front-office/v6/my-holdings/report-cattle-movement', (req, res) => {

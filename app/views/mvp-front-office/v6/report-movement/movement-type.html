@@ -43,7 +43,7 @@
         <fieldset class="govuk-fieldset" aria-describedby="{% if errors['movement-type'] %}movement-type-error{% endif %}">
           <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
             <h1 class="govuk-fieldset__heading">
-              Is this an on or off movement?
+              Select movement type
             </h1>
           </legend>
           {% if errors['movement-type'] %}
@@ -58,7 +58,7 @@
                 On movement
               </label>
               <div id="movement-type-on-hint" class="govuk-hint govuk-radios__hint">
-                The animal is moving onto your holding
+                Animals moving onto your holding
               </div>
             </div>
             <div class="govuk-radios__item">
@@ -67,7 +67,7 @@
                 Off movement
               </label>
               <div id="movement-type-off-hint" class="govuk-hint govuk-radios__hint">
-                The animal is moving off your holding
+                Animals moving off your holding
               </div>
             </div>
           </div>

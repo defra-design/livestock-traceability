@@ -19,11 +19,7 @@
 
 {% block content %}
 
-{% set currentTag = data['ear-tag-number'] if data['ear-tag-number'] else '' %}
-
-{% set damComplete = data['genetic-dam-number'] or data['surrogate-dam-number'] %}
-
-{% set isComplete = data['ear-tag-number'] and data['dob-day'] and data['dob-month'] and data['dob-year'] and data['sex'] and data['breed'] and damComplete %}
+{% set calves = data['calves'] if data['calves'] else [] %}
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
@@ -39,7 +35,7 @@
         <div class="govuk-error-summary__body">
           <ul class="govuk-list govuk-error-summary__list">
             {% if errors['incomplete'] %}
-            <li><a href="/mvp-front-office/v6/register-animal/calf-details">{{ errors['incomplete'] }}</a></li>
+            <li><a href="{{ incompleteHref or '/mvp-front-office/v6/register-animal/calf-details' }}">{{ errors['incomplete'] }}</a></li>
             {% endif %}
             {% if errors['add-another'] %}
             <li><a href="#add-another">{{ errors['add-another'] }}</a></li>
@@ -54,7 +50,7 @@
       Select the tag number from the list to update calf, dam and sire details. You can use the status indicator to check which animals are ready to send.
     </p>
 
-    {% if currentTag %}
+    {% if calves | length %}
     <table class="govuk-table">
       <thead class="govuk-table__head">
         <tr class="govuk-table__row">
@@ -63,8 +59,10 @@
         </tr>
       </thead>
       <tbody class="govuk-table__body">
+        {% for calf in calves %}
+        {% set isComplete = calf['ear-tag-number'] and calf['dob-day'] and calf['dob-month'] and calf['dob-year'] and calf['sex'] and calf['breed'] and (calf['genetic-dam-number'] or calf['surrogate-dam-number']) %}
         <tr class="govuk-table__row">
-          <td class="govuk-table__cell"><a class="govuk-link" href="/mvp-front-office/v6/register-animal/check-calf-details">{{ currentTag }}</a></td>
+          <td class="govuk-table__cell"><a class="govuk-link" href="/mvp-front-office/v6/register-animal/calf/{{ loop.index0 }}">{{ calf['ear-tag-number'] }}</a></td>
           <td class="govuk-table__cell govuk-table__cell--numeric">
             {% if isComplete %}
               <strong class="govuk-tag govuk-tag--green">Ready to send</strong>
@@ -73,6 +71,7 @@
             {% endif %}
           </td>
         </tr>
+        {% endfor %}
       </tbody>
     </table>
     {% else %}
