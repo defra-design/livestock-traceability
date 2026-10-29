@@ -93,6 +93,7 @@
         </dd>
       </div>
 
+      {% if animal.status | lower != 'alive' %}
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
           Animal status
@@ -101,6 +102,7 @@
           {{ animal.status }}
         </dd>
       </div>
+      {% endif %}
 
     </dl>
 

@@ -19,7 +19,7 @@
 
 {% block content %}
 
-{% set completedDeaths = data['completed-deaths'] %}
+{% set deaths = data['deaths'] if data['deaths'] else [] %}
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
@@ -34,6 +34,9 @@
         <h2 class="govuk-error-summary__title">There is a problem</h2>
         <div class="govuk-error-summary__body">
           <ul class="govuk-list govuk-error-summary__list">
+            {% if errors['incomplete'] %}
+            <li><a href="{{ incompleteHref or '/mvp-front-office/v6/report-death/is-registered' }}">{{ errors['incomplete'] }}</a></li>
+            {% endif %}
             {% if errors['add-more-deaths'] %}
             <li><a href="#add-more-deaths">{{ errors['add-more-deaths'] }}</a></li>
             {% endif %}
@@ -47,7 +50,7 @@
       Select the animal ear tag number from the list to update the details. The status indicator shows which animals are ready to send.
     </p>
 
-    {% if completedDeaths and completedDeaths.length > 0 %}
+    {% if deaths | length %}
     <table class="govuk-table">
       <thead class="govuk-table__head">
         <tr class="govuk-table__row">
@@ -56,13 +59,14 @@
         </tr>
       </thead>
       <tbody class="govuk-table__body">
-        {% for death in completedDeaths %}
+        {% for death in deaths %}
         <tr class="govuk-table__row">
           <td class="govuk-table__cell">
-            <a class="govuk-link" href="/mvp-front-office/v6/report-death/check-animal-details">{{ death.tag }}</a>
+            <a class="govuk-link" href="/mvp-front-office/v6/report-death/death/{{ loop.index0 }}">{{ death['death-ear-tag-number'] }}</a>
           </td>
           <td class="govuk-table__cell govuk-table__cell--numeric">
-            {% if death.tag and death.date %}
+            {% set isComplete = death['death-ear-tag-number'] and death['death-date-day'] and death['death-date-month'] and death['death-date-year'] and (death['death-is-registered'] == 'yes' or (death['death-dob-day'] and death['death-dob-month'] and death['death-dob-year'] and death['death-sex'] and death['death-breed'])) %}
+            {% if isComplete %}
               <strong class="govuk-tag govuk-tag--green">Ready to send</strong>
             {% else %}
               <strong class="govuk-tag govuk-tag--blue">Incomplete</strong>

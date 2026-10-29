@@ -3,6 +3,68 @@ const router = govukPrototypeKit.requests.setupRouter()
 
 const BASE = '/mvp-front-office/v6/register-animal'
 
+// Details of the calf currently being entered or edited. Saved calves are
+// copied into data['calves'] from these fields on the check page.
+const CALF_FIELDS = [
+  'ear-tag-number', 'dob', 'dob-day', 'dob-month', 'dob-year', 'sex',
+  'breed', 'dam-type', 'genetic-dam-number', 'surrogate-dam-number',
+  'sire-number', 'sire-name'
+]
+
+// The dummy draft on the register a cattle birth page. Continuing it loads
+// these calves so they can be checked, changed and sent like any others.
+const DRAFT_CALVES = [
+  {
+    'ear-tag-number': 'UK312545670001', dob: '12/4/2026', 'dob-day': '12', 'dob-month': '4', 'dob-year': '2026',
+    sex: 'female', breed: 'Aberdeen Angus (AA)', 'dam-type': 'genetic', 'genetic-dam-number': 'UK123456501100'
+  },
+  {
+    'ear-tag-number': 'UK312545670002', dob: '12/4/2026', 'dob-day': '12', 'dob-month': '4', 'dob-year': '2026',
+    sex: 'male', breed: 'Aberdeen Angus (AA)'
+  }
+]
+
+function getCalves(data) {
+  return Array.isArray(data['calves']) ? data['calves'] : []
+}
+
+function clearCurrentCalf(data) {
+  CALF_FIELDS.forEach(f => delete data[f])
+  delete data['current-calf']
+  delete data['change']
+}
+
+function isCalfComplete(calf) {
+  const damComplete = calf['genetic-dam-number'] || calf['surrogate-dam-number']
+  return Boolean(calf['ear-tag-number'] && calf['dob-day'] && calf['dob-month'] &&
+                 calf['dob-year'] && calf['sex'] && calf['breed'] && damComplete)
+}
+
+// Today as d/m/yyyy, the format the date picker uses for data-max-date
+function todayForDatePicker() {
+  const today = new Date()
+  return `${today.getDate()}/${today.getMonth() + 1}/${today.getFullYear()}`
+}
+
+// Returns an error message for the date of birth, or nothing if it is valid
+function dobError(day, month, year) {
+  if (!day || !month || !year) {
+    return 'Enter the date the animal was born'
+  }
+  if (!/^\d{1,2}$/.test(day) || !/^\d{1,2}$/.test(month) || !/^\d{4}$/.test(year)) {
+    return 'Date of birth must be a real date, for example 01/05/2026'
+  }
+  const date = new Date(Number(year), Number(month) - 1, Number(day))
+  if (date.getFullYear() !== Number(year) || date.getMonth() !== Number(month) - 1 || date.getDate() !== Number(day)) {
+    return 'Date of birth must be a real date, for example 01/05/2026'
+  }
+  const today = new Date()
+  today.setHours(0, 0, 0, 0)
+  if (date > today) {
+    return 'Date of birth must be today or in the past'
+  }
+}
+
 function returnToCheck(req, res, normalPath) {
   if (req.session.data['change'] === 'true') {
     delete req.session.data['change']
@@ -10,6 +72,13 @@ function returnToCheck(req, res, normalPath) {
   }
   res.redirect(normalPath)
 }
+
+router.get(`${BASE}/start`, (req, res) => {
+  clearCurrentCalf(req.session.data)
+  delete req.session.data['calves']
+  delete req.session.data['add-another']
+  res.redirect(`${BASE}/calf-details`)
+})
 
 router.get(`${BASE}/animal-select`, (req, res) => {
   res.render('mvp-front-office/v6/register-animal/animal-select')
@@ -54,10 +123,7 @@ router.post(`${BASE}/submission-type`, (req, res) => {
 })
 
 router.get(`${BASE}/calf-details`, (req, res) => {
-  if (req.query.tag) {
-    req.session.data['current-tag'] = req.query.tag
-  }
-  res.render('mvp-front-office/v6/register-animal/calf-details')
+  res.render('mvp-front-office/v6/register-animal/calf-details', { maxDob: todayForDatePicker() })
 })
 
 router.post(`${BASE}/calf-details`, (req, res) => {
@@ -66,6 +132,13 @@ router.post(`${BASE}/calf-details`, (req, res) => {
 
   if (!data['ear-tag-number']) {
     errors['ear-tag-number'] = 'Enter all or part of the animal ear tag number you are registering'
+  } else {
+    const currentIndex = data['current-calf'] === undefined ? -1 : Number(data['current-calf'])
+    const isDuplicate = getCalves(data).some((calf, i) =>
+      i !== currentIndex && calf['ear-tag-number'] === data['ear-tag-number'])
+    if (isDuplicate) {
+      errors['ear-tag-number'] = 'This animal ear tag number has already been added to this registration'
+    }
   }
 
   // Date picker gives a single d/m/yyyy value - split it into the
@@ -80,8 +153,9 @@ router.post(`${BASE}/calf-details`, (req, res) => {
     delete data['dob-year']
   }
 
-  if (!data['dob-day'] || !data['dob-month'] || !data['dob-year']) {
-    errors['dob'] = 'Enter the date the animal was born'
+  const dobMessage = dobError(data['dob-day'], data['dob-month'], data['dob-year'])
+  if (dobMessage) {
+    errors['dob'] = dobMessage
   }
 
   if (!data['sex']) {
@@ -93,7 +167,7 @@ router.post(`${BASE}/calf-details`, (req, res) => {
   }
 
   if (Object.keys(errors).length > 0) {
-    return res.render('mvp-front-office/v6/register-animal/calf-details', { errors })
+    return res.render('mvp-front-office/v6/register-animal/calf-details', { errors, maxDob: todayForDatePicker() })
   }
 
   returnToCheck(req, res, `${BASE}/dam-details`)
@@ -210,19 +284,44 @@ router.post(`${BASE}/sire-details`, (req, res) => {
 })
 
 router.get(`${BASE}/check-calf-details`, (req, res) => {
+  // Nothing loaded, for example after pressing Back from the tag list
+  if (!req.session.data['ear-tag-number']) {
+    return res.redirect(`${BASE}/tag-list`)
+  }
   res.render('mvp-front-office/v6/register-animal/check-calf-details')
 })
 
 router.post(`${BASE}/check-calf-details`, (req, res) => {
-  const earTagNumber = req.session.data['ear-tag-number']
-  if (earTagNumber) {
-    const fullTag = 'UK 12 34 56 ' + earTagNumber
-    let completed = req.session.data['completed-tags'] || []
-    if (!Array.isArray(completed)) completed = [completed]
-    if (!completed.includes(fullTag)) completed.push(fullTag)
-    req.session.data['completed-tags'] = completed
+  const data = req.session.data
+  if (data['ear-tag-number']) {
+    const calf = {}
+    CALF_FIELDS.forEach(f => {
+      if (data[f] !== undefined) calf[f] = data[f]
+    })
+    const calves = getCalves(data)
+    if (data['current-calf'] !== undefined && calves[data['current-calf']]) {
+      calves[data['current-calf']] = calf
+    } else {
+      calves.push(calf)
+    }
+    data['calves'] = calves
   }
+  clearCurrentCalf(data)
   res.redirect(`${BASE}/tag-list`)
+})
+
+// Load a saved calf into the current calf fields so it can be checked and changed
+router.get(`${BASE}/calf/:index`, (req, res) => {
+  const data = req.session.data
+  const index = Number(req.params.index)
+  const calf = getCalves(data)[index]
+  if (!calf) {
+    return res.redirect(`${BASE}/tag-list`)
+  }
+  clearCurrentCalf(data)
+  Object.assign(data, calf)
+  data['current-calf'] = index
+  res.redirect(`${BASE}/check-calf-details`)
 })
 
 router.get(`${BASE}/remove-calf`, (req, res) => {
@@ -230,13 +329,13 @@ router.get(`${BASE}/remove-calf`, (req, res) => {
 })
 
 router.post(`${BASE}/remove-calf`, (req, res) => {
-  const fields = [
-    'ear-tag-number', 'dob', 'dob-day', 'dob-month', 'dob-year', 'sex',
-    'breed', 'dam-type', 'dam-number', 'genetic-dam-number', 'surrogate-dam-number',
-    'sire-number', 'sire-name', 'calf-details-radio', 'related-tag-numbers',
-    'completed-tags', 'current-tag'
-  ]
-  fields.forEach(f => delete req.session.data[f])
+  const data = req.session.data
+  if (data['current-calf'] !== undefined) {
+    const calves = getCalves(data)
+    calves.splice(Number(data['current-calf']), 1)
+    data['calves'] = calves
+  }
+  clearCurrentCalf(data)
   res.redirect(`${BASE}/tag-list`)
 })
 
@@ -248,23 +347,28 @@ router.post(`${BASE}/tag-list`, (req, res) => {
   const data = req.session.data
   const addAnother = data['add-another']
   const errors = {}
+  let incompleteHref
 
   if (!addAnother) {
     errors['add-another'] = 'Select yes to add additional animals or no to continue'
   } else if (addAnother === 'no') {
-    const damComplete = data['genetic-dam-number'] || data['surrogate-dam-number']
-    const isComplete = data['ear-tag-number'] && data['dob-day'] && data['dob-month'] &&
-                       data['dob-year'] && data['sex'] && data['breed'] && damComplete
-    if (!isComplete) {
+    const calves = getCalves(data)
+    if (calves.length === 0) {
+      errors['incomplete'] = 'Add at least one animal before continuing'
+    } else if (!calves.every(isCalfComplete)) {
       errors['incomplete'] = 'Complete all required animal details before continuing'
+      incompleteHref = `${BASE}/calf/${calves.findIndex(calf => !isCalfComplete(calf))}`
     }
   }
 
   if (Object.keys(errors).length > 0) {
-    return res.render('mvp-front-office/v6/register-animal/tag-list', { errors })
+    return res.render('mvp-front-office/v6/register-animal/tag-list', { errors, incompleteHref })
   }
 
+  delete data['add-another']
+
   if (addAnother === 'yes') {
+    clearCurrentCalf(data)
     return res.redirect(`${BASE}/calf-details`)
   }
 
@@ -272,14 +376,37 @@ router.post(`${BASE}/tag-list`, (req, res) => {
 })
 
 router.get(`${BASE}/submit`, (req, res) => {
+  if (getCalves(req.session.data).length === 0) {
+    return res.redirect(`${BASE}/tag-list`)
+  }
   res.render('mvp-front-office/v6/register-animal/submit')
 })
 
 router.post(`${BASE}/submit`, (req, res) => {
+  const data = req.session.data
+  // Already sent, for example after pressing Back from the confirmation page
+  if (getCalves(data).length === 0) {
+    return res.redirect(`${BASE}/tag-list`)
+  }
+  data['registered-count'] = getCalves(data).length
+  delete data['calves']
+  clearCurrentCalf(data)
   res.redirect(`${BASE}/confirmation`)
 })
 
+router.get(`${BASE}/submission-detail-draft`, (req, res) => {
+  const data = req.session.data
+  clearCurrentCalf(data)
+  data['calves'] = DRAFT_CALVES.map(calf => ({ ...calf }))
+  delete data['add-another']
+  res.render('mvp-front-office/v6/register-animal/submission-detail-draft')
+})
+
 router.get(`${BASE}/confirmation`, (req, res) => {
+  // Nothing has been sent, for example the page was opened directly
+  if (req.session.data['registered-count'] === undefined) {
+    return res.redirect('/mvp-front-office/v6/my-holdings/register-cattle-birth')
+  }
   res.render('mvp-front-office/v6/register-animal/confirmation')
 })
 

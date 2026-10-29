@@ -343,7 +343,7 @@
       }) }}
       #}
 
-      <div class="moj-datepicker" data-module="moj-date-picker">
+      <div class="moj-datepicker" data-module="moj-date-picker" data-max-date="{{ maxDate }}">
         <div class="govuk-form-group {% if errors['death-dob'] %}govuk-form-group--error{% endif %}">
           <label class="govuk-label govuk-label--m" for="death-dob">
             Date of birth
@@ -394,7 +394,7 @@
       }) }}
       #}
 
-      <div class="moj-datepicker" data-module="moj-date-picker">
+      <div class="moj-datepicker" data-module="moj-date-picker" data-max-date="{{ maxDate }}">
         <div class="govuk-form-group {% if errors['death-date'] %}govuk-form-group--error{% endif %}">
           <label class="govuk-label govuk-label--m" for="death-date">
             Date of death

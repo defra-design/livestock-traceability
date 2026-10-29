@@ -3,6 +3,8 @@ const router = govukPrototypeKit.requests.setupRouter()
 
 const BASE = '/mvp-front-office/v6/report-movement'
 
+const MOVEMENT_FIELDS = ['movement-type', 'movement-ear-tags', 'movement-dates', 'movement-animals']
+
 function returnToCheck(req, res, normalPath) {
   if (req.session.data['change'] === 'true') {
     delete req.session.data['change']
@@ -75,6 +77,8 @@ router.post(`${BASE}/ear-tag-numbers`, (req, res) => {
 
     if (!row.earTag) {
       addError('movement-ear-tags', index, `Enter the ear tag number for ${animal}`)
+    } else if (rows.slice(0, index).some((earlier) => earlier.earTag === row.earTag)) {
+      addError('movement-ear-tags', index, `The ear tag number for ${animal} has already been added to this movement`)
     }
 
     if (!row.date) {
@@ -106,11 +110,50 @@ router.post(`${BASE}/ear-tag-numbers`, (req, res) => {
   returnToCheck(req, res, `${BASE}/check-movement-details`)
 })
 
+// Nothing to check or send, for example after a movement has already been sent
+function hasMovement(data) {
+  return Array.isArray(data['movement-animals']) && data['movement-animals'].length > 0
+}
+
+router.get(`${BASE}/check-movement-details`, (req, res) => {
+  if (!hasMovement(req.session.data)) {
+    return res.redirect(`${BASE}/movement-type`)
+  }
+  res.render('mvp-front-office/v6/report-movement/check-movement-details')
+})
+
+// Removes one animal from the movement and returns to the check page
+router.get(`${BASE}/remove-animal/:index`, (req, res) => {
+  const data = req.session.data
+  const index = Number(req.params.index)
+
+  if (hasMovement(data) && data['movement-animals'][index]) {
+    ;['movement-animals', 'movement-ear-tags', 'movement-dates'].forEach((field) => {
+      data[field] = [].concat(data[field] || []).filter((_, i) => i !== index)
+    })
+  }
+
+  res.redirect(`${BASE}/check-movement-details`)
+})
+
 router.post(`${BASE}/check-movement-details`, (req, res) => {
   res.redirect(`${BASE}/submit`)
 })
 
+router.get(`${BASE}/submit`, (req, res) => {
+  if (!hasMovement(req.session.data)) {
+    return res.redirect(`${BASE}/movement-type`)
+  }
+  res.render('mvp-front-office/v6/report-movement/submit')
+})
+
 router.post(`${BASE}/submit`, (req, res) => {
+  const data = req.session.data
+  if (!hasMovement(data)) {
+    return res.redirect(`${BASE}/movement-type`)
+  }
+  MOVEMENT_FIELDS.forEach(f => delete data[f])
+  delete data['change']
   res.redirect(`${BASE}/confirmation`)
 })
 
