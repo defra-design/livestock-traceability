@@ -61,34 +61,36 @@
 
     <h2 class="govuk-heading-m">Animals registered</h2>
 
-    <table class="govuk-table">
-      <thead class="govuk-table__head">
-        <tr class="govuk-table__row">
-          <th scope="col" class="govuk-table__header">Ear tag number</th>
-          <th scope="col" class="govuk-table__header">Date of birth</th>
-          <th scope="col" class="govuk-table__header">Date on holding</th>
-          <th scope="col" class="govuk-table__header">Sex</th>
-          <th scope="col" class="govuk-table__header">Breed</th>
-          {% if not registration.isPending %}
-          <th scope="col" class="govuk-table__header">Errors</th>
-          {% endif %}
-        </tr>
-      </thead>
-      <tbody class="govuk-table__body">
-        {% for animal in registration.animals %}
-        <tr class="govuk-table__row">
-          <td class="govuk-table__cell"><a href="{{ animal.href }}" class="govuk-link">{{ animal.earTagNumber | formatReference }}</a></td>
-          <td class="govuk-table__cell">{{ animal.dateOfBirth | shortDateFormat }}</td>
-          <td class="govuk-table__cell">{{ animal.dateOnHolding | shortDateFormat }}</td>
-          <td class="govuk-table__cell">{{ animal.sex }}</td>
-          <td class="govuk-table__cell"><abbr title="{{ animal.breed }}">{{ animal.breedCode }}</abbr><span class="govuk-visually-hidden">, {{ animal.breed }}</span></td>
-          {% if not registration.isPending %}
-          <td class="govuk-table__cell">{{ animal.errors }}</td>
-          {% endif %}
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
+    <div class="app-dashboard-table-wrapper">
+      <table class="govuk-table">
+        <thead class="govuk-table__head">
+          <tr class="govuk-table__row">
+            <th scope="col" class="govuk-table__header">Ear tag number</th>
+            <th scope="col" class="govuk-table__header">Date of birth</th>
+            <th scope="col" class="govuk-table__header">Date on holding</th>
+            <th scope="col" class="govuk-table__header">Sex</th>
+            <th scope="col" class="govuk-table__header">Breed</th>
+            {% if not registration.isPending %}
+            <th scope="col" class="govuk-table__header">Errors</th>
+            {% endif %}
+          </tr>
+        </thead>
+        <tbody class="govuk-table__body">
+          {% for animal in registration.animals %}
+          <tr class="govuk-table__row">
+            <td class="govuk-table__cell"><a href="{{ animal.href }}" class="govuk-link">{{ animal.earTagNumber | formatReference }}</a></td>
+            <td class="govuk-table__cell">{{ animal.dateOfBirth | shortDateFormat }}</td>
+            <td class="govuk-table__cell">{{ animal.dateOnHolding | shortDateFormat }}</td>
+            <td class="govuk-table__cell">{{ animal.sex }}</td>
+            <td class="govuk-table__cell"><abbr title="{{ animal.breed }}">{{ animal.breedCode }}</abbr><span class="govuk-visually-hidden">, {{ animal.breed }}</span></td>
+            {% if not registration.isPending %}
+            <td class="govuk-table__cell">{{ animal.errors }}</td>
+            {% endif %}
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
 
   </div>
 </div>

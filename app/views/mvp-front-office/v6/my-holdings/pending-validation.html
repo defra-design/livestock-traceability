@@ -33,6 +33,7 @@
 
         {% set birthsHtml %}
           <h2 class="govuk-heading-m">Births</h2>
+          <div class="app-dashboard-table-wrapper">
           {{ govukTable({
             caption: "Births pending validation",
             captionClasses: "govuk-visually-hidden",
@@ -67,10 +68,12 @@
               ]
             ]
           }) }}
+          </div>
         {% endset %}
 
         {% set movementsHtml %}
           <h2 class="govuk-heading-m">Movements</h2>
+          <div class="app-dashboard-table-wrapper">
           {{ govukTable({
             caption: "Movements pending validation",
             captionClasses: "govuk-visually-hidden",
@@ -87,6 +90,7 @@
               ]
             ]
           }) }}
+          </div>
         {% endset %}
 
         {% set deathsHtml %}
