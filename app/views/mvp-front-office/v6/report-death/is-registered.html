@@ -7,7 +7,7 @@
 
 {% endblock %}
 
-{% set pageName="Is the animal registered?" %}
+{% set pageName="Is the animal registered on your holding?" %}
 {% set serviceName = "View and report livestock information" %}
 
 {% block beforeContent %}
@@ -40,12 +40,15 @@
     <form action="/mvp-front-office/v6/report-death/is-registered" method="post" novalidate>
 
       <div class="govuk-form-group {% if errors['death-is-registered'] %}govuk-form-group--error{% endif %}">
-        <fieldset class="govuk-fieldset" aria-describedby="{% if errors['death-is-registered'] %}death-is-registered-error{% endif %}">
+        <fieldset class="govuk-fieldset" aria-describedby="death-is-registered-hint{% if errors['death-is-registered'] %} death-is-registered-error{% endif %}">
           <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
             <h1 class="govuk-fieldset__heading">
-              Is the animal registered?
+              Is the animal registered on your holding?
             </h1>
           </legend>
+          <div id="death-is-registered-hint" class="govuk-hint">
+            Select no if the animal has been given an animal ear tag number but died before being registered on the Livestock Reporting System.
+          </div>
           {% if errors['death-is-registered'] %}
           <p id="death-is-registered-error" class="govuk-error-message">
             <span class="govuk-visually-hidden">Error:</span> {{ errors['death-is-registered'] }}
