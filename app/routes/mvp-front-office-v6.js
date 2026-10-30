@@ -28,7 +28,7 @@ function getErrorRecords() {
         </ul>
         <p class="govuk-body govuk-!-margin-bottom-0">You can continue to register the birth of any calves this animal produces in the usual way.</p>
       `,
-      status: 'Refused'
+      status: 'Passport refused'
     },
     {
       id: '6780-5907',
@@ -39,7 +39,7 @@ function getErrorRecords() {
       category: 'Dam calved again too soon',
       reason: 'The genetic dam appears to have given birth in the past 240 days.',
       evidence: 'You may need to provide a DNA test confirming the calf and dam to confirm parentage. Please provide the information within 27 days of the animal’s date of birth.',
-      status: 'Pending'
+      status: 'In review'
     },
     {
       id: '2987-1984',
