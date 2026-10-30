@@ -21,7 +21,7 @@ function getErrorRecords() {
       reason: 'Date of birth is over the 27-day deadline to report a calf birth.',
       evidenceHtml: `
         <p class="govuk-body">A Notice of Registration will be sent to your email address. You will need to go through the BCMS appeals process to get this amended to a passport.</p>
-        <p class="govuk-body">A notice of registration means that the animal cannot:</p>
+        <p class="govuk-body">A Notice of Registration means that the animal cannot:</p>
         <ul class="govuk-list govuk-list--bullet">
           <li>move off your holding alive unless you have a movement licence</li>
           <li>enter the food chain</li>
@@ -52,9 +52,9 @@ function getErrorRecords() {
       evidenceHtml: `
         <p class="govuk-body">You will need to provide the dam’s calving history to prove the ages of the dam and calf by email.</p>
         <p class="govuk-body">If the dam is no longer on your holding, contact BCMS and we can help to resolve the issue.</p>
-        <h3 class="govuk-heading-s">Notice of registration</h3>
+        <h3 class="govuk-heading-s">Notice of Registration</h3>
         <p class="govuk-body">A Notice of Registration will also be issued.</p>
-        <p class="govuk-body">A notice of registration means that the animal cannot:</p>
+        <p class="govuk-body">A Notice of Registration means that the animal cannot:</p>
         <ul class="govuk-list govuk-list--bullet">
           <li>move off your holding alive unless you have a movement licence</li>
           <li>enter the food chain</li>
@@ -75,9 +75,9 @@ function getErrorRecords() {
       evidenceHtml: `
         <p class="govuk-body">The dam you have registered appears to have registered more than three calves in the past 240 days.</p>
         <p class="govuk-body">You can contact BCMS via telephone or email to discuss next steps and resolve the issue.</p>
-        <h3 class="govuk-heading-s">Notice of registration</h3>
+        <h3 class="govuk-heading-s">Notice of Registration</h3>
         <p class="govuk-body">A Notice of Registration will also be issued.</p>
-        <p class="govuk-body">A notice of registration means that the animal cannot:</p>
+        <p class="govuk-body">A Notice of Registration means that the animal cannot:</p>
         <ul class="govuk-list govuk-list--bullet">
           <li>move off your holding alive unless you have a licence</li>
           <li>enter the food chain</li>
