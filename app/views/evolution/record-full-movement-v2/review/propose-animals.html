@@ -1,0 +1,127 @@
+{% extends "layouts/main.html" %}
+{% set pageName = "Review the cattle reported in this movement" %}
+{% block pageTitle %}
+{{ pageName }} – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block containerStart %}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row"><div class="govuk-grid-column-two-thirds">
+  {% if removedAnimal %}
+
+  <div class="govuk-notification-banner govuk-notification-banner--success"
+       role="status"
+       aria-labelledby="removed-banner-title">
+
+    <div class="govuk-notification-banner__header">
+      <h2 class="govuk-notification-banner__title" id="removed-banner-title">
+        Success
+      </h2>
+    </div>
+
+    <div class="govuk-notification-banner__content">
+      <p class="govuk-body">
+        <strong>
+          {{ removedAnimal }} has been removed from the proposed movement.
+        </strong>
+      </p>
+    </div>
+
+  </div>
+
+{% endif %}
+
+<span class="govuk-caption-l">
+  Movement {{ reference }}
+</span>
+  <h1 class="govuk-heading-l">
+  Cattle in this movement
+</h1>
+
+<p class="govuk-body">
+  Review the cattle reported in this movement.
+</p>
+
+
+
+<h2 class="govuk-heading-m">
+  {{ animals.length }} cattle in this movement
+</h2>
+</div></div>
+<div class="govuk-grid-row"><div class="govuk-grid-column-three-quarters">
+<table class="govuk-table">
+  <caption class="govuk-visually-hidden">Cattle in the proposed movement</caption>
+  <thead class="govuk-table__head"><tr class="govuk-table__row">
+    <th scope="col" class="govuk-table__header">Ear tag number</th>
+    <th scope="col" class="govuk-table__header">Breed</th>
+    <th scope="col" class="govuk-table__header">Sex</th>
+    <th scope="col" class="govuk-table__header">Date of birth</th>
+    <th scope="col" class="govuk-table__header">Action</th>
+  </tr></thead>
+
+<tbody class="govuk-table__body">
+
+  {% for animal in animals %}
+
+    <tr class="govuk-table__row">
+
+      <th scope="row" class="govuk-table__header">
+        {{ animal.tag }}
+      </th>
+
+      <td class="govuk-table__cell">
+        <abbr title="{{ animal.breed.name }}">
+          {{ animal.breed.code }}
+        </abbr>
+        <span class="govuk-visually-hidden">
+          , {{ animal.breed.name }}
+        </span>
+      </td>
+
+      <td class="govuk-table__cell">
+        {{ animal.sex }}
+      </td>
+
+      <td class="govuk-table__cell">
+        {{ animal.dateOfBirth | shortDateFormat }}
+      </td>
+
+      <td class="govuk-table__cell">
+        <a
+                class="govuk-link"
+                href="./remove-animal?tag={{ animal.tag | urlencode }}"
+        >
+          Remove<span class="govuk-visually-hidden"> {{ animal.tag }}</span>
+        </a>
+      </td>
+
+    </tr>
+
+  {% endfor %}
+
+</tbody>
+
+</table>
+</div></div>
+<div class="govuk-grid-row"><div class="govuk-grid-column-two-thirds">
+  <h2 class="govuk-heading-m">Add more cattle</h2>
+  <p class="govuk-body">Add any cattle that were part of this movement but are missing from the report. The reporting keeper will be asked to confirm your proposed changes.</p>
+  <p><a class="govuk-button govuk-button--secondary" href="./add-method">Add more cattle</a></p>
+  <form method="post" action="./review/propose-change-cya">
+    <div class="govuk-button-group">
+    <button class="govuk-button" type="submit">Save and continue</button> <a class="govuk-link" href="./details-awaiting-confirmation" style="displayvertical-align:middle">Cancel amendments</a>
+    </div>
+  </form>
+
+</div></div>
+
+
+
+{% endblock %}

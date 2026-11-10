@@ -1,0 +1,74 @@
+
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+Content page template – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block containerStart %}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+       <!-- Routing is controlled in routes/evolution/whole-movement-[version]/record-full-movement-[version].js -->
+      <form  method="post" novalidate="">
+
+        <div class="govuk-form-group">
+          <fieldset class="govuk-fieldset">
+
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+              <h1 class="govuk-fieldset__heading">
+                How do you want to add animals that are moving off?
+              </h1>
+            </legend>
+
+            <div class="govuk-radios">
+
+
+
+              <div class="govuk-radios__item">
+                <input
+                        class="govuk-radios__input"
+                        id="method-manual"
+                        name="rfm-method"
+                        type="radio"
+                        value="manual"
+                >
+                <label class="govuk-label govuk-radios__label" for="method-manual">
+                  Enter ear tag numbers manually
+                </label>
+              </div>
+
+                <div class="govuk-radios__item">
+                <input
+                        class="govuk-radios__input"
+                        id="method-upload"
+                        name="rfm-method"
+                        type="radio"
+                        value="upload"
+                >
+                <label class="govuk-label govuk-radios__label" for="method-upload">
+                  Upload a file
+                </label>
+              </div>
+
+
+            </div>
+
+          </fieldset>
+        </div>
+
+        <button class="govuk-button">Continue</button>
+
+      </form>
+
+    </div>
+  </div>
+
+{% endblock %}

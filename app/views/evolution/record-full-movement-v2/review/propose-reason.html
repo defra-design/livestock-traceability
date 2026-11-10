@@ -1,0 +1,37 @@
+{% extends "layouts/main.html" %}
+{% set pageName = "page name content" %}
+{% block pageTitle %}
+{{ pageName }} – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block containerStart %}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+ <div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <span class="govuk-caption-l">Movement MOV-1007</span>
+
+    <form action="./propose-change-cya" method="post" novalidate="">
+      <div class="govuk-form-group">
+        <h1 class="govuk-label-wrapper">
+          <label class="govuk-label govuk-label--l" for="reason">Provide a brief description of why you are proposing amendments</label>
+        </h1>
+        <div class="govuk-hint" id="reason-hint">For example, one of the cattle listed in the movement did not arrive at your holding.</div>
+
+        <textarea class="govuk-textarea" id="reason" name="reason" rows="5" aria-describedby="reason-hint"></textarea>
+      </div>
+      <div class="govuk-button-group">
+    <button class="govuk-button" type="submit">Save and continue</button> <a class="govuk-link" href="./details-awaiting-confirmation" style="displayvertical-align:middle">Cancel amendments</a>
+    </div>
+    </form>
+    
+  </div>
+</div>
+
+{% endblock %}

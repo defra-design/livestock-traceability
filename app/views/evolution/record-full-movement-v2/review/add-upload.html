@@ -1,0 +1,75 @@
+
+{% extends "layouts/main.html" %}
+
+{% set pageName = "Upload a file of cattle" %}
+
+{% block pageTitle %}
+{{ pageName }} – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block containerStart %}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <h1 class="govuk-heading-l">
+        Upload a file of cattle moving off your holding
+      </h1>
+
+      <p class="govuk-body">
+  You can use an existing spreadsheet or a file exported from your
+  farm management software.
+</p>
+
+<p class="govuk-body">
+  Your file must:
+</p>
+
+<ul class="govuk-list govuk-list--bullet">
+  <li>be a CSV or Excel (XLSX) file</li>
+  <li>contain a column of ear tag numbers</li>
+  <li>be no larger than 10 MB</li>
+</ul>
+
+<p class="govuk-body">
+  The file can contain other columns. Only the ear tag numbers will be used.
+</p>
+      <!-- Routing is controlled in routes/evolution/whole-movement-[version]/record-full-movement-[version].js -->
+      <form method="post" enctype="application/x-www-form-urlencoded" novalidate="">
+
+        <div class="govuk-form-group">
+
+          <label for="file-upload" class="govuk-label govuk-label--m">
+            Upload file
+          </label>
+
+          <div class="govuk-hint" id="upload-hint">
+            The file must be a CSV or XLSX.
+          </div>
+
+          <input
+                  class="govuk-file-upload"
+                  id="file-upload"
+                  name="rfm-file"
+                  type="file"
+                  accept=".csv,.xlsx,text/csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                  aria-describedby="upload-hint"
+          >
+
+        </div>
+
+        <button class="govuk-button">Upload file</button>
+
+      </form>
+
+    </div>
+  </div>
+
+{% endblock %}

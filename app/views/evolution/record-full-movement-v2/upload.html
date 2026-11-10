@@ -24,8 +24,23 @@ href: "javascript:window.history.back()"
       </h1>
 
       <p class="govuk-body">
-        Upload a spreadsheet with the ear tag numbers of the cattle that moved.
-      </p>
+  You can use an existing spreadsheet or a file exported from your
+  farm management software.
+</p>
+
+<p class="govuk-body">
+  Your file must:
+</p>
+
+<ul class="govuk-list govuk-list--bullet">
+  <li>be a CSV or Excel (XLSX) file</li>
+  <li>contain a column of ear tag numbers</li>
+  <li>be no larger than 10 MB</li>
+</ul>
+
+<p class="govuk-body">
+  The file can contain other columns. Only the ear tag numbers will be used.
+</p>
       <!-- Routing is controlled in routes/evolution/whole-movement-[version]/record-full-movement-[version].js -->
       <form method="post" enctype="application/x-www-form-urlencoded" novalidate="">
 
@@ -36,7 +51,7 @@ href: "javascript:window.history.back()"
           </label>
 
           <div class="govuk-hint" id="upload-hint">
-            The file must be a CSV or XLSX and no larger than 10MB.
+            The file must be a CSV or XLSX.
           </div>
 
           <input

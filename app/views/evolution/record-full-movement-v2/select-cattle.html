@@ -1,0 +1,187 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName = "Select cattle moving off your holding" %}
+
+{% block pageTitle %}
+{{ pageName }} – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block containerStart %}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+  // make a proper class for this in the SCSS files
+    <style>
+      #selected-count{display:none;}
+      .js-enabled #selected-count{display:block;}
+      .govuk-table__cell{
+        vertical-align: middle !important;
+      }
+    </style>
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <h1 class="govuk-heading-l">
+        Select cattle moving off your holding
+      </h1>
+
+      <p class="govuk-body">
+        Select the cattle you want to add to this movement.
+        You can select more than one animal.
+      </p>
+
+
+
+  <form method="post" novalidate="">
+
+    <div class="govuk-form-group">
+
+      <fieldset class="govuk-fieldset">
+
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+          Cattle on your holding
+        </legend>
+
+        <p class="govuk-body">
+          Showing {{ availableCattle.length }} cattle
+        </p>
+
+        <div class="govuk-table__container">
+
+          <table class="govuk-table">
+
+            <caption class="govuk-visually-hidden">
+              Select cattle from your holding
+            </caption>
+
+            <thead class="govuk-table__head">
+              <tr class="govuk-table__row">
+                <th scope="col" class="govuk-table__header">
+                  Ear tag number
+                </th>
+                <th scope="col" class="govuk-table__header">
+                  Breed
+                </th>
+                <th scope="col" class="govuk-table__header">
+                  Sex
+                </th>
+                <th scope="col" class="govuk-table__header">
+                  Date of birth
+                </th>
+              </tr>
+            </thead>
+
+            <tbody class="govuk-table__body">
+
+              {% for animal in availableCattle %}
+
+                <tr class="govuk-table__row">
+
+                  <td class="govuk-table__cell">
+
+                    <div class="govuk-checkboxes govuk-checkboxes--small">
+
+                      <div class="govuk-checkboxes__item">
+
+                         <input
+                                class="govuk-checkboxes__input"
+                                id="animal-{{ loop.index }}"
+                                name="rfm-selected-cattle"
+                                type="checkbox"
+                                value="{{ animal.tag }}"
+                        >
+
+                        <label
+                                class="govuk-label govuk-checkboxes__label"
+                                for="animal-{{ loop.index }}"
+                        >
+                          {{ animal.tag }}
+                        </label>
+
+                      </div>
+
+                    </div>
+
+                  </td>
+
+                  <td class="govuk-table__cell">
+                    <abbr title="{{ animal.breed.name }}">
+                      {{ animal.breed.code }}
+                    </abbr>
+                  </td>
+
+                  <td class="govuk-table__cell">
+                    {{ animal.sex }}
+                  </td>
+
+                  <td class="govuk-table__cell">
+                    {{ animal.dateOfBirth | shortDateFormat }}
+                  </td>
+
+                </tr>
+
+              {% endfor %}
+
+            </tbody>
+
+          </table>
+
+        </div>
+
+      </fieldset>
+
+    </div>
+
+
+    <p class="govuk-body govuk-!-margin-bottom-6 govuk-!-font-weight-bold" id="selected-count" role="status">
+  <strong>0 animals selected</strong>
+</p>
+
+    <button class="govuk-button" type="submit">
+      Continue
+    </button>
+
+  </form>
+    </div>
+  </div>
+{% endblock %}
+
+{% block pageScripts%}
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+
+    // Find the animal checkboxes and selection counter
+    const checkboxes = document.querySelectorAll(
+      'input[name="rfm-selected-cattle"]'
+    )
+
+    const counter = document.getElementById('selected-count')
+
+    // Update the count when an animal is selected or deselected
+    function updateSelectedCount() {
+      const selected = document.querySelectorAll(
+        'input[name="rfm-selected-cattle"]:checked'
+      ).length
+
+      const animalText = selected === 1 ? 'animal' : 'animals'
+
+      counter.textContent = selected + ' ' + animalText + ' selected'
+    }
+
+    // Listen for changes to any of the checkboxes
+    checkboxes.forEach(function (checkbox) {
+      checkbox.addEventListener('change', updateSelectedCount)
+    })
+
+    // Set the correct count when the page loads
+    updateSelectedCount()
+  })
+</script>
+{% endblock %}
+
+

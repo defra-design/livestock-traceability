@@ -29,7 +29,7 @@ href: "javascript:window.history.back()"
     {% if response == 'confirm' %}
     <form method="post" action="./movement-confirmed" novalidate="">
     {% elseif response == 'amend' %}
-    <form method="post" action="./propose-animals" novalidate="">
+    <form method="post" action="./start-proposal" novalidate="">
         {% else %}
         <form method="post" action="" novalidate="">
     {% endif %}

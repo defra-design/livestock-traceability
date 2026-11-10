@@ -23,12 +23,34 @@ const LOCATIONS = [
 // Ten identifiable fictional cattle, without restriction or authorisation fields.
 const BREEDS = [{code:'HF',name:'Holstein Friesian'},{code:'BRB',name:'British Blue'},{code:'AA',name:'Aberdeen Angus'},{code:'HE',name:'Hereford'}]
 //Create cattle array to check against when adding animals
-const CATTLE = Array.from({length:10},(_,i)=>({
+const CATTLE = Array.from({length:15},(_,i)=>({
   tag:'UK 371234 '+String(i+1).padStart(6,'0'),
   breed:BREEDS[i%4], sex:i%2?'Male':'Female',
   dateOfBirth:String(i+1).padStart(2,'0')+'-'+String(i%12+1).padStart(2,'0')+'-2022',
   encodedTag:encodeURIComponent('UK 371234 '+String(i+1).padStart(6,'0'))
 }))
+
+// to the propose amend journey
+const REVIEW_CATTLE = [
+  {
+    tag: 'UK 371234 000006',
+    breed: { code: 'HE', name: 'Hereford' },
+    sex: 'Male',
+    dateOfBirth: '04-08-2021'
+  },
+  {
+    tag: 'UK 371234 000007',
+    breed: { code: 'HF', name: 'Holstein Friesian' },
+    sex: 'Female',
+    dateOfBirth: '05-09-2022'
+  },
+  {
+    tag: 'UK 371234 000042',
+    breed: { code: 'HF', name: 'Holstein Friesian' },
+    sex: 'Female',
+    dateOfBirth: '18-06-2022'
+  }
+]
 
 
 //Middleware
@@ -109,11 +131,63 @@ router.post(BASE + '/add-method', (req, res) => {
 
   if (movementType === 'upload') {
     return res.redirect(BASE + '/upload')
-  } else if (movementType === 'manual') {
+  }
+  if (movementType === 'manual') {
+
     return res.redirect(BASE + '/manual')
   }
+
+  if (movementType === 'select') {
+    return res.redirect(BASE + '/select-cattle')
+  }
+  res.redirect(BASE + '/add-method')
 })
 
+router.get(BASE + '/select-cattle', (req, res) => {
+
+  // Get the animals already added to this movement
+  const draft = req.session.data[SESSION].movementDraft
+
+  // Only show cattle that have not already been added
+  const availableCattle = CATTLE.filter(animal =>
+    !draft.animals.some(added => added.tag === animal.tag)
+  )
+
+  return res.render(VIEW + 'select-cattle', {
+    availableCattle
+  })
+})
+
+
+router.post(BASE + '/select-cattle', (req, res) => {
+
+  // Get the selected ear tag numbers
+  const selectedTags = req.body['rfm-selected-cattle'] || []
+
+  // Make sure we always have an array, even if only one is selected
+  const tags = Array.isArray(selectedTags)
+    ? selectedTags
+    : [selectedTags]
+
+  // Find the selected cattle that are not already in the movement
+  const draft = req.session.data[SESSION].movementDraft
+
+  const animalsAdded = CATTLE.filter(animal =>
+    tags.includes(animal.tag) &&
+    !draft.animals.some(added => added.tag === animal.tag)
+  )
+
+  // Add them to the movement
+  draft.animals.push(...animalsAdded)
+
+  // Save the results for the review page
+  draft.selectionResults = {
+    animalsAdded,
+    animalsNotAdded: []
+  }
+
+  return res.redirect(BASE + '/animals?notification=selected')
+})
 
 
 
@@ -208,7 +282,9 @@ router.get(BASE + '/animals', (req, res) => {
     ? draft.uploadResults
     : notification === 'manual'
       ? draft.manualResults
-      : null
+      : notification === 'selected'
+        ? draft.selectionResults
+        : null
 
   const { animalsAdded = [], animalsNotAdded = [] } = results || {}
 
@@ -578,6 +654,135 @@ router.get(BASE + '/movements', (req, res) => {
     reportedMovements
   })
 })
+
+
+// Start proposing changes to the reported movement
+router.get(BASE + '/review/start-proposal', (req, res) => {
+
+  const movementSession = req.session.data[SESSION]
+
+  // Start with the three animals originally reported
+  // might want to set the reference more dynamically
+  movementSession.proposedChanges = {
+    reference: '8R2T 9W1F',
+    animals: REVIEW_CATTLE.map(animal => ({ ...animal }))
+  }
+
+  return res.redirect(BASE + '/review/propose-animals')
+})
+
+
+// Display the animals being reviewed
+router.get(BASE + '/review/propose-animals', (req, res) => {
+
+  const proposedChanges = req.session.data[SESSION].proposedChanges
+
+  if (!proposedChanges) {
+    return res.redirect(BASE + '/review/start-proposal')
+  }
+
+  return res.render(VIEW + 'review/propose-animals', {
+    animals: proposedChanges.animals,
+    reference: proposedChanges.reference,
+    removedAnimal: req.query.removed
+  })
+})
+
+router.get(BASE + '/review/remove-animal', (req, res) => {
+
+  // Get the proposed changes and animal being removed
+  const proposedChanges = req.session.data[SESSION].proposedChanges
+  const tag = req.query.tag
+
+  // Remove the animal from the proposed movement
+  proposedChanges.animals = proposedChanges.animals.filter(
+    animal => animal.tag !== tag
+  )
+
+  // Return to the review page with a success notification
+  return res.redirect(
+    BASE + '/review/propose-animals?removed=' + tag
+  )
+})
+
+router.post(BASE + '/review/add-method', (req, res) => {
+  const movementType = req.body['rfm-method']
+
+  if (movementType === 'upload') {
+    return res.redirect(BASE + '/review/add-upload')
+  }
+  if (movementType === 'manual') {
+
+    return res.redirect(BASE + '/review/add-manual')
+  }
+
+  res.redirect(BASE + 'review/add-method')
+})
+
+router.get(BASE + '/review/propose-change-cya', (req, res) => {
+
+  const proposedChanges = req.session.data[SESSION].proposedChanges
+
+  return res.render(VIEW + 'review/propose-change-cya', {
+    animals: proposedChanges.animals,
+    reference: proposedChanges.reference
+  })
+})
+
+router.post(BASE + '/review/upload', (req, res) => {
+  // Add the five fictional cattle from the simulated upload
+  const uploadedCattle = CATTLE.slice(0, 5)
+
+  uploadedCattle.forEach(animal => {
+    if (!proposedChanges.animals.some(
+      existing => existing.tag === animal.tag
+    )) {
+      proposedChanges.animals.push(animal)
+    }
+  })
+
+  return res.redirect(BASE + '/review/propose-animals')
+})
+
+router.post(BASE + '/review/add-manual', (req, res) => {
+
+  const proposedChanges = req.session.data[SESSION].proposedChanges
+
+  // Get the ear tags entered by the keeper
+  const tags = (req.body['rfm-tags'] || '').split(/\r?\n/)
+
+  // Add matching cattle that are not already included
+  tags.forEach(tag => {
+
+    const cleanTag = tag.replace(/\s/g, '').toUpperCase()
+
+    const animal = CATTLE.find(
+      cattle => cattle.tag.replace(/\s/g, '') === cleanTag
+    )
+
+    if (animal && !proposedChanges.animals.some(
+      existing => existing.tag === animal.tag
+    )) {
+      proposedChanges.animals.push(animal)
+    }
+
+  })
+
+  return res.redirect(BASE + '/review/propose-animals')
+})
+
+router.post(BASE + '/review/submit-proposal', (req, res) => {
+
+  const proposedChanges = req.session.data[SESSION].proposedChanges
+
+  // Mark the proposed movement as awaiting the other keeper
+  proposedChanges.status = 'Changes proposed'
+  proposedChanges.actionWith = 'Other keeper'
+
+  return res.redirect(BASE + '/review/changes-proposed')
+})
+
+
 // helper routes
 router.get(BASE + '/clear-test-movements', (req, res) => {
 
