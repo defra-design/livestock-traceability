@@ -1,0 +1,81 @@
+
+{% extends "layouts/main.html" %}
+
+{% set pageName = "Find the destination by address" %}
+
+{% block pageTitle %}
+{{ pageName }} – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block containerStart %}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <h1 class="govuk-heading-l">
+        Find the destination by address
+      </h1>
+
+      <p class="govuk-body">
+        Enter a postcode to find registered cattle movement destinations.
+      </p>
+
+      <!-- Routing is controlled in routes/evolution/whole-movements-v2/record-full-movement-v2.js -->
+
+      <form method="post" novalidate="">
+
+        <div class="govuk-form-group">
+
+          <label class="govuk-label" for="location-postcode">
+            Postcode
+          </label>
+
+          <input
+                  class="govuk-input"
+                  id="location-postcode"
+                  name="rfm-location-postcode"
+                  type="text"
+                  autocomplete="postal-code"
+                  value="{{ postcode or '' }}"
+          >
+
+        </div>
+
+        <div class="govuk-form-group">
+
+          <label class="govuk-label" for="location-property">
+            Property name or number (optional)
+          </label>
+
+          <div class="govuk-hint" id="location-property-hint">
+            For example, Lowbank Farm, 116 or 28 Mill Lane.
+          </div>
+
+          <input
+                  class="govuk-input govuk-input--width-20"
+                  id="location-property"
+                  name="rfm-location-property"
+                  type="text"
+                  aria-describedby="location-property-hint"
+                  value="{{ property or '' }}"
+          >
+
+        </div>
+
+        <button class="govuk-button" type="submit" data-module="govuk-button">
+          Find a location
+        </button>
+
+      </form>
+
+    </div>
+  </div>
+
+{% endblock %}

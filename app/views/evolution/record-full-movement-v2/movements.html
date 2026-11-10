@@ -32,9 +32,9 @@
 
           <ul class="govuk-list app-activity-card__links">
             <li>
-              <a class="govuk-link govuk-link--no-visited-state" href="/evolution/record-full-movement/movements?actionWith=-">
+              <a class="govuk-link govuk-link--no-visited-state" href="./movements?actionWith=-">
                 View movements
-                <span class="govuk-visually-hidden">need -r attention</span>
+                <span class="govuk-visually-hidden">need your attention</span>
               </a>
             </li>
           </ul>
@@ -48,7 +48,8 @@
           </h2>
 
           <p class="app-activity-card__number">
-            0
+
+            {{reportedMovements | length or 0 }}
           </p>
 
           <ul class="govuk-list app-activity-card__links">
@@ -90,7 +91,7 @@
 
 <h2 class="govuk-heading-m">Filter movements</h2>
 
-<form method="get" action="/evolution/record-full-movement/movements">
+<form method="get" action="./movements">
 
   <div class="govuk-form-group">
 
@@ -208,6 +209,59 @@
           </tr>
         </thead>
         <tbody class="govuk-table__body">
+
+{% for movement in reportedMovements %}
+
+  <tr class="govuk-table__row">
+
+    <th scope="row" class="govuk-table__header">
+      <a
+              class="govuk-link"
+              href="./review/details-awaiting-confirmation?direction={{ movement.direction }}&reference={{ movement.reference | urlencode }}"
+      >
+        {{ movement.reference }}
+      </a>
+    </th>
+
+    <td class="govuk-table__cell">
+      {{ movement.movementDate | shortDateFormat }}
+    </td>
+
+    <td class="govuk-table__cell">
+
+      {% if movement.direction == 'off' %}
+
+        Off to {{ movement.destination.identifier }}
+
+      {% else %}
+
+        On from {{ movement.sender.cph }}
+
+      {% endif %}
+
+    </td>
+
+    <td class="govuk-table__cell">
+      {{ movement.animals.length }}
+    </td>
+
+    <td class="govuk-table__cell">
+      <strong class="govuk-tag app-tag--no-max-width govuk-tag--blue">
+        {{ movement.status }}
+      </strong>
+    </td>
+
+    <td class="govuk-table__cell">
+      {{ movement.actionWith }}
+    </td>
+
+  </tr>
+
+{% endfor %}
+
+<!-- Keep all your existing static movement rows below -->
+
+<!-- Existing static movement rows -->
         <tr class="govuk-table__row">
               <th scope="row" class="govuk-table__header">
 
@@ -395,7 +449,7 @@
 
         </tbody>
       </table>
-
+        <p><a href="./clear-test-movements">Reset movement data (for prototype only)</a></p>
     </div>
   </div>
 {% endblock %}

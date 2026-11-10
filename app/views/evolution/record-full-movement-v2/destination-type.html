@@ -1,5 +1,5 @@
 {% extends "layouts/main.html" %}
-{% set pageName = "page name content" %}
+{% set pageName = "What type of destination are the cattle moving to" %}
 {% block pageTitle %}
 {{ pageName }} – {{ serviceName }} – GOV.UK Prototype Kit
 {% endblock %}
@@ -13,22 +13,42 @@ href: "javascript:window.history.back()"
 
 {% block content %}
 
-  <div class="govuk-grid-row">
-    <div class="govuk-grid-column-two-thirds">
+<div class="govuk-grid-row"><div class="govuk-grid-column-two-thirds">
 
-      <h1 class="govuk-heading-l">
-        Heading goes here
-      </h1>
 
-      <p>
-        This is a paragraph of text. It explains in more detail what has happened and wraps across several lines.
-      </p>
 
-      <p>
-        Read more <a href="/path/of/page">about this topic</a>.
-      </p>
+<form action="/evolution/record-full-movement/destination-type" method="post" novalidate="">
+<div class="govuk-form-group">
+<fieldset class="govuk-fieldset"><legend class="govuk-fieldset__legend govuk-fieldset__legend--l"><h1 class="govuk-fieldset__heading">What type of destination are the cattle moving to?</h1></legend>
 
-    </div>
-  </div>
+
+<div class="govuk-radios">
+
+
+<div class="govuk-radios__item"><input class="govuk-radios__input" id="type-holding" type="radio" name="rfm-destination-type" value="holding" checked=""><label class="govuk-label govuk-radios__label" for="type-holding">Another holding</label></div>
+
+
+
+<div class="govuk-radios__item"><input class="govuk-radios__input" id="type-market" type="radio" name="rfm-destination-type" value="market"><label class="govuk-label govuk-radios__label" for="type-market">Market</label></div>
+
+
+
+<div class="govuk-radios__item"><input class="govuk-radios__input" id="type-slaughterhouse" type="radio" name="rfm-destination-type" value="slaughterhouse"><label class="govuk-label govuk-radios__label" for="type-slaughterhouse">Slaughterhouse or abattoir</label></div>
+
+
+
+<div class="govuk-radios__item"><input class="govuk-radios__input" id="type-showground" type="radio" name="rfm-destination-type" value="showground"><label class="govuk-label govuk-radios__label" for="type-showground">Showground</label></div>
+
+
+
+<div class="govuk-radios__item"><input class="govuk-radios__input" id="type-collection-centre" type="radio" name="rfm-destination-type" value="collection-centre"><label class="govuk-label govuk-radios__label" for="type-collection-centre">Collection centre</label></div>
+
+
+
+<div class="govuk-radios__item"><input class="govuk-radios__input" id="type-other" type="radio" name="rfm-destination-type" value="other"><label class="govuk-label govuk-radios__label" for="type-other">Other</label></div>
+
+</div></fieldset></div><button class="govuk-button">Continue</button></form>
+
+</div></div>
 
 {% endblock %}

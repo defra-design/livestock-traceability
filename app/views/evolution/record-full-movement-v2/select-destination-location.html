@@ -1,0 +1,140 @@
+
+{% extends "layouts/main.html" %}
+
+{% set pageName = "Select the destination" %}
+
+{% block pageTitle %}
+{{ pageName }} – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block containerStart %}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      {% if results.length > 0 %}
+
+        <h1 class="govuk-heading-l">
+          Select the destination
+        </h1>
+
+        <p class="govuk-body">
+          We found {{ results.length }} registered
+          {% if results.length == 1 %}location{% else %}locations{% endif %}
+          matching "{{ search }}".
+        </p>
+
+        {% if hasError %}
+
+          <div class="govuk-error-summary" role="alert">
+            <h2 class="govuk-error-summary__title">
+              There is a problem
+            </h2>
+            <div class="govuk-error-summary__body">
+              <ul class="govuk-list govuk-error-summary__list">
+                <li>
+                  <a href="#result-{{ results[0].id }}">
+                    Select a destination
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+        {% endif %}
+
+        <form method="post" novalidate="">
+
+          <div class="govuk-form-group{% if hasError %} govuk-form-group--error{% endif %}">
+
+            <fieldset class="govuk-fieldset">
+
+              <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+                Which is the correct destination?
+              </legend>
+
+              {% if hasError %}
+                <p class="govuk-error-message">
+                  <span class="govuk-visually-hidden">Error:</span>
+                  Select a destination
+                </p>
+              {% endif %}
+
+              <div class="govuk-radios">
+
+                {% for item in results %}
+
+                  <div class="govuk-radios__item">
+
+                    <input
+                            class="govuk-radios__input"
+                            id="result-{{ item.id }}"
+                            name="rfm-address-destination"
+                            type="radio"
+                            value="{{ item.id }}"
+                    >
+
+                    <label
+                            class="govuk-label govuk-radios__label"
+                            for="result-{{ item.id }}"
+                    >
+                      {{ item.name }}, {{ item.address }} ({{ item.identifier }})
+
+                    </label>
+
+                  </div>
+
+                {% endfor %}
+
+              </div>
+
+            </fieldset>
+
+          </div>
+
+          <button class="govuk-button" type="submit">
+            Continue
+          </button>
+
+        </form>
+
+      {% else %}
+
+        <h1 class="govuk-heading-l">
+          We could not find a registered destination
+        </h1>
+
+        <p class="govuk-body">
+          We could not find a registered destination matching "{{ search }}".
+        </p>
+
+        <p class="govuk-body">
+          Check the postcode and property details and try again.
+          You can also search by CPH number or abattoir approval number.
+        </p>
+
+        <p class="govuk-body">
+          <a class="govuk-link" href="./find-holding-by-address">
+            Search again
+          </a>
+        </p>
+
+        <p class="govuk-body">
+          <a class="govuk-link" href="./find-destination">
+            Find the destination another way
+          </a>
+        </p>
+
+      {% endif %}
+
+    </div>
+  </div>
+
+{% endblock %}

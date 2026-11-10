@@ -1,0 +1,269 @@
+
+{% extends "layouts/main.html" %}
+
+{% set pageName = "Check your answers before reporting the movement" %}
+
+{% block pageTitle %}
+{{ pageName }} – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block containerStart %}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      {% if removedAnimal %}
+
+        <div
+                class="govuk-notification-banner govuk-notification-banner--success"
+                role="status"
+                aria-labelledby="removed-banner-title"
+        >
+
+          <div class="govuk-notification-banner__header">
+            <h2 class="govuk-notification-banner__title" id="removed-banner-title">
+              Success
+            </h2>
+          </div>
+
+          <div class="govuk-notification-banner__content">
+            <p class="govuk-body">
+              <strong>
+                {{ removedAnimal }} has been removed from this movement.
+              </strong>
+            </p>
+          </div>
+
+        </div>
+
+      {% endif %}
+
+      <h1 class="govuk-heading-l">
+        Check your answers before reporting the movement
+      </h1>
+
+      <dl class="govuk-summary-list">
+
+        <div class="govuk-summary-list__row">
+
+          <dt class="govuk-summary-list__key">
+            Moving from
+          </dt>
+
+          <dd class="govuk-summary-list__value">
+            {{ sender.cph }}
+            <br>
+            {{ sender.address }}
+          </dd>
+
+        </div>
+
+        <div class="govuk-summary-list__row">
+
+          <dt class="govuk-summary-list__key">
+            Moving to
+          </dt>
+
+          <dd class="govuk-summary-list__value">
+
+            {% if destination %}
+
+              {{ destination.identifier }}
+              <br>
+              {{ destination.address }}
+
+            {% else %}
+
+              Not entered
+
+            {% endif %}
+
+          </dd>
+
+          <dd class="govuk-summary-list__actions">
+            <a class="govuk-link" href="./previous-destinations">
+              Change<span class="govuk-visually-hidden"> destination</span>
+            </a>
+          </dd>
+
+        </div>
+
+        <div class="govuk-summary-list__row">
+
+          <dt class="govuk-summary-list__key">
+            Date the cattle left the sending holding
+          </dt>
+
+          <dd class="govuk-summary-list__value">
+
+            {% if movementDate %}
+
+              {{ movementDate | shortDateFormat }}
+
+            {% else %}
+
+              Not entered
+
+            {% endif %}
+
+          </dd>
+
+          <dd class="govuk-summary-list__actions">
+            <a class="govuk-link" href="./movement-date">
+              Change<span class="govuk-visually-hidden"> departure date</span>
+            </a>
+          </dd>
+
+        </div>
+
+        <div class="govuk-summary-list__row">
+
+          <dt class="govuk-summary-list__key">
+            Number of cattle
+          </dt>
+
+          <dd class="govuk-summary-list__value">
+            {{ animals.length }}
+          </dd>
+
+          <dd class="govuk-summary-list__actions">
+            <a class="govuk-link" href="./animals">
+              Add or remove<span class="govuk-visually-hidden"> cattle</span>
+            </a>
+          </dd>
+
+        </div>
+
+      </dl>
+
+    </div>
+  </div>
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+
+      <h2 class="govuk-heading-m">
+        Cattle in this movement ({{ animals.length }})
+      </h2>
+
+      {% if animals.length > 0 %}
+
+        <table class="govuk-table">
+
+          <caption class="govuk-visually-hidden">
+            Cattle in this movement
+          </caption>
+
+          <thead class="govuk-table__head">
+            <tr class="govuk-table__row">
+              <th scope="col" class="govuk-table__header">Ear tag number</th>
+              <th scope="col" class="govuk-table__header">Breed</th>
+              <th scope="col" class="govuk-table__header">Sex</th>
+              <th scope="col" class="govuk-table__header">Date of birth</th>
+              <th scope="col" class="govuk-table__header">Actions</th>
+            </tr>
+          </thead>
+
+          <tbody class="govuk-table__body">
+
+            {% for animal in animals %}
+
+              <tr class="govuk-table__row">
+
+                <th scope="row" class="govuk-table__header">
+                  {{ animal.tag }}
+                </th>
+
+                <td class="govuk-table__cell">
+                  <abbr title="{{ animal.breed.name }}">
+                    {{ animal.breed.code }}
+                  </abbr>
+                  <span class="govuk-visually-hidden">
+                    , {{ animal.breed.name }}
+                  </span>
+                </td>
+
+                <td class="govuk-table__cell">
+                  {{ animal.sex }}
+                </td>
+
+                <td class="govuk-table__cell">
+                  {{ animal.dateOfBirth | shortDateFormat }}
+                </td>
+
+                <td class="govuk-table__cell">
+                  <a
+                          class="govuk-link"
+                          href="./remove?returnTo=check-answers&tag={{ animal.encodedTag }}"
+                  >
+                    Remove<span class="govuk-visually-hidden"> {{ animal.tag }}</span>
+                  </a>
+                </td>
+
+              </tr>
+
+            {% endfor %}
+
+          </tbody>
+
+        </table>
+
+      {% else %}
+
+        <p class="govuk-body">
+          No cattle have been added to this movement.
+        </p>
+
+      {% endif %}
+
+      <p class="govuk-body govuk-!-margin-bottom-7">
+        <a
+                class="govuk-button govuk-button--secondary"
+                href="./add-method"
+                role="button"
+                data-module="govuk-button"
+        >
+          Add more animals
+        </a>
+      </p>
+
+    </div>
+  </div>
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <h2 class="govuk-heading-m">
+        Now submit your movement report
+      </h2>
+
+      <p class="govuk-body">
+        By submitting this report you confirm that:
+      </p>
+
+      <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-7">
+        <li>
+          to the best of your knowledge the details you are providing are correct
+        </li>
+        <li>
+          the animals listed on the report have already been moved off your holding
+        </li>
+      </ul>
+
+      <form method="post" action="./submit">
+        <button class="govuk-button" type="submit">
+          Accept and submit report
+        </button>
+      </form>
+
+    </div>
+  </div>
+
+{% endblock %}

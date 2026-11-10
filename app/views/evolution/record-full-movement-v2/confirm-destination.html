@@ -91,10 +91,10 @@ href: "javascript:window.history.back()"
 
         <a
                 class="govuk-button"
-                href="./previous-destinations'"
+                href="./{{ destinationSource or 'previous-destinations' }}"
         >
-          Try again
-        </a>
+  Try again
+</a>
 
       {% else %}
 

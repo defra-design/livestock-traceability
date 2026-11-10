@@ -1,0 +1,86 @@
+
+{% extends "layouts/main.html" %}
+
+{% set pageName = "Find a destination by number" %}
+
+{% block pageTitle %}
+{{ pageName }} – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block containerStart %}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <form method="post" novalidate="">
+
+        <div class="govuk-form-group">
+
+          <h1 class="govuk-label-wrapper">
+            <label class="govuk-label govuk-label--l" for="destination-id">
+              What is the CPH number or abattoir approval number of the destination?
+            </label>
+          </h1>
+
+          <div class="govuk-hint" id="dest-hint">
+            Enter the CPH number or abattoir approval number of the destination.
+            For example, 56/312/0056 or 1234.
+          </div>
+          <input
+                  class="govuk-input govuk-input--width-10"
+                  id="destination-id"
+                  name="rfm-destination-id"
+                  type="text"
+                  spellcheck="false"
+                  aria-describedby="dest-hint"
+          >
+
+        </div>
+
+        <button class="govuk-button" type="submit">
+          Continue
+        </button>
+
+      </form>
+
+      <details class="govuk-details">
+
+        <summary class="govuk-details__summary">
+          <span class="govuk-details__summary-text">
+            Demonstration identifiers
+          </span>
+        </summary>
+
+        <div class="govuk-details__text">
+
+          <p class="govuk-body">
+            Hilltop Farm – 56/312/0056
+          </p>
+
+          <p class="govuk-body">
+            Brook Farm – 15/628/0067
+          </p>
+
+          <p class="govuk-body">
+            Example Abattoir – UK 1234
+          </p>
+
+          <p class="govuk-body">
+            Old Manor Farm – 12/345/9999
+          </p>
+
+        </div>
+
+      </details>
+
+    </div>
+  </div>
+
+{% endblock %}

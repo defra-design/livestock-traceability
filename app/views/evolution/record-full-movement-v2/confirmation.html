@@ -1,0 +1,30 @@
+{% extends "layouts/main.html" %}
+{% set pageName = "Movement off reported" %}
+{% block pageTitle %}
+{{ pageName }} – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block containerStart %}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row"><div class="govuk-grid-column-two-thirds">
+
+
+
+<div class="govuk-panel govuk-panel--confirmation"><h1 class="govuk-panel__title">Movement off reported</h1><div class="govuk-panel__body">Reference number<br><strong>{{query.reference or '9T2H 8Y3D'}}</strong></div></div>
+<p class="govuk-body">You have reported 1 cattle moving off 37/123/4567 to {{query.destination or '56/312/0056'}}.</p>
+<p class="govuk-body">This is a demonstration confirmation. Nothing has been sent to the live movement service.</p>
+
+<h2 class="govuk-heading-m">What happens next</h2>
+<p class="govuk-body">This reports one end of the movement only. It does not confirm the other keeper's declaration or record animal deaths.</p>
+<p class="govuk-body"><a class="govuk-button" href="/evolution/record-full-movement-v2/movements">View all movements</a></p>
+
+</div></div>
+
+{% endblock %}

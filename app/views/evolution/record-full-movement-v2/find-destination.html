@@ -1,0 +1,91 @@
+
+{% extends "layouts/main.html" %}
+
+{% set pageName = "How do you want to find the destination?" %}
+
+{% block pageTitle %}
+{{ pageName }} – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block containerStart %}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <!-- Routing is controlled in routes/evolution/whole-movements-v2/record-full-movement-v2.js -->
+
+      <form method="post" novalidate="">
+
+        <div class="govuk-form-group">
+
+          <fieldset class="govuk-fieldset">
+
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+              <h1 class="govuk-fieldset__heading">
+                How do you want to find the destination?
+              </h1>
+            </legend>
+
+            <div class="govuk-radios">
+
+              <div class="govuk-radios__item">
+
+                <input
+                        class="govuk-radios__input"
+                        id="find-id"
+                        name="rfm-find-method"
+                        type="radio"
+                        value="identifier"
+                >
+
+                <label
+                        class="govuk-label govuk-radios__label"
+                        for="find-id"
+                >
+                  By CPH number or abattoir approval number
+                </label>
+
+              </div>
+
+              <div class="govuk-radios__item">
+
+                <input
+                        class="govuk-radios__input"
+                        id="find-address"
+                        name="rfm-find-method"
+                        type="radio"
+                        value="address"
+                >
+
+                <label
+                        class="govuk-label govuk-radios__label"
+                        for="find-address"
+                >
+                  By address
+                </label>
+
+              </div>
+
+            </div>
+
+          </fieldset>
+
+        </div>
+
+        <button class="govuk-button" type="submit">
+          Continue
+        </button>
+
+      </form>
+
+    </div>
+  </div>
+
+{% endblock %}
