@@ -1,0 +1,101 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName = "Where are the cattle moving to?" %}
+
+{% block pageTitle %}
+{{ pageName }} – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block containerStart %}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <form method="post" novalidate="">
+
+        <div class="govuk-form-group">
+
+          <fieldset class="govuk-fieldset" aria-describedby="destination-hint">
+
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+              <h1 class="govuk-fieldset__heading">
+                Where are the cattle moving to?
+              </h1>
+            </legend>
+
+            <div class="govuk-hint" id="destination-hint">
+              Select a destination you have used before or choose a new destination.
+            </div>
+
+            <div class="govuk-radios" data-module="govuk-radios">
+
+              {% for location in previousLocations %}
+
+                <div class="govuk-radios__item">
+
+                  <input
+                          class="govuk-radios__input"
+                          id="previous-{{ location.id }}"
+                          name="rfm-previous"
+                          type="radio"
+                          value="{{ location.id }}"
+                  >
+
+                  <label
+                          class="govuk-label govuk-radios__label"
+                          for="previous-{{ location.id }}"
+                  >
+                    {{ location.name }} ({{ location.identifier }})
+                  </label>
+
+                </div>
+
+              {% endfor %}
+
+              <div class="govuk-radios__divider">
+                or
+              </div>
+
+              <div class="govuk-radios__item">
+
+                <input
+                        class="govuk-radios__input"
+                        id="previous-new"
+                        name="rfm-previous"
+                        type="radio"
+                        value="new"
+                >
+
+                <label
+                        class="govuk-label govuk-radios__label"
+                        for="previous-new"
+                >
+                  A new destination
+                </label>
+
+              </div>
+
+            </div>
+
+          </fieldset>
+
+        </div>
+
+        <button class="govuk-button" type="submit">
+          Continue
+        </button>
+
+      </form>
+
+    </div>
+  </div>
+
+{% endblock %}
+

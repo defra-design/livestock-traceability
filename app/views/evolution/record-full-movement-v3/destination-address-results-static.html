@@ -1,0 +1,50 @@
+{# Static preview only. Not connected to the live location search or session data. #}
+{% set base = '/evolution/record-full-movement' %}
+{% extends base + '/layout.html' %}
+{% set pageName = 'Select the destination' %}
+{% set backHref = base + '/destination-address' %}
+
+{% block journeyContent %}
+
+
+
+
+  <div class="govuk-form-group">
+    <fieldset class="govuk-fieldset">
+      <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+        <h1 class="govuk-heading-l">Select the address</h1>
+      </legend>
+      <p class="govuk-body">
+    We found 2 registered locations matching “EX2 3CD”.
+  </p>
+      <div class="govuk-radios">
+        <div class="govuk-radios__item">
+          <input
+            class="govuk-radios__input"
+            id="result-1"
+            name="preview-destination"
+            type="radio"
+            value="mill-lane">
+          <label class="govuk-label govuk-radios__label" for="result-1">
+            6 Mill Lane, Exampleton, EX2 3CD – 56/312/0056
+          </label>
+        </div>
+         <div class="govuk-radios__item">
+          <input
+                  class="govuk-radios__input"
+                  id="result-1"
+                  name="preview-destination"
+                  type="radio"
+                  value="mill-lane">
+          <label class="govuk-label govuk-radios__label" for="result-1">
+            Millers Farm, Exampleton, EX2 3CD – 56/312/0234
+          </label>
+        </div>
+      </div>
+    </fieldset>
+  </div>
+
+  {# Deliberately not a submit button: this page is just for design review. #}
+  <button class="govuk-button" type="button" >Continue</button>
+
+{% endblock %}

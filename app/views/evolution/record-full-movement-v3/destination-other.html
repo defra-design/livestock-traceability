@@ -1,0 +1,42 @@
+{% extends base + "/layout.html" %}
+{% set pageName = "Destination details" %}
+{% set backHref = base + '/destination-type' %}
+
+{% block journeyContent %}
+  <h1 class="govuk-heading-l">Destination details</h1>
+
+  <form action="{{ base }}/destination-other" method="post" novalidate>
+    <div class="govuk-form-group{% if errors %} govuk-form-group--error{% endif %}">
+      <label class="govuk-label govuk-label--m" for="other-name">
+        Type of destination
+      </label>
+      <div class="govuk-hint" id="other-name-hint">
+        For example, temporary holding or factory.
+      </div>
+      {% if errors %}
+        <p class="govuk-error-message" id="other-name-error">
+          <span class="govuk-visually-hidden">Error:</span> {{ errors[0].message }}
+        </p>
+      {% endif %}
+      <input class="govuk-input govuk-!-width-two-thirds{% if errors %} govuk-input--error{% endif %}"
+             id="other-name" name="rfm-other-name" type="text"
+             aria-describedby="other-name-hint{% if errors %} other-name-error{% endif %}"
+             value="{{ posted.name or '' }}">
+    </div>
+
+    <div class="govuk-form-group">
+      <label class="govuk-label govuk-label--m" for="other-id">
+        Destination identifier (optional)
+      </label>
+      <div class="govuk-hint" id="other-id-hint">
+        This is the relevant destination identifier for our records. For example, 123455 or 12/234/433. You can leave this blank if the destination has no identifier.
+      </div>
+      <input class="govuk-input govuk-!-width-two-thirds"
+             id="other-id" name="rfm-other-id" type="text"
+             aria-describedby="other-id-hint"
+             value="{{ posted.identifier or '' }}">
+    </div>
+
+    <button class="govuk-button" type="submit">Continue</button>
+  </form>
+{% endblock %}

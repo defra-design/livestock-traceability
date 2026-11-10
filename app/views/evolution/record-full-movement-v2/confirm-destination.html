@@ -1,0 +1,176 @@
+
+{% extends "layouts/main.html" %}
+
+{% set pageName = "Confirm the destination" %}
+
+{% block pageTitle %}
+{{ pageName }} – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block containerStart %}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      {% if destination.status == 'active' %}
+
+        <h1 class="govuk-heading-l">
+          Confirm the destination
+        </h1>
+
+      {% else %}
+
+        <h1 class="govuk-heading-l">
+          You cannot use this holding as a destination
+        </h1>
+
+      {% endif %}
+
+      <dl class="govuk-summary-list">
+
+        <div class="govuk-summary-list__row">
+
+          <dt class="govuk-summary-list__key">
+            {{ destination.idLabel }}
+          </dt>
+
+          <dd class="govuk-summary-list__value">
+            {{ destination.identifier }}
+          </dd>
+
+        </div>
+
+        <div class="govuk-summary-list__row">
+
+          <dt class="govuk-summary-list__key">
+            Address
+          </dt>
+
+          <dd class="govuk-summary-list__value">
+            {{ destination.address }}
+          </dd>
+
+        </div>
+
+        {% if destination.status == 'closed' %}
+
+          <div class="govuk-summary-list__row">
+
+            <dt class="govuk-summary-list__key">
+              Status
+            </dt>
+
+            <dd class="govuk-summary-list__value">
+              <strong class="govuk-tag govuk-tag--grey">
+                Closed
+              </strong>
+            </dd>
+
+          </div>
+
+        {% endif %}
+
+      </dl>
+
+      {% if destination.status != 'active' %}
+
+        <p class="govuk-body">
+          This holding is recorded as closed. Check the details and try searching for another destination.
+        </p>
+
+        <p class="govuk-body">
+          If you believe this holding should be open, contact the British Cattle Movement Service (BCMS) to check its status.
+        </p>
+
+        <a
+                class="govuk-button"
+                href="./previous-destinations'"
+        >
+          Try again
+        </a>
+
+      {% else %}
+
+        {% if destination.type == 'slaughterhouse' %}
+
+          <p class="govuk-inset-text">
+            Reporting movement off to a slaughterhouse does not record the death of the cattle.
+          </p>
+
+        {% endif %}
+
+        <form method="post" novalidate="">
+
+          <div class="govuk-form-group">
+
+            <fieldset class="govuk-fieldset">
+
+              <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+                Is this the correct destination?
+              </legend>
+
+              <div class="govuk-radios" data-module="govuk-radios">
+
+                <div class="govuk-radios__item">
+
+                  <input
+                          class="govuk-radios__input"
+                          id="rfm-confirm-destination"
+                          name="rfm-confirm-destination"
+                          type="radio"
+                          value="yes"
+                  >
+
+                  <label
+                          class="govuk-label govuk-radios__label"
+                          for="rfm-confirm-destination"
+                  >
+                    Yes
+                  </label>
+
+                </div>
+
+                <div class="govuk-radios__item">
+
+                  <input
+                          class="govuk-radios__input"
+                          id="rfm-confirm-destination-2"
+                          name="rfm-confirm-destination"
+                          type="radio"
+                          value="no"
+                  >
+
+                  <label
+                          class="govuk-label govuk-radios__label"
+                          for="rfm-confirm-destination-2"
+                  >
+                    No
+                  </label>
+
+                </div>
+
+              </div>
+
+            </fieldset>
+
+          </div>
+
+          <button class="govuk-button" type="submit">
+            Continue
+          </button>
+
+        </form>
+
+      {% endif %}
+
+    </div>
+  </div>
+
+{% endblock %}

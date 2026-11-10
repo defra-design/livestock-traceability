@@ -1,0 +1,47 @@
+{% extends "layouts/main.html" %}
+{% set pageName = "Enter the ear tag numbers" %}
+{% block pageTitle %}
+{{ pageName }} – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block containerStart %}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row"><div class="govuk-grid-column-two-thirds">
+
+
+
+  <form  method="post" novalidate="">
+    <div class="govuk-form-group">
+      <h1 class="govuk-label-wrapper">
+        <label class="govuk-label govuk-label--l" for="ear-tags">
+
+            Enter the ear tag numbers of cattle moving off your holding
+
+        </label>
+      </h1>
+
+      <div class="govuk-hint" id="ear-tags-hint">
+        Enter one ear tag number per line. You can enter one animal or paste several,
+        for example UK 371234 000001.
+      </div>
+
+
+
+      <textarea class="govuk-textarea" id="ear-tags" name="rfm-tags" rows="10" aria-describedby="ear-tags-hint"></textarea>
+    </div>
+
+    <button class="govuk-button" type="submit">
+      Continue
+    </button>
+  </form>
+
+</div></div>
+
+{% endblock %}

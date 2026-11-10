@@ -1,0 +1,401 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+{{ pageName }}– {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <h1 class="govuk-heading-l">Movements for 37/123/4567</h1>
+
+      <a class="govuk-button" href="./movement-type" role="button" data-module="govuk-button" data-govuk-button-init="">
+        Report a movement
+      </a>
+    </div>
+  </div>
+
+
+
+  <div class="app-grid-container app-overview-cards app-activity-cards govuk-!-margin-bottom-9">
+
+      <article class="app-card app-activity-card">
+        <div class="app-card-container">
+          <h2 class="govuk-heading-m app-activity-card__title">
+            Need your attention
+          </h2>
+
+          <p class="app-activity-card__number">
+            1
+          </p>
+
+          <ul class="govuk-list app-activity-card__links">
+            <li>
+              <a class="govuk-link govuk-link--no-visited-state" href="/evolution/record-full-movement/movements?actionWith=-">
+                View movements
+                <span class="govuk-visually-hidden">need -r attention</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="app-card app-activity-card">
+        <div class="app-card-container">
+          <h2 class="govuk-heading-m app-activity-card__title">
+            With other keeper
+          </h2>
+
+          <p class="app-activity-card__number">
+            0
+          </p>
+
+          <ul class="govuk-list app-activity-card__links">
+            <li>
+              <a class="govuk-link govuk-link--no-visited-state" href="/evolution/record-full-movement/movements?actionWith=other">
+                View movements
+                <span class="govuk-visually-hidden">with other keeper</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="app-card app-activity-card">
+        <div class="app-card-container">
+          <h2 class="govuk-heading-m app-activity-card__title">
+            With BCMS
+          </h2>
+
+          <p class="app-activity-card__number">
+            0
+          </p>
+
+          <ul class="govuk-list app-activity-card__links">
+            <li>
+              <a class="govuk-link govuk-link--no-visited-state" href="/evolution/record-full-movement/movements?actionWith=-">
+                View movements
+                <span class="govuk-visually-hidden">with -</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </article>
+
+  </div>
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+<h2 class="govuk-heading-m">Filter movements</h2>
+
+<form method="get" action="/evolution/record-full-movement/movements">
+
+  <div class="govuk-form-group">
+
+    <div class="govuk-button-group app-movement-filters">
+
+      <div>
+        <label class="govuk-label" for="status">
+          Status
+        </label>
+
+        <select class="govuk-select" id="status" name="status">
+          <option value="all" selected="">
+            All statuses
+          </option>
+
+
+            <option value="awaiting">
+
+                Awaiting confirmation
+
+            </option>
+
+            <option value="changes">
+
+                Changes proposed
+
+            </option>
+
+            <option value="confirmed">
+
+                Confirmed
+
+            </option>
+
+            <option value="rejected">
+
+                Rejected
+
+            </option>
+
+            <option value="disputed">
+
+                Disputed
+
+            </option>
+
+            <option value="unconfirmed">
+
+                Unconfirmed
+
+            </option>
+
+            <option value="withdrawn">
+
+                Withdrawn
+
+            </option>
+
+
+        </select>
+      </div>
+
+      <div class="govuk-!-margin-left-2">
+        <label class="govuk-label" for="actionWith">
+          Action with
+        </label>
+
+        <select class="govuk-select" id="actionWith" name="actionWith">
+          <option value="all" selected="">
+            All
+          </option>
+
+          <option value="-">
+            You
+          </option>
+
+          <option value="other">
+            Other keeper
+          </option>
+
+          <option value="-">
+            BCMS
+          </option>
+
+        </select>
+      </div>
+
+      <button class="govuk-button govuk-button--secondary govuk-!-margin-left-2" style="margin-top:10px;" type="submit" data-module="govuk-button" data-govuk-button-init="">
+        Filter
+      </button>
+
+    </div>
+
+  </div>
+
+</form>
+
+    </div>
+  </div>
+
+
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+      <table class="govuk-table">
+        <caption class="govuk-visually-hidden">Movement register</caption>
+        <thead class="govuk-table__head">
+          <tr class="govuk-table__row">
+            <th scope="col" class="govuk-table__header">Reference</th>
+            <th scope="col" class="govuk-table__header">Movement date</th>
+            <th scope="col" class="govuk-table__header">Movement</th>
+            <th scope="col" class="govuk-table__header">Cattle</th>
+            <th scope="col" class="govuk-table__header">Status</th>
+            <th scope="col" class="govuk-table__header">Action with</th>
+          </tr>
+        </thead>
+        <tbody class="govuk-table__body">
+        <tr class="govuk-table__row">
+              <th scope="row" class="govuk-table__header">
+
+                  <!-- movementConfirmed is set when the movment is confirmed see form on 'movement-confirmed' page-->
+                  {% if not data['movementConfirmed'] %}
+                <a class="govuk-link" href="./review/details-awaiting-confirmation?direction=on&otherHolding=17/087/0042&reference=8R2T 9W1F">8R2T 9W1F</a>
+                  {% else %}
+                <a class="govuk-link" href="./review/details-confirmed?direction=on&otherHolding=17/087/0042&reference=8R2T 9W1F">8R2T 9W1F</a>
+                  {% endif %}
+
+              </th>
+              <td class="govuk-table__cell">10 Nov 2026</td>
+              <td class="govuk-table__cell">
+
+                  On from 17/087/0042
+
+              </td>
+              <td class="govuk-table__cell">3</td>
+              <td class="govuk-table__cell">
+
+                  {% if data['movementConfirmed'] == 'on' %}
+
+                    Confirmed
+                  {% else %}
+
+                  <strong class="govuk-tag app-tag--no-max-width govuk-tag--blue">
+
+                      Awaiting confirmation
+
+                  </strong>
+                  {% endif %}
+
+              </td>
+              <td class="govuk-table__cell">
+
+                  You
+
+              </td>
+            </tr>
+
+            <tr class="govuk-table__row">
+              <th scope="row" class="govuk-table__header">
+                <a class="govuk-link" href="./review/details-confirmed?direction=off&otherHolding=56/312/0056&reference=M7K49T2P">M7K4 9T2P</a>
+              </th>
+              <td class="govuk-table__cell">21 Oct 2026</td>
+              <td class="govuk-table__cell">
+
+                  Off to 56/312/0056
+
+              </td>
+              <td class="govuk-table__cell">4</td>
+              <td class="govuk-table__cell">
+
+                  Confirmed
+
+              </td>
+              <td class="govuk-table__cell">
+                
+                  <span class="govuk-visually-hidden">No further action</span>
+                  –
+                
+              </td>
+            </tr>
+
+            <tr class="govuk-table__row">
+              <th scope="row" class="govuk-table__header">
+                <a class="govuk-link" href="./review/details-confirmed?direction=on&otherHolding=15/628/0067&reference=B3N8 6V4W">B3N8 6V4W
+</a>
+              </th>
+              <td class="govuk-table__cell">20 Oct 2026</td>
+              <td class="govuk-table__cell">
+
+                  On from 15/628/0067
+
+              </td>
+              <td class="govuk-table__cell">2</td>
+              <td class="govuk-table__cell">
+
+                  Confirmed
+
+              </td>
+              <td class="govuk-table__cell">
+
+                  <span class="govuk-visually-hidden">No further action</span>
+                  –
+
+              </td>
+            </tr>
+
+            <tr class="govuk-table__row">
+              <th scope="row" class="govuk-table__header">
+                <a class="govuk-link" href="./review/details-confirmed?direction=off&&otherHolding=31/672/0158&reference=K4W7 8D3X">K4W7 8D3X</a>
+              </th>
+              <td class="govuk-table__cell">19 Oct 2026</td>
+              <td class="govuk-table__cell">
+
+                  Off to 31/672/0158
+
+              </td>
+              <td class="govuk-table__cell">7</td>
+              <td class="govuk-table__cell">
+
+                  Confirmed
+
+              </td>
+              <td class="govuk-table__cell">
+
+                  <span class="govuk-visually-hidden">No further action</span>
+                  –
+
+              </td>
+            </tr>
+
+            <tr class="govuk-table__row">
+              <th scope="row" class="govuk-table__header">
+                <a class="govuk-link" href="./review/details-confirmed?direction=on&&otherHolding=44/209/03178&reference=C9F4 7N8P">C9F4 7N8P</a>
+              </th>
+              <td class="govuk-table__cell">18 Oct 2026</td>
+              <td class="govuk-table__cell">
+
+                  On from 44/209/0317
+
+              </td>
+              <td class="govuk-table__cell">5</td>
+              <td class="govuk-table__cell">
+
+                  Confirmed
+
+              </td>
+              <td class="govuk-table__cell">
+
+                  <span class="govuk-visually-hidden">No further action</span>
+                  –
+
+              </td>
+            </tr>
+
+            <tr class="govuk-table__row">
+              <th scope="row" class="govuk-table__header">
+                <a class="govuk-link" href="./review/details-confirmed?direction=off&&otherHolding=66/204/0141&reference=R5T8 3M6V">R5T8 3M6V</a>
+              </th>
+              <td class="govuk-table__cell">17 Oct 2026</td>
+              <td class="govuk-table__cell">
+
+                  Off to 66/204/0141
+
+              </td>
+              <td class="govuk-table__cell">1</td>
+              <td class="govuk-table__cell">
+
+                 Confirmed
+
+              </td>
+              <td class="govuk-table__cell">
+
+                  <span class="govuk-visually-hidden">No further action</span>
+                  –
+
+              </td>
+            </tr>
+
+            <tr class="govuk-table__row">
+              <th scope="row" class="govuk-table__header">
+                <a class="govuk-link" href="./review/details-confirmed?direction=off&&otherHolding=22/100/0044&reference=Y3K7 9P4W">Y3K7 9P4W</a>
+              </th>
+              <td class="govuk-table__cell">16 Oct 2026</td>
+              <td class="govuk-table__cell">
+
+                  Off to 22/100/0044
+
+              </td>
+              <td class="govuk-table__cell">1</td>
+              <td class="govuk-table__cell">
+
+                 Confirmed
+
+              </td>
+             <td class="govuk-table__cell">
+
+                  <span class="govuk-visually-hidden">No further action</span>
+                  –
+
+              </td>
+            </tr>
+
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends base +"/layout.html" %}
+{% set pageName = "Remove an animal" %}
+{% set backHref = base + '/' + (returnTo or 'animals') %}
+{% block journeyContent %}
+<form action="{{ base }}/animal/{{ tag | urlencode }}/remove" method="post" novalidate>
+<input type="hidden" name="rfm-return-to" value="{{ returnTo or 'animals' }}">
+<div class="govuk-form-group{% if errors %} govuk-form-group--error{% endif %}"><fieldset class="govuk-fieldset">
+  <legend class="govuk-fieldset__legend govuk-fieldset__legend--l"><h1 class="govuk-fieldset__heading">Are you sure you want to remove {{ tag }}?</h1></legend>
+  {% if errors %}<p class="govuk-error-message" id="remove-error"><span class="govuk-visually-hidden">Error:</span> {{ errors[0].message }}</p>{% endif %}
+  <div class="govuk-radios"><div class="govuk-radios__item"><input class="govuk-radios__input" id="remove-yes" name="rfm-remove" value="yes" type="radio"><label class="govuk-label govuk-radios__label" for="remove-yes">Yes</label></div>
+  <div class="govuk-radios__item"><input class="govuk-radios__input" id="remove-no" name="rfm-remove" value="no" type="radio"><label class="govuk-label govuk-radios__label" for="remove-no">No</label></div></div>
+</fieldset></div><button class="govuk-button">Continue</button></form>
+{% endblock %}

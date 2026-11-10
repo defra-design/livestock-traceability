@@ -1,0 +1,58 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+Movement {{ movementReference }} – {{ serviceName }} – GOV.UK
+{% endblock %}
+
+{% block containerStart %}
+{{ govukBackLink({
+text: "Return to movements",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% set movementReference = data['movementReference'] %}
+{% set direction = data['direction'] or 'off'%}
+{% set response = data['review-action'] or 'confirm'%}
+
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+
+
+      <div class="govuk-panel govuk-panel--confirmation">
+  <h1 class="govuk-panel__title">
+    Whole movement confirmed
+  </h1>
+
+  <div class="govuk-panel__body">
+
+        Movement reference 8R2T 9W1F
+
+  </div>
+
+
+</div>
+
+
+      <h2 class="govuk-heading-m">What happens next</h2>
+      <p class="govuk-body">
+        Both keepers have agreed the movement details. No further confirmation is needed.
+      </p>
+      <p class="govuk-body">
+        The movement record and the actions taken to confirm it remain available to view.
+      </p>
+
+
+        <form method="post" action="../movements">
+            <input type="hidden" name="movementConfirmed" value="{{data['direction'] or 'on'}}" >
+              <p><button type="submit" class="govuk-button">Return to movements</button></p>
+      </form>
+
+  </div>
+</div>
+
+{% endblock %}

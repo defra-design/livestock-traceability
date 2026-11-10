@@ -1,0 +1,102 @@
+{% extends "layouts/main.html" %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% set pageName = "Movement " + movement.id %}
+{% block pageTitle %}
+  Movement {{ movement.id }} – GOV.UK
+{% endblock %}
+{% block beforeContent %}
+  <a class="govuk-back-link" href="{{ root }}">Back to movements</a>
+{% endblock %}
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+{% if movement.holdingDirection == 'on' %}
+  <span class="govuk-caption-l">Movement on to holding {{ currentHolding }}</span>
+{% elif movement.holdingDirection == 'off' %}
+  <span class="govuk-caption-l">Movement off holding {{ currentHolding }}</span>
+{% endif %}
+<h1 class="govuk-heading-l">Movement {{ movement.id }}</h1>
+<p class="govuk-inset-text"><strong class="govuk-tag govuk-tag--green">Confirmed</strong> This movement is complete.</p>
+<nav class="app-sub-navigation__list__spaced moj-sub-navigation" aria-label="Sub navigation">
+  <ul class="moj-sub-navigation__list">
+    <li class="moj-sub-navigation__item">
+      <a class="moj-sub-navigation__link" aria-current="page" href="{{ root }}/{{ movement.id }}">Movement details</a>
+    </li>
+    <li class="moj-sub-navigation__item">
+      <a class="moj-sub-navigation__link" href="{{ root }}/{{ movement.id }}/activity">Activity</a>
+    </li>
+  </ul>
+</nav>
+<h2 class="govuk-heading-m">Movement details</h2>
+<dl class="govuk-summary-list govuk-!-margin-bottom-7">
+
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">Moving from</dt>
+    <dd class="govuk-summary-list__value">{{ movement.from }}{% if movement.fromAddress %}<br>{{ movement.fromAddress }}{% endif %}</dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">Moving to</dt>
+    <dd class="govuk-summary-list__value">{{ movement.to }}{% if movement.toAddress %}<br>{{ movement.toAddress }}{% endif %}</dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">Number of cattle</dt>
+    <dd class="govuk-summary-list__value">{{ movement.count }}</dd>
+  </div>
+    <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">Date cattle left</dt>
+    <dd class="govuk-summary-list__value">
+      {% if movement.offDate %}{{ movement.offDate }}{% elif movement.canReview %}Not provided<p class="govuk-hint govuk-!-margin-top-2 govuk-!-margin-bottom-0">You can provide this date when you confirm the movement or propose changes.</p>{% else %}Not provided{% endif %}
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">Date cattle arrived</dt>
+    <dd class="govuk-summary-list__value">
+      {% if movement.onDate %}{{ movement.onDate }}{% elif movement.canReview %}Not provided<p class="govuk-hint govuk-!-margin-top-2 govuk-!-margin-bottom-0">You can provide this date when you confirm the movement or propose changes.</p>{% else %}Not provided{% endif %}
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">Reported by</dt>
+    <dd class="govuk-summary-list__value">{{ movement.reportedBy }}</dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">Reported date</dt>
+    <dd class="govuk-summary-list__value">{{ movement.offDate or '1 November 2026' }}</dd>
+  </div>
+</dl>
+</div></div>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <h2 class="govuk-heading-m">Cattle in this movement</h2>
+<table class="govuk-table">
+  <caption class="govuk-visually-hidden">Cattle included in movement {{ movement.id }}</caption>
+<thead class="govuk-table__head">
+  <tr class="govuk-table__row">
+    <th scope="col" class="govuk-table__header">Ear tag number</th>
+    <th scope="col" class="govuk-table__header">Breed</th>
+    <th scope="col" class="govuk-table__header">Sex</th>
+    <th scope="col" class="govuk-table__header">Date of birth</th>
+  </tr>
+</thead>
+<tbody class="govuk-table__body">
+{% for animal in movement.animals %}
+  <tr class="govuk-table__row">
+    <th scope="row" class="govuk-table__header">{{ animal.tag }}</th>
+    <td class="govuk-table__cell">
+      <abbr title="{{ animal.breed.name }}">{{ animal.breed.code }}</abbr>
+      <span class="govuk-visually-hidden">, {{ animal.breed.name }}</span>
+    </td>
+    <td class="govuk-table__cell">{{ animal.sex }}</td>
+    <td class="govuk-table__cell">{{ animal.dateOfBirth }}</td>
+  </tr>
+{% endfor %}
+</tbody>
+</table>
+</div></div>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <p class="govuk-body"><a class="govuk-link" href="{{ root }}">Return to movements</a></p>
+  </div>
+</div>
+{% endblock %}

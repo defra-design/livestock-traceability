@@ -4,7 +4,7 @@
 {% block journeyContent %}
 <form action="{{ base }}/destination-type" method="post" novalidate>
 <div class="govuk-form-group{% if errors %} govuk-form-group--error{% endif %}">
-<fieldset class="govuk-fieldset"><legend class="govuk-fieldset__legend govuk-fieldset__legend--l"><h1 class="govuk-fieldset__heading">What type of {% if isOn %}sending location{% else %}destination{% endif %} is it?</h1></legend>
+<fieldset class="govuk-fieldset"><legend class="govuk-fieldset__legend govuk-fieldset__legend--l"><h1 class="govuk-fieldset__heading">What type of destination are the cattle moving {% if isOn %}form{% else %}to{%endif%}?</h1></legend>
 {% if isOn %}<p class="govuk-hint">Cattle cannot be moved from an abattoir. Abattoirs can only receive live cattle.</p>{% endif %}
 {% if errors %}<p class="govuk-error-message" id="destination-type-error"><span class="govuk-visually-hidden">Error:</span> {{ errors[0].message }}</p>{% endif %}
 <div class="govuk-radios">

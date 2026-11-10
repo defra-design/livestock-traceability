@@ -1,0 +1,163 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+Movement {{ movementReference }} – {{ serviceName }} – GOV.UK
+{% endblock %}
+
+{% block containerStart %}
+{{ govukBackLink({
+text: "Return to movements",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% set movementReference = query.reference or 'M7K49T2P'%}
+{% set direction = query.direction or 'off'%}
+{% set otherHolding = query.otherHolding or '56/312/0056'%}
+
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+
+  <span class="govuk-caption-l"> {% if direction == 'off' %}Movement off holding{%else%}Movement on to holding  {% endif %} {{otherHolding}}</span>
+
+
+
+<h1 class="govuk-heading-l">Movement {{movementReference}}</h1>
+
+
+
+
+<section class="govuk-inset-text app-callout app-callout--issue" aria-labelledby="movement-status-heading">
+  <h2 class="govuk-heading-m" id="movement-status-heading">Disputed</h2>
+  <p class="govuk-body">This movement has been referred for back-office review.</p>
+  <p class="govuk-body"><strong>Reason:</strong> The parties disagree about the cattle received.</p>
+</section>
+
+<nav class="app-sub-navigation__list__spaced moj-sub-navigation" aria-label="Sub navigation">
+  <ul class="moj-sub-navigation__list">
+    <li class="moj-sub-navigation__item">
+      <a class="moj-sub-navigation__link" aria-current="page" href="details-disputed?reference={{ movementReference }}&amp;direction={{ direction }}&amp;otherHolding={{ otherHolding }}">Movement details</a>
+    </li>
+    <li class="moj-sub-navigation__item">
+      <a class="moj-sub-navigation__link" href="#movement-activity">Activity</a>
+    </li>
+  </ul>
+</nav>
+<h2 class="govuk-heading-m">Movement details</h2>
+<dl class="govuk-summary-list govuk-!-margin-bottom-7">
+{% if direction == 'on' %}
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">Moving from</dt>
+    <dd class="govuk-summary-list__value">{{otherHolding}}<br>Mill Lane, Exampleton, EX2 3CD</dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">Moving to</dt>
+    <dd class="govuk-summary-list__value">31/672/0158<br>Market Road, Exampleton, EX3 5EF</dd>
+  </div>
+{% else %}
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">Moving from</dt>
+     <dd class="govuk-summary-list__value">37/123/4567<br>Oakfield Lane, Exampleton, EX1 2AB</dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">Moving to</dt>
+    <dd class="govuk-summary-list__value">{{otherHolding}}<br>Mill Lane, Exampleton, EX2 3CD</dd>
+  </div>
+  {% endif   %}
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">Number of cattle</dt>
+    <dd class="govuk-summary-list__value">4</dd>
+  </div>
+    <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">Date cattle left</dt>
+    <dd class="govuk-summary-list__value">
+      19 Oct 2026
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">Date cattle arrived</dt>
+    <dd class="govuk-summary-list__value">
+      19 Oct 2026
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">Reported by</dt>
+    <dd class="govuk-summary-list__value">You (keeper)</dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">Reported date</dt>
+    <dd class="govuk-summary-list__value">21 Oct 2026</dd>
+  </div>
+</dl>
+</div>
+</div>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-three-quarters">
+    <h2 class="govuk-heading-m">Cattle in this movement</h2>
+<table class="govuk-table">
+  <caption class="govuk-visually-hidden">Cattle included in movement {{ movementReference }}</caption>
+<thead class="govuk-table__head">
+  <tr class="govuk-table__row">
+    <th scope="col" class="govuk-table__header">Ear tag number</th>
+    <th scope="col" class="govuk-table__header">Breed</th>
+    <th scope="col" class="govuk-table__header">Sex</th>
+    <th scope="col" class="govuk-table__header">Date of birth</th>
+  </tr>
+</thead>
+<tbody class="govuk-table__body">
+
+  <tr class="govuk-table__row">
+    <th scope="row" class="govuk-table__header">UK 371234 000006</th>
+    <td class="govuk-table__cell">
+      <abbr title="British Blue">BRB</abbr>
+      <span class="govuk-visually-hidden">, British Blue</span>
+    </td>
+    <td class="govuk-table__cell">Male</td>
+    <td class="govuk-table__cell">6 Jun 2020</td>
+  </tr>
+
+  <tr class="govuk-table__row">
+    <th scope="row" class="govuk-table__header">UK 371234 000007</th>
+    <td class="govuk-table__cell">
+      <abbr title="Aberdeen Angus">AA</abbr>
+      <span class="govuk-visually-hidden">, Aberdeen Angus</span>
+    </td>
+    <td class="govuk-table__cell">Female</td>
+    <td class="govuk-table__cell">7 Jul 2021</td>
+  </tr>
+ <tr class="govuk-table__row">
+    <th scope="row" class="govuk-table__header">UK 371234 000042</th>
+    <td class="govuk-table__cell">
+      <abbr title="Aberdeen Angus">BRB</abbr>
+      <span class="govuk-visually-hidden">, Aberdeen Angus</span>
+    </td>
+    <td class="govuk-table__cell">Female</td>
+    <td class="govuk-table__cell">18 Jun 2022</td>
+  </tr>
+ <tr class="govuk-table__row">
+    <th scope="row" class="govuk-table__header">UK 371234 000332</th>
+    <td class="govuk-table__cell">
+      <abbr title="Aberdeen Angus">AA</abbr>
+      <span class="govuk-visually-hidden">, Aberdeen Angus</span>
+    </td>
+    <td class="govuk-table__cell">Female</td>
+    <td class="govuk-table__cell">22 Oct 2021</td>
+  </tr>
+
+</tbody>
+</table>
+
+<section id="movement-activity" class="govuk-!-margin-top-7" aria-labelledby="movement-activity-heading">
+  <h2 class="govuk-heading-m" id="movement-activity-heading">Activity</h2>
+  <p class="govuk-body">21 Oct 2026 – Movement reported.</p>
+  <p class="govuk-body">22 Oct 2026 – Disputed.</p>
+</section>
+    <p class="govuk-!-margin-top-8"><a href="../movements">Return to movements</a></p>
+</div></div>
+
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+Movement {{ movementReference }} – {{ serviceName }} – GOV.UK
+{% endblock %}
+
+{% block containerStart %}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% set movementReference = data['movementReference'] %}
+{% set direction = data['direction'] or 'off'%}
+{% set response = data['review-action'] or 'confirm'%}
+
+
+{% block content %}
+
+<div class="govuk-grid-row"><div class="govuk-grid-column-two-thirds">
+  <span class="govuk-caption-l">Movement MOV-1007</span>
+  <h1 class="govuk-heading-l">
+    Before you confirm this movement
+  </h1>
+  <p class="govuk-body">You will need to confirm the date the cattle arrived on your holding. This helps us complete the movement record.</p>
+<p class="govuk-body">The date the animals left the other holding was 22 October 2026</p>
+
+    {% if response == 'confirm' %}
+    <form method="post" action="./movement-confirmed" novalidate="">
+    {% elseif response == 'amend' %}
+    <form method="post" action="./propose-animals" novalidate="">
+        {% else %}
+        <form method="post" action="" novalidate="">
+    {% endif %}
+         <div class="govuk-form-group"><fieldset class="govuk-fieldset" role="group" aria-describedby="date-hint">
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">Date the cattle arrived</legend>
+            <div id="date-hint" class="govuk-hint">For example, 28 10 2026</div>
+            <div class="govuk-date-input">
+
+              <div class="govuk-date-input__item"><div class="govuk-form-group"><label class="govuk-label govuk-date-input__label" for="day">Day</label><input class="govuk-input govuk-date-input__input govuk-input--width-2" id="day" name="day" inputmode="numeric"></div></div>
+
+              <div class="govuk-date-input__item"><div class="govuk-form-group"><label class="govuk-label govuk-date-input__label" for="month">Month</label><input class="govuk-input govuk-date-input__input govuk-input--width-2" id="month" name="month" inputmode="numeric"></div></div>
+
+              <div class="govuk-date-input__item"><div class="govuk-form-group"><label class="govuk-label govuk-date-input__label" for="year">Year</label><input class="govuk-input govuk-date-input__input govuk-input--width-4" id="year" name="year" inputmode="numeric"></div></div>
+
+            </div>
+          </fieldset>
+          </div>
+    <button class="govuk-button" type="submit">Continue</button>
+  </form>
+</div></div>
+
+{% endblock %}

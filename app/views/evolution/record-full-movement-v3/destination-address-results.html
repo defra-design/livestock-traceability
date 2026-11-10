@@ -1,0 +1,32 @@
+{% extends base +"/layout.html" %}
+{% set pageName = 'Select the sending location' if isOn else 'Select the destination' %}
+{% set backHref = base + '/destination-address?q=' + (search | urlencode) %}
+{% block journeyContent %}
+{% if results.length %}
+  <h1 class="govuk-heading-l">Select the {% if isOn %}sending location{% else %}destination{% endif %}</h1>
+  <p class="govuk-body">We found {{ results.length }} registered locations matching “{{ search }}”.</p>
+  <form method="post" action="{{ base }}/destination-address/select" novalidate>
+    <div class="govuk-form-group{% if errors %} govuk-form-group--error{% endif %}">
+      <fieldset class="govuk-fieldset">
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">Which is the correct {% if isOn %}sending location{% else %}destination{% endif %}?</legend>
+        {% if errors %}<p class="govuk-error-message" id="select-address-error"><span class="govuk-visually-hidden">Error:</span> {{ errors[0].message }}</p>{% endif %}
+        <div class="govuk-radios" {% if errors %}aria-describedby="select-address-error"{% endif %}>
+          {% for item in results %}
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" type="radio" id="result-{{ item.id }}" name="rfm-address-destination" value="{{ item.id }}">
+              <label class="govuk-label govuk-radios__label" for="result-{{ item.id }}">{{ item.identifier }} – {{ item.address }}</label>
+            </div>
+          {% endfor %}
+        </div>
+      </fieldset>
+    </div>
+    <button class="govuk-button" type="submit">Continue</button>
+  </form>
+{% else %}
+  <h1 class="govuk-heading-l">We could not find a registered location</h1>
+  <p class="govuk-body">We could not find a registered location matching “{{ search }}”.</p>
+  <p class="govuk-body">Check the details and search again. You can also search by CPH number or the appropriate premises identifier.</p>
+  <p class="govuk-body"><a class="govuk-link" href="{{ base }}/destination-address">Search again</a></p>
+  <p class="govuk-body"><a class="govuk-link" href="{{ base }}/find-method">Find the {% if isOn %}sending location{% else %}destination{% endif %} another way</a></p>
+{% endif %}
+{% endblock %}

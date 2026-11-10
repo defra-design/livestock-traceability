@@ -1,0 +1,257 @@
+
+{% extends "layouts/main.html" %}
+
+{% set pageName = "page name content" %}
+
+{% block pageTitle %}
+{{ pageName }} – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block containerStart %}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+{% if removedAnimal %}
+
+  <div class="govuk-notification-banner govuk-notification-banner--success"
+       role="status"
+       aria-labelledby="removed-banner-title">
+
+    <div class="govuk-notification-banner__header">
+      <h2 class="govuk-notification-banner__title" id="removed-banner-title">
+        Success
+      </h2>
+    </div>
+
+    <div class="govuk-notification-banner__content">
+      <p class="govuk-body">
+        <strong>
+          {{ removedAnimal }} has been removed from this movement.
+        </strong>
+      </p>
+    </div>
+
+  </div>
+
+{% endif %}
+
+
+      {% if hasAnimalsAdded and not hasAnimalsNotAdded %}
+
+        <div class="govuk-notification-banner govuk-notification-banner--success"
+             role="status"
+             aria-labelledby="added-banner-title">
+
+          <div class="govuk-notification-banner__header">
+            <h2 class="govuk-notification-banner__title" id="added-banner-title">
+              Success
+            </h2>
+          </div>
+
+          <div class="govuk-notification-banner__content">
+            <p class="govuk-body">
+              <strong>
+                {{ animalsAdded.length }} cattle have been added to this movement.
+              </strong>
+            </p>
+          </div>
+
+        </div>
+
+      {% endif %}
+
+      {% if hasAnimalsNotAdded %}
+
+        <div class="govuk-notification-banner"
+             role="status"
+             aria-labelledby="not-added-banner-title">
+
+          <div class="govuk-notification-banner__header">
+            <h2 class="govuk-notification-banner__title" id="not-added-banner-title">
+              Important
+            </h2>
+          </div>
+
+          <div class="govuk-notification-banner__content">
+
+            {% if hasAnimalsAdded %}
+              <p class="govuk-body govuk-!-margin-bottom-2">
+                <strong>
+                  {{ animalsAdded.length }} cattle have been added to this movement.
+                </strong>
+              </p>
+            {% endif %}
+
+            <p class="govuk-body govuk-!-margin-bottom-2">
+              <strong>
+                {{ animalsNotAdded.length }} cattle could not be added.
+              </strong>
+            </p>
+
+            <p class="govuk-body govuk-!-margin-bottom-2">
+  These animals have not been added to the movement.
+</p>
+
+            <ul class="govuk-list govuk-list--bullet">
+              {% for animal in animalsNotAdded %}
+                <li>
+                  <strong>{{ animal.tag }}</strong> – {{ animal.reason }}
+                </li>
+              {% endfor %}
+            </ul>
+
+          </div>
+        </div>
+
+      {% endif %}
+
+      <h1 class="govuk-heading-l">
+        You have added {{ animals.length }} cattle in this movement
+      </h1>
+
+    </div>
+  </div>
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full govuk-!-margin-bottom-6">
+
+      <table class="govuk-table">
+
+        <caption class="govuk-visually-hidden">
+          Cattle with no identified restrictions
+        </caption>
+
+        <thead class="govuk-table__head">
+          <tr class="govuk-table__row">
+            <th scope="col" class="govuk-table__header">Ear tag number</th>
+            <th scope="col" class="govuk-table__header">Breed</th>
+            <th scope="col" class="govuk-table__header">Sex</th>
+            <th scope="col" class="govuk-table__header">Date of birth</th>
+            <th scope="col" class="govuk-table__header">Actions</th>
+          </tr>
+        </thead>
+
+        <tbody class="govuk-table__body">
+
+          {% for animal in animals %}
+
+            <tr class="govuk-table__row">
+
+              <th scope="row" class="govuk-table__header">
+                {{ animal.tag }}
+              </th>
+
+              <td class="govuk-table__cell">
+                <abbr title="{{ animal.breed.name }}">
+                  {{ animal.breed.code }}
+                </abbr>
+                <span class="govuk-visually-hidden">
+                  , {{ animal.breed.name }}
+                </span>
+              </td>
+
+              <td class="govuk-table__cell">
+                {{ animal.sex }}
+              </td>
+
+              <td class="govuk-table__cell">
+                {{ animal.dateOfBirth | shortDateFormat }}
+              </td>
+
+              <td class="govuk-table__cell">
+                <a
+                        class="govuk-link"
+                        href="/evolution/record-full-movement-v2/remove?returnTo=animals&tag={{ animal.encodedTag }}"
+                >
+                  Remove
+                  <span class="govuk-visually-hidden">
+                    {{ animal.tag }}
+                  </span>
+                </a>
+              </td>
+
+            </tr>
+
+          {% endfor %}
+
+        </tbody>
+
+      </table>
+
+    </div>
+  </div>
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      {% if animals | length %}
+      <!-- Routing is controlled in routes/evolution/whole-movements-v2/record-full-movement-v2.js -->
+
+      <form method="post" novalidate="">
+
+        <div class="govuk-form-group">
+
+          <fieldset class="govuk-fieldset">
+
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+              Do you need to add any more cattle?
+            </legend>
+
+            <div class="govuk-radios">
+
+              <div class="govuk-radios__item">
+                <input
+                        class="govuk-radios__input"
+                        id="another-yes"
+                        name="rfm-another"
+                        type="radio"
+                        value="yes"
+                >
+                <label
+                        class="govuk-label govuk-radios__label"
+                        for="another-yes"
+                >
+                  Yes
+                </label>
+              </div>
+
+              <div class="govuk-radios__item">
+                <input
+                        class="govuk-radios__input"
+                        id="another-no"
+                        name="rfm-another"
+                        type="radio"
+                        value="no"
+                >
+                <label
+                        class="govuk-label govuk-radios__label"
+                        for="another-no"
+                >
+                  No
+                </label>
+              </div>
+
+            </div>
+
+          </fieldset>
+
+        </div>
+
+        <button class="govuk-button">Continue</button>
+
+      </form>
+      {% else %}
+     <p>You will need to add animals to this movement.</p>
+      <p><a href="add-method.html">Add animals</a></p>
+      {% endif %}
+    </div>
+  </div>
+
+{% endblock %}

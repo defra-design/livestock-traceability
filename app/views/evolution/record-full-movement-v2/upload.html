@@ -1,0 +1,60 @@
+
+{% extends "layouts/main.html" %}
+
+{% set pageName = "Upload a file of cattle" %}
+
+{% block pageTitle %}
+{{ pageName }} – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block containerStart %}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <h1 class="govuk-heading-l">
+        Upload a file of cattle moving off your holding
+      </h1>
+
+      <p class="govuk-body">
+        Upload a spreadsheet with the ear tag numbers of the cattle that moved.
+      </p>
+      <!-- Routing is controlled in routes/evolution/whole-movement-[version]/record-full-movement-[version].js -->
+      <form method="post" enctype="application/x-www-form-urlencoded" novalidate="">
+
+        <div class="govuk-form-group">
+
+          <label for="file-upload" class="govuk-label govuk-label--m">
+            Upload file
+          </label>
+
+          <div class="govuk-hint" id="upload-hint">
+            The file must be a CSV or XLSX and no larger than 10MB.
+          </div>
+
+          <input
+                  class="govuk-file-upload"
+                  id="file-upload"
+                  name="rfm-file"
+                  type="file"
+                  accept=".csv,.xlsx,text/csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                  aria-describedby="upload-hint"
+          >
+
+        </div>
+
+        <button class="govuk-button">Upload file</button>
+
+      </form>
+
+    </div>
+  </div>
+
+{% endblock %}

@@ -1,0 +1,77 @@
+
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+Content page template – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block containerStart %}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <!-- Routing is controlled in routes/evolution/whole-movement-v2/record-full-movement-v2.js -->
+
+      <form method="post" novalidate>
+        <div class="govuk-form-group">
+          <fieldset class="govuk-fieldset">
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+              <h1 class="govuk-fieldset__heading">
+                What type of movement are you reporting?
+              </h1>
+            </legend>
+
+            <div class="govuk-form-group">
+              <div class="govuk-radios" data-module="govuk-radios">
+
+                <div class="govuk-radios__item">
+                  <input
+                          class="govuk-radios__input"
+                          id="rfm-movement-type"
+                          name="rfm-movement-type"
+                          type="radio"
+                          value="off"
+                  >
+                  <label
+                          class="govuk-label govuk-radios__label"
+                          for="rfm-movement-type"
+                  >
+                    Movement off
+                  </label>
+                </div>
+
+                <div class="govuk-radios__item">
+                  <input
+                          class="govuk-radios__input"
+                          id="rfm-movement-type-2"
+                          name="rfm-movement-type"
+                          type="radio"
+                          value="on"
+                  >
+                  <label
+                          class="govuk-label govuk-radios__label"
+                          for="rfm-movement-type-2"
+                  >
+                    Movement on
+                  </label>
+                </div>
+
+              </div>
+            </div>
+          </fieldset>
+        </div>
+
+        <button class="govuk-button">Continue</button>
+      </form>
+
+    </div>
+  </div>
+
+{% endblock %}

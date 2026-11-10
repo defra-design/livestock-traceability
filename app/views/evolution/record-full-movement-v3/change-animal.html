@@ -1,0 +1,15 @@
+{% extends base +"/layout.html" %}
+{% set pageName = "Change ear tag number" %}
+{% set backHref = base + '/' + (returnTo or 'animals') %}
+{% block journeyContent %}
+<h1 class="govuk-heading-l">Change ear tag number</h1>
+<p class="govuk-body">You are changing {{ tag }}.</p>
+<form action="{{ base }}/animal/{{ tag | urlencode }}/change" method="post" novalidate>
+<input type="hidden" name="rfm-return-to" value="{{ returnTo or 'animals' }}">
+<div class="govuk-form-group{% if errors %} govuk-form-group--error{% endif %}">
+<label class="govuk-label govuk-label--m" for="replacement">Ear tag number</label>
+<div class="govuk-hint" id="replacement-hint">Enter an ear tag number recorded on your holding.</div>
+{% if errors %}<p class="govuk-error-message" id="replacement-error"><span class="govuk-visually-hidden">Error:</span> {{ errors[0].message }}</p>{% endif %}
+<input class="govuk-input govuk-input--width-20" id="replacement" name="rfm-replacement" value="{{ posted or tag }}" aria-describedby="replacement-hint{% if errors %} replacement-error{% endif %}">
+</div><button class="govuk-button">Save change</button></form>
+{% endblock %}

@@ -15,6 +15,7 @@
           {% elif referenceDate %}Did the cattle {% if ownDateKey == 'on' %}arrive at{% else %}leave{% endif %} your holding on {{ referenceDate }}?
           {% else %}When did the cattle {% if ownDateKey == 'on' %}arrive at{% else %}leave{% endif %} your holding?{% endif %}
         </legend>
+
         {% if knownDate or referenceDate %}
         <div class="govuk-radios" data-module="govuk-radios">
           <div class="govuk-radios__item"><input class="govuk-radios__input" id="date-yes" name="date-choice" type="radio" value="{% if knownDate %}existing{% else %}yes{% endif %}"><label class="govuk-label govuk-radios__label" for="date-yes">Yes</label></div>

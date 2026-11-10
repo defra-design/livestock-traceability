@@ -1,0 +1,25 @@
+{% extends base +"/layout.html" %}
+{% set pageName = "Check the cattle to add" %}
+{% set backHref = base + ( '/upload' if pending and pending.method == 'upload' else '/manual' ) %}
+{% block journeyContent %}
+<h1 class="govuk-heading-l">Check the cattle to add</h1>
+<p class="govuk-body"><strong>{{ pending.good.length }}</strong> cattle matched. <strong>{{ pending.issues.length }}</strong> ear tag numbers need attention.</p>
+{% if pending.good.length %}<h2 class="govuk-heading-m">Cattle ready to add</h2>
+{% set tableAnimals = matchedAnimals %}
+{% include base +"/partials/cattle-table.html" %}{% endif %}
+{% if pending.issues.length %}
+<div class="govuk-inset-text">The numbers needing attention will not be added until you correct or remove them.</div>
+<h2 class="govuk-heading-m">Ear tag numbers needing attention</h2>
+<ul class="govuk-list govuk-list--bullet">{% for item in pending.issues %}<li><strong>{{ item.value }}</strong> – {{ item.message }}</li>{% endfor %}</ul>
+<form method="post" action="{{ base }}/check-animals/correct" novalidate>
+<div class="govuk-form-group{% if errors %} govuk-form-group--error{% endif %}">
+<label class="govuk-label govuk-label--m" for="corrections">Correct the ear tag numbers</label>
+<div class="govuk-hint">Correct or delete the incorrect lines. The cattle that matched will be kept.</div>
+{% if errors %}<p class="govuk-error-message" id="corrections-error"><span class="govuk-visually-hidden">Error:</span> {{ errors[0].message }}</p>{% endif %}
+<textarea class="govuk-textarea" id="corrections" rows="7" name="rfm-corrections">{% for item in pending.issues %}{{ item.value }}{% if not loop.last %}
+{% endif %}{% endfor %}</textarea>
+</div><button class="govuk-button govuk-button--secondary">Check corrected ear tags</button></form>
+{% else %}
+<form method="post" action="{{ base }}/check-animals/add"><button class="govuk-button">Add {{ pending.good.length }} cattle to the movement</button></form>
+{% endif %}
+{% endblock %}
