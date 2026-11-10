@@ -27,11 +27,13 @@
     {% if movements.length %}
     <div class="app-dashboard-table-wrapper">
     <table class="govuk-table">
-      <caption class="govuk-table__caption govuk-table__caption--m">Movement history</caption>
+      <caption class="govuk-table__caption govuk-table__caption--m">Movements history</caption>
       <thead class="govuk-table__head">
         <tr class="govuk-table__row">
-          <th scope="col" class="govuk-table__header app-table__cell--no-wrap">Date</th>
-          <th scope="col" class="govuk-table__header app-table__cell--no-wrap">Movement</th>
+          <th scope="col" class="govuk-table__header app-table__cell--no-wrap">Movement date</th>
+          <th scope="col" class="govuk-table__header app-table__cell--no-wrap">Movement type</th>
+          <th scope="col" class="govuk-table__header app-table__cell--no-wrap">CPH number</th>
+          <th scope="col" class="govuk-table__header app-table__cell--no-wrap">Holding name</th>
         </tr>
       </thead>
       <tbody class="govuk-table__body">
@@ -39,13 +41,15 @@
         <tr class="govuk-table__row">
           <td class="govuk-table__cell app-table__cell--no-wrap">{{ movement.date | shortDateFormat }}</td>
           <td class="govuk-table__cell app-table__cell--no-wrap">{{ movement.type }}</td>
+          <td class="govuk-table__cell app-table__cell--no-wrap">{{ movement.cph }}</td>
+          <td class="govuk-table__cell app-table__cell--no-wrap">{{ movement.holdingName }}</td>
         </tr>
         {% endfor %}
       </tbody>
     </table>
     </div>
     {% else %}
-    <h2 class="govuk-heading-m">Movement history</h2>
+    <h2 class="govuk-heading-m">Movements history</h2>
     <p class="govuk-body">No movement history recorded.</p>
     {% endif %}
 
