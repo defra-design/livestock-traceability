@@ -1,0 +1,43 @@
+{% extends "layouts/main.html" %}
+
+
+{% block header %}
+
+  {% include "mvp-front-office/v7/partials/header.html" %}
+
+{% endblock %}
+
+{% set count = data['reported-count'] | int %}
+{% set pageName = count ~ (" cattle death reported" if count == 1 else " cattle deaths reported") %}
+{% set serviceName = "View and report livestock information" %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <div class="govuk-panel govuk-panel--confirmation">
+      <h1 class="govuk-panel__title">
+        {{ pageName }}
+      </h1>
+    </div>
+
+    <p class="govuk-body">
+      You will receive a confirmation email.
+    </p>
+
+    <h2 class="govuk-heading-m">What happens next</h2>
+    <p class="govuk-body">
+      Animal updates make take up to 24 hours to appear in your cattle on holding list.
+    </p>
+
+    <p class="govuk-body">
+      <a href="/mvp-front-office/v7/my-holdings/holding-overview" type="submit" class="govuk-button">
+        Return to the homepage
+      </a>
+    </p>
+
+  </div>
+</div>
+
+{% endblock %}

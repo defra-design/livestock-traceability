@@ -1,0 +1,18 @@
+{% set cattleBasePath = "/mvp-front-office/v7/my-holdings/cattle/" + animal.earTagNumber %}
+
+<nav class="moj-sub-navigation" aria-label="Sub navigation">
+  <ul class="moj-sub-navigation__list">
+    <li class="moj-sub-navigation__item">
+      <a class="moj-sub-navigation__link"{% if cattleSubNavActive == "animal-details" %} aria-current="page"{% endif %} href="{{ cattleBasePath }}">Animal details</a>
+    </li>
+    {# Only animals with calves have a calving history #}
+    {% if offspring.length or cattleSubNavActive == "calving-history" %}
+    <li class="moj-sub-navigation__item">
+      <a class="moj-sub-navigation__link"{% if cattleSubNavActive == "calving-history" %} aria-current="page"{% endif %} href="{{ cattleBasePath }}/calving-history">Calving history</a>
+    </li>
+    {% endif %}
+    <li class="moj-sub-navigation__item">
+      <a class="moj-sub-navigation__link"{% if cattleSubNavActive == "movement-history" %} aria-current="page"{% endif %} href="{{ cattleBasePath }}/movement-history">Movements history</a>
+    </li>
+  </ul>
+</nav>
