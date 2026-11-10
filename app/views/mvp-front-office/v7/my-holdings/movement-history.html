@@ -1,0 +1,55 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName = animal.earTagNumber | formatReference %}
+{% set serviceName = "View and report livestock information" %}
+{% set activeNavItem = "my-holdings" %}
+
+{% block header %}
+
+  {% include "mvp-front-office/v7/partials/header.html" %}
+
+{% endblock %}
+
+{% block beforeContent %}
+  <a href="/mvp-front-office/v7/my-holdings/cattle-on-holding" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+
+    <h1 class="govuk-heading-l">{{ animal.earTagNumber | formatReference }}</h1>
+
+    {% set cattleSubNavActive = "movement-history" %}
+    {% include "mvp-front-office/v7/partials/cattle-subnavigation.html" %}
+
+    {% if movements.length %}
+    <div class="app-dashboard-table-wrapper">
+    <table class="govuk-table">
+      <caption class="govuk-table__caption govuk-table__caption--m">Movement history</caption>
+      <thead class="govuk-table__head">
+        <tr class="govuk-table__row">
+          <th scope="col" class="govuk-table__header app-table__cell--no-wrap">Date</th>
+          <th scope="col" class="govuk-table__header app-table__cell--no-wrap">Movement</th>
+        </tr>
+      </thead>
+      <tbody class="govuk-table__body">
+        {% for movement in movements %}
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell app-table__cell--no-wrap">{{ movement.date | shortDateFormat }}</td>
+          <td class="govuk-table__cell app-table__cell--no-wrap">{{ movement.type }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    </div>
+    {% else %}
+    <h2 class="govuk-heading-m">Movement history</h2>
+    <p class="govuk-body">No movement history recorded.</p>
+    {% endif %}
+
+  </div>
+</div>
+
+{% endblock %}
