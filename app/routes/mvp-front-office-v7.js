@@ -729,7 +729,13 @@ router.get('/mvp-front-office/v7/my-holdings/cattle/:earTagNumber/calving-histor
   res.render('mvp-front-office/v7/my-holdings/calving-history', { animal, offspring, holding })
 })
 
-router.get('/mvp-front-office/v7/my-holdings/cattle/:earTagNumber/movement-history', (req, res) => {
+// movement-history-v2 is a hidden alternative layout (on and off movements in
+// tabs). Nothing links to it - it's reached by URL only.
+router.get([
+  '/mvp-front-office/v7/my-holdings/cattle/:earTagNumber/movement-history',
+  '/mvp-front-office/v7/my-holdings/cattle/:earTagNumber/movement-history-v2'
+], (req, res) => {
+  const view = req.path.endsWith('-v2') ? 'movement-history-v2' : 'movement-history'
   const cattleData = req.session.data.livestockSameHerd
   const holding = getSelectedHolding(req)
 
@@ -749,10 +755,12 @@ router.get('/mvp-front-office/v7/my-holdings/cattle/:earTagNumber/movement-histo
   // The data only holds the date the animal came on to the holding. If that's
   // later than its date of birth, it moved on from somewhere else.
   const movements = animal.onHoldingDate !== animal.dateOfBirth
-    ? [{ date: animal.onHoldingDate, type: 'Moved on to holding' }]
+    ? [{ date: animal.onHoldingDate, type: 'On', cph: holding.cph, holdingName: holding.holdingName }]
     : []
+  const onMovements = movements.filter((m) => m.type === 'On')
+  const offMovements = movements.filter((m) => m.type === 'Off')
 
-  res.render('mvp-front-office/v7/my-holdings/movement-history', { animal, offspring, movements, holding })
+  res.render(`mvp-front-office/v7/my-holdings/${view}`, { animal, offspring, movements, onMovements, offMovements, holding })
 })
 
 router.get('/mvp-front-office/v7/my-holdings/cattle/:earTagNumber/activity-record', (req, res) => {
