@@ -34,6 +34,32 @@ function getContextQuery(req) {
 }
 
 
+// Shared read-only data (see app/data/reference-data.js). It's added to
+// req.session.data as non-enumerable properties, which the session store
+// skips when saving, so it never bloats users' session files. Views get it
+// through `data` as usual.
+const referenceData = require('./data/reference-data.js');
+
+router.use(function(req, res, next) {
+    if (req.session && req.session.data) {
+        Object.entries(referenceData).forEach(([key, value]) => {
+            Object.defineProperty(req.session.data, key, {
+                value,
+                enumerable: false,
+                writable: true,
+                configurable: true
+            });
+
+            if (res.locals.data) {
+                res.locals.data[key] = value;
+            }
+        });
+    }
+
+    next();
+});
+
+
 // Add middleware to include common values on all pages
 router.use(function(req, res, next) {
 
