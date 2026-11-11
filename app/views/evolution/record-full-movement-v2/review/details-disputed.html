@@ -35,11 +35,8 @@ href: "javascript:window.history.back()"
 
 
 
-<section class="govuk-inset-text app-callout app-callout--issue" aria-labelledby="movement-status-heading">
-  <h2 class="govuk-heading-m" id="movement-status-heading">Disputed</h2>
-  <p class="govuk-body">This movement has been referred for back-office review.</p>
-  <p class="govuk-body"><strong>Reason:</strong> The parties disagree about the cattle received.</p>
-</section>
+{% set status = query.status or 'disputed' %}
+{% include "../partials/_callout.html" %}
 
 <nav class="app-sub-navigation__list__spaced moj-sub-navigation" aria-label="Sub navigation">
   <ul class="moj-sub-navigation__list">
@@ -156,11 +153,6 @@ href: "javascript:window.history.back()"
 </tbody>
 </table>
 
-<section id="movement-activity" class="govuk-!-margin-top-7" aria-labelledby="movement-activity-heading">
-  <h2 class="govuk-heading-m" id="movement-activity-heading">Activity</h2>
-  <p class="govuk-body">21 Oct 2026 – Movement reported.</p>
-  <p class="govuk-body">22 Oct 2026 – Disputed.</p>
-</section>
     <p class="govuk-!-margin-top-8"><a href="../movements">Return to movements</a></p>
 </div></div>
 

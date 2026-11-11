@@ -35,18 +35,9 @@ href: "../movements"
 
 
 
+{% set status = 'changes-proposed' %}
+{% include "../partials/_callout.html" %}
 
-<section class="govuk-inset-text app-callout app-callout--change" aria-labelledby="movement-status-heading">
-  <h2 class="govuk-heading-m" id="movement-status-heading">Changes proposed</h2>
-  <p class="govuk-body">The opposing keeper has proposed changes to this movement.</p>
-  <p class="govuk-body"><strong>Reason for changes:</strong> One animal did not arrive; a different animal arrived instead.</p>
-  {% if direction == 'off' or query.action== 'you' %}
-    <p class="govuk-body">Review the original report and proposed changes, then decide whether to accept or dispute them.</p>
-    <p class="govuk-body"><a class="govuk-link" href="#movement-action">Respond to proposed changes</a></p>
-  {% else %}
-    <p class="govuk-body">Waiting for the original reporter to respond to the proposed changes.</p>
-  {% endif %}
-</section>
 
 <nav class="app-sub-navigation__list__spaced moj-sub-navigation" aria-label="Sub navigation">
   <ul class="moj-sub-navigation__list">

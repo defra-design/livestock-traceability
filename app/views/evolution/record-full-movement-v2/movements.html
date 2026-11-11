@@ -218,12 +218,21 @@
 
 {% for movement in reportedMovements %}
 
+{% set action = 'none' %}
+{% if movement.actionWith == 'You' %}
+  {% set action = 'you' %}
+{% elif movement.actionWith == 'Other keeper' %}
+  {% set action = 'other' %}
+{% elif movement.actionWith == 'BCMS' %}
+  {% set action = 'bcms' %}
+{% endif %}
+
   <tr class="govuk-table__row">
 
     <th scope="row" class="govuk-table__header">
       <a
               class="govuk-link"
-              href="./review/details-awaiting-confirmation?direction={{ movement.direction }}&reference={{ movement.reference | urlencode }}"
+              href="./review/details-awaiting-confirmation?direction={{ movement.direction }}&amp;reference={{ movement.reference | urlencode }}&amp;action={{ action }}"
       >
         {{ movement.reference }}
       </a>
@@ -273,9 +282,9 @@
 
                   <!-- movementConfirmed is set when the movment is confirmed see form on 'movement-confirmed' page-->
                   {% if not data['movementConfirmed'] %}
-                <a class="govuk-link" href="./review/details-awaiting-confirmation?direction=on&otherHolding=17/087/0042&reference=8R2T 9W1F">8R2T 9W1F</a>
+                <a class="govuk-link" href="./review/details-awaiting-confirmation?direction=on&amp;otherHolding=17/087/0042&amp;reference=8R2T 9W1F&amp;action=you">8R2T 9W1F</a>
                   {% else %}
-                <a class="govuk-link" href="./review/details-confirmed?direction=on&otherHolding=17/087/0042&reference=8R2T 9W1F">8R2T 9W1F</a>
+                <a class="govuk-link" href="./review/details-confirmed?direction=on&amp;otherHolding=17/087/0042&amp;reference=8R2T 9W1F&amp;action=none">8R2T 9W1F</a>
                   {% endif %}
 
               </th>
@@ -313,7 +322,7 @@
 
             <tr class="govuk-table__row">
               <th scope="row" class="govuk-table__header">
-                <a class="govuk-link" href="./review/details-confirmed?direction=off&otherHolding=56/312/0056&reference=M7K49T2P">M7K4 9T2P</a>
+                <a class="govuk-link" href="./review/details-confirmed?direction=off&amp;otherHolding=56/312/0056&amp;reference=M7K49T2P&amp;action=none">M7K4 9T2P</a>
               </th>
               <td class="govuk-table__cell">21 Oct 2026</td>
               <td class="govuk-table__cell">
@@ -337,7 +346,7 @@
 
             <tr class="govuk-table__row">
               <th scope="row" class="govuk-table__header">
-                <a class="govuk-link" href="./review/details-confirmed?direction=on&otherHolding=15/628/0067&reference=B3N8 6V4W">B3N8 6V4W
+                <a class="govuk-link" href="./review/details-confirmed?direction=on&amp;otherHolding=15/628/0067&amp;reference=B3N8 6V4W&amp;action=none">B3N8 6V4W
 </a>
               </th>
               <td class="govuk-table__cell">20 Oct 2026</td>
@@ -362,7 +371,7 @@
 
             <tr class="govuk-table__row">
               <th scope="row" class="govuk-table__header">
-                <a class="govuk-link" href="./review/details-confirmed?direction=off&&otherHolding=31/672/0158&reference=K4W7 8D3X">K4W7 8D3X</a>
+                <a class="govuk-link" href="./review/details-confirmed?direction=off&amp;otherHolding=31/672/0158&amp;reference=K4W7 8D3X&amp;action=none">K4W7 8D3X</a>
               </th>
               <td class="govuk-table__cell">19 Oct 2026</td>
               <td class="govuk-table__cell">
@@ -386,7 +395,7 @@
 
             <tr class="govuk-table__row">
               <th scope="row" class="govuk-table__header">
-                <a class="govuk-link" href="./review/details-confirmed?direction=on&&otherHolding=44/209/03178&reference=C9F4 7N8P">C9F4 7N8P</a>
+                <a class="govuk-link" href="./review/details-confirmed?direction=on&amp;otherHolding=44/209/03178&amp;reference=C9F4 7N8P&amp;action=none">C9F4 7N8P</a>
               </th>
               <td class="govuk-table__cell">18 Oct 2026</td>
               <td class="govuk-table__cell">
@@ -410,7 +419,7 @@
 
             <tr class="govuk-table__row">
               <th scope="row" class="govuk-table__header">
-                <a class="govuk-link" href="./review/details-confirmed?direction=off&&otherHolding=66/204/0141&reference=R5T8 3M6V">R5T8 3M6V</a>
+                <a class="govuk-link" href="./review/details-confirmed?direction=off&amp;otherHolding=66/204/0141&amp;reference=R5T8 3M6V&amp;action=none">R5T8 3M6V</a>
               </th>
               <td class="govuk-table__cell">17 Oct 2026</td>
               <td class="govuk-table__cell">
@@ -434,7 +443,7 @@
 
             <tr class="govuk-table__row">
               <th scope="row" class="govuk-table__header">
-                <a class="govuk-link" href="./review/details-confirmed?direction=off&&otherHolding=22/100/0044&reference=Y3K7 9P4W">Y3K7 9P4W</a>
+                <a class="govuk-link" href="./review/details-confirmed?direction=off&amp;otherHolding=22/100/0044&amp;reference=Y3K7 9P4W&amp;action=none">Y3K7 9P4W</a>
               </th>
               <td class="govuk-table__cell">16 Oct 2026</td>
               <td class="govuk-table__cell">

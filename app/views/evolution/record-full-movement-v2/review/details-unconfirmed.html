@@ -35,10 +35,8 @@ href: "javascript:window.history.back()"
 
 
 
-<section class="govuk-inset-text app-callout app-callout--warning" aria-labelledby="movement-status-heading">
-  <h2 class="govuk-heading-m" id="movement-status-heading">Unconfirmed</h2>
-  <p class="govuk-body">This movement has not been confirmed within the expected response period. It remains recorded and may need back-office review.</p>
-</section>
+{% set status = query.status or 'unconfirmed' %}
+{% include "../partials/_callout.html" %}
 
 <nav class="app-sub-navigation__list__spaced moj-sub-navigation" aria-label="Sub navigation">
   <ul class="moj-sub-navigation__list">
@@ -154,12 +152,7 @@ href: "javascript:window.history.back()"
 
 </tbody>
 </table>
-
-<section id="movement-activity" class="govuk-!-margin-top-7" aria-labelledby="movement-activity-heading">
-  <h2 class="govuk-heading-m" id="movement-activity-heading">Activity</h2>
-  <p class="govuk-body">21 Oct 2026 – Movement reported.</p>
-  <p class="govuk-body">22 Oct 2026 – Unconfirmed.</p>
-</section>
+    
     <p class="govuk-!-margin-top-8"><a href="../movements">Return to movements</a></p>
 </div></div>
 
