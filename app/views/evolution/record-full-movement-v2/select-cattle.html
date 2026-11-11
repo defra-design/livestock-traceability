@@ -1,5 +1,9 @@
 {% extends "layouts/main.html" %}
 
+{% block header %}
+{% include "mvp-front-office/v7/partials/header.html" %}
+{% endblock %}
+
 {% set pageName = "Select cattle moving off your holding" %}
 
 {% block pageTitle %}
@@ -11,14 +15,19 @@
 text: "Back",
 href: "javascript:window.history.back()"
 }) }}
-  // make a proper class for this in the SCSS files
+<!--  // make a proper class for this in the SCSS files-->
     <style>
       #selected-count{display:none;}
       .js-enabled #selected-count{display:block;}
       .govuk-table__cell{
         vertical-align: middle !important;
       }
+      #selected-count{background-color:	#f4f8fb; padding:20px; }
+      #cattle-table[hidden] {
+  display: none;
+}
     </style>
+
 {% endblock %}
 
 {% block content %}
@@ -36,6 +45,26 @@ href: "javascript:window.history.back()"
       </p>
 
 
+<div class="govuk-form-group">
+
+  <label class="govuk-label govuk-label--m" for="search">
+    Search animals on holding
+  </label>
+
+  <div class="govuk-hint" id="search-hint">
+    You can search by all or part of an ear tag number, sex or breed.
+  </div>
+
+  <input
+          class="govuk-input govuk-input--width-20"
+          id="search"
+          type="search"
+          aria-describedby="search-hint"
+          autocomplete="off"
+          spellcheck="false"
+  >
+
+</div>
 
   <form method="post" novalidate="">
 
@@ -43,15 +72,19 @@ href: "javascript:window.history.back()"
 
       <fieldset class="govuk-fieldset">
 
-        <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--m govuk-visually-hidden">
           Cattle on your holding
         </legend>
 
-        <p class="govuk-body">
-          Showing {{ availableCattle.length }} cattle
-        </p>
+        <p class="govuk-body" id="search-results-count">
+  Showing {{ availableCattle.length }} cattle
+</p>
 
-        <div class="govuk-table__container">
+<p class="govuk-body" id="no-search-results" hidden>
+  No cattle match your search.
+</p>
+
+        <div class="govuk-table__container" id="cattle-table">
 
           <table class="govuk-table">
 
@@ -80,7 +113,7 @@ href: "javascript:window.history.back()"
 
               {% for animal in availableCattle %}
 
-                <tr class="govuk-table__row">
+                <tr class="govuk-table__row app-cattle-row" data-search="{{ animal.tag }} {{ animal.breed.name }} {{ animal.breed.code }} {{ animal.sex }}">
 
                   <td class="govuk-table__cell">
 
@@ -151,37 +184,84 @@ href: "javascript:window.history.back()"
   </div>
 {% endblock %}
 
-{% block pageScripts%}
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
+{% block pageScripts %}
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
 
-    // Find the animal checkboxes and selection counter
-    const checkboxes = document.querySelectorAll(
-      'input[name="rfm-selected-cattle"]'
-    )
+      // Find the search input, cattle rows and results count
+      const searchInput = document.getElementById('search')
+      const cattleRows = document.querySelectorAll('.app-cattle-row')
+      const resultsCount = document.getElementById('search-results-count')
+      const noResults = document.getElementById('no-search-results')
 
-    const counter = document.getElementById('selected-count')
+      // Find the animal checkboxes and selection counter
+      const checkboxes = document.querySelectorAll(
+        'input[name="rfm-selected-cattle"]'
+      )
+      const selectedCount = document.getElementById('selected-count')
 
-    // Update the count when an animal is selected or deselected
-    function updateSelectedCount() {
-      const selected = document.querySelectorAll(
-        'input[name="rfm-selected-cattle"]:checked'
-      ).length
+      // Show only cattle that match the search
+      function updateSearchResults() {
 
-      const animalText = selected === 1 ? 'animal' : 'animals'
+        const search = searchInput.value.trim().toLowerCase()
+        let matches = 0
 
-      counter.textContent = selected + ' ' + animalText + ' selected'
-    }
+        cattleRows.forEach(function (row) {
 
-    // Listen for changes to any of the checkboxes
-    checkboxes.forEach(function (checkbox) {
-      checkbox.addEventListener('change', updateSelectedCount)
+          // Search the text in the row (tag, breed, sex and date)
+          const rowText = row.dataset.search.toLowerCase()
+          const isMatch = rowText.includes(search)
+
+          row.hidden = !isMatch
+
+          if (isMatch) {
+            matches++
+          }
+        })
+
+        // Update the number of matching cattle
+        resultsCount.textContent =
+          'Showing ' + matches + ' of ' + cattleRows.length + ' cattle'
+
+        // Show a message when no cattle match
+        noResults.hidden = matches !== 0
+
+        // Hide the table when no cattle match the search
+const cattleTable = document.getElementById('cattle-table')
+cattleTable.hidden = matches === 0
+      }
+
+      // Update the number of selected cattle
+      function updateSelectedCount() {
+
+        const selected = document.querySelectorAll(
+          'input[name="rfm-selected-cattle"]:checked'
+        ).length
+
+        const animalText = selected === 1 ? 'animal' : 'animals'
+
+        selectedCount.textContent =
+          selected + ' ' + animalText + ' selected'
+      }
+
+      // Search immediately as the keeper types
+      searchInput.addEventListener('input', updateSearchResults)
+
+      // Update the selected count when checkboxes change
+      checkboxes.forEach(function (checkbox) {
+        checkbox.addEventListener('change', updateSelectedCount)
+      })
+
+      // Set the counts when the page first loads
+      updateSearchResults()
+      updateSelectedCount()
+
     })
+  </script>
 
-    // Set the correct count when the page loads
-    updateSelectedCount()
-  })
-</script>
 {% endblock %}
+
+
+
 
 

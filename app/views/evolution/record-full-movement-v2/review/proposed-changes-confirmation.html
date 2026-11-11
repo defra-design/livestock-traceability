@@ -1,0 +1,59 @@
+{% extends "layouts/main.html" %}
+
+{% block header %}
+{% include "mvp-front-office/v7/partials/header.html" %}
+{% endblock %}
+
+
+
+{% set pageName = "Changes proposed" %}
+
+{% block pageTitle %}
+{{ pageName }} – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <div class="govuk-panel govuk-panel--confirmation">
+
+        <h1 class="govuk-panel__title">
+          Changes proposed
+        </h1>
+
+        <div class="govuk-panel__body">
+          Movement reference
+          <br>
+          <strong>{{ reference }}</strong>
+        </div>
+
+      </div>
+
+      <p class="govuk-body">
+        You have proposed changes to the cattle reported in this movement.
+      </p>
+
+      <h2 class="govuk-heading-m">
+        What happens next
+      </h2>
+
+      <p class="govuk-body">
+        The other keeper will be asked to review your proposed changes.
+      </p>
+
+      <p class="govuk-body">
+        The movement will not be confirmed until the changes have been resolved.
+      </p>
+
+      <p class="govuk-body">
+        <a class="govuk-button" href="../movements">
+          View all movements
+        </a>
+      </p>
+
+    </div>
+  </div>
+
+{% endblock %}

@@ -1,4 +1,8 @@
 {% extends "layouts/main.html" %}
+
+{% block header %}
+{% include "mvp-front-office/v7/partials/header.html" %}
+{% endblock %}
 {% set pageName = "What type of destination are the cattle moving to" %}
 {% block pageTitle %}
 {{ pageName }} – {{ serviceName }} – GOV.UK Prototype Kit

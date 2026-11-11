@@ -1,0 +1,245 @@
+
+{% extends "layouts/main.html" %}
+
+{% block header %}
+{% include "mvp-front-office/v7/partials/header.html" %}
+{% endblock %}
+
+{% set pageName = "Check your proposed changes" %}
+
+{% block pageTitle %}
+{{ pageName }} – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block containerStart %}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <span class="govuk-caption-l">
+        Movement {{ reference }}
+      </span>
+
+      <h1 class="govuk-heading-l">
+        Check your proposed changes
+      </h1>
+
+      <h2 class="govuk-heading-m">
+        Movement details
+      </h2>
+
+      <dl class="govuk-summary-list">
+
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Moving from
+          </dt>
+          <dd class="govuk-summary-list__value">
+            17/087/0042
+          </dd>
+        </div>
+
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Moving to
+          </dt>
+          <dd class="govuk-summary-list__value">
+            {{ SENDER.cph }}
+          </dd>
+        </div>
+
+      </dl>
+
+
+
+      <h2 class="govuk-heading-m">
+        Changes to cattle
+      </h2>
+
+
+
+    </div>
+  </div>
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+
+      <table class="govuk-table app-movement-diff">
+
+        <caption class="govuk-visually-hidden">
+          Original cattle and proposed changes to this movement
+        </caption>
+
+        <thead class="govuk-table__head">
+          <tr class="govuk-table__row">
+            <th scope="col" class="govuk-table__header">
+              Proposed change
+            </th>
+            <th scope="col" class="govuk-table__header">
+              Ear tag number
+            </th>
+            <th scope="col" class="govuk-table__header">
+              Breed
+            </th>
+            <th scope="col" class="govuk-table__header">
+              Sex
+            </th>
+            <th scope="col" class="govuk-table__header">
+              Date of birth
+            </th>
+          </tr>
+        </thead>
+
+        <tbody class="govuk-table__body">
+
+          {% for animal in animalChanges %}
+
+            <tr class="govuk-table__row
+              {% if animal.change == 'removed' %}
+                app-movement-diff__row--removed
+              {% elif animal.change == 'added' %}
+                app-movement-diff__row--added
+              {% endif %}
+            ">
+
+              <td class="govuk-table__cell">
+
+                {% if animal.change == 'removed' %}
+
+                  <strong class="govuk-tag govuk-tag--red">
+                    Remove
+                  </strong>
+
+                {% elif animal.change == 'added' %}
+
+                  <strong class="govuk-tag govuk-tag--green">
+                    Add
+                  </strong>
+                {% else %}
+                  No change
+                {% endif %}
+
+              </td>
+
+              <th scope="row" class="govuk-table__header">
+                {{ animal.tag }}
+              </th>
+
+              <td class="govuk-table__cell">
+                <abbr title="{{ animal.breed.name }}">
+                  {{ animal.breed.code }}
+                </abbr>
+                <span class="govuk-visually-hidden">
+                  , {{ animal.breed.name }}
+                </span>
+              </td>
+
+              <td class="govuk-table__cell">
+                {{ animal.sex }}
+              </td>
+
+              <td class="govuk-table__cell">
+                {{ animal.dateOfBirth | shortDateFormat }}
+              </td>
+
+            </tr>
+
+          {% endfor %}
+
+        </tbody>
+
+      </table>
+
+      <p class="govuk-body govuk-!-margin-bottom-7">
+        <a class="govuk-link" href="./propose-animals">
+          Change the cattle in this movement
+        </a>
+      </p>
+
+    </div>
+  </div>
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <h2 class="govuk-heading-m">
+        Changes proposed to this movement
+      </h2>
+
+      <dl class="govuk-summary-list">
+
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Originally reported
+          </dt>
+          <dd class="govuk-summary-list__value">
+            {{ originalAnimals.length }} cattle
+          </dd>
+        </div>
+
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Cattle removed
+          </dt>
+          <dd class="govuk-summary-list__value">
+            {{ animalsRemoved.length }}
+          </dd>
+        </div>
+
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Cattle added
+          </dt>
+          <dd class="govuk-summary-list__value">
+            {{ animalsAdded.length }}
+          </dd>
+        </div>
+
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Proposed movement
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <strong>
+              {{ proposedAnimals.length }} cattle
+            </strong>
+          </dd>
+        </div>
+
+      </dl>
+
+      <h2 class="govuk-heading-m">
+        Submit proposed changes
+      </h2>
+
+      <p class="govuk-body">
+        The other keeper will be asked to review your proposed
+        changes before the movement can be confirmed.
+      </p>
+
+      <form method="post" action="./submit-proposal">
+
+        <div class="govuk-button-group">
+
+          <button class="govuk-button" type="submit">
+            Submit proposed changes
+          </button>
+
+          <a class="govuk-link" href="./propose-animals">
+            Back to proposed changes
+          </a>
+
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+
+{% endblock %}

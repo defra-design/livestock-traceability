@@ -1,8 +1,14 @@
 {% extends "layouts/main.html" %}
 
+{% block header %}
+{% include "mvp-front-office/v7/partials/header.html" %}
+{% endblock %}
+
+
 {% block pageTitle %}
 {{ pageName }}– {{ serviceName }} – GOV.UK Prototype Kit
 {% endblock %}
+
 
 
 {% block content %}
@@ -296,9 +302,12 @@
 
               </td>
               <td class="govuk-table__cell">
-
+                    {% if not data['movementConfirmed'] %}
                   You
-
+                    {% else %}
+                  <span class="govuk-visually-hidden">No further action</span>
+                  –
+                  {% endif %}
               </td>
             </tr>
 

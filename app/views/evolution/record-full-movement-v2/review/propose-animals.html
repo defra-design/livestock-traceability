@@ -1,4 +1,8 @@
 {% extends "layouts/main.html" %}
+
+{% block header %}
+{% include "mvp-front-office/v7/partials/header.html" %}
+{% endblock %}
 {% set pageName = "Review the cattle reported in this movement" %}
 {% block pageTitle %}
 {{ pageName }} – {{ serviceName }} – GOV.UK Prototype Kit
@@ -114,7 +118,7 @@ href: "javascript:window.history.back()"
   <h2 class="govuk-heading-m">Add more cattle</h2>
   <p class="govuk-body">Add any cattle that were part of this movement but are missing from the report. The reporting keeper will be asked to confirm your proposed changes.</p>
   <p><a class="govuk-button govuk-button--secondary" href="./add-method">Add more cattle</a></p>
-  <form method="post" action="./review/propose-change-cya">
+  <form method="post" action="./propose-change-cya">
     <div class="govuk-button-group">
     <button class="govuk-button" type="submit">Save and continue</button> <a class="govuk-link" href="./details-awaiting-confirmation" style="displayvertical-align:middle">Cancel amendments</a>
     </div>

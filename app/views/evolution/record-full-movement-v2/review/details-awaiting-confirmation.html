@@ -1,5 +1,9 @@
 {% extends "layouts/main.html" %}
 
+{% block header %}
+{% include "mvp-front-office/v7/partials/header.html" %}
+{% endblock %}
+
 {% block pageTitle %}
 Movement {{ movementReference }} – {{ serviceName }} – GOV.UK
 {% endblock %}

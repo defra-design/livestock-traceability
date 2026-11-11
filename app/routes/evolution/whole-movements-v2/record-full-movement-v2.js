@@ -719,15 +719,7 @@ router.post(BASE + '/review/add-method', (req, res) => {
   res.redirect(BASE + 'review/add-method')
 })
 
-router.get(BASE + '/review/propose-change-cya', (req, res) => {
 
-  const proposedChanges = req.session.data[SESSION].proposedChanges
-
-  return res.render(VIEW + 'review/propose-change-cya', {
-    animals: proposedChanges.animals,
-    reference: proposedChanges.reference
-  })
-})
 
 router.post(BASE + '/review/upload', (req, res) => {
   // Add the five fictional cattle from the simulated upload
@@ -771,17 +763,91 @@ router.post(BASE + '/review/add-manual', (req, res) => {
   return res.redirect(BASE + '/review/propose-animals')
 })
 
-router.post(BASE + '/review/submit-proposal', (req, res) => {
+router.get(BASE + '/review/changes-proposed', (req, res) => {
 
   const proposedChanges = req.session.data[SESSION].proposedChanges
 
-  // Mark the proposed movement as awaiting the other keeper
+  return res.render(VIEW + 'review/changes-proposed', {
+    reference: proposedChanges.reference
+  })
+})
+
+router.post(BASE + '/review/submit-proposal', (req, res) => {
+
+  // Get the keeper's proposed changes
+  const proposedChanges = req.session.data[SESSION].proposedChanges
+
+  // Record that the changes are awaiting the other keeper
   proposedChanges.status = 'Changes proposed'
   proposedChanges.actionWith = 'Other keeper'
 
-  return res.redirect(BASE + '/review/changes-proposed')
+  // Continue to the confirmation page
+  return res.redirect(BASE + '/review/proposed-changes-confirmation.')
 })
 
+
+router.get(BASE + '/review/propose-change-cya', (req, res) => {
+
+  // Get the changes being proposed by the receiving keeper
+  const proposedChanges = req.session.data[SESSION].proposedChanges
+
+  if (!proposedChanges) {
+    return res.redirect(BASE + '/review/start-proposal')
+  }
+
+  // The original cattle reported by the other keeper
+  const originalAnimals = REVIEW_CATTLE
+
+  // The cattle remaining after the keeper's changes
+  const proposedAnimals = proposedChanges.animals
+
+  // Find cattle removed from the original report
+  const animalsRemoved = originalAnimals.filter(animal =>
+    !proposedAnimals.some(proposed => proposed.tag === animal.tag)
+  )
+
+  // Find cattle added to the original report
+  const animalsAdded = proposedAnimals.filter(animal =>
+    !originalAnimals.some(original => original.tag === animal.tag)
+  )
+
+  // Build the comparison table, including unchanged cattle
+  const animalChanges = originalAnimals.map(animal => ({
+    ...animal,
+    change: animalsRemoved.some(removed => removed.tag === animal.tag)
+      ? 'removed'
+      : 'unchanged'
+  }))
+
+  // Add the newly proposed cattle to the comparison table
+  animalsAdded.forEach(animal => {
+    animalChanges.push({
+      ...animal,
+      change: 'added'
+    })
+  })
+
+  // Pass everything to the Check your answers page
+  return res.render(VIEW + 'review/propose-change-cya', {
+    reference: proposedChanges.reference,
+    originalAnimals,
+    proposedAnimals,
+    animalsRemoved,
+    animalsAdded,
+    animalChanges,
+    SENDER
+  })
+})
+
+router.get(BASE + '/review/proposed-changes-confirmation.', (req, res) => {
+
+  // Get the movement reference
+  const proposedChanges = req.session.data[SESSION].proposedChanges
+
+  return res.render(VIEW + 'review/proposed-changes-confirmation.', {
+    reference: proposedChanges.reference
+  })
+})
 
 // helper routes
 router.get(BASE + '/clear-test-movements', (req, res) => {
