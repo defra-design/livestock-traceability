@@ -40,7 +40,7 @@ href: "../movements"
   <h2 class="govuk-heading-m" id="movement-status-heading">Changes proposed</h2>
   <p class="govuk-body">The opposing keeper has proposed changes to this movement.</p>
   <p class="govuk-body"><strong>Reason for changes:</strong> One animal did not arrive; a different animal arrived instead.</p>
-  {% if direction == 'off' %}
+  {% if direction == 'off' or query.action== 'you' %}
     <p class="govuk-body">Review the original report and proposed changes, then decide whether to accept or dispute them.</p>
     <p class="govuk-body"><a class="govuk-link" href="#movement-action">Respond to proposed changes</a></p>
   {% else %}
@@ -238,7 +238,7 @@ href: "../movements"
 
 
 
-{% if direction == 'off' %}
+{% if direction == 'off' or query.action == 'you'%}
 <form method="post" action="/evolution/record-full-movement/movements/MOV-1002/respond-changes" novalidate="">
 <div class="govuk-form-group">
   <fieldset class="govuk-fieldset">

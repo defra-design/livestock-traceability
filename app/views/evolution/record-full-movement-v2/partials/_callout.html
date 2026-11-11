@@ -2,7 +2,7 @@
 
 <section class="govuk-inset-text app-callout app-callout--info" aria-labelledby="movement-status-heading">
   <h2 class="govuk-heading-m" id="movement-status-heading">Awaiting confirmation</h2>
-  {% if direction == 'on' %}
+  {% if  query.action == 'you' %}
     <p class="govuk-body">The other keeper has reported this movement. Check the movement details and cattle before confirming, proposing changes or rejecting it.</p>
     <p class="govuk-body"><a class="govuk-link" href="#movement-action">Review movement</a></p>
   {% else %}
@@ -10,13 +10,18 @@
   {% endif %}
 </section>
 
-{% elif status == 'changes-proposed' %}
+{% elseif status == 'changes-proposed' %}
 
                         <section class="govuk-inset-text app-callout app-callout--change" aria-labelledby="movement-status-heading">
   <h2 class="govuk-heading-m" id="movement-status-heading">Changes proposed</h2>
+
+                          {% if  query.action == 'you' %}
   <p class="govuk-body">The opposing keeper has proposed changes to this movement.</p>
+              {% else %}
+      <p class="govuk-body">You proposed changes to this movement.</p>
+                {% endif %}
   <p class="govuk-body"><strong>Reason for changes:</strong> One animal did not arrive; a different animal arrived instead.</p>
-  {% if direction == 'off' %}
+  {% if query.action == 'you' %}
     <p class="govuk-body">Review the original report and proposed changes, then decide whether to accept or dispute them.</p>
     <p class="govuk-body"><a class="govuk-link" href="#movement-action">Respond to proposed changes</a></p>
   {% else %}
@@ -24,7 +29,7 @@
   {% endif %}
 </section>
 
-{% elif status == 'confirmed' %}
+{% elseif status == 'confirmed' %}
 
 <section class="govuk-inset-text app-callout app-callout--success" aria-labelledby="movement-status-heading">
 <h2 class="govuk-heading-m" id="movement-status-heading">Confirmed</h2>
@@ -34,7 +39,7 @@
 
 </section>
 
-{% elif status == 'disputed' %}
+{% elseif status == 'disputed' %}
 
             <section class="govuk-inset-text app-callout app-callout--issue" aria-labelledby="movement-status-heading">
   <h2 class="govuk-heading-m" id="movement-status-heading">Disputed</h2>
@@ -42,13 +47,17 @@
   <p class="govuk-body"><strong>Reason:</strong> The parties disagree about the cattle received.</p>
 </section>
 
-{% elif status == 'rejected' %}
+{% elseif status == 'rejected' %}
 
             <section class="govuk-inset-text app-callout app-callout--issue" aria-labelledby="movement-status-heading">
   <h2 class="govuk-heading-m" id="movement-status-heading">Rejected – awaiting response</h2>
+                {% if  query.action == 'you' %}
   <p class="govuk-body">The opposing keeper has rejected this movement.</p>
-  <p class="govuk-body"><strong>Reason given:</strong> The other keeper says the cattle did not leave their holding.</p>
-  {% if direction == 'off' %}
+              {% else %}
+    <p class="govuk-body">You have rejected this movement.</p>
+                {% endif %}
+  <p class="govuk-body"><strong>Reason given:</strong> The cattle did not leave the holding.</p>
+  {% if query.action == 'you' %}
     <p class="govuk-body">Review the movement details and decide whether to correct, withdraw or dispute the report.</p>
     <p class="govuk-body"><a class="govuk-link" href="#movement-action">Respond to rejection</a></p>
   {% else %}
@@ -56,7 +65,7 @@
   {% endif %}
 </section>
 
-{% elif status == 'unconfirmed' %}
+{% elseif status == 'unconfirmed' %}
 
             <section class="govuk-inset-text app-callout app-callout--warning" aria-labelledby="movement-status-heading">
   <h2 class="govuk-heading-m" id="movement-status-heading">Unconfirmed</h2>
