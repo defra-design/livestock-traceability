@@ -1,0 +1,52 @@
+{% extends "layouts/main.html" %}
+
+{% block header %}
+{% include "mvp-front-office/v7/partials/header.html" %}
+{% endblock %}
+
+{% set isOn = data["rfm-movement-type"] == "on" %}
+{% set pageName = "The details you entered did not match our records" %}
+
+{% block pageTitle %}
+{{ pageName }} – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block containerStart %}
+{{ govukBackLink({
+text: "Back",
+href: "./find-holding-by-id"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <h1 class="govuk-heading-l">
+        The details you entered did not match our records
+      </h1>
+
+      <p class="govuk-body">
+        We could not find a registered location matching the
+        CPH number or abattoir approval number you entered.
+      </p>
+
+      <p class="govuk-body">
+        Check the number and
+        <a class="govuk-link" href="./find-holding-by-id">
+          try again using different details
+        </a>.
+      </p>
+
+      <p class="govuk-body">
+        You can also
+        <a class="govuk-link" href="./find-holding-by-address">
+          search by postcode
+        </a>.
+      </p>
+
+    </div>
+  </div>
+
+{% endblock %}

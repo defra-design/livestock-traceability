@@ -473,7 +473,7 @@ router.post(BASE + '/find-holding-by-id', (req, res) => {
 
   // If no matching destination is found, return to the search page
   if (!destination) {
-    return res.redirect(BASE + '/find-holding-by-id?notFound=true')
+    return res.redirect(BASE + '/location-not-found')
   }
 
   // Save the destination to the current movement
