@@ -1,13 +1,18 @@
 {% extends "layouts/main.html" %}
 
-
 {% block header %}
 
   {% include "mvp-front-office/v7/partials/header.html" %}
 
 {% endblock %}
 
-{% set pageName="Movement reported" %}
+{# Opened directly, nothing has been sent so there's no count to show #}
+{% set count = data['movement-reported-count'] | int %}
+{% if count %}
+  {% set pageName = count ~ (" movement reported" if count == 1 else " movements reported") %}
+{% else %}
+  {% set pageName = "Movement reported" %}
+{% endif %}
 {% set serviceName = "View and report livestock information" %}
 
 {% block content %}
@@ -17,17 +22,21 @@
 
     <div class="govuk-panel govuk-panel--confirmation">
       <h1 class="govuk-panel__title">
-        Movement reported
+        {{ pageName }}
       </h1>
     </div>
 
     <p class="govuk-body">
-      We have received your movement report. You can review it in the In progress section.
+      We have received your movement report. You will also receive a confirmation email.
     </p>
 
     <h2 class="govuk-heading-m">What happens next</h2>
     <p class="govuk-body">
-      Records for all animals reported in the movement will be updated in the next 24 hours.
+      Records for all animals reported in the movement will be updated in the next 48 hours.
+    </p>
+
+    <p class="govuk-body">
+      You will receive an email once your report has been reviewed if it is successful or we require further information.
     </p>
 
     <p class="govuk-body">

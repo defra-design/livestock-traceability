@@ -152,6 +152,8 @@ router.post(`${BASE}/submit`, (req, res) => {
   if (!hasMovement(data)) {
     return res.redirect(`${BASE}/movement-type`)
   }
+  // Kept for the confirmation title once the movement fields are cleared
+  data['movement-reported-count'] = data['movement-animals'].length
   MOVEMENT_FIELDS.forEach(f => delete data[f])
   delete data['change']
   res.redirect(`${BASE}/confirmation`)
