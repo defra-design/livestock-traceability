@@ -1,0 +1,134 @@
+{% extends "layouts/main.html" %}
+
+{% block header %}
+  {% include "mvp-front-office/v7/partials/header.html" %}
+{% endblock %}
+
+{% set movementReference = query.reference or 'M7K4 9T2P' %}
+{% set direction = query.direction or 'off' %}
+{% set otherHolding = query.otherHolding or '56/312/0056' %}
+{% set status = query.status or 'awaiting-confirmation' %}
+
+{% block pageTitle %}
+  Activity for movement {{ movementReference }} – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block containerStart %}
+  {{ govukBackLink({
+    text: "Return to movements",
+    href: "../movements"
+  }) }}
+{% endblock %}
+
+{% macro activityRow(date, event, details, byWho) %}
+  <tr class="govuk-table__row">
+    <td class="govuk-table__cell">{{ date }}</td>
+    <th scope="row" class="govuk-table__header">{{ event }}</th>
+    <td class="govuk-table__cell">{{ details or '–' }}</td>
+    <td class="govuk-table__cell">{{ byWho }}</td>
+  </tr>
+{% endmacro %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <span class="govuk-caption-l">
+        {% if direction == 'off' %}
+          Movement off holding
+        {% else %}
+          Movement on to holding
+        {% endif %}
+        {{ otherHolding }}
+      </span>
+
+      <h1 class="govuk-heading-l">Movement {{ movementReference }}</h1>
+
+
+      {% include "../partials/_callout.html" %}
+
+    </div>
+  </div>
+
+  <nav class="app-sub-navigation__list__spaced moj-sub-navigation" aria-label="Sub navigation">
+    <ul class="moj-sub-navigation__list">
+      <li class="moj-sub-navigation__item">
+        <a class="moj-sub-navigation__link" href="./details-{{ status }}?reference={{ movementReference | urlencode }}&amp;direction={{ direction | urlencode }}&amp;otherHolding={{ otherHolding | urlencode }}">
+          Movement details
+        </a>
+      </li>
+      <li class="moj-sub-navigation__item">
+        <a class="moj-sub-navigation__link" aria-current="page" href="./activity?status={{ status | urlencode }}&amp;reference={{ movementReference | urlencode }}&amp;direction={{ direction | urlencode }}&amp;otherHolding={{ otherHolding | urlencode }}">
+          Activity
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+
+      <h2 class="govuk-heading-m">Activity</h2>
+
+      <table class="govuk-table">
+        <caption class="govuk-visually-hidden">
+          Activity history for movement {{ movementReference }}
+        </caption>
+        <thead class="govuk-table__head">
+          <tr class="govuk-table__row">
+            <th scope="col" class="govuk-table__header">Date</th>
+            <th scope="col" class="govuk-table__header">Event</th>
+            <th scope="col" class="govuk-table__header">Details</th>
+            <th scope="col" class="govuk-table__header">By who</th>
+          </tr>
+        </thead>
+        <tbody class="govuk-table__body">
+
+          {% if status == 'awaiting-confirmation' %}
+
+            {{ activityRow('21 Oct 2026', 'Movement reported', 'Awaiting confirmation from the other keeper' if direction == 'off' else 'Awaiting your confirmation', 'You' if direction == 'off' else 'Other keeper') }}
+
+          {% elif status == 'changes-proposed' %}
+
+            {{ activityRow('22 Oct 2026', 'Changes proposed', 'Sent to the reporting keeper for review', 'Other keeper' if direction == 'off' else 'You') }}
+            {{ activityRow('21 Oct 2026', 'Movement reported', '', 'You' if direction == 'off' else 'Other keeper') }}
+
+          {% elif status == 'confirmed' %}
+
+            {{ activityRow('23 Oct 2026', 'Movement confirmed', 'Both keepers have confirmed the movement', 'Other keeper' if direction == 'off' else 'You') }}
+            {{ activityRow('21 Oct 2026', 'Movement reported', '', 'You' if direction == 'off' else 'Other keeper') }}
+
+          {% elif status == 'disputed' %}
+
+            {{ activityRow('24 Oct 2026', 'Movement disputed', 'Referred to BCMS for review', 'You' if direction == 'off' else 'Other keeper') }}
+            {{ activityRow('22 Oct 2026', 'Changes proposed', 'Sent to the reporting keeper for review', 'Other keeper' if direction == 'off' else 'You') }}
+            {{ activityRow('21 Oct 2026', 'Movement reported', '', 'You' if direction == 'off' else 'Other keeper') }}
+
+          {% elif status == 'rejected' %}
+
+            {{ activityRow('22 Oct 2026', 'Movement rejected', 'Awaiting a response from the reporting keeper', 'Other keeper' if direction == 'off' else 'You') }}
+            {{ activityRow('21 Oct 2026', 'Movement reported', '', 'You' if direction == 'off' else 'Other keeper') }}
+
+          {% elif status == 'unconfirmed' %}
+
+            {{ activityRow('10 Nov 2026', 'Movement marked unconfirmed', 'Confirmation not received within the expected period', 'BCMS') }}
+            {{ activityRow('21 Oct 2026', 'Movement reported', '', 'You' if direction == 'off' else 'Other keeper') }}
+
+          {% else %}
+
+            {{ activityRow('21 Oct 2026', 'Movement reported', '', 'You' if direction == 'off' else 'Other keeper') }}
+
+          {% endif %}
+
+        </tbody>
+      </table>
+
+      <p class="govuk-body govuk-!-margin-top-8">
+        <a class="govuk-link" href="../movements">Return to movements</a>
+      </p>
+
+    </div>
+  </div>
+
+{% endblock %}

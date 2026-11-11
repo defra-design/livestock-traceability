@@ -1,0 +1,70 @@
+{% if status == 'awaiting-confirmation' %}
+
+<section class="govuk-inset-text app-callout app-callout--info" aria-labelledby="movement-status-heading">
+  <h2 class="govuk-heading-m" id="movement-status-heading">Awaiting confirmation</h2>
+  {% if direction == 'on' %}
+    <p class="govuk-body">The other keeper has reported this movement. Check the movement details and cattle before confirming, proposing changes or rejecting it.</p>
+    <p class="govuk-body"><a class="govuk-link" href="#movement-action">Review movement</a></p>
+  {% else %}
+    <p class="govuk-body">Waiting for the opposing keeper to confirm or respond to this report. No action is needed from you at the moment.</p>
+  {% endif %}
+</section>
+
+{% elif status == 'changes-proposed' %}
+
+                        <section class="govuk-inset-text app-callout app-callout--change" aria-labelledby="movement-status-heading">
+  <h2 class="govuk-heading-m" id="movement-status-heading">Changes proposed</h2>
+  <p class="govuk-body">The opposing keeper has proposed changes to this movement.</p>
+  <p class="govuk-body"><strong>Reason for changes:</strong> One animal did not arrive; a different animal arrived instead.</p>
+  {% if direction == 'off' %}
+    <p class="govuk-body">Review the original report and proposed changes, then decide whether to accept or dispute them.</p>
+    <p class="govuk-body"><a class="govuk-link" href="#movement-action">Respond to proposed changes</a></p>
+  {% else %}
+    <p class="govuk-body">Waiting for the original reporter to respond to the proposed changes.</p>
+  {% endif %}
+</section>
+
+{% elif status == 'confirmed' %}
+
+<section class="govuk-inset-text app-callout app-callout--success" aria-labelledby="movement-status-heading">
+<h2 class="govuk-heading-m" id="movement-status-heading">Confirmed</h2>
+
+  <p class="govuk-body">Both parties have confirmed this movement. No further action is needed.</p>
+
+
+</section>
+
+{% elif status == 'disputed' %}
+
+            <section class="govuk-inset-text app-callout app-callout--issue" aria-labelledby="movement-status-heading">
+  <h2 class="govuk-heading-m" id="movement-status-heading">Disputed</h2>
+  <p class="govuk-body">This movement has been referred for back-office review.</p>
+  <p class="govuk-body"><strong>Reason:</strong> The parties disagree about the cattle received.</p>
+</section>
+
+{% elif status == 'rejected' %}
+
+            <section class="govuk-inset-text app-callout app-callout--issue" aria-labelledby="movement-status-heading">
+  <h2 class="govuk-heading-m" id="movement-status-heading">Rejected – awaiting response</h2>
+  <p class="govuk-body">The opposing keeper has rejected this movement.</p>
+  <p class="govuk-body"><strong>Reason given:</strong> The other keeper says the cattle did not leave their holding.</p>
+  {% if direction == 'off' %}
+    <p class="govuk-body">Review the movement details and decide whether to correct, withdraw or dispute the report.</p>
+    <p class="govuk-body"><a class="govuk-link" href="#movement-action">Respond to rejection</a></p>
+  {% else %}
+    <p class="govuk-body">The original reporter needs to respond to this rejection.</p>
+  {% endif %}
+</section>
+
+{% elif status == 'unconfirmed' %}
+
+            <section class="govuk-inset-text app-callout app-callout--warning" aria-labelledby="movement-status-heading">
+  <h2 class="govuk-heading-m" id="movement-status-heading">Unconfirmed</h2>
+  <p class="govuk-body">This movement has not been confirmed within the expected response period. It remains recorded and may need back-office review.</p>
+</section>
+
+{% else %}
+
+
+
+{% endif %}

@@ -34,24 +34,16 @@ href: "../movements"
 
 
 
-
-<section class="govuk-inset-text app-callout app-callout--info" aria-labelledby="movement-status-heading">
-  <h2 class="govuk-heading-m" id="movement-status-heading">Awaiting confirmation</h2>
-  {% if direction == 'on' %}
-    <p class="govuk-body">The other keeper has reported this movement. Check the movement details and cattle before confirming, proposing changes or rejecting it.</p>
-    <p class="govuk-body"><a class="govuk-link" href="#movement-action">Review movement</a></p>
-  {% else %}
-    <p class="govuk-body">Waiting for the opposing keeper to confirm or respond to this report. No action is needed from you at the moment.</p>
-  {% endif %}
-</section>
+{% set status = query.status or 'awaiting-confirmation' %}
+{% include "../partials/_callout.html" %}
 
 <nav class="app-sub-navigation__list__spaced moj-sub-navigation" aria-label="Sub navigation">
   <ul class="moj-sub-navigation__list">
     <li class="moj-sub-navigation__item">
-      <a class="moj-sub-navigation__link" aria-current="page" href="details-awaiting-confirmation?reference={{ movementReference }}&amp;direction={{ direction }}&amp;otherHolding={{ otherHolding }}">Movement details</a>
+      <a class="moj-sub-navigation__link" aria-current="page" href="./details-awaiting-confirmation?reference={{ movementReference | urlencode }}&amp;direction={{ direction | urlencode }}&amp;otherHolding={{ otherHolding | urlencode }}">Movement details</a>
     </li>
     <li class="moj-sub-navigation__item">
-      <a class="moj-sub-navigation__link" href="#movement-activity">Activity</a>
+      <a class="moj-sub-navigation__link" href="./activity?status=awaiting-confirmation&amp;reference={{ movementReference | urlencode }}&amp;direction={{ direction | urlencode }}&amp;otherHolding={{ otherHolding | urlencode }}">Activity</a>
     </li>
   </ul>
 </nav>

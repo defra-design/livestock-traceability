@@ -1,230 +1,154 @@
 {% extends "layouts/main.html" %}
 
 {% block header %}
-{% include "mvp-front-office/v7/partials/header.html" %}
+  {% include "mvp-front-office/v7/partials/header.html" %}
 {% endblock %}
 
-{% set pageName = "Whole cattle movements prototype" %}
+{% set pageName = "Whole cattle movements – iteration 2" %}
 
 {% block pageTitle %}
-  {{ pageName }} – GOV.UK
+  {{ pageName }} – {{ serviceName }} – GOV.UK Prototype Kit
 {% endblock %}
 
 {% block content %}
+
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
 
       <span class="govuk-caption-xl">Livestock service prototype</span>
-      <h1 class="govuk-heading-xl">Whole cattle movements</h1>
+      <h1 class="govuk-heading-xl">Whole cattle movements – iteration 2</h1>
 
-      <p class="govuk-body">
-        Pages and example states for reporting, reviewing and confirming
-        whole cattle movements.
+      <p class="govuk-body-l">
+        An iteration of the first whole cattle movements prototype, with a
+        smaller scope to focus on key reporting and review interactions.
       </p>
 
+      <h2 class="govuk-heading-m">About this iteration</h2>
       <p class="govuk-body">
-        These pages use demonstration data. Some reporting steps depend on
-        answers given earlier in the journey, so start at the beginning if
-        a direct link redirects you.
+        Version 1 explored a broader range of movement scenarios and possible
+        service interactions. This version builds on that work but deliberately
+        scales back the journeys so we can test the main steps in more detail.
+      </p>
+      <p class="govuk-body">
+        The focus is reporting a movement off a holding, adding cattle in
+        different ways, finding a destination, and reviewing a movement
+        reported by another keeper. It also includes example movement
+        statuses and activity histories.
+      </p>
+      <p class="govuk-body">
+        This is a research prototype, not a complete service. It uses fictional
+        cattle and holding data. Some journeys save temporary information in
+        the session; others are static examples of possible states.
       </p>
 
-      <div class="govuk-warning-text">
-  <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-  <strong class="govuk-warning-text__text">
-    <span class="govuk-visually-hidden">Warning</span>
-     Very early designs to start conversations about the working ideas and complex scenarios.
-  </strong>
-</div>
+      <div class="govuk-inset-text">
+        These are working designs for research and discussion. Some wider
+        scenarios and edge cases explored in version 1 are intentionally not
+        included here.
+      </div>
 
-
-      <h2 class="govuk-heading-l">Movement register</h2>
+      <h2 class="govuk-heading-l">Start here</h2>
       <ul class="govuk-list govuk-list--bullet">
         <li>
           <a class="govuk-link" href="./movements">
-            Movements for 37/123/4567
+            View movements for 37/123/4567
+          </a>
+        </li>
+        <li>
+          <a class="govuk-link" href="./movements-all-status">
+            View example movements in different statuses
+          </a>
+        </li>
+        <li>
+          <a class="govuk-link" href="./movement-type">
+            Report a movement
           </a>
         </li>
       </ul>
 
-      <h2 class="govuk-heading-l">Movement details and states</h2>
+      <h2 class="govuk-heading-l">Review movements and statuses</h2>
+      <p class="govuk-body">
+        These pages use static example movements. The links pass the movement
+        reference, direction and other holding in the URL.
+      </p>
       <ul class="govuk-list govuk-list--bullet">
         <li>
-          <a class="govuk-link" href="./movements/MOV-1007">
-            Awaiting your confirmation – MOV-1007
+          <a class="govuk-link" href="./review/details-awaiting-confirmation?direction=on&amp;otherHolding=17/087/0042&amp;reference=8R2T%209W1F">
+            Awaiting your confirmation
           </a>
         </li>
         <li>
-          <a class="govuk-link" href="./movements/MOV-1001">
-            Awaiting the other keeper – MOV-1001
+          <a class="govuk-link" href="./review/details-awaiting-confirmation?direction=off&amp;otherHolding=56/312/0056&amp;reference=M7K4%209T2P">
+            Awaiting confirmation by the other keeper
           </a>
         </li>
         <li>
-          <a class="govuk-link" href="./movements/MOV-1002">
-            Changes proposed – MOV-1002
+          <a class="govuk-link" href="./review/details-changes-proposed?direction=off&amp;otherHolding=15/628/0067&amp;reference=T4N7%203B9X">
+            Changes proposed
           </a>
         </li>
         <li>
-          <a class="govuk-link" href="./movements/MOV-1004">
-            Rejected, awaiting your response – MOV-1004
+          <a class="govuk-link" href="./review/details-confirmed?direction=off&amp;otherHolding=31/672/0158&amp;reference=K4W7%208D3X">
+            Confirmed
           </a>
         </li>
         <li>
-          <a class="govuk-link" href="./movements/MOV-1003">
-            Confirmed – MOV-1003
+          <a class="govuk-link" href="./review/details-rejected?direction=on&amp;otherHolding=44/209/0317&amp;reference=C9F4%207N8P">
+            Rejected
           </a>
         </li>
         <li>
-          <a class="govuk-link" href="./movements/MOV-1006">
-            Disputed – MOV-1006
+          <a class="govuk-link" href="./review/details-disputed?direction=off&amp;otherHolding=22/100/0044&amp;reference=Y3K7%209P4W">
+            Disputed
           </a>
         </li>
         <li>
-          <a class="govuk-link" href="./movements/MOV-1005">
-            Unconfirmed – MOV-1005
+          <a class="govuk-link" href="./review/details-unconfirmed?direction=off&amp;otherHolding=66/204/0141&amp;reference=R5T8%203M6V">
+            Unconfirmed
           </a>
         </li>
         <li>
-          <a class="govuk-link" href="./movements/MOV-1002/activity">
-            Movement activity – MOV-1002
-          </a>
-        </li>
-      </ul>
-
-      <h2 class="govuk-heading-l">Review a movement</h2>
-      <ul class="govuk-list govuk-list--bullet">
-        <li>
-          <a class="govuk-link" href="./movements/MOV-1007#movement-action">
-            Confirm, propose changes or reject a movement
-          </a>
-        </li>
-        <li>
-          <a class="govuk-link" href="./movements/MOV-1007/propose">
-            Propose changes to a movement
-          </a>
-        </li>
-        <li>
-          <a class="govuk-link" href="./movements/MOV-1007/reject">
-            Reject a movement
-          </a>
-        </li>
-        <li>
-          <a class="govuk-link" href="./movements/MOV-1002#movement-action">
-            Accept or dispute proposed changes
-          </a>
-        </li>
-        <li>
-          <a class="govuk-link" href="./movements/MOV-1004#movement-action">
-            Respond to a rejected movement
-          </a>
-        </li>
-        <li>
-          <a class="govuk-link" href="./movements/MOV-1004/correct">
-            Correct a movement report
+          <a class="govuk-link" href="./review/activity?status=changes-proposed&amp;direction=off&amp;otherHolding=15/628/0067&amp;reference=T4N7%203B9X">
+            Example movement activity
           </a>
         </li>
       </ul>
 
       <h2 class="govuk-heading-l">Report a movement</h2>
-      <ul class="govuk-list govuk-list--bullet">
-        <li>
-          <a class="govuk-link" href="/record-full-movement-v2">
-            Start reporting a cattle movement
-          </a>
-        </li>
-        <li>
-          <a class="govuk-link" href="./movement-type">
-            Choose movement on or off
-          </a>
-        </li>
-        <li>
-          <a class="govuk-link" href="./add-method">
-            Choose how to add cattle
-          </a>
-        </li>
-        <li>
-          <a class="govuk-link" href="./manual">
-            Enter ear tags manually
-          </a>
-        </li>
-        <li>
-          <a class="govuk-link" href="./upload">
-            Upload a cattle list
-          </a>
-        </li>
-        <li>
-          <a class="govuk-link" href="./animals">
-            Cattle added to the movement
-          </a>
-        </li>
-        <li>
-          <a class="govuk-link" href="./movement-authorisation">
-            Movement restrictions and authorisation
-          </a>
-        </li>
-        <li>
-          <a class="govuk-link" href="./movement-date">
-            Movement date
-          </a>
-        </li>
-        <li>
-          <a class="govuk-link" href="./check-answers">
-            Check your answers
-          </a>
-        </li>
-        <li>
-          <a class="govuk-link" href="./confirmation">
-            Report submission confirmation
-          </a>
-        </li>
-      </ul>
-      <p class="govuk-hint">
-        The cattle list, authorisation, check your answers and confirmation
-        screens require information entered earlier in the journey.
+      <p class="govuk-body">
+        Start at the beginning to test the full journey. The following pages
+        can also be opened individually, but some need information from
+        earlier steps.
       </p>
-
-      <h2 class="govuk-heading-l">Find and confirm a holding</h2>
       <ul class="govuk-list govuk-list--bullet">
-        <li>
-          <a class="govuk-link" href="./previous-destinations">
-            Previously used holdings
-          </a>
-        </li>
-        <li>
-          <a class="govuk-link" href="./destination-type">
-            Choose destination type
-          </a>
-        </li>
-        <li>
-          <a class="govuk-link" href="./find-method">
-            Find a registered location
-          </a>
-        </li>
-        <li>
-          <a class="govuk-link" href="./destination">
-            Search by CPH number
-          </a>
-        </li>
-        <li>
-          <a class="govuk-link" href="./destination-address">
-            Search by address
-          </a>
-        </li>
-        <li>
-          <a class="govuk-link" href="./destination-address-results">
-            Select a matching address
-          </a>
-        </li>
-        <li>
-          <a class="govuk-link" href="./confirm-destination">
-            Confirm the selected holding
-          </a>
-        </li>
+        <li><a class="govuk-link" href="./movement-type">Choose movement on or off</a></li>
+        <li><a class="govuk-link" href="./start-off">Start reporting a movement off</a></li>
+        <li><a class="govuk-link" href="./add-method">Choose how to add cattle</a></li>
+        <li><a class="govuk-link" href="./manual">Enter ear tags manually</a></li>
+        <li><a class="govuk-link" href="./upload">Upload a cattle list</a></li>
+        <li><a class="govuk-link" href="./select-cattle">Select cattle from the holding</a></li>
+        <li><a class="govuk-link" href="./animals">Review cattle added</a></li>
+        <li><a class="govuk-link" href="./movement-date">Enter the movement date</a></li>
+        <li><a class="govuk-link" href="./check-answers">Check answers before reporting</a></li>
       </ul>
+
+      <h2 class="govuk-heading-l">Find a destination</h2>
+      <ul class="govuk-list govuk-list--bullet">
+        <li><a class="govuk-link" href="./previous-destinations">Choose a previously used destination</a></li>
+        <li><a class="govuk-link" href="./find-destination">Choose how to find a destination</a></li>
+        <li><a class="govuk-link" href="./find-holding-by-id">Search by CPH or approval number</a></li>
+        <li><a class="govuk-link" href="./find-holding-by-address">Search by postcode</a></li>
+        <li><a class="govuk-link" href="./select-destination">Select a matching destination</a></li>
+        <li><a class="govuk-link" href="./confirm-destination">Confirm destination</a></li>
+      </ul>
+
       <p class="govuk-hint">
-        These screens depend on whether the movement is on or off and on the
-        location selected in the journey.
+        Some pages may redirect or show empty data when opened directly.
+        The movement statuses and activity pages are static examples; the
+        reporting journey is partly session-based.
       </p>
 
     </div>
   </div>
+
 {% endblock %}

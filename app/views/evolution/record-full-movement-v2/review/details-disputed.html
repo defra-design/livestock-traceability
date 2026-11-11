@@ -44,10 +44,10 @@ href: "javascript:window.history.back()"
 <nav class="app-sub-navigation__list__spaced moj-sub-navigation" aria-label="Sub navigation">
   <ul class="moj-sub-navigation__list">
     <li class="moj-sub-navigation__item">
-      <a class="moj-sub-navigation__link" aria-current="page" href="details-disputed?reference={{ movementReference }}&amp;direction={{ direction }}&amp;otherHolding={{ otherHolding }}">Movement details</a>
+      <a class="moj-sub-navigation__link" aria-current="page" href="./details-disputed?reference={{ movementReference | urlencode }}&amp;direction={{ direction | urlencode }}&amp;otherHolding={{ otherHolding | urlencode }}">Movement details</a>
     </li>
     <li class="moj-sub-navigation__item">
-      <a class="moj-sub-navigation__link" href="#movement-activity">Activity</a>
+      <a class="moj-sub-navigation__link" href="./activity?status=disputed&amp;reference={{ movementReference | urlencode }}&amp;direction={{ direction | urlencode }}&amp;otherHolding={{ otherHolding | urlencode }}">Activity</a>
     </li>
   </ul>
 </nav>

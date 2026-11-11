@@ -46,10 +46,10 @@ href: "javascript:window.history.back()"
 <nav class="app-sub-navigation__list__spaced moj-sub-navigation" aria-label="Sub navigation">
   <ul class="moj-sub-navigation__list">
     <li class="moj-sub-navigation__item">
-      <a class="moj-sub-navigation__link" aria-current="page" href="/evolution/record-full-movement/movements/MOV-1003">Movement details</a>
+      <a class="moj-sub-navigation__link" aria-current="page" href="./details-confirmed?reference={{ movementReference | urlencode }}&amp;direction={{ direction | urlencode }}&amp;otherHolding={{ otherHolding | urlencode }}">Movement details</a>
     </li>
     <li class="moj-sub-navigation__item">
-      <a class="moj-sub-navigation__link" href="/evolution/record-full-movement/movements/MOV-1003/activity">Activity</a>
+      <a class="moj-sub-navigation__link" href="./activity?status=confirmed&amp;reference={{ movementReference | urlencode }}&amp;direction={{ direction | urlencode }}&amp;otherHolding={{ otherHolding | urlencode }}">Activity</a>
     </li>
   </ul>
 </nav>
