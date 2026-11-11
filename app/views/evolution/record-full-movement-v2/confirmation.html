@@ -1,34 +1,52 @@
 {% extends "layouts/main.html" %}
 
 {% block header %}
-{% include "mvp-front-office/v7/partials/header.html" %}
-{% endblock %}
-{% set pageName = "Movement off reported" %}
-{% block pageTitle %}
-{{ pageName }} – {{ serviceName }} – GOV.UK Prototype Kit
+  {% include "mvp-front-office/v7/partials/header.html" %}
 {% endblock %}
 
-{% block containerStart %}
-{{ govukBackLink({
-text: "Back",
-href: "javascript:window.history.back()"
-}) }}
+{% set isOn = data['rfm-movement-type'] == 'on' %}
+{% set pageName = 'Movement on reported' if isOn else 'Movement off reported' %}
+
+{% block pageTitle %}
+  {{ pageName }} – {{ serviceName }} – GOV.UK Prototype Kit
 {% endblock %}
 
 {% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
 
-<div class="govuk-grid-row"><div class="govuk-grid-column-two-thirds">
+      <div class="govuk-panel govuk-panel--confirmation">
+        <h1 class="govuk-panel__title">{{ pageName }}</h1>
+        <div class="govuk-panel__body">
+          Reference number<br>
+          <strong>{{ movement.reference if movement else query.reference }}</strong>
+        </div>
+      </div>
 
+      {% if movement %}
+        <p class="govuk-body">
+          You have reported {{ movement.animals.length }} cattle moving
+          {% if isOn %}
+            on to {{ movement.destination.cph }} from {{ movement.sender.identifier }}.
+          {% else %}
+            off {{ movement.sender.cph }} to {{ movement.destination.identifier }}.
+          {% endif %}
+        </p>
+      {% endif %}
 
+      <p class="govuk-body">
+        This is a demonstration confirmation. Nothing has been sent to the live movement service.
+      </p>
 
-<div class="govuk-panel govuk-panel--confirmation"><h1 class="govuk-panel__title">Movement off reported</h1><div class="govuk-panel__body">Reference number<br><strong>{{query.reference or '9T2H 8Y3D'}}</strong></div></div>
-<p class="govuk-body">You have reported 1 cattle moving off 37/123/4567 to {{query.destination or '56/312/0056'}}.</p>
-<p class="govuk-body">This is a demonstration confirmation. Nothing has been sent to the live movement service.</p>
+      <h2 class="govuk-heading-m">What happens next</h2>
+      <p class="govuk-body">
+        This reports one end of the movement only. The other keeper still needs to confirm their part.
+      </p>
 
-<h2 class="govuk-heading-m">What happens next</h2>
-<p class="govuk-body">This reports one end of the movement only. It does not confirm the other keeper's declaration or record animal deaths.</p>
-<p class="govuk-body"><a class="govuk-button" href="/evolution/record-full-movement-v2/movements">View all movements</a></p>
+      <p class="govuk-body">
+        <a class="govuk-button" href="./movements">View all movements</a>
+      </p>
 
-</div></div>
-
+    </div>
+  </div>
 {% endblock %}

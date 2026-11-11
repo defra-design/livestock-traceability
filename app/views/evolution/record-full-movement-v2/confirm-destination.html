@@ -5,7 +5,8 @@
 {% include "mvp-front-office/v7/partials/header.html" %}
 {% endblock %}
 
-{% set pageName = "Confirm the destination" %}
+{% set isOn = data["rfm-movement-type"] == "on" %}
+{% set pageName = "Confirm the sending location" if isOn else "Confirm the destination" %}
 
 {% block pageTitle %}
 {{ pageName }} – {{ serviceName }} – GOV.UK Prototype Kit
@@ -26,13 +27,13 @@ href: "javascript:window.history.back()"
       {% if destination.status == 'active' %}
 
         <h1 class="govuk-heading-l">
-          Confirm where the animals have moved to
+          {% if isOn %}Confirm where the cattle moved from{% else %}Confirm where the animals have moved to{% endif %}
         </h1>
 
       {% else %}
 
         <h1 class="govuk-heading-l">
-          You cannot use this holding as a destination
+          {% if isOn %}This sending location is closed{% else %}You cannot use this holding as a destination{% endif %}
         </h1>
 
       {% endif %}
@@ -58,7 +59,7 @@ href: "javascript:window.history.back()"
           </dt>
 
           <dd class="govuk-summary-list__value">
-            {{ destination.address }}
+           {{ destination.name }}, {{ destination.address }}
           </dd>
 
         </div>
@@ -86,7 +87,7 @@ href: "javascript:window.history.back()"
       {% if destination.status != 'active' %}
 
         <p class="govuk-body">
-          This holding is recorded as closed. Check the details and try searching for another destination.
+          This location is recorded as closed. Check the details and try searching for another {% if isOn %}sending location{% else %}destination{% endif %}.
         </p>
 
         <p class="govuk-body">
@@ -102,7 +103,7 @@ href: "javascript:window.history.back()"
 
       {% else %}
 
-        {% if destination.type == 'slaughterhouse' %}
+        {% if not isOn and destination.type == 'slaughterhouse' %}
 
           <p class="govuk-inset-text">
             Reporting movement off to a slaughterhouse does not record the death of the cattle.
@@ -117,7 +118,7 @@ href: "javascript:window.history.back()"
             <fieldset class="govuk-fieldset">
 
               <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
-                Is this the correct destination?
+                {% if isOn %}Is this where the cattle came from?{% else %}Is this the correct destination?{% endif %}
               </legend>
 
               <div class="govuk-radios" data-module="govuk-radios">

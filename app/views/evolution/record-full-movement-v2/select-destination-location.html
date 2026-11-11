@@ -5,7 +5,8 @@
 {% include "mvp-front-office/v7/partials/header.html" %}
 {% endblock %}
 
-{% set pageName = "Select the destination" %}
+{% set isOn = data["rfm-movement-type"] == "on" %}
+{% set pageName = "Select the sending location" if isOn else "Select the destination" %}
 
 {% block pageTitle %}
 {{ pageName }} – {{ serviceName }} – GOV.UK Prototype Kit
@@ -26,7 +27,7 @@ href: "javascript:window.history.back()"
       {% if results.length > 0 %}
 
         <h1 class="govuk-heading-l">
-          Select the destination
+          {% if isOn %}Select the sending location{% else %}Select the destination{% endif %}
         </h1>
 
         <p class="govuk-body">
@@ -45,7 +46,7 @@ href: "javascript:window.history.back()"
               <ul class="govuk-list govuk-error-summary__list">
                 <li>
                   <a href="#result-{{ results[0].id }}">
-                    Select a destination
+                    {% if isOn %}Select a sending location{% else %}Select a destination{% endif %}
                   </a>
                 </li>
               </ul>
@@ -61,13 +62,13 @@ href: "javascript:window.history.back()"
             <fieldset class="govuk-fieldset">
 
               <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
-                Which is the correct destination?
+                {% if isOn %}Which location did the cattle come from?{% else %}Which is the correct destination?{% endif %}
               </legend>
 
               {% if hasError %}
                 <p class="govuk-error-message">
                   <span class="govuk-visually-hidden">Error:</span>
-                  Select a destination
+                  {% if isOn %}Select a sending location{% else %}Select a destination{% endif %}
                 </p>
               {% endif %}
 
@@ -112,15 +113,15 @@ href: "javascript:window.history.back()"
       {% else %}
 
         <h1 class="govuk-heading-l">
-          We could not find a registered destination
+          We could not find a registered {% if isOn %}sending location{% else %}destination{% endif %}
         </h1>
 
         <p class="govuk-body">
-          We could not find a registered destination matching "{{ search }}".
+          We could not find a registered {% if isOn %}sending location{% else %}destination{% endif %} matching "{{ search }}".
         </p>
 
         <p class="govuk-body">
-          Check the postcode and property details and try again.
+          Check the postcode and try again.
           You can also search by CPH number or abattoir approval number.
         </p>
 
@@ -132,7 +133,7 @@ href: "javascript:window.history.back()"
 
         <p class="govuk-body">
           <a class="govuk-link" href="./find-destination">
-            Find the destination another way
+            {% if isOn %}Find the sending location another way{% else %}Find the destination another way{% endif %}
           </a>
         </p>
 

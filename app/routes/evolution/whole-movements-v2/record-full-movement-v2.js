@@ -95,6 +95,9 @@ router.use(BASE, (req, res, next) => {
 router.post(BASE + '/movement-type', (req, res) => {
   const movementType = req.body['rfm-movement-type']
 
+  // Keep the movement type available to shared Nunjucks templates
+  req.session.data['rfm-movement-type'] = movementType
+
   if (movementType === 'off') {
     return res.redirect(BASE + '/start-off')
   } else if (movementType === 'on') {
@@ -104,26 +107,35 @@ router.post(BASE + '/movement-type', (req, res) => {
   }
 })
 router.get(BASE + '/start-off', (req, res) => {
+      req.session.data['rfm-movement-type'] = 'off'
      // Initialise the session object if it doesn't exist
       req.session.data[SESSION] = req.session.data[SESSION] || {}
       // Start a fresh movement draft
       req.session.data[SESSION].movementDraft = {
         direction: 'off',
-        animals: []
+        animals: [],
+        movementDate: null,
+        destination: null,
+        destinationSource: null
       }
       res.redirect(BASE + '/add-method')
 })
 
 router.get(BASE + '/start-on', (req, res) => {
+      req.session.data['rfm-movement-type'] = 'on'
 
     // Initialise the session object if it doesn't exist
           req.session.data[SESSION] = req.session.data[SESSION] || {}
           // Start a fresh movement draft
       req.session.data[SESSION].movementDraft = {
         direction: 'on',
-        animals: []
+        animals: [],
+        movementDate: null,
+        destination: null,
+        destinationSource: null
       }
-      res.redirect(BASE + '/animals')
+       // For movement on, identify the sending holding before adding cattle
+       res.redirect(BASE + '/previous-destinations')
 })
 
 router.post(BASE + '/add-method', (req, res) => {
@@ -137,13 +149,16 @@ router.post(BASE + '/add-method', (req, res) => {
     return res.redirect(BASE + '/manual')
   }
 
-  if (movementType === 'select') {
+  if (movementType === 'select' && req.session.data[SESSION].movementDraft.direction === 'off') {
     return res.redirect(BASE + '/select-cattle')
   }
   res.redirect(BASE + '/add-method')
 })
 
 router.get(BASE + '/select-cattle', (req, res) => {
+  if (req.session.data[SESSION].movementDraft.direction === 'on') {
+    return res.redirect(BASE + '/add-method')
+  }
 
   // Get the animals already added to this movement
   const draft = req.session.data[SESSION].movementDraft
@@ -160,6 +175,9 @@ router.get(BASE + '/select-cattle', (req, res) => {
 
 
 router.post(BASE + '/select-cattle', (req, res) => {
+  if (req.session.data[SESSION].movementDraft.direction === 'on') {
+    return res.redirect(BASE + '/add-method')
+  }
 
   // Get the selected ear tag numbers
   const selectedTags = req.body['rfm-selected-cattle'] || []
@@ -318,10 +336,6 @@ router.get(BASE + '/remove', (req, res) => {
 
 
 
-router.post(BASE + '/manual', (req, res) => {
-  return res.redirect(BASE + '/review-animals')
-})
-
 router.post(BASE + '/animals', (req, res) => {
   const addAnother = req.body['rfm-another']
   if (addAnother === 'yes'){
@@ -361,6 +375,12 @@ router.post(BASE + '/movement-date', (req, res) => {
     ? `${req.body['rfm-day']}-${req.body['rfm-month']}-${req.body['rfm-year']}`
     : daysAgo(days[choice] ?? 0)
 
+  // Movement on already captured its sending location.
+  // Movement off finds its destination after the movement date.
+  if (draft.direction === 'on') {
+    return res.redirect(BASE + '/check-answers')
+  }
+
   return res.redirect(BASE + '/previous-destinations')
 })
 
@@ -379,7 +399,7 @@ router.get(BASE + '/previous-destinations', (req, res) => {
 
 router.post(BASE + '/previous-destinations', (req, res) => {
 
-  // Get the current movement and the destination selected by the user
+  // Get the current movement and the location selected by the user
   const draft = req.session.data[SESSION].movementDraft
   const choice = req.body['rfm-previous']
 
@@ -398,10 +418,10 @@ router.post(BASE + '/previous-destinations', (req, res) => {
     return res.redirect(BASE + '/previous-destinations')
   }
 
-  // Save the destination details to the current movement
+  // Store the selected location (sending location for 'on', destination for 'off')
   draft.destination = destination
   draft.destinationSource = 'previous-destinations'
-  // Take the user to the page to confirm the destination
+  // Take the user to the page to confirm this location
   return res.redirect(BASE + '/confirm-destination')
 })
 
@@ -487,7 +507,7 @@ router.post(BASE + '/find-holding-by-address', (req, res) => {
   movementSession.addressResults = results
   movementSession.addressSearch = req.body['rfm-location-postcode']
 
-  // If only one destination matches, go straight to confirmation
+  // If only one location matches, go straight to confirmation
   if (results.length === 1) {
     movementSession.movementDraft.destination = results[0]
     movementSession.movementDraft.destinationSource = 'find-holding-by-address'
@@ -542,8 +562,11 @@ router.post(BASE + '/confirm-destination', (req, res) => {
   const draft = req.session.data[SESSION].movementDraft
   const answer = req.body['rfm-confirm-destination']
 
-  // If the destination is correct, continue to Check your answers
+  // Movement on needs to add cattle next; off moves to Check your answers
   if (answer === 'yes') {
+    if (draft.direction === 'on') {
+      return res.redirect(BASE + '/add-method')
+    }
     return res.redirect(BASE + '/check-answers')
   }
 
@@ -556,7 +579,7 @@ router.post(BASE + '/confirm-destination', (req, res) => {
     const allowedPages = [
       'previous-destinations',
       'find-holding-by-id',
-      'find-by-address'
+       'find-holding-by-address'
     ]
 
     if (allowedPages.includes(previousPage)) {
@@ -609,7 +632,10 @@ router.post(BASE + '/submit', (req, res) => {
   const movementSession = req.session.data[SESSION]
   const draft = movementSession.movementDraft
   const movements = movementSession.movements
-  const destination = draft.destination
+  // Keep the existing field names so the register can display both directions.
+  // For movement on, draft.destination contains the sending location found earlier.
+  const sendingLocation = draft.direction === 'on' ? draft.destination : SENDER
+  const receivingLocation = draft.direction === 'on' ? SENDER : draft.destination
 
   //stop multiple submits of empty drafts
     if (draft.animals.length === 0) {
@@ -626,7 +652,8 @@ router.post(BASE + '/submit', (req, res) => {
   const movement = {
     ...JSON.parse(JSON.stringify(draft)),
     reference: reference,
-    sender: SENDER,
+    sender: sendingLocation,
+    destination: receivingLocation,
     status: 'Awaiting confirmation',
     actionWith: 'Other keeper'
   }
@@ -639,8 +666,16 @@ router.post(BASE + '/submit', (req, res) => {
 
   // Show the confirmation for this movement
   return res.redirect(
-    BASE + '/confirmation?reference=' + reference+'&sender='+destination
+    BASE + '/confirmation?reference=' + encodeURIComponent(reference)
   )
+})
+
+// Confirmation uses the saved movement, including its direction and locations
+router.get(BASE + '/confirmation', (req, res) => {
+  const movements = req.session.data[SESSION].movements
+  const movement = movements.find(item => item.reference === req.query.reference)
+
+  return res.render(VIEW + 'confirmation', { movement })
 })
 
 // reviews

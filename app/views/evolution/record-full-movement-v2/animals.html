@@ -18,6 +18,8 @@ href: "javascript:window.history.back()"
 }) }}
 {% endblock %}
 
+{% set isOn = data['rfm-movement-type'] == 'on' %}
+
 {% block content %}
 
   <div class="govuk-grid-row">
@@ -118,7 +120,7 @@ href: "javascript:window.history.back()"
       {% endif %}
 
       <h1 class="govuk-heading-l">
-        You have added {{ animals.length }} cattle in this movement
+        You have added {{ animals.length }} cattle to this movement
       </h1>
 
     </div>

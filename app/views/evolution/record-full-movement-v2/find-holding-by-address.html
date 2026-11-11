@@ -5,7 +5,8 @@
 {% include "mvp-front-office/v7/partials/header.html" %}
 {% endblock %}
 
-{% set pageName = "Find the destination by address" %}
+{% set isOn = data["rfm-movement-type"] == "on" %}
+{% set pageName = "Find the sending location by address" if isOn else "Find the destination by address" %}
 
 {% block pageTitle %}
 {{ pageName }} – {{ serviceName }} – GOV.UK Prototype Kit
@@ -24,11 +25,11 @@ href: "javascript:window.history.back()"
     <div class="govuk-grid-column-two-thirds">
 
       <h1 class="govuk-heading-l">
-        Find the destination by address
+        {% if isOn %}Find the sending location by address{% else %}Find the destination by address{% endif %}
       </h1>
 
       <p class="govuk-body">
-        Enter a postcode to find registered cattle movement destinations.
+        {% if isOn %}Enter a postcode to find the registered location the cattle came from.{% else %}Enter a postcode to find registered cattle movement destinations.{% endif %}
       </p>
 
       <!-- Routing is controlled in routes/evolution/whole-movements-v2/record-full-movement-v2.js -->
@@ -42,7 +43,7 @@ href: "javascript:window.history.back()"
           </label>
 
           <input
-                  class="govuk-input"
+                  class="govuk-input govuk-input--width-10"
                   id="location-postcode"
                   name="rfm-location-postcode"
                   type="text"
@@ -52,33 +53,41 @@ href: "javascript:window.history.back()"
 
         </div>
 
-        <div class="govuk-form-group">
-
-          <label class="govuk-label" for="location-property">
-            Property name or number (optional)
-          </label>
-
-          <div class="govuk-hint" id="location-property-hint">
-            For example, Lowbank Farm, 116 or 28 Mill Lane.
-          </div>
-
-          <input
-                  class="govuk-input govuk-input--width-20"
-                  id="location-property"
-                  name="rfm-location-property"
-                  type="text"
-                  aria-describedby="location-property-hint"
-                  value="{{ property or '' }}"
-          >
-
-        </div>
-
         <button class="govuk-button" type="submit" data-module="govuk-button">
           Find a location
         </button>
 
       </form>
+      <details class="govuk-details govuk-!-margin-top-4">
+  <summary class="govuk-details__summary">
+    <span class="govuk-details__summary-text">
+      Postcodes you can use to test this prototype
+    </span>
+  </summary>
 
+  <div class="govuk-details__text">
+
+    <p class="govuk-body">
+      Enter one of these example postcodes:
+    </p>
+
+    <ul class="govuk-list govuk-list--bullet">
+      <li>EX2 3CD – Hilltop Farm</li>
+      <li>EX2 4DE – Brook Farm and Valley Livestock Market</li>
+      <li>EX3 5EF – Example Livestock Market</li>
+      <li>EX4 8HJ – Valley Meats</li>
+      <li>EX5 9JK – County Showground</li>
+      <li>EX6 1MN – Example Collection Centre</li>
+      <li>SY1 1AA – Old Manor Farm (closed holding)</li>
+    </ul>
+
+    <p class="govuk-hint">
+      EX2 4DE returns multiple locations.
+      SY1 1AA lets you test a closed holding.
+    </p>
+
+  </div>
+</details>
     </div>
   </div>
 

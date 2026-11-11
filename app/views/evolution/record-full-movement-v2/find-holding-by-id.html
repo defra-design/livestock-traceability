@@ -5,7 +5,8 @@
 {% include "mvp-front-office/v7/partials/header.html" %}
 {% endblock %}
 
-{% set pageName = "Find a destination by number" %}
+{% set isOn = data["rfm-movement-type"] == "on" %}
+{% set pageName = "Find the sending location by number" if isOn else "Find a destination by number" %}
 
 {% block pageTitle %}
 {{ pageName }} – {{ serviceName }} – GOV.UK Prototype Kit
@@ -29,12 +30,12 @@ href: "javascript:window.history.back()"
 
           <h1 class="govuk-label-wrapper">
             <label class="govuk-label govuk-label--l" for="destination-id">
-              What is the CPH number or abattoir approval number of the destination?
+              {% if isOn %}What is the CPH number or approval number of the sending location?{% else %}What is the CPH number or abattoir approval number of the destination?{% endif %}
             </label>
           </h1>
 
           <div class="govuk-hint" id="dest-hint">
-            Enter the CPH number or abattoir approval number of the destination.
+            {% if isOn %}Enter the CPH number or approval number of the location the cattle came from.{% else %}Enter the CPH number or abattoir approval number of the destination.{% endif %}
             For example, 56/312/0056 or 1234.
           </div>
           <input
@@ -73,7 +74,7 @@ href: "javascript:window.history.back()"
           </p>
 
           <p class="govuk-body">
-            Example Abattoir – UK 1234
+            Valley Meats – UK 5678
           </p>
 
           <p class="govuk-body">

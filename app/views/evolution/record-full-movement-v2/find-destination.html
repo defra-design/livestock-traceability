@@ -5,7 +5,8 @@
 {% include "mvp-front-office/v7/partials/header.html" %}
 {% endblock %}
 
-{% set pageName = "How do you want to find the destination?" %}
+{% set isOn = data["rfm-movement-type"] == "on" %}
+{% set pageName = "How do you want to find the sending location?" if isOn else "How do you want to find the destination?" %}
 
 {% block pageTitle %}
 {{ pageName }} – {{ serviceName }} – GOV.UK Prototype Kit
@@ -33,7 +34,7 @@ href: "javascript:window.history.back()"
 
             <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
               <h1 class="govuk-fieldset__heading">
-                How do you want to find the destination?
+                {% if isOn %}How do you want to find the sending location?{% else %}How do you want to find the destination?{% endif %}
               </h1>
             </legend>
 

@@ -18,13 +18,15 @@ href: "javascript:window.history.back()"
 }) }}
 {% endblock %}
 
+{% set isOn = data['rfm-movement-type'] == 'on' %}
+
 {% block content %}
 
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
 
       <h1 class="govuk-heading-l">
-        Upload a file of cattle moving off your holding
+        Upload a file of cattle that {% if isOn %}moved on to{% else %}moved off{% endif %} your holding
       </h1>
 
       <p class="govuk-body">

@@ -5,7 +5,8 @@
 {% include "mvp-front-office/v7/partials/header.html" %}
 {% endblock %}
 
-{% set pageName = "When did the cattle move off your holding" %}
+{% set isOn = data["rfm-movement-type"] == "on" %}
+{% set pageName = "When did the cattle arrive at your holding?" if isOn else "When did the cattle move off your holding?" %}
 
 {% block pageTitle %}
 {{ pageName }} – {{ serviceName }} – GOV.UK Prototype Kit
@@ -33,7 +34,7 @@ href: "javascript:window.history.back()"
 
             <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
               <h1 class="govuk-fieldset__heading">
-                When did the cattle move off your holding?
+                {% if isOn %}When did the cattle arrive at your holding?{% else %}When did the cattle move off your holding?{% endif %}?
               </h1>
             </legend>
 
