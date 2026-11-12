@@ -34,7 +34,7 @@ href: "javascript:window.history.back()"
 
             <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
               <h1 class="govuk-fieldset__heading">
-                {% if isOn %}When did the cattle arrive at your holding?{% else %}When did the cattle move off your holding?{% endif %}?
+                {% if isOn %}When did the cattle arrive at your holding{% else %}When did the cattle move off your holding{% endif %}?
               </h1>
             </legend>
 
@@ -49,7 +49,7 @@ href: "javascript:window.history.back()"
                         value="today"
                 >
                 <label class="govuk-label govuk-radios__label" for="date-today">
-                  Today
+                  Today  – {{ todayDate }}
                 </label>
               </div>
 
@@ -62,7 +62,7 @@ href: "javascript:window.history.back()"
                         value="yesterday"
                 >
                 <label class="govuk-label govuk-radios__label" for="date-yesterday">
-                  Yesterday
+                  Yesterday – {{ yesterdayDate }}
                 </label>
               </div>
 
@@ -75,7 +75,7 @@ href: "javascript:window.history.back()"
                         value="2-days"
                 >
                 <label class="govuk-label govuk-radios__label" for="date-two-days">
-                  2 days ago
+                  2 days ago  – {{ twoDaysDate }}
                 </label>
               </div>
 
@@ -88,7 +88,7 @@ href: "javascript:window.history.back()"
                         value="3-days"
                 >
                 <label class="govuk-label govuk-radios__label" for="date-three-days">
-                  3 days ago
+                  3 days ago – {{ threeDaysDate }}
                 </label>
               </div>
 

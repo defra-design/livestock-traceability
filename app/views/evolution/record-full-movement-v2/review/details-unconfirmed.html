@@ -52,20 +52,20 @@ href: "javascript:window.history.back()"
 <dl class="govuk-summary-list govuk-!-margin-bottom-7">
 {% if direction == 'on' %}
   <div class="govuk-summary-list__row">
-    <dt class="govuk-summary-list__key">Moving from</dt>
+    <dt class="govuk-summary-list__key">Moving off from</dt>
     <dd class="govuk-summary-list__value">{{otherHolding}}<br>Mill Lane, Exampleton, EX2 3CD</dd>
   </div>
   <div class="govuk-summary-list__row">
-    <dt class="govuk-summary-list__key">Moving to</dt>
+    <dt class="govuk-summary-list__key">Moving on to</dt>
     <dd class="govuk-summary-list__value">31/672/0158<br>Market Road, Exampleton, EX3 5EF</dd>
   </div>
 {% else %}
   <div class="govuk-summary-list__row">
-    <dt class="govuk-summary-list__key">Moving from</dt>
+    <dt class="govuk-summary-list__key">Moving off from</dt>
      <dd class="govuk-summary-list__value">37/123/4567<br>Oakfield Lane, Exampleton, EX1 2AB</dd>
   </div>
   <div class="govuk-summary-list__row">
-    <dt class="govuk-summary-list__key">Moving to</dt>
+    <dt class="govuk-summary-list__key">Moving on to</dt>
     <dd class="govuk-summary-list__value">{{otherHolding}}<br>Mill Lane, Exampleton, EX2 3CD</dd>
   </div>
   {% endif   %}
@@ -73,25 +73,29 @@ href: "javascript:window.history.back()"
     <dt class="govuk-summary-list__key">Number of cattle</dt>
     <dd class="govuk-summary-list__value">4</dd>
   </div>
+   {% if direction == 'off'%}
     <div class="govuk-summary-list__row">
     <dt class="govuk-summary-list__key">Date cattle left</dt>
     <dd class="govuk-summary-list__value">
-      19 Oct 2026
+      19 October 2026
     </dd>
   </div>
+  {% endif %}
+    {% if direction == 'on'%}
   <div class="govuk-summary-list__row">
     <dt class="govuk-summary-list__key">Date cattle arrived</dt>
     <dd class="govuk-summary-list__value">
-      19 Oct 2026
+      19 October 2026
     </dd>
   </div>
-  <div class="govuk-summary-list__row">
-    <dt class="govuk-summary-list__key">Reported by</dt>
-    <dd class="govuk-summary-list__value">You (keeper)</dd>
-  </div>
+  {% endif %}
+<!--  <div class="govuk-summary-list__row">-->
+<!--    <dt class="govuk-summary-list__key">Reported by</dt>-->
+<!--    <dd class="govuk-summary-list__value">You (keeper)</dd>-->
+<!--  </div>-->
   <div class="govuk-summary-list__row">
     <dt class="govuk-summary-list__key">Reported date</dt>
-    <dd class="govuk-summary-list__value">21 Oct 2026</dd>
+    <dd class="govuk-summary-list__value">21 October 2026</dd>
   </div>
 </dl>
 </div>

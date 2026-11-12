@@ -9,6 +9,23 @@ Content page template – {{ serviceName }} – GOV.UK Prototype Kit
 {% endblock %}
 
 
+{% set statusFilter = query.status or 'all' %}
+{% set actionFilter = query.actionWith or 'all' %}
+{% set statusLabels = {
+  'awaiting': 'Awaiting confirmation',
+  'changes': 'Changes proposed',
+  'confirmed': 'Confirmed',
+  'rejected': 'Rejected',
+  'disputed': 'Disputed',
+  'unconfirmed': 'Unconfirmed',
+  'withdrawn': 'Withdrawn'
+} %}
+{% set actionLabels = {
+  'you': 'You',
+  'other': 'Other keeper',
+  'bcms': 'BCMS'
+} %}
+
 {% block content %}
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
@@ -36,7 +53,7 @@ Content page template – {{ serviceName }} – GOV.UK Prototype Kit
 
           <ul class="govuk-list app-activity-card__links">
             <li>
-              <a class="govuk-link govuk-link--no-visited-state" href="/evolution/record-full-movement/movements?actionWith=you">
+              <a class="govuk-link govuk-link--no-visited-state" href="./movements-all-status?actionWith=you">
                 View movements
                 <span class="govuk-visually-hidden">need your attention</span>
               </a>
@@ -57,7 +74,7 @@ Content page template – {{ serviceName }} – GOV.UK Prototype Kit
 
           <ul class="govuk-list app-activity-card__links">
             <li>
-              <a class="govuk-link govuk-link--no-visited-state" href="/evolution/record-full-movement/movements?actionWith=other">
+              <a class="govuk-link govuk-link--no-visited-state" href="./movements-all-status?actionWith=other">
                 View movements
                 <span class="govuk-visually-hidden">with other keeper</span>
               </a>
@@ -78,7 +95,7 @@ Content page template – {{ serviceName }} – GOV.UK Prototype Kit
 
           <ul class="govuk-list app-activity-card__links">
             <li>
-              <a class="govuk-link govuk-link--no-visited-state" href="/evolution/record-full-movement/movements?actionWith=bcms">
+              <a class="govuk-link govuk-link--no-visited-state" href="./movements-all-status?actionWith=bcms">
                 View movements
                 <span class="govuk-visually-hidden">with bcms</span>
               </a>
@@ -94,7 +111,7 @@ Content page template – {{ serviceName }} – GOV.UK Prototype Kit
 
 <h2 class="govuk-heading-m">Filter movements</h2>
 
-<form method="get" action="/evolution/record-full-movement/movements">
+<form method="get" action="./movements-all-status">
 
   <div class="govuk-form-group">
 
@@ -106,48 +123,48 @@ Content page template – {{ serviceName }} – GOV.UK Prototype Kit
         </label>
 
         <select class="govuk-select" id="status" name="status">
-          <option value="all" selected="">
+          <option value="all" {% if statusFilter == 'all' %}selected{% endif %}>
             All statuses
           </option>
 
 
-            <option value="awaiting">
+            <option value="awaiting" {% if statusFilter == 'awaiting' %}selected{% endif %}>
 
                 Awaiting confirmation
 
             </option>
 
-            <option value="changes">
+            <option value="changes" {% if statusFilter == 'changes' %}selected{% endif %}>
 
                 Changes proposed
 
             </option>
 
-            <option value="confirmed">
+            <option value="confirmed" {% if statusFilter == 'confirmed' %}selected{% endif %}>
 
                 Confirmed
 
             </option>
 
-            <option value="rejected">
+            <option value="rejected" {% if statusFilter == 'rejected' %}selected{% endif %}>
 
                 Rejected
 
             </option>
 
-            <option value="disputed">
+            <option value="disputed" {% if statusFilter == 'disputed' %}selected{% endif %}>
 
                 Disputed
 
             </option>
 
-            <option value="unconfirmed">
+            <option value="unconfirmed" {% if statusFilter == 'unconfirmed' %}selected{% endif %}>
 
                 Unconfirmed
 
             </option>
 
-            <option value="withdrawn">
+            <option value="withdrawn" {% if statusFilter == 'withdrawn' %}selected{% endif %}>
 
                 Withdrawn
 
@@ -163,19 +180,19 @@ Content page template – {{ serviceName }} – GOV.UK Prototype Kit
         </label>
 
         <select class="govuk-select" id="actionWith" name="actionWith">
-          <option value="all" selected="">
+          <option value="all" {% if actionFilter == 'all' %}selected{% endif %}>
             All
           </option>
 
-          <option value="you">
+          <option value="you" {% if actionFilter == 'you' %}selected{% endif %}>
             You
           </option>
 
-          <option value="other">
+          <option value="other" {% if actionFilter == 'other' %}selected{% endif %}>
             Other keeper
           </option>
 
-          <option value="bcms">
+          <option value="bcms" {% if actionFilter == 'bcms' %}selected{% endif %}>
             BCMS
           </option>
 
@@ -196,6 +213,24 @@ Content page template – {{ serviceName }} – GOV.UK Prototype Kit
   </div>
 
 
+
+{% if statusFilter != 'all' or actionFilter != 'all' %}
+    <div class="govuk-!-margin-bottom-4">
+      <p class="govuk-body govuk-!-margin-bottom-2">
+        1 movement matching
+        {% if statusFilter != 'all' %}
+          'status' <strong>{{ statusLabels[statusFilter] or statusFilter }}</strong>
+        {% endif %}
+        {% if actionFilter != 'all' %}
+          {% if statusFilter != 'all' %}and{% endif %}
+          'action with' <strong>{{ actionLabels[actionFilter] or actionFilter }}</strong>
+        {% endif %}
+      </p>
+      <p class="govuk-body govuk-!-margin-bottom-2">
+        <a class="govuk-link" href="./movements">Clear filters</a>
+      </p>
+    </div>
+{% endif %}
 
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">

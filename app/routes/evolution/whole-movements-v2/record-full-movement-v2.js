@@ -360,6 +360,27 @@ function daysAgo(days) {
 }
 
 
+// Display the calendar dates alongside the relative date choices
+router.get(BASE + '/movement-date', (req, res) => {
+  function dateLabel(days) {
+    const date = new Date()
+    date.setDate(date.getDate() - days)
+
+    return date.toLocaleDateString('en-GB', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric'
+    })
+  }
+
+  return res.render(VIEW + 'movement-date', {
+    todayDate: dateLabel(0),
+    yesterdayDate: dateLabel(1),
+    twoDaysDate: dateLabel(2),
+    threeDaysDate: dateLabel(3)
+  })
+})
+
 router.post(BASE + '/movement-date', (req, res) => {
   const draft = req.session.data[SESSION].movementDraft
   const choice = req.body['rfm-date-choice']

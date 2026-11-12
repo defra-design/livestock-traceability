@@ -51,20 +51,20 @@ href: "../movements"
 <dl class="govuk-summary-list govuk-!-margin-bottom-7">
 {% if direction == 'on' %}
   <div class="govuk-summary-list__row">
-    <dt class="govuk-summary-list__key">Moving from</dt>
+    <dt class="govuk-summary-list__key">Moving off from</dt>
     <dd class="govuk-summary-list__value">{{otherHolding}}<br>Mill Lane, Exampleton, EX2 3CD</dd>
   </div>
   <div class="govuk-summary-list__row">
-    <dt class="govuk-summary-list__key">Moving to</dt>
+    <dt class="govuk-summary-list__key">Moving on to</dt>
     <dd class="govuk-summary-list__value">31/672/0158<br>Market Road, Exampleton, EX3 5EF</dd>
   </div>
 {% else %}
   <div class="govuk-summary-list__row">
-    <dt class="govuk-summary-list__key">Moving from</dt>
+    <dt class="govuk-summary-list__key">Moving off from</dt>
      <dd class="govuk-summary-list__value">37/123/4567<br>Oakfield Lane, Exampleton, EX1 2AB</dd>
   </div>
   <div class="govuk-summary-list__row">
-    <dt class="govuk-summary-list__key">Moving to</dt>
+    <dt class="govuk-summary-list__key">Moving on to</dt>
     <dd class="govuk-summary-list__value">{{otherHolding}}<br>Mill Lane, Exampleton, EX2 3CD</dd>
   </div>
   {% endif   %}
@@ -76,35 +76,31 @@ href: "../movements"
     <div class="govuk-summary-list__row">
     <dt class="govuk-summary-list__key">Date cattle left</dt>
     <dd class="govuk-summary-list__value">
-      9 Nov 2026
+      9 November 2026
     </dd>
   </div>
   {% endif %}
 
 
 <!--  // on movement only show when added by the receiving keeper-->
-  <div class="govuk-summary-list__row">
-    <dt class="govuk-summary-list__key">Date cattle arrived</dt>
-    <dd class="govuk-summary-list__value">
-      <span class="govuk-hint">
+<!--   {% if query.action == 'you' %}-->
+<!--  <div class="govuk-summary-list__row">-->
+<!--    <dt class="govuk-summary-list__key">Date cattle arrived</dt>-->
+<!--    <dd class="govuk-summary-list__value">-->
+<!--      <span class="govuk-hint">-->
+<!--         Provide this date when you confirm or propose changes.-->
+<!--      </span>-->
+<!--    </dd>-->
+<!--  </div>-->
+<!--{% endif %}-->
 
-      {% if direction == 'off' %}
-       To be provided by the other keeper
-        {% else %}
-         Provide this date when you confirm or propose changes.
-        {% endif %}
-      </span>
-    </dd>
-  </div>
-
-
-  <div class="govuk-summary-list__row">
-    <dt class="govuk-summary-list__key">Reported by</dt>
-    <dd class="govuk-summary-list__value">You (keeper)</dd>
-  </div>
+<!--  <div class="govuk-summary-list__row">-->
+<!--    <dt class="govuk-summary-list__key">Reported by</dt>-->
+<!--    <dd class="govuk-summary-list__value">You (keeper)</dd>-->
+<!--  </div>-->
   <div class="govuk-summary-list__row">
     <dt class="govuk-summary-list__key">Reported date</dt>
-    <dd class="govuk-summary-list__value">11 Nov 2026</dd>
+    <dd class="govuk-summary-list__value">11 November 2026</dd>
   </div>
 </dl>
 </div>
@@ -158,7 +154,7 @@ href: "../movements"
 </div>
 </div>
 
-{% if direction == 'on' %}
+{% if query.action=='you' %}
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
 <section id="movement-action" aria-labelledby="movement-action-heading" tabindex="-1" class="govuk-!-margin-top-4 govuk-!-margin-bottom-7">

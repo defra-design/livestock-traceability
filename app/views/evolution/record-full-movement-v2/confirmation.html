@@ -27,9 +27,9 @@
         <p class="govuk-body">
           You have reported {{ movement.animals.length }} cattle moving
           {% if isOn %}
-            on to {{ movement.destination.cph }} from {{ movement.sender.identifier }}.
+            on to {{movement.destination.name}} ({{ movement.destination.cph }}) off from {{ movement.sender.name }} ({{ movement.sender.identifier }}).
           {% else %}
-            off {{ movement.sender.cph }} to {{ movement.destination.identifier }}.
+            off from {{ movement.sender.name }} ({{ movement.sender.cph }}) on to {{ movement.destination.name }} ({{ movement.destination.identifier }}.
           {% endif %}
         </p>
       {% endif %}
