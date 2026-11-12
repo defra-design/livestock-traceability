@@ -1,0 +1,125 @@
+
+{% extends "layouts/main.html" %}
+
+{% block header %}
+{% include "mvp-front-office/v7/partials/header.html" %}
+{% endblock %}
+
+{% set pageName = "Reject movement" %}
+{% set movementReference = query.reference or data["movementReference"] or "8R2T 9W1F" %}
+{% set direction = query.direction or data["direction"] or "on" %}
+{% set otherHolding = query.otherHolding or "17/087/0042" %}
+
+{% block pageTitle %}
+{{ pageName }} – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block containerStart %}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <h1 class="govuk-heading-l">
+        Reject movement {{ movementReference }}
+      </h1>
+
+      <p class="govuk-body">
+        Only reject this movement if it did not happen or
+        was reported against your holding by mistake.The reporting keeper will be told you have rejected
+          the movement.
+      </p>
+
+
+
+
+      <p class="govuk-body">
+        If some cattle moved but the details are incorrect,
+        you can propose changes instead.
+      </p>
+
+      <form method="get" action="./rejection-confirmation">
+
+        <input type="hidden" name="reference" value="{{ movementReference }}">
+        <input type="hidden" name="direction" value="{{ direction }}">
+        <input type="hidden" name="otherHolding" value="{{ otherHolding }}">
+
+        <div class="govuk-form-group">
+
+          <fieldset class="govuk-fieldset">
+
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+              Are you sure you want to reject this movement?
+            </legend>
+
+            <div class="govuk-radios" data-module="govuk-radios">
+
+              <div class="govuk-radios__item">
+
+                <input
+                        class="govuk-radios__input"
+                        id="reject-yes"
+                        name="reject-movement"
+                        type="radio"
+                        value="yes"
+                >
+
+                <label class="govuk-label govuk-radios__label" for="reject-yes">
+                  Yes, reject this movement
+                </label>
+
+              </div>
+
+              <div class="govuk-radios__item">
+
+                <input
+                        class="govuk-radios__input"
+                        id="reject-no"
+                        name="reject-movement"
+                        type="radio"
+                        value="no"
+                >
+
+                <label class="govuk-label govuk-radios__label" for="reject-no">
+                  No
+                </label>
+
+              </div>
+
+            </div>
+
+          </fieldset>
+
+        </div>
+
+        <div class="govuk-button-group">
+
+          <button
+                  class="govuk-button"
+                  type="submit"
+                  data-module="govuk-button"
+          >
+            Continue
+          </button>
+
+          <a
+                  class="govuk-link"
+                  href="./details-awaiting-confirmation?reference={{ movementReference | urlencode }}&amp;direction={{ direction }}&amp;otherHolding={{ otherHolding | urlencode }}&amp;action=you"
+          >
+            Cancel and return to movement
+          </a>
+
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+
+{% endblock %}

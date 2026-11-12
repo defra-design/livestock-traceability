@@ -281,10 +281,18 @@
               <th scope="row" class="govuk-table__header">
 
                   <!-- movementConfirmed is set when the movment is confirmed see form on 'movement-confirmed' page-->
-                  {% if not data['movementConfirmed'] %}
-                <a class="govuk-link" href="./review/details-awaiting-confirmation?direction=on&amp;otherHolding=17/087/0042&amp;reference=8R2T 9W1F&amp;action=you">8R2T 9W1F</a>
+                  {% if  data['movementConfirmed'] %}
+                  <a class="govuk-link" href="./review/details-confirmed?direction=on&amp;otherHolding=17/087/0042&amp;reference=8R2T 9W1F&amp;action=none">8R2T 9W1F</a>
+                  {% elif data['movementChangesProposed'] %}
+                                       <a class="govuk-link" href="./review/details-changes-proposed?direction=on&amp;otherHolding=17/087/0042&amp;reference=8R2T 9W1F&amp;action=other">8R2T 9W1F</a>
+
+                  {% elif data['movementRejected'] %}
+                                       <a class="govuk-link" href="./review/details-rejected?direction=on&amp;otherHolding=17/087/0042&amp;reference=8R2T 9W1F&amp;action=none">8R2T 9W1F</a>
+
                   {% else %}
-                <a class="govuk-link" href="./review/details-confirmed?direction=on&amp;otherHolding=17/087/0042&amp;reference=8R2T 9W1F&amp;action=none">8R2T 9W1F</a>
+                <a class="govuk-link" href="./review/details-awaiting-confirmation?direction=on&amp;otherHolding=17/087/0042&amp;reference=8R2T 9W1F&amp;action=you">8R2T 9W1F</a>
+
+
                   {% endif %}
 
               </th>
@@ -296,10 +304,21 @@
               </td>
               <td class="govuk-table__cell">3</td>
               <td class="govuk-table__cell">
-
                   {% if data['movementConfirmed'] == 'on' %}
 
                     Confirmed
+                  {% elif data['movementChangesProposed'] %}
+                  <strong class="govuk-tag app-tag--no-max-width govuk-tag--purple">
+
+                      Changes proposed
+
+                  </strong>
+                  {% elif data['movementRejected'] %}
+                  <strong class="govuk-tag app-tag--no-max-width govuk-tag--orange">
+
+                      Rejected
+
+                  </strong>
                   {% else %}
 
                   <strong class="govuk-tag app-tag--no-max-width govuk-tag--blue">
@@ -311,8 +330,10 @@
 
               </td>
               <td class="govuk-table__cell">
-                    {% if not data['movementConfirmed'] %}
+                    {% if not data['movementConfirmed']  and not data['movementRejected']  and not data['movementChangesProposed'] %}
                   You
+                  {% elif data['movementChangesProposed'] %}
+                  Other keeper
                     {% else %}
                   <span class="govuk-visually-hidden">No further action</span>
                   –

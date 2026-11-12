@@ -47,11 +47,11 @@
         The movement will not be confirmed until the changes have been resolved.
       </p>
 
-      <p class="govuk-body">
-        <a class="govuk-button" href="../movements">
-          View all movements
-        </a>
-      </p>
+      <form action="../movements" method="post">
+        <input type="hidden" name="movementChangesProposed" value="true">
+        <button type="submit" class="govuk-button">View all movements</button>
+
+      </form>
 
     </div>
   </div>

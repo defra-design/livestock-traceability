@@ -889,6 +889,10 @@ router.get(BASE + '/clear-test-movements', (req, res) => {
 
   // Clear reported movements created during testing
   req.session.data[SESSION].movements = []
+  // reset hard coded variables set on the confirmation page for the following:
+  req.session.data['movementConfirmed'] = ''
+  req.session.data['movementChangesProposed']  = ''
+ req.session.data['movementRejected']  = ''
 
   return res.redirect(BASE + '/movements')
 })

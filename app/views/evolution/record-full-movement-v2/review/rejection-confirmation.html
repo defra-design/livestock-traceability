@@ -1,0 +1,55 @@
+
+{% extends "layouts/main.html" %}
+
+{% block header %}
+{% include "mvp-front-office/v7/partials/header.html" %}
+{% endblock %}
+
+{% set pageName = "Movement rejected" %}
+{% set movementReference = query.reference or "8R2T 9W1F" %}
+
+{% block pageTitle %}
+{{ pageName }} – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <div class="govuk-panel govuk-panel--confirmation">
+
+        <h1 class="govuk-panel__title">
+          Movement rejected
+        </h1>
+
+        <div class="govuk-panel__body">
+          Movement reference
+          <br>
+          <strong>{{ movementReference }}</strong>
+        </div>
+
+      </div>
+
+      <h2 class="govuk-heading-m">
+        What happens next
+      </h2>
+
+      <p class="govuk-body">
+        The reporting keeper will be asked to respond
+        to your rejection within 3 days.
+      </p>
+
+      <p class="govuk-body">
+        The movement will remain unconfirmed until
+        the rejection has been resolved.
+      </p>
+      <form action="../movements" method="post">
+        <input type="hidden" name="movementRejected" value="true">
+        <button type="submit" class="govuk-button">View all movements</button>
+
+      </form>
+    </div>
+  </div>
+
+{% endblock %}
