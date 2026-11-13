@@ -1,0 +1,208 @@
+{
+  "_about": {
+    "purpose": "Spike only - not loaded by the prototype. Example of normalised mock data: each collection is a flat list and records link to each other by id.",
+    "dates": "ISO 8601 (YYYY-MM-DD) so they sort and compare as text. Format for display in the view layer.",
+    "derived": "Nothing is stored that can be worked out from other records: date on holding comes from movements, calving history from animals with this animal as damId, status from deaths.",
+    "rules": [
+      "Every id referenced must exist in its collection",
+      "A dam must be born before her calves",
+      "A movement's animal must be born on or before the movement date",
+      "An animal can have at most one death record, and no movements after it"
+    ]
+  },
+
+  "breeds": [
+    { "code": "HO", "name": "Holstein Friesian" },
+    { "code": "HER", "name": "Hereford" },
+    { "code": "AA", "name": "Aberdeen Angus" }
+  ],
+
+  "holdings": [
+    {
+      "id": "holding-001",
+      "cph": "12/345/0001",
+      "name": "Oakfield Farm",
+      "businessName": "Oakfield Livestock Ltd",
+      "herdmark": "UK 324537",
+      "type": "Permanent",
+      "status": "Active",
+      "address": {
+        "line1": "Oakfield Farm",
+        "line2": "Church Lane",
+        "town": "Shrewsbury",
+        "county": "Shropshire",
+        "postcode": "SY4 1AB"
+      }
+    },
+    {
+      "id": "holding-002",
+      "cph": "33/221/0007",
+      "name": "Brookside Farm",
+      "businessName": "Brookside Dairies",
+      "herdmark": "UK 208590",
+      "type": "Permanent",
+      "status": "Active",
+      "address": {
+        "line1": "Brookside Farm",
+        "line2": "Mill Lane",
+        "town": "Ludlow",
+        "county": "Shropshire",
+        "postcode": "SY8 2CD"
+      }
+    },
+    {
+      "id": "holding-003",
+      "cph": "45/102/0019",
+      "name": "Market Drayton Livestock Market",
+      "businessName": "Drayton Auctions",
+      "herdmark": null,
+      "type": "Market",
+      "status": "Active",
+      "address": {
+        "line1": "Livestock Market",
+        "line2": "Station Road",
+        "town": "Market Drayton",
+        "county": "Shropshire",
+        "postcode": "TF9 3EF"
+      }
+    }
+  ],
+
+  "users": [
+    { "id": "user-001", "name": "James Williams", "email": "james.williams@example.com" },
+    { "id": "user-002", "name": "Sheila Jones", "email": "sheila.jones@example.com" }
+  ],
+
+  "holdingRoles": [
+    { "userId": "user-001", "holdingId": "holding-001", "role": "Owner" },
+    { "userId": "user-002", "holdingId": "holding-001", "role": "Delegate" }
+  ],
+
+  "animals": [
+    {
+      "id": "UK324537113241",
+      "species": "cattle",
+      "dateOfBirth": "2019-03-10",
+      "dateOfRegistration": "2019-03-14",
+      "sex": "Female",
+      "breedCode": "HO",
+      "birthHoldingId": "holding-002",
+      "damId": null,
+      "surrogateDamId": null,
+      "sireId": null
+    },
+    {
+      "id": "UK208590753232",
+      "species": "cattle",
+      "dateOfBirth": "2018-04-22",
+      "dateOfRegistration": "2018-04-25",
+      "sex": "Female",
+      "breedCode": "HO",
+      "birthHoldingId": "holding-002",
+      "damId": null,
+      "surrogateDamId": null,
+      "sireId": null
+    },
+    {
+      "id": "UK314575863782",
+      "species": "cattle",
+      "dateOfBirth": "2017-06-01",
+      "dateOfRegistration": "2017-06-05",
+      "sex": "Male",
+      "breedCode": "HO",
+      "birthHoldingId": "holding-002",
+      "damId": null,
+      "surrogateDamId": null,
+      "sireId": null
+    },
+    {
+      "id": "UK324537113238",
+      "species": "cattle",
+      "dateOfBirth": "2022-09-16",
+      "dateOfRegistration": "2022-09-19",
+      "sex": "Male",
+      "breedCode": "HO",
+      "birthHoldingId": "holding-002",
+      "damId": "UK324537113241",
+      "surrogateDamId": "UK208590753232",
+      "sireId": "UK314575863782"
+    },
+    {
+      "id": "UK324537113243",
+      "species": "cattle",
+      "dateOfBirth": "2023-11-16",
+      "dateOfRegistration": "2023-11-20",
+      "sex": "Female",
+      "breedCode": "HO",
+      "birthHoldingId": "holding-001",
+      "damId": "UK324537113241",
+      "surrogateDamId": null,
+      "sireId": "UK314575863782"
+    },
+    {
+      "id": "UK324537113250",
+      "species": "cattle",
+      "dateOfBirth": "2024-05-14",
+      "dateOfRegistration": "2024-05-17",
+      "sex": "Male",
+      "breedCode": "HER",
+      "birthHoldingId": "holding-001",
+      "damId": "UK324537113241",
+      "surrogateDamId": null,
+      "sireId": null
+    }
+  ],
+
+  "movements": [
+    {
+      "id": "mov-001",
+      "animalId": "UK324537113241",
+      "date": "2021-05-04",
+      "fromHoldingId": "holding-002",
+      "toHoldingId": "holding-001",
+      "reportedByUserId": "user-001",
+      "status": "Confirmed"
+    },
+    {
+      "id": "mov-002",
+      "animalId": "UK324537113238",
+      "date": "2023-09-16",
+      "fromHoldingId": "holding-002",
+      "toHoldingId": "holding-001",
+      "reportedByUserId": "user-001",
+      "status": "Confirmed"
+    },
+    {
+      "id": "mov-003",
+      "animalId": "UK324537113250",
+      "date": "2026-10-14",
+      "fromHoldingId": "holding-001",
+      "toHoldingId": "holding-003",
+      "reportedByUserId": "user-002",
+      "status": "In progress"
+    }
+  ],
+
+  "deaths": [
+    {
+      "id": "death-001",
+      "animalId": "UK208590753232",
+      "date": "2025-02-11",
+      "holdingId": "holding-002",
+      "cause": "Natural causes",
+      "reportedByUserId": null,
+      "status": "Confirmed"
+    }
+  ],
+
+  "errorRecords": [
+    {
+      "id": "err-001",
+      "animalId": "UK324537113250",
+      "category": "Excessive calving",
+      "reason": "Calf registered 180 days after the dam's previous calf",
+      "raisedDate": "2024-05-18",
+      "status": "Open"
+    }
+  ]
+}

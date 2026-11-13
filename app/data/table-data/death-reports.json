@@ -1,0 +1,11 @@
+[
+  {
+    "reference": "W6CJ-4TZE",
+    "dateReported": "17-09-2026",
+    "status": "Approved",
+    "reporter": "James Williams",
+    "animals": [
+      { "earTagNumber": "UK324537113281", "dateOfBirth": "14-01-2021", "dateOfDeath": "15-09-2026", "sex": "Female", "breedCode": "HO", "breed": "Holstein Friesian", "errors": 0 }
+    ]
+  }
+]

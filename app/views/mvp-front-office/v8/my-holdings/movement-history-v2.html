@@ -1,0 +1,96 @@
+{% extends "layouts/main.html" %}
+
+{% from "govuk/components/table/macro.njk" import govukTable %}
+{% from "govuk/components/tabs/macro.njk" import govukTabs %}
+
+{% set pageName = animal.earTagNumber | formatReference %}
+{% set serviceName = "View and report livestock information" %}
+{% set activeNavItem = "my-holdings" %}
+
+{% block header %}
+
+  {% include "mvp-front-office/v8/partials/header.html" %}
+
+{% endblock %}
+
+{% block beforeContent %}
+  <a href="/mvp-front-office/v8/my-holdings/cattle-on-holding" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+
+    <h1 class="govuk-heading-l">{{ animal.earTagNumber | formatReference }}</h1>
+
+    {% set cattleSubNavActive = "movement-history" %}
+    {% include "mvp-front-office/v8/partials/cattle-subnavigation.html" %}
+
+    {% set onRows = [] %}
+    {% for movement in onMovements %}
+      {% set onRows = (onRows.push([
+        { text: movement.date | shortDateFormat },
+        { text: movement.cph },
+        { text: movement.holdingName }
+      ]), onRows) %}
+    {% endfor %}
+
+    {% set offRows = [] %}
+    {% for movement in offMovements %}
+      {% set offRows = (offRows.push([
+        { text: movement.date | shortDateFormat },
+        { text: movement.cph },
+        { text: movement.holdingName }
+      ]), offRows) %}
+    {% endfor %}
+
+    {% set movementsHead = [
+      { text: "Movement date" },
+      { text: "CPH number" },
+      { text: "Holding name" }
+    ] %}
+
+    {% set onHtml %}
+      <h2 class="govuk-heading-m">On movements</h2>
+      {% if onRows.length %}
+      <div class="app-dashboard-table-wrapper">
+      {{ govukTable({
+        caption: "On movements",
+        captionClasses: "govuk-visually-hidden",
+        head: movementsHead,
+        rows: onRows
+      }) }}
+      </div>
+      {% else %}
+      <p class="govuk-body">There are no on movements recorded.</p>
+      {% endif %}
+    {% endset %}
+
+    {% set offHtml %}
+      <h2 class="govuk-heading-m">Off movements</h2>
+      {% if offRows.length %}
+      <div class="app-dashboard-table-wrapper">
+      {{ govukTable({
+        caption: "Off movements",
+        captionClasses: "govuk-visually-hidden",
+        head: movementsHead,
+        rows: offRows
+      }) }}
+      </div>
+      {% else %}
+      <p class="govuk-body">There are no off movements recorded.</p>
+      {% endif %}
+    {% endset %}
+
+    {{ govukTabs({
+      items: [
+        { label: "On movements (" + onRows.length + ")", id: "on-movements", panel: { html: onHtml } },
+        { label: "Off movements (" + offRows.length + ")", id: "off-movements", panel: { html: offHtml } }
+      ]
+    }) }}
+
+  </div>
+</div>
+
+{% endblock %}

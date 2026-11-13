@@ -1,7 +1,7 @@
 {% extends "layouts/main.html" %}
 
 {% set pageName="Cattle on holding" %}
-{% set serviceName = "View and report livestock information" %}
+{% set serviceName = "Report and view livestock information" %}
 {% set activeNavItem = "my-holdings" %}
 {% set sideNavActive = "animals-on-holding" %}
 
@@ -129,7 +129,7 @@
           {% set rows = (rows.push(row), rows) %}
           {% endfor %}
 
-          <div class="app-dashboard-table-wrapper">
+          <div class="moj-scrollable-pane app-dashboard-table-wrapper" role="region" tabindex="0" aria-label="Animals on holding">
             {{ govukTable({
             attributes: {
             "data-module": "moj-sortable-table"
@@ -197,7 +197,7 @@
           {{ govukButton({
             text: "Download a list of cattle on your holding",
             classes: "govuk-button--secondary",
-            href: "/mvp-front-office/v7/my-holdings/export-cattle-data"
+            href: "/mvp-front-office/v7/my-holdings/download-cattle-list"
           }) }}
   </div>
 </div>

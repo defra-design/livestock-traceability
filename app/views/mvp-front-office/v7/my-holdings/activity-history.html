@@ -1,7 +1,7 @@
 {% extends "layouts/main.html" %}
 
 {% set pageName="Activity history" %}
-{% set serviceName = "View and report livestock information" %}
+{% set serviceName = "Report and view livestock information" %}
 {% set activeNavItem = "my-holdings" %}
 {% set sideNavActive = "activity-history" %}
 
@@ -40,7 +40,7 @@
         </ul>
     </nav>
 
-    <div class="app-dashboard-table-wrapper">
+    <div class="moj-scrollable-pane app-dashboard-table-wrapper" role="region" tabindex="0" aria-label="Activity history">
     <table class="govuk-table">
         <thead class="govuk-table__head">
         <tr class="govuk-table__row">
@@ -56,34 +56,19 @@
             <td class="govuk-table__cell">James Williams</td>
         </tr>
         <tr class="govuk-table__row">
-            <td class="govuk-table__cell"><a class="govuk-link" href="#">17 Sep 2026<span class="govuk-visually-hidden"> cattle death report</span></a></td>
+            <td class="govuk-table__cell"><a class="govuk-link" href="/mvp-front-office/v7/report-death/submission-detail/W6CJ-4TZE">17 Sep 2026<span class="govuk-visually-hidden"> cattle death report</span></a></td>
             <td class="govuk-table__cell">Cattle death report</td>
             <td class="govuk-table__cell">James Williams</td>
         </tr>
         <tr class="govuk-table__row">
-            <td class="govuk-table__cell"><a class="govuk-link" href="#">11 Sep 2026<span class="govuk-visually-hidden"> cattle off-movement</span></a></td>
+            <td class="govuk-table__cell"><a class="govuk-link" href="/mvp-front-office/v7/report-movement/submission-detail/T8BM-5KQR">11 Sep 2026<span class="govuk-visually-hidden"> cattle off-movement</span></a></td>
             <td class="govuk-table__cell">Cattle off-movement</td>
             <td class="govuk-table__cell">Tom Bennett</td>
         </tr>
         <tr class="govuk-table__row">
-            <td class="govuk-table__cell"><a class="govuk-link" href="/mvp-front-office/v7/register-animal/submission-detail/R4XD-9CFN">3 Sep 2026<span class="govuk-visually-hidden"> cattle birth registration</span></a></td>
-            <td class="govuk-table__cell">Cattle birth registration</td>
-            <td class="govuk-table__cell">James Williams</td>
-        </tr>
-        <tr class="govuk-table__row">
-            <td class="govuk-table__cell"><a class="govuk-link" href="#">20 Aug 2026<span class="govuk-visually-hidden"> cattle on-movement</span></a></td>
+            <td class="govuk-table__cell"><a class="govuk-link" href="/mvp-front-office/v7/report-movement/submission-detail/G3NW-7PXA">20 Aug 2026<span class="govuk-visually-hidden"> cattle on-movement</span></a></td>
             <td class="govuk-table__cell">Cattle on-movement</td>
             <td class="govuk-table__cell">Tom Bennett</td>
-        </tr>
-        <tr class="govuk-table__row">
-            <td class="govuk-table__cell"><a class="govuk-link" href="/mvp-front-office/v7/register-animal/submission-detail/M6QA-2JVE">14 Aug 2026<span class="govuk-visually-hidden"> cattle birth registration</span></a></td>
-            <td class="govuk-table__cell">Cattle birth registration</td>
-            <td class="govuk-table__cell">James Williams</td>
-        </tr>
-        <tr class="govuk-table__row">
-            <td class="govuk-table__cell"><a class="govuk-link" href="#">5 Aug 2026<span class="govuk-visually-hidden"> delegate added (tony.wilson@gmail.com)</span></a></td>
-            <td class="govuk-table__cell">Delegate added (tony.wilson@gmail.com)</td>
-            <td class="govuk-table__cell">James Williams</td>
         </tr>
         </tbody>
     </table>

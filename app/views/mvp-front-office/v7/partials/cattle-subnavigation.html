@@ -1,5 +1,7 @@
 {% set cattleBasePath = "/mvp-front-office/v7/my-holdings/cattle/" + animal.earTagNumber %}
 
+{# Calving history is the only other tab, so animals without calves get no sub navigation #}
+{% if offspring.length or cattleSubNavActive == "calving-history" %}
 <nav class="moj-sub-navigation" aria-label="Sub navigation">
   <ul class="moj-sub-navigation__list">
     <li class="moj-sub-navigation__item">
@@ -11,8 +13,11 @@
       <a class="moj-sub-navigation__link"{% if cattleSubNavActive == "calving-history" %} aria-current="page"{% endif %} href="{{ cattleBasePath }}/calving-history">Calving history</a>
     </li>
     {% endif %}
+    {# Movements history hidden for now
     <li class="moj-sub-navigation__item">
       <a class="moj-sub-navigation__link"{% if cattleSubNavActive == "movement-history" %} aria-current="page"{% endif %} href="{{ cattleBasePath }}/movement-history">Movements history</a>
     </li>
+    #}
   </ul>
 </nav>
+{% endif %}

@@ -1,0 +1,94 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Activity history" %}
+{% set serviceName = "View and report livestock information" %}
+{% set activeNavItem = "my-holdings" %}
+{% set sideNavActive = "activity-history" %}
+
+{% block header %}
+    {% include "mvp-front-office/v8/partials/header.html" %}
+{% endblock %}
+
+{% block content %}
+
+<div>
+
+    <h1 class="govuk-heading-xl govuk-!-margin-bottom-4">
+         <span class="govuk-caption-l">
+             {{ holding.cph }}
+         </span>
+        {{ holding.holdingName }}
+    </h1>
+
+    <nav class="moj-sub-navigation govuk-!-margin-bottom-5" aria-label="Sub navigation">
+        <ul class="moj-sub-navigation__list">
+            <li class="moj-sub-navigation__item">
+                <a class="moj-sub-navigation__link" href="/mvp-front-office/v8/my-holdings/holding-overview">
+                    Overview
+                </a>
+            </li>
+            <li class="moj-sub-navigation__item">
+                <a class="moj-sub-navigation__link" href="/mvp-front-office/v8/my-holdings/holding-details">
+                    Holding details
+                </a>
+            </li>
+            <li class="moj-sub-navigation__item">
+                <a class="moj-sub-navigation__link" aria-current="page" href="/mvp-front-office/v8/my-holdings/activity-history">
+                    Activity history
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="app-dashboard-table-wrapper">
+    <table class="govuk-table">
+        <thead class="govuk-table__head">
+        <tr class="govuk-table__row">
+            <th scope="col" class="govuk-table__header">Date</th>
+            <th scope="col" class="govuk-table__header">Activity</th>
+            <th scope="col" class="govuk-table__header">Reporter</th>
+        </tr>
+        </thead>
+        <tbody class="govuk-table__body">
+        <tr class="govuk-table__row">
+            <td class="govuk-table__cell"><a class="govuk-link" href="/mvp-front-office/v8/register-animal/submission-detail/7KWM-3HTP">22 Sep 2026<span class="govuk-visually-hidden"> cattle birth registration</span></a></td>
+            <td class="govuk-table__cell">Cattle birth registration</td>
+            <td class="govuk-table__cell">James Williams</td>
+        </tr>
+        <tr class="govuk-table__row">
+            <td class="govuk-table__cell"><a class="govuk-link" href="#">17 Sep 2026<span class="govuk-visually-hidden"> cattle death report</span></a></td>
+            <td class="govuk-table__cell">Cattle death report</td>
+            <td class="govuk-table__cell">James Williams</td>
+        </tr>
+        <tr class="govuk-table__row">
+            <td class="govuk-table__cell"><a class="govuk-link" href="#">11 Sep 2026<span class="govuk-visually-hidden"> cattle off-movement</span></a></td>
+            <td class="govuk-table__cell">Cattle off-movement</td>
+            <td class="govuk-table__cell">Tom Bennett</td>
+        </tr>
+        <tr class="govuk-table__row">
+            <td class="govuk-table__cell"><a class="govuk-link" href="/mvp-front-office/v8/register-animal/submission-detail/R4XD-9CFN">3 Sep 2026<span class="govuk-visually-hidden"> cattle birth registration</span></a></td>
+            <td class="govuk-table__cell">Cattle birth registration</td>
+            <td class="govuk-table__cell">James Williams</td>
+        </tr>
+        <tr class="govuk-table__row">
+            <td class="govuk-table__cell"><a class="govuk-link" href="#">20 Aug 2026<span class="govuk-visually-hidden"> cattle on-movement</span></a></td>
+            <td class="govuk-table__cell">Cattle on-movement</td>
+            <td class="govuk-table__cell">Tom Bennett</td>
+        </tr>
+        <tr class="govuk-table__row">
+            <td class="govuk-table__cell"><a class="govuk-link" href="/mvp-front-office/v8/register-animal/submission-detail/M6QA-2JVE">14 Aug 2026<span class="govuk-visually-hidden"> cattle birth registration</span></a></td>
+            <td class="govuk-table__cell">Cattle birth registration</td>
+            <td class="govuk-table__cell">James Williams</td>
+        </tr>
+        <tr class="govuk-table__row">
+            <td class="govuk-table__cell"><a class="govuk-link" href="#">5 Aug 2026<span class="govuk-visually-hidden"> delegate added (tony.wilson@gmail.com)</span></a></td>
+            <td class="govuk-table__cell">Delegate added (tony.wilson@gmail.com)</td>
+            <td class="govuk-table__cell">James Williams</td>
+        </tr>
+        </tbody>
+    </table>
+    </div>
+
+</div>
+
+{% endblock %}
