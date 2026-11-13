@@ -8,7 +8,7 @@
 {% endblock %}
 
 {% set pageName="Register new cattle births" %}
-{% set serviceName = "View and report livestock information" %}
+{% set serviceName = "Report and view livestock information" %}
 
 {% block beforeContent %}
 {{ govukBackLink({
@@ -48,6 +48,7 @@ href: "javascript:window.history.back()"
       Select the tag number from the list to update calf, dam and sire details. You can use the status indicator to check which animals are ready to send.
     </p>
 
+    <div class="moj-scrollable-pane" role="region" tabindex="0" aria-label="Cattle births to register">
     <table class="govuk-table">
       <thead class="govuk-table__head">
       <tr class="govuk-table__row">
@@ -70,6 +71,7 @@ href: "javascript:window.history.back()"
       </tr>
       </tbody>
     </table>
+    </div>
 
     <form class="form" action="/mvp-front-office/v7/register-animal/tag-list" method="post">
       <div class="govuk-form-group {% if errors['add-another'] %}govuk-form-group--error{% endif %}">

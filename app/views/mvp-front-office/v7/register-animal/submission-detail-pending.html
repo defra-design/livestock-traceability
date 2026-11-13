@@ -8,7 +8,7 @@
 {% endblock %}
 
 {% set pageName="Submission details" %}
-{% set serviceName = "View and report livestock information" %}
+{% set serviceName = "Report and view livestock information" %}
 
 {% block beforeContent %}
   {{ govukBackLink({
@@ -63,6 +63,7 @@
 
     <h2 class="govuk-heading-m">Animals registered</h2>
 
+    <div class="moj-scrollable-pane" role="region" tabindex="0" aria-label="Animals registered">
     <table class="govuk-table">
       <thead class="govuk-table__head">
         <tr class="govuk-table__row">
@@ -114,6 +115,7 @@
         </tr>
       </tbody>
     </table>
+    </div>
 
   </div>
 </div>

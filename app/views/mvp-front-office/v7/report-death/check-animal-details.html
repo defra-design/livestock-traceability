@@ -8,7 +8,7 @@
 {% endblock %}
 
 {% set pageName="Check animal details" %}
-{% set serviceName = "View and report livestock information" %}
+{% set serviceName = "Report and view livestock information" %}
 
 {% block beforeContent %}
   {{ govukBackLink({
@@ -29,10 +29,10 @@
     <dl class="govuk-summary-list govuk-!-margin-bottom-9">
 
       <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">Animal registered</dt>
+        <dt class="govuk-summary-list__key">Animal registered on holding</dt>
         <dd class="govuk-summary-list__value">{{ data['death-is-registered'] | capitalize }}</dd>
         <dd class="govuk-summary-list__actions">
-          <a class="govuk-link" href="/mvp-front-office/v7/report-death/is-registered?change=true">Change<span class="govuk-visually-hidden"> whether the animal is registered</span></a>
+          <a class="govuk-link" href="/mvp-front-office/v7/report-death/is-registered?change=true">Change<span class="govuk-visually-hidden"> whether the animal is registered on holding</span></a>
         </dd>
       </div>
 

@@ -1,7 +1,7 @@
 {% extends "layouts/main.html" %}
 
 {% set pageName = animal.earTagNumber | formatReference %}
-{% set serviceName = "View and report livestock information" %}
+{% set serviceName = "Report and view livestock information" %}
 {% set activeNavItem = "my-holdings" %}
 
 {% block header %}
@@ -25,7 +25,7 @@
     {% include "mvp-front-office/v7/partials/cattle-subnavigation.html" %}
 
     {% if offspring.length %}
-    <div class="app-dashboard-table-wrapper">
+    <div class="moj-scrollable-pane app-dashboard-table-wrapper" role="region" tabindex="0" aria-label="Calving history">
     <table class="govuk-table" data-module="moj-sortable-table">
       <caption class="govuk-table__caption govuk-table__caption--m">Calving history</caption>
       <thead class="govuk-table__head">

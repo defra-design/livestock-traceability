@@ -333,6 +333,55 @@ router.get('/mvp-front-office/v7/register-animal/submission-detail/:reference', 
   res.render('mvp-front-office/v7/register-animal/submission-detail', { registration })
 })
 
+// Movement and death report details, linked from the activity history page
+const movementReports = require('../data/table-data/movement-reports.json')
+const deathReports = require('../data/table-data/death-reports.json')
+
+function getReportDetail(req, reports, reference) {
+  const report = reports.find((r) => r.reference === reference)
+
+  if (!report) {
+    return null
+  }
+
+  const isPending = report.status === 'Pending validation'
+  const knownTags = [...req.session.data.livestockSameHerd.animals, ...req.session.data.pendingValidation.animals]
+    .map((a) => a.earTagNumber.toLowerCase())
+
+  return {
+    ...report,
+    total: report.animals.length,
+    errorCount: isPending ? null : report.animals.reduce((total, animal) => total + animal.errors, 0),
+    isPending,
+    animals: report.animals.map((animal) => ({
+      ...animal,
+      href: knownTags.includes(animal.earTagNumber.toLowerCase())
+        ? `/mvp-front-office/v7/my-holdings/cattle/${animal.earTagNumber}`
+        : '#'
+    }))
+  }
+}
+
+router.get('/mvp-front-office/v7/report-movement/submission-detail/:reference', (req, res) => {
+  const report = getReportDetail(req, movementReports, req.params.reference)
+
+  if (!report) {
+    return res.redirect('/mvp-front-office/v7/my-holdings/activity-history')
+  }
+
+  res.render('mvp-front-office/v7/report-movement/submission-detail', { report })
+})
+
+router.get('/mvp-front-office/v7/report-death/submission-detail/:reference', (req, res) => {
+  const report = getReportDetail(req, deathReports, req.params.reference)
+
+  if (!report) {
+    return res.redirect('/mvp-front-office/v7/my-holdings/activity-history')
+  }
+
+  res.render('mvp-front-office/v7/report-death/submission-detail', { report })
+})
+
 // Removing a draft birth, movement or death report returns to its own list
 ;['register-cattle-birth', 'report-cattle-movement', 'report-cattle-death'].forEach((page) => {
   router.post(`/mvp-front-office/v7/my-holdings/${page}/remove-draft`, (req, res) => {
@@ -548,15 +597,15 @@ router.get('/mvp-front-office/v7/my-holdings/cattle-on-holding', (req, res) => {
   })
 })
 
-router.get('/mvp-front-office/v7/my-holdings/export-animals', (req, res) => {
+router.get('/mvp-front-office/v7/my-holdings/download-cattle-list', (req, res) => {
   const holding = getSelectedHolding(req)
   const exported = req.query.exported === 'true'
 
-  res.render('mvp-front-office/v7/my-holdings/export-cattle-data', { holding, exported })
+  res.render('mvp-front-office/v7/my-holdings/download-cattle-list', { holding, exported })
 })
 
-router.post('/mvp-front-office/v7/my-holdings/export-animals', (req, res) => {
-  res.redirect('/mvp-front-office/v7/my-holdings/export-animals?exported=true')
+router.post('/mvp-front-office/v7/my-holdings/download-cattle-list', (req, res) => {
+  res.redirect('/mvp-front-office/v7/my-holdings/download-cattle-list?exported=true')
 })
 
 router.get('/mvp-front-office/v7/my-holdings/cattle-error-records', (req, res) => {
@@ -789,7 +838,7 @@ router.get('/mvp-front-office/v7/my-holdings/cattle/:earTagNumber/activity-recor
   res.render('mvp-front-office/v7/my-holdings/cattle-activity-record', { animal, holding, transactions })
 })
 
-router.get('/mvp-front-office/v7/my-holdings/pending-validation', (req, res) => {
+router.get('/mvp-front-office/v7/my-holdings/in-progress', (req, res) => {
   const search = String(req.query.search || '').trim().toLowerCase()
   const cattleData = req.session.data.pendingValidation
   const holding = getSelectedHolding(req)
@@ -820,7 +869,7 @@ router.get('/mvp-front-office/v7/my-holdings/pending-validation', (req, res) => 
     const params = new URLSearchParams()
     if (search) params.set('search', search)
     params.set('page', pageNumber)
-    return `/mvp-front-office/v7/my-holdings/pending-validation?${params.toString()}`
+    return `/mvp-front-office/v7/my-holdings/in-progress?${params.toString()}`
   }
 
   const pagination = totalPages > 1 ? {
@@ -836,7 +885,7 @@ router.get('/mvp-front-office/v7/my-holdings/pending-validation', (req, res) => 
   const showingFrom = cattle.length === 0 ? 0 : (page - 1) * pageSize + 1
   const showingTo = Math.min(page * pageSize, cattle.length)
 
-  res.render('mvp-front-office/v7/my-holdings/pending-validation', {
+  res.render('mvp-front-office/v7/my-holdings/in-progress', {
     cattle: pagedCattle,
     search,
     holding,

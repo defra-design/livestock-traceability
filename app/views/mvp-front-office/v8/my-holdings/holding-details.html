@@ -1,0 +1,118 @@
+{% extends "layouts/main.html" %}
+
+
+{% set pageName="Holding details" %}
+{% set serviceName = "View and report livestock information" %}
+{% set activeNavItem = "my-holdings" %}
+
+{% block header %}
+  {% include "mvp-front-office/v8/partials/header.html" %}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+
+    <h1 class="govuk-heading-xl govuk-!-margin-bottom-4">
+         <span class="govuk-caption-l">
+             {{ holding.cph }}
+         </span>
+      {{ holding.holdingName }}
+    </h1>
+
+      <nav class="moj-sub-navigation" aria-label="Sub navigation">
+        <ul class="moj-sub-navigation__list">
+          <li class="moj-sub-navigation__item">
+            <a class="moj-sub-navigation__link" href="/mvp-front-office/v8/my-holdings/holding-overview">Overview</a>
+          </li>
+          <li class="moj-sub-navigation__item">
+            <a class="moj-sub-navigation__link" aria-current="page" href="/mvp-front-office/v8/my-holdings/holding-details">Holding details</a>
+          </li>
+          <li class="moj-sub-navigation__item">
+            <a class="moj-sub-navigation__link" href="/mvp-front-office/v8/my-holdings/activity-history">Activity history</a>
+          </li>
+        </ul>
+      </nav>
+
+    <h2 class="govuk-heading-m govuk-!-margin-bottom-2">
+      Holding details
+    </h2>
+
+    <dl class="govuk-summary-list govuk-!-margin-bottom-8">
+
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">CPH number</dt>
+          <dd class="govuk-summary-list__value">{{ holding.cph }}</dd>
+        </div>
+
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">Holding name</dt>
+          <dd class="govuk-summary-list__value">{{ holding.holdingName }}</dd>
+        </div>
+
+        {% if holding.businessName %}
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">Business name</dt>
+          <dd class="govuk-summary-list__value">{{ holding.businessName }}</dd>
+        </div>
+        {% endif %}
+
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">Address</dt>
+          <dd class="govuk-summary-list__value">
+            {{ holding.address.addressLine1 }}
+            {% if holding.address.addressLine2 %}<br>{{ holding.address.addressLine2 }}{% endif %}
+            <br>{{ holding.address.town }}
+            <br>{{ holding.address.county }}
+            <br>{{ holding.address.postcode }}
+            {% if holding.address.country %}<br>{{ holding.address.country }}{% endif %}
+          </dd>
+        </div>
+
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">Herd mark</dt>
+          <dd class="govuk-summary-list__value">{{ holding.herdmark }}</dd>
+        </div>
+
+      </dl>
+
+    <h2 class="govuk-heading-m govuk-!-margin-bottom-2">
+      Correspondence details
+    </h2>
+
+    <dl class="govuk-summary-list">
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Name</dt>
+        <dd class="govuk-summary-list__value">James Williams</dd>
+      </div>
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Email address</dt>
+        <dd class="govuk-summary-list__value">jtwilliams@gmail.com</dd>
+      </div>
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Phone number</dt>
+        <dd class="govuk-summary-list__value">07700 900000</dd>
+      </div>
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Address</dt>
+        <dd class="govuk-summary-list__value">
+          {{ holding.address.addressLine1 }}
+          {% if holding.address.addressLine2 %}<br>{{ holding.address.addressLine2 }}{% endif %}
+          <br>{{ holding.address.town }}
+          <br>{{ holding.address.county }}
+          <br>{{ holding.address.postcode }}
+          {% if holding.address.country %}<br>{{ holding.address.country }}{% endif %}
+        </dd>
+      </div>
+
+    </dl>
+
+  </div>
+</div>
+
+{% endblock %}
