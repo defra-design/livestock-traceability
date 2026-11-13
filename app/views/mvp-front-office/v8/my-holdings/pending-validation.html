@@ -1,0 +1,111 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="In progress" %}
+{% set serviceName = "View and report livestock information" %}
+
+{% block header %}
+
+  {% include "mvp-front-office/v8/partials/header.html" %}
+
+{% endblock %}
+
+{% block beforeContent %}
+
+<a href="/mvp-front-office/v8/my-holdings/holding-overview" class="govuk-back-link">Back</a>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+
+      <h1 class="govuk-heading-l">
+        In progress
+      </h1>
+
+    <div class="govuk-inset-text govuk-!-margin-top-0">
+      Changes may take up to 24 hours to move from ‘In progress’ to ‘Cattle on holding’, and to flag any issues in your animal error record.
+    </div>
+
+        {% from "govuk/components/table/macro.njk" import govukTable %}
+        {% from "govuk/components/tabs/macro.njk" import govukTabs %}
+
+        {% set birthsHtml %}
+          <h2 class="govuk-heading-m">Births</h2>
+          <div class="app-dashboard-table-wrapper">
+          {{ govukTable({
+            caption: "Births pending validation",
+            captionClasses: "govuk-visually-hidden",
+            head: [
+              { text: "Ear tag number" },
+              { text: "Date of birth" },
+              { text: "Sex" },
+              { text: "Breed" },
+              { text: "Date submitted" }
+            ],
+            rows: [
+              [
+                { html: '<a class="govuk-link" href="#">UK 123456 301550</a>' },
+                { text: "2 Sep 2026" },
+                { text: "Female" },
+                { html: '<abbr title="Hereford">HER</abbr><span class="govuk-visually-hidden">, Hereford</span>' },
+                { text: "10 Sep 2026" }
+              ],
+              [
+                { html: '<a class="govuk-link" href="#">UK 123456 301551</a>' },
+                { text: "2 Sep 2026" },
+                { text: "Male" },
+                { html: '<abbr title="Hereford">HER</abbr><span class="govuk-visually-hidden">, Hereford</span>' },
+                { text: "10 Sep 2026" }
+              ],
+              [
+                { html: '<a class="govuk-link" href="#">UK 123456 301552</a>' },
+                { text: "5 Sep 2026" },
+                { text: "Female" },
+                { html: '<abbr title="Hereford">HER</abbr><span class="govuk-visually-hidden">, Hereford</span>' },
+                { text: "10 Sep 2026" }
+              ]
+            ]
+          }) }}
+          </div>
+        {% endset %}
+
+        {% set movementsHtml %}
+          <h2 class="govuk-heading-m">Movements</h2>
+          <div class="app-dashboard-table-wrapper">
+          {{ govukTable({
+            caption: "Movements pending validation",
+            captionClasses: "govuk-visually-hidden",
+            head: [
+              { text: "Ear tag number" },
+              { text: "Movement date" },
+              { text: "Movement type" }
+            ],
+            rows: [
+              [
+                { html: '<a class="govuk-link" href="#">UK 324537 113234</a>' },
+                { text: "14 Oct 2026" },
+                { text: "Off" }
+              ]
+            ]
+          }) }}
+          </div>
+        {% endset %}
+
+        {% set deathsHtml %}
+          <h2 class="govuk-heading-m">Deaths</h2>
+          <p class="govuk-body">There are no death reports in progress.</p>
+        {% endset %}
+
+        {{ govukTabs({
+          items: [
+            { label: "Births (3)", id: "births", panel: { html: birthsHtml } },
+            { label: "Movements (1)", id: "movements", panel: { html: movementsHtml } },
+            { label: "Deaths (0)", id: "deaths", panel: { html: deathsHtml } }
+          ]
+        }) }}
+  </div>
+</div>
+
+{% endblock %}

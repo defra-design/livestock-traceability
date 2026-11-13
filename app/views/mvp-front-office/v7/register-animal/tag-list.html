@@ -8,7 +8,7 @@
 {% endblock %}
 
 {% set pageName="Register new cattle births" %}
-{% set serviceName = "View and report livestock information" %}
+{% set serviceName = "Report and view livestock information" %}
 
 {% block beforeContent %}
   {{ govukBackLink({
@@ -51,6 +51,7 @@
     </p>
 
     {% if calves | length %}
+    <div class="moj-scrollable-pane" role="region" tabindex="0" aria-label="Cattle births to register">
     <table class="govuk-table">
       <thead class="govuk-table__head">
         <tr class="govuk-table__row">
@@ -74,8 +75,12 @@
         {% endfor %}
       </tbody>
     </table>
+    </div>
     {% else %}
-    <p class="govuk-body">No calves have been added.</p>
+    <div class="govuk-inset-text">
+      No calves have been added.
+    </div>
+   <!-- <p class="govuk-body">No calves have been added.</p>-->
     {% endif %}
 
     <form class="form" action="/mvp-front-office/v7/register-animal/tag-list" method="post">

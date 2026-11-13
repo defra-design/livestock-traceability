@@ -8,7 +8,7 @@
 {% endblock %}
 
 {% set pageName="Check movement details" %}
-{% set serviceName = "View and report livestock information" %}
+{% set serviceName = "Report and view livestock information" %}
 
 {% block beforeContent %}
   {{ govukBackLink({
@@ -60,10 +60,10 @@
           </div>
 
           <div class="govuk-summary-list__row">
-            <dt class="govuk-summary-list__key">Movement date</dt>
+            <dt class="govuk-summary-list__key">{% if data['movement-type'] %}{{ data['movement-type'] | capitalize }} movement date{% else %}Movement date{% endif %}</dt>
             <dd class="govuk-summary-list__value">{{ animal.date }}</dd>
             <dd class="govuk-summary-list__actions">
-              <a class="govuk-link" href="/mvp-front-office/v7/report-movement/ear-tag-numbers?change=true">Change<span class="govuk-visually-hidden"> movement date for {{ animalName }}</span></a>
+              <a class="govuk-link" href="/mvp-front-office/v7/report-movement/ear-tag-numbers?change=true">Change<span class="govuk-visually-hidden"> {% if data['movement-type'] %}{{ data['movement-type'] }} {% endif %}movement date for {{ animalName }}</span></a>
             </dd>
           </div>
 

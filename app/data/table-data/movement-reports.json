@@ -1,0 +1,27 @@
+[
+  {
+    "reference": "T8BM-5KQR",
+    "dateReported": "11-09-2026",
+    "movementType": "Off-movement",
+    "movementDate": "10-09-2026",
+    "status": "Approved",
+    "reporter": "Tom Bennett",
+    "animals": [
+      { "earTagNumber": "UK324537113247", "dateOfBirth": "26-04-2024", "sex": "Male", "breedCode": "HOX", "breed": "Holstein Friesian Cross", "errors": 0 },
+      { "earTagNumber": "UK324537113252", "dateOfBirth": "25-10-2024", "sex": "Female", "breedCode": "HO", "breed": "Holstein Friesian", "errors": 0 }
+    ]
+  },
+  {
+    "reference": "G3NW-7PXA",
+    "dateReported": "20-08-2026",
+    "movementType": "On-movement",
+    "movementDate": "19-08-2026",
+    "status": "Approved",
+    "reporter": "Tom Bennett",
+    "animals": [
+      { "earTagNumber": "UK581204300114", "dateOfBirth": "12-02-2025", "sex": "Female", "breedCode": "LIM", "breed": "Limousin", "errors": 0 },
+      { "earTagNumber": "UK581204300115", "dateOfBirth": "14-02-2025", "sex": "Female", "breedCode": "LIM", "breed": "Limousin", "errors": 0 },
+      { "earTagNumber": "UK581204300121", "dateOfBirth": "03-03-2025", "sex": "Male", "breedCode": "LIM", "breed": "Limousin", "errors": 1 }
+    ]
+  }
+]

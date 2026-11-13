@@ -8,7 +8,7 @@
 {% endblock %}
 
 {% set pageName="Are you sure you want to cancel this registration?" %}
-{% set serviceName = "View and report livestock information" %}
+{% set serviceName = "Report and view livestock information" %}
 
 {% block beforeContent %}
   {{ govukBackLink({
@@ -32,15 +32,19 @@
             </h1>
           </legend>
           <p class="govuk-body">{{ data['ear-tag-number'] }}</p>
+
+          <div class="govuk-button-group">
+            <button type="submit" class="govuk-button" data-module="govuk-button">
+              Yes
+            </button>
+            <button href="/mvp-front-office/v7/register-animal/check-calf-details" class="govuk-button govuk-button--secondary" data-module="govuk-button">
+              No
+            </button>
+          </div>
+
         </fieldset>
       </div>
 
-      <div class="govuk-button-group">
-        <button type="submit" class="govuk-button" data-module="govuk-button">
-          Continue
-        </button>
-        <a class="govuk-link" href="/mvp-front-office/v7/register-animal/check-calf-details">Cancel</a>
-      </div>
 
     </form>
 
