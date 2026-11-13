@@ -36,7 +36,8 @@ href: "javascript:window.history.back()"
             </legend>
 
             <div class="govuk-hint" id="destination-hint">
-              {% if isOn %}Select a sending location you have used before or find another sending location.{% else %}Select a destination you have used before or choose a new destination.{% endif %}
+<!--              {% if isOn %}Select a holding you have used before or find another sending location.{% else %}Select a holding you have used before or choose a new holding.{% endif %}-->
+              Select a holding you have used before or find a different holding.
             </div>
 
             <div class="govuk-radios" data-module="govuk-radios">
@@ -82,7 +83,7 @@ href: "javascript:window.history.back()"
                         class="govuk-label govuk-radios__label"
                         for="previous-new"
                 >
-                  {% if isOn %}Find another sending location{% else %}A new destination{% endif %}
+                  Find a different holding
                 </label>
 
               </div>

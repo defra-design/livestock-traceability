@@ -24,24 +24,23 @@ href: "javascript:window.history.back()"
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
 
-      <h1 class="govuk-heading-l">
-        {% if isOn %}Find the sending location by address{% else %}Find the destination by address{% endif %}
-      </h1>
 
-      <p class="govuk-body">
-        {% if isOn %}Enter a postcode to find the registered location the cattle came from.{% else %}Enter a postcode to find registered cattle movement destinations.{% endif %}
-      </p>
+
+
 
       <!-- Routing is controlled in routes/evolution/whole-movements-v2/record-full-movement-v2.js -->
 
       <form method="post" novalidate="">
 
         <div class="govuk-form-group">
+<fieldset class="govuk-fieldset">
+    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+      <h1 class="govuk-fieldset__heading">
+        What is the postcode of the new holding?
+      </h1>
+    </legend>
 
-          <label class="govuk-label" for="location-postcode">
-            Postcode
-          </label>
-
+          <p class="govuk-hint">Enter the full postcode of the new holding. For example, AA3 1AB.</p>
           <input
                   class="govuk-input govuk-input--width-10"
                   id="location-postcode"
@@ -54,7 +53,7 @@ href: "javascript:window.history.back()"
         </div>
 
         <button class="govuk-button" type="submit" data-module="govuk-button">
-          Find a location
+          Find a holding
         </button>
 
       </form>

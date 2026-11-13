@@ -17,6 +17,7 @@
 text: "Back",
 href: "javascript:window.history.back()"
 }) }}
+<style>  .govuk-summary-list__key {width:40%;}</style>
 {% endblock %}
 
 {% block content %}
@@ -27,23 +28,29 @@ href: "javascript:window.history.back()"
       {% if destination.status == 'active' %}
 
         <h1 class="govuk-heading-l">
-          {% if isOn %}Confirm where the cattle moved from{% else %}Confirm where the animals have moved to{% endif %}
+
+          {% if isOn %}Confirm where the cattle came from{% else %}Confirm where the animals have moved to{% endif %}
         </h1>
 
       {% else %}
 
         <h1 class="govuk-heading-l">
-          {% if isOn %}This sending location is closed{% else %}You cannot use this holding as a destination{% endif %}
+          {% if isOn %}You cannot move animals from this holding{% else %}You cannot move animals to this holding{% endif %}
         </h1>
 
       {% endif %}
-
       <dl class="govuk-summary-list">
 
         <div class="govuk-summary-list__row">
 
           <dt class="govuk-summary-list__key">
-            {{ destination.idLabel }}
+<!--            {{ destination.idLabel }}-->
+<!--            Quick fix, instead of updating the labels in the route file-->
+            {% if destination.type == 'slaughterhouse'%}
+            Slaughterhouse number
+            {% else %}
+            County parish holding (CPH)
+            {% endif %}
           </dt>
 
           <dd class="govuk-summary-list__value">
@@ -85,29 +92,22 @@ href: "javascript:window.history.back()"
       </dl>
 
       {% if destination.status != 'active' %}
-
         <p class="govuk-body">
-          This location is recorded as closed. Check the details and try searching for another {% if isOn %}sending location{% else %}destination{% endif %}.
+          This holding seems to be closed. Check the details and <a href="./{{ destinationSource or 'previous-destinations' }}">try searching again</a>.
         </p>
 
         <p class="govuk-body">
-          If you believe this holding should be open, contact the British Cattle Movement Service (BCMS) to check its status.
+          If you believe this holding should be open, <a href="#">contact the British Cattle Movement Service (BCMS)</a> to check its status.
         </p>
 
-        <a
-                class="govuk-button"
-                href="./{{ destinationSource or 'previous-destinations' }}"
-        >
-  Try again
-</a>
 
       {% else %}
 
         {% if not isOn and destination.type == 'slaughterhouse' %}
-
-          <p class="govuk-inset-text">
-            Reporting movement off to a slaughterhouse does not record the death of the cattle.
-          </p>
+<!--                Check if this is the case before using-->
+<!--          <p class="govuk-inset-text">-->
+<!--            Reporting movement off to a slaughterhouse does not record the death of the cattle.-->
+<!--          </p>-->
 
         {% endif %}
 
@@ -118,7 +118,7 @@ href: "javascript:window.history.back()"
             <fieldset class="govuk-fieldset">
 
               <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
-                {% if isOn %}Is this where the cattle came from?{% else %}Is this the correct destination?{% endif %}
+                Is this correct?
               </legend>
 
               <div class="govuk-radios" data-module="govuk-radios">
