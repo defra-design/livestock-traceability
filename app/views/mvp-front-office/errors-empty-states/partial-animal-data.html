@@ -1,0 +1,102 @@
+{% extends "layouts/main.html" %}
+
+{% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
+{% from "govuk/components/tabs/macro.njk" import govukTabs %}
+
+{% set pageName = "UK 324537 113234" %}
+{% set serviceName = "Report and view livestock information" %}
+{% set activeNavItem = "my-holdings" %}
+
+{% block header %}
+
+  {% include "mvp-front-office/v7/partials/header.html" %}
+
+{% endblock %}
+
+{% block beforeContent %}
+  <a href="/mvp-front-office/v7/my-holdings/cattle-on-holding" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+
+        <h1 class="govuk-heading-l">UK 324537 113234</h1>
+
+        <nav class="moj-sub-navigation" aria-label="Sub navigation">
+            <ul class="moj-sub-navigation__list">
+                <li class="moj-sub-navigation__item">
+                    <a class="moj-sub-navigation__link" aria-current="page" href="#">Animal details</a>
+                </li>
+                <li class="moj-sub-navigation__item">
+                    <a class="moj-sub-navigation__link" href="#">Calving history</a>
+                </li>
+            </ul>
+        </nav>
+
+        <h2 class="govuk-heading-m">Cattle details</h2>
+
+        <dl class="govuk-summary-list">
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">Ear tag number</dt>
+                <dd class="govuk-summary-list__value">UK 324537 113234</dd>
+            </div>
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">Date of birth</dt>
+                <dd class="govuk-summary-list__value">10 Mar 2019</dd>
+            </div>
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">Date registered</dt>
+                <dd class="govuk-summary-list__value">14 Mar 2019</dd>
+            </div>
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">Date on holding</dt>
+                <dd class="govuk-summary-list__value">10 Mar 2019</dd>
+            </div>
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">Sex</dt>
+                <dd class="govuk-summary-list__value">
+                    <strong class="govuk-tag govuk-tag--red">
+                        Not supplied
+                    </strong>
+                </dd>
+            </div>
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">Breed</dt>
+                <dd class="govuk-summary-list__value">
+                    Holstein Friesian (HO)
+                </dd>
+            </div>
+
+        </dl>
+
+        <h2 class="govuk-heading-m">Dam details</h2>
+
+        <dl class="govuk-summary-list">
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">Dam type</dt>
+                <dd class="govuk-summary-list__value">Genetic</dd>
+            </div>
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">Genetic dam ear tag</dt>
+                <dd class="govuk-summary-list__value">UK 324537 113243</dd>
+            </div>
+
+        </dl>
+
+        <h2 class="govuk-heading-m">Sire details</h2>
+        <p class="govuk-body">No sire details recorded.</p>
+
+    </div>
+</div>
+
+{% endblock %}

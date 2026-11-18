@@ -1,0 +1,29 @@
+{% extends "layouts/main.html" %}
+
+{% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
+{% from "govuk/components/tabs/macro.njk" import govukTabs %}
+
+{% set pageName = "Cattle details" %}
+{% set serviceName = "Report and view livestock information" %}
+{% set activeNavItem = "my-profile" %}
+
+{% block header %}
+
+  {% include "mvp-front-office/v7/partials/header.html" %}
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-heading-l">Sorry, there is a problem with the service</h1>
+        <p class="govuk-body">[insert page context] is currently unavailable.</p>
+        <p class="govuk-body">
+            Refresh the page in your browser or try again later.
+        </p>
+    </div>
+</div>
+
+{% endblock %}
+

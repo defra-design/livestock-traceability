@@ -1,0 +1,48 @@
+{% extends "layouts/main.html" %}
+
+{% set animal = { earTagNumber: "UK324537113234" } %}
+{% set offspring = [] %}
+
+{% set pageName = animal.earTagNumber | formatReference %}
+{% set serviceName = "Report and view livestock information" %}
+{% set activeNavItem = "my-holdings" %}
+
+{% block header %}
+
+  {% include "mvp-front-office/v7/partials/header.html" %}
+
+{% endblock %}
+
+{% block beforeContent %}
+  <a href="/mvp-front-office/v7/my-holdings/cattle-on-holding" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+
+    <h1 class="govuk-heading-l">{{ animal.earTagNumber | formatReference }}</h1>
+
+    {% set cattleSubNavActive = "calving-history" %}
+    {% set cattleBasePath = "/mvp-front-office/v7/my-holdings/cattle/" + animal.earTagNumber %}
+
+    <nav class="moj-sub-navigation" aria-label="Sub navigation">
+      <ul class="moj-sub-navigation__list">
+        <li class="moj-sub-navigation__item">
+          <a class="moj-sub-navigation__link"{% if cattleSubNavActive == "animal-details" %} aria-current="page"{% endif %} href="#">Animal details</a>
+        </li>
+        <li class="moj-sub-navigation__item">
+          <a class="moj-sub-navigation__link"{% if cattleSubNavActive == "calving-history" %} aria-current="page"{% endif %} href="#">Calving history</a>
+        </li>
+      </ul>
+    </nav>
+
+
+    <h2 class="govuk-heading-m">Calving history</h2>
+    <p class="govuk-body">No calving history recorded.</p>
+
+  </div>
+</div>
+
+{% endblock %}

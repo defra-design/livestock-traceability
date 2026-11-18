@@ -96,7 +96,7 @@
       "earTagNumber": "UK324537113238",
       "dateOfBirth": "16-09-2022",
       "dateOfRegistration": "19-09-2022",
-      "onHoldingDate": "16-09-2023",
+      "onHoldingDate": "03-04-2023",
       "sex": "Male",
       "breed": {
         "name": "Holstein Friesian",
@@ -835,7 +835,7 @@
         "name": "Holstein Friesian Cross",
         "code": "HOX"
       },
-      "status": "Alive",
+      "status": "Dead",
       "dam": {
         "type": "Genetic",
         "surrogateDam": null,

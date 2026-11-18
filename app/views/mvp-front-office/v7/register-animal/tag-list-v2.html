@@ -1,0 +1,113 @@
+{% extends "layouts/main.html" %}
+
+
+{% block header %}
+
+  {% include "mvp-front-office/v7/partials/header.html" %}
+
+{% endblock %}
+
+{% set pageName="Register new cattle births" %}
+{% set serviceName = "Report and view livestock information" %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+
+    <h1 class="govuk-heading-l">
+      Register new cattle births
+    </h1>
+
+    <p class="govuk-body">
+      Select Review to update calf, dam and sire details. You can use the status indicator to check which animals are ready to send.
+    </p>
+
+    {% from "govuk/components/table/macro.njk" import govukTable %}
+
+    <div class="moj-scrollable-pane app-dashboard-table-wrapper" role="region" tabindex="0" aria-label="Cattle births to register">
+      {{ govukTable({
+      attributes: {
+        "data-module": "moj-sortable-table"
+      },
+      caption: "Cattle births to register",
+      captionClasses: "govuk-visually-hidden",
+      head: [
+        {
+          text: "Tag number",
+          classes: "app-table__cell--no-wrap",
+          attributes: { "aria-sort": "ascending" }
+        },
+        {
+          text: "Status",
+          classes: "app-table__cell--no-wrap",
+          attributes: { "aria-sort": "none" }
+        },
+        {
+          html: '<span class="govuk-visually-hidden">Actions</span>',
+          classes: "govuk-table__header--numeric"
+        }
+      ],
+      rows: [
+        [
+          { text: "UK123456301550", classes: "app-table__cell--no-wrap" },
+          { html: '<strong class="govuk-tag govuk-tag--green">Ready to send</strong>', classes: "app-table__cell--no-wrap" },
+          { html: '<ul class="govuk-summary-list__actions-list"><li class="govuk-summary-list__actions-list-item"><a class="govuk-link" href="#">Review<span class="govuk-visually-hidden"> UK123456301550</span></a></li><li class="govuk-summary-list__actions-list-item"><a class="govuk-link" href="#">Remove<span class="govuk-visually-hidden"> UK123456301550</span></a></li></ul>', classes: "govuk-table__cell--numeric app-table__cell--no-wrap" }
+        ],
+        [
+          { text: "UK123456301551", classes: "app-table__cell--no-wrap" },
+          { html: '<strong class="govuk-tag govuk-tag--green">Ready to send</strong>', classes: "app-table__cell--no-wrap" },
+          { html: '<ul class="govuk-summary-list__actions-list"><li class="govuk-summary-list__actions-list-item"><a class="govuk-link" href="#">Review<span class="govuk-visually-hidden"> UK123456301551</span></a></li><li class="govuk-summary-list__actions-list-item"><a class="govuk-link" href="#">Remove<span class="govuk-visually-hidden"> UK123456301551</span></a></li></ul>', classes: "govuk-table__cell--numeric app-table__cell--no-wrap" }
+        ],
+        [
+          { text: "UK123456301552", classes: "app-table__cell--no-wrap" },
+          { html: '<strong class="govuk-tag govuk-tag--blue">Incomplete</strong>', classes: "app-table__cell--no-wrap" },
+          { html: '<ul class="govuk-summary-list__actions-list"><li class="govuk-summary-list__actions-list-item"><a class="govuk-link" href="#">Review<span class="govuk-visually-hidden"> UK123456301552</span></a></li><li class="govuk-summary-list__actions-list-item"><a class="govuk-link" href="#">Remove<span class="govuk-visually-hidden"> UK123456301552</span></a></li></ul>', classes: "govuk-table__cell--numeric app-table__cell--no-wrap" }
+        ]
+      ]
+      }) }}
+    </div>
+
+    <p class="govuk-body">
+      Showing 1 to 3 of 3 results
+    </p>
+
+    <form class="form" action="/mvp-front-office/v7/register-animal/tag-list-v2" method="post">
+      <div class="govuk-form-group">
+        <fieldset class="govuk-fieldset" aria-describedby="add-another-hint">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+            Add more animals
+          </legend>
+          <div id="add-another-hint" class="govuk-hint">
+            You can add calves from different dams or siblings from a multiple birth.
+          </div>
+          <div class="govuk-radios govuk-radios--inline" data-module="govuk-radios">
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="add-another" name="add-another" type="radio" value="yes">
+              <label class="govuk-label govuk-radios__label" for="add-another">Yes</label>
+            </div>
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="add-another-2" name="add-another" type="radio" value="no">
+              <label class="govuk-label govuk-radios__label" for="add-another-2">No</label>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+
+      {{ govukButton({
+        text: "Continue"
+      }) }}
+
+    </form>
+
+  </div>
+</div>
+
+{% endblock %}

@@ -42,25 +42,25 @@
               { text: "Date of birth" },
               { text: "Sex" },
               { text: "Breed" },
-              { text: "Date submitted" }
+              { text: "Date registered" }
             ],
             rows: [
               [
-                { html: '<a class="govuk-link" href="#">UK 123456 301550</a>' },
+                { text: "UK 123456 301550" },
                 { text: "2 Sep 2026" },
                 { text: "Female" },
                 { html: '<abbr title="Hereford">HER</abbr><span class="govuk-visually-hidden">, Hereford</span>' },
                 { text: "10 Sep 2026" }
               ],
               [
-                { html: '<a class="govuk-link" href="#">UK 123456 301551</a>' },
+                { text: "UK 123456 301551" },
                 { text: "2 Sep 2026" },
                 { text: "Male" },
                 { html: '<abbr title="Hereford">HER</abbr><span class="govuk-visually-hidden">, Hereford</span>' },
                 { text: "10 Sep 2026" }
               ],
               [
-                { html: '<a class="govuk-link" href="#">UK 123456 301552</a>' },
+                { text: "UK 123456 301552" },
                 { text: "5 Sep 2026" },
                 { text: "Female" },
                 { html: '<abbr title="Hereford">HER</abbr><span class="govuk-visually-hidden">, Hereford</span>' },
@@ -69,6 +69,10 @@
             ]
           }) }}
           </div>
+
+          <p class="govuk-body">
+            Showing 1 to 3 of 3 results
+          </p>
         {% endset %}
 
         {% set movementsHtml %}
@@ -84,25 +88,59 @@
             ],
             rows: [
               [
-                { html: '<a class="govuk-link" href="#">UK 324537 113234</a>' },
+                { text: "UK 324537 113234" },
                 { text: "14 Oct 2026" },
                 { text: "Off" }
+              ],
+              [
+                { text: "UK 324537 113241" },
+                { text: "15 Oct 2026" },
+                { text: "On" }
               ]
             ]
           }) }}
           </div>
+
+          <p class="govuk-body">
+            Showing 1 to 2 of 2 results
+          </p>
         {% endset %}
 
         {% set deathsHtml %}
           <h2 class="govuk-heading-m">Deaths</h2>
-          <p class="govuk-body">There are no death reports in progress.</p>
+          <div class="moj-scrollable-pane app-dashboard-table-wrapper" role="region" tabindex="0" aria-label="Deaths pending validation">
+          {{ govukTable({
+            caption: "Deaths pending validation",
+            captionClasses: "govuk-visually-hidden",
+            head: [
+              { text: "Ear tag number" },
+              { text: "Date of birth" },
+              { text: "Date of death" },
+              { text: "Sex" },
+              { text: "Breed" }
+            ],
+            rows: [
+              [
+                { text: "UK 324537 113242" },
+                { text: "30 Oct 2023" },
+                { text: "12 Nov 2026" },
+                { text: "Male" },
+                { html: '<abbr title="Holstein Friesian">HO</abbr><span class="govuk-visually-hidden">, Holstein Friesian</span>' }
+              ]
+            ]
+          }) }}
+          </div>
+
+          <p class="govuk-body">
+            Showing 1 to 1 of 1 results
+          </p>
         {% endset %}
 
         {{ govukTabs({
           items: [
             { label: "Births (3)", id: "births", panel: { html: birthsHtml } },
-            { label: "Movements (1)", id: "movements", panel: { html: movementsHtml } },
-            { label: "Deaths (0)", id: "deaths", panel: { html: deathsHtml } }
+            { label: "Movements (2)", id: "movements", panel: { html: movementsHtml } },
+            { label: "Deaths (1)", id: "deaths", panel: { html: deathsHtml } }
           ]
         }) }}
   </div>

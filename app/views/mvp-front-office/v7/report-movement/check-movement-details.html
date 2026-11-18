@@ -40,31 +40,47 @@
     <div class="govuk-summary-card">
       <div class="govuk-summary-card__title-wrapper">
         <h2 class="govuk-summary-card__title">Animal {{ loop.index }}</h2>
-        {% if animals | length > 1 %}
         <ul class="govuk-summary-card__actions">
+          <li class="govuk-summary-card__action">
+            <a class="govuk-link" href="/mvp-front-office/v7/report-movement/ear-tag-numbers?change=true">Change<span class="govuk-visually-hidden"> {{ animalName }}</span></a>
+          </li>
+          {% if animals | length > 1 %}
           <li class="govuk-summary-card__action">
             <a class="govuk-link" href="/mvp-front-office/v7/report-movement/remove-animal/{{ loop.index0 }}">Remove<span class="govuk-visually-hidden"> {{ animalName }}</span></a>
           </li>
+          {% endif %}
         </ul>
-        {% endif %}
       </div>
       <div class="govuk-summary-card__content">
         <dl class="govuk-summary-list">
 
-          <div class="govuk-summary-list__row">
+          <div class="govuk-summary-list__row govuk-summary-list__row--no-actions">
             <dt class="govuk-summary-list__key">Ear tag number</dt>
             <dd class="govuk-summary-list__value">{{ animal.earTag }}</dd>
-            <dd class="govuk-summary-list__actions">
-              <a class="govuk-link" href="/mvp-front-office/v7/report-movement/ear-tag-numbers?change=true">Change<span class="govuk-visually-hidden"> ear tag number for {{ animalName }}</span></a>
-            </dd>
           </div>
 
-          <div class="govuk-summary-list__row">
+          {# Off movements only - details from the herd record, to confirm it's the right animal #}
+          {% set herdAnimal = herdAnimals[loop.index0] %}
+          {% if herdAnimal %}
+          <div class="govuk-summary-list__row govuk-summary-list__row--no-actions">
+            <dt class="govuk-summary-list__key">Date of birth</dt>
+            <dd class="govuk-summary-list__value">{{ herdAnimal.dateOfBirth | fullDateFormat }}</dd>
+          </div>
+
+          <div class="govuk-summary-list__row govuk-summary-list__row--no-actions">
+            <dt class="govuk-summary-list__key">Sex</dt>
+            <dd class="govuk-summary-list__value">{{ herdAnimal.sex }}</dd>
+          </div>
+
+          <div class="govuk-summary-list__row govuk-summary-list__row--no-actions">
+            <dt class="govuk-summary-list__key">Breed</dt>
+            <dd class="govuk-summary-list__value">{{ herdAnimal.breed.name }}</dd>
+          </div>
+          {% endif %}
+
+          <div class="govuk-summary-list__row govuk-summary-list__row--no-actions">
             <dt class="govuk-summary-list__key">{% if data['movement-type'] %}{{ data['movement-type'] | capitalize }} movement date{% else %}Movement date{% endif %}</dt>
             <dd class="govuk-summary-list__value">{{ animal.date }}</dd>
-            <dd class="govuk-summary-list__actions">
-              <a class="govuk-link" href="/mvp-front-office/v7/report-movement/ear-tag-numbers?change=true">Change<span class="govuk-visually-hidden"> {% if data['movement-type'] %}{{ data['movement-type'] }} {% endif %}movement date for {{ animalName }}</span></a>
-            </dd>
           </div>
 
         </dl>

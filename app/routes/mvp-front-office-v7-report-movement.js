@@ -119,7 +119,17 @@ router.get(`${BASE}/check-movement-details`, (req, res) => {
   if (!hasMovement(req.session.data)) {
     return res.redirect(`${BASE}/movement-type`)
   }
-  res.render('mvp-front-office/v7/report-movement/check-movement-details')
+
+  // For off movements, play back the herd record for each ear tag so the
+  // keeper can confirm it's the right animal. Ear tags may be typed with spaces.
+  const data = req.session.data
+  const normalise = (earTag) => String(earTag || '').replace(/\s/g, '').toLowerCase()
+  const herd = data.livestockSameHerd.animals
+  const herdAnimals = data['movement-type'] === 'off'
+    ? data['movement-animals'].map((row) => herd.find((a) => normalise(a.earTagNumber) === normalise(row.earTag)) || null)
+    : []
+
+  res.render('mvp-front-office/v7/report-movement/check-movement-details', { herdAnimals })
 })
 
 // Removes one animal from the movement and returns to the check page

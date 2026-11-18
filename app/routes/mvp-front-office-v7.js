@@ -801,13 +801,29 @@ router.get([
     (a) => a.dam?.geneticDam?.earTagNumber === animal.earTagNumber
   )
 
-  // The data only holds the date the animal came on to the holding. If that's
-  // later than its date of birth, it moved on from somewhere else.
-  const movements = animal.onHoldingDate !== animal.dateOfBirth
-    ? [{ date: animal.onHoldingDate, type: 'On', cph: holding.cph, holdingName: holding.holdingName }]
-    : []
-  const onMovements = movements.filter((m) => m.type === 'On')
-  const offMovements = movements.filter((m) => m.type === 'Off')
+  // Every animal's history starts with its birth. The data only holds the date
+  // the animal came on to the holding: if that's the same as its date of birth
+  // it was born here, otherwise it was born on its own CPH and moved on later.
+  // Newest event first, so the birth is always the bottom row.
+  const bornOnHolding = animal.onHoldingDate === animal.dateOfBirth
+  const birthHolding = bornOnHolding
+    ? holding
+    : req.session.data.holdings.holdings.find((h) => h.cph === animal.cph) || { cph: animal.cph, holdingName: '' }
+  const movements = [{
+    date: animal.dateOfBirth,
+    type: 'Born on holding',
+    cph: birthHolding.cph,
+    holdingName: birthHolding.holdingName
+  }]
+  // An on movement here means it moved off its birth holding the same day
+  if (!bornOnHolding) {
+    movements.unshift(
+      { date: animal.onHoldingDate, type: 'On movement', cph: holding.cph, holdingName: holding.holdingName },
+      { date: animal.onHoldingDate, type: 'Off movement', cph: birthHolding.cph, holdingName: birthHolding.holdingName }
+    )
+  }
+  const onMovements = movements.filter((m) => m.type === 'On movement')
+  const offMovements = movements.filter((m) => m.type === 'Off movement')
 
   res.render(`mvp-front-office/v7/my-holdings/${view}`, { animal, offspring, movements, onMovements, offMovements, holding })
 })

@@ -1,0 +1,207 @@
+{% extends "layouts/main.html" %}
+
+{% set holding = { cph: "12/345/0001", holdingName: "Oakfield Farm" } %}
+
+{% set pageName=holding.holdingName %}
+{% set serviceName = "Report and view livestock information" %}
+{% set activeNavItem = "my-holdings" %}
+{% set sideNavActive = "holding-overview" %}
+
+{% block header %}
+    {% include "mvp-front-office/v7/partials/header.html" %}
+{% endblock %}
+
+{% block content %}
+
+<div>
+
+    <h1 class="govuk-heading-xl govuk-!-margin-bottom-4">
+         <span class="govuk-caption-l">
+             {{ holding.cph }}
+         </span>
+        {{ holding.holdingName }}
+    </h1>
+
+    <nav class="moj-sub-navigation govuk-!-margin-bottom-5" aria-label="Sub navigation">
+        <ul class="moj-sub-navigation__list">
+            <li class="moj-sub-navigation__item">
+                <a class="moj-sub-navigation__link" aria-current="page" href="#">
+                    Overview
+                </a>
+            </li>
+            <li class="moj-sub-navigation__item">
+                <a class="moj-sub-navigation__link" href="#">
+                    Holding details
+                </a>
+            </li>
+            <li class="moj-sub-navigation__item">
+                <a class="moj-sub-navigation__link" href="#">
+                    Activity history
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="govuk-inset-text govuk-!-margin-top-0">
+        Changes such as registrations, movements and deaths may take up to 24 hours to move from ‘In progress’.
+    </div>
+
+    <div class="card">
+
+        <h2 class="govuk-heading-l govuk-!-margin-bottom-4">
+            Cattle
+        </h2>
+
+        <!--<div class="govuk-grid-row govuk-!-margin-bottom-4">
+
+            <div class="govuk-grid-column-one-third">
+                <a href="#" class="app-traffic-card app-traffic-card&#45;&#45;green">
+                    <span class="app-traffic-card__inner">
+                        <span class="app-traffic-card__number">0</span>
+                        <span class="app-traffic-card__label">Cattle on holding</span>
+                    </span>
+                </a>
+            </div>
+            <div class="govuk-grid-column-one-third">
+                <a href="#" class="app-traffic-card app-traffic-card&#45;&#45;amber">
+                    <span class="app-traffic-card__inner">
+                        <span class="app-traffic-card__number">0</span>
+                        <span class="app-traffic-card__label">In progress</span>
+                    </span>
+                </a>
+            </div>
+            <div class="govuk-grid-column-one-third">
+                <a href="#" class="app-traffic-card app-traffic-card&#45;&#45;red">
+                    <span class="app-traffic-card__inner">
+                        <span class="app-traffic-card__number">0</span>
+                        <span class="app-traffic-card__label">Cattle with errors</span>
+                    </span>
+                </a>
+            </div>
+        </div>-->
+
+        <p class="govuk-body">Cattle information is currently unavailable. Refresh the page in your browser or try again later.</p>
+
+        <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-one-half app-services-column">
+                <h3 class="govuk-heading-m">Your services</h3>
+                <ul class="govuk-list govuk-!-margin-bottom-0">
+                    <li>
+                        <a class="govuk-link govuk-link--no-visited-state" href="#">
+                            Register a cattle birth
+                        </a>
+                    </li>
+                    <li>
+                        <a class="govuk-link govuk-link--no-visited-state" href="#">
+                            Report a cattle movement
+                        </a>
+                    </li>
+                    <li>
+                        <a class="govuk-link govuk-link--no-visited-state" href="#">
+                            Report a cattle death
+                        </a>
+                    </li>
+                    <li>
+                        <a class="govuk-link govuk-link--no-visited-state" href="#">
+                            Download a list of cattle on your holding
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="govuk-grid-column-one-half card-body">
+                <h3 class="govuk-heading-m">Help and support</h3>
+                <ul class="govuk-list">
+                    <li>
+                        <a class="govuk-link govuk-link--no-visited-state" href="#">
+                            GOV.UK guidance for cattle
+                        </a>
+                    </li>
+                    <li>
+                        <a class="govuk-link govuk-link--no-visited-state" href="#">Contact BCMS</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    {# Sheep - working title. Shows sheep still work when the cattle API is down #}
+    <div class="card">
+
+        <h2 class="govuk-heading-l govuk-!-margin-bottom-4">
+            Sheep
+        </h2>
+
+        <div class="govuk-grid-row govuk-!-margin-bottom-4">
+
+            <div class="govuk-grid-column-one-third">
+                <a href="#" class="app-traffic-card app-traffic-card--green">
+                    <span class="app-traffic-card__inner">
+                        <span class="app-traffic-card__number">48</span>
+                        <span class="app-traffic-card__label">Sheep on holding</span>
+                    </span>
+                </a>
+            </div>
+            <div class="govuk-grid-column-one-third">
+                <a href="#" class="app-traffic-card app-traffic-card--amber">
+                    <span class="app-traffic-card__inner">
+                        <span class="app-traffic-card__number">18</span>
+                        <span class="app-traffic-card__label">In progress</span>
+                    </span>
+                </a>
+            </div>
+            <div class="govuk-grid-column-one-third">
+                <a href="#" class="app-traffic-card app-traffic-card--red">
+                    <span class="app-traffic-card__inner">
+                        <span class="app-traffic-card__number">6</span>
+                        <span class="app-traffic-card__label">Sheep with errors</span>
+                    </span>
+                </a>
+            </div>
+        </div>
+
+        <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-one-half app-services-column">
+                <h3 class="govuk-heading-m">Your services</h3>
+                <ul class="govuk-list govuk-!-margin-bottom-0">
+                    <li>
+                        <a class="govuk-link govuk-link--no-visited-state" href="#">
+                            Report a sheep movement
+                        </a>
+                    </li>
+                    <li>
+                        <a class="govuk-link govuk-link--no-visited-state" href="#">
+                            Report a sheep death
+                        </a>
+                    </li>
+                    <li>
+                        <a class="govuk-link govuk-link--no-visited-state" href="#">
+                            Download a list of sheep on your holding
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="govuk-grid-column-one-half card-body">
+                <h3 class="govuk-heading-m">Help and support</h3>
+                <ul class="govuk-list">
+                    <li>
+                        <a class="govuk-link govuk-link--no-visited-state" href="#">
+                            GOV.UK guidance for sheep
+                        </a>
+                    </li>
+                    <li>
+                        <a class="govuk-link govuk-link--no-visited-state" href="#">Contact support</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}
