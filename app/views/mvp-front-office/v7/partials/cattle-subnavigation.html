@@ -1,18 +1,23 @@
 {% set cattleBasePath = "/mvp-front-office/v7/my-holdings/cattle/" + animal.earTagNumber %}
 
+{# Only females can have calves, so only they get the calving history tab.
+   Animal details is the only other tab, so males get no sub-navigation at all.
+   If another tab is added for all animals, show the nav for males too. #}
+{% set showCalvingHistory = animal.sex != "Male" %}
+
+{% if showCalvingHistory %}
 <nav class="moj-sub-navigation" aria-label="Sub navigation">
   <ul class="moj-sub-navigation__list">
     <li class="moj-sub-navigation__item">
       <a class="moj-sub-navigation__link"{% if cattleSubNavActive == "animal-details" %} aria-current="page"{% endif %} href="{{ cattleBasePath }}">Animal details</a>
     </li>
-    {# Only animals with calves have a calving history #}
-    {% if offspring.length or cattleSubNavActive == "calving-history" %}
+    {# Females always show calving history - the page shows an empty state when there are no calves #}
     <li class="moj-sub-navigation__item">
       <a class="moj-sub-navigation__link"{% if cattleSubNavActive == "calving-history" %} aria-current="page"{% endif %} href="{{ cattleBasePath }}/calving-history">Calving history</a>
     </li>
-    {% endif %}
     <!--<li class="moj-sub-navigation__item">
       <a class="moj-sub-navigation__link"{% if cattleSubNavActive == "movement-history" %} aria-current="page"{% endif %} href="{{ cattleBasePath }}/movement-history">Movements history</a>
     </li>-->
   </ul>
 </nav>
+{% endif %}
