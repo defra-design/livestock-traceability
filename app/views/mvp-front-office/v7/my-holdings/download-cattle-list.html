@@ -50,8 +50,11 @@
           <div class="govuk-grid-column-two-thirds">
             <form action="/mvp-front-office/v7/my-holdings/download-cattle-list" method="post" novalidate>
 
+              {# County Parish Holding number column hidden. To show it again, add this as the second item:
+                 { value: "cph", text: "County Parish Holding number" }, #}
               {{ govukCheckboxes({
                 name: "columns",
+                classes: "govuk-checkboxes--small",
                 fieldset: {
                   legend: {
                     text: "Which columns do you want to include?",
@@ -59,11 +62,10 @@
                   }
                 },
                 hint: {
-                  text: "Select all that apply"
+                  text: "Animal ear tag number is always included. Select any other columns you want."
                 },
                 items: [
-                  { value: "cph", text: "County Parish Holding number" },
-                  { value: "earTagNumber", text: "Animal ear tag number" },
+                  { value: "all", text: "Select all columns", attributes: { "data-select-all": "" } },
                   { value: "dateOfBirth", text: "Date of birth" },
                   { value: "dateOfRegistration", text: "Date of registration" },
                   { value: "onHoldingDate", text: "Date on holding" },
@@ -71,7 +73,7 @@
                   { value: "sex", text: "Sex" },
                   { value: "breedName", text: "Breed name" },
                   { value: "breedCode", text: "Breed code" },
-              { value: "sireName", text: "Status (alive or deceased)" },
+                  { value: "status", text: "Status (alive or deceased)" },
                   { value: "damType", text: "Dam type" },
                   { value: "geneticDamEarTagNumber", text: "Genetic dam ear tag number" },
                   { value: "surrogateDamEarTagNumber", text: "Surrogate dam ear tag number" },
@@ -141,4 +143,26 @@
       </div>
     </div>
 
+{% endblock %}
+
+{% block pageScripts %}
+  <script>
+    // 'Select all columns' ticks or unticks every column, and stays in sync
+    // when columns are changed one at a time
+    const $selectAll = document.querySelector('[data-select-all]')
+    const $columns = Array.from(document.querySelectorAll('input[name="columns"]:not([data-select-all])'))
+
+    if ($selectAll) {
+      const syncSelectAll = () => {
+        $selectAll.checked = $columns.every(($column) => $column.checked)
+      }
+
+      $selectAll.addEventListener('change', () => {
+        $columns.forEach(($column) => { $column.checked = $selectAll.checked })
+      })
+
+      $columns.forEach(($column) => $column.addEventListener('change', syncSelectAll))
+      syncSelectAll()
+    }
+  </script>
 {% endblock %}

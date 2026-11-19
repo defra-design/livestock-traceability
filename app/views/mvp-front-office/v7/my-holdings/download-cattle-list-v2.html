@@ -1,0 +1,131 @@
+{% extends "layouts/main.html" %}
+
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% set pageName="Download cattle on holding history" %}
+{% set serviceName = "Report and view livestock information" %}
+{% set activeNavItem = "my-holdings" %}
+
+{% block header %}
+
+  {% include "mvp-front-office/v7/partials/header.html" %}
+
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "/mvp-front-office/v7/my-holdings/holding-overview"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+
+      <div class="govuk-grid-column-full">
+        <div class="govuk-!-margin-bottom-8">
+          <h1 class="govuk-heading-l govuk-!-margin-bottom-3">
+            Download cattle on holding history
+          </h1>
+        </div>
+
+        {% if exported %}
+        {% set html %}
+        <p class="govuk-notification-banner__heading">
+          Your export has been requested. This is a prototype - no file has actually been generated.
+        </p>
+        {% endset %}
+
+        {{ govukNotificationBanner({
+          type: "success",
+          html: html
+        }) }}
+        {% endif %}
+
+        <div class="govuk-grid-row">
+          <div class="govuk-grid-column-two-thirds">
+            <form action="/mvp-front-office/v7/my-holdings/download-cattle-list-v2" method="post" novalidate>
+
+              <p class="govuk-body">Your download will include:</p>
+              <ul class="govuk-list govuk-list--bullet">
+                <li>Animal ear tag number</li>
+                <li>Date of birth</li>
+                <li>Date of registration</li>
+                <li>Date on holding</li>
+                <li>Date off holding</li>
+                <li>Sex</li>
+                <li>Breed name</li>
+                <li>Breed code</li>
+                <li>Status (alive or deceased)</li>
+                <li>Dam type</li>
+                <li>Genetic dam ear tag number</li>
+                <li>Surrogate dam ear tag number</li>
+                <li>Sire ear tag number</li>
+                <li>Sire name</li>
+              </ul>
+
+              <div class="govuk-form-group govuk-!-margin-top-8">
+                <fieldset class="govuk-fieldset">
+                  <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+                    Date range (optional)
+                  </legend>
+                  <div id="date-range-hint" class="govuk-hint">
+                    Use the date range to view cattle registered alive or deceased on your holding between set dates. Leave blank to include your full cattle history.
+                  </div>
+                  <div class="moj-datepicker govuk-!-margin-bottom-6" data-module="moj-date-picker">
+                    <div class="govuk-form-group">
+                      <label class="govuk-label govuk-label--s" for="date-from">
+                        From
+                      </label>
+                     <!-- <div id="date-from-hint" class="govuk-hint">
+                        Click the calendar icon and select the correct date, or type the date manually for example, 01/02/2026
+                      </div>-->
+                      <input class="govuk-input moj-js-datepicker-input" id="date-from" name="date-from" type="text" aria-describedby="date-from-hint" autocomplete="off" value="{{ data['date-from'] }}">
+                    </div>
+                  </div>
+
+                  <div class="moj-datepicker" data-module="moj-date-picker">
+                    <div class="govuk-form-group">
+                      <label class="govuk-label govuk-label--s" for="date-to">
+                        To
+                      </label>
+                      <!--<div id="date-to-hint" class="govuk-hint">
+                        Click the calendar icon and select the correct date, or type the date manually for example, 01/02/2026
+                      </div>-->
+                      <input class="govuk-input moj-js-datepicker-input" id="date-to" name="date-to" type="text" aria-describedby="date-to-hint" autocomplete="off" value="{{ data['date-to'] }}">
+                    </div>
+                  </div>
+                </fieldset>
+              </div>
+
+              {{ govukRadios({
+                name: "file-format",
+                fieldset: {
+                  legend: {
+                    text: "File format",
+                    classes: "govuk-fieldset__legend--m"
+                  }
+                },
+                items: [
+                  { value: "csv", text: "CSV", checked: true },
+                  { value: "xlsx", text: "XLSX" },
+                  { value: "pdf", text: "PDF" }
+                ]
+              }) }}
+
+              {{ govukButton({
+                text: "Download",
+                preventDoubleClick: true
+              }) }}
+
+            </form>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+{% endblock %}
