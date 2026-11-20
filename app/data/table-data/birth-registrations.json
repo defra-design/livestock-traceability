@@ -5,10 +5,10 @@
     "status": "Pending validation",
     "reporter": "James Williams",
     "animals": [
-      { "earTagNumber": "UK123456301550", "dateOfBirth": "02-09-2026", "dateOnHolding": "02-09-2026", "sex": "Male", "breedCode": "HER", "breed": "Hereford", "errors": 0 },
-      { "earTagNumber": "UK123456301551", "dateOfBirth": "02-09-2026", "dateOnHolding": "02-09-2026", "sex": "Female", "breedCode": "HER", "breed": "Hereford", "errors": 0 },
-      { "earTagNumber": "UK123456301552", "dateOfBirth": "05-09-2026", "dateOnHolding": "05-09-2026", "sex": "Male", "breedCode": "HER", "breed": "Hereford", "errors": 0 },
-      { "earTagNumber": "UK123456301553", "dateOfBirth": "05-09-2026", "dateOnHolding": "05-09-2026", "sex": "Female", "breedCode": "HER", "breed": "Hereford", "errors": 0 }
+      { "earTagNumber": "UK123456301550", "dateOfBirth": "02-09-2026", "dateOnHolding": "02-09-2026", "sex": "Male", "breedCode": "HER", "breed": "Hereford", "errors": 0, "dam": { "type": "Genetic", "surrogateDam": null, "geneticDam": { "earTagNumber": "UK324537113234" } } },
+      { "earTagNumber": "UK123456301551", "dateOfBirth": "02-09-2026", "dateOnHolding": "02-09-2026", "sex": "Female", "breedCode": "HER", "breed": "Hereford", "errors": 0, "dam": { "type": "Surrogate", "surrogateDam": { "earTagNumber": "UK324537113250" }, "geneticDam": { "earTagNumber": "UK324537113235" } } },
+      { "earTagNumber": "UK123456301552", "dateOfBirth": "05-09-2026", "dateOnHolding": "05-09-2026", "sex": "Male", "breedCode": "HER", "breed": "Hereford", "errors": 0, "dam": { "type": "Genetic", "surrogateDam": null, "geneticDam": { "earTagNumber": "UK324537113239" } } },
+      { "earTagNumber": "UK123456301553", "dateOfBirth": "05-09-2026", "dateOnHolding": "05-09-2026", "sex": "Female", "breedCode": "HER", "breed": "Hereford", "errors": 0, "dam": { "type": "Genetic", "surrogateDam": null, "geneticDam": { "earTagNumber": "UK324537113240" } } }
     ]
   },
   {
@@ -17,8 +17,8 @@
     "status": "Approved",
     "reporter": "James Williams",
     "animals": [
-      { "earTagNumber": "UK123456301546", "dateOfBirth": "18-08-2026", "dateOnHolding": "18-08-2026", "sex": "Female", "breedCode": "AA", "breed": "Aberdeen Angus", "errors": 0 },
-      { "earTagNumber": "UK123456301547", "dateOfBirth": "20-08-2026", "dateOnHolding": "20-08-2026", "sex": "Male", "breedCode": "AA", "breed": "Aberdeen Angus", "errors": 0 }
+      { "earTagNumber": "UK123456301546", "dateOfBirth": "18-08-2026", "dateOnHolding": "18-08-2026", "sex": "Female", "breedCode": "AA", "breed": "Aberdeen Angus", "errors": 0, "dam": { "type": "Genetic", "surrogateDam": null, "geneticDam": { "earTagNumber": "UK324537113241" } } },
+      { "earTagNumber": "UK123456301547", "dateOfBirth": "20-08-2026", "dateOnHolding": "20-08-2026", "sex": "Male", "breedCode": "AA", "breed": "Aberdeen Angus", "errors": 0, "dam": { "type": "Genetic", "surrogateDam": null, "geneticDam": { "earTagNumber": "UK324537113243" } } }
     ]
   },
   {
@@ -27,9 +27,9 @@
     "status": "Approved",
     "reporter": "James Williams",
     "animals": [
-      { "earTagNumber": "UK123456301543", "dateOfBirth": "25-07-2026", "dateOnHolding": "25-07-2026", "sex": "Male", "breedCode": "LIM", "breed": "Limousin", "errors": 0 },
-      { "earTagNumber": "UK123456301544", "dateOfBirth": "28-07-2026", "dateOnHolding": "28-07-2026", "sex": "Female", "breedCode": "LIM", "breed": "Limousin", "errors": 1 },
-      { "earTagNumber": "UK123456301545", "dateOfBirth": "30-07-2026", "dateOnHolding": "30-07-2026", "sex": "Female", "breedCode": "LIM", "breed": "Limousin", "errors": 0 }
+      { "earTagNumber": "UK123456301543", "dateOfBirth": "25-07-2026", "dateOnHolding": "25-07-2026", "sex": "Male", "breedCode": "LIM", "breed": "Limousin", "errors": 0, "dam": { "type": "Surrogate", "surrogateDam": { "earTagNumber": "UK324537113250" }, "geneticDam": { "earTagNumber": "UK324537113245" } } },
+      { "earTagNumber": "UK123456301544", "dateOfBirth": "28-07-2026", "dateOnHolding": "28-07-2026", "sex": "Female", "breedCode": "LIM", "breed": "Limousin", "errors": 1, "dam": { "type": "Genetic", "surrogateDam": null, "geneticDam": { "earTagNumber": "UK324537113248" } } },
+      { "earTagNumber": "UK123456301545", "dateOfBirth": "30-07-2026", "dateOnHolding": "30-07-2026", "sex": "Female", "breedCode": "LIM", "breed": "Limousin", "errors": 0, "dam": { "type": "Genetic", "surrogateDam": null, "geneticDam": { "earTagNumber": "UK324537113249" } } }
     ]
   }
 ]

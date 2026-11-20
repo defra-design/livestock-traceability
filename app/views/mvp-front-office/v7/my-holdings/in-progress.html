@@ -25,7 +25,7 @@
       </h1>
 
     <div class="govuk-inset-text govuk-!-margin-top-0">
-      Changes may take up to 24 hours to move from ‘In progress’ to ‘Cattle on holding’, and to flag any issues in your animal error record.
+      Changes may take up to 24 hours to move from ‘In progress’ to ‘Cattle on holding’ and to flag any cattle with errors.
     </div>
 
         {% from "govuk/components/table/macro.njk" import govukTable %}
@@ -84,18 +84,21 @@
             head: [
               { text: "Ear tag number" },
               { text: "Movement date" },
-              { text: "Movement type" }
+              { text: "Movement type" },
+              { text: "Report date" }
             ],
             rows: [
               [
                 { text: "UK 324537 113234" },
                 { text: "14 Oct 2026" },
-                { text: "Off" }
+                { text: "Off" },
+                { text: "16 Oct 2026" }
               ],
               [
                 { text: "UK 324537 113241" },
                 { text: "15 Oct 2026" },
-                { text: "On" }
+                { text: "On" },
+                { text: "17 Oct 2026" }
               ]
             ]
           }) }}

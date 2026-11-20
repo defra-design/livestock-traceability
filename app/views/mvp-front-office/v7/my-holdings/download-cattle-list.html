@@ -5,7 +5,7 @@
 {% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 
-{% set pageName="Download cattle on holding history" %}
+{% set pageName="Download cattle history" %}
 {% set serviceName = "Report and view livestock information" %}
 {% set activeNavItem = "my-holdings" %}
 
@@ -29,7 +29,7 @@
       <div class="govuk-grid-column-full">
         <div class="govuk-!-margin-bottom-8">
           <h1 class="govuk-heading-l govuk-!-margin-bottom-3">
-            Download cattle on holding history
+            Download cattle history
           </h1>
         </div>
 
@@ -62,7 +62,7 @@
                   }
                 },
                 hint: {
-                  text: "Animal ear tag number is always included. Select any other columns you want."
+                  text: "Animal ear tag number is always included. Select other columns to include in your download."
                 },
                 items: [
                   { value: "all", text: "Select all columns", attributes: { "data-select-all": "" } },
@@ -125,7 +125,7 @@
                   }
                 },
                 items: [
-                  { value: "csv", text: "CSV", checked: true },
+                  { value: "csv", text: "CSV" },
                   { value: "xlsx", text: "XLSX" },
                   { value: "pdf", text: "PDF" }
                 ]

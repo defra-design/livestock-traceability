@@ -35,14 +35,10 @@
         </ul>
       </nav>
 
-    <h2 class="govuk-heading-m govuk-!-margin-bottom-2">
-      Holding details
-    </h2>
-
     <dl class="govuk-summary-list govuk-!-margin-bottom-8">
 
         <div class="govuk-summary-list__row">
-          <dt class="govuk-summary-list__key">CPH number</dt>
+          <dt class="govuk-summary-list__key">County Parish Holding number</dt>
           <dd class="govuk-summary-list__value">{{ holding.cph }}</dd>
         </div>
 
@@ -59,7 +55,19 @@
         {% endif %}
 
         <div class="govuk-summary-list__row">
-          <dt class="govuk-summary-list__key">Address</dt>
+          <dt class="govuk-summary-list__key">Holding address</dt>
+          <dd class="govuk-summary-list__value">
+            {{ holding.address.addressLine1 }}
+            {% if holding.address.addressLine2 %}<br>{{ holding.address.addressLine2 }}{% endif %}
+            <br>{{ holding.address.town }}
+            <br>{{ holding.address.county }}
+            <br>{{ holding.address.postcode }}
+            {% if holding.address.country %}<br>{{ holding.address.country }}{% endif %}
+          </dd>
+        </div>
+
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">Correspondence address</dt>
           <dd class="govuk-summary-list__value">
             {{ holding.address.addressLine1 }}
             {% if holding.address.addressLine2 %}<br>{{ holding.address.addressLine2 }}{% endif %}
@@ -77,6 +85,7 @@
 
       </dl>
 
+    {#
     <h2 class="govuk-heading-m govuk-!-margin-bottom-2">
       Correspondence details
     </h2>
@@ -111,6 +120,7 @@
       </div>
 
     </dl>
+    #}
 
   </div>
 </div>

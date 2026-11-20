@@ -495,6 +495,12 @@ router.get('/mvp-front-office/v7/my-holdings/holding-details', (req, res) => {
   res.render('mvp-front-office/v7/my-holdings/holding-details', { holding })
 })
 
+router.get('/mvp-front-office/v7/my-holdings/holding-details-v2', (req, res) => {
+  const holding = getSelectedHolding(req)
+
+  res.render('mvp-front-office/v7/my-holdings/holding-details-v2', { holding })
+})
+
 router.get('/mvp-front-office/v7/my-holdings/holding-overview', (req, res) => {
   const holding = getSelectedHolding(req)
   const cattleData = req.session.data.livestockSameHerd

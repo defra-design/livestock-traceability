@@ -33,10 +33,12 @@
         <dt class="govuk-summary-list__key">Report date</dt>
         <dd class="govuk-summary-list__value">{{ report.dateReported | shortDateFormat }}</dd>
       </div>
+      {#
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">Total animals</dt>
         <dd class="govuk-summary-list__value">{{ report.total }}</dd>
       </div>
+      #}
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">Type</dt>
         <dd class="govuk-summary-list__value">Cattle death report</dd>
@@ -53,7 +55,8 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
 
-    <h2 class="govuk-heading-m">Animals reported</h2>
+    {% set animalCount = report.animals | length %}
+    <h2 class="govuk-heading-m">{{ animalCount }} {{ "animal" if animalCount == 1 else "animals" }} reported</h2>
 
     <div class="moj-scrollable-pane app-dashboard-table-wrapper" role="region" tabindex="0" aria-label="Animals reported">
       <table class="govuk-table">
@@ -79,6 +82,10 @@
         </tbody>
       </table>
     </div>
+
+    <p class="govuk-body">
+      Showing 1 to {{ animalCount }} of {{ animalCount }} results
+    </p>
 
   </div>
 </div>

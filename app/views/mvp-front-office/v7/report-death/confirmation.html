@@ -8,7 +8,7 @@
 {% endblock %}
 
 {% set count = data['reported-count'] | int %}
-{% set pageName = count ~ (" cattle death reported" if count == 1 else " cattle deaths reported") %}
+{% set pageName = count ~ (" death reported" if count == 1 else "  deaths reported") %}
 {% set serviceName = "Report and view livestock information" %}
 
 {% block content %}
@@ -23,12 +23,15 @@
     </div>
 
     <p class="govuk-body">
-      You will receive a confirmation email.
+      We have received your death report. You will also receive a confirmation email.
     </p>
 
     <h2 class="govuk-heading-m">What happens next</h2>
     <p class="govuk-body">
       Animal updates make take up to 24 hours to appear in your cattle on holding list.
+    </p>
+    <p class="govuk-body">
+      You will receive an email once your report has been reviewed if it is successful or we require further information.
     </p>
 
     <p class="govuk-body">

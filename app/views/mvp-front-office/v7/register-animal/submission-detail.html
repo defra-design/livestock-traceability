@@ -33,10 +33,12 @@
         <dt class="govuk-summary-list__key">Registration date</dt>
         <dd class="govuk-summary-list__value">{{ registration.dateRegistered | shortDateFormat }}</dd>
       </div>
+      {#
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">Total animals</dt>
         <dd class="govuk-summary-list__value">{{ registration.total }}</dd>
       </div>
+      #}
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">Type</dt>
         <dd class="govuk-summary-list__value">Cattle birth registration</dd>
@@ -53,7 +55,8 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
 
-    <h2 class="govuk-heading-m">Animals registered</h2>
+    {% set animalCount = registration.animals | length %}
+    <h2 class="govuk-heading-m">{{ animalCount }} {{ "animal" if animalCount == 1 else "animals" }} registered</h2>
 
     <div class="moj-scrollable-pane app-dashboard-table-wrapper" role="region" tabindex="0" aria-label="Animals registered">
       <table class="govuk-table">
@@ -61,9 +64,12 @@
           <tr class="govuk-table__row">
             <th scope="col" class="govuk-table__header">Ear tag number</th>
             <th scope="col" class="govuk-table__header">Date of birth</th>
-            <th scope="col" class="govuk-table__header">Date on holding</th>
             <th scope="col" class="govuk-table__header">Sex</th>
             <th scope="col" class="govuk-table__header">Breed</th>
+            {#
+            <th scope="col" class="govuk-table__header">Genetic dam ear tag number</th>
+            <th scope="col" class="govuk-table__header">Surrogate dam ear tag number</th>
+            #}
           </tr>
         </thead>
         <tbody class="govuk-table__body">
@@ -71,14 +77,21 @@
           <tr class="govuk-table__row">
             <td class="govuk-table__cell">{{ animal.earTagNumber | formatReference }}</td>
             <td class="govuk-table__cell">{{ animal.dateOfBirth | shortDateFormat }}</td>
-            <td class="govuk-table__cell">{{ animal.dateOnHolding | shortDateFormat }}</td>
             <td class="govuk-table__cell">{{ animal.sex }}</td>
             <td class="govuk-table__cell"><abbr title="{{ animal.breed }}">{{ animal.breedCode }}</abbr><span class="govuk-visually-hidden">, {{ animal.breed }}</span></td>
+            {#
+            <td class="govuk-table__cell">{{ animal.dam.geneticDam.earTagNumber | formatReference }}</td>
+            <td class="govuk-table__cell">{{ animal.dam.surrogateDam.earTagNumber | formatReference if animal.dam.surrogateDam else "None" }}</td>
+            #}
           </tr>
           {% endfor %}
         </tbody>
       </table>
     </div>
+
+    <p class="govuk-body">
+      Showing 1 to {{ animalCount }} of {{ animalCount }} results
+    </p>
 
   </div>
 </div>

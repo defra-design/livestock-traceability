@@ -1,0 +1,66 @@
+{% extends "layouts/main.html" %}
+
+
+{% block header %}
+
+  {% include "mvp-front-office/v7/partials/header.html" %}
+
+{% endblock %}
+
+{% set pageName="You have a draft registration" %}
+{% set serviceName = "Report and view livestock information" %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <h1 class="govuk-heading-l">You have a draft registration</h1>
+
+    <p class="govuk-body">You started a cattle birth registration on 12 November 2026 but did not submit it. It has 3 animals added.</p>
+
+    <form method="post" novalidate>
+
+      <div class="govuk-form-group">
+        <fieldset class="govuk-fieldset">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+            What do you want to do?
+          </legend>
+          <div class="govuk-radios" data-module="govuk-radios">
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="draft-registration" name="draft-registration" type="radio" value="continue" aria-describedby="draft-registration-continue-hint" {% if data['draft-registration'] == 'continue' %}checked{% endif %}>
+              <label class="govuk-label govuk-radios__label" for="draft-registration">
+                Continue with draft registration
+              </label>
+              <div id="draft-registration-continue-hint" class="govuk-hint govuk-radios__hint">
+                Pick up where you left off. Animals you have already added will be kept.
+              </div>
+            </div>
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="draft-registration-2" name="draft-registration" type="radio" value="discard" aria-describedby="draft-registration-discard-hint" {% if data['draft-registration'] == 'discard' %}checked{% endif %}>
+              <label class="govuk-label govuk-radios__label" for="draft-registration-2">
+                Discard draft and start a new registration
+              </label>
+              <div id="draft-registration-discard-hint" class="govuk-hint govuk-radios__hint">
+                Your draft and any animals added to it will be deleted. You cannot undo this.
+              </div>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+
+      {{ govukButton({ text: "Continue" }) }}
+
+    </form>
+
+  </div>
+</div>
+
+{% endblock %}

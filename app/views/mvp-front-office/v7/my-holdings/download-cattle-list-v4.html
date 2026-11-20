@@ -1,0 +1,150 @@
+{% extends "layouts/main.html" %}
+
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/select/macro.njk" import govukSelect %}
+
+{% set pageName="Download cattle on holding history" %}
+{% set serviceName = "Report and view livestock information" %}
+{% set activeNavItem = "my-holdings" %}
+
+{% block header %}
+
+  {% include "mvp-front-office/v7/partials/header.html" %}
+
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "/mvp-front-office/v7/my-holdings/holding-overview"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+
+      <div class="govuk-grid-column-full">
+        <div class="govuk-!-margin-bottom-8">
+          <h1 class="govuk-heading-l govuk-!-margin-bottom-3">
+            Download cattle on holding history
+          </h1>
+        </div>
+
+        {% if exported %}
+        {% set html %}
+        <p class="govuk-notification-banner__heading">
+          Your export has been requested. This is a prototype - no file has actually been generated.
+        </p>
+        {% endset %}
+
+        {{ govukNotificationBanner({
+          type: "success",
+          html: html
+        }) }}
+        {% endif %}
+
+        <div class="govuk-grid-row">
+          <div class="govuk-grid-column-two-thirds">
+            <form action="/mvp-front-office/v7/my-holdings/download-cattle-list-v4" method="post" novalidate>
+
+              {% set financialYearItems = [{ value: "", text: "Select financial year" }] %}
+              {% for year in range(2026, 1999, -1) %}
+                {% set label = year ~ " to " ~ (year + 1) %}
+                {% set financialYearItems = (financialYearItems.push({ value: label, text: label, selected: data['financial-year'] == label }), financialYearItems) %}
+              {% endfor %}
+
+              {% set financialYearHtml %}
+                {{ govukSelect({
+                  id: "financial-year",
+                  name: "financial-year",
+                  label: {
+                    text: "Financial year"
+                  },
+                  items: financialYearItems
+                }) }}
+              {% endset %}
+
+              {% set customDateRangeHtml %}
+                <div class="moj-datepicker govuk-!-margin-bottom-6" data-module="moj-date-picker">
+                  <div class="govuk-form-group">
+                    <label class="govuk-label govuk-label--s" for="date-from">
+                      From
+                    </label>
+                    <input class="govuk-input moj-js-datepicker-input" id="date-from" name="date-from" type="text" autocomplete="off" value="{{ data['date-from'] }}">
+                  </div>
+                </div>
+
+                <div class="moj-datepicker" data-module="moj-date-picker">
+                  <div class="govuk-form-group">
+                    <label class="govuk-label govuk-label--s" for="date-to">
+                      To
+                    </label>
+                    <input class="govuk-input moj-js-datepicker-input" id="date-to" name="date-to" type="text" autocomplete="off" value="{{ data['date-to'] }}">
+                  </div>
+                </div>
+              {% endset %}
+
+              {{ govukRadios({
+                name: "date-range",
+                fieldset: {
+                  legend: {
+                    text: "Select date range",
+                    classes: "govuk-fieldset__legend--m"
+                  }
+                },
+                items: [
+                  {
+                    value: "all-time",
+                    text: "All time",
+                    checked: data['date-range'] == "all-time"
+                  },
+                  {
+                    value: "financial-year",
+                    text: "By financial year",
+                    checked: data['date-range'] == "financial-year",
+                    conditional: {
+                      html: financialYearHtml
+                    }
+                  },
+                  {
+                    value: "custom",
+                    text: "Custom date range",
+                    checked: data['date-range'] == "custom",
+                    conditional: {
+                      html: customDateRangeHtml
+                    }
+                  }
+                ]
+              }) }}
+
+              {{ govukRadios({
+                name: "file-format",
+                fieldset: {
+                  legend: {
+                    text: "File format",
+                    classes: "govuk-fieldset__legend--m"
+                  }
+                },
+                items: [
+                  { value: "csv", text: "CSV" },
+                  { value: "xlsx", text: "XLSX" },
+                  { value: "pdf", text: "PDF" }
+                ]
+              }) }}
+
+              {{ govukButton({
+                text: "Download",
+                preventDoubleClick: true
+              }) }}
+
+            </form>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+{% endblock %}
